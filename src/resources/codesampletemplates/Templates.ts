@@ -58,7 +58,7 @@ fetch('{{=data.url}}{{=data.requiredQueryString}}',
 });
 `
 
-const shell = `# You can also use wget
+const curl = `# You can also use wget
 curl -X {{=data.methodUpper}} {{=data.url}}{{=data.requiredQueryString}}{{?data.allHeaders.length}} \{{?}}
 {{~data.allHeaders :p:index}}  -H '{{=p.name}}: {{=p.exampleValues.object}}'{{?index < data.allHeaders.length-1}} \{{?}}
 {{~}}
@@ -85,5 +85,5 @@ export const templates: TemplatesType = {
     java: java,
     node: node,
     python: python,
-    shell: shell,
+    cURL: curl,
 }

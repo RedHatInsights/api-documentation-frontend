@@ -12,7 +12,7 @@ const items: Item[] = [
     {value: "java", text: "java"},
     {value: "node", text: "node"},
     {value: "python", text: "python"},
-    {value: "shell", text: "shell"},
+    {value: "cURL", text: "cURL"},
 ]
 
 export interface CodeBlockDropdownProps {
