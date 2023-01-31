@@ -12,7 +12,7 @@ type StringMap = {
     [key: string]: object;
 }
 
-type DeRefResponse<T> = {
+export type DeRefResponse<T> = {
     deRefData?: {
         name: string;
         path: string;

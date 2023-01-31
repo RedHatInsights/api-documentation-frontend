@@ -10,7 +10,7 @@ import (
 func main() {
 {{?data.allHeaders.length}}
     headers := map[string][]string{
-        {{~data.allHeaders :p:index}}"{{=p.name}}": []string{"{{=p.exampleValues.object}}"},{{?index < data.allHeaders.length-1}}
+        {{~data.allHeaders :p:index}}"{{=p.name}}": []string{"{{=p.exampleValues.json}}"},{{?index < data.allHeaders.length-1}}
         {{?}}{{~}}
     }{{?}}
 
@@ -60,7 +60,7 @@ fetch('{{=data.url}}{{=data.requiredQueryString}}',
 
 const curl = `# You can also use wget
 curl -X {{=data.methodUpper}} {{=data.url}}{{=data.requiredQueryString}}{{?data.allHeaders.length}} \{{?}}
-{{~data.allHeaders :p:index}}  -H '{{=p.name}}: {{=p.exampleValues.object}}'{{?index < data.allHeaders.length-1}} \{{?}}
+{{~data.allHeaders :p:index}}  -H '{{=p.name}}: {{=p.exampleValues.json}}'{{?index < data.allHeaders.length-1}} \{{?}}
 {{~}}
 `
 

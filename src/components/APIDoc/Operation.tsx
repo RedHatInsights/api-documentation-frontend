@@ -85,8 +85,10 @@ export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, 
                 </Tbody>
             </TableComposable>
             {responseExample && <ExampleResponse response={responseExample} />}
-            {responseExample && <CodeSamples response={responseExample} />}
         </StackItem> }
+        <StackItem>
+            <CodeSamples parameters={parameters} verb={verb} path={path}/>
+        </StackItem>
     </Stack>;
 }
 

@@ -1,32 +1,62 @@
 import React, { useState } from 'react';
+import {OpenAPIV3} from "openapi-types";
+import {DeRefResponse} from "../../utils/Openapi";
 import {CodeBlock, CodeBlockAction, CodeBlockCode, ClipboardCopyButton } from "@patternfly/react-core";
 import Dot from 'dot';
 
 import { CodeBlockDropdown } from './CodeBlockDropdown';
 
 
-export interface CodeSampleProps {
-    response: string;
+interface CodeSampleProps {
+    parameters: DeRefResponse<OpenAPIV3.ParameterObject>[];
+    verb: string;
+    path: string;
 }
 
-export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({response}) => {
+type paramInfo = {
+    name : string;
+    exampleValues : object;
+}
+type templateData = {
+    allHeaders: paramInfo[];
+    bodyParameter: paramInfo[];
+    methodUpper: string;
+    url: string;
+    method: object;
+    requiredParameters: paramInfo[];
+    requiredQueryString: string;
+}
+
+export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path}) => {
     const [template, setTemplate] = useState<string>("")
+    const [copied, setCopied] = useState<boolean>(false);
 
     Dot.templateSettings.varname = 'data'
     Dot.templateSettings.strip = false
 
-    const data = {
-        allHeaders: [],
-        bodyParameter: [],
-        methodUpper: "get",
-        url: "example.com",
-        method: {verb: "get"},
-        requiredParameters: [{name: "param", exampleValues: {json: "string"}}],
-        requiredQueryString: "/test",
+    const data: templateData = {
+        allHeaders: [{name: "Accept", exampleValues: {json: "application/json"}}],
+        bodyParameter: [], //TODO
+        methodUpper: verb.toUpperCase(),
+        url: path,
+        method: {verb: verb},
+        requiredParameters: [{name: "param", exampleValues: {json: "string"}}], //TODO
+        requiredQueryString: "", //TODO
     }
+
+    verb !== "get" && data.allHeaders.push({name: "Content-Type", exampleValues: {json: "application/json"}})
 
     const tempFn = Dot.template(template)
     const code = tempFn(data)
+
+    const clipboardCopyFunc = (event: any, text: string) => {
+        navigator.clipboard.writeText(text);
+    };
+
+    const onCopyClick = (event: any, text: string) => {
+        clipboardCopyFunc(event, text);
+        setCopied(true);
+    };
 
     const actions = (
         <CodeBlockAction>
@@ -35,17 +65,20 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({response}
                 id="basic-copy-button"
                 textId="code-content"
                 aria-label="Copy to clipboard"
-                onClick={e => console.log(e)}
+                onClick={e => onCopyClick(e, code.toString())}
+                exitDelay={copied ? 1500 : 600}
                 maxWidth="110px"
                 variant="plain"
+                onTooltipHidden={() => setCopied(false)}
             >
+                {copied ? 'Code copied to clipboard!' : 'Copy code to clipboard'}
             </ClipboardCopyButton>
         </CodeBlockAction>
     )
     return <>
         <CodeBlock actions={actions}>
             <CodeBlockCode>
-                {`${code}`}
+                {code}
             </CodeBlockCode>
         </CodeBlock>
     </>;
