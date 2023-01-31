@@ -9,6 +9,9 @@ on:
   pull_request:
     branches:
     - "maknop/spaship-github-action"
+  push:
+    branches:
+    - "maknop/spaship-github-action"
     paths:
     - ".github/workflows/test.yaml"
 
