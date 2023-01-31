@@ -59,8 +59,8 @@ fetch('{{=data.url}}{{=data.requiredQueryString}}',
 `
 
 const curl = `# You can also use wget
-curl -X {{=data.methodUpper}} {{=data.url}}{{=data.requiredQueryString}}{{?data.allHeaders.length}} \{{?}}
-{{~data.allHeaders :p:index}}  -H '{{=p.name}}: {{=p.exampleValues.json}}'{{?index < data.allHeaders.length-1}} \{{?}}
+curl -X {{=data.methodUpper}} {{=data.url}}{{=data.requiredQueryString}}{{?data.allHeaders.length}} {{?}}
+{{~data.allHeaders :p:index}}  -H '{{=p.name}}: {{=p.exampleValues.json}}'{{?index < data.allHeaders.length-1}} {{?}}
 {{~}}
 `
 
