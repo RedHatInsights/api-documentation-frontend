@@ -70,7 +70,7 @@ export const LandingPage: FunctionComponent = () => {
         <Gallery hasGutter>
           { apiConfigurations.map(apiConfig => (
             <GalleryItem key={apiConfig.displayName}>
-              <Card displayName={apiConfig.displayName} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.displayName}`)} />
+              <Card displayName={apiConfig.displayName} icon={apiConfig.icon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.displayName}`)} />
             </GalleryItem>
           ))}
           </Gallery>
