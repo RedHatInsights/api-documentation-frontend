@@ -26,7 +26,7 @@ export const APIPage: FunctionComponent = () => {
                 <BreadcrumbItem to='#' onClick={(event) => {
                     event.preventDefault();
                     navigate('/');
-                }} >API Catalog</BreadcrumbItem>
+                }} >API Documentation and Guides</BreadcrumbItem>
                 <BreadcrumbItem isActive>{api}</BreadcrumbItem>
             </Breadcrumb>
         </PageSection>
