@@ -17,6 +17,8 @@ import {apiConfigurations} from "../config/apis";
 import {Card} from "../components/Card/Card";
 import {useNavigate} from "react-router";
 
+import APIConfigurationIcons from '../config/APIConfigurationIcons';
+
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 
@@ -70,7 +72,7 @@ export const LandingPage: FunctionComponent = () => {
         <Gallery hasGutter>
           { apiConfigurations.map(apiConfig => (
             <GalleryItem key={apiConfig.displayName}>
-              <Card displayName={apiConfig.displayName} icon={apiConfig.icon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.displayName}`)} />
+             <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.displayName}`)} />
             </GalleryItem>
           ))}
           </Gallery>

@@ -5,13 +5,13 @@ import APIConfigurationIcons from '../../config/APIConfigurationIcons';
 
 export interface CardProps {
   displayName: string;
-  icon: keyof typeof APIConfigurationIcons;
+  icon?: keyof typeof APIConfigurationIcons;
   description: string;
   onClick: () => void;
 }
 
 export const Card: FunctionComponent<CardProps> = ({displayName, icon, description, onClick}) => {
-  const TitleIcon = APIConfigurationIcons[icon];
+  const TitleIcon = icon ? APIConfigurationIcons[icon] : APIConfigurationIcons.GenericIcon;
   return <PFCard
     onClick={ onClick }
     isSelectableRaised
