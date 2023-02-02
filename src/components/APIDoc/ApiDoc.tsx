@@ -10,7 +10,7 @@ interface ApiDocProps {
     openapi: OpenAPIV3.Document;
 }
 
-const operationVerbs: string[] = ["get", "post", "patch", "put", "delete"]
+const operationVerbs: string[] = ["get", "post", "patch", "put", "delete", "options", "head", "trace"]
 
 export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
     const { openapi } = props;
