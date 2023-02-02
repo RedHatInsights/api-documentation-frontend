@@ -75,8 +75,12 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
             </ClipboardCopyButton>
         </CodeBlockAction>
     )
+
+    const codeBlockStyles = {
+        width: '100%',
+    }
     return <>
-        <CodeBlock actions={actions}>
+        <CodeBlock actions={actions} className='.pf-c-code-block' style={codeBlockStyles}>
             <CodeBlockCode>
                 {code}
             </CodeBlockCode>

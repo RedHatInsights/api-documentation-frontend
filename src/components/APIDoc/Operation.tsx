@@ -1,7 +1,7 @@
 import React from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {buildExample, deRef} from "../../utils/Openapi";
-import {Stack, StackItem, Text, TextContent, TextVariants} from "@patternfly/react-core";
+import {Stack, StackItem, Flex, FlexItem, Text, TextContent, TextVariants} from "@patternfly/react-core";
 import {TableComposable, Tbody, Td, Thead, Tr} from "@patternfly/react-table";
 import {ExampleResponse} from "./ExampleResponse";
 import {CodeSamples} from "./CodeSamples";
@@ -26,70 +26,74 @@ export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, 
         return undefined;
     }, [ operation.responses, document]);
 
-    return <Stack hasGutter>
-        <StackItem>
-            <TextContent>
-                <Text component={TextVariants.h2}>{ operation.summary }</Text>
-                <Text component={TextVariants.p}>{verb.toUpperCase()} {path}</Text>
-                <Text component={TextVariants.p}>{operation.description}</Text>
-            </TextContent>
-        </StackItem>
-        { parameters.length > 0 && <StackItem>
-            <TextContent>
-                <Text component={TextVariants.h3}>Parameters</Text>
-            </TextContent>
-            <TableComposable>
-                <Thead>
-                    <Tr>
-                        <Td>Name</Td>
-                        <Td>In</Td>
-                        <Td>Type</Td>
-                        <Td>Required</Td>
-                        <Td>Description</Td>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {parameters.map(((p, index) => (
-                        <Tr key={index}>
-                            <Td>{p.name}</Td>
-                            <Td>{p.in}</Td>
-                            <Td>{getType(p.schema, document)}</Td>
-                            <Td>{p.required ? 'Yes' : 'No'}</Td>
-                            <Td>{p.description}</Td>
-                        </Tr>
-                    )))}
-                </Tbody>
-            </TableComposable>
-        </StackItem> }
-        { responseMap.length > 0 && <StackItem>
-            <TextContent>
-                <Text component={TextVariants.h3}>Responses</Text>
-            </TextContent>
-            <TableComposable>
-                <Thead>
-                    <Tr>
-                        <Td>Status</Td>
-                        <Td>Description</Td>
-                        <Td>Schema</Td>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {responseMap.map(([code, response]) => {
-                        const dResponse = deRef(response, document);
-                        return <Tr key={code}>
-                            <Td>{code}</Td>
-                            <Td>{dResponse.description}</Td>
-                            <Td>{getResponseSchema(dResponse, document)}</Td>
-                        </Tr>;
-                    })}
-                </Tbody>
-            </TableComposable>
-            {responseExample && <ExampleResponse response={responseExample} />}
-        </StackItem> }
-        <StackItem>
-            <CodeSamples parameters={parameters} verb={verb} path={path}/>
-        </StackItem>
-    </Stack>;
+    return <Flex justifyContent={{ default: "justifyContentSpaceBetween"}}>
+                <FlexItem flex={{default: 'flex_2'}} spacer={{default: "spacer3xl"}}>
+                    <Stack hasGutter>
+                        <StackItem>
+                            <TextContent>
+                                <Text component={TextVariants.h2}>{ operation.summary }</Text>
+                                <Text component={TextVariants.p}>{verb.toUpperCase()} {path}</Text>
+                                <Text component={TextVariants.p}>{operation.description}</Text>
+                            </TextContent>
+                        </StackItem>
+                        { parameters.length > 0 && <StackItem>
+                            <TextContent>
+                                <Text component={TextVariants.h3}>Parameters</Text>
+                            </TextContent>
+                            <TableComposable>
+                                <Thead>
+                                    <Tr>
+                                        <Td>Name</Td>
+                                        <Td>In</Td>
+                                        <Td>Type</Td>
+                                        <Td>Required</Td>
+                                        <Td>Description</Td>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {parameters.map(((p, index) => (
+                                        <Tr key={index}>
+                                            <Td>{p.name}</Td>
+                                            <Td>{p.in}</Td>
+                                            <Td>{getType(p.schema, document)}</Td>
+                                            <Td>{p.required ? 'Yes' : 'No'}</Td>
+                                            <Td>{p.description}</Td>
+                                        </Tr>
+                                    )))}
+                                </Tbody>
+                            </TableComposable>
+                        </StackItem> }
+                        { responseMap.length > 0 && <StackItem>
+                            <TextContent>
+                                <Text component={TextVariants.h3}>Responses</Text>
+                            </TextContent>
+                            <TableComposable>
+                                <Thead>
+                                    <Tr>
+                                        <Td>Status</Td>
+                                        <Td>Description</Td>
+                                        <Td>Schema</Td>
+                                    </Tr>
+                                </Thead>
+                                <Tbody>
+                                    {responseMap.map(([code, response]) => {
+                                        const dResponse = deRef(response, document);
+                                        return <Tr key={code}>
+                                            <Td>{code}</Td>
+                                            <Td>{dResponse.description}</Td>
+                                            <Td>{getResponseSchema(dResponse, document)}</Td>
+                                        </Tr>;
+                                    })}
+                                </Tbody>
+                            </TableComposable>
+                            {responseExample && <ExampleResponse response={responseExample} />}
+                        </StackItem> }
+                    </Stack>
+                </FlexItem>
+                <FlexItem flex={{default: 'flex_1'}}>
+                    <CodeSamples parameters={parameters} verb={verb} path={path}/>
+                </FlexItem>
+            </Flex>;
 }
 
 const getResponseSchema = (response: OpenAPIV3.ResponseObject, document: OpenAPIV3.Document) => {
