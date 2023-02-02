@@ -37,17 +37,11 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
             </StackItem>
         )}
         { Object.entries(openapi.paths).map(([path, pathObject]) => {
-            const operations = Object.entries(
+            return Object.entries(
                 // Looks like openapi v3.1 supports components here as well
                 pathObject as Record<OpenAPIV3.HttpMethods, OpenAPIV3.OperationObject>
-            )
-
-            let commonParams: [string, object] | undefined;
-            commonParams = operations.find(operationInfo => operationInfo[0] === "parameters")
-
-            console.log("commonParams...", commonParams)
-            return operations.map(([verb, operation]) =>
-                operationVerbs.includes(verb) && <StackItem key={`${verb} ${path}`}>
+            ).map(([verb, operation]) => operationVerbs.includes(verb) &&
+                <StackItem key={`${verb} ${path}`}>
                     <Operation verb={ verb } path={ path } operation={ operation } document={ openapi }/>
                 </StackItem>
             );
