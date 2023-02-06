@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {DeRefResponse} from "../../utils/Openapi";
-import {CodeBlock, CodeBlockAction, CodeBlockCode, ClipboardCopyButton } from "@patternfly/react-core";
+import {CodeBlock, CodeBlockAction, ClipboardCopyButton } from "@patternfly/react-core";
+import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
 
 import { CodeBlockDropdown } from './CodeBlockDropdown';
@@ -71,7 +72,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
                 variant="plain"
                 onTooltipHidden={() => setCopied(false)}
             >
-                {copied ? 'Code copied to clipboard!' : 'Copy code to clipboard'}
+                {copied ? 'Copied!' : 'Copy code to clipboard'}
             </ClipboardCopyButton>
         </CodeBlockAction>
     )
@@ -81,9 +82,16 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
     }
     return <>
         <CodeBlock actions={actions} className='.pf-c-code-block' style={codeBlockStyles}>
-            <CodeBlockCode>
-                {code}
-            </CodeBlockCode>
+            <CodeEditor
+                isDarkTheme={false}
+                isLineNumbersVisible={false}
+                isReadOnly={true}
+                isMinimapVisible={false}
+                isLanguageLabelVisible={false}
+                code={code.toString()}
+                language={Language.c}
+                height="400px"
+            />
         </CodeBlock>
     </>;
 };
