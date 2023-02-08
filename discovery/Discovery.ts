@@ -8,21 +8,40 @@ export interface Group {
     apps: Array<App>
 }
 
-export type App = {
-    id: string;
-    name: string;
-    description: string;
-    url?: string;
-    skip?: boolean;
-} & {
+type AppWithSkipReason = {
+    skip?: false;
+} |
+{
     skip: true;
     skipReason: string;
 }
 
+type OneOfUrlUseLocalOrSkip = {
+    url: string;
+} | {
+    useLocalFile: true;
+} | {
+    skip: true;
+}
+
+export type App = {
+    id: string;
+    name: string;
+    description: string;
+    apiType: 'openapi-v3' | 'openapi-v2' | 'graphql' | 'unknown';
+    url?: string;
+    useLocalFile?: boolean;
+    skip?: boolean;
+} & AppWithSkipReason & OneOfUrlUseLocalOrSkip;
+
 export const getPath = (app: App): string => {
+    if (app.useLocalFile) {
+        return `./discovery/resources/api/${app.id}/openapi.json`;
+    }
+
     if (app.url) {
         return app.url;
     }
 
-    return `./discovery/resources/api/${app.id}/openapi.json`;
+    throw new Error('App does not use local file or url');
 }

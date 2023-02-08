@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Discovery internal schema for API documentation",
+  "description": "This schema describe the Discovery section of our build process - allowing to extend the application by including other APIs to display",
+  "type": "object",
+  "properties": {
+    "apis": {
+      "description": "List of API groups supported",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Group"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "apis"
+  ],
+  "definitions": {
+    "Group": {
+      "description": "Groups multiple APIs together. i.e. insights, openshift, etc",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Identifier of the group. i.e. insights",
+          "$ref": "#/definitions/id"
+        },
+        "name": {
+          "description": "Display name for the group. i.e. Hybrid Cloud Console and Insights",
+          "type": "string"
+        },
+        "apps": {
+          "description": "Apps within the group",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/App"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "apps"
+      ]
+    },
+    "App": {
+      "description": "Applications whose API wants to be displayed",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Identifier of the application. i.e. cost-management",
+          "$ref": "#/definitions/id"
+        },
+        "name": {
+          "description": "Display name for the application. i.e. Cost Management",
+          "type": "string"
+        },
+        "description": {
+          "description": "Displayed description for the application.",
+          "type": "string"
+        },
+        "url": {
+          "description": "URL to the public API file",
+          "type": "string"
+        },
+        "useLocalFile": {
+          "description": "Decide if we should try to fetch the API or use the local file",
+          "type": "boolean"
+        },
+        "apiType": {
+          "description": "Type of the API",
+          "type": "string",
+          "enum": [ "openapi-v3", "openapi-v2", "graphql", "unknown" ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "apiType"
+      ],
+      "allOf": [
+        {
+          "$ref": "#/definitions/url-or-use-local-or-skip"
+        },
+        {
+          "$ref": "#/definitions/skip-with-reason"
+        }
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z\\-]+$"
+    },
+    "skip-with-reason": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "boolean"
+        }
+      },
+      "dependencies": {
+        "skip": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "skip": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "type": "object",
+              "properties": {
+                "skipReason": {
+                  "type": "string"
+                }
+              },
+              "required": ["skipReason"]
+            }
+          ]
+        }
+      }
+    },
+    "url-or-use-local-or-skip": {
+      "description": "Should set at least url, skip=true or useLocalFile=true",
+      "anyOf": [
+        {
+          "type": "object",
+          "required": ["url"]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "useLocalFile": {
+              "const": true
+            }
+          },
+          "required": [ "useLocalFile" ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "skip": {
+              "const": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

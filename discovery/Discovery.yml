@@ -5,216 +5,272 @@ apis:
     apps:
       - id: insights
         name: Advisor
-        url: https://console.redhat.com/api/insights/v1/openapi.json
         description: The API of the Advisor project in Insights
+        url: https://console.redhat.com/api/insights/v1/openapi.json
+        apiType: openapi-v3
       - id: automation-hub
         name: Automation Hub
-        url: https://console.redhat.com/api/automation-hub/v3/openapi.json
         description: Fetch, Upload, Organize, and Distribute Ansible Collections
+        url: https://console.redhat.com/api/automation-hub/v3/openapi.json
+        apiType: openapi-v3
       - id: compliance
         name: Compliance
-        url: https://console.redhat.com/api/compliance/v1/openapi.json
         description: This is the API for Cloud Services for RHEL Compliance. You can find
           out more about Red Hat Cloud Services for RHEL at https://console.redhat.com
+        url: https://console.redhat.com/api/compliance/v1/openapi.json
+        apiType: openapi-v3
         skip: true
         skipReason: Has a minor validation error with openapi
       - id: cost-management
         name: Cost Management
-        url: https://console.redhat.com/api/cost-management/v1/openapi.json
         description: The API for Project Koku and OpenShift cost management. You can find
           out more about Project Koku at https://github.com/project-koku
+        url: https://console.redhat.com/api/cost-management/v1/openapi.json
+        apiType: openapi-v3
       - id: drift
         name: Drift Backend Service
         description: Service that returns differences between systems.
+        url: https://console.redhat.com/api/drift/v1/openapi.json
+        useLocalFile: true
+        apiType: openapi-v3
       - id: system-baseline
         name: Drift Baseline
         description: Service that returns system baselines
+        url: https://console.redhat.com/api/system-baseline/v1/openapi.json
+        useLocalFile: true
+        apiType: openapi-v3
       - id: historical-system-profiles
         name: 'Drift Historical Systems Profile Service '
         description: Service that returns system baselines
+        url: https://console.redhat.com/api/historical-system-profiles/v1/openapi.json
+        useLocalFile: true
+        apiType: openapi-v3
       - id: image-builder
         name: Image Builder
         description: Service that relays image build requests
+        url: https://console.redhat.com/api/image-builder/v1/openapi.json
+        useLocalFile: true
+        apiType: openapi-v3
       - id: integrations
         name: Integrations
-        url: https://console.redhat.com/api/integrations/v1/openapi.json
         description: The API for Integrations
+        url: https://console.redhat.com/api/integrations/v1/openapi.json
+        apiType: openapi-v3
       - id: malware-detection
         name: Malware
         description: The API of the Malware-Detection project in Insights
+        apiType: graphql
         skip: true
-        skipReason: It's an empty api
+        skipReason: It's a graphql API
       - id: inventory
         name: Managed Inventory
-        url: https://console.redhat.com/api/inventory/v1/openapi.json
         description: REST interface for the Insights Platform Host Inventory application
+        url: https://console.redhat.com/api/inventory/v1/openapi.json
+        apiType: openapi-v3
       - id: notifications
         name: Notifications
         url: https://console.redhat.com/api/notifications/v1/openapi.json
         description: The API for Notifications
+        apiType: openapi-v3
       - id: gathering
         name: Operator Gathering Conditions Service
-        url: https://console.redhat.com/api/gathering/v1/openapi.json
         description: Gathering Conditions Services to Insights Operator
+        url: https://console.redhat.com/api/gathering/v1/openapi.json
+        apiType: openapi-v3
       - id: insights-results-aggregator
         name: Results Aggregator
-        url: https://console.redhat.com/api/insights-results-aggregator/v1/openapi.json
         description: Aggregation service for the results of running Insights rules
+        url: https://console.redhat.com/api/insights-results-aggregator/v1/openapi.json
+        apiType: openapi-v3
       - id: patch
         name: Patch
-        url: https://console.redhat.com/api/patch/v2/openapi.json
         description: API of the Patch application on console.redhat.com
+        url: https://console.redhat.com/api/patch/v2/openapi.json
+        apiType: openapi-v3
       - id: playbook-dispatcher
         name: Playbook Dispatcher
-        url: https://console.redhat.com/api/playbook-dispatcher/v1/openapi.json
         description: Playbook Dispatcher is a service for running Ansible Playbooks on
           hosts connected via Cloud Connector
+        url: https://console.redhat.com/api/playbook-dispatcher/v1/openapi.json
+        apiType: openapi-v3
       - id: policies
         name: Policies
-        url: https://console.redhat.com/api/policies/v1/openapi.json
         description: The API for Policies
+        url: https://console.redhat.com/api/policies/v1/openapi.json
+        apiType: openapi-v3
       - id: config-manager
         name: Red Hat Connector
         description: Config manager service
+        url: https://console.redhat.com/api/config-manager/v1/openapi.json
+        apiType: openapi-v3
+        useLocalFile: true
       - id: remediations
         name: Remediations
-        url: https://console.redhat.com/api/remediations/v1/openapi.json
         description: Insights Remediations Service
+        url: https://console.redhat.com/api/remediations/v1/openapi.json
+        apiType: openapi-v3
       - id: ros
         name: Resource Optimization
         description: Flask Backend API for Resource Optimization Service
+        url: https://console.redhat.com/api/ros/v1/openapi.json
+        apiType: openapi-v3
+        useLocalFile: true
       - id: edge
         name: RHEL for Edge
-        url: https://console.redhat.com/api/edge/v1/openapi.json
         description: RHEL for Edge API
+        url: https://console.redhat.com/api/edge/v1/openapi.json
+        apiType: openapi-v3
       - id: rbac
         name: Role-based Access Control
-        url: https://console.redhat.com/api/rbac/v1/openapi.json
         description: The API for Role Based Access Control
+        url: https://console.redhat.com/api/rbac/v1/openapi.json
+        apiType: openapi-v3
       - id: sources
         name: Sources
-        url: https://console.redhat.com/api/sources/v3.1/openapi.json
         description: Sources API
+        url: https://console.redhat.com/api/sources/v3.1/openapi.json
+        apiType: openapi-v3
       - id: rhsm-subscriptions
         name: Subscriptions
-        url: https://console.redhat.com/api/rhsm-subscriptions/v1/openapi.json
         description: REST interface for the rhsm-subscriptions service. Please note any
           deprecated APIs. Our current deprecation policy is to keep deprecated APIs around
           for at least 6 months
+        url: https://console.redhat.com/api/rhsm-subscriptions/v1/openapi.json
+        apiType: openapi-v3
       - id: vulnerability
         name: Vulnerability Management
-        url: https://console.redhat.com/api/vulnerability/v1/openapi.json
         description: Vulnerability API
+        url: https://console.redhat.com/api/vulnerability/v1/openapi.json
+        apiType: openapi-v3
   - id: openshift
     name: Openshift
     apps:
       - id: accounts-management-service
         name: Account Management Service
-        url: https://api.openshift.com/api/accounts_mgmt/v1/openapi
         description: Manage user subscriptions and clusters
+        url: https://api.openshift.com/api/accounts_mgmt/v1/openapi
+        apiType: openapi-v3
       - id: assisted-install-service
         name: Assisted-Install Service
-        url: https://api.openshift.com/api/assisted-install/v2/openapi
         description: Assisted installation
-        skip: true
-        skipReason: It's using swagger 2.0 and we are not ready for that
+        url: https://api.openshift.com/api/assisted-install/v2/openapi
+        apiType: openapi-v2
       - id: authorization-service
         name: Authorization Service
-        url: https://api.openshift.com/api/authorizations/v1/openapi
         description: Enables access control on resources of OCM services
+        url: https://api.openshift.com/api/authorizations/v1/openapi
+        apiType: openapi-v3
       - id: clusters-management-service
         name: Clusters Management Service
-        url: https://api.openshift.com/api/clusters_mgmt/v1/openapi
         description: Clusters Management Service API
+        url: https://api.openshift.com/api/clusters_mgmt/v1/openapi
+        apiType: openapi-v3
         skip: true
         skipReason: Has validation errors
       - id: connector-management
         name: Connector Management
-        url: https://api.openshift.com/api/connector_mgmt/v1/openapi
         description: Connector Management API is a REST API to manage connectors.
+        url: https://api.openshift.com/api/connector_mgmt/v1/openapi
+        apiType: openapi-v3
       - id: image-builder-composer
         name: Image Builder Composer
-        url: https://api.openshift.com/api/image-builder-composer/v2/openapi
         description: Service to build and install images.
+        url: https://api.openshift.com/api/image-builder-composer/v2/openapi
+        apiType: openapi-v3
         skip: true
         skipReason: Has validation errors
       - id: image-builder-worker
         name: Image Builder Worker
-        url: https://api.openshift.com/api/image-builder-worker/v1/openapi
         description: This is an API for workers to request and handle jobs.
+        url: https://api.openshift.com/api/image-builder-worker/v1/openapi
+        apiType: openapi-v3
         skip: true
         skipReason: Has a validation errors
       - id: kafka-service-fleet-manager-service
         name: Kafka Service Fleet Manager Service
-        url: https://api.openshift.com/api/kafkas_mgmt/v1/openapi
         description: Kafka Management API is a REST API to manage Kafka instances
+        url: https://api.openshift.com/api/kafkas_mgmt/v1/openapi
+        apiType: openapi-v3
       - id: rhacs-service-fleet-manager
         name: RHACS Service Fleet Manager
-        url: https://api.openshift.com/api/rhacs/v1/openapi
         description: Red Hat Advanced Cluster Security (RHACS) Service Fleet Manager is a Rest API to manage instances of ACS components.
+        url: https://api.openshift.com/api/rhacs/v1/openapi
+        apiType: openapi-v3
       - id: service-logs
         name: Service Logs
-        url: https://api.openshift.com/api/service_logs/v1/openapi
         description: Receives and maintains logs from internal sources related to OpenShift clusters.
+        url: https://api.openshift.com/api/service_logs/v1/openapi
+        apiType: openapi-v3
       - id: service-registry-management
         name: Service Registry Management
-        url: https://api.openshift.com/api/serviceregistry_mgmt/v1/openapi
         description: Service Registry Management API is a REST API for managing Service Registry instances. Service Registry is a datastore for event schemas and API designs, which is based on the open source Apicurio Registry project
+        url: https://api.openshift.com/api/serviceregistry_mgmt/v1/openapi
+        apiType: openapi-v3
       - id: status-board-service-api
         name: Status Board Service API
         description: Status Board Service API
         url: https://api.openshift.com/api/status-board/v1/openapi
+        apiType: openapi-v3
         skip: true
         skipReason: Has validation errors
       - id: upgrades-information-service
         name: Upgrades Information Service
-        url: https://api.openshift.com/api/upgrades_info/v1/openapi
         description: Upgrades Information Service API
+        url: https://api.openshift.com/api/upgrades_info/v1/openapi
+        apiType: openapi-v3
       - id: web-rca-service
         name: Web-RCA Service
-        url: https://api.openshift.com/api/web-rca/v1/openapi
         description: Web-RCA Service API
+        url: https://api.openshift.com/api/web-rca/v1/openapi
+        apiType: openapi-v3
   - id: app-studio-hacbs
     name: AppStudio and HACBS
     apps:
       - id: application-and-environment-api
         name: Application and Environment API
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: service-provider
         name: Service Provider
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: git-ops-service
         name: GitOps Service
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: pipeline-service
         name: Pipeline Service
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: jvm-build-service-api
         name: JVM Build Service API
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: integration-service-api
         name: Integration Service API
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: release-service-api
         name: Release Service API
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
       - id: enterprise-contract-api
         name: Enterprise Contract API
-        description:
+        description: ''
+        apiType: unknown
         skip: true
         skipReason: Unsure if they use openapi
-
