@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {DeRefResponse} from "../../utils/Openapi";
-import {CodeBlock, CodeBlockAction, ClipboardCopyButton } from "@patternfly/react-core";
+import { ClipboardCopyButton, Flex, TextContent, TextVariants, Text } from '@patternfly/react-core';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
 
@@ -59,39 +59,37 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
         setCopied(true);
     };
 
-    const actions = (
-        <CodeBlockAction>
-            <CodeBlockDropdown setTemplate={setTemplate}/>
-            <ClipboardCopyButton
-                id="basic-copy-button"
-                textId="code-content"
-                aria-label="Copy to clipboard"
-                onClick={e => onCopyClick(e, code.toString())}
-                exitDelay={copied ? 1500 : 600}
-                maxWidth="110px"
-                variant="plain"
-                onTooltipHidden={() => setCopied(false)}
-            >
-                {copied ? 'Copied!' : 'Copy code to clipboard'}
-            </ClipboardCopyButton>
-        </CodeBlockAction>
-    )
-
-    const codeBlockStyles = {
-        width: '100%',
-    }
     return <>
-        <CodeBlock actions={actions} className='.pf-c-code-block' style={codeBlockStyles}>
-            <CodeEditor
-                isDarkTheme={false}
-                isLineNumbersVisible={false}
-                isReadOnly={true}
-                isMinimapVisible={false}
-                isLanguageLabelVisible={false}
-                code={code.toString()}
-                language={Language.c}
-                height="400px"
-            />
-        </CodeBlock>
+            <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }}>
+            <TextContent>
+                <Text component={TextVariants.h6}>{verb} {path}</Text>
+            </TextContent>
+            <Flex>
+                <CodeBlockDropdown setTemplate={setTemplate}/>
+                <ClipboardCopyButton
+                        id="basic-copy-button"
+                        textId="code-content"
+                        aria-label="Copy to clipboard"
+                        onClick={e => onCopyClick(e, code.toString())}
+                        exitDelay={copied ? 1500 : 600}
+                        maxWidth="110px"
+                        variant="plain"
+                        onTooltipHidden={() => setCopied(false)}
+                    >
+                    {copied ? 'Copied!' : 'Copy code to clipboard'}
+                </ClipboardCopyButton>
+            </Flex>
+        </Flex>
+        <CodeEditor
+            isDarkTheme={true}
+            isLineNumbersVisible={true}
+            isReadOnly={true}
+            // isMinimapVisible={false}
+            // isLanguageLabelVisible={true}
+            // isCopyEnabled={true}
+            code={code.toString()}
+            language={Language.javascript}
+            height="400px"
+        />
     </>;
 };
