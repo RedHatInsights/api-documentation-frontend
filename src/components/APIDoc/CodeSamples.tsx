@@ -30,6 +30,7 @@ type templateData = {
 
 export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path}) => {
     const [template, setTemplate] = useState<string>("")
+    const [language, setLanguage] = useState<Language>(Language.go)
     const [copied, setCopied] = useState<boolean>(false);
 
     Dot.templateSettings.varname = 'data'
@@ -60,12 +61,12 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
     };
 
     return <>
-            <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }}>
+        <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }}>
             <TextContent>
                 <Text component={TextVariants.h6}>{verb} {path}</Text>
             </TextContent>
             <Flex>
-                <CodeBlockDropdown setTemplate={setTemplate}/>
+                <CodeBlockDropdown setTemplate={setTemplate} setLanguage={setLanguage}/>
                 <ClipboardCopyButton
                         id="basic-copy-button"
                         textId="code-content"
@@ -84,11 +85,8 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
             isDarkTheme={true}
             isLineNumbersVisible={true}
             isReadOnly={true}
-            // isMinimapVisible={false}
-            // isLanguageLabelVisible={true}
-            // isCopyEnabled={true}
             code={code.toString()}
-            language={Language.javascript}
+            language={language}
             height="400px"
         />
     </>;
