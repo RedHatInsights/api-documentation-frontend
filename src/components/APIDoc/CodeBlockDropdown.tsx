@@ -59,6 +59,7 @@ export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> 
       }
       isOpen={isOpen}
       dropdownItems={items.map((item, index)=> <DropdownItem key={item.value} value={item.value} onClick={(e)=>onDropdownSelect(e, item)}>{item.text}</DropdownItem>)}
+      isPlain
     />
   );
 };

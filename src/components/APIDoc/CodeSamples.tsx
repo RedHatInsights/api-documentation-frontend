@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {DeRefResponse} from "../../utils/Openapi";
-import { ClipboardCopyButton, Flex, TextContent, TextVariants, Text } from '@patternfly/react-core';
+import { Card, CardBody, CardFooter, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
 
@@ -61,33 +61,37 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
     };
 
     return <>
-        <Flex justifyContent={{ default: 'justifyContentSpaceBetween' }}>
-            <TextContent>
-                <Text component={TextVariants.h6}>{verb} {path}</Text>
-            </TextContent>
-            <Flex>
-                <CodeBlockDropdown setTemplate={setTemplate} setLanguage={setLanguage}/>
-                <ClipboardCopyButton
-                        id="basic-copy-button"
-                        textId="code-content"
-                        aria-label="Copy to clipboard"
-                        onClick={e => onCopyClick(e, code.toString())}
-                        exitDelay={copied ? 1500 : 600}
-                        maxWidth="110px"
-                        variant="plain"
-                        onTooltipHidden={() => setCopied(false)}
-                    >
-                    {copied ? 'Copied!' : 'Copy code to clipboard'}
-                </ClipboardCopyButton>
-            </Flex>
-        </Flex>
-        <CodeEditor
+      <Card className="apid-c-card-codeblock pf-u-my-xl" isPlain>
+        <CardHeader className="pf-u-p-0 pf-u-pr-md pf-u-color-light-100">
+          <FlexItem className="pf-u-flex-grow-1 pf-u-pl-lg">
+            {verb} {path}
+          </FlexItem>
+          <FlexItem align={{ default: 'alignRight' }}>
+            <CodeBlockDropdown setTemplate={setTemplate} setLanguage={setLanguage}/>
+            <ClipboardCopyButton
+              id="basic-copy-button"
+              textId="code-content"
+              aria-label="Copy to clipboard"
+              onClick={e => onCopyClick(e, code.toString())}
+              exitDelay={copied ? 1500 : 600}
+              variant="plain"
+              onTooltipHidden={() => setCopied(false)}
+            >
+            {copied ? 'Copied!' : 'Copy code to clipboard'}
+            </ClipboardCopyButton>
+          </FlexItem>
+        </CardHeader>
+        <CardBody className="pf-u-p-0">
+          <CodeEditor
             isDarkTheme={true}
-            isLineNumbersVisible={true}
+            isLineNumbersVisible={false}
             isReadOnly={true}
             code={code.toString()}
             language={language}
             height="400px"
-        />
-    </>;
+          />
+      </CardBody>
+      <CardFooter />
+    </Card>
+  </>;
 };
