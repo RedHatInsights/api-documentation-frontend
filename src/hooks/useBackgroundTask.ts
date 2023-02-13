@@ -20,7 +20,8 @@ export const useBackgroundTask = <T>(callback: () => T, deps?: DependencyList): 
                 value
             });
         })();
-    }, deps);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, deps ?? [callback]);
 
     return state;
 }
