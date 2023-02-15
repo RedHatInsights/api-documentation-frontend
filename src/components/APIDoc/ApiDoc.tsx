@@ -52,10 +52,8 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
             </StackItem>
         )}
         { paths.loading ? <Bullseye><Spinner /></Bullseye> : paths.value }
-        { paths.loading ? <Bullseye><Spinner /></Bullseye>:
-            <StackItem>
-                <SchemaViewer document={ openapi }/>
-            </StackItem>
-        }
+        <StackItem>
+            <SchemaViewer document={ openapi }/>
+        </StackItem>
     </Stack>;
 }

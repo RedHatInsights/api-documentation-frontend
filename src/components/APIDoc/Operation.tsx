@@ -1,6 +1,6 @@
 import React from 'react';
 import {OpenAPIV3} from "openapi-types";
-import { buildExample, deRef } from '../../utils/Openapi';
+import {buildExample, deRef} from "../../utils/Openapi";
 import {Stack, StackItem, Flex, FlexItem, Text, TextContent, TextVariants} from "@patternfly/react-core";
 import {TableComposable, Tbody, Td, Thead, Tr} from "@patternfly/react-table";
 import {ExampleResponse} from "./ExampleResponse";
