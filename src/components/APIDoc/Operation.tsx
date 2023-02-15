@@ -72,6 +72,7 @@ export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, 
                                     <Tr>
                                         <Td>Status</Td>
                                         <Td>Description</Td>
+                                        <Td>Schema</Td>
                                     </Tr>
                                 </Thead>
                                 <Tbody>
