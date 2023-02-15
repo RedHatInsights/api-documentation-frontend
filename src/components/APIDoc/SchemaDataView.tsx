@@ -82,7 +82,6 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
         children = getTreeViewData(schemaName, value, document, propDeRef)
       } else if ('items' in value) {
         const items = deRef(value.items, document)
-        console.log("items...", items)
         children = getTreeViewData(schemaName, items, document, propDeRef)
       }  
     }
