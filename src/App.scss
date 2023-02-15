@@ -1,25 +1,38 @@
-.pf-c-card__body {
-  svg {
-    width: 38px;
-    height: 38px;
+//remove before migrating to developers.redhat.com
+ .apid-c-page-landingpage, .apid-c-page-apipage {
+   max-width: 1450px;
+   margin: auto;
+ }
+
+.apid-c-page-landingpage {
+  .pf-c-card__body {
+    svg {
+      width: 38px;
+      height: 38px;
+    }
   }
 }
 
-
-//remove before migrating to developers.redhat.com
-.apid-c-page-landingpage, .apid-c-page-apipage {
-  max-width: 1450px;
-  margin: auto;
+.apid-c-sidebar {
+  .pf-c-text-input-group {
+    width: 250px;
+  }
+  .pf-c-text-input-group__icon {
+    display: none;
+  }
+  .pf-c-text-input-group__text-input {
+    padding-left: 8px;
+  }
 }
 
 .apid-c-card-codeblock {
   .pf-c-card__header {
     background-color: var(--pf-global--BackgroundColor--dark-200);
-    border-radius: 30px 30px 0 0;
+    border-radius: 16px 16px 0 0;
   }
   .pf-c-card__footer {
     background-color: var(--pf-global--BackgroundColor--dark-100);
-    border-radius: 0 0 30px 30px;
+    border-radius: 0 0 16px 16px;
   }
   .pf-c-dropdown {
     --pf-c-dropdown__toggle--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);

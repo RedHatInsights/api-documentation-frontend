@@ -1,6 +1,6 @@
 import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
-    Breadcrumb, BreadcrumbItem, Bullseye,
+    Breadcrumb, BreadcrumbItem, Bullseye, Divider,
     Page,
     PageSection,
     PageSectionVariants, Spinner,
@@ -53,7 +53,8 @@ export const APIPage: FunctionComponent = () => {
     }
 
     return <Page className="apid-c-page-apipage">
-        <PageSection variant={PageSectionVariants.light}>
+        <PageSection variant={PageSectionVariants.light} className="pf-u-pb-sm">
+
             <Breadcrumb>
                 <BreadcrumbItem to='#' onClick={(event) => {
                     event.preventDefault();
@@ -61,6 +62,7 @@ export const APIPage: FunctionComponent = () => {
                 }} >API Documentation and Guides</BreadcrumbItem>
                 <BreadcrumbItem isActive>{api}</BreadcrumbItem>
             </Breadcrumb>
+            <Divider className="pf-u-mt-md" />
         </PageSection>
         <PageSection variant={PageSectionVariants.light}>
             { (apiState.isLoading || !apiState.api) ?

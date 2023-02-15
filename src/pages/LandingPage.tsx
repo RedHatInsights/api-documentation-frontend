@@ -3,12 +3,13 @@ import {
   Button,
   Gallery,
   GalleryItem,
-  Grid,
-  GridItem,
   Page,
   PageGroup,
   PageSection,
   PageSectionVariants,
+  Sidebar,
+  SidebarContent,
+  SidebarPanel,
   Split,
   SplitItem,
   Text,
@@ -19,20 +20,19 @@ import {apiConfigurations} from "../config/apis";
 import {Card} from "../components/Card/Card";
 import {SidebarBasic} from "../components/SideBar/Sidebar";
 import {useNavigate} from "react-router";
-
-import APIConfigurationIcons from '../config/APIConfigurationIcons';
-
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 
+import APIConfigurationIcons from '../config/APIConfigurationIcons';
+
 export const LandingPage: FunctionComponent = () => {
   const navigate = useNavigate();
-    return <Page className="apid-c-page-landingpage pf-u-background-color-200 pf-m-full-height">
-      <Grid>
-        <GridItem span={2}>
+    return <Page className="apid-c-page-landingpage pf-u-background-color-100">
+      <Sidebar className="apid-c-sidebar">
+        <SidebarPanel className="pf-u-p-lg">
           <SidebarBasic/>
-        </GridItem>
-        <GridItem span={10}>
+        </SidebarPanel>
+        <SidebarContent>
           <PageGroup stickyOnBreakpoint={{ default: 'top' }}>
             <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
               <TextContent>
@@ -43,7 +43,7 @@ export const LandingPage: FunctionComponent = () => {
                 </Text>
               </TextContent>
             </PageSection>
-            <PageSection variant={PageSectionVariants.light} className="pf-u-px-2xl-on-md">
+            <PageSection variant={PageSectionVariants.light} className="pf-u-px-lg-on-md">
               <Split>
                 <SplitItem>
                   <div className="pf-c-dropdown isDisabled">
@@ -75,16 +75,16 @@ export const LandingPage: FunctionComponent = () => {
               </Split>
             </PageSection>
           </PageGroup>
-          <PageSection className="pf-u-px-2xl-on-md">
-            <Gallery hasGutter>
+          <PageSection className="pf-u-px-lg-on-md">
+            <Gallery minWidths={{default: '300px'}} hasGutter>
               { apiConfigurations.map(apiConfig => (
                 <GalleryItem key={apiConfig.displayName}>
-                <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.id}`)} />
+                 <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.id}`)} />
                 </GalleryItem>
               ))}
-            </Gallery>
+              </Gallery>
           </PageSection>
-        </GridItem>
-      </Grid>
+        </SidebarContent>
+      </Sidebar>
     </Page>;
 };

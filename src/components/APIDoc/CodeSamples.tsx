@@ -61,10 +61,9 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
     };
 
     return <>
-      <Card className="apid-c-card-codeblock pf-u-my-xl" isPlain>
+      <Card className="apid-c-card-codeblock" isPlain>
         <CardHeader className="pf-u-p-0 pf-u-pr-md pf-u-color-light-100">
           <FlexItem className="pf-u-flex-grow-1 pf-u-pl-lg">
-            {verb} {path}
           </FlexItem>
           <FlexItem align={{ default: 'alignRight' }}>
             <CodeBlockDropdown setTemplate={setTemplate} setLanguage={setLanguage}/>

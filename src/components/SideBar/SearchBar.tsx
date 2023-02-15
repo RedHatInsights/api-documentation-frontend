@@ -10,12 +10,12 @@ export const SearchInputBasic: React.FunctionComponent = () => {
 
   return (
     <div>
-        <SearchInput className="pf-c-search-input"
-            placeholder="Find by product or service name"
-            value={value}
-            onChange={(_event, value) => onChange(value)}
-            onClear={() => onChange('')}
-        />
+      <SearchInput
+          placeholder="Find by product or service name"
+          value={value}
+          onChange={(_event, value) => onChange(value)}
+          onClear={() => onChange('')}
+      />
     </div>
   );
 };
