@@ -1,11 +1,10 @@
 import React from 'react';
 import {OpenAPIV3} from "openapi-types";
-import { buildExample, deRef, DeRefResponse } from '../../utils/Openapi';
+import { buildExample, deRef } from '../../utils/Openapi';
 import {Stack, StackItem, Flex, FlexItem, Text, TextContent, TextVariants} from "@patternfly/react-core";
 import {TableComposable, Tbody, Td, Thead, Tr} from "@patternfly/react-table";
 import {ExampleResponse} from "./ExampleResponse";
 import {CodeSamples} from "./CodeSamples";
-import { SchemaView } from './SchemaView';
 
 export interface OperationProps {
     verb: string;
@@ -81,7 +80,7 @@ export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, 
                                         return <Tr key={code}>
                                             <Td>{code}</Td>
                                             <Td>{dResponse.description}</Td>
-                                            <Td><SchemaView schema={getResponseSchema(dResponse, document)} document={document}/></Td>
+                                            <Td>{getResponseSchema(dResponse, document)}</Td>
                                         </Tr>;
                                     })}
                                 </Tbody>
@@ -99,13 +98,11 @@ export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, 
 const getResponseSchema = (response: OpenAPIV3.ResponseObject, document: OpenAPIV3.Document) => {
     const contents = response.content ? Object.values(response.content).filter(c => c.schema !== undefined) : [];
     if (contents.length === 0) {
-        return {} as DeRefResponse<OpenAPIV3.NonArraySchemaObject>;
+        return 'None';
     }
 
     // Previously filtered for undefined schemas
-    const deRefResponse = deRef(contents[0].schema!, document)
-    console.log("derefresponse....", deRefResponse.deRefData?.name, deRefResponse)
-    return deRefResponse;
+    return deRef(contents[0].schema!, document).deRefData?.name;
 }
 
 const getType = (schema: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | undefined, document: OpenAPIV3.Document) => {
