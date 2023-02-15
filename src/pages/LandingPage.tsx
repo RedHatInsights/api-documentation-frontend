@@ -25,7 +25,7 @@ import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 export const LandingPage: FunctionComponent = () => {
   const navigate = useNavigate();
 
-    return <Page className="pf-u-background-color-200 pf-m-full-height">
+    return <Page className="apid-c-page-landingpage pf-u-background-color-200 pf-m-full-height">
       <PageGroup stickyOnBreakpoint={{ default: 'top' }}>
         <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
           <TextContent>

@@ -5,6 +5,13 @@
   }
 }
 
+
+//remove before migrating to developers.redhat.com
+.apid-c-page-landingpage, .apid-c-page-apipage {
+  max-width: 1450px;
+  margin: auto;
+}
+
 .apid-c-card-codeblock {
   .pf-c-card__header {
     background-color: var(--pf-global--BackgroundColor--dark-200);

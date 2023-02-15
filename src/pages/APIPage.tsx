@@ -52,7 +52,7 @@ export const APIPage: FunctionComponent = () => {
         return null;
     }
 
-    return <Page>
+    return <Page className="apid-c-page-apipage">
         <PageSection variant={PageSectionVariants.light}>
             <Breadcrumb>
                 <BreadcrumbItem to='#' onClick={(event) => {
