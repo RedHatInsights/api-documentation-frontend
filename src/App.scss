@@ -5,6 +5,9 @@
  }
 
 .apid-c-page-landingpage {
+  .pf-c-page__main-section {
+    box-shadow: inset 0.125rem 0 0.125rem -0.0625rem rgba(3, 3, 3, 0.16);
+  }
   .pf-c-card__body {
     svg {
       width: 38px;
@@ -13,15 +16,31 @@
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .apid-c-page-landingpage {
+    .pf-c-page__main-section {
+      box-shadow: none;
+    }
+  }
+}
+
 .apid-c-sidebar {
   .pf-c-text-input-group {
     width: 250px;
+    &__icon {
+      display: none;
+    }
+    &__text-input {
+      padding-left: var(--pf-global--spacer--sm);
+    }
   }
-  .pf-c-text-input-group__icon {
-    display: none;
+  .pf-c-content {
+    font-size: var(--pf-c-content--small--FontSize);
+    font-weight: var(--pf-global--FontWeight--bold);
   }
-  .pf-c-text-input-group__text-input {
-    padding-left: 8px;
+  .pf-c-check {
+    --pf-c-check__label--FontSize: var(--pf-c-content--small--FontSize);
+    --pf-c-check__label--LineHeight: var(--pf-c-content--small--LineHeight);
   }
 }
 
