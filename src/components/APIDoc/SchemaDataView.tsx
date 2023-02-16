@@ -81,8 +81,15 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
       if ('properties' in value) {
         children = getTreeViewData(schemaName, value, document, propDeRef)
       } else if ('items' in value) {
-        const items = deRef(value.items, document)
-        children = getTreeViewData(schemaName, items, document, propDeRef)
+        let itemRef = ""
+        if ('$ref' in value.items) {
+          itemRef = value.items.$ref.split('/').at(-1) as string
+          propertyType = `${propertyType} (${itemRef})`
+        }
+        if (itemRef !== schemaName && itemRef !== schema.deRefData?.name as string) {
+          const items = deRef(value.items, document)
+          children = getTreeViewData(schemaName, items, document, propDeRef)
+        }
       }  
     }
 
