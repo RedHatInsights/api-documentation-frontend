@@ -5,10 +5,21 @@
  }
 
 .apid-c-page-landingpage {
+  .pf-c-page__main-section {
+    box-shadow: inset 0.125rem 0 0.125rem -0.0625rem rgba(3, 3, 3, 0.16);
+  }
   .pf-c-card__body {
     svg {
       width: 38px;
       height: 38px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .apid-c-page-landingpage {
+    .pf-c-page__main-section {
+      box-shadow: none;
     }
   }
 }
