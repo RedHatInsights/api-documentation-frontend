@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { SearchInput } from '@patternfly/react-core';
 
-export const SearchInputBasic: React.FunctionComponent = () => {
-  const [value, setValue] = React.useState('');
+export interface SearchValueProp {
+  searchInput: string;
+}
+
+export const SearchInputBasic: React.FunctionComponent<SearchValueProp> = () => {
+  const [value, setValue] = useState('');
 
   const onChange = (value: string) => {
     setValue(value);
@@ -11,10 +15,10 @@ export const SearchInputBasic: React.FunctionComponent = () => {
   return (
     <div>
       <SearchInput
-          placeholder="Find by product or service name"
-          value={value}
-          onChange={(_event, value) => onChange(value)}
-          onClear={() => onChange('')}
+        placeholder="Find by product or service name"
+        value={value}
+        onChange={(_event, value) => onChange(value)}
+        onClear={() => onChange('')}
       />
     </div>
   );

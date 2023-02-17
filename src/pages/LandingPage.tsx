@@ -1,6 +1,7 @@
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useEffect} from 'react';
 import {
   Button,
+  Form,
   Gallery,
   GalleryItem,
   Page,
@@ -18,7 +19,8 @@ import {
 } from "@patternfly/react-core";
 import {apiConfigurations} from "../config/apis";
 import {Card} from "../components/Card/Card";
-import {SidebarBasic} from "../components/SideBar/Sidebar";
+import { SearchInputBasic } from '../components/SideBar/SearchBar';
+import { CheckboxControlled } from '../components/SideBar/CheckBox';
 import {useNavigate} from "react-router";
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
@@ -26,11 +28,18 @@ import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 import APIConfigurationIcons from '../config/APIConfigurationIcons';
 
 export const LandingPage: FunctionComponent = () => {
+  const filteredDocs = apiConfigurations.filter(
+    (apiConfig) => apiConfig.displayName.match("A")
+  );
+
   const navigate = useNavigate();
     return <Page className="apid-c-page-landingpage pf-u-background-color-100">
       <Sidebar className="apid-c-sidebar">
         <SidebarPanel className="pf-u-p-lg">
-          <SidebarBasic/>
+          <Form>
+            <SearchInputBasic searchInput=''/>
+            <CheckboxControlled/>
+          </Form>
         </SidebarPanel>
         <SidebarContent>
           <PageGroup stickyOnBreakpoint={{ default: 'top' }}>
@@ -77,12 +86,12 @@ export const LandingPage: FunctionComponent = () => {
           </PageGroup>
           <PageSection className="pf-u-px-lg-on-md">
             <Gallery minWidths={{default: '300px'}} hasGutter>
-              { apiConfigurations.map(apiConfig => (
+              { filteredDocs.map(apiConfig => (
                 <GalleryItem key={apiConfig.displayName}>
-                 <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.id}`)} />
+                  <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.id}`)} />
                 </GalleryItem>
               ))}
-              </Gallery>
+            </Gallery>
           </PageSection>
         </SidebarContent>
       </Sidebar>
