@@ -1,4 +1,4 @@
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useState} from 'react';
 import {
   Button,
   Form,
@@ -19,7 +19,7 @@ import {
 } from "@patternfly/react-core";
 import {apiConfigurations} from "../config/apis";
 import {Card} from "../components/Card/Card";
-import { SearchInputBasic } from '../components/SideBar/SearchBar';
+import { SearchInput } from '@patternfly/react-core';
 import { CheckboxControlled } from '../components/SideBar/CheckBox';
 import {useNavigate} from "react-router";
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
@@ -28,8 +28,14 @@ import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 import APIConfigurationIcons from '../config/APIConfigurationIcons';
 
 export const LandingPage: FunctionComponent = () => {
+  const [searchInput, setSearchInput] = useState('');
+
+  const onChange = (searchInput: string) => {
+    setSearchInput(searchInput);
+  };
+
   const filteredDocs = apiConfigurations.filter(
-    (apiConfig) => apiConfig.displayName.match("A")
+    (apiConfig) => apiConfig.displayName.toLowerCase().includes(searchInput.toLowerCase())
   );
 
   const navigate = useNavigate();
@@ -37,7 +43,12 @@ export const LandingPage: FunctionComponent = () => {
       <Sidebar className="apid-c-sidebar">
         <SidebarPanel className="pf-u-p-lg">
           <Form>
-            <SearchInputBasic searchInput=''/>
+          <SearchInput
+              placeholder="Find by product or service name"
+              value={searchInput}
+              onChange={(_event, searchInput) => onChange(searchInput)}
+              onClear={() => onChange('')}
+            />
             <CheckboxControlled/>
           </Form>
         </SidebarPanel>
