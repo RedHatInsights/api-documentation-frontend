@@ -25,6 +25,16 @@ export const apiConfigurations: Array<APIConfiguration> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {
+    id: "automation-hub",
+    displayName: "Automation Hub",
+    description: "Fetch, Upload, Organize, and Distribute Ansible Collections",
+    icon: "AnsibleIcon",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/automation-hub/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+  },
+  {
     id: "cost-management",
     displayName: "Cost Management",
     description:
@@ -156,16 +166,6 @@ export const apiConfigurations: Array<APIConfiguration> = [
     getApi: () =>
       import(
         "./apis/hcc-insights/policies/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
-  },
-  {
-    id: "config-manager",
-    displayName: "Red Hat Connector",
-    description: "Config manager service",
-    icon: "GenericIcon",
-    getApi: () =>
-      import(
-        "./apis/hcc-insights/config-manager/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
   },
   {

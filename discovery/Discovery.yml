@@ -21,8 +21,6 @@ apis:
         icon: ansible
         tags:
           - automation
-        skip: true
-        skipReason: API file is too big - we need to optimize to properly display the API
       - id: compliance
         name: Compliance
         description: This is the API for Cloud Services for RHEL Compliance. You can find
@@ -174,7 +172,8 @@ apis:
           - insights
           - inventories
           - rhel
-        useLocalFile: true
+        skip: true
+        skipReason: Not public API file
       - id: remediations
         name: Remediations
         description: Insights Remediations Service

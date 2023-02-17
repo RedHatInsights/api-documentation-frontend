@@ -1922,6 +1922,10 @@
         "enum" : [ "physical", "virtual", "cloud", "hypervisor" ],
         "type" : "string"
       },
+      "CloudProvider" : {
+        "enum" : [ "aws", "gcp", "azure", "alibaba" ],
+        "type" : "string"
+      },
       "BillingAccountId" : {
         "type" : "string"
       },
@@ -2458,6 +2462,8 @@
           "display_name" : "rhv.example.com",
           "measurements" : [ 42, null, 1 ],
           "last_seen" : "2020-01-01T00:00:00Z",
+          "cloud_provider" : "aws",
+          "category" : "cloud",
           "number_of_guests" : 4
         },
         "properties" : {
@@ -2489,6 +2495,12 @@
             "type" : "integer"
           },
           "category" : {
+            "$ref" : "#/components/schemas/ReportCategory"
+          },
+          "cloud_provider" : {
+            "$ref" : "#/components/schemas/CloudProvider"
+          },
+          "subscription_manager_id" : {
             "type" : "string"
           }
         },
