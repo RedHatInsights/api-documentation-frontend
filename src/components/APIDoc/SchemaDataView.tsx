@@ -24,6 +24,7 @@ export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ s
           onClick={() => setExpanded(prev => !prev)}
       >
           <span className="schema-name">{schemaName}</span>
+          <span className="schema-type">{schema.type ? schema.type : 'object'} </span>
       </AccordionToggle>
       { isExpanded && <AccordionContent>
         <TreeView data={schemaData} variant="compactNoBackground" />
