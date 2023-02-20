@@ -108,3 +108,24 @@
     padding-left: 4em;
   }
 }
+
+.apid-schemas {
+  .pf-c-accordion__toggle {
+    flex-direction: row-reverse;
+
+    .pf-c-accordion__toggle-text {
+      flex-grow: 1;
+      text-align: left;
+      margin-left: 0.5em;
+    }
+  }
+
+  .pf-c-accordion__expanded-content-body {
+    padding-left: 1.5em;
+  }
+
+  .pf-c-tree-view {
+    --pf-c-tree-view--m-compact__node-container--PaddingTop: 0.5rem;
+    --pf-c-tree-view--m-compact__node-container--PaddingBottom: 0.5rem;
+  }
+}

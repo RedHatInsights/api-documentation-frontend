@@ -1,9 +1,8 @@
-import React from 'react';
-import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem } from '@patternfly/react-core';
+import React, { useState} from 'react';
+import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { deRef, DeRefResponse } from '../../utils/Openapi';
-
 
 export interface SchemaDataViewProps {
   schemaName: string;
@@ -15,8 +14,21 @@ export interface SchemaDataViewProps {
 export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ schemaName, schema, document, propDeRef }) => {
   const schemaData = getTreeViewData(schemaName, schema, document, propDeRef)
 
-  const data = [{title: schemaName, children: schemaData, id: schemaName}] as TreeViewDataItem[]
-  return <TreeView data={data} variant="compactNoBackground" />;
+  const id = `schema-${schemaName}`;
+  const [isExpanded, setExpanded] = useState(false);
+
+  return <AccordionItem>
+      <AccordionToggle
+          id={id}
+          isExpanded={isExpanded}
+          onClick={() => setExpanded(prev => !prev)}
+      >
+          <span className="schema-name">{schemaName}</span>
+      </AccordionToggle>
+      { isExpanded && <AccordionContent>
+        <TreeView data={schemaData} variant="compactNoBackground" />
+      </AccordionContent>}
+  </AccordionItem>;
 };
 
 
