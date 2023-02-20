@@ -39,8 +39,8 @@ export const LandingPage: FunctionComponent = () => {
   );
 
   const navigate = useNavigate();
-    return <Page className="apid-c-page-landingpage pf-u-background-color-100">
-      <Sidebar className="apid-c-sidebar">
+    return <Page className="apid-c-page-landingpage pf-u-background-color-100 pf-m-full-height">
+      <Sidebar>
         <SidebarPanel className="pf-u-p-lg">
           <Form>
           <SearchInput
@@ -53,7 +53,7 @@ export const LandingPage: FunctionComponent = () => {
           </Form>
         </SidebarPanel>
         <SidebarContent>
-          <PageGroup stickyOnBreakpoint={{ default: 'top' }}>
+          <PageGroup stickyOnBreakpoint={{ md: 'top' }} >
             <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
               <TextContent>
                 <Text component={TextVariants.h1}>The Red Hat API Documentation and Guides</Text>
