@@ -8,9 +8,8 @@
     "eject": "react-app-rewired eject",
     "start": "react-app-rewired start",
     "test": "npm exec jest --src discovery",
-    "discovery": "npm-run-all discovery:build discovery:clean discovery:start",
+    "discovery": "npm-run-all discovery:build discovery:start",
     "discovery:build": "npm run --prefix transform build",
-    "discovery:clean": "rm -rf src/config/apis",
     "discovery:start": "npm run --prefix transform start -- --discovery-file `npm prefix`/discovery/Discovery.yml -o `npm prefix`/src/config"
   },
   "browserslist": {

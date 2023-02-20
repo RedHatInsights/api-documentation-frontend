@@ -7,6 +7,7 @@ import {ServerList} from "./ServerList";
 import {SecuritySchemeList} from "./SecuritySchemeList";
 import {useBackgroundTask} from "../../hooks/useBackgroundTask";
 import { SchemaViewer } from './SchemaViewer';
+import {Operations} from "./Operations";
 
 interface ApiDocProps {
     openapi: OpenAPIV3.Document;
@@ -23,9 +24,7 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
                 // Looks like openapi v3.1 supports components here as well
                 pathObject as Record<OpenAPIV3.HttpMethods, OpenAPIV3.OperationObject>
             ).map(([verb, operation]) => operationVerbs.includes(verb) &&
-                <StackItem key={`${verb} ${path}`}>
-                    <Operation verb={ verb } path={ path } operation={ operation } document={ openapi }/>
-                </StackItem>
+                <Operation key={`${verb} ${path}`} verb={ verb } path={ path } operation={ operation } document={ openapi }/>
             );
         });
     }, [openapi]);
@@ -51,7 +50,7 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
                 <SecuritySchemeList schemes={Object.values(openapi.components.securitySchemes).map(s => deRef(s, openapi))} />
             </StackItem>
         )}
-        { paths.loading ? <Bullseye><Spinner /></Bullseye> : paths.value }
+        { paths.loading ? <Bullseye><Spinner /></Bullseye> : <Operations>{paths.value}</Operations> }
         <StackItem>
             <SchemaViewer document={ openapi }/>
         </StackItem>

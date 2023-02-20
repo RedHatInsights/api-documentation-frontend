@@ -2,7 +2,7 @@ import {Discovery, App} from "discovery/Discovery";
 import {parse} from "yaml";
 import prettier from 'prettier';
 import pLimit from 'p-limit';
-import {mkdirSync, readFileSync, writeFileSync} from "fs";
+import {mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync} from "fs";
 import path from "path";
 import got from "got";
 import {getCommand} from "./program.js";
@@ -10,6 +10,8 @@ import { fileURLToPath } from 'url'
 import Dot, {templateSettings} from 'dot';
 import * as Eta from "eta"
 import render from "eta/dist/types/render";
+import SwaggerParser from "@apidevtools/swagger-parser";
+import {OpenAPI} from "openapi-types";
 
 interface Options {
     discoveryFile: string;
@@ -18,8 +20,9 @@ interface Options {
 
 type BuildApi = {
     path: Array<string>;
-    apiContent: string;
+    apiContent: object;
     app: App;
+    apiIsValid: boolean;
 }
 
 const getApiContent = async (discoveryPath: string, app: App, group: string): Promise<string> => {
@@ -52,17 +55,67 @@ export const execute = async (options: Options) => {
             .filter(app => !app.skip && app.apiType === "openapi-v3")
             .map(async (app) => {
                 return await limit(async (): Promise<BuildApi> => {
+                    let content = {};
+                    let apiIsValid;
+                    try {
+                        const apiContent = await getApiContent(discoveryPath, app, group.id);
+                        content = JSON.parse(apiContent);
+                        await SwaggerParser.validate(JSON.parse(apiContent) as OpenAPI.Document);
+                        apiIsValid = true;
+                    } catch {
+                        apiIsValid = false;
+                    }
+
                     return ({
                         path: [ group.id, app.id ],
-                        apiContent: await getApiContent(discoveryPath, app, group.id),
-                        app
+                        apiContent: content,
+                        app,
+                        apiIsValid
                     })
                 });
             })
-        ));
+        )
+    );
+
+    // Delete openapi files except the ones that failed the validation
+    // Those are not going to be updated, so lets keep the previous valid version
+    const invalidApps = buildApis.filter(a => !a.apiIsValid);
+
+    readdirSync(
+        path.resolve(
+            options.outputDir,
+            'apis'
+        )
+    )
+    .flatMap(
+        group => readdirSync(
+            path.resolve(
+                options.outputDir,
+                'apis',
+                group
+            )
+        ).map(app => [group, app])
+    )
+    .filter(appPath => !invalidApps.find(k => appPath[0] === k.path[0] && appPath[1] === k.path[1]))
+    .forEach(toDelete => rmSync(
+        path.resolve(
+            options.outputDir,
+            'apis',
+            ...toDelete
+        ),
+        {
+            recursive: true
+        }
+    ));
 
     // Write openapi files
     buildApis.forEach(api => {
+
+        if (!api.apiIsValid) {
+            console.log(`Validation failed for app: ${api.app.id}... Skipping`);
+            return;
+        }
+
         mkdirSync(
             path.resolve(
                 options.outputDir,
@@ -81,7 +134,7 @@ export const execute = async (options: Options) => {
                 ...api.path,
                 'openapi.json'
             ),
-            api.apiContent
+            JSON.stringify(api.apiContent, null, 2)
         );
     });
 

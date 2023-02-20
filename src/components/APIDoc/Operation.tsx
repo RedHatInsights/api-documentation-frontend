@@ -1,7 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {buildExample, deRef} from "../../utils/Openapi";
-import {Stack, StackItem, Grid, GridItem, Text, TextContent, TextVariants} from "@patternfly/react-core";
+import {
+    Stack,
+    StackItem,
+    Grid,
+    GridItem,
+    Text,
+    TextContent,
+    TextVariants,
+    AccordionItem,
+    AccordionToggle, AccordionContent
+} from "@patternfly/react-core";
 import {TableComposable, Tbody, Td, Thead, Tr} from "@patternfly/react-table";
 import {ExampleResponse} from "./ExampleResponse";
 import {CodeSamples} from "./CodeSamples";
@@ -12,7 +22,28 @@ export interface OperationProps {
   operation: OpenAPIV3.OperationObject;
   document: OpenAPIV3.Document;
 }
-export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
+
+export const Operation: React.FunctionComponent<OperationProps> = props => {
+    const id = `operation-${props.verb}-${props.path}`;
+    const [isExpanded, setExpanded] = useState(false);
+    const {operation, verb, path} = props;
+
+    return <AccordionItem>
+        <AccordionToggle
+            id={id}
+            isExpanded={isExpanded}
+            onClick={() => setExpanded(prev => !prev)}
+        >
+            {operation.summary && <span className="operation-summary">{operation.summary}</span>}
+            <span className="operation-path">{verb.toUpperCase()} {path}</span>
+        </AccordionToggle>
+        { isExpanded && <AccordionContent>
+            <OperationContent {...props} />
+        </AccordionContent>}
+    </AccordionItem>;
+};
+
+const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
   const responseMap = Object.entries(operation.responses ?? {});
   const responseExample = React.useMemo(() => {
@@ -31,8 +62,6 @@ export const Operation: React.FunctionComponent<OperationProps> = ({verb, path, 
               <Stack hasGutter>
                 <StackItem>
                   <TextContent>
-                    <Text component={TextVariants.h2}>{ operation.summary }</Text>
-                    <Text component={TextVariants.p}>{verb.toUpperCase()} {path}</Text>
                     <Text component={TextVariants.p}>{operation.description}</Text>
                   </TextContent>
                 </StackItem>

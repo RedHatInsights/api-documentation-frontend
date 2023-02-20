@@ -85,3 +85,26 @@
     background-color: var(--pf-global--BackgroundColor--dark-100);
   }
 }
+
+.apid-operations {
+  .operation-summary {
+    margin-right: 20px;
+  }
+  .operation-path {
+    color: var(--pf-global--Color--dark-200);
+  }
+
+  .pf-c-accordion__toggle {
+    flex-direction: row-reverse;
+
+    .pf-c-accordion__toggle-text {
+      flex-grow: 1;
+      text-align: left;
+      margin-left: 1.5em;
+    }
+  }
+
+  .pf-c-accordion__expanded-content-body {
+    padding-left: 4em;
+  }
+}
