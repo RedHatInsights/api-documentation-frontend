@@ -1,1 +1,3881 @@
-{"components":{"parameters":{"branchId":{"description":"Filter by branch_id","in":"query","name":"branch_id","required":false,"schema":{"type":"string"}},"confirmDeleteAll":{"description":"Confirmation to delete all hosts on the account","in":"query","name":"confirm_delete_all","required":false,"schema":{"type":"boolean"}},"displayName":{"description":"Filter by display_name (case-insensitive)","in":"query","name":"display_name","required":false,"schema":{"type":"string"}},"factsNamespace":{"description":"A namespace of the merged facts.","in":"path","name":"namespace","required":true,"schema":{"type":"string"}},"fields_param":{"description":"Fetches only mentioned system_profile fields","explode":true,"in":"query","name":"fields","required":false,"schema":{"$ref":"#/components/schemas/SystemProfileNestedObject","x-scope":["","#/components/parameters/fields_param"]},"style":"deepObject","x-validator":"sparseFields"},"filter_param":{"description":"Filters hosts based on system_profile fields","explode":true,"in":"query","name":"filter","required":false,"schema":{"$ref":"#/components/schemas/SystemProfileNestedObject","x-scope":["","#/components/parameters/filter_param"]},"style":"deepObject"},"fqdn":{"description":"Filter by FQDN (case-insensitive)","in":"query","name":"fqdn","required":false,"schema":{"type":"string"}},"groupId":{"description":"Group ID.","in":"path","name":"group_id","required":true,"schema":{"format":"uuid","pattern":"^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$","type":"string"}},"groupIdList":{"description":"A comma separated list of group IDs.","in":"path","name":"group_id_list","required":true,"schema":{"items":{"format":"uuid","pattern":"^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$","type":"string"},"type":"array"}},"groupName":{"description":"Filter by group name","in":"query","name":"name","required":false,"schema":{"type":"string"}},"hostIdList":{"description":"A comma separated list of host IDs.","in":"path","name":"host_id_list","required":true,"schema":{"items":{"format":"uuid","pattern":"^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$","type":"string"},"type":"array"}},"hostnameOrId":{"description":"Filter by display_name, fqdn, id (case-insensitive)","in":"query","name":"hostname_or_id","required":false,"schema":{"type":"string"}},"insightsId":{"description":"Filter by insights_id","in":"query","name":"insights_id","required":false,"schema":{"format":"uuid","type":"string"}},"orderByParam":{"description":"Ordering field name","in":"query","name":"order_by","required":false,"schema":{"enum":["display_name","updated","operating_system"],"type":"string"}},"orderHowParam":{"description":"Direction of the ordering; defaults to ASC for display_name, and to DESC for updated and operating_system","in":"query","name":"order_how","required":false,"schema":{"enum":["ASC","DESC"],"type":"string"}},"pageParam":{"description":"A page number of the items to return.","in":"query","name":"page","required":false,"schema":{"default":1,"maximum":21474837,"minimum":1,"type":"integer"}},"perPageParam":{"description":"A number of items to return per page.","in":"query","name":"per_page","required":false,"schema":{"default":50,"maximum":100,"minimum":1,"type":"integer"}},"providerId":{"description":"Filter by provider_id","in":"query","name":"provider_id","required":false,"schema":{"type":"string"}},"providerType":{"description":"Filter by provider_type","in":"query","name":"provider_type","required":false,"schema":{"enum":["alibaba","aws","azure","gcp","ibm"],"type":"string"}},"registered_with":{"description":"Filters out any host not registered by the specified reporters","in":"query","name":"registered_with","required":false,"schema":{"items":{"enum":["insights","yupana","puptoo","rhsm-conduit","cloud-connector","!yupana","!puptoo","!rhsm-conduit","!cloud-connector"],"type":"string"},"type":"array"}},"searchParam":{"description":"Used for searching tags and sap_sids that match the given search string. For searching tags, a tag's namespace, key, and/or value is used for matching.","in":"query","name":"search","required":false,"schema":{"type":"string"}},"stalenessNoDefaultsParam":{"description":"Culling states of the hosts.","in":"query","name":"staleness","required":false,"schema":{"items":{"enum":["fresh","stale","stale_warning","unknown"],"type":"string"},"type":"array"}},"stalenessParam":{"description":"Culling states of the hosts. Default: fresh,stale,unknown","in":"query","name":"staleness","required":false,"schema":{"default":["fresh","stale","stale_warning","unknown"],"items":{"enum":["fresh","stale","stale_warning","unknown"],"type":"string"},"type":"array"}},"tagsOrderBy":{"description":"Ordering field name","in":"query","name":"order_by","required":false,"schema":{"default":"tag","enum":["tag","count"],"type":"string"}},"tagsOrderHow":{"description":"Direction of the ordering. Default to ASC","in":"query","name":"order_how","required":false,"schema":{"default":"ASC","enum":["ASC","DESC"],"type":"string"}},"tagsParam":{"description":"filters out hosts not tagged by the given tags","in":"query","name":"tags","required":false,"schema":{"items":{"pattern":"^([^=/]+/)?[^=/]+(=[^=/]+)?$","type":"string"},"type":"array"}}},"responses":{"PageOutOfBounds":{"description":"Requested page is outside of the range of available pages"}},"schemas":{"ActiveTags":{"allOf":[{"$ref":"#/components/schemas/PaginationOut","x-scope":["","#/components/schemas/ActiveTags"]},{"properties":{"results":{"items":{"description":"Information about a host tag","properties":{"count":{"description":"The number of hosts with the given tag. If the value is null this indicates that the count is unknown.","nullable":true,"type":"integer"},"tag":{"$ref":"#/components/schemas/StructuredTag","x-scope":["","#/components/schemas/ActiveTags"]}},"required":["tag","count"],"title":"ActiveTag","type":"object"},"type":"array"}},"required":["results"],"type":"object"}],"example":{"count":3,"page":1,"per_page":50,"results":[{"count":3,"tag":{"key":"env","namespace":"Sat","value":"prod"}},{"count":1,"tag":{"key":"region","namespace":"aws","value":"us-east-1"}},{"count":-1,"tag":{"key":"web","namespace":"insights-client","value":null}}],"total":3},"title":"Host data"},"BiosUuid":{"description":"A UUID of the host machine BIOS.  This field is considered to be a canonical fact.","example":"22cd8e39-13bb-4d02-8316-84b850dc5136","nullable":true,"type":"string"},"CanonicalFactsIn":{"allOf":[{"properties":{"bios_uuid":{"allOf":[{"$ref":"#/components/schemas/BiosUuid","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},{"$ref":"#/components/schemas/HyphenatedUuid","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]}]},"fqdn":{"$ref":"#/components/schemas/NonNullableString","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},"insights_id":{"allOf":[{"$ref":"#/components/schemas/InsightsId","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},{"$ref":"#/components/schemas/HyphenatedUuid","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]}]},"ip_addresses":{"$ref":"#/components/schemas/NonNullableStringArray","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},"mac_addresses":{"$ref":"#/components/schemas/NonNullableStringArray","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},"provider_id":{"$ref":"#/components/schemas/NonNullableString","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},"provider_type":{"$ref":"#/components/schemas/NonNullableString","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},"satellite_id":{"allOf":[{"$ref":"#/components/schemas/SatelliteId","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},{"$ref":"#/components/schemas/HyphenatedUuid","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]}]},"subscription_manager_id":{"allOf":[{"$ref":"#/components/schemas/SubscriptionManagerId","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]},{"$ref":"#/components/schemas/HyphenatedUuid","x-scope":["","#/components/schemas/CreateCheckIn","#/components/schemas/CanonicalFactsIn"]}]}}},{"anyOf":[{"required":["insights_id"]},{"required":["subscription_manager_id"]},{"required":["satellite_id"]},{"required":["bios_uuid"]},{"required":["ip_addresses"]},{"required":["fqdn"]},{"required":["mac_addresses"]},{"required":["provider_id","provider_type"]}]}]},"CanonicalFactsOut":{"properties":{"bios_uuid":{"$ref":"#/components/schemas/BiosUuid","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"fqdn":{"$ref":"#/components/schemas/Fqdn","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"insights_id":{"$ref":"#/components/schemas/InsightsId","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"ip_addresses":{"$ref":"#/components/schemas/IpAddresses","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"mac_addresses":{"$ref":"#/components/schemas/MacAddresses","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"provider_id":{"$ref":"#/components/schemas/ProviderId","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"provider_type":{"$ref":"#/components/schemas/ProviderType","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"satellite_id":{"$ref":"#/components/schemas/SatelliteId","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]},"subscription_manager_id":{"$ref":"#/components/schemas/SubscriptionManagerId","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut","#/components/schemas/CanonicalFactsOut"]}},"type":"object"},"Count":{"description":"The number of items on the current page","type":"integer"},"CreateCheckIn":{"allOf":[{"$ref":"#/components/schemas/CanonicalFactsIn","x-scope":["","#/components/schemas/CreateCheckIn"]},{"properties":{"checkin_frequency":{"description":"How long from now to expect another check-in (in minutes).","example":1440,"maximum":2880,"minimum":1,"type":"integer"}}}],"description":"Data required to create a check-in record for a host.","title":"Check-in data","type":"object"},"CreateGroup":{"allOf":[{"properties":{"host_ids":{"$ref":"#/components/schemas/HostIds","x-scope":["","#/components/schemas/CreateGroup"]},"name":{"$ref":"#/components/schemas/GroupName","x-scope":["","#/components/schemas/CreateGroup"]}}}],"description":"Data required to create a group.","title":"Group creation data","type":"object"},"CreateHostOut":{"allOf":[{"$ref":"#/components/schemas/CanonicalFactsOut","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut"]},{"properties":{"account":{"deprecated":true,"description":"A Red Hat Account number that owns the host.","example":"000102","nullable":true,"type":"string"},"ansible_host":{"description":"The ansible host name for remediations","example":"host1.mydomain.com","nullable":true,"type":"string"},"created":{"description":"A timestamp when the entry was created.","format":"date-time","type":"string"},"culled_timestamp":{"description":"Timestamp from which the host is considered deleted.","format":"date-time","nullable":true,"type":"string"},"display_name":{"description":"A host\u2019s human-readable display name, e.g. in a form of a domain name.","example":"host1.mydomain.com","nullable":true,"type":"string"},"facts":{"description":"A set of facts belonging to the host.","items":{"$ref":"#/components/schemas/FactSet","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut"]},"type":"array"},"id":{"description":"A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.","example":"3f01b55457674041b75e41829bcee1dc","type":"string"},"org_id":{"description":"The Org ID of the tenant that owns the host.","example":"000102","type":"string"},"per_reporter_staleness":{"additionalProperties":{"$ref":"#/components/schemas/PerReporterStaleness","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut","#/components/schemas/CreateHostOut"]},"description":"Reporting source of the last checkin status, stale_timestamp, and last_check_in.","type":"object"},"reporter":{"description":"Reporting source of the host. Used when updating the stale_timestamp.","nullable":true,"type":"string"},"stale_timestamp":{"description":"Timestamp from which the host is considered stale.","format":"date-time","nullable":true,"type":"string"},"stale_warning_timestamp":{"description":"Timestamp from which the host is considered too stale to be listed without an explicit toggle.","format":"date-time","nullable":true,"type":"string"},"updated":{"description":"A timestamp when the entry was last updated.","format":"date-time","type":"string"}},"required":["org_id"]}],"description":"Data of a single host belonging to an account. Represents the hosts without its Inventory metadata.","title":"Create Host Out","type":"object"},"FactSet":{"description":"A set of string facts belonging to a single namespace.","properties":{"facts":{"description":"The facts themselves.","example":{"fact1":"value1","fact2":"value2"},"type":"object"},"namespace":{"description":"A namespace the facts belong to.","minLength":1,"type":"string"}},"required":["namespace","facts"],"title":"Host facts under a namespace"},"Facts":{"description":"A set of string facts about a host.","example":{"fact1":"value1","fact2":"value2"},"title":"Host facts","type":"object"},"Fqdn":{"description":"A host\u2019s Fully Qualified Domain Name.  This field is considered to be a canonical fact.","example":"my.host.example.com","nullable":true,"type":"string"},"GroupId":{"description":"A durable and reliable platform-wide group identifier. Applications should use this identifier to reference groups.","example":"3f01b55457674041b75e41829bcee1dc","type":"string"},"GroupIn":{"allOf":[{"properties":{"host_ids":{"$ref":"#/components/schemas/HostIds","x-scope":["","#/components/schemas/GroupIn"]},"id":{"$ref":"#/components/schemas/GroupId","x-scope":["","#/components/schemas/GroupIn"]},"name":{"$ref":"#/components/schemas/GroupName","x-scope":["","#/components/schemas/GroupIn"]}}}],"description":"Data of a single group belonging to an account.","title":"Group In","type":"object"},"GroupName":{"description":"A group\u2019s human-readable name.","example":"sre-group","nullable":true,"type":"string"},"GroupOut":{"description":"Data of a single group belonging to an account.","properties":{"created_at":{"description":"A timestamp when the entry was created.","format":"date-time","type":"string"},"host_ids":{"$ref":"#/components/schemas/HostIds","x-scope":["","#/components/schemas/GroupQueryOutput","#/components/schemas/GroupOut"]},"id":{"$ref":"#/components/schemas/GroupId","x-scope":["","#/components/schemas/GroupQueryOutput","#/components/schemas/GroupOut"]},"name":{"$ref":"#/components/schemas/GroupName","x-scope":["","#/components/schemas/GroupQueryOutput","#/components/schemas/GroupOut"]},"updated_at":{"description":"A timestamp when the entry was last updated.","format":"date-time","type":"string"}},"title":"Group Out","type":"object"},"GroupQueryOutput":{"allOf":[{"$ref":"#/components/schemas/PaginationOut","x-scope":["","#/components/schemas/GroupQueryOutput"]},{"properties":{"results":{"description":"Actual group search query result entries.","items":{"$ref":"#/components/schemas/GroupOut","x-scope":["","#/components/schemas/GroupQueryOutput"]},"type":"array"}},"required":["results"],"type":"object"}],"description":"A paginated group search query result with group entries and their Inventory metadata.","title":"An Inventory Groups query result","type":"object"},"HostIds":{"description":"A comma separated list of host IDs that belong to the group.","items":{"type":"string"},"nullable":true,"type":"array"},"HostOut":{"allOf":[{"$ref":"#/components/schemas/CreateHostOut","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut"]},{"properties":{"facts":{"description":"A set of facts belonging to the host.","items":{"$ref":"#/components/schemas/FactSet","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/HostOut"]},"type":"array"}},"type":"object"}],"description":"A database entry representing a single host with its Inventory metadata.","title":"A Host Inventory entry"},"HostQueryOutput":{"allOf":[{"$ref":"#/components/schemas/PaginationOut","x-scope":["","#/components/schemas/HostQueryOutput"]},{"properties":{"results":{"description":"Actual host search query result entries.","items":{"$ref":"#/components/schemas/HostOut","x-scope":["","#/components/schemas/HostQueryOutput"]},"type":"array"}},"required":["results"],"type":"object"}],"description":"A paginated host search query result with host entries and their Inventory metadata.","title":"A Host Inventory query result"},"HostSystemProfileOut":{"description":"Individual host record that contains only the host id and system profile","properties":{"id":{"type":"string"},"system_profile":{"$ref":"#/components/schemas/SystemProfile","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut"]}},"title":"Structure of an individual host system profile output","type":"object"},"HyphenatedUuid":{"example":"22cd8e39-13bb-4d02-8316-84b850dc5136","maxLength":36,"minLength":36,"nullable":true,"pattern":"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}","type":"string"},"InsightsId":{"description":"An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact.","example":"3f01b55457674041b75e41829bcee1dc","nullable":true,"type":"string"},"IpAddresses":{"description":"Host\u2019s network IP addresses.  This field is considered to be a canonical fact.","example":["10.10.0.1","10.0.0.2"],"items":{"type":"string"},"nullable":true,"type":"array"},"MacAddresses":{"description":"Host\u2019s network interfaces MAC addresses.  This field is considered to be a canonical fact.","example":["c2:00:d0:c8:61:01"],"items":{"type":"string"},"nullable":true,"type":"array"},"NonNullableString":{"nullable":false,"type":"string"},"NonNullableStringArray":{"items":{"type":"string"},"nullable":false,"type":"array"},"Page":{"description":"The page number","type":"integer"},"PaginationOut":{"properties":{"count":{"$ref":"#/components/schemas/Count","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/PaginationOut"]},"page":{"$ref":"#/components/schemas/Page","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/PaginationOut"]},"per_page":{"$ref":"#/components/schemas/PerPage","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/PaginationOut"]},"total":{"$ref":"#/components/schemas/Total","x-scope":["","#/components/schemas/HostQueryOutput","#/components/schemas/PaginationOut"]}},"required":["count","page","per_page","total"],"type":"object"},"PatchHostIn":{"description":"Data of a single host to be updated.","properties":{"ansible_host":{"description":"The ansible host name for remediations","example":"host1.mydomain.com","type":"string"},"display_name":{"description":"A host\u2019s human-readable display name, e.g. in a form of a domain name.","example":"host1.mydomain.com","type":"string"}},"title":"Host data","type":"object"},"PerPage":{"description":"The number of items to return per page","type":"integer"},"PerReporterStaleness":{"properties":{"check_in_succeeded":{"type":"boolean"},"last_check_in":{"example":"2020-02-10T08:07:03.354307+00:00","format":"date-time","type":"string"},"stale_timestamp":{"example":"2020-02-17T08:07:03.354307+00:00","format":"date-time","type":"string"}},"type":"object"},"ProviderId":{"description":"Host\u2019s reference in the external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM etc. This field is one of the canonical facts and does not work without provider_type.","example":"i-05d2313e6b9a42b16","nullable":true,"type":"string"},"ProviderType":{"description":"Type of external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM, etc. This field is one of the canonical facts and does not workout provider_id.","example":"aws","nullable":true,"type":"string"},"SatelliteId":{"description":"A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.","example":"22cd8e39-13bb-4d02-8316-84b850dc5136","nullable":true,"type":"string"},"StructuredTag":{"properties":{"key":{"type":"string"},"namespace":{"nullable":true,"type":"string"},"value":{"nullable":true,"type":"string"}},"type":"object"},"SubscriptionManagerId":{"description":"A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.","example":"22cd8e39-13bb-4d02-8316-84b850dc5136","nullable":true,"type":"string"},"SystemProfile":{"description":"Representation of the system profile fields","properties":{"ansible":{"description":"Object containing data specific to Ansible Automation Platform","properties":{"catalog_worker_version":{"description":"The catalog-worker version on the host","example":"1.2.3, 4.5.6, 7.8.9","maxLength":30,"pattern":"^\\d+(\\.\\d+)+$","type":"string","x-wildcard":true},"controller_version":{"description":"The ansible-tower or automation-controller version on the host","example":"1.2.3, 4.5.6, 7.8.9","maxLength":30,"pattern":"^\\d+(\\.\\d+)+$","type":"string","x-wildcard":true},"hub_version":{"description":"The automation-hub version on the host","example":"1.2.3, 4.5.6, 7.8.9","maxLength":30,"pattern":"^\\d+(\\.\\d+)+$","type":"string","x-wildcard":true},"sso_version":{"description":"The SSO version on the host","example":"1.2.3, 4.5.6, 7.8.9","maxLength":30,"pattern":"^\\d+(\\.\\d+)+$","type":"string","x-wildcard":true}},"type":"object"},"arch":{"example":"ARM, x86_64, RISC-V","maxLength":50,"type":"string"},"basearch":{"description":"The architecture family (from yum/dnf)","example":"x86_64, arm, ppc64","maxLength":50,"type":"string"},"bios_release_date":{"example":"ex1, ex2, ex3","maxLength":50,"type":"string","x-indexed":false,"x-wildcard":true},"bios_vendor":{"example":"ex1, ex2, ex3","maxLength":100,"type":"string"},"bios_version":{"example":"ex1, ex2, ex3","maxLength":100,"type":"string"},"captured_date":{"example":"ex1, ex2, ex3","maxLength":32,"type":"string"},"cloud_provider":{"example":"aws, ms, ibm","maxLength":100,"type":"string"},"cores_per_socket":{"format":"int32","maximum":2147483647,"minimum":0,"type":"integer"},"cpu_flags":{"items":{"example":"ex1, ex2, ex3","maxLength":30,"type":"string"},"type":"array"},"cpu_model":{"description":"The cpu model name","example":"Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz, Intel(R) Xeon(R) CPU E9-7800 0 @ 1.90GHz, Intel(R) I7(R) CPU I7-10900k 0 @ 4.90GHz","maxLength":100,"type":"string"},"disk_devices":{"items":{"$ref":"#/components/schemas/SystemProfileDiskDevice","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut","#/components/schemas/SystemProfile"]},"type":"array"},"dnf_modules":{"items":{"$ref":"#/components/schemas/SystemProfileDnfModule","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut","#/components/schemas/SystemProfile"]},"type":"array"},"enabled_services":{"items":{"example":"ex1, ex2, ex3","maxLength":512,"type":"string"},"type":"array"},"gpg_pubkeys":{"items":{"description":"A package name string of a single imported GPG pubkey","example":"gpg-pubkey-11111111-22222222, gpg-pubkey-22222222-22222222, gpg-pubkey-22222222-33333333","maxLength":512,"type":"string"},"type":"array"},"greenboot_fallback_detected":{"description":"Indicates whether greenboot detected a rolled back update on an edge device.","type":"boolean"},"greenboot_status":{"description":"Indicates the greenboot status of an edge device.","enum":["red","green"],"example":"green, red, purple","maxLength":5,"type":"string"},"host_type":{"description":"Indicates the type of host.","enum":["edge"],"example":"edge, None","maxLength":4,"type":"string"},"infrastructure_type":{"example":"physical, virtual, imaginary","maxLength":100,"type":"string"},"infrastructure_vendor":{"example":"ex1, ex2, baremetal","maxLength":100,"type":"string"},"insights_client_version":{"description":"The version number of insights client. supports wildcards","example":"3.0.1-2.el4_2, 5.0.6-2.el7_6, 6.0.6-2.el8_4","maxLength":50,"type":"string","x-wildcard":true},"insights_egg_version":{"example":"2.3, 4.4, 5.1","maxLength":50,"type":"string"},"installed_packages":{"items":{"description":"A NEVRA string for a single installed package","example":"krb5-libs-0:-1.16.1-23.fc29.i686, arb5-libs-0:-1.16.1-23.fc29.i686, brb5-libs-0:-1.16.1-23.fc29.i686","maxLength":512,"type":"string"},"type":"array"},"installed_packages_delta":{"items":{"description":"A NEVRA string for a single installed package","example":"krb5-libs-0:-1.16.1-23.fc29.i686, arb5-libs-0:-1.16.1-23.fc29.i686, brb5-libs-0:-1.16.1-23.fc29.i686","maxLength":512,"type":"string"},"type":"array","x-indexed":false},"installed_products":{"items":{"$ref":"#/components/schemas/SystemProfileInstalledProduct","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut","#/components/schemas/SystemProfile"]},"type":"array"},"installed_services":{"items":{"example":"ex1, ex2, ex3","maxLength":512,"type":"string"},"type":"array"},"is_marketplace":{"description":"Indicates whether the host is part of a marketplace install from AWS, Azure, etc.","type":"boolean"},"katello_agent_running":{"type":"boolean"},"kernel_modules":{"items":{"example":"ex1, ex2, ex3","maxLength":255,"type":"string"},"type":"array"},"last_boot_time":{"format":"date-time","maxLength":50,"type":"string"},"mssql":{"description":"Object containing data specific to the MS SQL workload","properties":{"version":{"description":"MSSQL version number","example":"15.2.0, 12.5.3, 10.1.0","maxLength":30,"type":"string","x-wildcard":true}},"type":"object"},"network_interfaces":{"items":{"$ref":"#/components/schemas/SystemProfileNetworkInterface","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut","#/components/schemas/SystemProfile"]},"type":"array"},"number_of_cpus":{"format":"int32","maximum":2147483647,"minimum":0,"type":"integer"},"number_of_sockets":{"format":"int32","maximum":2147483647,"minimum":0,"type":"integer"},"operating_system":{"description":"Object for OS details. Supports range operations","properties":{"major":{"description":"Major release of OS (aka the x version)","example":6,"maximum":99,"minimum":0,"type":"integer"},"minor":{"description":"Minor release of OS (aka the y version)","example":8,"maximum":99,"minimum":0,"type":"integer"},"name":{"description":"Name of the distro/os","enum":["RHEL","CentOS"],"example":"RHEL, CentOS, RHEL","maxLength":6,"type":"string"}},"required":["major","minor","name"],"type":"object"},"os_kernel_version":{"description":"The kernel version represented with a three, optionally four, number scheme.","example":"4.18.2, 4.5.0, 5.1.0","maxLength":20,"pattern":"^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$","type":"string","x-wildcard":true},"os_release":{"example":"7.4, 8.2, 7.5","maxLength":100,"type":"string","x-wildcard":true},"owner_id":{"description":"A UUID associated with the host's RHSM certificate","example":"22cd8e39-13bb-4d02-8316-84b850dc5136, ffdfd200-f5b9-4e57-b080-f5e257349df0, e2357169-f5e2-4afa-b509-ab1be3f30807","maxLength":36,"pattern":"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}","type":"string"},"releasever":{"description":"Release name of the system distribution (from yum/dnf)","example":"7, 7.0, 7Server, 8, 8.4","maxLength":100,"type":"string"},"rhc_client_id":{"description":"A UUID associated with a cloud_connector","example":"22cd8e39-13bb-4d02-8316-84b850dc5136, 33cd8e39-13bb-4d02-8316-84b850dc5136, 2fa3e796-10e2-11ec-82a8-0242ac130003","maxLength":36,"pattern":"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}","type":"string"},"rhc_config_state":{"description":"A UUID associated with the config manager state","example":"22cd8e39-13bb-4d02-8316-84b850dc5136, 2c68e8ec-10e2-11ec-82a8-0242ac130003, 2fa3e796-10e2-11ec-82a8-0242ac130003","maxLength":36,"pattern":"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}","type":"string"},"rhsm":{"description":"Object for subscription-manager details","properties":{"version":{"description":"System release set by subscription-manager","example":"8.1, 7.5, 9.9","maxLength":255,"type":"string"}},"type":"object"},"rpm_ostree_deployments":{"description":"The list of deployments on the system as reported by rpm-ostree status --json","items":{"description":"Limited deployment information from systems managed by rpm-ostree as reported by rpm-ostree status --json","properties":{"booted":{"description":"Whether the deployment is currently booted","example":true,"type":"boolean"},"checksum":{"description":"The checksum / commit of the deployment","example":"63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb, 73335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb, 83335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb","maxLength":64,"pattern":"^[a-fA-F0-9]{64}$","type":"string"},"id":{"description":"ID of the deployment","example":"fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0, fedora-blackpink-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0, fedora-orangeblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0","maxLength":255,"minLength":1,"type":"string"},"origin":{"description":"The origin repo from which the commit was installed","example":"fedora/33/x86_64/silverblue, fedora/31/x86_64/blackpink, fedora/34/x86_64/orangeblue","maxLength":255,"minLength":1,"type":"string"},"osname":{"description":"The operating system name","example":"fedora-silverblue, fedora-blackpink, fedora-orangeblue","maxLength":255,"minLength":1,"type":"string"},"pinned":{"description":"Whether the deployment is currently pinned","example":false,"type":"boolean"},"version":{"description":"The version of the deployment","example":"33.21, 31.12, 33.45","maxLength":255,"minLength":1,"type":"string"}},"required":["id","checksum","origin","osname","booted","pinned"],"type":"object"},"type":"array"},"running_processes":{"items":{"description":"A single running process. This will be truncated to 1000 characters when saved.","example":"ex1, ex2, ex3","maxLength":1000,"type":"string"},"type":"array","x-indexed":false},"sap":{"description":"Object containing data specific to the SAP workload","properties":{"instance_number":{"description":"The instance number of the SAP HANA system (a two-digit number between 00 and 99)","example":"03, 05, 99","maxLength":2,"pattern":"^[0-9]{2}$","type":"string"},"sap_system":{"description":"Indicates if SAP is installed on the system","type":"boolean"},"sids":{"items":{"description":"The SAP system ID (SID)","example":"H2O, ABC, XYZ","maxLength":3,"pattern":"^[A-Z][A-Z0-9]{2}$","type":"string"},"type":"array","uniqueItems":true},"version":{"description":"The version of the SAP HANA lifecycle management program","example":"1.00.122.04.1478575636, 2.00.122.04.1478575636, 3.00.122.04.1478575636","maxLength":22,"pattern":"^[0-9]\\.[0-9]{2}\\.[0-9]{3}\\.[0-9]{2}\\.[0-9]{10}$","type":"string"}},"type":"object"},"sap_instance_number":{"description":"The instance number of the SAP HANA system (a two-digit number between 00 and 99)","example":"03, 05, 99","maxLength":2,"pattern":"^[0-9]{2}$","type":"string"},"sap_sids":{"items":{"description":"The SAP system ID (SID)","example":"H2O, ABC, XYZ","maxLength":3,"pattern":"^[A-Z][A-Z0-9]{2}$","type":"string"},"type":"array","uniqueItems":true},"sap_system":{"description":"Indicates if SAP is installed on the system","type":"boolean"},"sap_version":{"description":"The version of the SAP HANA lifecycle management program","example":"1.00.122.04.1478575636, 2.00.122.04.1478575636, 3.00.122.04.1478575636","maxLength":22,"pattern":"^[0-9]\\.[0-9]{2}\\.[0-9]{3}\\.[0-9]{2}\\.[0-9]{10}$","type":"string"},"satellite_managed":{"type":"boolean"},"selinux_config_file":{"description":"The SELinux mode provided in the config file","example":"permissive, sleepy, authoritative","maxLength":128,"type":"string"},"selinux_current_mode":{"description":"The current SELinux mode, either enforcing, permissive, or disabled","enum":["enforcing","permissive","disabled"],"example":"enforcing, not_enforcing, sleeping","maxLength":10,"type":"string"},"subscription_auto_attach":{"example":"ex1, ex2, ex3","maxLength":100,"type":"string"},"subscription_status":{"example":"ex1, ex2, ex3","maxLength":100,"type":"string"},"system_memory_bytes":{"format":"int64","maximum":9007199254740991,"minimum":0,"type":"integer"},"system_purpose":{"description":"Object for system purpose information","properties":{"role":{"description":"The intended role of the system","enum":["Red Hat Enterprise Linux Server","Red Hat Enterprise Linux Workstation","Red Hat Enterprise Linux Compute Node"],"example":"Red Hat Enterprise Linux Server, Red Hat Enterprise Linux Workstation, Red Hat Enterprise Linux Compute Node","maxLength":37,"type":"string"},"sla":{"description":"The intended SLA of the system","enum":["Premium","Standard","Self-Support"],"example":"Premium, Standard, Self-Support","maxLength":12,"type":"string"},"usage":{"description":"The intended usage of the system","enum":["Production","Development/Test","Disaster Recovery"],"example":"Production, Development/Test, Disaster Recovery","maxLength":17,"type":"string"}},"type":"object"},"system_update_method":{"description":"System update method","enum":["dnf","rpm-ostree","yum"],"example":"dnf, rpm-ostree, yum","maxLength":10,"type":"string"},"tuned_profile":{"description":"Current profile resulting from command tuned-adm active","example":"desktop, example, laptop","maxLength":256,"type":"string"},"yum_repos":{"items":{"$ref":"#/components/schemas/SystemProfileYumRepo","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut","#/components/schemas/SystemProfile"]},"type":"array","x-indexed":false}},"title":"SystemProfile","type":"object"},"SystemProfileByHostOut":{"allOf":[{"$ref":"#/components/schemas/PaginationOut","x-scope":["","#/components/schemas/SystemProfileByHostOut"]},{"properties":{"results":{"description":"Actual host search query result entries.","items":{"$ref":"#/components/schemas/HostSystemProfileOut","x-scope":["","#/components/schemas/SystemProfileByHostOut"]},"type":"array"}},"required":["results"],"type":"object"}],"description":"Structure of the output of the host system profile query","title":"A host system profile query result"},"SystemProfileDiskDevice":{"description":"Representation of one mounted device","properties":{"device":{"example":"/dev/fdd0, /dev/sda1, /dev/nvme2","maxLength":2048,"type":"string"},"label":{"description":"User-defined mount label","example":"foo, bar, baz","maxLength":1024,"type":"string"},"mount_point":{"description":"The mount point","example":"/mnt/remote_nfs_shares, /mnt/local_nfs, /mnt/foo","maxLength":2048,"type":"string"},"options":{"$ref":"#/components/schemas/SystemProfileNestedObject","x-scope":["","#/components/schemas/SystemProfileByHostOut","#/components/schemas/HostSystemProfileOut","#/components/schemas/SystemProfile","#/components/schemas/SystemProfileDiskDevice"]},"type":{"description":"The mount type","example":"ext1, ext2, ext3","maxLength":256,"type":"string"}},"type":"object"},"SystemProfileDnfModule":{"description":"Representation of one DNF module","properties":{"name":{"example":"abc, dfg, pop","maxLength":128,"type":"string"},"stream":{"example":"abc, dfg, pop","maxLength":2048,"type":"string"}},"type":"object"},"SystemProfileInstalledProduct":{"description":"Representation of one installed product","properties":{"id":{"description":"The product ID","example":"abc, dfg, pop","maxLength":64,"type":"string"},"name":{"example":"abc, dfg, pop","maxLength":512,"type":"string"},"status":{"description":"Subscription status for product","example":"Subscribed, inactive, canceled","maxLength":256,"type":"string"}},"type":"object"},"SystemProfileNestedObject":{"additionalProperties":{"oneOf":[{"$ref":"#/components/schemas/SystemProfileNestedObject","x-scope":[""]},{"not":{"type":"object"}}]},"description":"An arbitrary object that does not allow empty string keys.","type":"object","x-propertyNames":{"minLength":1}},"SystemProfileNetworkInterface":{"description":"Representation of one network interface","properties":{"ipv4_addresses":{"items":{"description":"The ipv4 address of the system","example":"227.161.169.210 30.143.76.153 233.87.178.7, 60.209.47.155 40.124.217.134, 67.77.119.70","format":"ipv4","type":"string"},"type":"array"},"ipv6_addresses":{"items":{"description":"The ipv6 address of the system","example":"8886:2565:f753:1bbb:1d08:4239:c470:a889, dd2e:879f:afff:7845:b346:bb88:bcf2:4b1b, e979:3081:7218:4c98:fd19:5777:309a:957b","format":"ipv6","type":"string"},"type":"array"},"mac_address":{"description":"MAC address (with or without colons)","example":"00:00:00:00:00:00, 100000000000, 20:00:00:00:00:00","maxLength":59,"pattern":"^([A-Fa-f0-9]{2}[:-]){5}[A-Fa-f0-9]{2}$|^([A-Fa-f0-9]{4}[.]){2}[A-Fa-f0-9]{4}$|^[A-Fa-f0-9]{12}$|^([A-Fa-f0-9]{2}[:-]){19}[A-Fa-f0-9]{2}$|^[A-Fa-f0-9]{40}$","type":"string"},"mtu":{"description":"MTU (Maximum transmission unit)","format":"int32","maximum":2147483647,"minimum":0,"type":"integer"},"name":{"description":"Name of interface","example":"eth0, eth1, eth2","maxLength":50,"minLength":1,"type":"string"},"state":{"description":"Interface state (UP, DOWN, UNKNOWN)","example":"UP, DOWN, UNKNOWN","maxLength":25,"type":"string"},"type":{"description":"Interface type (ether, loopback)","example":"ether, infiniband, loopback","maxLength":18,"type":"string"}},"type":"object"},"SystemProfileOperatingSystemOut":{"properties":{"count":{"$ref":"#/components/schemas/Count","x-scope":["","#/components/schemas/SystemProfileOperatingSystemOut"]},"results":{"description":"The list of operating_system values on the account","items":{"properties":{"count":{"type":"integer"},"value":{"properties":{"major":{"nullable":true,"type":"integer"},"minor":{"nullable":true,"type":"integer"},"name":{"type":"string"}},"type":"object"}},"type":"object"},"type":"array"},"total":{"$ref":"#/components/schemas/Total","x-scope":["","#/components/schemas/SystemProfileOperatingSystemOut"]}}},"SystemProfileSapSystemOut":{"properties":{"count":{"$ref":"#/components/schemas/Count","x-scope":["","#/components/schemas/SystemProfileSapSystemOut"]},"results":{"description":"The list of sap_system values on the account","items":{"properties":{"count":{"type":"integer"},"value":{"oneOf":[{"type":"string"},{"type":"boolean"}]}},"type":"object"},"type":"array"},"total":{"$ref":"#/components/schemas/Total","x-scope":["","#/components/schemas/SystemProfileSapSystemOut"]}},"type":"object"},"SystemProfileYumRepo":{"description":"Representation of one yum repository","properties":{"base_url":{"example":"abc, dfg, pop","format":"uri","maxLength":2048,"type":"string"},"enabled":{"type":"boolean"},"gpgcheck":{"type":"boolean"},"id":{"example":"abc, dfg, pop","maxLength":256,"type":"string"},"mirrorlist":{"description":"URL of a mirrorlist for the repository","example":"https://rhui.redhat.com/pulp/mirror/content/dist/rhel8/rhui/$releasever/$basearch/baseos/os","format":"uri","maxLength":2048,"type":"string"},"name":{"example":"abc, dfg, pop","maxLength":1024,"type":"string"}},"type":"object"},"TagCountOut":{"allOf":[{"$ref":"#/components/schemas/PaginationOut","x-scope":["","#/components/schemas/TagCountOut"]},{"properties":{"results":{"additionalProperties":{"type":"integer"},"description":"The list of tags on the systems","type":"object"}},"type":"object"}]},"TagsOut":{"allOf":[{"$ref":"#/components/schemas/PaginationOut","x-scope":["","#/components/schemas/TagsOut"]},{"properties":{"results":{"additionalProperties":{"items":{"$ref":"#/components/schemas/StructuredTag","x-scope":["","#/components/schemas/TagsOut"]},"type":"array"},"description":"The list of tags on the systems","type":"object"}},"type":"object"}]},"Total":{"description":"Total number of items","type":"integer"}},"securitySchemes":{"ApiKeyAuth":{"description":"Base64-encoded JSON identity header provided by 3Scale. Contains an org_id of the user issuing the request. Format of the JSON: {\"identity\": {\"org_id\": \"12345678\"}}","in":"header","name":"x-rh-identity","type":"apiKey","x-apikeyInfoFunc":"app.auth.authentication_header_handler"},"BearerAuth":{"scheme":"bearer","type":"http","x-bearerInfoFunc":"app.auth.bearer_token_handler"}}},"info":{"description":"REST interface for the Insights Platform Host Inventory application.","title":"Insights Host Inventory REST Interface","version":"1.0.0"},"openapi":"3.0.0","paths":{"/groups":{"get":{"description":"Read the entire list of all groups available to the account. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read","operationId":"api.group.get_group_list","parameters":[{"$ref":"#/components/parameters/groupName","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/orderByParam","x-scope":[""]},{"$ref":"#/components/parameters/orderHowParam","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupQueryOutput","x-scope":[""]}}},"description":"Successfully read the groups list."}},"security":[{"ApiKeyAuth":[]}],"summary":"Read the entire list of groups [Not Implemented]","tags":["groups"]},"post":{"description":"Creates a new group containing the hosts associated with the host IDs provided. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write","operationId":"api.group.create_group","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateGroup","x-scope":[""]}}},"description":"Data required to create a record for a group.","required":true},"responses":{"201":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupOut","x-scope":[""]}}},"description":"Successfully created new Group."}},"security":[{"ApiKeyAuth":[]},{"BearerAuth":[]}],"summary":"Create a new group matching the provided name and list of hosts IDs [Not Implemented]","tags":["groups"]}},"/groups/{group_id_list}":{"get":{"description":"Find one or more groups by their IDs. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read","operationId":"api.group.get_groups_by_id","parameters":[{"$ref":"#/components/parameters/groupIdList","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupQueryOutput","x-scope":[""]}}},"description":"Successfully searched for groups."},"400":{"description":"Invalid request."},"404":{"description":"Groups not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Find groups by their IDs [Not Implemented]","tags":["groups"]}},"/groups/{group_id}":{"delete":{"description":"Delete a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write","operationId":"api.group.delete_group","parameters":[{"$ref":"#/components/parameters/groupId","x-scope":[""]}],"responses":{"204":{"description":"Group was successfully deleted."},"400":{"description":"Invalid request."}},"security":[{"ApiKeyAuth":[]}],"summary":"Delete a group [Not Implemented]","tags":["groups"]},"get":{"description":"Find a group by its ID. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read","operationId":"api.group.get_group","parameters":[{"$ref":"#/components/parameters/groupId","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupOut","x-scope":[""]}}},"description":"Successfully searched for group."}},"security":[{"ApiKeyAuth":[]}],"summary":"Find a group by its ID [Not Implemented]","tags":["groups"]},"patch":{"description":"Merge group information. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write","operationId":"api.group.patch_group_by_id","parameters":[{"$ref":"#/components/parameters/groupId","x-scope":[""]}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupIn","x-scope":[""]}}},"description":"A dictionary with the new information to merge with the original one.","required":true},"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupOut","x-scope":[""]}}},"description":"Successfully merged group information."},"400":{"description":"Invalid request."},"404":{"description":"Group not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Merge group information [Not Implemented]","tags":["groups"]},"put":{"description":"Replace information from a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write","operationId":"api.group.update_group_details","parameters":[{"$ref":"#/components/parameters/groupId","x-scope":[""]}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupIn","x-scope":[""]}}},"description":"A dictionary with the information to replace the original one.","required":true},"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/GroupOut","x-scope":[""]}}},"description":"Successfully replaced group information."},"400":{"description":"Invalid request."},"404":{"description":"Group not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Replace group information [Not Implemented]","tags":["groups"]}},"/groups/{group_id}/{host_id_list}":{"delete":{"description":"Delete one or more hosts from a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write","operationId":"api.group.delete_hosts_from_group","parameters":[{"$ref":"#/components/parameters/groupId","x-scope":[""]},{"$ref":"#/components/parameters/hostIdList","x-scope":[""]}],"responses":{"204":{"description":"Successfully deleted hosts."},"400":{"description":"Invalid request."}},"security":[{"ApiKeyAuth":[]}],"summary":"Delete one or more hosts from a group [Not Implemented]","tags":["groups"]}},"/hosts":{"delete":{"description":"Delete the entire list of hosts filtered by the given parameters. <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.delete_hosts_by_filter","parameters":[{"$ref":"#/components/parameters/displayName","x-scope":[""]},{"$ref":"#/components/parameters/fqdn","x-scope":[""]},{"$ref":"#/components/parameters/hostnameOrId","x-scope":[""]},{"$ref":"#/components/parameters/insightsId","x-scope":[""]},{"$ref":"#/components/parameters/providerId","x-scope":[""]},{"$ref":"#/components/parameters/providerType","x-scope":[""]},{"$ref":"#/components/parameters/registered_with","x-scope":[""]},{"$ref":"#/components/parameters/stalenessNoDefaultsParam","x-scope":[""]},{"$ref":"#/components/parameters/tagsParam","x-scope":[""]},{"$ref":"#/components/parameters/filter_param","x-scope":[""]}],"responses":{"202":{"description":"Request for deletion of filtered hosts has been accepted."},"400":{"description":"Invalid request."}},"security":[{"ApiKeyAuth":[]}],"summary":"Delete the entire list of hosts filtered by the given parameters","tags":["hosts"]},"get":{"description":"Read the entire list of all hosts available to the account. <br /><br /> Required permissions: inventory:hosts:read","operationId":"api.host.get_host_list","parameters":[{"$ref":"#/components/parameters/displayName","x-scope":[""]},{"$ref":"#/components/parameters/fqdn","x-scope":[""]},{"$ref":"#/components/parameters/hostnameOrId","x-scope":[""]},{"$ref":"#/components/parameters/insightsId","x-scope":[""]},{"$ref":"#/components/parameters/providerId","x-scope":[""]},{"$ref":"#/components/parameters/providerType","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/orderByParam","x-scope":[""]},{"$ref":"#/components/parameters/orderHowParam","x-scope":[""]},{"$ref":"#/components/parameters/stalenessParam","x-scope":[""]},{"$ref":"#/components/parameters/tagsParam","x-scope":[""]},{"$ref":"#/components/parameters/registered_with","x-scope":[""]},{"$ref":"#/components/parameters/filter_param","x-scope":[""]},{"$ref":"#/components/parameters/fields_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/HostQueryOutput","x-scope":[""]}}},"description":"Successfully read the hosts list."}},"security":[{"ApiKeyAuth":[]}],"summary":"Read the entire list of hosts","tags":["hosts"]}},"/hosts/all":{"delete":{"description":"Delete all hosts on the account.  The request must include \"confirm_delete_all=true\". <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.delete_all_hosts","parameters":[{"$ref":"#/components/parameters/confirmDeleteAll","x-scope":[""]}],"responses":{"202":{"description":"Request for deleting all hosts has been accepted."},"400":{"description":"Invalid request."}},"security":[{"ApiKeyAuth":[]}],"summary":"Delete all hosts on the account","tags":["hosts"]}},"/hosts/checkin":{"post":{"description":"Finds a host and updates its staleness timestamps. It uses the supplied canonical facts to determine which host to update. By default, the staleness timestamp is set to 1 hour from when the request is received; however, this can be overridden by supplying the interval. <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.host_checkin","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateCheckIn","x-scope":[""]}}},"description":"Data required to create a check-in record for a host.","required":true},"responses":{"201":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateHostOut","x-scope":[""]}}},"description":"Successfully checked in Host."},"404":{"description":"Not Found."}},"security":[{"ApiKeyAuth":[]},{"BearerAuth":[]}],"summary":"Update staleness timestamps for a host matching the provided facts","tags":["hosts"]}},"/hosts/{host_id_list}":{"delete":{"description":"Delete hosts by IDs <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.delete_host_by_id","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]}],"responses":{"200":{"description":"Successfully deleted hosts."},"400":{"description":"Invalid request."},"404":{"description":"Host not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Delete hosts by IDs","tags":["hosts"]},"get":{"description":"Find one or more hosts by their ID. <br /><br /> Required permissions: inventory:hosts:read","operationId":"api.host.get_host_by_id","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/orderByParam","x-scope":[""]},{"$ref":"#/components/parameters/orderHowParam","x-scope":[""]},{"$ref":"#/components/parameters/fields_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/HostQueryOutput","x-scope":[""]}}},"description":"Successfully searched for hosts."},"400":{"description":"Invalid request."},"404":{"description":"Host not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Find hosts by their IDs","tags":["hosts"]},"patch":{"description":"Update a host <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.patch_host_by_id","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/PatchHostIn","x-scope":[""]}}},"description":"A group of fields to be updated on the host","required":true},"responses":{"200":{"description":"Successfully updated the host."},"400":{"description":"Invalid request."},"404":{"description":"Host not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Update a host","tags":["hosts"]}},"/hosts/{host_id_list}/facts/{namespace}":{"patch":{"description":"Merge one or multiple hosts facts under a namespace. <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.merge_facts","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/factsNamespace","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Facts","x-scope":[""]}}},"description":"A dictionary with the new facts to merge with the original ones.","required":true},"responses":{"200":{"description":"Successfully merged facts."},"400":{"description":"Invalid request."},"404":{"description":"Host or namespace not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Merge facts under a namespace","tags":["hosts"]},"put":{"description":"Replace facts under a namespace <br /><br /> Required permissions: inventory:hosts:write","operationId":"api.host.replace_facts","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/factsNamespace","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]}],"requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Facts","x-scope":[""]}}},"description":"A dictionary with the new facts to replace the original ones.","required":true},"responses":{"200":{"description":"Successfully replaced facts."},"400":{"description":"Invalid request."},"404":{"description":"Host or namespace not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Replace facts under a namespace","tags":["hosts"]}},"/hosts/{host_id_list}/system_profile":{"get":{"description":"Find one or more hosts by their ID and return the id and system profile <br /><br /> Required permissions: inventory:hosts:read","operationId":"api.host.get_host_system_profile_by_id","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/orderByParam","x-scope":[""]},{"$ref":"#/components/parameters/orderHowParam","x-scope":[""]},{"$ref":"#/components/parameters/branchId","x-scope":[""]},{"$ref":"#/components/parameters/fields_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SystemProfileByHostOut","x-scope":[""]}}},"description":"Successfully searched for hosts."},"400":{"description":"Invalid request."},"404":{"description":"Host not found."}},"security":[{"ApiKeyAuth":[]}],"summary":"Return one or more hosts system profile","tags":["hosts"]}},"/hosts/{host_id_list}/tags":{"get":{"description":"Get the tags on a host <br /><br /> Required permissions: inventory:hosts:read","operationId":"api.host.get_host_tags","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/orderByParam","x-scope":[""]},{"$ref":"#/components/parameters/orderHowParam","x-scope":[""]},{"$ref":"#/components/parameters/searchParam","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TagsOut","x-scope":[""]}}},"description":"Successfully found tags."},"400":{"description":"Invalid request."}},"security":[{"ApiKeyAuth":[]}],"summary":"Get the tags on a host","tags":["hosts"]}},"/hosts/{host_id_list}/tags/count":{"get":{"description":"Get the number of tags on a host <br /><br /> Required permissions: inventory:hosts:read","operationId":"api.host.get_host_tag_count","parameters":[{"$ref":"#/components/parameters/hostIdList","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/orderByParam","x-scope":[""]},{"$ref":"#/components/parameters/orderHowParam","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/TagCountOut","x-scope":[""]}}},"description":"Successfully found tag count."},"400":{"description":"Invalid request."}},"security":[{"ApiKeyAuth":[]}],"summary":"Get the number of tags on a host","tags":["hosts"]}},"/system_profile/operating_system":{"get":{"description":"Required permissions: inventory:hosts:read","operationId":"api.system_profile.get_operating_system","parameters":[{"$ref":"#/components/parameters/tagsParam","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/stalenessParam","x-scope":[""]},{"$ref":"#/components/parameters/registered_with","x-scope":[""]},{"$ref":"#/components/parameters/filter_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SystemProfileOperatingSystemOut","x-scope":[""]}}},"description":"operating system versions and counts on the account"},"400":{"description":"Invalid request."},"404":{"$ref":"#/components/responses/PageOutOfBounds","x-scope":[""]}},"security":[{"ApiKeyAuth":[]}],"summary":"get all operating system versions and counts on the account","tags":["system_profile"]}},"/system_profile/sap_sids":{"get":{"description":"Required permissions: inventory:hosts:read","operationId":"api.system_profile.get_sap_sids","parameters":[{"$ref":"#/components/parameters/searchParam","x-scope":[""]},{"$ref":"#/components/parameters/tagsParam","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/stalenessParam","x-scope":[""]},{"$ref":"#/components/parameters/registered_with","x-scope":[""]},{"$ref":"#/components/parameters/filter_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SystemProfileSapSystemOut","x-scope":[""]}}},"description":"sap_system values and counts for the account"},"400":{"description":"Invalid request."},"404":{"$ref":"#/components/responses/PageOutOfBounds","x-scope":[""]}},"security":[{"ApiKeyAuth":[]}],"summary":"get all sap sids values and counts on the account","tags":["system_profile"]}},"/system_profile/sap_system":{"get":{"description":"Required permissions: inventory:hosts:read","operationId":"api.system_profile.get_sap_system","parameters":[{"$ref":"#/components/parameters/tagsParam","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/stalenessParam","x-scope":[""]},{"$ref":"#/components/parameters/registered_with","x-scope":[""]},{"$ref":"#/components/parameters/filter_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SystemProfileSapSystemOut","x-scope":[""]}}},"description":"sap_system values and counts for the account"},"400":{"description":"Invalid request."},"404":{"$ref":"#/components/responses/PageOutOfBounds","x-scope":[""]}},"security":[{"ApiKeyAuth":[]}],"summary":"get all sap system values and counts on the account","tags":["system_profile"]}},"/system_profile/validate_schema":{"post":{"description":"Validates System Profile data from recent Kafka messages against a given spec, and compares it with the current one. Only HBI Admins can access this endpoint.","operationId":"api.system_profile.validate_schema","parameters":[{"description":"The fork of the inventory-schemas repo to use","in":"query","name":"repo_fork","schema":{"type":"string"}},{"description":"The branch of the inventory-schemas repo to use","in":"query","name":"repo_branch","required":true,"schema":{"type":"string"}},{"description":"How many days worth of data to validate","in":"query","name":"days","schema":{"minimum":1,"type":"integer"}},{"description":"Stops polling when this number of messages has been collected","in":"query","name":"max_messages","schema":{"default":10000,"minimum":1,"type":"integer"}}],"responses":{"200":{"description":"Host validation results"},"403":{"description":"Forbidden"}},"security":[{"ApiKeyAuth":[]}],"summary":"validate system profile schema"}},"/tags":{"get":{"description":"Required permissions: inventory:hosts:read","operationId":"api.tag.get_tags","parameters":[{"$ref":"#/components/parameters/tagsParam","x-scope":[""]},{"$ref":"#/components/parameters/tagsOrderBy","x-scope":[""]},{"$ref":"#/components/parameters/tagsOrderHow","x-scope":[""]},{"$ref":"#/components/parameters/perPageParam","x-scope":[""]},{"$ref":"#/components/parameters/pageParam","x-scope":[""]},{"$ref":"#/components/parameters/stalenessParam","x-scope":[""]},{"$ref":"#/components/parameters/searchParam","x-scope":[""]},{"$ref":"#/components/parameters/displayName","x-scope":[""]},{"$ref":"#/components/parameters/fqdn","x-scope":[""]},{"$ref":"#/components/parameters/hostnameOrId","x-scope":[""]},{"$ref":"#/components/parameters/insightsId","x-scope":[""]},{"$ref":"#/components/parameters/providerId","x-scope":[""]},{"$ref":"#/components/parameters/providerType","x-scope":[""]},{"$ref":"#/components/parameters/registered_with","x-scope":[""]},{"$ref":"#/components/parameters/filter_param","x-scope":[""]}],"responses":{"200":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ActiveTags","x-scope":[""]}}},"description":"Tags"},"400":{"description":"Invalid request."},"404":{"$ref":"#/components/responses/PageOutOfBounds","x-scope":[""]}},"security":[{"ApiKeyAuth":[]}],"summary":"Get the active host tags for a given account","tags":["tags"]}}},"servers":[{"url":"/api/inventory/v1"}]}
+{
+  "components": {
+    "parameters": {
+      "branchId": {
+        "description": "Filter by branch_id",
+        "in": "query",
+        "name": "branch_id",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "confirmDeleteAll": {
+        "description": "Confirmation to delete all hosts on the account",
+        "in": "query",
+        "name": "confirm_delete_all",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      "displayName": {
+        "description": "Filter by display_name (case-insensitive)",
+        "in": "query",
+        "name": "display_name",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "factsNamespace": {
+        "description": "A namespace of the merged facts.",
+        "in": "path",
+        "name": "namespace",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "fields_param": {
+        "description": "Fetches only mentioned system_profile fields",
+        "explode": true,
+        "in": "query",
+        "name": "fields",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/SystemProfileNestedObject",
+          "x-scope": [
+            "",
+            "#/components/parameters/fields_param"
+          ]
+        },
+        "style": "deepObject",
+        "x-validator": "sparseFields"
+      },
+      "filter_param": {
+        "description": "Filters hosts based on system_profile fields",
+        "explode": true,
+        "in": "query",
+        "name": "filter",
+        "required": false,
+        "schema": {
+          "$ref": "#/components/schemas/SystemProfileNestedObject",
+          "x-scope": [
+            "",
+            "#/components/parameters/filter_param"
+          ]
+        },
+        "style": "deepObject"
+      },
+      "fqdn": {
+        "description": "Filter by FQDN (case-insensitive)",
+        "in": "query",
+        "name": "fqdn",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "groupId": {
+        "description": "Group ID.",
+        "in": "path",
+        "name": "group_id",
+        "required": true,
+        "schema": {
+          "format": "uuid",
+          "pattern": "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$",
+          "type": "string"
+        }
+      },
+      "groupIdList": {
+        "description": "A comma separated list of group IDs.",
+        "in": "path",
+        "name": "group_id_list",
+        "required": true,
+        "schema": {
+          "items": {
+            "format": "uuid",
+            "pattern": "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "groupName": {
+        "description": "Filter by group name",
+        "in": "query",
+        "name": "name",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "hostIdList": {
+        "description": "A comma separated list of host IDs.",
+        "in": "path",
+        "name": "host_id_list",
+        "required": true,
+        "schema": {
+          "items": {
+            "format": "uuid",
+            "pattern": "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "hostnameOrId": {
+        "description": "Filter by display_name, fqdn, id (case-insensitive)",
+        "in": "query",
+        "name": "hostname_or_id",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "insightsId": {
+        "description": "Filter by insights_id",
+        "in": "query",
+        "name": "insights_id",
+        "required": false,
+        "schema": {
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "orderByParam": {
+        "description": "Ordering field name",
+        "in": "query",
+        "name": "order_by",
+        "required": false,
+        "schema": {
+          "enum": [
+            "display_name",
+            "updated",
+            "operating_system"
+          ],
+          "type": "string"
+        }
+      },
+      "orderHowParam": {
+        "description": "Direction of the ordering; defaults to ASC for display_name, and to DESC for updated and operating_system",
+        "in": "query",
+        "name": "order_how",
+        "required": false,
+        "schema": {
+          "enum": [
+            "ASC",
+            "DESC"
+          ],
+          "type": "string"
+        }
+      },
+      "pageParam": {
+        "description": "A page number of the items to return.",
+        "in": "query",
+        "name": "page",
+        "required": false,
+        "schema": {
+          "default": 1,
+          "maximum": 21474837,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "perPageParam": {
+        "description": "A number of items to return per page.",
+        "in": "query",
+        "name": "per_page",
+        "required": false,
+        "schema": {
+          "default": 50,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "providerId": {
+        "description": "Filter by provider_id",
+        "in": "query",
+        "name": "provider_id",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "providerType": {
+        "description": "Filter by provider_type",
+        "in": "query",
+        "name": "provider_type",
+        "required": false,
+        "schema": {
+          "enum": [
+            "alibaba",
+            "aws",
+            "azure",
+            "gcp",
+            "ibm"
+          ],
+          "type": "string"
+        }
+      },
+      "registered_with": {
+        "description": "Filters out any host not registered by the specified reporters",
+        "in": "query",
+        "name": "registered_with",
+        "required": false,
+        "schema": {
+          "items": {
+            "enum": [
+              "insights",
+              "yupana",
+              "puptoo",
+              "rhsm-conduit",
+              "cloud-connector",
+              "!yupana",
+              "!puptoo",
+              "!rhsm-conduit",
+              "!cloud-connector"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "searchParam": {
+        "description": "Used for searching tags and sap_sids that match the given search string. For searching tags, a tag's namespace, key, and/or value is used for matching.",
+        "in": "query",
+        "name": "search",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "stalenessNoDefaultsParam": {
+        "description": "Culling states of the hosts.",
+        "in": "query",
+        "name": "staleness",
+        "required": false,
+        "schema": {
+          "items": {
+            "enum": [
+              "fresh",
+              "stale",
+              "stale_warning",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "stalenessParam": {
+        "description": "Culling states of the hosts. Default: fresh,stale,unknown",
+        "in": "query",
+        "name": "staleness",
+        "required": false,
+        "schema": {
+          "default": [
+            "fresh",
+            "stale",
+            "stale_warning",
+            "unknown"
+          ],
+          "items": {
+            "enum": [
+              "fresh",
+              "stale",
+              "stale_warning",
+              "unknown"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "tagsOrderBy": {
+        "description": "Ordering field name",
+        "in": "query",
+        "name": "order_by",
+        "required": false,
+        "schema": {
+          "default": "tag",
+          "enum": [
+            "tag",
+            "count"
+          ],
+          "type": "string"
+        }
+      },
+      "tagsOrderHow": {
+        "description": "Direction of the ordering. Default to ASC",
+        "in": "query",
+        "name": "order_how",
+        "required": false,
+        "schema": {
+          "default": "ASC",
+          "enum": [
+            "ASC",
+            "DESC"
+          ],
+          "type": "string"
+        }
+      },
+      "tagsParam": {
+        "description": "filters out hosts not tagged by the given tags",
+        "in": "query",
+        "name": "tags",
+        "required": false,
+        "schema": {
+          "items": {
+            "pattern": "^([^=/]+/)?[^=/]+(=[^=/]+)?$",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      }
+    },
+    "responses": {
+      "PageOutOfBounds": {
+        "description": "Requested page is outside of the range of available pages"
+      }
+    },
+    "schemas": {
+      "ActiveTags": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/ActiveTags"
+            ]
+          },
+          {
+            "properties": {
+              "results": {
+                "items": {
+                  "description": "Information about a host tag",
+                  "properties": {
+                    "count": {
+                      "description": "The number of hosts with the given tag. If the value is null this indicates that the count is unknown.",
+                      "nullable": true,
+                      "type": "integer"
+                    },
+                    "tag": {
+                      "$ref": "#/components/schemas/StructuredTag",
+                      "x-scope": [
+                        "",
+                        "#/components/schemas/ActiveTags"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "tag",
+                    "count"
+                  ],
+                  "title": "ActiveTag",
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "results"
+            ],
+            "type": "object"
+          }
+        ],
+        "example": {
+          "count": 3,
+          "page": 1,
+          "per_page": 50,
+          "results": [
+            {
+              "count": 3,
+              "tag": {
+                "key": "env",
+                "namespace": "Sat",
+                "value": "prod"
+              }
+            },
+            {
+              "count": 1,
+              "tag": {
+                "key": "region",
+                "namespace": "aws",
+                "value": "us-east-1"
+              }
+            },
+            {
+              "count": -1,
+              "tag": {
+                "key": "web",
+                "namespace": "insights-client",
+                "value": null
+              }
+            }
+          ],
+          "total": 3
+        },
+        "title": "Host data"
+      },
+      "BiosUuid": {
+        "description": "A UUID of the host machine BIOS.  This field is considered to be a canonical fact.",
+        "example": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "nullable": true,
+        "type": "string"
+      },
+      "CanonicalFactsIn": {
+        "allOf": [
+          {
+            "properties": {
+              "bios_uuid": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BiosUuid",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  },
+                  {
+                    "$ref": "#/components/schemas/HyphenatedUuid",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  }
+                ]
+              },
+              "fqdn": {
+                "$ref": "#/components/schemas/NonNullableString",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateCheckIn",
+                  "#/components/schemas/CanonicalFactsIn"
+                ]
+              },
+              "insights_id": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/InsightsId",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  },
+                  {
+                    "$ref": "#/components/schemas/HyphenatedUuid",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  }
+                ]
+              },
+              "ip_addresses": {
+                "$ref": "#/components/schemas/NonNullableStringArray",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateCheckIn",
+                  "#/components/schemas/CanonicalFactsIn"
+                ]
+              },
+              "mac_addresses": {
+                "$ref": "#/components/schemas/NonNullableStringArray",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateCheckIn",
+                  "#/components/schemas/CanonicalFactsIn"
+                ]
+              },
+              "provider_id": {
+                "$ref": "#/components/schemas/NonNullableString",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateCheckIn",
+                  "#/components/schemas/CanonicalFactsIn"
+                ]
+              },
+              "provider_type": {
+                "$ref": "#/components/schemas/NonNullableString",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateCheckIn",
+                  "#/components/schemas/CanonicalFactsIn"
+                ]
+              },
+              "satellite_id": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SatelliteId",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  },
+                  {
+                    "$ref": "#/components/schemas/HyphenatedUuid",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  }
+                ]
+              },
+              "subscription_manager_id": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SubscriptionManagerId",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  },
+                  {
+                    "$ref": "#/components/schemas/HyphenatedUuid",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/CreateCheckIn",
+                      "#/components/schemas/CanonicalFactsIn"
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "anyOf": [
+              {
+                "required": [
+                  "insights_id"
+                ]
+              },
+              {
+                "required": [
+                  "subscription_manager_id"
+                ]
+              },
+              {
+                "required": [
+                  "satellite_id"
+                ]
+              },
+              {
+                "required": [
+                  "bios_uuid"
+                ]
+              },
+              {
+                "required": [
+                  "ip_addresses"
+                ]
+              },
+              {
+                "required": [
+                  "fqdn"
+                ]
+              },
+              {
+                "required": [
+                  "mac_addresses"
+                ]
+              },
+              {
+                "required": [
+                  "provider_id",
+                  "provider_type"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "CanonicalFactsOut": {
+        "properties": {
+          "bios_uuid": {
+            "$ref": "#/components/schemas/BiosUuid",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "fqdn": {
+            "$ref": "#/components/schemas/Fqdn",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "insights_id": {
+            "$ref": "#/components/schemas/InsightsId",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "ip_addresses": {
+            "$ref": "#/components/schemas/IpAddresses",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "mac_addresses": {
+            "$ref": "#/components/schemas/MacAddresses",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "provider_id": {
+            "$ref": "#/components/schemas/ProviderId",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "provider_type": {
+            "$ref": "#/components/schemas/ProviderType",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "satellite_id": {
+            "$ref": "#/components/schemas/SatelliteId",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          },
+          "subscription_manager_id": {
+            "$ref": "#/components/schemas/SubscriptionManagerId",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
+              "#/components/schemas/CanonicalFactsOut"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "Count": {
+        "description": "The number of items on the current page",
+        "type": "integer"
+      },
+      "CreateCheckIn": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CanonicalFactsIn",
+            "x-scope": [
+              "",
+              "#/components/schemas/CreateCheckIn"
+            ]
+          },
+          {
+            "properties": {
+              "checkin_frequency": {
+                "description": "How long from now to expect another check-in (in minutes).",
+                "example": 1440,
+                "maximum": 2880,
+                "minimum": 1,
+                "type": "integer"
+              }
+            }
+          }
+        ],
+        "description": "Data required to create a check-in record for a host.",
+        "title": "Check-in data",
+        "type": "object"
+      },
+      "CreateGroup": {
+        "allOf": [
+          {
+            "properties": {
+              "host_ids": {
+                "$ref": "#/components/schemas/HostIds",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateGroup"
+                ]
+              },
+              "name": {
+                "$ref": "#/components/schemas/GroupName",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/CreateGroup"
+                ]
+              }
+            }
+          }
+        ],
+        "description": "Data required to create a group.",
+        "title": "Group creation data",
+        "type": "object"
+      },
+      "CreateHostOut": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CanonicalFactsOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut"
+            ]
+          },
+          {
+            "properties": {
+              "account": {
+                "deprecated": true,
+                "description": "A Red Hat Account number that owns the host.",
+                "example": "000102",
+                "nullable": true,
+                "type": "string"
+              },
+              "ansible_host": {
+                "description": "The ansible host name for remediations",
+                "example": "host1.mydomain.com",
+                "nullable": true,
+                "type": "string"
+              },
+              "created": {
+                "description": "A timestamp when the entry was created.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "culled_timestamp": {
+                "description": "Timestamp from which the host is considered deleted.",
+                "format": "date-time",
+                "nullable": true,
+                "type": "string"
+              },
+              "display_name": {
+                "description": "A host’s human-readable display name, e.g. in a form of a domain name.",
+                "example": "host1.mydomain.com",
+                "nullable": true,
+                "type": "string"
+              },
+              "facts": {
+                "description": "A set of facts belonging to the host.",
+                "items": {
+                  "$ref": "#/components/schemas/FactSet",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput",
+                    "#/components/schemas/HostOut",
+                    "#/components/schemas/CreateHostOut"
+                  ]
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.",
+                "example": "3f01b55457674041b75e41829bcee1dc",
+                "type": "string"
+              },
+              "org_id": {
+                "description": "The Org ID of the tenant that owns the host.",
+                "example": "000102",
+                "type": "string"
+              },
+              "per_reporter_staleness": {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/PerReporterStaleness",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput",
+                    "#/components/schemas/HostOut",
+                    "#/components/schemas/CreateHostOut"
+                  ]
+                },
+                "description": "Reporting source of the last checkin status, stale_timestamp, and last_check_in.",
+                "type": "object"
+              },
+              "reporter": {
+                "description": "Reporting source of the host. Used when updating the stale_timestamp.",
+                "nullable": true,
+                "type": "string"
+              },
+              "stale_timestamp": {
+                "description": "Timestamp from which the host is considered stale.",
+                "format": "date-time",
+                "nullable": true,
+                "type": "string"
+              },
+              "stale_warning_timestamp": {
+                "description": "Timestamp from which the host is considered too stale to be listed without an explicit toggle.",
+                "format": "date-time",
+                "nullable": true,
+                "type": "string"
+              },
+              "updated": {
+                "description": "A timestamp when the entry was last updated.",
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            "required": [
+              "org_id"
+            ]
+          }
+        ],
+        "description": "Data of a single host belonging to an account. Represents the hosts without its Inventory metadata.",
+        "title": "Create Host Out",
+        "type": "object"
+      },
+      "FactSet": {
+        "description": "A set of string facts belonging to a single namespace.",
+        "properties": {
+          "facts": {
+            "description": "The facts themselves.",
+            "example": {
+              "fact1": "value1",
+              "fact2": "value2"
+            },
+            "type": "object"
+          },
+          "namespace": {
+            "description": "A namespace the facts belong to.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "namespace",
+          "facts"
+        ],
+        "title": "Host facts under a namespace"
+      },
+      "Facts": {
+        "description": "A set of string facts about a host.",
+        "example": {
+          "fact1": "value1",
+          "fact2": "value2"
+        },
+        "title": "Host facts",
+        "type": "object"
+      },
+      "Fqdn": {
+        "description": "A host’s Fully Qualified Domain Name.  This field is considered to be a canonical fact.",
+        "example": "my.host.example.com",
+        "nullable": true,
+        "type": "string"
+      },
+      "GroupId": {
+        "description": "A durable and reliable platform-wide group identifier. Applications should use this identifier to reference groups.",
+        "example": "3f01b55457674041b75e41829bcee1dc",
+        "type": "string"
+      },
+      "GroupIn": {
+        "allOf": [
+          {
+            "properties": {
+              "host_ids": {
+                "$ref": "#/components/schemas/HostIds",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/GroupIn"
+                ]
+              },
+              "id": {
+                "$ref": "#/components/schemas/GroupId",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/GroupIn"
+                ]
+              },
+              "name": {
+                "$ref": "#/components/schemas/GroupName",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/GroupIn"
+                ]
+              }
+            }
+          }
+        ],
+        "description": "Data of a single group belonging to an account.",
+        "title": "Group In",
+        "type": "object"
+      },
+      "GroupName": {
+        "description": "A group’s human-readable name.",
+        "example": "sre-group",
+        "nullable": true,
+        "type": "string"
+      },
+      "GroupOut": {
+        "description": "Data of a single group belonging to an account.",
+        "properties": {
+          "created_at": {
+            "description": "A timestamp when the entry was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "host_ids": {
+            "$ref": "#/components/schemas/HostIds",
+            "x-scope": [
+              "",
+              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/GroupOut"
+            ]
+          },
+          "id": {
+            "$ref": "#/components/schemas/GroupId",
+            "x-scope": [
+              "",
+              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/GroupOut"
+            ]
+          },
+          "name": {
+            "$ref": "#/components/schemas/GroupName",
+            "x-scope": [
+              "",
+              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/GroupOut"
+            ]
+          },
+          "updated_at": {
+            "description": "A timestamp when the entry was last updated.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "title": "Group Out",
+        "type": "object"
+      },
+      "GroupQueryOutput": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/GroupQueryOutput"
+            ]
+          },
+          {
+            "properties": {
+              "results": {
+                "description": "Actual group search query result entries.",
+                "items": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/GroupQueryOutput"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "results"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "A paginated group search query result with group entries and their Inventory metadata.",
+        "title": "An Inventory Groups query result",
+        "type": "object"
+      },
+      "HostIds": {
+        "description": "A comma separated list of host IDs that belong to the group.",
+        "items": {
+          "type": "string"
+        },
+        "nullable": true,
+        "type": "array"
+      },
+      "HostOut": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreateHostOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut"
+            ]
+          },
+          {
+            "properties": {
+              "facts": {
+                "description": "A set of facts belonging to the host.",
+                "items": {
+                  "$ref": "#/components/schemas/FactSet",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput",
+                    "#/components/schemas/HostOut"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ],
+        "description": "A database entry representing a single host with its Inventory metadata.",
+        "title": "A Host Inventory entry"
+      },
+      "HostQueryOutput": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput"
+            ]
+          },
+          {
+            "properties": {
+              "results": {
+                "description": "Actual host search query result entries.",
+                "items": {
+                  "$ref": "#/components/schemas/HostOut",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "results"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "A paginated host search query result with host entries and their Inventory metadata.",
+        "title": "A Host Inventory query result"
+      },
+      "HostSystemProfileOut": {
+        "description": "Individual host record that contains only the host id and system profile",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "system_profile": {
+            "$ref": "#/components/schemas/SystemProfile",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileByHostOut",
+              "#/components/schemas/HostSystemProfileOut"
+            ]
+          }
+        },
+        "title": "Structure of an individual host system profile output",
+        "type": "object"
+      },
+      "HyphenatedUuid": {
+        "example": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "maxLength": 36,
+        "minLength": 36,
+        "nullable": true,
+        "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+        "type": "string"
+      },
+      "InsightsId": {
+        "description": "An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact.",
+        "example": "3f01b55457674041b75e41829bcee1dc",
+        "nullable": true,
+        "type": "string"
+      },
+      "IpAddresses": {
+        "description": "Host’s network IP addresses.  This field is considered to be a canonical fact.",
+        "example": [
+          "10.10.0.1",
+          "10.0.0.2"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "nullable": true,
+        "type": "array"
+      },
+      "MacAddresses": {
+        "description": "Host’s network interfaces MAC addresses.  This field is considered to be a canonical fact.",
+        "example": [
+          "c2:00:d0:c8:61:01"
+        ],
+        "items": {
+          "type": "string"
+        },
+        "nullable": true,
+        "type": "array"
+      },
+      "NonNullableString": {
+        "nullable": false,
+        "type": "string"
+      },
+      "NonNullableStringArray": {
+        "items": {
+          "type": "string"
+        },
+        "nullable": false,
+        "type": "array"
+      },
+      "Page": {
+        "description": "The page number",
+        "type": "integer"
+      },
+      "PaginationOut": {
+        "properties": {
+          "count": {
+            "$ref": "#/components/schemas/Count",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/PaginationOut"
+            ]
+          },
+          "page": {
+            "$ref": "#/components/schemas/Page",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/PaginationOut"
+            ]
+          },
+          "per_page": {
+            "$ref": "#/components/schemas/PerPage",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/PaginationOut"
+            ]
+          },
+          "total": {
+            "$ref": "#/components/schemas/Total",
+            "x-scope": [
+              "",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/PaginationOut"
+            ]
+          }
+        },
+        "required": [
+          "count",
+          "page",
+          "per_page",
+          "total"
+        ],
+        "type": "object"
+      },
+      "PatchHostIn": {
+        "description": "Data of a single host to be updated.",
+        "properties": {
+          "ansible_host": {
+            "description": "The ansible host name for remediations",
+            "example": "host1.mydomain.com",
+            "type": "string"
+          },
+          "display_name": {
+            "description": "A host’s human-readable display name, e.g. in a form of a domain name.",
+            "example": "host1.mydomain.com",
+            "type": "string"
+          }
+        },
+        "title": "Host data",
+        "type": "object"
+      },
+      "PerPage": {
+        "description": "The number of items to return per page",
+        "type": "integer"
+      },
+      "PerReporterStaleness": {
+        "properties": {
+          "check_in_succeeded": {
+            "type": "boolean"
+          },
+          "last_check_in": {
+            "example": "2020-02-10T08:07:03.354307+00:00",
+            "format": "date-time",
+            "type": "string"
+          },
+          "stale_timestamp": {
+            "example": "2020-02-17T08:07:03.354307+00:00",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProviderId": {
+        "description": "Host’s reference in the external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM etc. This field is one of the canonical facts and does not work without provider_type.",
+        "example": "i-05d2313e6b9a42b16",
+        "nullable": true,
+        "type": "string"
+      },
+      "ProviderType": {
+        "description": "Type of external source e.g. Alibaba, AWS EC2, Azure, GCP, IBM, etc. This field is one of the canonical facts and does not workout provider_id.",
+        "example": "aws",
+        "nullable": true,
+        "type": "string"
+      },
+      "SatelliteId": {
+        "description": "A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.",
+        "example": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "nullable": true,
+        "type": "string"
+      },
+      "StructuredTag": {
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "namespace": {
+            "nullable": true,
+            "type": "string"
+          },
+          "value": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SubscriptionManagerId": {
+        "description": "A Red Hat Subcription Manager ID of a RHEL host.  This field is considered to be a canonical fact.",
+        "example": "22cd8e39-13bb-4d02-8316-84b850dc5136",
+        "nullable": true,
+        "type": "string"
+      },
+      "SystemProfile": {
+        "description": "Representation of the system profile fields",
+        "properties": {
+          "ansible": {
+            "description": "Object containing data specific to Ansible Automation Platform",
+            "properties": {
+              "catalog_worker_version": {
+                "description": "The catalog-worker version on the host",
+                "example": "1.2.3, 4.5.6, 7.8.9",
+                "maxLength": 30,
+                "pattern": "^\\d+(\\.\\d+)+$",
+                "type": "string",
+                "x-wildcard": true
+              },
+              "controller_version": {
+                "description": "The ansible-tower or automation-controller version on the host",
+                "example": "1.2.3, 4.5.6, 7.8.9",
+                "maxLength": 30,
+                "pattern": "^\\d+(\\.\\d+)+$",
+                "type": "string",
+                "x-wildcard": true
+              },
+              "hub_version": {
+                "description": "The automation-hub version on the host",
+                "example": "1.2.3, 4.5.6, 7.8.9",
+                "maxLength": 30,
+                "pattern": "^\\d+(\\.\\d+)+$",
+                "type": "string",
+                "x-wildcard": true
+              },
+              "sso_version": {
+                "description": "The SSO version on the host",
+                "example": "1.2.3, 4.5.6, 7.8.9",
+                "maxLength": 30,
+                "pattern": "^\\d+(\\.\\d+)+$",
+                "type": "string",
+                "x-wildcard": true
+              }
+            },
+            "type": "object"
+          },
+          "arch": {
+            "example": "ARM, x86_64, RISC-V",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "basearch": {
+            "description": "The architecture family (from yum/dnf)",
+            "example": "x86_64, arm, ppc64",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "bios_release_date": {
+            "example": "ex1, ex2, ex3",
+            "maxLength": 50,
+            "type": "string",
+            "x-indexed": false,
+            "x-wildcard": true
+          },
+          "bios_vendor": {
+            "example": "ex1, ex2, ex3",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "bios_version": {
+            "example": "ex1, ex2, ex3",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "captured_date": {
+            "example": "ex1, ex2, ex3",
+            "maxLength": 32,
+            "type": "string"
+          },
+          "cloud_provider": {
+            "example": "aws, ms, ibm",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "cores_per_socket": {
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "cpu_flags": {
+            "items": {
+              "example": "ex1, ex2, ex3",
+              "maxLength": 30,
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cpu_model": {
+            "description": "The cpu model name",
+            "example": "Intel(R) Xeon(R) CPU E5-2690 0 @ 2.90GHz, Intel(R) Xeon(R) CPU E9-7800 0 @ 1.90GHz, Intel(R) I7(R) CPU I7-10900k 0 @ 4.90GHz",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "disk_devices": {
+            "items": {
+              "$ref": "#/components/schemas/SystemProfileDiskDevice",
+              "x-scope": [
+                "",
+                "#/components/schemas/SystemProfileByHostOut",
+                "#/components/schemas/HostSystemProfileOut",
+                "#/components/schemas/SystemProfile"
+              ]
+            },
+            "type": "array"
+          },
+          "dnf_modules": {
+            "items": {
+              "$ref": "#/components/schemas/SystemProfileDnfModule",
+              "x-scope": [
+                "",
+                "#/components/schemas/SystemProfileByHostOut",
+                "#/components/schemas/HostSystemProfileOut",
+                "#/components/schemas/SystemProfile"
+              ]
+            },
+            "type": "array"
+          },
+          "enabled_services": {
+            "items": {
+              "example": "ex1, ex2, ex3",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "gpg_pubkeys": {
+            "items": {
+              "description": "A package name string of a single imported GPG pubkey",
+              "example": "gpg-pubkey-11111111-22222222, gpg-pubkey-22222222-22222222, gpg-pubkey-22222222-33333333",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "greenboot_fallback_detected": {
+            "description": "Indicates whether greenboot detected a rolled back update on an edge device.",
+            "type": "boolean"
+          },
+          "greenboot_status": {
+            "description": "Indicates the greenboot status of an edge device.",
+            "enum": [
+              "red",
+              "green"
+            ],
+            "example": "green, red, purple",
+            "maxLength": 5,
+            "type": "string"
+          },
+          "host_type": {
+            "description": "Indicates the type of host.",
+            "enum": [
+              "edge"
+            ],
+            "example": "edge, None",
+            "maxLength": 4,
+            "type": "string"
+          },
+          "infrastructure_type": {
+            "example": "physical, virtual, imaginary",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "infrastructure_vendor": {
+            "example": "ex1, ex2, baremetal",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "insights_client_version": {
+            "description": "The version number of insights client. supports wildcards",
+            "example": "3.0.1-2.el4_2, 5.0.6-2.el7_6, 6.0.6-2.el8_4",
+            "maxLength": 50,
+            "type": "string",
+            "x-wildcard": true
+          },
+          "insights_egg_version": {
+            "example": "2.3, 4.4, 5.1",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "installed_packages": {
+            "items": {
+              "description": "A NEVRA string for a single installed package",
+              "example": "krb5-libs-0:-1.16.1-23.fc29.i686, arb5-libs-0:-1.16.1-23.fc29.i686, brb5-libs-0:-1.16.1-23.fc29.i686",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "installed_packages_delta": {
+            "items": {
+              "description": "A NEVRA string for a single installed package",
+              "example": "krb5-libs-0:-1.16.1-23.fc29.i686, arb5-libs-0:-1.16.1-23.fc29.i686, brb5-libs-0:-1.16.1-23.fc29.i686",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "type": "array",
+            "x-indexed": false
+          },
+          "installed_products": {
+            "items": {
+              "$ref": "#/components/schemas/SystemProfileInstalledProduct",
+              "x-scope": [
+                "",
+                "#/components/schemas/SystemProfileByHostOut",
+                "#/components/schemas/HostSystemProfileOut",
+                "#/components/schemas/SystemProfile"
+              ]
+            },
+            "type": "array"
+          },
+          "installed_services": {
+            "items": {
+              "example": "ex1, ex2, ex3",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "is_marketplace": {
+            "description": "Indicates whether the host is part of a marketplace install from AWS, Azure, etc.",
+            "type": "boolean"
+          },
+          "katello_agent_running": {
+            "type": "boolean"
+          },
+          "kernel_modules": {
+            "items": {
+              "example": "ex1, ex2, ex3",
+              "maxLength": 255,
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "last_boot_time": {
+            "format": "date-time",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "mssql": {
+            "description": "Object containing data specific to the MS SQL workload",
+            "properties": {
+              "version": {
+                "description": "MSSQL version number",
+                "example": "15.2.0, 12.5.3, 10.1.0",
+                "maxLength": 30,
+                "type": "string",
+                "x-wildcard": true
+              }
+            },
+            "type": "object"
+          },
+          "network_interfaces": {
+            "items": {
+              "$ref": "#/components/schemas/SystemProfileNetworkInterface",
+              "x-scope": [
+                "",
+                "#/components/schemas/SystemProfileByHostOut",
+                "#/components/schemas/HostSystemProfileOut",
+                "#/components/schemas/SystemProfile"
+              ]
+            },
+            "type": "array"
+          },
+          "number_of_cpus": {
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "number_of_sockets": {
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "operating_system": {
+            "description": "Object for OS details. Supports range operations",
+            "properties": {
+              "major": {
+                "description": "Major release of OS (aka the x version)",
+                "example": 6,
+                "maximum": 99,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "minor": {
+                "description": "Minor release of OS (aka the y version)",
+                "example": 8,
+                "maximum": 99,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "name": {
+                "description": "Name of the distro/os",
+                "enum": [
+                  "RHEL",
+                  "CentOS"
+                ],
+                "example": "RHEL, CentOS, RHEL",
+                "maxLength": 6,
+                "type": "string"
+              }
+            },
+            "required": [
+              "major",
+              "minor",
+              "name"
+            ],
+            "type": "object"
+          },
+          "os_kernel_version": {
+            "description": "The kernel version represented with a three, optionally four, number scheme.",
+            "example": "4.18.2, 4.5.0, 5.1.0",
+            "maxLength": 20,
+            "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$",
+            "type": "string",
+            "x-wildcard": true
+          },
+          "os_release": {
+            "example": "7.4, 8.2, 7.5",
+            "maxLength": 100,
+            "type": "string",
+            "x-wildcard": true
+          },
+          "owner_id": {
+            "description": "A UUID associated with the host's RHSM certificate",
+            "example": "22cd8e39-13bb-4d02-8316-84b850dc5136, ffdfd200-f5b9-4e57-b080-f5e257349df0, e2357169-f5e2-4afa-b509-ab1be3f30807",
+            "maxLength": 36,
+            "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            "type": "string"
+          },
+          "releasever": {
+            "description": "Release name of the system distribution (from yum/dnf)",
+            "example": "7, 7.0, 7Server, 8, 8.4",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "rhc_client_id": {
+            "description": "A UUID associated with a cloud_connector",
+            "example": "22cd8e39-13bb-4d02-8316-84b850dc5136, 33cd8e39-13bb-4d02-8316-84b850dc5136, 2fa3e796-10e2-11ec-82a8-0242ac130003",
+            "maxLength": 36,
+            "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            "type": "string"
+          },
+          "rhc_config_state": {
+            "description": "A UUID associated with the config manager state",
+            "example": "22cd8e39-13bb-4d02-8316-84b850dc5136, 2c68e8ec-10e2-11ec-82a8-0242ac130003, 2fa3e796-10e2-11ec-82a8-0242ac130003",
+            "maxLength": 36,
+            "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            "type": "string"
+          },
+          "rhsm": {
+            "description": "Object for subscription-manager details",
+            "properties": {
+              "version": {
+                "description": "System release set by subscription-manager",
+                "example": "8.1, 7.5, 9.9",
+                "maxLength": 255,
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "rpm_ostree_deployments": {
+            "description": "The list of deployments on the system as reported by rpm-ostree status --json",
+            "items": {
+              "description": "Limited deployment information from systems managed by rpm-ostree as reported by rpm-ostree status --json",
+              "properties": {
+                "booted": {
+                  "description": "Whether the deployment is currently booted",
+                  "example": true,
+                  "type": "boolean"
+                },
+                "checksum": {
+                  "description": "The checksum / commit of the deployment",
+                  "example": "63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb, 73335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb, 83335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb",
+                  "maxLength": 64,
+                  "pattern": "^[a-fA-F0-9]{64}$",
+                  "type": "string"
+                },
+                "id": {
+                  "description": "ID of the deployment",
+                  "example": "fedora-silverblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0, fedora-blackpink-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0, fedora-orangeblue-63335a77f9853618ba1a5f139c5805e82176a2a040ef5e34d7402e12263af5bb.0",
+                  "maxLength": 255,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "origin": {
+                  "description": "The origin repo from which the commit was installed",
+                  "example": "fedora/33/x86_64/silverblue, fedora/31/x86_64/blackpink, fedora/34/x86_64/orangeblue",
+                  "maxLength": 255,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "osname": {
+                  "description": "The operating system name",
+                  "example": "fedora-silverblue, fedora-blackpink, fedora-orangeblue",
+                  "maxLength": 255,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "pinned": {
+                  "description": "Whether the deployment is currently pinned",
+                  "example": false,
+                  "type": "boolean"
+                },
+                "version": {
+                  "description": "The version of the deployment",
+                  "example": "33.21, 31.12, 33.45",
+                  "maxLength": 255,
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "checksum",
+                "origin",
+                "osname",
+                "booted",
+                "pinned"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "running_processes": {
+            "items": {
+              "description": "A single running process. This will be truncated to 1000 characters when saved.",
+              "example": "ex1, ex2, ex3",
+              "maxLength": 1000,
+              "type": "string"
+            },
+            "type": "array",
+            "x-indexed": false
+          },
+          "sap": {
+            "description": "Object containing data specific to the SAP workload",
+            "properties": {
+              "instance_number": {
+                "description": "The instance number of the SAP HANA system (a two-digit number between 00 and 99)",
+                "example": "03, 05, 99",
+                "maxLength": 2,
+                "pattern": "^[0-9]{2}$",
+                "type": "string"
+              },
+              "sap_system": {
+                "description": "Indicates if SAP is installed on the system",
+                "type": "boolean"
+              },
+              "sids": {
+                "items": {
+                  "description": "The SAP system ID (SID)",
+                  "example": "H2O, ABC, XYZ",
+                  "maxLength": 3,
+                  "pattern": "^[A-Z][A-Z0-9]{2}$",
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "version": {
+                "description": "The version of the SAP HANA lifecycle management program",
+                "example": "1.00.122.04.1478575636, 2.00.122.04.1478575636, 3.00.122.04.1478575636",
+                "maxLength": 22,
+                "pattern": "^[0-9]\\.[0-9]{2}\\.[0-9]{3}\\.[0-9]{2}\\.[0-9]{10}$",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "sap_instance_number": {
+            "description": "The instance number of the SAP HANA system (a two-digit number between 00 and 99)",
+            "example": "03, 05, 99",
+            "maxLength": 2,
+            "pattern": "^[0-9]{2}$",
+            "type": "string"
+          },
+          "sap_sids": {
+            "items": {
+              "description": "The SAP system ID (SID)",
+              "example": "H2O, ABC, XYZ",
+              "maxLength": 3,
+              "pattern": "^[A-Z][A-Z0-9]{2}$",
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "sap_system": {
+            "description": "Indicates if SAP is installed on the system",
+            "type": "boolean"
+          },
+          "sap_version": {
+            "description": "The version of the SAP HANA lifecycle management program",
+            "example": "1.00.122.04.1478575636, 2.00.122.04.1478575636, 3.00.122.04.1478575636",
+            "maxLength": 22,
+            "pattern": "^[0-9]\\.[0-9]{2}\\.[0-9]{3}\\.[0-9]{2}\\.[0-9]{10}$",
+            "type": "string"
+          },
+          "satellite_managed": {
+            "type": "boolean"
+          },
+          "selinux_config_file": {
+            "description": "The SELinux mode provided in the config file",
+            "example": "permissive, sleepy, authoritative",
+            "maxLength": 128,
+            "type": "string"
+          },
+          "selinux_current_mode": {
+            "description": "The current SELinux mode, either enforcing, permissive, or disabled",
+            "enum": [
+              "enforcing",
+              "permissive",
+              "disabled"
+            ],
+            "example": "enforcing, not_enforcing, sleeping",
+            "maxLength": 10,
+            "type": "string"
+          },
+          "subscription_auto_attach": {
+            "example": "ex1, ex2, ex3",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "subscription_status": {
+            "example": "ex1, ex2, ex3",
+            "maxLength": 100,
+            "type": "string"
+          },
+          "system_memory_bytes": {
+            "format": "int64",
+            "maximum": 9007199254740991,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "system_purpose": {
+            "description": "Object for system purpose information",
+            "properties": {
+              "role": {
+                "description": "The intended role of the system",
+                "enum": [
+                  "Red Hat Enterprise Linux Server",
+                  "Red Hat Enterprise Linux Workstation",
+                  "Red Hat Enterprise Linux Compute Node"
+                ],
+                "example": "Red Hat Enterprise Linux Server, Red Hat Enterprise Linux Workstation, Red Hat Enterprise Linux Compute Node",
+                "maxLength": 37,
+                "type": "string"
+              },
+              "sla": {
+                "description": "The intended SLA of the system",
+                "enum": [
+                  "Premium",
+                  "Standard",
+                  "Self-Support"
+                ],
+                "example": "Premium, Standard, Self-Support",
+                "maxLength": 12,
+                "type": "string"
+              },
+              "usage": {
+                "description": "The intended usage of the system",
+                "enum": [
+                  "Production",
+                  "Development/Test",
+                  "Disaster Recovery"
+                ],
+                "example": "Production, Development/Test, Disaster Recovery",
+                "maxLength": 17,
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "system_update_method": {
+            "description": "System update method",
+            "enum": [
+              "dnf",
+              "rpm-ostree",
+              "yum"
+            ],
+            "example": "dnf, rpm-ostree, yum",
+            "maxLength": 10,
+            "type": "string"
+          },
+          "tuned_profile": {
+            "description": "Current profile resulting from command tuned-adm active",
+            "example": "desktop, example, laptop",
+            "maxLength": 256,
+            "type": "string"
+          },
+          "yum_repos": {
+            "items": {
+              "$ref": "#/components/schemas/SystemProfileYumRepo",
+              "x-scope": [
+                "",
+                "#/components/schemas/SystemProfileByHostOut",
+                "#/components/schemas/HostSystemProfileOut",
+                "#/components/schemas/SystemProfile"
+              ]
+            },
+            "type": "array",
+            "x-indexed": false
+          }
+        },
+        "title": "SystemProfile",
+        "type": "object"
+      },
+      "SystemProfileByHostOut": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileByHostOut"
+            ]
+          },
+          {
+            "properties": {
+              "results": {
+                "description": "Actual host search query result entries.",
+                "items": {
+                  "$ref": "#/components/schemas/HostSystemProfileOut",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/SystemProfileByHostOut"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "results"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "Structure of the output of the host system profile query",
+        "title": "A host system profile query result"
+      },
+      "SystemProfileDiskDevice": {
+        "description": "Representation of one mounted device",
+        "properties": {
+          "device": {
+            "example": "/dev/fdd0, /dev/sda1, /dev/nvme2",
+            "maxLength": 2048,
+            "type": "string"
+          },
+          "label": {
+            "description": "User-defined mount label",
+            "example": "foo, bar, baz",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "mount_point": {
+            "description": "The mount point",
+            "example": "/mnt/remote_nfs_shares, /mnt/local_nfs, /mnt/foo",
+            "maxLength": 2048,
+            "type": "string"
+          },
+          "options": {
+            "$ref": "#/components/schemas/SystemProfileNestedObject",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileByHostOut",
+              "#/components/schemas/HostSystemProfileOut",
+              "#/components/schemas/SystemProfile",
+              "#/components/schemas/SystemProfileDiskDevice"
+            ]
+          },
+          "type": {
+            "description": "The mount type",
+            "example": "ext1, ext2, ext3",
+            "maxLength": 256,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SystemProfileDnfModule": {
+        "description": "Representation of one DNF module",
+        "properties": {
+          "name": {
+            "example": "abc, dfg, pop",
+            "maxLength": 128,
+            "type": "string"
+          },
+          "stream": {
+            "example": "abc, dfg, pop",
+            "maxLength": 2048,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SystemProfileInstalledProduct": {
+        "description": "Representation of one installed product",
+        "properties": {
+          "id": {
+            "description": "The product ID",
+            "example": "abc, dfg, pop",
+            "maxLength": 64,
+            "type": "string"
+          },
+          "name": {
+            "example": "abc, dfg, pop",
+            "maxLength": 512,
+            "type": "string"
+          },
+          "status": {
+            "description": "Subscription status for product",
+            "example": "Subscribed, inactive, canceled",
+            "maxLength": 256,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SystemProfileNestedObject": {
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/SystemProfileNestedObject",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "not": {
+                "type": "object"
+              }
+            }
+          ]
+        },
+        "description": "An arbitrary object that does not allow empty string keys.",
+        "type": "object",
+        "x-propertyNames": {
+          "minLength": 1
+        }
+      },
+      "SystemProfileNetworkInterface": {
+        "description": "Representation of one network interface",
+        "properties": {
+          "ipv4_addresses": {
+            "items": {
+              "description": "The ipv4 address of the system",
+              "example": "227.161.169.210 30.143.76.153 233.87.178.7, 60.209.47.155 40.124.217.134, 67.77.119.70",
+              "format": "ipv4",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ipv6_addresses": {
+            "items": {
+              "description": "The ipv6 address of the system",
+              "example": "8886:2565:f753:1bbb:1d08:4239:c470:a889, dd2e:879f:afff:7845:b346:bb88:bcf2:4b1b, e979:3081:7218:4c98:fd19:5777:309a:957b",
+              "format": "ipv6",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "mac_address": {
+            "description": "MAC address (with or without colons)",
+            "example": "00:00:00:00:00:00, 100000000000, 20:00:00:00:00:00",
+            "maxLength": 59,
+            "pattern": "^([A-Fa-f0-9]{2}[:-]){5}[A-Fa-f0-9]{2}$|^([A-Fa-f0-9]{4}[.]){2}[A-Fa-f0-9]{4}$|^[A-Fa-f0-9]{12}$|^([A-Fa-f0-9]{2}[:-]){19}[A-Fa-f0-9]{2}$|^[A-Fa-f0-9]{40}$",
+            "type": "string"
+          },
+          "mtu": {
+            "description": "MTU (Maximum transmission unit)",
+            "format": "int32",
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name of interface",
+            "example": "eth0, eth1, eth2",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "state": {
+            "description": "Interface state (UP, DOWN, UNKNOWN)",
+            "example": "UP, DOWN, UNKNOWN",
+            "maxLength": 25,
+            "type": "string"
+          },
+          "type": {
+            "description": "Interface type (ether, loopback)",
+            "example": "ether, infiniband, loopback",
+            "maxLength": 18,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SystemProfileOperatingSystemOut": {
+        "properties": {
+          "count": {
+            "$ref": "#/components/schemas/Count",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileOperatingSystemOut"
+            ]
+          },
+          "results": {
+            "description": "The list of operating_system values on the account",
+            "items": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "value": {
+                  "properties": {
+                    "major": {
+                      "nullable": true,
+                      "type": "integer"
+                    },
+                    "minor": {
+                      "nullable": true,
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "total": {
+            "$ref": "#/components/schemas/Total",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileOperatingSystemOut"
+            ]
+          }
+        }
+      },
+      "SystemProfileSapSystemOut": {
+        "properties": {
+          "count": {
+            "$ref": "#/components/schemas/Count",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileSapSystemOut"
+            ]
+          },
+          "results": {
+            "description": "The list of sap_system values on the account",
+            "items": {
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "value": {
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "boolean"
+                    }
+                  ]
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "total": {
+            "$ref": "#/components/schemas/Total",
+            "x-scope": [
+              "",
+              "#/components/schemas/SystemProfileSapSystemOut"
+            ]
+          }
+        },
+        "type": "object"
+      },
+      "SystemProfileYumRepo": {
+        "description": "Representation of one yum repository",
+        "properties": {
+          "base_url": {
+            "example": "abc, dfg, pop",
+            "format": "uri",
+            "maxLength": 2048,
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "gpgcheck": {
+            "type": "boolean"
+          },
+          "id": {
+            "example": "abc, dfg, pop",
+            "maxLength": 256,
+            "type": "string"
+          },
+          "mirrorlist": {
+            "description": "URL of a mirrorlist for the repository",
+            "example": "https://rhui.redhat.com/pulp/mirror/content/dist/rhel8/rhui/$releasever/$basearch/baseos/os",
+            "format": "uri",
+            "maxLength": 2048,
+            "type": "string"
+          },
+          "name": {
+            "example": "abc, dfg, pop",
+            "maxLength": 1024,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TagCountOut": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/TagCountOut"
+            ]
+          },
+          {
+            "properties": {
+              "results": {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "description": "The list of tags on the systems",
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "TagsOut": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/TagsOut"
+            ]
+          },
+          {
+            "properties": {
+              "results": {
+                "additionalProperties": {
+                  "items": {
+                    "$ref": "#/components/schemas/StructuredTag",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/TagsOut"
+                    ]
+                  },
+                  "type": "array"
+                },
+                "description": "The list of tags on the systems",
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "Total": {
+        "description": "Total number of items",
+        "type": "integer"
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "description": "Base64-encoded JSON identity header provided by 3Scale. Contains an org_id of the user issuing the request. Format of the JSON: {\"identity\": {\"org_id\": \"12345678\"}}",
+        "in": "header",
+        "name": "x-rh-identity",
+        "type": "apiKey",
+        "x-apikeyInfoFunc": "app.auth.authentication_header_handler"
+      },
+      "BearerAuth": {
+        "scheme": "bearer",
+        "type": "http",
+        "x-bearerInfoFunc": "app.auth.bearer_token_handler"
+      }
+    }
+  },
+  "info": {
+    "description": "REST interface for the Insights Platform Host Inventory application.",
+    "title": "Insights Host Inventory REST Interface",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/groups": {
+      "get": {
+        "description": "Read the entire list of all groups available to the account. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read",
+        "operationId": "api.group.get_group_list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupName",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderHowParam",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupQueryOutput",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully read the groups list."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Read the entire list of groups [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      },
+      "post": {
+        "description": "Creates a new group containing the hosts associated with the host IDs provided. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.group.create_group",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGroup",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "Data required to create a record for a group.",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully created new Group."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create a new group matching the provided name and list of hosts IDs [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      }
+    },
+    "/groups/{group_id_list}": {
+      "get": {
+        "description": "Find one or more groups by their IDs. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read",
+        "operationId": "api.group.get_groups_by_id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupIdList",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupQueryOutput",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully searched for groups."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Groups not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find groups by their IDs [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      }
+    },
+    "/groups/{group_id}": {
+      "delete": {
+        "description": "Delete a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.group.delete_group",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Group was successfully deleted."
+          },
+          "400": {
+            "description": "Invalid request."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Delete a group [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      },
+      "get": {
+        "description": "Find a group by its ID. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read",
+        "operationId": "api.group.get_group",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully searched for group."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find a group by its ID [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      },
+      "patch": {
+        "description": "Merge group information. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.group.patch_group_by_id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupIn",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "A dictionary with the new information to merge with the original one.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully merged group information."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Group not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Merge group information [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      },
+      "put": {
+        "description": "Replace information from a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.group.update_group_details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupIn",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "A dictionary with the information to replace the original one.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully replaced group information."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Group not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Replace group information [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      }
+    },
+    "/groups/{group_id}/{host_id_list}": {
+      "delete": {
+        "description": "Delete one or more hosts from a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.group.delete_hosts_from_group",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted hosts."
+          },
+          "400": {
+            "description": "Invalid request."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Delete one or more hosts from a group [Not Implemented]",
+        "tags": [
+          "groups"
+        ]
+      }
+    },
+    "/hosts": {
+      "delete": {
+        "description": "Delete the entire list of hosts filtered by the given parameters. <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.delete_hosts_by_filter",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/displayName",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/fqdn",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/hostnameOrId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/insightsId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/providerId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/providerType",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/registered_with",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/stalenessNoDefaultsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/tagsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/filter_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request for deletion of filtered hosts has been accepted."
+          },
+          "400": {
+            "description": "Invalid request."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Delete the entire list of hosts filtered by the given parameters",
+        "tags": [
+          "hosts"
+        ]
+      },
+      "get": {
+        "description": "Read the entire list of all hosts available to the account. <br /><br /> Required permissions: inventory:hosts:read",
+        "operationId": "api.host.get_host_list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/displayName",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/fqdn",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/hostnameOrId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/insightsId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/providerId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/providerType",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderHowParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/stalenessParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/tagsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/registered_with",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/filter_param",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/fields_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HostQueryOutput",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully read the hosts list."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Read the entire list of hosts",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/all": {
+      "delete": {
+        "description": "Delete all hosts on the account.  The request must include \"confirm_delete_all=true\". <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.delete_all_hosts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/confirmDeleteAll",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request for deleting all hosts has been accepted."
+          },
+          "400": {
+            "description": "Invalid request."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Delete all hosts on the account",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/checkin": {
+      "post": {
+        "description": "Finds a host and updates its staleness timestamps. It uses the supplied canonical facts to determine which host to update. By default, the staleness timestamp is set to 1 hour from when the request is received; however, this can be overridden by supplying the interval. <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.host_checkin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCheckIn",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "Data required to create a check-in record for a host.",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateHostOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully checked in Host."
+          },
+          "404": {
+            "description": "Not Found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Update staleness timestamps for a host matching the provided facts",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/{host_id_list}": {
+      "delete": {
+        "description": "Delete hosts by IDs <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.delete_host_by_id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted hosts."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Host not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Delete hosts by IDs",
+        "tags": [
+          "hosts"
+        ]
+      },
+      "get": {
+        "description": "Find one or more hosts by their ID. <br /><br /> Required permissions: inventory:hosts:read",
+        "operationId": "api.host.get_host_by_id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderHowParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/fields_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HostQueryOutput",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully searched for hosts."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Host not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find hosts by their IDs",
+        "tags": [
+          "hosts"
+        ]
+      },
+      "patch": {
+        "description": "Update a host <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.patch_host_by_id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchHostIn",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "A group of fields to be updated on the host",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated the host."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Host not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Update a host",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/{host_id_list}/facts/{namespace}": {
+      "patch": {
+        "description": "Merge one or multiple hosts facts under a namespace. <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.merge_facts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/factsNamespace",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Facts",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "A dictionary with the new facts to merge with the original ones.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully merged facts."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Host or namespace not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Merge facts under a namespace",
+        "tags": [
+          "hosts"
+        ]
+      },
+      "put": {
+        "description": "Replace facts under a namespace <br /><br /> Required permissions: inventory:hosts:write",
+        "operationId": "api.host.replace_facts",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/factsNamespace",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Facts",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "A dictionary with the new facts to replace the original ones.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully replaced facts."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Host or namespace not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Replace facts under a namespace",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/{host_id_list}/system_profile": {
+      "get": {
+        "description": "Find one or more hosts by their ID and return the id and system profile <br /><br /> Required permissions: inventory:hosts:read",
+        "operationId": "api.host.get_host_system_profile_by_id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderHowParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/branchId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/fields_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemProfileByHostOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully searched for hosts."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Host not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Return one or more hosts system profile",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/{host_id_list}/tags": {
+      "get": {
+        "description": "Get the tags on a host <br /><br /> Required permissions: inventory:hosts:read",
+        "operationId": "api.host.get_host_tags",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderHowParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/searchParam",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagsOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully found tags."
+          },
+          "400": {
+            "description": "Invalid request."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get the tags on a host",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/hosts/{host_id_list}/tags/count": {
+      "get": {
+        "description": "Get the number of tags on a host <br /><br /> Required permissions: inventory:hosts:read",
+        "operationId": "api.host.get_host_tag_count",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hostIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/orderHowParam",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagCountOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully found tag count."
+          },
+          "400": {
+            "description": "Invalid request."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get the number of tags on a host",
+        "tags": [
+          "hosts"
+        ]
+      }
+    },
+    "/system_profile/operating_system": {
+      "get": {
+        "description": "Required permissions: inventory:hosts:read",
+        "operationId": "api.system_profile.get_operating_system",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tagsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/stalenessParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/registered_with",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/filter_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemProfileOperatingSystemOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "operating system versions and counts on the account"
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "$ref": "#/components/responses/PageOutOfBounds",
+            "x-scope": [
+              ""
+            ]
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "get all operating system versions and counts on the account",
+        "tags": [
+          "system_profile"
+        ]
+      }
+    },
+    "/system_profile/sap_sids": {
+      "get": {
+        "description": "Required permissions: inventory:hosts:read",
+        "operationId": "api.system_profile.get_sap_sids",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/searchParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/tagsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/stalenessParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/registered_with",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/filter_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemProfileSapSystemOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "sap_system values and counts for the account"
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "$ref": "#/components/responses/PageOutOfBounds",
+            "x-scope": [
+              ""
+            ]
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "get all sap sids values and counts on the account",
+        "tags": [
+          "system_profile"
+        ]
+      }
+    },
+    "/system_profile/sap_system": {
+      "get": {
+        "description": "Required permissions: inventory:hosts:read",
+        "operationId": "api.system_profile.get_sap_system",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tagsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/stalenessParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/registered_with",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/filter_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemProfileSapSystemOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "sap_system values and counts for the account"
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "$ref": "#/components/responses/PageOutOfBounds",
+            "x-scope": [
+              ""
+            ]
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "get all sap system values and counts on the account",
+        "tags": [
+          "system_profile"
+        ]
+      }
+    },
+    "/system_profile/validate_schema": {
+      "post": {
+        "description": "Validates System Profile data from recent Kafka messages against a given spec, and compares it with the current one. Only HBI Admins can access this endpoint.",
+        "operationId": "api.system_profile.validate_schema",
+        "parameters": [
+          {
+            "description": "The fork of the inventory-schemas repo to use",
+            "in": "query",
+            "name": "repo_fork",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The branch of the inventory-schemas repo to use",
+            "in": "query",
+            "name": "repo_branch",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "How many days worth of data to validate",
+            "in": "query",
+            "name": "days",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Stops polling when this number of messages has been collected",
+            "in": "query",
+            "name": "max_messages",
+            "schema": {
+              "default": 10000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Host validation results"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "validate system profile schema"
+      }
+    },
+    "/tags": {
+      "get": {
+        "description": "Required permissions: inventory:hosts:read",
+        "operationId": "api.tag.get_tags",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/tagsParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/tagsOrderBy",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/tagsOrderHow",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/stalenessParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/searchParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/displayName",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/fqdn",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/hostnameOrId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/insightsId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/providerId",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/providerType",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/registered_with",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/filter_param",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActiveTags",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Tags"
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "$ref": "#/components/responses/PageOutOfBounds",
+            "x-scope": [
+              ""
+            ]
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get the active host tags for a given account",
+        "tags": [
+          "tags"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/api/inventory/v1"
+    }
+  ]
+}

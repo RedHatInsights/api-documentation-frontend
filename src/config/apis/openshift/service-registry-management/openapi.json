@@ -112,8 +112,7 @@
         },
         "security": [
           {
-            "Bearer": [
-            ]
+            "Bearer": []
           }
         ],
         "operationId": "getRegistries",
@@ -193,8 +192,7 @@
         },
         "security": [
           {
-            "Bearer": [
-            ]
+            "Bearer": []
           }
         ],
         "operationId": "createRegistry",
@@ -266,8 +264,7 @@
         },
         "security": [
           {
-            "Bearer": [
-            ]
+            "Bearer": []
           }
         ],
         "operationId": "getRegistry",
@@ -330,8 +327,7 @@
         },
         "security": [
           {
-            "Bearer": [
-            ]
+            "Bearer": []
           }
         ],
         "operationId": "deleteRegistry",
@@ -486,8 +482,7 @@
         },
         "security": [
           {
-            "Bearer": [
-            ]
+            "Bearer": []
           }
         ],
         "operationId": "getServiceStatus",

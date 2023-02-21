@@ -226,20 +226,9 @@
                 "$ref": "#/components/schemas/Rating"
               }
             }
-
           }
         },
         "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Rating"
-                }
-              }
-            }
-          },
           "200": {
             "description": "Updated an existing rating submitted by same user",
             "content": {
@@ -250,8 +239,18 @@
               }
             }
           },
-          "422": {
-            "description": "Invalid choice of input for rating",
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Rating"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
@@ -280,8 +279,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad request",
+          "422": {
+            "description": "Invalid choice of input for rating",
             "content": {
               "application/json": {
                 "schema": {
@@ -293,7 +292,6 @@
         }
       }
     }
-
   },
   "components": {
     "schemas": {
@@ -320,7 +318,7 @@
           "limit": {
             "type": "integer"
           },
-          "offset" : {
+          "offset": {
             "type": "integer"
           },
           "count": {
@@ -351,7 +349,7 @@
           "success": {
             "type": "boolean"
           },
-          "code" : {
+          "code": {
             "type": "string"
           },
           "count": {
@@ -368,7 +366,6 @@
               }
             }
           }
-
         }
       },
       "SystemItem": {
@@ -467,7 +464,11 @@
           },
           "rating": {
             "type": "integer",
-            "enum": [-1, 0, 1]
+            "enum": [
+              -1,
+              0,
+              1
+            ]
           },
           "number_of_suggestions": {
             "type": "integer"
@@ -640,7 +641,7 @@
               },
               "instance_types_highlights": {
                 "type": "object",
-                "properties":{
+                "properties": {
                   "current": {
                     "type": "object",
                     "properties": {
@@ -791,7 +792,11 @@
           },
           "rating": {
             "type": "integer",
-            "enum": [-1, 0, 1]
+            "enum": [
+              -1,
+              0,
+              1
+            ]
           }
         }
       },
@@ -901,7 +906,6 @@
           }
         }
       }
-
     },
     "securitySchemes": {
       "RhIdentity": {

@@ -1,316 +1,316 @@
 {
-    "openapi": "3.0.3",
-    "info": {
-        "title": "Insights Advisor API",
-        "version": "1.0.0",
-        "description": "The API of the Advisor project in Insights"
-    },
-    "paths": {
-        "/api/insights/v1/kcs/": {
-            "get": {
-                "operationId": "kcs_list",
-                "description": "Looks for all active rules with KCS solutions\n\nReturns a list of dicts of the C.R.C rule URL and its KCS solution number",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "node_ids",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "type": "string",
-                                "format": "regex",
-                                "pattern": "\\d+"
-                            }
-                        },
-                        "description": "Display the rule urls for the given list of comma separated KCS solution node_ids",
-                        "style": "form"
-                    }
-                ],
-                "tags": [
-                    "kcs"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Kcs"
-                                    }
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/kcs/{node_id}/": {
-            "get": {
-                "operationId": "kcs_retrieve",
-                "description": "Gets active rule(s) for a particular KCS solution (node_id)\n\nReturns a list of C.R.C rule url(s) for that KCS solution",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "node_id",
-                        "schema": {
-                            "type": "string",
-                            "description": "KCS solution number"
-                        },
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "kcs"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string",
-                                        "format": "uri",
-                                        "description": "Rule URL on C.R.C."
-                                    }
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/rulecategory/": {
-            "get": {
-                "operationId": "rulecategory_list",
-                "description": "Rules are divided into categories, the usual being Availability,\nStability, Security and Performance.\n\nCategories are listed in decreasing order of importance.",
-                "tags": [
-                    "rulecategory"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/RuleCategory"
-                                    }
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/rulecategory/{id}/": {
-            "get": {
-                "operationId": "rulecategory_retrieve",
-                "description": "Rules are divided into categories, the usual being Availability,\nStability, Security and Performance.\n\nCategories are listed in decreasing order of importance.",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "description": "A unique integer value identifying this rule category.",
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "rulecategory"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RuleCategory"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/status/": {
-            "get": {
-                "operationId": "status_retrieve",
-                "description": "Provide a simple list of URLs contained here.\n\nA list of statistics views.",
-                "tags": [
-                    "status"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "No response body"
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/status/live/": {
-            "get": {
-                "operationId": "status_live_retrieve",
-                "description": "Is the Advisor API live and serving requests?\n\nThis returns a dictionary with properties defining the status of the\ncomponents Advisor relies on.\n\nAt the moment this is the same as the Readiness check (see `/ready/`).\nIn the future it may include other checks if we need to, but the\nproperties of `/ready/` will always be included.",
-                "tags": [
-                    "status"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "No response body"
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/status/ready/": {
-            "get": {
-                "operationId": "status_ready_retrieve",
-                "description": "Is the Advisor API ready to serve requests?\n\nThis returns a dictionary with properties defining the status of the\ncomponents Advisor relies on.\n\n* 'django' should always be True.  If Django isn't ready, you can't\n  get this information :-)\n* 'database' is True when a database access returns successfully with\n  valid information.\n* 'rbac' is True when we can make a request to the RBAC API and get\n  a valid response.\n* 'advisor' is True if all of the above are True.",
-                "tags": [
-                    "status"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "No response body"
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/systemtype/": {
-            "get": {
-                "operationId": "systemtype_list",
-                "description": "List all system types by role and product code",
-                "summary": "List all system types",
-                "tags": [
-                    "systemtype"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/SystemType"
-                                    }
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        },
-        "/api/insights/v1/systemtype/{id}/": {
-            "get": {
-                "operationId": "systemtype_retrieve",
-                "description": "Retrieve details of a single system type",
-                "summary": "Retrieve a system type",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "schema": {
-                            "type": "integer"
-                        },
-                        "description": "A unique integer value identifying this system type.",
-                        "required": true
-                    }
-                ],
-                "tags": [
-                    "systemtype"
-                ],
-                "responses": {
-                    "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/SystemType"
-                                }
-                            }
-                        },
-                        "description": ""
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "Kcs": {
-                "type": "object",
-                "description": "Pairings of C.R.C rule URL and its KCS solution number (node_id)",
-                "properties": {
-                    "rule_url": {
-                        "type": "string",
-                        "format": "uri",
-                        "description": "Rule URL on C.R.C."
-                    },
-                    "node_id": {
-                        "type": "string",
-                        "description": "KCS solution number"
-                    }
-                },
-                "required": [
-                    "node_id",
-                    "rule_url"
-                ]
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Insights Advisor API",
+    "version": "1.0.0",
+    "description": "The API of the Advisor project in Insights"
+  },
+  "paths": {
+    "/api/insights/v1/kcs/": {
+      "get": {
+        "operationId": "kcs_list",
+        "description": "Looks for all active rules with KCS solutions\n\nReturns a list of dicts of the C.R.C rule URL and its KCS solution number",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "node_ids",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "regex",
+                "pattern": "\\d+"
+              }
             },
-            "RuleCategory": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "readOnly": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "maxLength": 20
-                    }
-                },
-                "required": [
-                    "id",
-                    "name"
-                ]
+            "description": "Display the rule urls for the given list of comma separated KCS solution node_ids",
+            "style": "form"
+          }
+        ],
+        "tags": [
+          "kcs"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Kcs"
+                  }
+                }
+              }
             },
-            "SystemType": {
-                "type": "object",
-                "description": "RHN-based system types classified by role and product code.",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "readOnly": true
-                    },
-                    "role": {
-                        "type": "string",
-                        "maxLength": 15
-                    },
-                    "product_code": {
-                        "type": "string",
-                        "maxLength": 10
-                    }
-                },
-                "required": [
-                    "id",
-                    "product_code",
-                    "role"
-                ]
-            }
+            "description": ""
+          }
         }
+      }
     },
-    "servers": [
-        {
-            "url": "https://console.redhat.com/",
-            "description": "The API of the Advisor project in Insights"
-        },
-        {
-            "url": "https://cloud.redhat.com/",
-            "description": "The API of the Advisor project in Insights"
+    "/api/insights/v1/kcs/{node_id}/": {
+      "get": {
+        "operationId": "kcs_retrieve",
+        "description": "Gets active rule(s) for a particular KCS solution (node_id)\n\nReturns a list of C.R.C rule url(s) for that KCS solution",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "node_id",
+            "schema": {
+              "type": "string",
+              "description": "KCS solution number"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "kcs"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Rule URL on C.R.C."
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
         }
-    ]
+      }
+    },
+    "/api/insights/v1/rulecategory/": {
+      "get": {
+        "operationId": "rulecategory_list",
+        "description": "Rules are divided into categories, the usual being Availability,\nStability, Security and Performance.\n\nCategories are listed in decreasing order of importance.",
+        "tags": [
+          "rulecategory"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RuleCategory"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/insights/v1/rulecategory/{id}/": {
+      "get": {
+        "operationId": "rulecategory_retrieve",
+        "description": "Rules are divided into categories, the usual being Availability,\nStability, Security and Performance.\n\nCategories are listed in decreasing order of importance.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "A unique integer value identifying this rule category.",
+            "required": true
+          }
+        ],
+        "tags": [
+          "rulecategory"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RuleCategory"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/insights/v1/status/": {
+      "get": {
+        "operationId": "status_retrieve",
+        "description": "Provide a simple list of URLs contained here.\n\nA list of statistics views.",
+        "tags": [
+          "status"
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        }
+      }
+    },
+    "/api/insights/v1/status/live/": {
+      "get": {
+        "operationId": "status_live_retrieve",
+        "description": "Is the Advisor API live and serving requests?\n\nThis returns a dictionary with properties defining the status of the\ncomponents Advisor relies on.\n\nAt the moment this is the same as the Readiness check (see `/ready/`).\nIn the future it may include other checks if we need to, but the\nproperties of `/ready/` will always be included.",
+        "tags": [
+          "status"
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        }
+      }
+    },
+    "/api/insights/v1/status/ready/": {
+      "get": {
+        "operationId": "status_ready_retrieve",
+        "description": "Is the Advisor API ready to serve requests?\n\nThis returns a dictionary with properties defining the status of the\ncomponents Advisor relies on.\n\n* 'django' should always be True.  If Django isn't ready, you can't\n  get this information :-)\n* 'database' is True when a database access returns successfully with\n  valid information.\n* 'rbac' is True when we can make a request to the RBAC API and get\n  a valid response.\n* 'advisor' is True if all of the above are True.",
+        "tags": [
+          "status"
+        ],
+        "responses": {
+          "200": {
+            "description": "No response body"
+          }
+        }
+      }
+    },
+    "/api/insights/v1/systemtype/": {
+      "get": {
+        "operationId": "systemtype_list",
+        "description": "List all system types by role and product code",
+        "summary": "List all system types",
+        "tags": [
+          "systemtype"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SystemType"
+                  }
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/insights/v1/systemtype/{id}/": {
+      "get": {
+        "operationId": "systemtype_retrieve",
+        "description": "Retrieve details of a single system type",
+        "summary": "Retrieve a system type",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "A unique integer value identifying this system type.",
+            "required": true
+          }
+        ],
+        "tags": [
+          "systemtype"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemType"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Kcs": {
+        "type": "object",
+        "description": "Pairings of C.R.C rule URL and its KCS solution number (node_id)",
+        "properties": {
+          "rule_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Rule URL on C.R.C."
+          },
+          "node_id": {
+            "type": "string",
+            "description": "KCS solution number"
+          }
+        },
+        "required": [
+          "node_id",
+          "rule_url"
+        ]
+      },
+      "RuleCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 20
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "SystemType": {
+        "type": "object",
+        "description": "RHN-based system types classified by role and product code.",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "readOnly": true
+          },
+          "role": {
+            "type": "string",
+            "maxLength": 15
+          },
+          "product_code": {
+            "type": "string",
+            "maxLength": 10
+          }
+        },
+        "required": [
+          "id",
+          "product_code",
+          "role"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://console.redhat.com/",
+      "description": "The API of the Advisor project in Insights"
+    },
+    {
+      "url": "https://cloud.redhat.com/",
+      "description": "The API of the Advisor project in Insights"
+    }
+  ]
 }

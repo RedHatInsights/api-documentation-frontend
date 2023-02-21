@@ -11,6 +11,13 @@ export interface APIConfiguration {
   icon: keyof typeof APIConfigurationIcons;
   description: string;
   getApi: () => Promise<OpenAPIV3.Document>;
+  labels: Array<APILabel>;
+}
+
+export interface APILabel {
+  id: string;
+  name: string;
+  type: "use-case" | "service" | "platform";
 }
 
 export const apiConfigurations: Array<APIConfiguration> = [
@@ -23,6 +30,23 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/insights/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "insights",
+        name: "Insights",
+        type: "service",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "automation-hub",
@@ -33,6 +57,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/automation-hub/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "automation",
+        name: "Automation",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "cost-management",
@@ -44,6 +75,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/cost-management/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "spend-management",
+        name: "Spend Management",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "drift",
@@ -54,6 +92,28 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/drift/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "ansible",
+        name: "Ansible",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "system-baseline",
@@ -64,6 +124,28 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/system-baseline/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "ansible",
+        name: "Ansible",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "historical-system-profiles",
@@ -74,6 +156,28 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/historical-system-profiles/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "ansible",
+        name: "Ansible",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "image-builder",
@@ -84,6 +188,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/image-builder/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "deploy",
+        name: "Deploy",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "integrations",
@@ -94,6 +205,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/integrations/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "integrations-and-notifications",
+        name: "Integrations and Notifications",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "inventory",
@@ -105,6 +223,23 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/inventory/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "inventories",
+        name: "Inventories",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "insights",
+        name: "Insights",
+        type: "service",
+      },
+    ],
   },
   {
     id: "notifications",
@@ -115,6 +250,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/notifications/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "integrations-and-notifications",
+        name: "Integrations and Notifications",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "gathering",
@@ -125,6 +267,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/gathering/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "insights-results-aggregator",
@@ -136,6 +290,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/insights-results-aggregator/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "patch",
@@ -146,6 +312,23 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/patch/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "security",
+        name: "Security",
+        type: "use-case",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "playbook-dispatcher",
@@ -157,6 +340,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/playbook-dispatcher/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "insights",
+        name: "Insights",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "policies",
@@ -167,6 +362,23 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/policies/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "ansible",
+        name: "Ansible",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "remediations",
@@ -177,6 +389,33 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/remediations/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "automation",
+        name: "Automation",
+        type: "use-case",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+      {
+        id: "security",
+        name: "Security",
+        type: "use-case",
+      },
+      {
+        id: "ansible",
+        name: "Ansible",
+        type: "service",
+      },
+    ],
   },
   {
     id: "ros",
@@ -187,6 +426,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/ros/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "edge",
@@ -197,6 +448,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/edge/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "edge",
+        name: "Edge",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "rbac",
@@ -207,6 +470,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/rbac/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "identify-and-access-management",
+        name: "Identify and Access Management",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "sources",
@@ -217,6 +487,13 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/sources/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "identify-and-access-management",
+        name: "Identify and Access Management",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "rhsm-subscriptions",
@@ -228,6 +505,28 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/rhsm-subscriptions/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "inventories",
+        name: "Inventories",
+        type: "service",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "edge",
+        name: "Edge",
+        type: "service",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "vulnerability",
@@ -238,6 +537,28 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/hcc-insights/vulnerability/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "observe",
+        name: "Observe",
+        type: "use-case",
+      },
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "security",
+        name: "Security",
+        type: "use-case",
+      },
+      {
+        id: "rhel",
+        name: "RHEL",
+        type: "platform",
+      },
+    ],
   },
   {
     id: "accounts-management-service",
@@ -248,6 +569,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/accounts-management-service/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "authorization-service",
@@ -258,6 +591,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/authorization-service/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "connector-management",
@@ -268,6 +613,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/connector-management/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "kafka-service-fleet-manager-service",
@@ -278,6 +635,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/kafka-service-fleet-manager-service/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "rhacs-service-fleet-manager",
@@ -289,6 +658,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/rhacs-service-fleet-manager/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "service-logs",
@@ -300,6 +681,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/service-logs/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "service-registry-management",
@@ -311,6 +704,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/service-registry-management/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "upgrades-information-service",
@@ -321,6 +726,18 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/upgrades-information-service/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
   {
     id: "web-rca-service",
@@ -331,5 +748,17 @@ export const apiConfigurations: Array<APIConfiguration> = [
       import(
         "./apis/openshift/web-rca-service/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
+    labels: [
+      {
+        id: "openshift",
+        name: "Openshift",
+        type: "platform",
+      },
+      {
+        id: "infrastructure",
+        name: "Infrastructure",
+        type: "use-case",
+      },
+    ],
   },
 ];

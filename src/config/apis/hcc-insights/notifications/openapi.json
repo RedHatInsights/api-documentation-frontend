@@ -1,1 +1,2322 @@
-{"openapi":"3.0.3","paths":{"/notifications/behaviorGroups":{"post":{"tags":["Notification Resource"],"summary":"Create a behavior group - assigning actions and linking to event types as requested","operationId":"NotificationResource_createBehaviorGroup","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateBehaviorGroupRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateBehaviorGroupResponse"}}}},"400":{"description":"Bad or no content passed.","content":{"text/plain":{"schema":{"type":"string"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/behaviorGroups/affectedByRemovalOfEndpoint/{endpointId}":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the behavior groups affected by the removal of an endpoint.","operationId":"NotificationResource_getBehaviorGroupsAffectedByRemovalOfEndpoint","parameters":[{"name":"endpointId","in":"path","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BehaviorGroup"}}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/behaviorGroups/{behaviorGroupId}/actions":{"put":{"tags":["Notification Resource"],"summary":"Update the list of actions of a behavior group.","operationId":"NotificationResource_updateBehaviorGroupActions","parameters":[{"name":"behaviorGroupId","in":"path","description":"The UUID of the behavior group to update","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"requestBody":{"content":{"application/json":{"schema":{"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}}}}},"responses":{"200":{"description":"OK","content":{"text/plain":{"schema":{"type":"string"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/behaviorGroups/{id}":{"put":{"tags":["Notification Resource"],"summary":"Update a behavior group.","operationId":"NotificationResource_updateBehaviorGroup","parameters":[{"name":"id","in":"path","description":"The UUID of the behavior group to update","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"requestBody":{"description":"New parameters","content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateBehaviorGroupRequest"}}},"required":true},"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"boolean"}}}},"400":{"description":"Bad or no content passed.","content":{"text/plain":{"schema":{"type":"string"}}}},"404":{"description":"No behavior group found with the passed id.","content":{"text/plain":{"schema":{"type":"string"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]},"delete":{"tags":["Notification Resource"],"summary":"Delete a behavior group.","operationId":"NotificationResource_deleteBehaviorGroup","parameters":[{"name":"id","in":"path","description":"The UUID of the behavior group to delete","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"boolean"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/bundles/{bundleId}/behaviorGroups":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the behavior groups of a bundle.","operationId":"NotificationResource_findBehaviorGroupsByBundleId","parameters":[{"name":"bundleId","in":"path","description":"UUID of the bundle to retrieve the behavior groups for.","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BehaviorGroup"}}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/bundles/{bundleName}":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the bundle by name","operationId":"NotificationResource_getBundleByName","parameters":[{"name":"bundleName","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Bundle"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/bundles/{bundleName}/applications/{applicationName}":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the application by name of a given bundle name","operationId":"NotificationResource_getApplicationByNameAndBundleName","parameters":[{"name":"applicationName","in":"path","required":true,"schema":{"type":"string"}},{"name":"bundleName","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Application"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/bundles/{bundleName}/applications/{applicationName}/eventTypes/{eventTypeName}":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the event type by name of a given bundle name and application name","operationId":"NotificationResource_getEventTypesByNameAndBundleAndApplicationName","parameters":[{"name":"applicationName","in":"path","required":true,"schema":{"type":"string"}},{"name":"bundleName","in":"path","required":true,"schema":{"type":"string"}},{"name":"eventTypeName","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/EventType"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/eventTypes":{"get":{"tags":["Notification Resource"],"summary":"Retrieve all event types. The returned list can be filtered by bundle or application.","operationId":"NotificationResource_getEventTypes","parameters":[{"name":"applicationIds","in":"query","schema":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}}},{"name":"bundleId","in":"query","schema":{"$ref":"#/components/schemas/UUID"}},{"name":"eventTypeName","in":"query","schema":{"type":"string"}},{"name":"limit","in":"query","schema":{"format":"int32","default":"20","maximum":200,"minimum":1,"type":"integer"}},{"name":"offset","in":"query","schema":{"format":"int32","minimum":0,"type":"integer"}},{"name":"pageNumber","in":"query","schema":{"format":"int32","minimum":1,"type":"integer"}},{"name":"sortBy","in":"query","schema":{"type":"string"},"deprecated":true},{"name":"sort_by","in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PageEventType"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/eventTypes/affectedByRemovalOfBehaviorGroup/{behaviorGroupId}":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the event types affected by the removal of a behavior group.","operationId":"NotificationResource_getEventTypesAffectedByRemovalOfBehaviorGroup","parameters":[{"name":"behaviorGroupId","in":"path","description":"The UUID of the behavior group to check","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/EventType"}}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/eventTypes/{eventTypeId}/behaviorGroups":{"get":{"tags":["Notification Resource"],"summary":"Retrieve the behavior groups linked to an event type.","operationId":"NotificationResource_getLinkedBehaviorGroups","parameters":[{"name":"eventTypeId","in":"path","required":true,"schema":{"$ref":"#/components/schemas/UUID"}},{"name":"limit","in":"query","schema":{"format":"int32","default":"20","maximum":200,"minimum":1,"type":"integer"}},{"name":"offset","in":"query","schema":{"format":"int32","minimum":0,"type":"integer"}},{"name":"pageNumber","in":"query","schema":{"format":"int32","minimum":1,"type":"integer"}},{"name":"sortBy","in":"query","schema":{"type":"string"},"deprecated":true},{"name":"sort_by","in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/BehaviorGroup"}}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]},"put":{"tags":["Notification Resource"],"summary":"Update the list of behavior groups of an event type.","operationId":"NotificationResource_updateEventTypeBehaviors","parameters":[{"name":"eventTypeId","in":"path","description":"UUID of the eventType to associate with the behavior group(s)","required":true,"schema":{"$ref":"#/components/schemas/UUID"}}],"requestBody":{"content":{"application/json":{"schema":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}}}}},"responses":{"200":{"description":"OK","content":{"text/plain":{"schema":{"type":"string"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/events":{"get":{"tags":["Event Resource"],"summary":"Retrieve the event log entries.","description":"Allowed `sort_by` fields are `bundle`, `application`, `event` and `created`. The ordering can be optionally specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `desc` for the `created` field and to `asc` for all other fields.","operationId":"EventResource_getEvents","parameters":[{"name":"appIds","in":"query","schema":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}}},{"name":"bundleIds","in":"query","schema":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}}},{"name":"endDate","in":"query","schema":{"$ref":"#/components/schemas/LocalDate"}},{"name":"endpointTypes","in":"query","schema":{"uniqueItems":true,"type":"array","items":{"type":"string"}}},{"name":"eventTypeDisplayName","in":"query","schema":{"type":"string"}},{"name":"includeActions","in":"query","schema":{"type":"boolean"}},{"name":"includeDetails","in":"query","schema":{"type":"boolean"}},{"name":"includePayload","in":"query","schema":{"type":"boolean"}},{"name":"invocationResults","in":"query","schema":{"uniqueItems":true,"type":"array","items":{"type":"boolean"}}},{"name":"limit","in":"query","schema":{"format":"int32","default":"20","maximum":200,"minimum":1,"type":"integer"}},{"name":"offset","in":"query","schema":{"format":"int32","minimum":0,"type":"integer"}},{"name":"pageNumber","in":"query","schema":{"format":"int32","minimum":1,"type":"integer"}},{"name":"sortBy","in":"query","schema":{"type":"string"},"deprecated":true},{"name":"sort_by","in":"query","schema":{"type":"string"}},{"name":"startDate","in":"query","schema":{"$ref":"#/components/schemas/LocalDate"}},{"name":"status","in":"query","schema":{"uniqueItems":true,"type":"array","items":{"$ref":"#/components/schemas/EventLogEntryActionStatus"}}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PageEventLogEntry"}}}},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/notifications/facets/applications":{"get":{"tags":["Notification Resource"],"summary":"Return a thin list of configured applications. This can be used to configure a filter in the UI","operationId":"NotificationResource_getApplicationsFacets","parameters":[{"name":"bundleName","in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Facet"}}}}}}}},"/notifications/facets/bundles":{"get":{"tags":["Notification Resource"],"summary":"Return a thin list of configured bundles. This can be used to configure a filter in the UI","operationId":"NotificationResource_getBundleFacets","parameters":[{"name":"includeApplications","in":"query","schema":{"type":"boolean"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Facet"}}}}}}}},"/org-config/daily-digest/time-preference":{"get":{"tags":["Org Config Resource"],"operationId":"OrgConfigResource_getDailyDigestTimePreference","responses":{"200":{"description":"OK"},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]},"put":{"tags":["Org Config Resource"],"summary":"Save the daily digest UTC time preference. To cover all time zones conversion to UTC, the accepted minute values are 00, 15, 30 and 45.","operationId":"OrgConfigResource_saveDailyDigestTimePreference","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/LocalTime"}}}},"responses":{"200":{"description":"OK"},"401":{"description":"Not Authorized"},"403":{"description":"Not Allowed"}},"security":[{"SecurityScheme":[]}]}},"/user-config/notification-preference":{"get":{"tags":["User Config Resource"],"operationId":"UserConfigResource_getSettingsSchema","parameters":[{"name":"bundleName","in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"OK"}}},"post":{"tags":["User Config Resource"],"operationId":"UserConfigResource_saveSettings","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SettingsValues"}}}},"responses":{"200":{"description":"OK"}}}},"/user-config/notification-preference/{bundleName}/{applicationName}":{"get":{"tags":["User Config Resource"],"operationId":"UserConfigResource_getPreferences","parameters":[{"name":"applicationName","in":"path","required":true,"schema":{"type":"string"}},{"name":"bundleName","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserConfigPreferences"}}}}}}}},"components":{"schemas":{"AddAccessRequest":{"type":"object","properties":{"role":{"type":"string"},"application_id":{"$ref":"#/components/schemas/UUID"}}},"AddApplicationRequest":{"required":["name","display_name","bundle_id"],"type":"object","properties":{"name":{"maxLength":255,"pattern":"[a-z][a-z_0-9-]*","type":"string"},"display_name":{"type":"string"},"bundle_id":{"$ref":"#/components/schemas/UUID"},"owner_role":{"maxLength":200,"type":"string"}}},"AggregationEmailTemplate":{"required":["subscription_type","subject_template_id","body_template_id"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"application":{"$ref":"#/components/schemas/Application"},"application_id":{"$ref":"#/components/schemas/UUID"},"subscription_type":{"$ref":"#/components/schemas/EmailSubscriptionType"},"subject_template":{"$ref":"#/components/schemas/Template"},"subject_template_id":{"$ref":"#/components/schemas/UUID"},"body_template":{"$ref":"#/components/schemas/Template"},"body_template_id":{"$ref":"#/components/schemas/UUID"}}},"Application":{"required":["name","display_name","bundle_id"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"name":{"maxLength":255,"pattern":"[a-z][a-z_0-9-]*","type":"string"},"display_name":{"type":"string"},"bundle_id":{"$ref":"#/components/schemas/UUID"}}},"Application1":{"required":["id","display_name"],"type":"object","properties":{"id":{"$ref":"#/components/schemas/UUID"},"display_name":{"type":"string"}}},"ApplicationSettingsValue":{"type":"object","properties":{"notifications":{"type":"object","additionalProperties":{"type":"boolean"}},"hasForcedEmail":{"type":"boolean"}}},"BasicAuthentication":{"type":"object","properties":{"username":{"type":"string"},"password":{"type":"string"}}},"BehaviorGroup":{"required":["display_name","bundle_id"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"display_name":{"pattern":"\\S","type":"string"},"bundle_id":{"$ref":"#/components/schemas/UUID"},"bundle":{"$ref":"#/components/schemas/Bundle"},"actions":{"type":"array","items":{"$ref":"#/components/schemas/BehaviorGroupAction"}},"behaviors":{"uniqueItems":true,"type":"array","items":{"$ref":"#/components/schemas/EventTypeBehavior"}},"default_behavior":{"type":"boolean"}}},"BehaviorGroupAction":{"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/BehaviorGroupActionId"},"endpoint":{"$ref":"#/components/schemas/Endpoint"}}},"BehaviorGroupActionId":{"required":["behaviorGroupId","endpointId"],"type":"object","properties":{"behaviorGroupId":{"$ref":"#/components/schemas/UUID"},"endpointId":{"$ref":"#/components/schemas/UUID"}}},"Bundle":{"required":["name","display_name"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"name":{"maxLength":255,"pattern":"[a-z][a-z_0-9-]*","type":"string"},"display_name":{"type":"string"}}},"BundleSettingsValue":{"type":"object","properties":{"applications":{"type":"object","additionalProperties":{"$ref":"#/components/schemas/ApplicationSettingsValue"}}}},"CamelProperties":{"required":["url","disable_ssl_verification"],"type":"object","properties":{"url":{"type":"string"},"disable_ssl_verification":{"type":"boolean"},"secret_token":{"maxLength":255,"type":"string"},"basic_authentication":{"$ref":"#/components/schemas/BasicAuthentication"},"extras":{"type":"object","additionalProperties":{"type":"string"}}}},"CreateBehaviorGroupRequest":{"required":["display_name"],"type":"object","properties":{"bundle_id":{"$ref":"#/components/schemas/UUID"},"bundle_name":{"type":"string"},"display_name":{"maxLength":150,"pattern":"\\S","type":"string"},"endpoint_ids":{"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}},"event_type_ids":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}},"bundle_uuid_or_bundle_name_valid":{"type":"boolean"}}},"CreateBehaviorGroupResponse":{"required":["id","bundle_id","display_name","endpoints","event_types","created"],"type":"object","properties":{"id":{"$ref":"#/components/schemas/UUID"},"bundle_id":{"$ref":"#/components/schemas/UUID"},"display_name":{"type":"string"},"endpoints":{"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}},"event_types":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}},"created":{"$ref":"#/components/schemas/LocalDateTime"}}},"CurrentStatus":{"required":["status"],"type":"object","properties":{"status":{"$ref":"#/components/schemas/Status"},"start_time":{"$ref":"#/components/schemas/LocalDateTime"},"end_time":{"$ref":"#/components/schemas/LocalDateTime"}}},"DuplicateNameMigrationReport":{"type":"object","properties":{"updatedIntegrations":{"format":"int32","type":"integer"},"updatedBehaviorGroups":{"format":"int32","type":"integer"}}},"EmailSubscriptionProperties":{"required":["only_admins","ignore_preferences"],"type":"object","properties":{"only_admins":{"type":"boolean"},"ignore_preferences":{"type":"boolean"},"group_id":{"$ref":"#/components/schemas/UUID"}}},"EmailSubscriptionType":{"enum":["INSTANT","DAILY"],"type":"string"},"Endpoint":{"required":["name","description","type"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"name":{"maxLength":255,"type":"string"},"description":{"type":"string"},"enabled":{"type":"boolean"},"status":{"$ref":"#/components/schemas/EndpointStatus"},"server_errors":{"format":"int32","minimum":0,"type":"integer"},"properties":{"type":"object","allOf":[{"$ref":"#/components/schemas/EndpointProperties"}],"oneOf":[{"$ref":"#/components/schemas/WebhookProperties"},{"$ref":"#/components/schemas/EmailSubscriptionProperties"},{"$ref":"#/components/schemas/CamelProperties"}]},"type":{"$ref":"#/components/schemas/EndpointType"},"sub_type":{"type":"string"}}},"EndpointPage":{"required":["data","links","meta"],"type":"object","properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/Endpoint"}},"links":{"type":"object","additionalProperties":{"type":"string"}},"meta":{"$ref":"#/components/schemas/Meta"}}},"EndpointProperties":{"type":"object"},"EndpointStatus":{"enum":["READY","UNKNOWN","NEW","PROVISIONING","DELETING","FAILED"],"type":"string"},"EndpointType":{"enum":["webhook","email_subscription","camel"],"type":"string"},"Environment":{"enum":["PROD","STAGE","EPHEMERAL","LOCAL_SERVER"],"type":"string"},"EventLogEntry":{"required":["id","created","bundle","application","event_type","actions"],"type":"object","properties":{"id":{"$ref":"#/components/schemas/UUID"},"created":{"$ref":"#/components/schemas/LocalDateTime"},"bundle":{"type":"string"},"application":{"type":"string"},"event_type":{"type":"string"},"payload":{"type":"string"},"actions":{"type":"array","items":{"$ref":"#/components/schemas/EventLogEntryAction"}}}},"EventLogEntryAction":{"required":["id","endpoint_type","invocation_result","status"],"type":"object","properties":{"id":{"$ref":"#/components/schemas/UUID"},"endpoint_type":{"$ref":"#/components/schemas/EndpointType"},"endpoint_sub_type":{"type":"string"},"invocation_result":{"type":"boolean","deprecated":true},"status":{"$ref":"#/components/schemas/EventLogEntryActionStatus"},"endpoint_id":{"$ref":"#/components/schemas/UUID"},"details":{"type":"object","additionalProperties":{"type":"object"}}}},"EventLogEntryActionStatus":{"enum":["SENT","SUCCESS","PROCESSING","FAILED","UNKNOWN"],"type":"string"},"EventType":{"required":["name","display_name","application_id"],"type":"object","properties":{"id":{"$ref":"#/components/schemas/UUID"},"name":{"maxLength":255,"pattern":"[a-z][a-z_0-9-]*","type":"string"},"display_name":{"type":"string"},"description":{"type":"string"},"application_id":{"$ref":"#/components/schemas/UUID"},"application":{"$ref":"#/components/schemas/Application"}}},"EventTypeBehavior":{"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/EventTypeBehaviorId"},"event_type":{"$ref":"#/components/schemas/EventType"}}},"EventTypeBehaviorId":{"required":["eventTypeId","behaviorGroupId"],"type":"object","properties":{"eventTypeId":{"$ref":"#/components/schemas/UUID"},"behaviorGroupId":{"$ref":"#/components/schemas/UUID"}}},"Facet":{"required":["id","name","displayName"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"displayName":{"type":"string"},"children":{"type":"array","items":{"$ref":"#/components/schemas/Facet"}}}},"HttpType":{"enum":["GET","POST","PUT"],"type":"string"},"InstantEmailTemplate":{"required":["subject_template_id","body_template_id"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"event_type":{"$ref":"#/components/schemas/EventType"},"event_type_id":{"$ref":"#/components/schemas/UUID"},"subject_template":{"$ref":"#/components/schemas/Template"},"subject_template_id":{"$ref":"#/components/schemas/UUID"},"body_template":{"$ref":"#/components/schemas/Template"},"body_template_id":{"$ref":"#/components/schemas/UUID"}}},"InternalApplicationUserPermission":{"required":["application_id","application_display_name","role"],"type":"object","properties":{"application_id":{"$ref":"#/components/schemas/UUID"},"application_display_name":{"type":"string"},"role":{"type":"string"}}},"InternalRoleAccess":{"required":["role","application_id"],"type":"object","properties":{"id":{"$ref":"#/components/schemas/UUID"},"role":{"maxLength":200,"type":"string"},"application_id":{"$ref":"#/components/schemas/UUID"}}},"InternalUserPermissions":{"required":["is_admin","applications","roles"],"type":"object","properties":{"is_admin":{"type":"boolean"},"applications":{"type":"array","items":{"$ref":"#/components/schemas/Application1"}},"roles":{"type":"array","items":{"type":"string"}}}},"LocalDate":{"format":"date","type":"string","example":"2022-03-10"},"LocalDateTime":{"format":"date-time","type":"string","example":"2022-03-10T12:15:50"},"LocalTime":{"format":"local-time","type":"string","externalDocs":{"description":"As defined by 'partial-time' in RFC3339","url":"https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14"},"example":"13:45.30.123456789"},"MessageValidationResponse":{"required":["errors"],"type":"object","properties":{"errors":{"type":"object","additionalProperties":{"type":"array","items":{"type":"string"}}}}},"Meta":{"required":["count"],"type":"object","properties":{"count":{"format":"int64","type":"integer"}}},"NotificationHistory":{"required":["invocationTime","invocationResult","status"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"invocationTime":{"format":"int64","type":"integer"},"invocationResult":{"type":"boolean","deprecated":true},"status":{"$ref":"#/components/schemas/NotificationStatus"},"endpointId":{"$ref":"#/components/schemas/UUID"},"details":{"type":"object","additionalProperties":{"type":"object"}},"endpointType":{"$ref":"#/components/schemas/EndpointType"},"endpointSubType":{"type":"string"}}},"NotificationStatus":{"enum":["FAILED_INTERNAL","FAILED_EXTERNAL","PROCESSING","SENT","SUCCESS"],"type":"string"},"PageEventLogEntry":{"required":["data","links","meta"],"type":"object","properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/EventLogEntry"}},"links":{"type":"object","additionalProperties":{"type":"string"}},"meta":{"$ref":"#/components/schemas/Meta"}}},"PageEventType":{"required":["data","links","meta"],"type":"object","properties":{"data":{"type":"array","items":{"$ref":"#/components/schemas/EventType"}},"links":{"type":"object","additionalProperties":{"type":"string"}},"meta":{"$ref":"#/components/schemas/Meta"}}},"RenderEmailTemplateRequest":{"required":["template","payload"],"type":"object","properties":{"template":{"type":"array","items":{"type":"string"}},"payload":{"minLength":1,"type":"string"}}},"RequestDefaultBehaviorGroupPropertyList":{"required":["only_admins","ignore_preferences"],"type":"object","properties":{"only_admins":{"type":"boolean"},"ignore_preferences":{"type":"boolean"}}},"RequestEmailSubscriptionProperties":{"required":["only_admins"],"type":"object","properties":{"only_admins":{"type":"boolean"},"group_id":{"$ref":"#/components/schemas/UUID"}}},"ServerInfo":{"type":"object","properties":{"environment":{"$ref":"#/components/schemas/Environment"}}},"SettingsValues":{"type":"object","properties":{"bundles":{"type":"object","additionalProperties":{"$ref":"#/components/schemas/BundleSettingsValue"}}}},"Status":{"enum":["UP","MAINTENANCE"],"type":"string"},"Template":{"required":["name","description","data"],"type":"object","properties":{"created":{"$ref":"#/components/schemas/LocalDateTime"},"updated":{"$ref":"#/components/schemas/LocalDateTime"},"id":{"$ref":"#/components/schemas/UUID"},"name":{"maxLength":100,"type":"string"},"description":{"type":"string"},"data":{"type":"string"}}},"UUID":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"},"UpdateBehaviorGroupRequest":{"type":"object","properties":{"display_name":{"maxLength":150,"type":"string"},"endpoint_ids":{"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}},"event_type_ids":{"uniqueItems":true,"type":"array","items":{"format":"uuid","pattern":"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}","type":"string"}},"display_name_not_null_and_blank":{"type":"boolean"}}},"UserConfigPreferences":{"type":"object","properties":{"instant_email":{"type":"boolean"},"daily_email":{"type":"boolean"}}},"WebhookProperties":{"required":["url","method","disable_ssl_verification"],"type":"object","properties":{"url":{"type":"string"},"method":{"$ref":"#/components/schemas/HttpType"},"disable_ssl_verification":{"type":"boolean"},"secret_token":{"maxLength":255,"type":"string"},"basic_authentication":{"$ref":"#/components/schemas/BasicAuthentication"}}}},"securitySchemes":{"SecurityScheme":{"type":"http","description":"Authentication","scheme":"basic"}}},"info":{"description":"The API for Notifications","version":"1.0","title":"Notifications"},"servers":[{"url":"https://console.redhat.com/{basePath}","description":"Production Server","variables":{"basePath":{"default":"/api/notifications/v1.0"}}},{"url":"http://localhost:{port}/{basePath}","description":"Development Server","variables":{"basePath":{"default":"/api/notifications/v1.0"},"port":{"default":"8080"}}}]}
+{
+  "openapi": "3.0.3",
+  "paths": {
+    "/notifications/behaviorGroups": {
+      "post": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Create a behavior group - assigning actions and linking to event types as requested",
+        "operationId": "NotificationResource_createBehaviorGroup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBehaviorGroupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBehaviorGroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad or no content passed.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/behaviorGroups/affectedByRemovalOfEndpoint/{endpointId}": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the behavior groups affected by the removal of an endpoint.",
+        "operationId": "NotificationResource_getBehaviorGroupsAffectedByRemovalOfEndpoint",
+        "parameters": [
+          {
+            "name": "endpointId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BehaviorGroup"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/behaviorGroups/{behaviorGroupId}/actions": {
+      "put": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Update the list of actions of a behavior group.",
+        "operationId": "NotificationResource_updateBehaviorGroupActions",
+        "parameters": [
+          {
+            "name": "behaviorGroupId",
+            "in": "path",
+            "description": "The UUID of the behavior group to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "format": "uuid",
+                  "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/behaviorGroups/{id}": {
+      "put": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Update a behavior group.",
+        "operationId": "NotificationResource_updateBehaviorGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The UUID of the behavior group to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New parameters",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBehaviorGroupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad or no content passed.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          },
+          "404": {
+            "description": "No behavior group found with the passed id.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Delete a behavior group.",
+        "operationId": "NotificationResource_deleteBehaviorGroup",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The UUID of the behavior group to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/bundles/{bundleId}/behaviorGroups": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the behavior groups of a bundle.",
+        "operationId": "NotificationResource_findBehaviorGroupsByBundleId",
+        "parameters": [
+          {
+            "name": "bundleId",
+            "in": "path",
+            "description": "UUID of the bundle to retrieve the behavior groups for.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BehaviorGroup"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/bundles/{bundleName}": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the bundle by name",
+        "operationId": "NotificationResource_getBundleByName",
+        "parameters": [
+          {
+            "name": "bundleName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bundle"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/bundles/{bundleName}/applications/{applicationName}": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the application by name of a given bundle name",
+        "operationId": "NotificationResource_getApplicationByNameAndBundleName",
+        "parameters": [
+          {
+            "name": "applicationName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bundleName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Application"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/bundles/{bundleName}/applications/{applicationName}/eventTypes/{eventTypeName}": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the event type by name of a given bundle name and application name",
+        "operationId": "NotificationResource_getEventTypesByNameAndBundleAndApplicationName",
+        "parameters": [
+          {
+            "name": "applicationName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bundleName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventTypeName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/eventTypes": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve all event types. The returned list can be filtered by bundle or application.",
+        "operationId": "NotificationResource_getEventTypes",
+        "parameters": [
+          {
+            "name": "applicationIds",
+            "in": "query",
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "format": "uuid",
+                "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "bundleId",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          },
+          {
+            "name": "eventTypeName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "default": "20",
+              "maximum": 200,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": true
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageEventType"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/eventTypes/affectedByRemovalOfBehaviorGroup/{behaviorGroupId}": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the event types affected by the removal of a behavior group.",
+        "operationId": "NotificationResource_getEventTypesAffectedByRemovalOfBehaviorGroup",
+        "parameters": [
+          {
+            "name": "behaviorGroupId",
+            "in": "path",
+            "description": "The UUID of the behavior group to check",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventType"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/eventTypes/{eventTypeId}/behaviorGroups": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Retrieve the behavior groups linked to an event type.",
+        "operationId": "NotificationResource_getLinkedBehaviorGroups",
+        "parameters": [
+          {
+            "name": "eventTypeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "default": "20",
+              "maximum": 200,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": true
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BehaviorGroup"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Update the list of behavior groups of an event type.",
+        "operationId": "NotificationResource_updateEventTypeBehaviors",
+        "parameters": [
+          {
+            "name": "eventTypeId",
+            "in": "path",
+            "description": "UUID of the eventType to associate with the behavior group(s)",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "uniqueItems": true,
+                "type": "array",
+                "items": {
+                  "format": "uuid",
+                  "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/events": {
+      "get": {
+        "tags": [
+          "Event Resource"
+        ],
+        "summary": "Retrieve the event log entries.",
+        "description": "Allowed `sort_by` fields are `bundle`, `application`, `event` and `created`. The ordering can be optionally specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `desc` for the `created` field and to `asc` for all other fields.",
+        "operationId": "EventResource_getEvents",
+        "parameters": [
+          {
+            "name": "appIds",
+            "in": "query",
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "format": "uuid",
+                "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "bundleIds",
+            "in": "query",
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "format": "uuid",
+                "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/LocalDate"
+            }
+          },
+          {
+            "name": "endpointTypes",
+            "in": "query",
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "eventTypeDisplayName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeActions",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includeDetails",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includePayload",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "invocationResults",
+            "in": "query",
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "default": "20",
+              "maximum": 200,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "format": "int32",
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": true
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/LocalDate"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/EventLogEntryActionStatus"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageEventLogEntry"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/facets/applications": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Return a thin list of configured applications. This can be used to configure a filter in the UI",
+        "operationId": "NotificationResource_getApplicationsFacets",
+        "parameters": [
+          {
+            "name": "bundleName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Facet"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/facets/bundles": {
+      "get": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Return a thin list of configured bundles. This can be used to configure a filter in the UI",
+        "operationId": "NotificationResource_getBundleFacets",
+        "parameters": [
+          {
+            "name": "includeApplications",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Facet"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/org-config/daily-digest/time-preference": {
+      "get": {
+        "tags": [
+          "Org Config Resource"
+        ],
+        "operationId": "OrgConfigResource_getDailyDigestTimePreference",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Org Config Resource"
+        ],
+        "summary": "Save the daily digest UTC time preference. To cover all time zones conversion to UTC, the accepted minute values are 00, 15, 30 and 45.",
+        "operationId": "OrgConfigResource_saveDailyDigestTimePreference",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LocalTime"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/user-config/notification-preference": {
+      "get": {
+        "tags": [
+          "User Config Resource"
+        ],
+        "operationId": "UserConfigResource_getSettingsSchema",
+        "parameters": [
+          {
+            "name": "bundleName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User Config Resource"
+        ],
+        "operationId": "UserConfigResource_saveSettings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingsValues"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user-config/notification-preference/{bundleName}/{applicationName}": {
+      "get": {
+        "tags": [
+          "User Config Resource"
+        ],
+        "operationId": "UserConfigResource_getPreferences",
+        "parameters": [
+          {
+            "name": "applicationName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bundleName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserConfigPreferences"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddAccessRequest": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "application_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "AddApplicationRequest": {
+        "required": [
+          "name",
+          "display_name",
+          "bundle_id"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 255,
+            "pattern": "[a-z][a-z_0-9-]*",
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "bundle_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "owner_role": {
+            "maxLength": 200,
+            "type": "string"
+          }
+        }
+      },
+      "AggregationEmailTemplate": {
+        "required": [
+          "subscription_type",
+          "subject_template_id",
+          "body_template_id"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "application": {
+            "$ref": "#/components/schemas/Application"
+          },
+          "application_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "subscription_type": {
+            "$ref": "#/components/schemas/EmailSubscriptionType"
+          },
+          "subject_template": {
+            "$ref": "#/components/schemas/Template"
+          },
+          "subject_template_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "body_template": {
+            "$ref": "#/components/schemas/Template"
+          },
+          "body_template_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "Application": {
+        "required": [
+          "name",
+          "display_name",
+          "bundle_id"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "maxLength": 255,
+            "pattern": "[a-z][a-z_0-9-]*",
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "bundle_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "Application1": {
+        "required": [
+          "id",
+          "display_name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "display_name": {
+            "type": "string"
+          }
+        }
+      },
+      "ApplicationSettingsValue": {
+        "type": "object",
+        "properties": {
+          "notifications": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "hasForcedEmail": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BasicAuthentication": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "BehaviorGroup": {
+        "required": [
+          "display_name",
+          "bundle_id"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "display_name": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "bundle_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "bundle": {
+            "$ref": "#/components/schemas/Bundle"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BehaviorGroupAction"
+            }
+          },
+          "behaviors": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventTypeBehavior"
+            }
+          },
+          "default_behavior": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BehaviorGroupAction": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/BehaviorGroupActionId"
+          },
+          "endpoint": {
+            "$ref": "#/components/schemas/Endpoint"
+          }
+        }
+      },
+      "BehaviorGroupActionId": {
+        "required": [
+          "behaviorGroupId",
+          "endpointId"
+        ],
+        "type": "object",
+        "properties": {
+          "behaviorGroupId": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "endpointId": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "Bundle": {
+        "required": [
+          "name",
+          "display_name"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "maxLength": 255,
+            "pattern": "[a-z][a-z_0-9-]*",
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          }
+        }
+      },
+      "BundleSettingsValue": {
+        "type": "object",
+        "properties": {
+          "applications": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ApplicationSettingsValue"
+            }
+          }
+        }
+      },
+      "CamelProperties": {
+        "required": [
+          "url",
+          "disable_ssl_verification"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "disable_ssl_verification": {
+            "type": "boolean"
+          },
+          "secret_token": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "basic_authentication": {
+            "$ref": "#/components/schemas/BasicAuthentication"
+          },
+          "extras": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateBehaviorGroupRequest": {
+        "required": [
+          "display_name"
+        ],
+        "type": "object",
+        "properties": {
+          "bundle_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "bundle_name": {
+            "type": "string"
+          },
+          "display_name": {
+            "maxLength": 150,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "endpoint_ids": {
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          },
+          "event_type_ids": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          },
+          "bundle_uuid_or_bundle_name_valid": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateBehaviorGroupResponse": {
+        "required": [
+          "id",
+          "bundle_id",
+          "display_name",
+          "endpoints",
+          "event_types",
+          "created"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "bundle_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "endpoints": {
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          },
+          "event_types": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          },
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          }
+        }
+      },
+      "CurrentStatus": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "start_time": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "end_time": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          }
+        }
+      },
+      "DuplicateNameMigrationReport": {
+        "type": "object",
+        "properties": {
+          "updatedIntegrations": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "updatedBehaviorGroups": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "EmailSubscriptionProperties": {
+        "required": [
+          "only_admins",
+          "ignore_preferences"
+        ],
+        "type": "object",
+        "properties": {
+          "only_admins": {
+            "type": "boolean"
+          },
+          "ignore_preferences": {
+            "type": "boolean"
+          },
+          "group_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "EmailSubscriptionType": {
+        "enum": [
+          "DAILY"
+        ],
+        "type": "string"
+      },
+      "Endpoint": {
+        "required": [
+          "name",
+          "description",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EndpointStatus"
+          },
+          "server_errors": {
+            "format": "int32",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "properties": {
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EndpointProperties"
+              }
+            ],
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WebhookProperties"
+              },
+              {
+                "$ref": "#/components/schemas/EmailSubscriptionProperties"
+              },
+              {
+                "$ref": "#/components/schemas/CamelProperties"
+              }
+            ]
+          },
+          "type": {
+            "$ref": "#/components/schemas/EndpointType"
+          },
+          "sub_type": {
+            "type": "string"
+          }
+        }
+      },
+      "EndpointPage": {
+        "required": [
+          "data",
+          "links",
+          "meta"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Endpoint"
+            }
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "EndpointProperties": {
+        "type": "object"
+      },
+      "EndpointStatus": {
+        "enum": [
+          "READY",
+          "UNKNOWN",
+          "NEW",
+          "PROVISIONING",
+          "DELETING",
+          "FAILED"
+        ],
+        "type": "string"
+      },
+      "EndpointType": {
+        "enum": [
+          "webhook",
+          "email_subscription",
+          "camel"
+        ],
+        "type": "string"
+      },
+      "Environment": {
+        "enum": [
+          "PROD",
+          "STAGE",
+          "EPHEMERAL",
+          "LOCAL_SERVER"
+        ],
+        "type": "string"
+      },
+      "EventLogEntry": {
+        "required": [
+          "id",
+          "created",
+          "bundle",
+          "application",
+          "event_type",
+          "actions"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "bundle": {
+            "type": "string"
+          },
+          "application": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventLogEntryAction"
+            }
+          }
+        }
+      },
+      "EventLogEntryAction": {
+        "required": [
+          "id",
+          "endpoint_type",
+          "invocation_result",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "endpoint_type": {
+            "$ref": "#/components/schemas/EndpointType"
+          },
+          "endpoint_sub_type": {
+            "type": "string"
+          },
+          "invocation_result": {
+            "type": "boolean",
+            "deprecated": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventLogEntryActionStatus"
+          },
+          "endpoint_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "EventLogEntryActionStatus": {
+        "enum": [
+          "SENT",
+          "SUCCESS",
+          "PROCESSING",
+          "FAILED",
+          "UNKNOWN"
+        ],
+        "type": "string"
+      },
+      "EventType": {
+        "required": [
+          "name",
+          "display_name",
+          "application_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "maxLength": 255,
+            "pattern": "[a-z][a-z_0-9-]*",
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "application_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "application": {
+            "$ref": "#/components/schemas/Application"
+          }
+        }
+      },
+      "EventTypeBehavior": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/EventTypeBehaviorId"
+          },
+          "event_type": {
+            "$ref": "#/components/schemas/EventType"
+          }
+        }
+      },
+      "EventTypeBehaviorId": {
+        "required": [
+          "eventTypeId",
+          "behaviorGroupId"
+        ],
+        "type": "object",
+        "properties": {
+          "eventTypeId": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "behaviorGroupId": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "Facet": {
+        "required": [
+          "id",
+          "name",
+          "displayName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Facet"
+            }
+          }
+        }
+      },
+      "HttpType": {
+        "enum": [
+          "GET",
+          "POST",
+          "PUT"
+        ],
+        "type": "string"
+      },
+      "InstantEmailTemplate": {
+        "required": [
+          "subject_template_id",
+          "body_template_id"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "event_type": {
+            "$ref": "#/components/schemas/EventType"
+          },
+          "event_type_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "subject_template": {
+            "$ref": "#/components/schemas/Template"
+          },
+          "subject_template_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "body_template": {
+            "$ref": "#/components/schemas/Template"
+          },
+          "body_template_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "InternalApplicationUserPermission": {
+        "required": [
+          "application_id",
+          "application_display_name",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "application_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "application_display_name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "InternalRoleAccess": {
+        "required": [
+          "role",
+          "application_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "role": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "application_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "InternalUserPermissions": {
+        "required": [
+          "is_admin",
+          "applications",
+          "roles"
+        ],
+        "type": "object",
+        "properties": {
+          "is_admin": {
+            "type": "boolean"
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Application1"
+            }
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "LocalDate": {
+        "format": "date",
+        "type": "string",
+        "example": "2022-03-10"
+      },
+      "LocalDateTime": {
+        "format": "date-time",
+        "type": "string",
+        "example": "2022-03-10T12:15:50"
+      },
+      "LocalTime": {
+        "format": "local-time",
+        "type": "string",
+        "externalDocs": {
+          "description": "As defined by 'partial-time' in RFC3339",
+          "url": "https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14"
+        },
+        "example": "13:45.30.123456789"
+      },
+      "MessageValidationResponse": {
+        "required": [
+          "errors"
+        ],
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "Meta": {
+        "required": [
+          "count"
+        ],
+        "type": "object",
+        "properties": {
+          "count": {
+            "format": "int64",
+            "type": "integer"
+          }
+        }
+      },
+      "NotificationHistory": {
+        "required": [
+          "invocationTime",
+          "invocationResult",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "invocationTime": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "invocationResult": {
+            "type": "boolean",
+            "deprecated": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/NotificationStatus"
+          },
+          "endpointId": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "details": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "endpointType": {
+            "$ref": "#/components/schemas/EndpointType"
+          },
+          "endpointSubType": {
+            "type": "string"
+          }
+        }
+      },
+      "NotificationStatus": {
+        "enum": [
+          "FAILED_INTERNAL",
+          "FAILED_EXTERNAL",
+          "PROCESSING",
+          "SENT",
+          "SUCCESS"
+        ],
+        "type": "string"
+      },
+      "PageEventLogEntry": {
+        "required": [
+          "data",
+          "links",
+          "meta"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventLogEntry"
+            }
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PageEventType": {
+        "required": [
+          "data",
+          "links",
+          "meta"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventType"
+            }
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "RenderEmailTemplateRequest": {
+        "required": [
+          "template",
+          "payload"
+        ],
+        "type": "object",
+        "properties": {
+          "template": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "payload": {
+            "minLength": 1,
+            "type": "string"
+          }
+        }
+      },
+      "RequestDefaultBehaviorGroupPropertyList": {
+        "required": [
+          "only_admins",
+          "ignore_preferences"
+        ],
+        "type": "object",
+        "properties": {
+          "only_admins": {
+            "type": "boolean"
+          },
+          "ignore_preferences": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RequestEmailSubscriptionProperties": {
+        "required": [
+          "only_admins"
+        ],
+        "type": "object",
+        "properties": {
+          "only_admins": {
+            "type": "boolean"
+          },
+          "group_id": {
+            "$ref": "#/components/schemas/UUID"
+          }
+        }
+      },
+      "ServerInfo": {
+        "type": "object",
+        "properties": {
+          "environment": {
+            "$ref": "#/components/schemas/Environment"
+          }
+        }
+      },
+      "SettingsValues": {
+        "type": "object",
+        "properties": {
+          "bundles": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/BundleSettingsValue"
+            }
+          }
+        }
+      },
+      "Status": {
+        "enum": [
+          "UP",
+          "MAINTENANCE"
+        ],
+        "type": "string"
+      },
+      "Template": {
+        "required": [
+          "name",
+          "description",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "updated": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "name": {
+            "maxLength": 100,
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          }
+        }
+      },
+      "UUID": {
+        "format": "uuid",
+        "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+        "type": "string"
+      },
+      "UpdateBehaviorGroupRequest": {
+        "type": "object",
+        "properties": {
+          "display_name": {
+            "maxLength": 150,
+            "type": "string"
+          },
+          "endpoint_ids": {
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          },
+          "event_type_ids": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "format": "uuid",
+              "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+              "type": "string"
+            }
+          },
+          "display_name_not_null_and_blank": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserConfigPreferences": {
+        "type": "object",
+        "properties": {
+          "instant_email": {
+            "type": "boolean"
+          },
+          "daily_email": {
+            "type": "boolean"
+          }
+        }
+      },
+      "WebhookProperties": {
+        "required": [
+          "url",
+          "method",
+          "disable_ssl_verification"
+        ],
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "method": {
+            "$ref": "#/components/schemas/HttpType"
+          },
+          "disable_ssl_verification": {
+            "type": "boolean"
+          },
+          "secret_token": {
+            "maxLength": 255,
+            "type": "string"
+          },
+          "basic_authentication": {
+            "$ref": "#/components/schemas/BasicAuthentication"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "SecurityScheme": {
+        "type": "http",
+        "description": "Authentication",
+        "scheme": "basic"
+      }
+    }
+  },
+  "info": {
+    "description": "The API for Notifications",
+    "version": "1.0",
+    "title": "Notifications"
+  },
+  "servers": [
+    {
+      "url": "https://console.redhat.com/{basePath}",
+      "description": "Production Server",
+      "variables": {
+        "basePath": {
+          "default": "/api/notifications/v1.0"
+        }
+      }
+    },
+    {
+      "url": "http://localhost:{port}/{basePath}",
+      "description": "Development Server",
+      "variables": {
+        "basePath": {
+          "default": "/api/notifications/v1.0"
+        },
+        "port": {
+          "default": "8080"
+        }
+      }
+    }
+  ]
+}
