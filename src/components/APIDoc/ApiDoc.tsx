@@ -2,7 +2,7 @@ import React from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {deRef} from "../../utils/Openapi";
 import {Operation} from "./Operation";
-import {TextContent, Text, TextVariants, Stack, StackItem, Bullseye, Spinner} from "@patternfly/react-core";
+import {Divider, TextContent, Text, TextVariants, Stack, StackItem, Bullseye, Spinner} from "@patternfly/react-core";
 import {ServerList} from "./ServerList";
 import {SecuritySchemeList} from "./SecuritySchemeList";
 import {useBackgroundTask} from "../../hooks/useBackgroundTask";
@@ -38,16 +38,25 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
                 <Text component={TextVariants.p}>
                     { openapi.info.description }
                 </Text>
-            </TextContent>
+            </TextContent>           
         </StackItem>
         { openapi.servers && (
-            <StackItem>
+            <StackItem >
                 <ServerList servers={openapi.servers}/>
+                <Divider
+                    className="apid-c-divider pf-u-pt-xl"
+                    inset={{default: 'insetNone',}}
+                />
             </StackItem>
+
         )}
         { openapi.components?.securitySchemes && (
             <StackItem>
                 <SecuritySchemeList schemes={Object.values(openapi.components.securitySchemes).map(s => deRef(s, openapi))} />
+                <Divider
+                    className="apid-c-divider pf-u-pt-xl"
+                    inset={{default: 'insetNone',}}
+                />
             </StackItem>
         )}
         { paths.loading ? <Bullseye><Spinner /></Bullseye> : <Operations>{paths.value}</Operations> }

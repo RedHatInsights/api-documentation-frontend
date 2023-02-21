@@ -3,7 +3,8 @@ import {
     Breadcrumb, BreadcrumbItem, Bullseye, Divider,
     Page,
     PageSection,
-    PageSectionVariants, Spinner,
+    PageSectionVariants, Sidebar, SidebarContent,
+  SidebarPanel, Spinner,
 } from "@patternfly/react-core";
 import {apiConfigurations} from "../config/apis";
 import {useNavigate, useParams} from "react-router";
@@ -52,23 +53,28 @@ export const APIPage: FunctionComponent = () => {
         return null;
     }
 
-    return <Page className="apid-c-page-apipage">
-        <PageSection variant={PageSectionVariants.light} className="pf-u-pb-sm">
-
-            <Breadcrumb>
-                <BreadcrumbItem to='#' onClick={(event) => {
-                    event.preventDefault();
-                    navigate('/');
-                }} >API Documentation and Guides</BreadcrumbItem>
-                <BreadcrumbItem isActive>{api}</BreadcrumbItem>
-            </Breadcrumb>
-            <Divider className="pf-u-mt-md" />
-        </PageSection>
-        <PageSection variant={PageSectionVariants.light}>
-            { (apiState.isLoading || !apiState.api) ?
-                <Bullseye><Spinner /></Bullseye> :
-                <ApiDoc openapi={apiState.api} /> }
-        </PageSection>
+    return <Page className="apid-c-page-apipage pf-u-background-color-100 pf-m-full-height">
+      <PageSection variant={PageSectionVariants.light}>
+        <Breadcrumb>
+          <BreadcrumbItem to='#' onClick={(event) => {
+                event.preventDefault();
+                navigate('/');
+            }} >API Documentation and Guides</BreadcrumbItem>
+          <BreadcrumbItem isActive>{api}</BreadcrumbItem>
+        </Breadcrumb>
+      </PageSection>
+      <Divider />
+      <Sidebar>
+        <SidebarPanel className="pf-u-p-lg">
+        </SidebarPanel>
+        <SidebarContent>
+          <PageSection variant={PageSectionVariants.light} className="pf-u-px-xl-on-md">
+              { (apiState.isLoading || !apiState.api) ?
+                  <Bullseye><Spinner /></Bullseye> :
+                  <ApiDoc openapi={apiState.api} /> }
+          </PageSection>
+        </SidebarContent>
+      </Sidebar>
     </Page>;
 };
 
