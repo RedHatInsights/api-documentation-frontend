@@ -35,11 +35,8 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
       onClick={() => setExpanded(prev => !prev)}
       className="pf-u-flex-direction-row-reverse pf-u-py-md"
       >
-        {operation.summary && 
-          <Text component="p" className="pf-u-font-weight-normal pf-u-color-100">{operation.summary}
-            <Text component="small" className="pf-u-ml-lg pf-u-font-weight-normal pf-u-color-200">{verb.toUpperCase()} {path}</Text>
-          </Text>
-        }
+        {operation.summary && <span className="pf-u-font-weight-normal pf-u-color-100">{operation.summary}</span>}
+         <span className="pf-u-ml-lg pf-u-font-size-sm pf-u-font-weight-normal pf-u-color-200">{verb.toUpperCase()} {path}</span>
       </AccordionToggle>
       { isExpanded && <AccordionContent>
         <OperationContent {...props} />
