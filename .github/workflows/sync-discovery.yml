@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
+    - run: npm ci && npm ci --prefix transform
     - run: npm run discovery
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v4
