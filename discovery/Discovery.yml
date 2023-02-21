@@ -419,35 +419,52 @@ apis:
 tags:
   - id: ansible
     name: Ansible
+    type: service
   - id: application-services
     name: Application Services
+    type: service
   - id: automation
     name: Automation
+    type: use-case
   - id: data-services
     name: Data Services
+    type: use-case
   - id: deploy
     name: Deploy
+    type: use-case
   - id: edge
     name: Edge
+    type: service
   - id: infrastructure
     name: Infrastructure
+    type: use-case
   - id: insights
     name: Insights
+    type: service
   - id: integrations-and-notifications
     name: Integrations and Notifications
+    type: use-case
   - id: inventories
     name: Inventories
+    type: service
   - id: identify-and-access-management
     name: Identify and Access Management
+    type: use-case
   - id: observe
     name: Observe
+    type: use-case
   - id: openshift
     name: Openshift
+    type: platform
   - id: rhel
     name: RHEL
+    type: platform
   - id: security
     name: Security
+    type: use-case
   - id: spend-management
     name: Spend Management
+    type: use-case
   - id: system-configuration
     name: System Configuration
+    type: use-case

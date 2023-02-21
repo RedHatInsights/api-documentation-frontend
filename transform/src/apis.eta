@@ -11,6 +11,13 @@ export interface APIConfiguration {
     icon:  keyof typeof APIConfigurationIcons;
     description: string;
     getApi: () => Promise<OpenAPIV3.Document>;
+    labels: Array<APILabel>;
+}
+
+export interface APILabel {
+    id: string;
+    name: string;
+    type: 'use-case' | 'service' | 'platform';
 }
 
 export const apiConfigurations: Array<APIConfiguration> = [
@@ -20,7 +27,16 @@ export const apiConfigurations: Array<APIConfiguration> = [
         displayName: '<%= api.app.name %>',
         description: '<%= api.app.description %>',
         icon: '<%~ E.includeFile('icon', {icon: api.app.icon}) %>',
-        getApi: () => import('./apis/<%=api.path.join('/')%>/openapi.json') as unknown as Promise<OpenAPIV3.Document>
+        getApi: () => import('./apis/<%=api.path.join('/')%>/openapi.json') as unknown as Promise<OpenAPIV3.Document>,
+        labels: [
+            <% api.tags.forEach(function(tag){ %>
+                {
+                    id: '<%= tag.id %>',
+                    name: '<%= tag.name %>',
+                    type: '<%= tag.type %>'
+                },
+            <% }) %>
+        ]
       },
     <% }) %>
 ];

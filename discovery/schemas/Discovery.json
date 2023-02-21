@@ -114,11 +114,17 @@
         },
         "name": {
           "type": "string"
+        },
+        "type": {
+          "description": "Type of tag",
+          "type": "string",
+          "enum": ["use-case", "service", "platform"]
         }
       },
       "required": [
         "id",
-        "name"
+        "name",
+        "type"
       ]
     },
     "id": {

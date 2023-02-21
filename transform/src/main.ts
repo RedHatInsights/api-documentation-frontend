@@ -1,4 +1,4 @@
-import {Discovery, App} from "discovery/Discovery";
+import {Discovery, App, Tag} from "discovery/Discovery";
 import {parse} from "yaml";
 import prettier from 'prettier';
 import pLimit from 'p-limit';
@@ -7,9 +7,7 @@ import path from "path";
 import got from "got";
 import {getCommand} from "./program.js";
 import { fileURLToPath } from 'url'
-import Dot, {templateSettings} from 'dot';
 import * as Eta from "eta"
-import render from "eta/dist/types/render";
 import SwaggerParser from "@apidevtools/swagger-parser";
 import {OpenAPI} from "openapi-types";
 
@@ -23,6 +21,7 @@ type BuildApi = {
     apiContent: object;
     app: App;
     apiIsValid: boolean;
+    tags: Array<Tag>;
 }
 
 const getApiContent = async (discoveryPath: string, app: App, group: string): Promise<string> => {
@@ -70,7 +69,15 @@ export const execute = async (options: Options) => {
                         path: [ group.id, app.id ],
                         apiContent: content,
                         app,
-                        apiIsValid
+                        apiIsValid,
+                        tags: app.tags?.map(tId => {
+                            const tag = discoveryContent.tags.find(t => t.id === tId);
+                            if (!tag) {
+                                throw new Error(`Unknown tag for app: ${app.id}; tag: ${tId}`);
+                            }
+
+                            return tag;
+                        }) ?? []
                     })
                 });
             })
@@ -141,15 +148,6 @@ export const execute = async (options: Options) => {
     // Write ts file
     const templateFile = path.resolve('src', 'apis.eta');
     const templateString = readFileSync(templateFile).toString();
-    /*const template = Dot.template(templateString, {
-        ...Dot.templateSettings,
-        strip: false,
-        selfcontained: true,
-
-    });
-    const result = template({
-        api: buildApis
-    });*/
 
     const result = Eta.render(templateString, {
         api: buildApis
