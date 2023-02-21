@@ -24,23 +24,27 @@ export interface OperationProps {
 }
 
 export const Operation: React.FunctionComponent<OperationProps> = props => {
-    const id = `operation-${props.verb}-${props.path}`;
-    const [isExpanded, setExpanded] = useState(false);
-    const {operation, verb, path} = props;
+  const id = `operation-${props.verb}-${props.path}`;
+  const [isExpanded, setExpanded] = useState(false);
+  const {operation, verb, path} = props;
 
-    return <AccordionItem>
-        <AccordionToggle
-            id={id}
-            isExpanded={isExpanded}
-            onClick={() => setExpanded(prev => !prev)}
-        >
-            {operation.summary && <span className="operation-summary">{operation.summary}</span>}
-            <span className="operation-path">{verb.toUpperCase()} {path}</span>
-        </AccordionToggle>
-        { isExpanded && <AccordionContent>
-            <OperationContent {...props} />
-        </AccordionContent>}
-    </AccordionItem>;
+  return <AccordionItem>
+    <AccordionToggle
+      id={id}
+      isExpanded={isExpanded}
+      onClick={() => setExpanded(prev => !prev)}
+      className="pf-u-flex-direction-row-reverse pf-u-py-md"
+      >
+        {operation.summary && 
+          <Text component="p" className="pf-u-font-weight-normal pf-u-color-100">{operation.summary}
+            <Text component="small" className="pf-u-ml-lg pf-u-font-weight-normal pf-u-color-200">{verb.toUpperCase()} {path}</Text>
+          </Text>
+        }
+      </AccordionToggle>
+      { isExpanded && <AccordionContent>
+        <OperationContent {...props} />
+      </AccordionContent>}
+  </AccordionItem>;
 };
 
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
@@ -67,7 +71,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
                 </StackItem>
                 { parameters.length > 0 && <StackItem>
                   <TextContent>
-                    <Text component={TextVariants.h3}>Parameters</Text>
+                    <Text component={TextVariants.h3} className="pf-u-pb-lg">Parameters</Text>
                   </TextContent>
                   <TableComposable variant="compact">
                     <Thead>
@@ -94,7 +98,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
                   </StackItem> }
                   { responseMap.length > 0 && <StackItem>
                     <TextContent>
-                      <Text component={TextVariants.h3}>Responses</Text>
+                      <Text component={TextVariants.h3} >Responses</Text>
                     </TextContent>
                     <TableComposable variant="compact">
                       <Thead>
