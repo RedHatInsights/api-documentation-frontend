@@ -8,11 +8,10 @@ export interface SchemaDataViewProps {
   schemaName: string;
   schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>;
   document: OpenAPIV3.Document;
-  propDeRef: boolean;
 }
 
-export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ schemaName, schema, document, propDeRef }) => {
-  const schemaData = getTreeViewData(schemaName, schema, document, propDeRef)
+export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ schemaName, schema, document }) => {
+  const schemaData = getTreeViewData(schemaName, schema, document)
 
   const id = `schema-${schemaName}`;
   const [isExpanded, setExpanded] = useState(false);
@@ -65,45 +64,40 @@ const PropertyView:React.FunctionComponent<PropertyComponentProps> = ({propName,
   )
 }
 
-const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>, document: OpenAPIV3.Document, propDeRef: boolean) => {
-  if (!schema) {
-    return [{name: "schema undefined"}] as TreeViewDataItem[]
-  }
-
+const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>, document: OpenAPIV3.Document) => {
   if (schema.type && !schema.properties) {
-    return [{ name: <PropertyView propName={schemaName} propertyType={schema.type} required={false}/>}]
+    return [{ name: <PropertyView propName={schema.deRefData ? schema.deRefData.name : ""} propertyType={schema.type} required={false}/>}]
   }
 
   if (!schema.properties) {
     return [{name: "schema undefined"}] as TreeViewDataItem[]
   }
   const schemaData = Object.entries(schema.properties).map(([key, value]) => {
-    let propertyType: string
+    let propertyType = "object"
+    let children: TreeViewDataItem[] | undefined = undefined
 
     if ('type' in value) {
       propertyType = value.type as string
+
+      if ('items' in value) {
+        if ('type' in value.items) {
+          propertyType = `${propertyType} of ${value.items.type}`
+        }
+        if ('$ref' in value.items) {
+          propertyType = `${propertyType} of ${value.items.$ref.split('/').at(-1) as string}`
+        }
+        if ('properties' in value.items) {
+          const items = deRef(value.items, document)
+          children = getTreeViewData(schemaName, items, document)
+        }
+      } else if ('properties' in value) {
+        const items = deRef(value, document)
+        children = getTreeViewData(schemaName, items, document)
+      }
     } else if ('$ref' in value ) {
       propertyType = value.$ref.split('/').at(-1) as string
     } else {
       propertyType = "schema undefined/oneOf/anyOf/etc"
-    }
-
-    let children: TreeViewDataItem[] | undefined = undefined
-
-    if (propDeRef) {
-      if ('properties' in value) {
-        children = getTreeViewData(schemaName, value, document, propDeRef)
-      } else if ('items' in value) {
-        let itemRef = ""
-        if ('$ref' in value.items) {
-          itemRef = value.items.$ref.split('/').at(-1) as string
-          propertyType = `${propertyType} (${itemRef})`
-        }
-        if (itemRef !== schemaName && itemRef !== schema.deRefData?.name as string) {
-          const items = deRef(value.items, document)
-          children = getTreeViewData(schemaName, items, document, propDeRef)
-        }
-      }  
     }
 
     return {

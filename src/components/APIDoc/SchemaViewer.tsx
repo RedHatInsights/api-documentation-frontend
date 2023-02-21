@@ -20,7 +20,7 @@ export const SchemaViewer: React.FunctionComponent<SchemaViewerProps> = ({ docum
             </TextContent>
             <Accordion className="apid-schemas" isBordered>
             {   schemas && Object.entries(schemas).map(([schemaName, schemaObject]) => {
-                    return <SchemaDataView schemaName={schemaName} schema={deRef(schemaObject, document)} document={document} propDeRef={true} />
+                    return <SchemaDataView schemaName={schemaName} schema={deRef(schemaObject, document)} document={document}/>
                 })
             }
             </Accordion>
