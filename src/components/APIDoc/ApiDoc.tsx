@@ -38,10 +38,10 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
                 <Text component={TextVariants.p}>
                     { openapi.info.description }
                 </Text>
-            </TextContent>           
+            </TextContent>  
         </StackItem>
         { openapi.servers && (
-            <StackItem >
+            <StackItem>
                 <ServerList servers={openapi.servers}/>
                 <Divider
                     className="apid-c-divider pf-u-pt-xl"
