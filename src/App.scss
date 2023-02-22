@@ -78,12 +78,6 @@
 }
 
 .apid-c-card-codeblock {
-  .pf-c-card__header {
-    background-color: var(--pf-global--BackgroundColor--dark-200);
-  }
-  .pf-c-card__footer {
-    background-color: var(--pf-global--BackgroundColor--dark-100);
-  }
   .pf-c-dropdown {
     --pf-c-dropdown__toggle--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
     --pf-c-dropdown__toggle--Color: var(--pf-global--Color--light-200);
@@ -106,9 +100,6 @@
     --pf-c-code-editor__main--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
     --pf-c-code-editor__code--PaddingLeft: 0;
     --pf-c-code-editor__code--PaddingTop: var(--pf-global--spacer--md);
-    &__code {
-      padding-bottom: 0;
-    }
   }
   .monaco-editor, .monaco-editor-background {
     padding-bottom: 0;

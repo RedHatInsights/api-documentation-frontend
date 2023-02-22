@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {buildExample, deRef} from "../../utils/Openapi";
 import {
-    Stack,
-    StackItem,
     Grid,
     GridItem,
     Text,
@@ -58,73 +56,73 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
       return undefined;
   }, [ operation.responses, document]);
 
-    return <Grid className="pf-u-mt-sm" hasGutter>
-            <GridItem className="pf-m-12-col pf-m-7-col-on-lg pf-m-8-col-on-xl">
-              <Stack hasGutter>
-                <StackItem>
-                  <TextContent>
-                    <Text component={TextVariants.p}>{operation.description}</Text>
-                  </TextContent>
-                </StackItem>
-                { parameters.length > 0 && <StackItem>
-                  <TextContent>
-                    <Text component={TextVariants.h3} className="pf-u-pb-lg">Parameters</Text>
-                  </TextContent>
-                  <TableComposable variant="compact">
-                    <Thead>
-                      <Tr>
-                        <Td>Name</Td>
-                        <Td>In</Td>
-                        <Td>Type</Td>
-                        <Td>Required</Td>
-                        <Td>Description</Td>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      {parameters.map(((p, index) => (
-                        <Tr key={index}>
-                          <Td>{p.name}</Td>
-                          <Td>{p.in}</Td>
-                          <Td>{getType(p.schema, document)}</Td>
-                          <Td>{p.required ? 'Yes' : 'No'}</Td>
-                          <Td>{p.description}</Td>
-                        </Tr>
-                      )))}
-                    </Tbody>
-                  </TableComposable>
-                  </StackItem> }
-                  { responseMap.length > 0 && <StackItem>
-                    <TextContent>
-                      <Text component={TextVariants.h3} >Responses</Text>
-                    </TextContent>
-                    <TableComposable variant="compact">
-                      <Thead>
-                        <Tr>
-                          <Td>Status</Td>
-                          <Td>Description</Td>
-                          <Td>Schema</Td>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                      {responseMap.map(([code, response]) => {
-                        const dResponse = deRef(response, document);
-                        return <Tr key={code}>
-                          <Td>{code}</Td>
-                          <Td>{dResponse.description}</Td>
-                          <Td>{getResponseSchema(dResponse, document)}</Td>
-                        </Tr>;
-                      })}
-                      </Tbody>
-                    </TableComposable>
-                    {responseExample && <ExampleResponse response={responseExample} />}
-                  </StackItem> }
-                </Stack>
-              </GridItem>
-              <GridItem className="pf-m-12-col pf-m-5-col-on-lg pf-m-4-col-on-xl pf-u-my-2xl-on-lg pf-u-ml-md-on-lg">
-                <CodeSamples parameters={parameters} verb={verb} path={path}/>
-              </GridItem>
-            </Grid>;
-}
+    return (
+      <Grid className="pf-u-mt-sm" hasGutter>
+        <GridItem className="pf-m-12-col">
+          <TextContent>
+            <Text component={TextVariants.p}>{operation.description}</Text>
+          </TextContent>
+        </GridItem>
+        <GridItem className="pf-m-12-col pf-m-7-col-on-xl">
+        { parameters.length > 0 && <>
+          <TextContent>
+            <Text component={TextVariants.h3} className="pf-u-pb-lg">Parameters</Text>
+          </TextContent>
+          <TableComposable variant="compact">
+            <Thead>
+              <Tr>
+                <Td>Name</Td>
+                <Td>In</Td>
+                <Td>Type</Td>
+                <Td>Required</Td>
+                <Td>Description</Td>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {parameters.map(((p, index) => (
+                <Tr key={index}>
+                  <Td>{p.name}</Td>
+                  <Td>{p.in}</Td>
+                  <Td>{getType(p.schema, document)}</Td>
+                  <Td>{p.required ? 'Yes' : 'No'}</Td>
+                  <Td>{p.description}</Td>
+                </Tr>
+              )))}
+            </Tbody>
+          </TableComposable>
+          </> }
+          { responseMap.length > 0 && <>
+            <TextContent className="pf-u-py-lg">
+              <Text component={TextVariants.h3} >Responses</Text>
+            </TextContent>
+            <TableComposable variant="compact">
+              <Thead>
+                <Tr>
+                  <Td>Status</Td>
+                  <Td>Description</Td>
+                  <Td>Schema</Td>
+                </Tr>
+              </Thead>
+              <Tbody>
+              {responseMap.map(([code, response]) => {
+                const dResponse = deRef(response, document);
+                return <Tr key={code}>
+                  <Td>{code}</Td>
+                  <Td>{dResponse.description}</Td>
+                  <Td>{getResponseSchema(dResponse, document)}</Td>
+                </Tr>;
+              })}
+              </Tbody>
+            </TableComposable>
+            {responseExample && <ExampleResponse response={responseExample} />}
+        </> }
+        </GridItem>
+        <GridItem className="pf-m-12-col pf-m-5-col-on-xl pf-u-mt-md-on-xl pf-u-ml-sm-on-xl">
+          <CodeSamples parameters={parameters} verb={verb} path={path}/>
+        </GridItem>
+      </Grid>
+    );
+  }
 
 const getResponseSchema = (response: OpenAPIV3.ResponseObject, document: OpenAPIV3.Document) => {
     const contents = response.content ? Object.values(response.content).filter(c => c.schema !== undefined) : [];

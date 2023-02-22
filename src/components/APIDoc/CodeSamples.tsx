@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {DeRefResponse} from "../../utils/Openapi";
-import { Card, CardBody, CardFooter, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
+import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
 
@@ -62,7 +62,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
 
     return <>
       <Card className="apid-c-card-codeblock" isPlain>
-        <CardHeader className="pf-u-p-0 pf-u-pr-md pf-u-color-light-100">
+        <CardHeader className="pf-u-p-0 pf-u-pr-md pf-u-color-light-100 pf-u-background-color-dark-200">
           <FlexItem className="pf-u-flex-grow-1 pf-u-pl-lg">
           </FlexItem>
           <FlexItem align={{ default: 'alignRight' }}>
@@ -90,7 +90,6 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
             height="400px"
           />
       </CardBody>
-      <CardFooter />
     </Card>
   </>;
 };
