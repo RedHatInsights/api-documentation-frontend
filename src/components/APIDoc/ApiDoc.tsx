@@ -43,23 +43,34 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
         { openapi.servers && (
             <StackItem>
                 <ServerList servers={openapi.servers}/>
-                <Divider
-                    className="apid-c-divider pf-u-pt-xl"
-                    inset={{default: 'insetNone',}}
-                />
             </StackItem>
 
         )}
         { openapi.components?.securitySchemes && (
-            <StackItem>
-                <SecuritySchemeList schemes={Object.values(openapi.components.securitySchemes).map(s => deRef(s, openapi))} />
+            <StackItem className="pf-u-pb-lg">
                 <Divider
-                    className="apid-c-divider pf-u-pt-xl"
+                    className="apid-c-divider pf-u-pb-md"
                     inset={{default: 'insetNone',}}
                 />
+                <SecuritySchemeList schemes={Object.values(openapi.components.securitySchemes).map(s => deRef(s, openapi))} />
             </StackItem>
         )}
-        { paths.loading ? <Bullseye><Spinner /></Bullseye> : <Operations>{paths.value}</Operations> }
+        
+        { paths.loading ? <Bullseye><Spinner /></Bullseye> : 
+            <StackItem>
+                <Divider
+                    className="apid-c-divider pf-u-pb-md"
+                    inset={{default: 'insetNone',}}
+                />
+                <TextContent className="pf-u-pb-lg">
+                    <Text component={TextVariants.h2}>
+                        { /* Todo: Add the title */}
+                    </Text>
+                </TextContent>
+                <Operations>{paths.value}</Operations>
+            </StackItem>
+         }
+
         <StackItem>
             <SchemaViewer document={ openapi }/>
         </StackItem>

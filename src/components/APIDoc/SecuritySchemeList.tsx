@@ -10,7 +10,7 @@ export interface SecuritySchemeListProps {
 export const SecuritySchemeList: React.FunctionComponent<SecuritySchemeListProps> = ({schemes}) =>
     <TextContent>
         <Text component={TextVariants.h2}>Authentication</Text>
-        <TextList>
+        <TextList isPlain>
             {schemes.map((s, index) => <TextListItem key={index}>
                 <SecurityScheme key={index} securityScheme={s} />
             </TextListItem>)}
