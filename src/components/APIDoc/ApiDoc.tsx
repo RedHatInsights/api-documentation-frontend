@@ -72,6 +72,10 @@ export const ApiDoc: React.FunctionComponent<ApiDocProps> = props => {
          }
 
         <StackItem>
+            <Divider
+                className="apid-c-divider pf-u-pb-md"
+                inset={{default: 'insetNone',}}
+            />     
             <SchemaViewer document={ openapi }/>
         </StackItem>
     </Stack>;

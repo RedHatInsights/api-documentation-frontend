@@ -21,9 +21,10 @@ export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ s
           id={id}
           isExpanded={isExpanded}
           onClick={() => setExpanded(prev => !prev)}
+          className="pf-u-flex-direction-row-reverse pf-u-py-md"
       >
-          <span className="schema-name">{schemaName}</span>
-          <span className="schema-type">{schema.type ? schema.type : 'object'} </span>
+          <span className="pf-u-font-weight-normal pf-u-color-100 pf-u-mr-lg">{schemaName}</span>
+          <span className="pf-u-font-size-sm pf-u-font-weight-normal pf-u-color-200">{schema.type ? schema.type : 'object'} </span>
       </AccordionToggle>
       { isExpanded && <AccordionContent>
         <TreeView data={schemaData} variant="compactNoBackground" />

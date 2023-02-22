@@ -13,12 +13,12 @@ export const SchemaViewer: React.FunctionComponent<SchemaViewerProps> = ({ docum
 
     return(
         <>
-            <TextContent>
+            <TextContent className="pf-u-pb-lg">
                 <Text component={TextVariants.h2}>
                     Schemas
                 </Text>
             </TextContent>
-            <Accordion className="apid-schemas" isBordered>
+            <Accordion className="apid-c-accordion-schemas" isBordered>
             {   schemas && Object.entries(schemas).map(([schemaName, schemaObject]) => {
                     return <SchemaDataView schemaName={schemaName} schema={deRef(schemaObject, document)} document={document}/>
                 })

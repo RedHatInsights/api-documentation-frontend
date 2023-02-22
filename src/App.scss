@@ -60,13 +60,9 @@
   }
 }
 
-
 .apid-c-page-apipage {
   .pf-c-sidebar__main {
     height: 100%;
-  }
-  .pf-c-sidebar__panel {
-
   }
   .pf-c-sidebar__content {
     height: 100%;
@@ -78,82 +74,62 @@
     .apid-c-divider {
       margin-left: -32px;
     }
-    .apid-c-accordion-operations.pf-c-accordion {
-      --pf-c-accordion__expanded-content-body--PaddingLeft: var(--pf-global--spacer--2xl);
-      border-left: 1px solid var(--pf-global--BorderColor--100);
-      border-right: 1px solid var(--pf-global--BorderColor--100);
-      .pf-c-accordion__toggle-text {
-        flex-grow: 1;
-        text-align: left;
-        margin-left: var(--pf-global--spacer--md);
-      }
-    }
-    .apid-c-card-codeblock {
-      .pf-c-card__header {
-        background-color: var(--pf-global--BackgroundColor--dark-200);
-      }
-      .pf-c-card__footer {
-        background-color: var(--pf-global--BackgroundColor--dark-100);
-      }
-      .pf-c-dropdown {
-        --pf-c-dropdown__toggle--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
-        --pf-c-dropdown__toggle--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__toggle--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__toggle--m-plain--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__toggle--m-plain--hover--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__toggle-icon--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown--m-plain--hover__toggle-icon--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__menu--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
-        --pf-c-dropdown__menu-item--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__menu-item--hover--Color: var(--pf-global--Color--light-200);
-        --pf-c-dropdown__menu-item--hover--BackgroundColor: var(--pf-global--BackgroundColor--dark-200);
-      }
-      .pf-c-button {
-        color: var(--pf-global--Color--light-200);
-      }
-      .pf-c-code-editor {
-        --pf-c-code-editor__header--before--BorderBottomWidth: 0;
-        --pf-c-code-editor__main--BorderColor: var(--pf-global--BackgroundColor--dark-100);
-        --pf-c-code-editor__main--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
-        --pf-c-code-editor__code--PaddingLeft: 0;
-        --pf-c-code-editor__code--PaddingTop: var(--pf-global--spacer--md);
-        &__code {
-          padding-bottom: 0;
-        }
-      }
-      .monaco-editor, .monaco-editor-background {
-        padding-bottom: 0;
-        padding-top: 0;
-        background-color: var(--pf-global--BackgroundColor--dark-100);
-      }
-    }
   }
 }
 
-.apid-schemas {
-  .schema-name {
-    margin-right: 20px;
+.apid-c-card-codeblock {
+  .pf-c-card__header {
+    background-color: var(--pf-global--BackgroundColor--dark-200);
   }
-  .schema-type {
-    color: var(--pf-global--Color--dark-200);
+  .pf-c-card__footer {
+    background-color: var(--pf-global--BackgroundColor--dark-100);
   }
-
-  .pf-c-accordion__toggle {
-    flex-direction: row-reverse;
-
-    .pf-c-accordion__toggle-text {
-      flex-grow: 1;
-      text-align: left;
-      margin-left: 0.5em;
+  .pf-c-dropdown {
+    --pf-c-dropdown__toggle--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
+    --pf-c-dropdown__toggle--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__toggle--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__toggle--m-plain--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__toggle--m-plain--hover--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__toggle-icon--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown--m-plain--hover__toggle-icon--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__menu--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
+    --pf-c-dropdown__menu-item--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__menu-item--hover--Color: var(--pf-global--Color--light-200);
+    --pf-c-dropdown__menu-item--hover--BackgroundColor: var(--pf-global--BackgroundColor--dark-200);
+  }
+  .pf-c-button {
+    color: var(--pf-global--Color--light-200);
+  }
+  .pf-c-code-editor {
+    --pf-c-code-editor__header--before--BorderBottomWidth: 0;
+    --pf-c-code-editor__main--BorderColor: var(--pf-global--BackgroundColor--dark-100);
+    --pf-c-code-editor__main--BackgroundColor: var(--pf-global--BackgroundColor--dark-100);
+    --pf-c-code-editor__code--PaddingLeft: 0;
+    --pf-c-code-editor__code--PaddingTop: var(--pf-global--spacer--md);
+    &__code {
+      padding-bottom: 0;
     }
   }
-
-  .pf-c-accordion__expanded-content-body {
-    padding-left: 1.5em;
+  .monaco-editor, .monaco-editor-background {
+    padding-bottom: 0;
+    padding-top: 0;
+    background-color: var(--pf-global--BackgroundColor--dark-100);
   }
+}
 
+.apid-c-accordion-operations.pf-c-accordion, .apid-c-accordion-schemas.pf-c-accordion {
+  --pf-c-accordion__expanded-content-body--PaddingLeft: var(--pf-global--spacer--2xl);
+  border-left: 1px solid var(--pf-global--BorderColor--100);
+  border-right: 1px solid var(--pf-global--BorderColor--100);
+  .pf-c-accordion__toggle-text {
+    flex-grow: 1;
+    text-align: left;
+    margin-left: var(--pf-global--spacer--md);
+  }
   .pf-c-tree-view {
-    --pf-c-tree-view--m-compact__node-container--PaddingTop: 0.5rem;
-    --pf-c-tree-view--m-compact__node-container--PaddingBottom: 0.5rem;
+    --pf-c-tree-view__node--indent--base: 0;
+    --pf-c-tree-view__node--PaddingLeft: var(--pf-global--spacer--lg);
+    --pf-c-tree-view--m-compact__node-container--PaddingTop: var(--pf-global--spacer--xs);
+    --pf-c-tree-view--m-compact__node-container--PaddingBottom: var(--pf-global--spacer--sm);
   }
 }
