@@ -11,6 +11,7 @@
     "commander": "7.2.0",
     "eta": "^2.0.0",
     "got": "^12.5.3",
+    "json-canonicalize": "^1.0.4",
     "prettier": "^2.8.4"
   },
   "devDependencies": {

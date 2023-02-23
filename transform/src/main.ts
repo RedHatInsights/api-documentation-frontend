@@ -1,4 +1,4 @@
-import {Discovery, App, Tag} from "discovery/Discovery";
+import {Discovery, App, Tag, Group} from "discovery/Discovery";
 import {parse} from "yaml";
 import prettier from 'prettier';
 import pLimit from 'p-limit';
@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 import * as Eta from "eta"
 import SwaggerParser from "@apidevtools/swagger-parser";
 import {OpenAPI} from "openapi-types";
+import {canonicalize} from "json-canonicalize";
 
 interface Options {
     discoveryFile: string;
@@ -24,7 +25,11 @@ type BuildApi = {
     apiIsValid: boolean;
 }
 
+// output dir to place the openapi files
 const OUTPUT_APIS_DIR = 'apis';
+
+// How many files download at once (concurrency)
+const DOWNLOAD_AT_ONCE = 5;
 
 const getApiContent = async (discoveryPath: string, app: App, group: string, options: Options): Promise<string> => {
     if (options.skipApiFetch) {
@@ -60,76 +65,70 @@ const getApiContent = async (discoveryPath: string, app: App, group: string, opt
     }
 }
 
-export const execute = async (options: Options) => {
-    const limit = pLimit(5); // 5 downloads at once
+const getDiscoveryPath = (options: Options): string => path.dirname(options.discoveryFile);
+const areCanonicallyEqual = (object1: object, object2: object) => canonicalize(object1) === canonicalize(object2);
 
-    const discoveryContent = parse(readFileSync(options.discoveryFile).toString()) as Discovery;
-    const discoveryPath = path.dirname(options.discoveryFile);
-
-    // Download all the APIs and build
-    const buildApis: Array<BuildApi> = await Promise.all(discoveryContent.apis
-        .flatMap(group => group.apps
-            // Ignore apps that were skipped or are not openapiv3
-            .filter(app => !app.skip && app.apiType === "openapi-v3")
-            .map(async (app) => {
-                return await limit(async (): Promise<BuildApi> => {
-                    let content = {};
-                    let apiIsValid = false;
-                    try {
-                        const apiContent = await getApiContent(discoveryPath, app, group.id, options);
-                        content = JSON.parse(apiContent);
-                        await SwaggerParser.validate(JSON.parse(apiContent) as OpenAPI.Document);
-                        if ('openapi' in content && typeof content.openapi === 'string' && content.openapi.match(/^3(.\d(.\d)?)?/)) {
-                            apiIsValid = true;
-                        }
-                    } catch {
-                        // Ignore exceptions, API is not valid.
+const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<BuildApi>> => Promise.all(groups
+    .flatMap(group => group.apps
+        // Ignore apps that were skipped or are not openapiv3
+        .filter(app => !app.skip && app.apiType === "openapi-v3")
+        .map(async (app) => {
+            return await pLimit(DOWNLOAD_AT_ONCE)(async (): Promise<BuildApi> => {
+                let content = {};
+                let apiIsValid = false;
+                try {
+                    const apiContent = await getApiContent(getDiscoveryPath(options), app, group.id, options);
+                    content = JSON.parse(apiContent);
+                    await SwaggerParser.validate(JSON.parse(apiContent) as OpenAPI.Document);
+                    if ('openapi' in content && typeof content.openapi === 'string' && content.openapi.match(/^3(.\d(.\d)?)?/)) {
+                        apiIsValid = true;
                     }
+                } catch {
+                    // Ignore exceptions, API is not valid.
+                }
 
-                    return ({
-                        path: [ group.id, app.id ],
-                        apiContent: content,
-                        app,
-                        apiIsValid
-                    })
-                });
-            })
-        )
-    );
+                return ({
+                    path: [ group.id, app.id ],
+                    apiContent: content,
+                    app,
+                    apiIsValid
+                })
+            });
+        })
+    )
+);
 
-    // Delete openapi files except the ones that failed the validation
-    // Those are not going to be updated, so lets keep the previous valid version
-    const invalidApps = buildApis.filter(a => !a.apiIsValid);
-
+const cleanUnusedApiFiles = (foundApis: Array<BuildApi>, options: Options) => {
     readdirSync(
         path.resolve(
             options.outputDir,
             OUTPUT_APIS_DIR
         )
     )
-    .flatMap(
-        group => readdirSync(
+        .flatMap(
+            group => readdirSync(
+                path.resolve(
+                    options.outputDir,
+                    OUTPUT_APIS_DIR,
+                    group
+                )
+            ).map(app => [group, app])
+        )
+        .filter(appPath => !foundApis.find(k => appPath[0] === k.path[0] && appPath[1] === k.path[1]))
+        .forEach(toDelete => rmSync(
             path.resolve(
                 options.outputDir,
                 OUTPUT_APIS_DIR,
-                group
-            )
-        ).map(app => [group, app])
-    )
-    .filter(appPath => !invalidApps.find(k => appPath[0] === k.path[0] && appPath[1] === k.path[1]))
-    .forEach(toDelete => rmSync(
-        path.resolve(
-            options.outputDir,
-            OUTPUT_APIS_DIR,
-            ...toDelete
-        ),
-        {
-            recursive: true
-        }
-    ));
+                ...toDelete
+            ),
+            {
+                recursive: true
+            }
+        ));
+}
 
-    // Write openapi files
-    buildApis.forEach(api => {
+const writeOpenApiFiles = (foundApis: Array<BuildApi>, options: Options) => {
+    foundApis.forEach(api => {
 
         if (!api.apiIsValid) {
             console.error(`Validation failed for app: ${api.app.id}... Skipping`);
@@ -147,24 +146,40 @@ export const execute = async (options: Options) => {
             }
         );
 
-        writeFileSync(
-            path.resolve(
-                options.outputDir,
-                OUTPUT_APIS_DIR,
-                ...api.path,
-                'openapi.json'
-            ),
-            JSON.stringify(api.apiContent, null, 2)
+        // We are not writing the JSON file if the contents represent the same OpenAPI
+        const destinationFile = path.resolve(
+            options.outputDir,
+            OUTPUT_APIS_DIR,
+            ...api.path,
+            'openapi.json'
         );
-    });
 
-    // Write ts file
+        let writeFile = true;
+        if (existsSync(destinationFile)) {
+            if (areCanonicallyEqual(
+                JSON.parse(readFileSync(destinationFile).toString()),
+                api.apiContent
+            )) {
+                writeFile = false;
+            }
+        }
+
+        if (writeFile) {
+            writeFileSync(
+                destinationFile,
+                JSON.stringify(api.apiContent, null, 2)
+            );
+        }
+    });
+};
+
+const writeTsTemplates = (foundApis: Array<BuildApi>, tags: Array<Tag>, options: Options) => {
     const templateFile = path.resolve('src', 'apis.eta');
     const templateString = readFileSync(templateFile).toString();
 
     const result = Eta.render(templateString, {
-        api: buildApis,
-        tags: discoveryContent.tags
+        api: foundApis,
+        tags: tags
     }, {
         filename: templateFile
     }) as string;
@@ -180,6 +195,15 @@ export const execute = async (options: Options) => {
         path.resolve(options.outputDir, 'apis.ts'),
         prettyResult
     );
+}
+
+export const execute = async (options: Options) => {
+    const discoveryContent = parse(readFileSync(options.discoveryFile).toString()) as Discovery;
+
+    const buildApis: Array<BuildApi> = await downloadApis(discoveryContent.apis, options);
+    cleanUnusedApiFiles(buildApis, options);
+    writeOpenApiFiles(buildApis, options);
+    writeTsTemplates(buildApis, discoveryContent.tags, options);
 }
 
 if (process.argv) {
