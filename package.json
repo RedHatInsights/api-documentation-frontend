@@ -2,7 +2,7 @@
   "name": "apidocs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "apidocs",
+  "homepage": "api/docs",
   "scripts": {
     "build": "react-app-rewired build",
     "eject": "react-app-rewired eject",
