@@ -213,18 +213,23 @@
           "region": "eu-west-1"
         }
       },
-      "EnterpriseClusterExample": {
+      "EnterpriseClusterListItemExample": {
         "value": {
+          "access_kafkas_via_private_network": false,
+          "cloud_provider": "aws",
           "cluster_id": "abcd1234ascd3456fdks9485lskd030h",
           "href": "/api/kafkas_mgmr/v1/clusters/abcd1234ascd3456fdks9485lskd030h",
           "id": "abcd1234ascd3456fdks9485lskd030h",
           "kind": "cluster",
+          "multi_az": true,
+          "region": "us-east-1",
           "status": "ready"
         }
       },
       "EnterpriseClusterWithAddonParametersExample": {
         "value": {
           "access_kafkas_via_private_network": true,
+          "cloud_provider": "aws",
           "cluster_id": "abcd1234ascd3456fdks9485lskd030h",
           "fleetshard_parameters": [
             {
@@ -255,6 +260,7 @@
           "href": "/api/kafkas_mgmr/v1/clusters/abcd1234ascd3456fdks9485lskd030h",
           "id": "abcd1234ascd3456fdks9485lskd030h",
           "kind": "cluster",
+          "region": "us-east-1",
           "status": "ready"
         }
       },
@@ -570,7 +576,7 @@
         }
       },
       "search": {
-        "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are `cloud_provider`, `name`, `owner`, `region`, `status` and `cluster_id`. Allowed comparators are `<>`, `=`, `LIKE`, or `ILIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\nTo return a Kafka instance with the name `my-kafka` and the region `aws`, use the following syntax:\n\n```\nname = my-kafka and cloud_provider = aws\n```\n\nTo return a Kafka instance with a name that starts with `my`, use the following syntax:\n\n```\nname like my%25\n```\n\nTo return a Kafka instance with a name containing `test` matching any character case combinations, use the following syntax:\n\n```\nname ilike %25test%25\n```\n\nIf the parameter isn't provided, or if the value is empty, then all the Kafka instances\nthat the user has permission to see are returned.\n\nNote. If the query is invalid, an error is returned.\n",
+        "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are `cloud_provider`, `name`, `owner`, `region`, `status` and `cluster_id`. Allowed comparators are `<>`, `=`, `IN`, `NOT IN`, `LIKE`, or `ILIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\nTo return a Kafka instance with the name `my-kafka` and the region `aws`, use the following syntax:\n\n```\nname = my-kafka and cloud_provider = aws\n```\n\nTo return a Kafka instance with a name that starts with `my`, use the following syntax:\n\n```\nname like my%25\n```\n\nTo return a Kafka instance with a name containing `test` matching any character case combinations, use the following syntax:\n\n```\nname ilike %25test%25\n```\n\nIf the parameter isn't provided, or if the value is empty, then all the Kafka instances\nthat the user has permission to see are returned.\n\nNote. If the query is invalid, an error is returned.\n",
         "examples": {
           "search": {
             "value": "name = my-kafka and cloud_provider = aws"
@@ -733,26 +739,49 @@
       "EnterpriseCluster": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ObjectReference"
+            "$ref": "#/components/schemas/EnterpriseClusterListItem"
           },
           {
             "properties": {
-              "access_kafkas_via_private_network": {
-                "description": "Indicates whether Kafkas created on this data plane cluster have to be accessed via private network",
-                "type": "boolean"
+              "capacity_information": {
+                "description": "Returns the capacity related information",
+                "example": {
+                  "consumed_kafka_streaming_units": 1,
+                  "kafka_machine_pool_node_count": 3,
+                  "maximum_kafka_streaming_units": 1,
+                  "remaining_kafka_streaming_units": 0
+                },
+                "properties": {
+                  "consumed_kafka_streaming_units": {
+                    "description": "The number of Kafka streaming units that have been consumed on this cluster",
+                    "type": "integer"
+                  },
+                  "kafka_machine_pool_node_count": {
+                    "description": "The kafka machine pool node count provided during cluster registration",
+                    "type": "integer"
+                  },
+                  "maximum_kafka_streaming_units": {
+                    "description": "The maximum number of Kafka streaming units that can be created on this cluster",
+                    "type": "integer"
+                  },
+                  "remaining_kafka_streaming_units": {
+                    "description": "The remaining number of Kafka streaming units that can be still be created on this cluster",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "kafka_machine_pool_node_count",
+                  "maximum_kafka_streaming_units",
+                  "remaining_kafka_streaming_units",
+                  "consumed_kafka_streaming_units"
+                ],
+                "type": "object"
               },
-              "cluster_id": {
-                "description": "ocm cluster id of the registered Enterprise cluster",
-                "type": "string"
-              },
-              "status": {
-                "description": "status of registered Enterprise cluster",
-                "type": "string"
+              "supported_instance_types": {
+                "$ref": "#/components/schemas/SupportedKafkaInstanceTypesList",
+                "type": "object"
               }
             },
-            "required": [
-              "access_kafkas_via_private_network"
-            ],
             "type": "object"
           }
         ]
@@ -765,7 +794,7 @@
           {
             "example": {
               "item": {
-                "$ref": "#/components/examples/EnterpriseClusterExample"
+                "$ref": "#/components/examples/EnterpriseClusterListItemExample"
               },
               "kind": "ClusterList",
               "page": "1",
@@ -777,7 +806,7 @@
                 "items": {
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/EnterpriseCluster"
+                      "$ref": "#/components/schemas/EnterpriseClusterListItem"
                     }
                   ]
                 },
@@ -791,7 +820,7 @@
           }
         ]
       },
-      "EnterpriseClusterWithAddonParameters": {
+      "EnterpriseClusterListItem": {
         "allOf": [
           {
             "$ref": "#/components/schemas/ObjectReference"
@@ -802,10 +831,42 @@
                 "description": "Indicates whether Kafkas created on this data plane cluster have to be accessed via private network",
                 "type": "boolean"
               },
-              "cluster_id": {
-                "description": "OCM cluster id of the registered Enterprise cluster",
+              "cloud_provider": {
+                "description": "The cloud provider for this cluster. This valus will be used as the Kafka's cloud provider value when a Kafka is created on this cluster",
                 "type": "string"
               },
+              "cluster_id": {
+                "description": "The OCM's cluster id of the registered Enterprise cluster.",
+                "type": "string"
+              },
+              "multi_az": {
+                "description": "A flag indicating whether this cluster is available on multiple availability zones or not",
+                "type": "boolean"
+              },
+              "region": {
+                "description": "The region of this cluster. This valus will be used as the Kafka's region value when a Kafka is created on this cluster",
+                "type": "string"
+              },
+              "status": {
+                "description": "The status of Enterprise cluster registration",
+                "type": "string"
+              }
+            },
+            "required": [
+              "access_kafkas_via_private_network",
+              "multi_az"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "EnterpriseClusterWithAddonParameters": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnterpriseClusterListItem"
+          },
+          {
+            "properties": {
               "fleetshard_parameters": {
                 "items": {
                   "allOf": [
@@ -815,15 +876,8 @@
                   ]
                 },
                 "type": "array"
-              },
-              "status": {
-                "description": "status of registered Enterprise cluster",
-                "type": "string"
               }
             },
-            "required": [
-              "access_kafkas_via_private_network"
-            ],
             "type": "object"
           }
         ],
@@ -1035,11 +1089,6 @@
               "instance_type_name": {
                 "deprecated": true,
                 "description": "This field is now deprecated, please use the /api/kafkas_mgmt/v1/instance_types/{cloud_provider}/{cloud_region} endpoint to retrieve the field instead.",
-                "type": "string"
-              },
-              "kafka_storage_size": {
-                "deprecated": true,
-                "description": "Maximum data storage available to this Kafka. This is now deprecated, please use max_data_retention_size instead.",
                 "type": "string"
               },
               "marketplace": {
@@ -1600,7 +1649,8 @@
           }
         },
         "required": [
-          "supported_billing_models"
+          "supported_billing_models",
+          "sizes"
         ],
         "type": "object"
       },
@@ -2290,8 +2340,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "EnterpriseClusterExample": {
-                    "$ref": "#/components/examples/EnterpriseClusterExample"
+                  "EnterpriseClusterListItemExample": {
+                    "$ref": "#/components/examples/EnterpriseClusterListItemExample"
                   }
                 },
                 "schema": {
