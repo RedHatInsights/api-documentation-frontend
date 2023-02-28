@@ -5,7 +5,7 @@ import {APIPage} from "../pages/APIPage";
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <LandingPage />,
+        element: <LandingPage />
     },
     {
         path: '/api',
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/api/:api',
-        element: <APIPage />,
+        element: <APIPage />
     }
 ], {
     basename: process.env.PUBLIC_URL
