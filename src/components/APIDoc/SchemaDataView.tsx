@@ -1,5 +1,5 @@
-import React, { Children, useState} from 'react';
-import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent, Card, CardTitle, CardBody } from '@patternfly/react-core';
+import React, { useState} from 'react';
+import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent, Card, CardBody } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { deRef, DeRefResponse } from '../../utils/Openapi';
@@ -81,12 +81,12 @@ const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({conditio
     if ('$ref' in schema) {
       const refSchemaName = schema.$ref.split('/').at(-1) as string
       singleSchemas.push(refSchemaName)
-      return
+      return undefined
     }
     if ('type' in schema) {
       if (schema.type !== 'object') {
         singleSchemas.push(schema.type as string)
-        return
+        return undefined
       }
     }
     const treeData = getTreeViewData('', deRef(schema,document), document)
@@ -115,7 +115,7 @@ const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({conditio
         {
           schemasData.map((schemaData) => {
             if (!schemaData){
-              return
+              return undefined
             }
             return (
               <FlexItem>
@@ -131,8 +131,6 @@ const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({conditio
     </Flex>
   )
 }
-
-const conditionSchemaKeys = ["oneOf", "anyOf", "allOf"]
 
 interface ConditionalKeyVal {
   schemaKey: string;
