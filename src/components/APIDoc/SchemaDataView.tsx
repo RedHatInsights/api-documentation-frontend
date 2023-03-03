@@ -138,11 +138,11 @@ interface ConditionalKeyVal {
 }
 const findConditionKey = (value: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject) => {
   if ('oneOf' in value) {
-    return {schemaKey: 'oneOf', schemaVal: value.oneOf} as ConditionalKeyVal
+    return {schemaKey: 'One of', schemaVal: value.oneOf} as ConditionalKeyVal
   } else if ('anyOf' in value) {
-    return {schemaKey: 'anyOf', schemaVal: value.anyOf} as ConditionalKeyVal
+    return {schemaKey: 'Any of', schemaVal: value.anyOf} as ConditionalKeyVal
   } else if ('allOf' in value) {
-    return {schemaKey: 'allOf', schemaVal: value.allOf} as ConditionalKeyVal
+    return {schemaKey: 'All of', schemaVal: value.allOf} as ConditionalKeyVal
   }
   return undefined
 }
