@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent } from '@patternfly/react-core';
+import React, { Children, useState} from 'react';
+import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent, Card, CardTitle, CardBody } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { deRef, DeRefResponse } from '../../utils/Openapi';
@@ -65,9 +65,99 @@ const PropertyView:React.FunctionComponent<PropertyComponentProps> = ({propName,
   )
 }
 
+interface SchemasDataOut {
+  type: string;
+  treeData: TreeViewDataItem[];
+}
+interface ConditionSchemaProps {
+  condition: string;
+  schemas: (OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject)[];
+  document: OpenAPIV3.Document;
+}
+const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({condition, schemas, document}) => {
+  let singleSchemas: string[] = []
+
+  const schemasData = schemas.map((schema) => {
+    if ('$ref' in schema) {
+      const refSchemaName = schema.$ref.split('/').at(-1) as string
+      singleSchemas.push(refSchemaName)
+      return
+    }
+    if ('type' in schema) {
+      if (schema.type !== 'object') {
+        singleSchemas.push(schema.type as string)
+        return
+      }
+    }
+    const treeData = getTreeViewData('', deRef(schema,document), document)
+
+    return {type: schema.type as string, treeData: treeData} as SchemasDataOut
+  })
+
+  return (
+    <Flex>
+      <TextContent>
+        <Text component={TextVariants.h4}>{condition}</Text>
+      </TextContent>
+      <Flex direction={{ default: 'column' }}>
+        <FlexItem>
+        </FlexItem>
+        {
+          singleSchemas.map((singleSchema) => {
+            return (
+              <FlexItem>
+                <Card isFlat isCompact>
+                  <CardBody>{singleSchema}</CardBody>
+                </Card>
+              </FlexItem>)
+        })
+        }
+        {
+          schemasData.map((schemaData) => {
+            if (!schemaData){
+              return
+            }
+            return (
+              <FlexItem>
+                <Card isFlat isCompact>
+                  <CardBody>{schemaData.type}</CardBody>
+                  <CardBody><TreeView data={schemaData.treeData} variant="compactNoBackground" /></CardBody>
+                </Card>
+              </FlexItem>
+            )
+          })
+        }
+      </Flex>
+    </Flex>
+  )
+}
+
+const conditionSchemaKeys = ["oneOf", "anyOf", "allOf"]
+
+interface ConditionalKeyVal {
+  schemaKey: string;
+  schemaVal: (OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject)[]
+}
+const findConditionKey = (value: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject) => {
+  if ('oneOf' in value) {
+    return {schemaKey: 'oneOf', schemaVal: value.oneOf} as ConditionalKeyVal
+  } else if ('anyOf' in value) {
+    return {schemaKey: 'anyOf', schemaVal: value.anyOf} as ConditionalKeyVal
+  } else if ('allOf' in value) {
+    return {schemaKey: 'allOf', schemaVal: value.allOf} as ConditionalKeyVal
+  }
+  return undefined
+}
+
 const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>, document: OpenAPIV3.Document) => {
   if (schema.type && !schema.properties) {
-    return [{ name: <PropertyView propName={schema.deRefData ? schema.deRefData.name : ""} propertyType={schema.type} required={false}/>}]
+    return [{ name: <PropertyView propName={schema.deRefData ? schema.deRefData.name : ""} propertyType={schema.type} required={false}/>}] as TreeViewDataItem[]
+  }
+
+  const conditionalSchema = findConditionKey(schema)
+  if (conditionalSchema) {
+    const {schemaKey, schemaVal} = conditionalSchema
+    return [{name: <ConditionSchema condition={schemaKey} schemas={schemaVal} document={document}/>}] as TreeViewDataItem[]
   }
 
   if (!schema.properties) {
@@ -77,11 +167,19 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
     let propertyType = "object"
     let children: TreeViewDataItem[] | undefined = undefined
 
-    if ('type' in value) {
+    const conditionalSchema = findConditionKey(value);
+    if (conditionalSchema) {
+      const {schemaKey, schemaVal} = conditionalSchema
+      children = [{name: <ConditionSchema condition={schemaKey} schemas={schemaVal} document={document}/>}] as TreeViewDataItem[]
+    } else if ('type' in value) {
       propertyType = value.type as string
 
       if ('items' in value) {
-        if ('type' in value.items) {
+        const itemConditionalSchema = findConditionKey(value.items)
+        if (itemConditionalSchema) {
+          const {schemaKey, schemaVal} = itemConditionalSchema
+          children = [{name: <ConditionSchema condition={schemaKey} schemas={schemaVal} document={document}/>}] as TreeViewDataItem[]
+        } else if ('type' in value.items) {
           propertyType = `${propertyType} of ${value.items.type}`
         }
         if ('$ref' in value.items) {
@@ -98,7 +196,7 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
     } else if ('$ref' in value ) {
       propertyType = value.$ref.split('/').at(-1) as string
     } else {
-      propertyType = "schema undefined/oneOf/anyOf/etc"
+      propertyType = "schema undefined"
     }
 
     return {
