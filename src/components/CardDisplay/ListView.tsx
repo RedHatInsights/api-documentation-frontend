@@ -4,8 +4,6 @@ import {
   DataListItem, 
   DataListItemRow, 
   DataListItemCells, 
-  Gallery, 
-  GalleryItem, 
   Pagination, 
 } from '@patternfly/react-core';
 
@@ -37,15 +35,14 @@ export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => 
     setPage(newPage);
   };
 
-  const buildCards = (apiConfig: readonly Readonly<APIConfiguration>[]) => {
+  const buildCards = (apiDocs: readonly Readonly<APIConfiguration>[]) => {
     const numberOfCards = (page - 1) * perPage + perPage - 1 >= apiDocs.length ? apiDocs.length - (page - 1) * perPage : perPage;
 
     return Array.apply(0, Array(numberOfCards)).map((x, i) => (
-      apiConfig.map(apiConfig => (
-        <GalleryItem key={i}>
-          <Item displayName={apiConfig.displayName} description={apiConfig.description} />
-        </GalleryItem>
-            ))
+    //return apiDocs.map(apiConfig => (
+        <Fragment key={apiDocs[i].displayName}>
+          <Item displayName={apiDocs[i].displayName} description={apiDocs[i].description} />
+        </Fragment>
     ));
   };
 
@@ -68,7 +65,7 @@ export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => 
             <DataListItemRow>
               <DataListItemCells
                 dataListCells={[
-                  <Gallery minWidths={{default: '1000px'}}  hasGutter>{buildCards(apiDocs)}</Gallery>
+                  <Fragment>{buildCards(apiDocs)}</Fragment>
                 ]}
               /> 
             </DataListItemRow>
