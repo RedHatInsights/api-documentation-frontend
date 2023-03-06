@@ -21,6 +21,7 @@ export interface ListViewProps {
 export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => {
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(10);
+  const apiDocsCount = apiDocs.length
 
   const onSetPage = (_event: React.MouseEvent | React.KeyboardEvent | MouseEvent, newPage: number) => {
     setPage(newPage);
@@ -36,10 +37,9 @@ export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => 
   };
 
   const buildCards = (apiDocs: readonly Readonly<APIConfiguration>[]) => {
-    const numberOfCards = (page - 1) * perPage + perPage - 1 >= apiDocs.length ? apiDocs.length - (page - 1) * perPage : perPage;
+    const numberOfCards = (page - 1) * perPage + perPage - 1 >= apiDocsCount ? apiDocsCount - (page - 1) * perPage : perPage;
 
     return Array.apply(0, Array(numberOfCards)).map((x, i) => (
-    //return apiDocs.map(apiConfig => (
         <Fragment key={apiDocs[i].displayName}>
           <Item displayName={apiDocs[i].displayName} description={apiDocs[i].description} />
         </Fragment>
@@ -49,7 +49,7 @@ export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => 
   return <Fragment>
       <Pagination
         perPageComponent="button"
-        itemCount={apiDocs.length}
+        itemCount={apiDocsCount}
         perPage={perPage}
         page={page}
         onSetPage={onSetPage}
