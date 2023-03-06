@@ -2,8 +2,6 @@ import {FunctionComponent, useState} from 'react';
 import {
   Button,
   Form,
-  Gallery,
-  GalleryItem,
   Page,
   PageGroup,
   PageSection,
@@ -18,15 +16,13 @@ import {
   TextVariants
 } from "@patternfly/react-core";
 import {apiConfigurations, apiLabels} from "../config/apis";
-import {Card} from "../components/Card/Card";
 import { SearchInput } from '@patternfly/react-core';
-import {useNavigate} from "react-router";
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 
-import APIConfigurationIcons from '../config/APIConfigurationIcons';
 import {SidebarTags} from "../components/SideBar/SidebarTags";
-import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
+import { GridView } from '../components/CardDisplay/GridView';
+import { ListView } from '../components/CardDisplay/ListView';
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -34,6 +30,16 @@ export const LandingPage: FunctionComponent = () => {
   const onChange = (searchInput: string) => {
     setSearchInput(searchInput);
   };
+  
+  const [apiDisplay, setapiDisplay] = useState('grid');
+
+  const handleListView = () => {
+    setapiDisplay('list')
+  }
+
+  const handleGridView = () => {
+    setapiDisplay('grid')
+  }
 
   const [selectedTags, setSelectedTags] = useState<ReadonlyArray<string>>([]);
 
@@ -46,7 +52,7 @@ export const LandingPage: FunctionComponent = () => {
     setSelectedTags([]);
   };
 
-  const navigate = useNavigate();
+
     return <Page className="apid-c-page-landingpage pf-u-background-color-100 pf-m-full-height">
       <Sidebar>
         <SidebarPanel className="pf-u-p-lg">
@@ -97,22 +103,16 @@ export const LandingPage: FunctionComponent = () => {
                 </SplitItem>
                 <SplitItem isFilled></SplitItem>
                 <SplitItem className="pf-u-pt-sm">
-                  <Button variant="link" icon={<ThIcon />} className="pf-u-mr-sm" isInline isLarge/>
-                  <Button variant="link" icon={<ThListIcon />} isInline isLarge isDisabled/>
+                  <Button variant="link" icon={<ThIcon />} onClick={handleGridView} className="pf-u-mr-sm" isInline isLarge/>
+                  <Button variant="link" icon={<ThListIcon />}  onClick={handleListView} isInline isLarge/>
                 </SplitItem>
               </Split>
             </PageSection>
           </PageGroup>
           <PageSection className="pf-u-px-lg-on-md">
-            { filteredDocs.length > 0 ?
-            <Gallery minWidths={{default: '300px'}} hasGutter>
-              { filteredDocs.map(apiConfig => (
-                <GalleryItem key={apiConfig.displayName}>
-                  <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(`/api/${apiConfig.id}`)} />
-                </GalleryItem>
-              ))}
-            </Gallery> :
-            <NoMatchFound clearFilters={clearFilters} /> }
+            { apiDisplay === 'grid'
+                ? <GridView apiDocs={filteredDocs} clear={clearFilters} /> 
+                : <ListView apiDocs={filteredDocs} clear={clearFilters}/> }
           </PageSection>
         </SidebarContent>
       </Sidebar>
