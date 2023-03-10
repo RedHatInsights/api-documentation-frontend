@@ -25,7 +25,7 @@ deploy_stage:
       spaship deploy --env=$SPASHIP_STAGE_WEB_PROPERTY --apikey=$SPASHIP_STAGE_API_KEY
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
+      when: always
       allow_failure: true
   tags:
     - shared
@@ -41,7 +41,7 @@ deploy_qa:
       spaship deploy --env=$SPASHIP_QA_WEB_PROPERTY --apikey=$SPASHIP_QA_API_KEY
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: manual
+      when: always
       allow_failure: true
   tags:
     - shared
