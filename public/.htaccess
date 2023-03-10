@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    ## Adding variable if the user is a bot or if _escaped_fragment_ is set (used by some crawlers)
+    RewriteCond %{HTTP_USER_AGENT} googlebot|bingbot|yandex|baiduspider|facebookexternalhit|twitterbot|rogerbot|linkedinbot|embedly|quora\ link\ preview|showyoubot|outbrain|pinterest\/0\.|pinterestbot|slackbot|vkShare|W3C_Validator [NC,OR]
+    RewriteCond %{QUERY_STRING} _escaped_fragment_
+    RewriteRule ^ - [E=_IS_BOT:1]
+
+    # Helper rewrite to rewrite the "/" and empty paths to direct to pre-rendered/index.html
+    RewriteCond %{ENV:_IS_BOT} =1
+    RewriteRule ^\/?$ index
+
+    # Rewrites the content to pre-rendered/{the-path}.html
+    RewriteCond %{ENV:_IS_BOT} =1
+    RewriteRule ^(?!.*(\.(js|css|xml|woff2|json|ico|map)))(.*)$ pre-rendered/$0.html [END]
+
+    # Prevent from going directly to pre-rendered - let the application handle it
+    RewriteRule ^pre-rendered.*$ index.html [END]
+
+    # Default rewrite conditions - anything that is not a dir or a file is directed to index.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule .* index.html [END]
+</IfModule>
