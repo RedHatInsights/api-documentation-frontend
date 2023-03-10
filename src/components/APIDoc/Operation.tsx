@@ -13,6 +13,7 @@ import {
 import {TableComposable, Tbody, Td, Thead, Tr} from "@patternfly/react-table";
 import {ExampleResponse} from "./ExampleResponse";
 import {CodeSamples} from "./CodeSamples";
+import { RequestBodyView } from './RequestBodyView';
 
 export interface OperationProps {
   verb: string;
@@ -91,6 +92,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
             </Tbody>
           </TableComposable>
           </> }
+          { operation.requestBody && <RequestBodyView requestBody={operation.requestBody} document={document} /> }
           { responseMap.length > 0 && <>
             <TextContent className="pf-u-py-lg">
               <Text component={TextVariants.h3} >Responses</Text>
