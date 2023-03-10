@@ -1,13 +1,15 @@
 import {Fragment, FunctionComponent, useState} from 'react';
 import { 
+  Checkbox,
   DataList, 
   DataListItem, 
   DataListItemRow, 
   DataListItemCells, 
-  Pagination, 
+  Pagination,
 } from '@patternfly/react-core';
+import { TableComposable, Thead, Tr, Th, Tbody, Td } from '@patternfly/react-table';
 
-import {Item} from "../../components/Item/Item";
+import {Item} from "../../components/ListItem/ListItem";
 
 import {APIConfiguration, APILabel} from "../../config/apis";
 import {NoMatchFound} from "../../components/NoMatchFound/NoMatchFound";
@@ -17,6 +19,13 @@ export interface ListViewProps {
   apiLabels?: ReadonlyArray<Readonly<APILabel>>;
   clear: any;
 }
+
+const columnNames = {
+  appName: 'Application name',
+  description: 'Description',
+  apiVersion: 'API versions',
+  tags: 'Tags',
+};
 
 export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => {
   const [page, setPage] = useState(1);
@@ -59,18 +68,32 @@ export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => 
         isCompact
       />
 
-      { apiDocs.length > 0 ?
-      <DataList aria-label="List of API docs">
-          <DataListItem aria-labelledby="simple-item1">
-            <DataListItemRow>
-              <DataListItemCells
-                dataListCells={[
-                  <Fragment>{buildCards(apiDocs)}</Fragment>
-                ]}
-              /> 
-            </DataListItemRow>
-        </DataListItem>
-      </DataList> : <NoMatchFound clearFilters={clear} /> }
+      <TableComposable aria-label="Selectable table">
+        <Thead>
+          <Tr>
+            <Th width={15}>
+              <Checkbox id="1"/>
+              {columnNames.appName}
+            </Th>
+            <Th width={15}>{columnNames.description}</Th>
+            <Th width={10}>{columnNames.apiVersion}</Th>
+            <Th width={10}>{columnNames.tags}</Th>
+          </Tr>
+        </Thead>
+          </TableComposable>
+
+        { apiDocs.length > 0 ?
+        <DataList aria-label="List of API docs">
+            <DataListItem aria-labelledby="simple-item1">
+              <DataListItemRow>
+                <DataListItemCells
+                  dataListCells={[
+                    <Fragment>{buildCards(apiDocs)}</Fragment>
+                  ]}
+                /> 
+              </DataListItemRow>
+          </DataListItem>
+        </DataList> : <NoMatchFound clearFilters={clear} /> }
 
       <Pagination
         perPageComponent="button"
