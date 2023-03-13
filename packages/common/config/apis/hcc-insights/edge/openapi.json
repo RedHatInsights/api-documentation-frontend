@@ -1099,7 +1099,28 @@
                   "type": "string"
                 },
                 "UpdatedAt": {},
+                "account": {
+                  "type": "string"
+                },
+                "distribution_arch": {
+                  "type": "string"
+                },
+                "distribution_version": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "gpg_key": {
+                  "type": "string"
+                },
                 "org_id": {
+                  "type": "string"
+                },
+                "package_count": {
+                  "type": "integer"
+                },
+                "uuid": {
                   "type": "string"
                 }
               },
@@ -1411,7 +1432,28 @@
             "type": "string"
           },
           "UpdatedAt": {},
+          "account": {
+            "type": "string"
+          },
+          "distribution_arch": {
+            "type": "string"
+          },
+          "distribution_version": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "gpg_key": {
+            "type": "string"
+          },
           "org_id": {
+            "type": "string"
+          },
+          "package_count": {
+            "type": "integer"
+          },
+          "uuid": {
             "type": "string"
           }
         },
@@ -3941,7 +3983,28 @@
                           "type": "string"
                         },
                         "UpdatedAt": {},
+                        "account": {
+                          "type": "string"
+                        },
+                        "distribution_arch": {
+                          "type": "string"
+                        },
+                        "distribution_version": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "gpg_key": {
+                          "type": "string"
+                        },
                         "org_id": {
+                          "type": "string"
+                        },
+                        "package_count": {
+                          "type": "integer"
+                        },
+                        "uuid": {
                           "type": "string"
                         }
                       },
@@ -4235,7 +4298,28 @@
                           "type": "string"
                         },
                         "UpdatedAt": {},
+                        "account": {
+                          "type": "string"
+                        },
+                        "distribution_arch": {
+                          "type": "string"
+                        },
+                        "distribution_version": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "gpg_key": {
+                          "type": "string"
+                        },
                         "org_id": {
+                          "type": "string"
+                        },
+                        "package_count": {
+                          "type": "integer"
+                        },
+                        "uuid": {
                           "type": "string"
                         }
                       },
@@ -4535,7 +4619,28 @@
                                 "type": "string"
                               },
                               "UpdatedAt": {},
+                              "account": {
+                                "type": "string"
+                              },
+                              "distribution_arch": {
+                                "type": "string"
+                              },
+                              "distribution_version": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "gpg_key": {
+                                "type": "string"
+                              },
                               "org_id": {
+                                "type": "string"
+                              },
+                              "package_count": {
+                                "type": "integer"
+                              },
+                              "uuid": {
                                 "type": "string"
                               }
                             },
@@ -6585,7 +6690,28 @@
                                 "type": "string"
                               },
                               "UpdatedAt": {},
+                              "account": {
+                                "type": "string"
+                              },
+                              "distribution_arch": {
+                                "type": "string"
+                              },
+                              "distribution_version": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "gpg_key": {
+                                "type": "string"
+                              },
                               "org_id": {
+                                "type": "string"
+                              },
+                              "package_count": {
+                                "type": "integer"
+                              },
+                              "uuid": {
                                 "type": "string"
                               }
                             },
@@ -6879,7 +7005,28 @@
                                 "type": "string"
                               },
                               "UpdatedAt": {},
+                              "account": {
+                                "type": "string"
+                              },
+                              "distribution_arch": {
+                                "type": "string"
+                              },
+                              "distribution_version": {
+                                "items": {
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "gpg_key": {
+                                "type": "string"
+                              },
                               "org_id": {
+                                "type": "string"
+                              },
+                              "package_count": {
+                                "type": "integer"
+                              },
+                              "uuid": {
                                 "type": "string"
                               }
                             },
@@ -7179,7 +7326,28 @@
                                       "type": "string"
                                     },
                                     "UpdatedAt": {},
+                                    "account": {
+                                      "type": "string"
+                                    },
+                                    "distribution_arch": {
+                                      "type": "string"
+                                    },
+                                    "distribution_version": {
+                                      "items": {
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "gpg_key": {
+                                      "type": "string"
+                                    },
                                     "org_id": {
+                                      "type": "string"
+                                    },
+                                    "package_count": {
+                                      "type": "integer"
+                                    },
+                                    "uuid": {
                                       "type": "string"
                                     }
                                   },
@@ -9671,7 +9839,28 @@
                                     "type": "string"
                                   },
                                   "UpdatedAt": {},
+                                  "account": {
+                                    "type": "string"
+                                  },
+                                  "distribution_arch": {
+                                    "type": "string"
+                                  },
+                                  "distribution_version": {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "type": "array"
+                                  },
+                                  "gpg_key": {
+                                    "type": "string"
+                                  },
                                   "org_id": {
+                                    "type": "string"
+                                  },
+                                  "package_count": {
+                                    "type": "integer"
+                                  },
+                                  "uuid": {
                                     "type": "string"
                                   }
                                 },
@@ -9965,7 +10154,28 @@
                                     "type": "string"
                                   },
                                   "UpdatedAt": {},
+                                  "account": {
+                                    "type": "string"
+                                  },
+                                  "distribution_arch": {
+                                    "type": "string"
+                                  },
+                                  "distribution_version": {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "type": "array"
+                                  },
+                                  "gpg_key": {
+                                    "type": "string"
+                                  },
                                   "org_id": {
+                                    "type": "string"
+                                  },
+                                  "package_count": {
+                                    "type": "integer"
+                                  },
+                                  "uuid": {
                                     "type": "string"
                                   }
                                 },
@@ -10265,7 +10475,28 @@
                                           "type": "string"
                                         },
                                         "UpdatedAt": {},
+                                        "account": {
+                                          "type": "string"
+                                        },
+                                        "distribution_arch": {
+                                          "type": "string"
+                                        },
+                                        "distribution_version": {
+                                          "items": {
+                                            "type": "string"
+                                          },
+                                          "type": "array"
+                                        },
+                                        "gpg_key": {
+                                          "type": "string"
+                                        },
                                         "org_id": {
+                                          "type": "string"
+                                        },
+                                        "package_count": {
+                                          "type": "integer"
+                                        },
+                                        "uuid": {
                                           "type": "string"
                                         }
                                       },
@@ -12048,7 +12279,28 @@
                   "type": "string"
                 },
                 "UpdatedAt": {},
+                "account": {
+                  "type": "string"
+                },
+                "distribution_arch": {
+                  "type": "string"
+                },
+                "distribution_version": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "gpg_key": {
+                  "type": "string"
+                },
                 "org_id": {
+                  "type": "string"
+                },
+                "package_count": {
+                  "type": "integer"
+                },
+                "uuid": {
                   "type": "string"
                 }
               },
@@ -12347,7 +12599,28 @@
                       "type": "string"
                     },
                     "UpdatedAt": {},
+                    "account": {
+                      "type": "string"
+                    },
+                    "distribution_arch": {
+                      "type": "string"
+                    },
+                    "distribution_version": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "gpg_key": {
+                      "type": "string"
+                    },
                     "org_id": {
+                      "type": "string"
+                    },
+                    "package_count": {
+                      "type": "integer"
+                    },
+                    "uuid": {
                       "type": "string"
                     }
                   },
@@ -12668,7 +12941,28 @@
                         "type": "string"
                       },
                       "UpdatedAt": {},
+                      "account": {
+                        "type": "string"
+                      },
+                      "distribution_arch": {
+                        "type": "string"
+                      },
+                      "distribution_version": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "gpg_key": {
+                        "type": "string"
+                      },
                       "org_id": {
+                        "type": "string"
+                      },
+                      "package_count": {
+                        "type": "integer"
+                      },
+                      "uuid": {
                         "type": "string"
                       }
                     },
@@ -12994,7 +13288,28 @@
                             "type": "string"
                           },
                           "UpdatedAt": {},
+                          "account": {
+                            "type": "string"
+                          },
+                          "distribution_arch": {
+                            "type": "string"
+                          },
+                          "distribution_version": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "gpg_key": {
+                            "type": "string"
+                          },
                           "org_id": {
+                            "type": "string"
+                          },
+                          "package_count": {
+                            "type": "integer"
+                          },
+                          "uuid": {
                             "type": "string"
                           }
                         },
@@ -13308,7 +13623,28 @@
                           "type": "string"
                         },
                         "UpdatedAt": {},
+                        "account": {
+                          "type": "string"
+                        },
+                        "distribution_arch": {
+                          "type": "string"
+                        },
+                        "distribution_version": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "gpg_key": {
+                          "type": "string"
+                        },
                         "org_id": {
+                          "type": "string"
+                        },
+                        "package_count": {
+                          "type": "integer"
+                        },
+                        "uuid": {
                           "type": "string"
                         }
                       },
@@ -13630,7 +13966,28 @@
                           "type": "string"
                         },
                         "UpdatedAt": {},
+                        "account": {
+                          "type": "string"
+                        },
+                        "distribution_arch": {
+                          "type": "string"
+                        },
+                        "distribution_version": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "gpg_key": {
+                          "type": "string"
+                        },
                         "org_id": {
+                          "type": "string"
+                        },
+                        "package_count": {
+                          "type": "integer"
+                        },
+                        "uuid": {
                           "type": "string"
                         }
                       },
@@ -13989,7 +14346,28 @@
                             "type": "string"
                           },
                           "UpdatedAt": {},
+                          "account": {
+                            "type": "string"
+                          },
+                          "distribution_arch": {
+                            "type": "string"
+                          },
+                          "distribution_version": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "gpg_key": {
+                            "type": "string"
+                          },
                           "org_id": {
+                            "type": "string"
+                          },
+                          "package_count": {
+                            "type": "integer"
+                          },
+                          "uuid": {
                             "type": "string"
                           }
                         },
@@ -14304,7 +14682,28 @@
                             "type": "string"
                           },
                           "UpdatedAt": {},
+                          "account": {
+                            "type": "string"
+                          },
+                          "distribution_arch": {
+                            "type": "string"
+                          },
+                          "distribution_version": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "gpg_key": {
+                            "type": "string"
+                          },
                           "org_id": {
+                            "type": "string"
+                          },
+                          "package_count": {
+                            "type": "integer"
+                          },
+                          "uuid": {
                             "type": "string"
                           }
                         },
@@ -14635,7 +15034,28 @@
                             "type": "string"
                           },
                           "UpdatedAt": {},
+                          "account": {
+                            "type": "string"
+                          },
+                          "distribution_arch": {
+                            "type": "string"
+                          },
+                          "distribution_version": {
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "gpg_key": {
+                            "type": "string"
+                          },
                           "org_id": {
+                            "type": "string"
+                          },
+                          "package_count": {
+                            "type": "integer"
+                          },
+                          "uuid": {
                             "type": "string"
                           }
                         },
@@ -15235,7 +15655,28 @@
             "type": "string"
           },
           "UpdatedAt": {},
+          "account": {
+            "type": "string"
+          },
+          "distribution_arch": {
+            "type": "string"
+          },
+          "distribution_version": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "gpg_key": {
+            "type": "string"
+          },
           "org_id": {
+            "type": "string"
+          },
+          "package_count": {
+            "type": "integer"
+          },
+          "uuid": {
             "type": "string"
           }
         },

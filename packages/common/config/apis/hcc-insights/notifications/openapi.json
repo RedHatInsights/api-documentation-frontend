@@ -762,6 +762,92 @@
         ]
       }
     },
+    "/notifications/eventTypes/{eventTypeId}/behaviorGroups/{behaviorGroupId}": {
+      "delete": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Delete a behavior group from the given event type.",
+        "operationId": "NotificationResource_deleteBehaviorGroupFromEventType",
+        "parameters": [
+          {
+            "name": "behaviorGroupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          },
+          {
+            "name": "eventTypeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
+    "/notifications/eventTypes/{eventTypeUuid}/behaviorGroups/{behaviorGroupUuid}": {
+      "put": {
+        "tags": [
+          "Notification Resource"
+        ],
+        "summary": "Add a behavior group to the given event type.",
+        "operationId": "NotificationResource_appendBehaviorGroupToEventType",
+        "parameters": [
+          {
+            "name": "behaviorGroupUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          },
+          {
+            "name": "eventTypeUuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/UUID"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
+          }
+        },
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ]
+      }
+    },
     "/notifications/events": {
       "get": {
         "tags": [
@@ -2208,6 +2294,34 @@
           },
           "data": {
             "type": "string"
+          }
+        }
+      },
+      "TriggerDailyDigestRequest": {
+        "required": [
+          "application_name",
+          "bundle_name",
+          "org_id"
+        ],
+        "type": "object",
+        "properties": {
+          "application_name": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "bundle_name": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "end": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "org_id": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "start": {
+            "$ref": "#/components/schemas/LocalDateTime"
           }
         }
       },
