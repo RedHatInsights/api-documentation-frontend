@@ -1,0 +1,21 @@
+{
+  "name": "@apidocs/prerender",
+  "description": "Creates a prerender of api-documentation-frontend",
+  "private": true,
+  "type": "commonjs",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@apidocs/common": "*",
+    "commander": "7.2.0",
+    "site-prerender": "^1.0.2",
+    "fs-extra": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.13.0"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "start": "node dist/main.js"
+  }
+}

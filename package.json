@@ -16,7 +16,10 @@
     "discovery:start": "npm run --workspace packages/transform start -- --discovery-file `npm prefix`/packages/discovery/Discovery.yml -o `npm prefix`/packages/common/config",
     "sitemap": "npm-run-all sitemap:build sitemap:start",
     "sitemap:build": "npm run --workspace packages/common -workspace packages/sitemap build",
-    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL"
+    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL",
+    "prerender": "npm-run-all prerender:build prerender:start",
+    "prerender:build": "npm run --workspace packages/common -workspace packages/prerender build",
+    "prerender:start": "npm run --workspace packages/prerender start --  -o `npm prefix`/build/pre-rendered -d `npm prefix`/build -b apidocs"
   },
   "browserslist": {
     "production": [
