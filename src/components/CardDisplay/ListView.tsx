@@ -4,7 +4,9 @@ import {
   DataList, 
   DataListItem, 
   DataListItemRow, 
-  DataListItemCells, 
+  DataListItemCells,
+  Flex,
+  FlexItem,
   Pagination,
 } from '@patternfly/react-core';
 import { TableComposable, Thead, Tr, Th, Tbody, Td } from '@patternfly/react-table';
@@ -68,41 +70,43 @@ export const ListView: FunctionComponent<ListViewProps> = ({apiDocs, clear}) => 
         isCompact
       />
 
-      <TableComposable aria-label="Selectable table">
+      <TableComposable>
         <Thead>
           <Tr>
             <Th width={15}>
-              <Checkbox id="1"/>
-              {columnNames.appName}
+              <Flex>
+                <FlexItem><Checkbox id="1"/></FlexItem>
+                <FlexItem>{columnNames.appName}</FlexItem>
+              </Flex>
             </Th>
             <Th width={15}>{columnNames.description}</Th>
             <Th width={10}>{columnNames.apiVersion}</Th>
             <Th width={10}>{columnNames.tags}</Th>
           </Tr>
         </Thead>
-          </TableComposable>
+      </TableComposable>
 
-        { apiDocs.length > 0 ?
-        <DataList aria-label="List of API docs">
-            <DataListItem aria-labelledby="simple-item1">
-              <DataListItemRow>
-                <DataListItemCells
-                  dataListCells={[
-                    <Fragment>{buildCards(apiDocs)}</Fragment>
-                  ]}
-                /> 
-              </DataListItemRow>
-          </DataListItem>
-        </DataList> : <NoMatchFound clearFilters={clear} /> }
-
-      <Pagination
-        perPageComponent="button"
-        itemCount={apiDocs.length}
-        perPage={perPage}
-        page={page}
-        onSetPage={onSetPage}
-        widgetId="top-example"
-        onPerPageSelect={onPerPageSelect}
-      />
+      { apiDocs.length > 0 ?
+      <DataList aria-label="List of API docs">
+        <DataListItem aria-labelledby="simple-item1">
+          <DataListItemRow>
+            <DataListItemCells
+              dataListCells={[
+                <Fragment>{buildCards(apiDocs)}</Fragment>
+              ]}
+            /> 
+          </DataListItemRow>
+        
+          <Pagination
+            perPageComponent="button"
+            itemCount={apiDocs.length}
+            perPage={perPage}
+            page={page}
+            onSetPage={onSetPage}
+            widgetId="top-example"
+            onPerPageSelect={onPerPageSelect}
+          />
+        </DataListItem>
+      </DataList> : <NoMatchFound clearFilters={clear} /> }
     </Fragment>
 };

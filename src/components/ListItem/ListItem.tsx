@@ -1,5 +1,5 @@
 import {Fragment, FunctionComponent } from 'react';
-import { Checkbox, DataListCell, Divider, Flex, FlexItem } from '@patternfly/react-core';
+import { Checkbox, DataListCell, Divider, Flex, FlexItem, Text, TextVariants } from '@patternfly/react-core';
 
 
 export interface CardProps {
@@ -9,13 +9,16 @@ export interface CardProps {
 
 export const Item: FunctionComponent<CardProps> = ({displayName, description}) => {
   return <Fragment>
-    <DataListCell width={2} key={displayName}>
+    <DataListCell width={3} key={displayName}>
       <Flex>
         <FlexItem><Checkbox id="1"/></FlexItem>
-        <FlexItem><span id="api-display-name">{displayName}</span></FlexItem>
+        <FlexItem>{displayName}</FlexItem>
       </Flex>
-    </DataListCell>,
-    <DataListCell wrapModifier='truncate' width={2} key={description}>{description}</DataListCell>
+    </DataListCell>
+    <DataListCell wrapModifier='truncate' width={3} key={description}>
+      <Text component={TextVariants.small}>
+        {description}
+      </Text></DataListCell>
     <DataListCell key={displayName}></DataListCell>
     <DataListCell key={displayName}></DataListCell>
 
