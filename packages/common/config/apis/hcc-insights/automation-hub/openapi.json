@@ -39729,7 +39729,7 @@
           "finished_before": {
             "type": "string",
             "format": "date-time",
-            "default": "2023-02-06",
+            "default": "2023-02-08",
             "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'"
           },
           "states": {
