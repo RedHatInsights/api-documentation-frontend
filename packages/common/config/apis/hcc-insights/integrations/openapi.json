@@ -198,6 +198,7 @@
             "description": "Not Allowed"
           }
         },
+        "deprecated": true,
         "security": [
           {
             "SecurityScheme": []
@@ -253,6 +254,7 @@
             "description": "Not Allowed"
           }
         },
+        "deprecated": true,
         "security": [
           {
             "SecurityScheme": []
@@ -1742,6 +1744,34 @@
           },
           "data": {
             "type": "string"
+          }
+        }
+      },
+      "TriggerDailyDigestRequest": {
+        "required": [
+          "application_name",
+          "bundle_name",
+          "org_id"
+        ],
+        "type": "object",
+        "properties": {
+          "application_name": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "bundle_name": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "end": {
+            "$ref": "#/components/schemas/LocalDateTime"
+          },
+          "org_id": {
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "start": {
+            "$ref": "#/components/schemas/LocalDateTime"
           }
         }
       },

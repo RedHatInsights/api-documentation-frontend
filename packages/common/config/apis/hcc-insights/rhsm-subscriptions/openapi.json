@@ -422,6 +422,18 @@
               "type": "integer"
             },
             "style": "form"
+          },
+          {
+            "description": "Defines the end of the report period. Defaults to the current time. Dates should be provided in UTC.",
+            "explode": true,
+            "in": "query",
+            "name": "use_running_totals_format",
+            "required": false,
+            "schema": {
+              "default": false,
+              "type": "boolean"
+            },
+            "style": "form"
           }
         ],
         "responses": {
