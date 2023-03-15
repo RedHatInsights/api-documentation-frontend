@@ -2,6 +2,9 @@
  .apid-c-page-landingpage, .apid-c-page-apipage {
    max-width: 1450px;
    margin: auto;
+  .pf-c-page__main {
+    overflow: hidden;
+  }
  }
 
  @media only screen and (max-width: 768px) {
@@ -28,7 +31,7 @@
   }
   .pf-c-sidebar__content {
     height: 100%;
-    overflow: auto;
+    overflow: hidden;
     background: var(--pf-global--BackgroundColor--200);
     box-shadow: inset 0.125rem 0 0.125rem -0.0625rem rgba(3, 3, 3, 0.16);
   }
@@ -47,6 +50,8 @@
   }
   .pf-c-page__main-section {
     box-shadow: inset 0.125rem 0 0.125rem -0.0625rem rgba(3, 3, 3, 0.16);
+    height: 100%;
+    overflow: scroll;
   }
   .pf-c-card__body {
     display: flex;
@@ -69,6 +74,7 @@
   }
   .pf-c-sidebar__content {
     height: 100%;
+    padding-bottom: var(--pf-global--spacer--3xl);
     overflow: auto;
     box-shadow: inset 0.2rem 0 0.2rem -0.0625rem rgba(3, 3, 3, 0.1);
     .pf-c-page__main-section {
