@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent, Card, CardBody } from '@patternfly/react-core';
+import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent, Card, CardBody, Label } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { deRef, DeRefResponse } from '../../utils/Openapi';
@@ -34,12 +34,17 @@ export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ s
 
 
 interface PropertyComponentProps {
+  propSchema?: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject;
   propName: string;
   propertyType: string;
   required: boolean | undefined;
 }
 
-const PropertyView:React.FunctionComponent<PropertyComponentProps> = ({propName, propertyType, required}) => {
+const PropertyView:React.FunctionComponent<PropertyComponentProps> = ({propSchema, propName, propertyType, required}) => {
+  let extraProps;
+  if (propSchema && !('$ref' in propSchema) ) {
+    extraProps = <ExtraPropertyView propSchema={propSchema}/>
+  }
   return (
     <Flex>
       <FlexItem>
@@ -56,12 +61,77 @@ const PropertyView:React.FunctionComponent<PropertyComponentProps> = ({propName,
       </FlexItem>
       <FlexItem>
         <TextContent>
-            <Text component={TextVariants.p}>
-              {propertyType}
-            </Text>
-          </TextContent>
+          <Text component={TextVariants.p}>
+            {propertyType}
+          </Text>
+        </TextContent>
+      </FlexItem>
+      <FlexItem>
+        {extraProps}
       </FlexItem>
     </Flex>
+  )
+}
+
+
+interface ExtraPropertyViewProps {
+  propSchema: OpenAPIV3.SchemaObject;
+}
+const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> = ({propSchema}) => {
+  let maxMin: string | undefined;
+  if (propSchema.maximum && propSchema.minimum) {
+    maxMin = (propSchema.exclusiveMinimum ? '>': '≥') + ` ${propSchema.minimum} and `
+    maxMin += (propSchema.exclusiveMaximum ? '<' : '≤') + ` ${propSchema.maximum}`
+  } else if (propSchema.maximum) {
+    maxMin = (propSchema.exclusiveMaximum ? '<' : '≤') + ` ${propSchema.maximum}`
+  } else if (propSchema.minimum) {
+    maxMin = (propSchema.exclusiveMinimum ? '>' : '≥') + ` ${propSchema.minimum}`
+  }
+
+  let maxMinChar: string | undefined;
+  if (propSchema.maxLength && propSchema.minLength) {
+    maxMinChar = `${propSchema.minLength} to ${propSchema.maxLength} chars`
+  } else if (propSchema.maxLength) {
+    maxMinChar = `max ${propSchema.maxLength} chars`
+  } else if (propSchema.minLength) {
+    maxMinChar = `max ${propSchema.minLength} chars`
+  }
+
+  let maxMinItems: string | undefined;
+  if (propSchema.maxItems && propSchema.minItems) {
+    maxMinItems = `${propSchema.minItems} and ${propSchema.maxItems} items`
+  } else if (propSchema.maxItems) {
+    maxMinItems = `max ${propSchema.maxItems} items`
+  } else if (propSchema.minItems) {
+    maxMinItems = `min ${propSchema.minItems} items`
+  }
+
+  let maxMinProps: string | undefined;
+  if (propSchema.maxProperties && propSchema.minProperties) {
+    maxMinProps = `${propSchema.minProperties} and ${propSchema.maxProperties} properties`
+  } else if (propSchema.maxProperties) {
+    maxMinProps = `max ${propSchema.maxProperties} properties`
+  } else if (propSchema.minItems) {
+    maxMinProps = `min ${propSchema.minProperties} properties`
+  }
+
+  return(
+    <TextContent>
+      {propSchema.format && <Label isCompact>{propSchema.format}</Label>}
+      {propSchema.default && <Label isCompact>default: {propSchema.default}</Label>}
+      {propSchema.enum && <Label isCompact>{propSchema.enum.join(" | ")}</Label>}
+      {propSchema.pattern && <Label isCompact>pattern: {propSchema.pattern}</Label>}
+      {propSchema.multipleOf && <Label isCompact>multipleOf: {propSchema.multipleOf}</Label>}
+      {maxMin && <Label isCompact>{maxMin}</Label>}
+      {maxMinChar && <Label isCompact>{maxMinChar}</Label>}
+      {maxMinItems && <Label isCompact>{maxMinItems}</Label>}
+      {maxMinProps && <Label isCompact>{maxMinProps}</Label>}
+      {propSchema.uniqueItems && <Label isCompact>unique</Label>}
+      {propSchema.nullable && <Label isCompact>nullable</Label>}
+      {propSchema.readOnly && <Label isCompact>read only</Label>}
+      {propSchema.writeOnly && <Label isCompact>write only</Label>}
+      {propSchema.deprecated && <Label isCompact>depricated</Label>}
+    </TextContent>
   )
 }
 
@@ -149,7 +219,7 @@ const findConditionKey = (value: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObj
 
 const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>, document: OpenAPIV3.Document) => {
   if (schema.type && !schema.properties) {
-    return [{ name: <PropertyView propName={schema.deRefData ? schema.deRefData.name : ""} propertyType={schema.type} required={false}/>}] as TreeViewDataItem[]
+    return [{ name: <PropertyView propSchema={schema} propName={schema.deRefData ? schema.deRefData.name : ""} propertyType={schema.type} required={false}/>}] as TreeViewDataItem[]
   }
 
   const conditionalSchema = findConditionKey(schema)
@@ -198,7 +268,7 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
     }
 
     return {
-      name: <PropertyView propName={key as string} propertyType={propertyType} required={schema.required?.includes(key)}/>,
+      name: <PropertyView propSchema={value} propName={key as string} propertyType={propertyType} required={schema.required?.includes(key)}/>,
       id: `${key}-${propertyType}`,
       children: children,
     }
