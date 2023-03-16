@@ -78,28 +78,6 @@ export const LandingPage: FunctionComponent = () => {
               </PageSection>
               <PageSection variant={PageSectionVariants.light} className="pf-u-px-lg-on-md">
                 <Split>
-                  <SplitItem>
-                    <div className="pf-c-dropdown isDisabled">
-                      <button
-                        className="pf-c-dropdown__toggle"
-                        id="dropdown-collapsed-button"
-                        aria-expanded="false"
-                        type="button"
-                        disabled
-                      >
-                        <span className="pf-c-dropdown__toggle-text">Sort by name (alphabetically)</span>
-                        <span className="pf-c-dropdown__toggle-icon">
-                          <i className="fas fa-caret-down" aria-hidden="true"></i>
-                        </span>
-                      </button>
-                      <ul
-                        className="pf-c-dropdown__menu"
-                        aria-labelledby="dropdown-collapsed-button"
-                        hidden
-                      >
-                      </ul>
-                    </div>
-                  </SplitItem>
                   <SplitItem isFilled></SplitItem>
                   <SplitItem className="pf-u-pt-sm">
                     <Button variant="link" icon={<ThIcon />} className="pf-u-mr-sm" isInline isLarge/>
