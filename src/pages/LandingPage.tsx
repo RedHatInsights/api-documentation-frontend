@@ -108,7 +108,7 @@ export const LandingPage: FunctionComponent = () => {
                 </Split>
               </PageSection>
             </PageGroup>
-            <PageSection className="pf-u-px-lg-on-md pf-u-pb-3xl">
+            <PageSection className="pf-c-page__main-section-gallery pf-u-px-lg-on-md pf-u-pb-3xl">
               { filteredDocs.length > 0 ?
               <Gallery minWidths={{default: '300px'}} hasGutter>
                 { filteredDocs.map(apiConfig => (
