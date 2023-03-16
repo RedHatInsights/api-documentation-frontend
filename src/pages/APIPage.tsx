@@ -54,31 +54,29 @@ export const APIPage: FunctionComponent = () => {
             <title>{selectedApi.displayName} - API Docs</title>
             <meta name="rhd:node-type" content="api_docs" />
         </Helmet>
-        <div className="rhd-m-max-width-solid-bg-xl">
-            <Page className="apid-c-page-apipage pf-u-background-color-100 pf-m-full-height">
-              <PageSection variant={PageSectionVariants.light}>
-                <Breadcrumb>
-                  <BreadcrumbItem to='#' onClick={(event) => {
-                        event.preventDefault();
-                        navigate('/');
-                    }} >API Documentation and Guides</BreadcrumbItem>
-                  <BreadcrumbItem isActive>{api}</BreadcrumbItem>
-                </Breadcrumb>
+        <Page className="apid-c-page-apipage pf-u-background-color-100 pf-m-full-height">
+          <PageSection variant={PageSectionVariants.light}>
+            <Breadcrumb>
+              <BreadcrumbItem to='#' onClick={(event) => {
+                    event.preventDefault();
+                    navigate('/');
+                }} >API Documentation and Guides</BreadcrumbItem>
+              <BreadcrumbItem isActive>{api}</BreadcrumbItem>
+            </Breadcrumb>
+          </PageSection>
+          <Divider />
+          <Sidebar>
+            <SidebarPanel className="pf-u-p-lg">
+            </SidebarPanel>
+            <SidebarContent>
+              <PageSection variant={PageSectionVariants.light} className="pf-u-px-xl-on-md">
+                  { (apiState.isLoading || !apiState.api) ?
+                      <Bullseye><Spinner /></Bullseye> :
+                      <ApiDoc openapi={apiState.api} /> }
               </PageSection>
-              <Divider />
-              <Sidebar>
-                <SidebarPanel className="pf-u-p-lg">
-                </SidebarPanel>
-                <SidebarContent>
-                  <PageSection variant={PageSectionVariants.light} className="pf-u-px-xl-on-md">
-                      { (apiState.isLoading || !apiState.api) ?
-                          <Bullseye><Spinner /></Bullseye> :
-                          <ApiDoc openapi={apiState.api} /> }
-                  </PageSection>
-                </SidebarContent>
-              </Sidebar>
-            </Page>
-        </div>
+            </SidebarContent>
+          </Sidebar>
+        </Page>
     </>;
 };
 
