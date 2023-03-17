@@ -69,7 +69,7 @@ export const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> =
 
   let maxMinItems: string | undefined;
   if (propSchema.maxItems && propSchema.minItems) {
-    maxMinItems = `${propSchema.minItems} and ${propSchema.maxItems} items`
+    maxMinItems = `${propSchema.minItems} to ${propSchema.maxItems} items`
   } else if (propSchema.maxItems) {
     maxMinItems = `max ${propSchema.maxItems} items`
   } else if (propSchema.minItems) {
@@ -78,7 +78,7 @@ export const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> =
 
   let maxMinProps: string | undefined;
   if (propSchema.maxProperties && propSchema.minProperties) {
-    maxMinProps = `${propSchema.minProperties} and ${propSchema.maxProperties} properties`
+    maxMinProps = `${propSchema.minProperties} to ${propSchema.maxProperties} properties`
   } else if (propSchema.maxProperties) {
     maxMinProps = `max ${propSchema.maxProperties} properties`
   } else if (propSchema.minItems) {
