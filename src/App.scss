@@ -2,9 +2,6 @@
   --pf-c-page__main--ZIndex: 1;
     max-width: 1500px; //remove before developers.redhat.com classes
     margin: auto;
-  .pf-c-page__main {
-    overflow: hidden;
-  }
  }
 
  @media only screen and (max-width: 768px) {
@@ -76,8 +73,6 @@
   }
   .pf-c-sidebar__content {
     height: 100%;
-    padding-bottom: var(--pf-global--spacer--3xl);
-    overflow: auto;
     box-shadow: inset 0.2rem 0 0.2rem -0.0625rem rgba(3, 3, 3, 0.1);
     .pf-c-page__main-section {
       box-shadow: inset 0.2rem 0 0.2rem -0.0625rem rgba(3, 3, 3, 0.1);
