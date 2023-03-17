@@ -62,7 +62,7 @@ export const APIPage: FunctionComponent = () => {
             <title>{selectedApi.displayName} - API Docs</title>
             <meta name="rhd:node-type" content="api_docs" />
         </Helmet>
-        <Page className="apid-c-page-apipage pf-u-background-color-100 pf-m-full-height">
+        <Page className="apid-c-page-apipage pf-u-background-color-100">
           <PageSection variant={PageSectionVariants.light}>
             <Breadcrumb>
               <BreadcrumbItem to='#' onClick={(event) => {
