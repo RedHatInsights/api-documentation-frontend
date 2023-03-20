@@ -135,12 +135,12 @@ type ExamplesObj = {
 }
 export const buildExample = (responses: OpenAPIV3.ResponsesObject, document: OpenAPIV3.Document): ExamplesObj=> {
     let examples: ExamplesObj = {}
-    Object.entries(responses).map(([code, response])=> {
+    Object.entries(responses).forEach(([code, response])=> {
         const deRefResponse = deRef(response, document);
         if (deRefResponse.content && deRefResponse.content['application/json']?.schema) {
             // We need to deRef everything recursive to make the mock work
             const jsonSchema = recursiveDeRef(deRefResponse.content['application/json'].schema, document);
-            examples[code] = JSON.stringify(mock(jsonSchema), undefined, 2)
+            examples[code] = JSON.stringify(mock(jsonSchema), undefined, 2);
         }
     })
 
