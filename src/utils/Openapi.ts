@@ -130,18 +130,19 @@ const recursiveDeRefInternal = (refOrObject: object, context: RecursiveDeRefCont
     return deRefObj;
 }
 
-export const buildExample = (responses: OpenAPIV3.ResponsesObject, document: OpenAPIV3.Document): unknown | undefined => {
-    // Start with the obvious case - we can build multiple examples with a way to select each particular response
-    const trivialResponses = responses['200'] ?? responses['201'];
-    if (trivialResponses) {
-        const deRefResponse = deRef(trivialResponses, document);
-        // again - the obvious case
+type ExamplesObj = {
+    [key: string]: string;
+}
+export const buildExample = (responses: OpenAPIV3.ResponsesObject, document: OpenAPIV3.Document): ExamplesObj=> {
+    let examples: ExamplesObj = {}
+    Object.entries(responses).map(([code, response])=> {
+        const deRefResponse = deRef(response, document);
         if (deRefResponse.content && deRefResponse.content['application/json']?.schema) {
             // We need to deRef everything recursive to make the mock work
             const jsonSchema = recursiveDeRef(deRefResponse.content['application/json'].schema, document);
-            return mock(jsonSchema);
+            examples[code] = JSON.stringify(mock(jsonSchema), undefined, 2)
         }
-    }
+    })
 
-    return undefined;
+    return examples;
 }
