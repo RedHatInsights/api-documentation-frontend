@@ -3,8 +3,8 @@ import React from 'react';
 const EdgeIcon = () => {
   return (
     <svg width="38" height="38" viewBox="0 0 42 42" version="1.1">
-      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group-8" fill-rule="nonzero">
+      <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+        <g id="Group-8" fillRule="nonzero">
           <path d="M31.5,0 L10.5,0 C4.70101013,0 0,4.70101013 0,10.5 L0,31.5 C0,37.2989899 4.70101013,42 10.5,42 L31.5,42 C37.2989899,42 42,37.2989899 42,31.5 L42,10.5 C42,4.70101013 37.2989899,0 31.5,0 Z" id="Path" fill="#000000"></path>
           <g id="Group-7" transform="translate(8.166667, 10.500000)">
             <path d="M26.2178899,20.956159 L0.615443425,20.956159 C0.275543407,20.956159 1.03620816e-14,20.7048059 1.03620816e-14,20.3947462 C1.03620816e-14,20.0846864 0.275543407,19.8333333 0.615443425,19.8333333 L26.2178899,19.8333333 C26.5577899,19.8333333 26.8333333,20.0846864 26.8333333,20.3947462 C26.8333333,20.7048059 26.5577899,20.956159 26.2178899,20.956159 L26.2178899,20.956159 Z" id="Path" fill="#EE0000"></path>
