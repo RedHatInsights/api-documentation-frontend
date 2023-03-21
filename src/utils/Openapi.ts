@@ -134,7 +134,7 @@ type ExamplesObj = {
     [key: string]: string;
 }
 export const buildExample = (responses: OpenAPIV3.ResponsesObject, document: OpenAPIV3.Document): ExamplesObj=> {
-    let examples: ExamplesObj = {}
+    const examples: ExamplesObj = {}
     Object.entries(responses).forEach(([code, response])=> {
         const deRefResponse = deRef(response, document);
         if (deRefResponse.content && deRefResponse.content['application/json']?.schema) {

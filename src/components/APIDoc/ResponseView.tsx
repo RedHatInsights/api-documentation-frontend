@@ -17,7 +17,7 @@ interface ResponseViewProps {
 }
 
 export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({responses, document}) => {
-  const [expandedCodes, setExpandedCodes] = useState([] as string[])
+  const [expandedCodes, setExpandedCodes] = useState<string[]>([])
   const setCodeExpanded = (code: string, isExpanding = true) => setExpandedCodes(prevExpanded => {
     const otherExpandedRowNames = prevExpanded.filter(r => r !== code);
     return isExpanding ? [...otherExpandedRowNames, code] : otherExpandedRowNames;
@@ -28,8 +28,7 @@ export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({respon
 
   const responseExamples = React.useMemo(() => {
     if (responses) {
-      const examples = buildExample(responses, document);
-      return examples
+     return buildExample(responses, document);
     }
 
     return undefined;
