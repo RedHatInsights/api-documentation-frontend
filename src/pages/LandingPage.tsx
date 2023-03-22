@@ -96,7 +96,7 @@ export const LandingPage: FunctionComponent = () => {
               <NoMatchFound clearFilters={clearFilters} /> }
             </PageSection>
 
-            <PageSection padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
+            <PageSection className="pf-u-pl-md" padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
               <Pagination
                   itemCount={paginatedGalleryInfo.count}
                   perPage={paginatedGalleryInfo.perPage}
@@ -108,6 +108,7 @@ export const LandingPage: FunctionComponent = () => {
                   }]}
                   dropDirection="up"
                   variant="bottom"
+                  className="pf-u-py-sm"
               />
             </PageSection>
           </SidebarContent>

@@ -28,6 +28,9 @@
   .pf-c-page__main-section {
     box-shadow: inset 0.125rem 0 0.125rem -0.0625rem rgba(3, 3, 3, 0.16);
   }
+  .apid-c-page__main-section-gallery {
+    min-height: 500px;
+  }
 
   .pf-c-card__body {
     display: flex;
@@ -122,3 +125,10 @@
 .apid-reqbody-header {
   padding-top: var(--pf-global--spacer--md);
 }
+
+@media screen and (max-width: 768px) {
+  .apid-c-page__main-section-gallery {
+    min-height: auto;
+  }
+}
+
