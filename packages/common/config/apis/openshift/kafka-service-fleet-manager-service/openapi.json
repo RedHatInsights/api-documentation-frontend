@@ -293,7 +293,7 @@
           "billing_cloud_account_id": "123456789012",
           "billing_model": "marketplace",
           "bootstrap_server_host": "serviceapi-1isy6rq3jki8q0otmjqfd3ocfrg.apps.mk-bttg0jn170hp.x5u8.s1.devshift.org",
-          "browser_url": "https://console.redhat.com/application-services/streams/kafkas/1isy6rq3jki8q0otmjqfd3ocfrg/dashboard",
+          "browser_url": "https://console.redhat.com/application-services/streams/kafkas/1isy6rq3jki8q0otmjqfd3ocfrg/details/dashboard",
           "cloud_provider": "aws",
           "cluster_id": "21grk30a21grk30a21grk30a21grk30a",
           "created_at": "2020-10-05T12:51:24.053142Z",

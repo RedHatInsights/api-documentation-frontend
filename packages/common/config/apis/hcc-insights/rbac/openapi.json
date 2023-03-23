@@ -770,6 +770,15 @@
             }
           },
           {
+            "name": "exclude_username",
+            "in": "query",
+            "description": "A username for a principal to filter for groups where principal is not a member and can be added manually",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "uuid",
             "in": "query",
             "description": "A list of UUIDs to filter listed groups.",
@@ -911,7 +920,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A Group object",
+            "description": "A group object",
             "content": {
               "application/json": {
                 "schema": {
@@ -1615,8 +1624,8 @@
         "tags": [
           "Role"
         ],
-        "summary": "Create a roles for a tenant",
-        "operationId": "createRoles",
+        "summary": "Create a role for a tenant",
+        "operationId": "createRole",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1725,7 +1734,8 @@
                 "type": "string",
                 "enum": [
                   "groups_in",
-                  "groups_in_count"
+                  "groups_in_count",
+                  "access"
                 ]
               }
             },
@@ -1830,7 +1840,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A Role object",
+            "description": "A role object",
             "content": {
               "application/json": {
                 "schema": {
@@ -1935,7 +1945,7 @@
         "tags": [
           "Role"
         ],
-        "summary": "Update a Role in the tenant",
+        "summary": "Update a role in the tenant",
         "operationId": "updateRole",
         "parameters": [
           {
@@ -1957,7 +1967,7 @@
               }
             }
           },
-          "description": "Update to a Role",
+          "description": "Update to a role",
           "required": true
         },
         "responses": {
@@ -2003,7 +2013,7 @@
         "tags": [
           "Role"
         ],
-        "summary": "Patch a Role in the tenant",
+        "summary": "Patch a role in the tenant",
         "operationId": "patchRole",
         "parameters": [
           {
@@ -2025,7 +2035,7 @@
               }
             }
           },
-          "description": "Patch to a Role"
+          "description": "Patch to a role"
         },
         "responses": {
           "200": {
@@ -2278,7 +2288,7 @@
         ],
         "responses": {
           "200": {
-            "description": "A Policy object",
+            "description": "A policy object",
             "content": {
               "application/json": {
                 "schema": {
@@ -2343,7 +2353,7 @@
         },
         "responses": {
           "200": {
-            "description": "A Policy object",
+            "description": "A policy object",
             "content": {
               "application/json": {
                 "schema": {
@@ -3909,6 +3919,12 @@
               "external_tenant": {
                 "type": "string",
                 "example": "ExternalTenant"
+              },
+              "access": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Access"
+                }
               }
             }
           }

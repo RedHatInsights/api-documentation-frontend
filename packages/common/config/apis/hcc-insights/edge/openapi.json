@@ -19354,17 +19354,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "items": {
-                        "$ref": "#/components/schemas/v1.UpdateTransaction"
-                      },
-                      "type": "array"
-                    },
-                    {
-                      "$ref": "#/components/schemas/v1.APIResponse"
-                    }
-                  ]
+                  "items": {
+                    "$ref": "#/components/schemas/v1.UpdateTransaction"
+                  },
+                  "type": "array"
                 }
               }
             },
