@@ -64,19 +64,17 @@ const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({conditio
   })
 
   return (
-    <Flex>
-      <TextContent>
+    <>
+      <TextContent className="pf-u-pb-md">
         <Text component={TextVariants.h4}>{condition}</Text>
       </TextContent>
       <Flex direction={{ default: 'column' }}>
-        <FlexItem>
-        </FlexItem>
         {
           singleSchemas.map((singleSchema) => {
             return (
               <FlexItem>
                 <Card isFlat isCompact>
-                  <CardBody>{singleSchema}</CardBody>
+                  <CardBody className="pf-u-font-size-md">{singleSchema}</CardBody>
                 </Card>
               </FlexItem>)
         })
@@ -89,15 +87,15 @@ const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({conditio
             return (
               <FlexItem>
                 <Card isFlat isCompact>
-                  <CardBody>{schemaData.type}</CardBody>
-                  <CardBody><TreeView data={schemaData.treeData} variant="compactNoBackground" /></CardBody>
+                  <CardBody className="pf-u-font-size-md">{schemaData.type}</CardBody>
+                  <CardBody className="pf-u-p-0 pf-u-font-size-md"><TreeView data={schemaData.treeData} variant="compactNoBackground" /></CardBody>
                 </Card>
               </FlexItem>
             )
           })
         }
       </Flex>
-    </Flex>
+    </>
   )
 }
 
