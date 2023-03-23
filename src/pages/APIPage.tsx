@@ -1,10 +1,15 @@
 import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
-    Breadcrumb, BreadcrumbItem, Bullseye, Divider,
+    Breadcrumb,
+    BreadcrumbItem,
+    Bullseye,
     Page,
     PageSection,
-    PageSectionVariants, Sidebar, SidebarContent,
-    SidebarPanel, Spinner,
+    PageSectionVariants,
+    Sidebar,
+    SidebarContent,
+    SidebarPanel,
+    Spinner,
 } from "@patternfly/react-core";
 import {apiConfigurations} from "@apidocs/common";
 import {useNavigate, useParams} from "react-router";
@@ -71,20 +76,17 @@ export const APIPage: FunctionComponent = () => {
               <BreadcrumbItem isActive>{api}</BreadcrumbItem>
             </Breadcrumb>
           </PageSection>
-          <Divider />
           <Sidebar>
             <SidebarPanel className="pf-u-p-lg">
                 <SidebarApiSections openapi={openapi} groupedOperations={groupedOperations} />
             </SidebarPanel>
+
             <SidebarContent>
-              <PageSection variant={PageSectionVariants.light} className="pf-u-px-xl-on-md">
-                  { (apiState.isLoading || !apiState.api || groupedOperations.loading) ?
-                      <Bullseye><Spinner /></Bullseye> :
-                      <ApiDoc openapi={apiState.api} groupedOperations={groupedOperations.value} /> }
-              </PageSection>
+              { (apiState.isLoading || !apiState.api || groupedOperations.loading) ?
+                  <Bullseye><Spinner /></Bullseye> :
+                  <ApiDoc openapi={apiState.api} groupedOperations={groupedOperations.value} /> }
             </SidebarContent>
           </Sidebar>
         </Page>
     </>;
 };
-
