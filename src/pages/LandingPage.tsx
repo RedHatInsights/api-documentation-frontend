@@ -1,6 +1,8 @@
-import {CSSProperties, FunctionComponent, useMemo, useState} from 'react';
+import {Fragment, FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
   Button,
+  Flex,
+  FlexItem,
   Form,
   Page,
   PageSection,
@@ -17,14 +19,19 @@ import { SearchInput } from '@patternfly/react-core';
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 import {Helmet} from 'react-helmet-async';
+import { TableComposable, Thead, Tr, Th, Tbody} from '@patternfly/react-table';
 
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
 import {usePaginatedGallery} from "../components/Card/usePaginatedGallery";
 import {GalleryTemplate} from "./GalleryTemplate";
+import {ListView} from './ListView';
 
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
+  const [view, setView] = useState<'grid'|'list'>('grid');
+  const [gridButtonPressed, setGridButtonPressed] = useState(true);
+  const [listButtonPressed, setListButtonPressed] = useState(false);
 
   const onChange = (searchInput: string) => {
     setSearchInput(searchInput);
@@ -47,9 +54,12 @@ export const LandingPage: FunctionComponent = () => {
     paginatedGalleryInfo.onSetPage(1);
   };
 
-  const galleryPageStyle: CSSProperties = {
-    minHeight: Math.max(paginatedGalleryInfo.height ?? 0, 500)
-  };
+  const columnNames = {
+    name: 'Application name',
+    description: 'Description',
+    apiVersion: 'API version',
+    tags: 'Tags',
+ };
 
     return <>
       <Helmet>
@@ -82,22 +92,50 @@ export const LandingPage: FunctionComponent = () => {
 
             <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
               <div className="pf-u-text-align-right">
-                <Button variant="link" icon={<ThIcon />} className="pf-u-mr-sm" isInline isLarge/>
-                <Button variant="link" icon={<ThListIcon />} isInline isLarge isDisabled/>
+                <Button isDisabled={view === 'grid'} variant="link" icon={<ThIcon />} onClick={() => setView('grid')} className="pf-u-mr-sm" isInline isLarge/>
+                <Button isDisabled={view === 'list'} variant="link" icon={<ThListIcon />} onClick={() => setView('list')} isInline isLarge/>
               </div>
             </PageSection>
 
-            <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} padding={{ default: 'noPadding' }} isFilled={true}>
-              <GalleryTemplate
-                  id={galleryId}
-                  elements={filteredDocs}
-                  isHidden
-              />
-              { paginatedGalleryInfo.paginatedElements.length > 0 ?
+            <PageSection className="apid-c-page__main-section-gallery" style={paginatedGalleryInfo.height ? {minHeight: `${paginatedGalleryInfo.height}px !important`} : undefined} padding={{ default: 'noPadding' }} isFilled={true}>
+            { view === 'grid'
+              ? <Fragment>
                   <GalleryTemplate
-                      elements={paginatedGalleryInfo.paginatedElements}
-                  /> :
-              <NoMatchFound clearFilters={clearFilters} /> }
+                    id={galleryId}
+                    elements={filteredDocs}
+                    isHidden
+                  />
+                  { paginatedGalleryInfo.paginatedElements.length > 0 ?
+                    <GalleryTemplate
+                        elements={paginatedGalleryInfo.paginatedElements}
+                    /> : <NoMatchFound clearFilters={clearFilters} /> }
+                </Fragment>
+              : <>
+
+                  <TableComposable aria-label="Misc table">
+                  <Thead noWrap>
+                    <Tr>
+                      <Th>
+                        <Flex>
+                          <FlexItem>
+                            {columnNames.name}
+                          </FlexItem>
+                        </Flex>
+                      </Th>
+                      <Th>{columnNames.description}</Th>
+                      <Th>{columnNames.tags}</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                  { paginatedGalleryInfo.paginatedElements.length > 0 ?
+                        <ListView
+                            id={galleryId}
+                            elements={paginatedGalleryInfo.paginatedElements}
+                        /> : <NoMatchFound clearFilters={clearFilters} /> }
+                  </Tbody>
+                  </TableComposable>
+                </>
+            }
             </PageSection>
 
             <PageSection className="pf-u-pl-md" padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
