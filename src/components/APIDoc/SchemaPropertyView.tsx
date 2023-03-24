@@ -64,7 +64,7 @@ export const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> =
   } else if (propSchema.maxLength) {
     maxMinChar = `max ${propSchema.maxLength} chars`
   } else if (propSchema.minLength) {
-    maxMinChar = `max ${propSchema.minLength} chars`
+    maxMinChar = `min ${propSchema.minLength} chars`
   }
 
   let maxMinItems: string | undefined;

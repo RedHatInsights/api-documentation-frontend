@@ -136,8 +136,10 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
     if (conditionalSchema) {
       const {schemaKey, schemaVal} = conditionalSchema
       children = [{name: <ConditionSchema condition={schemaKey} schemas={schemaVal} document={document}/>}] as TreeViewDataItem[]
-    } else if ('type' in value) {
-      propertyType = value.type as string
+    } else if ('$ref' in value ) {
+      propertyType = value.$ref.split('/').at(-1) as string
+    }  else {
+      propertyType = 'type' in value ? value.type as string : 'any/undefined type'
 
       if ('items' in value) {
         const itemConditionalSchema = findConditionKey(value.items)
@@ -158,10 +160,6 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
         const items = deRef(value, document)
         children = getTreeViewData(schemaName, items, document)
       }
-    } else if ('$ref' in value ) {
-      propertyType = value.$ref.split('/').at(-1) as string
-    } else {
-      propertyType = "schema undefined"
     }
 
     return {
