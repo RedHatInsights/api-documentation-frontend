@@ -1,4 +1,4 @@
-import {Fragment, FunctionComponent, useEffect, useMemo, useState} from 'react';
+import {Fragment, FunctionComponent, useMemo, useState} from 'react';
 import {
   Button,
   Flex,
@@ -30,8 +30,6 @@ import {ListView} from './ListView';
 export const LandingPage: FunctionComponent = () => {
   const [searchInput, setSearchInput] = useState('');
   const [view, setView] = useState<'grid'|'list'>('grid');
-  const [gridButtonPressed, setGridButtonPressed] = useState(true);
-  const [listButtonPressed, setListButtonPressed] = useState(false);
 
   const onChange = (searchInput: string) => {
     setSearchInput(searchInput);
