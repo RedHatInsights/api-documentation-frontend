@@ -2,7 +2,7 @@
   "name": "apidocs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://redhatinsights.github.io/api-documentation-frontend/",
+  "homepage": "apidocs",
   "workspaces": [
     "packages/*"
   ],

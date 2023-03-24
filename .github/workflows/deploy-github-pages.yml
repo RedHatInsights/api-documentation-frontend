@@ -2,8 +2,6 @@ name: Deploy Github Pages
 
 on:
   push:
-    branches: [ maknop/github-pages-deployment ]
-  pull_request:
     branches: [ main ]
 
 jobs:
@@ -23,6 +21,7 @@ jobs:
       - name: npm ci, build and test
         run: |
           npm ci
+          npx json -I -f package.json -e "this.homepage='https://redhatinsights.github.io/api-documentation-frontend/'"
           npm run build --if-present     
       - name: deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
