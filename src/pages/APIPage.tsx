@@ -11,7 +11,7 @@ import {useNavigate, useParams} from "react-router";
 import {ApiDoc} from "../components/APIDoc/ApiDoc";
 import {usePromise} from "react-use";
 import {OpenAPIV3} from "openapi-types";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 import {useTags} from "../components/APIDoc/hooks/useTags";
 import {useGroupedOperations} from "../components/APIDoc/hooks/useGroupedOperations";
 import {SidebarApiSections} from "../components/SideBar/SidebarApiSections";

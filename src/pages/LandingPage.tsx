@@ -1,4 +1,4 @@
-import {FunctionComponent, useMemo, useState} from 'react';
+import {CSSProperties, FunctionComponent, useMemo, useState} from 'react';
 import {
   Button,
   Form,
@@ -16,7 +16,7 @@ import {apiConfigurations, apiLabels} from "@apidocs/common";
 import { SearchInput } from '@patternfly/react-core';
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
-import {Helmet} from 'react-helmet';
+import {Helmet} from 'react-helmet-async';
 
 import {SidebarTags} from "../components/SideBar/SidebarTags";
 import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
@@ -45,6 +45,10 @@ export const LandingPage: FunctionComponent = () => {
     setSearchInput('');
     setSelectedTags([]);
     paginatedGalleryInfo.onSetPage(1);
+  };
+
+  const galleryPageStyle: CSSProperties = {
+    minHeight: Math.max(paginatedGalleryInfo.height ?? 0, 500)
   };
 
     return <>
@@ -83,7 +87,7 @@ export const LandingPage: FunctionComponent = () => {
               </div>
             </PageSection>
 
-            <PageSection className="apid-c-page__main-section-gallery" style={paginatedGalleryInfo.height ? {minHeight: `${paginatedGalleryInfo.height}px !important`} : undefined} padding={{ default: 'noPadding' }} isFilled={true}>
+            <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} padding={{ default: 'noPadding' }} isFilled={true}>
               <GalleryTemplate
                   id={galleryId}
                   elements={filteredDocs}
