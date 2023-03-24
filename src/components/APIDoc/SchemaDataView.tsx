@@ -139,7 +139,7 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
     } else if ('$ref' in value ) {
       propertyType = value.$ref.split('/').at(-1) as string
     }  else {
-      propertyType = 'type' in value ? value.type as string : 'any/undefined type'
+      propertyType = 'type' in value ? value.type as string : 'any type'
 
       if ('items' in value) {
         const itemConditionalSchema = findConditionKey(value.items)
