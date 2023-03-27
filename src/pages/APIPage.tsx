@@ -65,6 +65,7 @@ export const APIPage: FunctionComponent = () => {
         <Helmet>
             <title>{selectedApi.displayName} - API Docs</title>
             <meta name="rhd:node-type" content="api_docs" />
+            <meta name="description" content={selectedApi.description} />
         </Helmet>
         <Page className="apid-c-page-apipage pf-u-background-color-100">
           <PageSection variant={PageSectionVariants.light}>

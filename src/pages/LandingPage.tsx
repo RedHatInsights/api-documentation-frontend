@@ -50,9 +50,14 @@ export const LandingPage: FunctionComponent = () => {
     paginatedGalleryInfo.onSetPage(1);
   };
 
+  const galleryPageStyle: CSSProperties = {
+    minHeight: Math.max(paginatedGalleryInfo.height ?? 0, 500)
+  };
+
   return <>
     <Helmet>
       <title>API Docs</title>
+      <meta name="description" content="Displays API Documentation in a single page" />
     </Helmet>
     <Page className="apid-c-page-landingpage pf-u-background-color-100">
       <Sidebar>
@@ -68,7 +73,6 @@ export const LandingPage: FunctionComponent = () => {
           </Form>
         </SidebarPanel>
         <SidebarContent className="pf-u-display-flex pf-u-flex-direction-column">
-
           <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
             <TextContent>
               <Text component={TextVariants.h1}>The Red Hat API Documentation and Guides</Text>
@@ -86,7 +90,7 @@ export const LandingPage: FunctionComponent = () => {
             </div>
           </PageSection>
 
-          <PageSection className="apid-c-page__main-section-gallery" style={paginatedGalleryInfo.height ? {minHeight: `${paginatedGalleryInfo.height}px !important`} : undefined} padding={{ default: 'noPadding' }} isFilled={true}>
+          <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} : undefined} padding={{ default: 'noPadding' }} isFilled={true}>
           { view === 'grid'
             ? <GridContent galleryId={galleryId} filteredDocs={filteredDocs} paginatedGalleryInfo={paginatedGalleryInfo} clearFilters={clearFilters}/>
             : <ListContent galleryId={galleryId} filteredDocs={filteredDocs} paginatedGalleryInfo={paginatedGalleryInfo} clearFilters={clearFilters}/>
