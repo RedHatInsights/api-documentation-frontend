@@ -1,4 +1,4 @@
-import {FunctionComponent, useMemo, useState} from 'react';
+import {CSSProperties, FunctionComponent, useMemo, useState} from 'react';
 import {
   Button,
   Form,
