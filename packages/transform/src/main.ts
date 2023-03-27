@@ -197,13 +197,23 @@ const writeTsTemplates = (foundApis: Array<BuildApi>, tags: Array<Tag>, options:
     );
 }
 
+const filterTags = (tags: ReadonlyArray<Tag>, apis: ReadonlyArray<BuildApi>) => {
+    return tags.filter(t => {
+        // Only include tags that are in at least one api
+        return apis.some(api => api.app.tags?.includes(t.id));
+    });
+}
+
 export const execute = async (options: Options) => {
     const discoveryContent = parse(readFileSync(options.discoveryFile).toString()) as Discovery;
 
     const buildApis: Array<BuildApi> = await downloadApis(discoveryContent.apis, options);
     cleanUnusedApiFiles(buildApis, options);
     writeOpenApiFiles(buildApis, options);
-    writeTsTemplates(buildApis, discoveryContent.tags, options);
+
+    const tags = filterTags(discoveryContent.tags, buildApis);
+
+    writeTsTemplates(buildApis, tags, options);
 }
 
 if (process.argv) {

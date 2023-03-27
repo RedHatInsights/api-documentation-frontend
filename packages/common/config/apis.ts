@@ -37,30 +37,12 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
       product: "Red Hat Ansible Automation Platform",
     },
   },
-  "application-services": {
-    id: "application-services",
-    name: "Application Services",
-    type: "service",
-    devRedHatTaxonomy: {
-      topic: undefined,
-      product: undefined,
-    },
-  },
   automation: {
     id: "automation",
     name: "Automation",
     type: "use-case",
     devRedHatTaxonomy: {
       topic: "Automation",
-      product: undefined,
-    },
-  },
-  "data-services": {
-    id: "data-services",
-    name: "Data Services",
-    type: "use-case",
-    devRedHatTaxonomy: {
-      topic: undefined,
       product: undefined,
     },
   },
@@ -166,15 +148,6 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   "spend-management": {
     id: "spend-management",
     name: "Spend Management",
-    type: "use-case",
-    devRedHatTaxonomy: {
-      topic: undefined,
-      product: undefined,
-    },
-  },
-  "system-configuration": {
-    id: "system-configuration",
-    name: "System Configuration",
     type: "use-case",
     devRedHatTaxonomy: {
       topic: undefined,
