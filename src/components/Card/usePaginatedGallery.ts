@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useDebounce, useWindowSize} from "react-use";
 import {useGetHtmlElementById} from "../../hooks/useGetHtmlElementById";
 
@@ -73,9 +73,9 @@ export const usePaginatedGallery = <T>(cardContainerId: string, elements: Readon
         setPaginatedElements(elements.slice((paging.page - 1) * paging.perPage, paging.page * paging.perPage));
     }, [paging, elements]);
 
-    const onSetPage = (page: number) => {
+    const onSetPage = useCallback((page: number) => {
         setPaging(prev => ({...prev, page}));
-    };
+    }, [setPaging]);
 
     return {
         ...paging,

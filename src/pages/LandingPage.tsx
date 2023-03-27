@@ -51,8 +51,9 @@ export const LandingPage: FunctionComponent = () => {
   };
 
   useEffect(() => {
-    paginatedGalleryInfo.onSetPage(1);
-  }, [filteredDocs]);
+    const onSetPage = paginatedGalleryInfo.onSetPage;
+    onSetPage(1);
+  }, [filteredDocs, paginatedGalleryInfo.onSetPage]);
 
   const galleryPageStyle: CSSProperties = {
     minHeight: Math.max(paginatedGalleryInfo.height ?? 0, 500)
