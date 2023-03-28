@@ -2,32 +2,20 @@ import React from 'react';
 import { Dropdown, DropdownToggle, DropdownItem } from '@patternfly/react-core';
 import { Language } from '@patternfly/react-code-editor';
 
-import { templates } from '../../resources/codesampletemplates/Templates';
-
-interface Item {
+export interface DropdownItem {
   value: string;
   text: string;
   language: Language;
 }
 
-const items: Item[] = [
-  {value: "go", text: "go", language: Language.go},
-  {value: "java", text: "java", language: Language.java},
-  {value: "node", text: "node", language: Language.javascript},
-  {value: "python", text: "python", language: Language.python},
-  {value: "cURL", text: "cURL", language: Language.shell},
-]
-
 export interface CodeBlockDropdownProps {
-    setTemplate: React.Dispatch<React.SetStateAction<string>>;
-    setLanguage: React.Dispatch<React.SetStateAction<Language>>;
+  dropdownItems: DropdownItem[];
+  setLanguage: React.Dispatch<React.SetStateAction<DropdownItem>>;
 }
 
-export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> = ({setTemplate, setLanguage}) => {
+export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> = ({dropdownItems, setLanguage}) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState("go");
-
-  setTemplate(templates[selected])
+  const [selected, setSelected] = React.useState(dropdownItems[0].value);
 
   const onToggle = (isOpen: boolean) => {
     setIsOpen(isOpen);
@@ -43,10 +31,9 @@ export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> 
     onFocus();
   };
 
-  const onDropdownSelect = (event: any, item: Item) => {
+  const onDropdownSelect = (event: any, item: DropdownItem) => {
     setSelected(item.value);
-    setLanguage(item.language)
-    setTemplate(templates[item.value]);
+    setLanguage(item);
   }
 
   return (
@@ -58,7 +45,7 @@ export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> 
         </DropdownToggle>
       }
       isOpen={isOpen}
-      dropdownItems={items.map((item, index)=> <DropdownItem key={item.value} value={item.value} onClick={(e)=>onDropdownSelect(e, item)}>{item.text}</DropdownItem>)}
+      dropdownItems={dropdownItems.map((item, index)=> <DropdownItem key={item.value} value={item.value} onClick={(e)=>onDropdownSelect(e, item)}>{item.text}</DropdownItem>)}
       isPlain
     />
   );

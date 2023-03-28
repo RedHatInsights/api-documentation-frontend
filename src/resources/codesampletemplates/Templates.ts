@@ -3,8 +3,8 @@
 const go = `package main
 
 import (
-        "bytes"
-        "net/http"
+    "bytes"
+    "net/http"
 )
 
 func main() {
@@ -27,14 +27,20 @@ func main() {
 const java = `URL obj = new URL("{{=data.url}}{{=data.requiredQueryString}}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("{{=data.methodUpper}}");
+
 int responseCode = con.getResponseCode();
+
 BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
+    new InputStreamReader(con.getInputStream())
+);
+
 String inputLine;
 StringBuffer response = new StringBuffer();
+
 while ((inputLine = in.readLine()) != null) {
     response.append(inputLine);
 }
+
 in.close();
 System.out.println(response.toString());
 `
@@ -46,16 +52,17 @@ const node = `const fetch = require('node-fetch');
 {{~}}};
 {{?}}
 fetch('{{=data.url}}{{=data.requiredQueryString}}',
-{
-  method: '{{=data.methodUpper}}'{{?data.bodyParameter.present || data.allHeaders.length}},{{?}}
-{{?data.bodyParameter.present}}  body: JSON.stringify(inputBody){{?}}{{? data.bodyParameter.present && data.allHeaders.length}},{{?}}
-{{?data.allHeaders.length}}  headers: headers{{?}}
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
+    {
+    method: '{{=data.methodUpper}}'{{?data.bodyParameter.present || data.allHeaders.length}},{{?}}
+    {{?data.bodyParameter.present}}  body: JSON.stringify(inputBody){{?}}{{? data.bodyParameter.present && data.allHeaders.length}},{{?}}
+    {{?data.allHeaders.length}}  headers: headers{{?}}
+    })
+    .then(function(res) {
+        return res.json();
+    }).then(function(body) {
+        console.log(body);
+    }
+);
 `
 
 const curl = `# You can also use wget
