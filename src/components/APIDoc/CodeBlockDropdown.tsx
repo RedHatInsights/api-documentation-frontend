@@ -2,15 +2,15 @@ import React from 'react';
 import { Dropdown, DropdownToggle, DropdownItem } from '@patternfly/react-core';
 import { Language } from '@patternfly/react-code-editor';
 
-export interface DropdownItem {
+export interface DropdownItemInfo {
   value: string;
   text: string;
   language: Language;
 }
 
 export interface CodeBlockDropdownProps {
-  dropdownItems: DropdownItem[];
-  setLanguage: React.Dispatch<React.SetStateAction<DropdownItem>>;
+  dropdownItems: DropdownItemInfo[];
+  setLanguage: React.Dispatch<React.SetStateAction<DropdownItemInfo>>;
 }
 
 export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> = ({dropdownItems, setLanguage}) => {
@@ -31,7 +31,7 @@ export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> 
     onFocus();
   };
 
-  const onDropdownSelect = (event: any, item: DropdownItem) => {
+  const onDropdownSelect = (event: any, item: DropdownItemInfo) => {
     setSelected(item.value);
     setLanguage(item);
   }

@@ -5,7 +5,7 @@ import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patt
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
 
-import { DropdownItem, CodeBlockDropdown } from './CodeBlockDropdown';
+import { DropdownItemInfo, CodeBlockDropdown } from './CodeBlockDropdown';
 import { templates } from '../../resources/codesampletemplates/Templates';
 
 
@@ -37,7 +37,7 @@ interface samplesMap {
 Dot.templateSettings.varname = 'data'
 Dot.templateSettings.strip = false
 
-export const DropdownItems: DropdownItem[] = [
+export const DropdownItems: DropdownItemInfo[] = [
   {value: "go", text: "go", language: Language.go},
   {value: "java", text: "java", language: Language.java},
   {value: "node", text: "node", language: Language.javascript},
@@ -46,7 +46,7 @@ export const DropdownItems: DropdownItem[] = [
 ]
 
 export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path}) => {
-    const [language, setLanguage] = useState<DropdownItem>(DropdownItems[0])
+    const [language, setLanguage] = useState<DropdownItemInfo>(DropdownItems[0])
     const [copied, setCopied] = useState<boolean>(false);
 
     const data: templateData = {
