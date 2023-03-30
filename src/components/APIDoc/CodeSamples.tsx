@@ -4,7 +4,9 @@ import {DeRefResponse} from "../../utils/Openapi";
 import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
+import {Request as RequestFormat} from 'har-format'
 
+import { Snippets, useSnippets } from '../../hooks/useSnippets';
 import { DropdownItemInfo, CodeBlockDropdown } from './CodeBlockDropdown';
 import { templates } from '../../resources/codesampletemplates/Templates';
 
@@ -13,6 +15,7 @@ interface CodeSampleProps {
     parameters: DeRefResponse<OpenAPIV3.ParameterObject>[];
     verb: string;
     path: string;
+    snippets: Snippets;
 }
 
 type paramInfo = {
@@ -38,16 +41,18 @@ Dot.templateSettings.varname = 'data'
 Dot.templateSettings.strip = false
 
 export const DropdownItems: DropdownItemInfo[] = [
-  {value: "go", text: "go", language: Language.go},
-  {value: "java", text: "java", language: Language.java},
-  {value: "node", text: "node", language: Language.javascript},
-  {value: "python", text: "python", language: Language.python},
-  {value: "cURL", text: "cURL", language: Language.shell},
+  {value: "go", text: "go", language: Language.go, langLibrary: undefined},
+  {value: "java", text: "java", language: Language.java, langLibrary: "asynchttp"},
+  {value: "node", text: "node", language: Language.javascript, langLibrary: "fetch"},
+  {value: "python", text: "python", language: Language.python, langLibrary: "requests"},
+  {value: "cURL", text: "cURL", language: Language.shell, langLibrary: "curl"},
 ]
 
-export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path}) => {
+export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path, snippets}) => {
     const [language, setLanguage] = useState<DropdownItemInfo>(DropdownItems[0])
     const [copied, setCopied] = useState<boolean>(false);
+
+    console.log("snippets....", snippets)
 
     const data: templateData = {
         allHeaders: [{name: "Accept", exampleValues: {json: "application/json"}}],
@@ -67,7 +72,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
       sampleCollection[lang] = testFn(data).toString()
     });
 
-    const code = sampleCollection[language.text]
+    const code = snippets[language.text]
 
     const clipboardCopyFunc = (event: any, text: string) => {
         navigator.clipboard.writeText(text);

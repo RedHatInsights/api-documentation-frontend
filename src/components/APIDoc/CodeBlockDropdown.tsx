@@ -6,6 +6,7 @@ export interface DropdownItemInfo {
   value: string;
   text: string;
   language: Language;
+  langLibrary: string|undefined;
 }
 
 export interface CodeBlockDropdownProps {
