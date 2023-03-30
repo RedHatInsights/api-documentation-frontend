@@ -4,11 +4,9 @@ import {DeRefResponse} from "../../utils/Openapi";
 import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
 import Dot from 'dot';
-import {Request as RequestFormat} from 'har-format'
 
-import { Snippets, useSnippets } from '../../hooks/useSnippets';
+import { Snippets } from '../../hooks/useSnippets';
 import { DropdownItemInfo, CodeBlockDropdown } from './CodeBlockDropdown';
-import { templates } from '../../resources/codesampletemplates/Templates';
 
 
 interface CodeSampleProps {
@@ -49,10 +47,11 @@ export const DropdownItems: DropdownItemInfo[] = [
 ]
 
 export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path, snippets}) => {
-    const [language, setLanguage] = useState<DropdownItemInfo>(DropdownItems[0])
-    const [copied, setCopied] = useState<boolean>(false);
-
-    console.log("snippets....", snippets)
+    const [language, setLanguage] = useState<DropdownItemInfo>(DropdownItems[0]);
+    const [copied, setCopied] = useState<boolean>(false);  
+    if (Object.keys(snippets).length === 0) {
+      return null; // Return null if there are no code samples
+    }
 
     const data: templateData = {
         allHeaders: [{name: "Accept", exampleValues: {json: "application/json"}}],
@@ -66,12 +65,13 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
 
     verb !== "get" && data.allHeaders.push({name: "Content-Type", exampleValues: {json: "application/json"}})
 
-    const sampleCollection: samplesMap = {};
-    Object.entries(templates).forEach(([lang, temp]) => {
-      const testFn = Dot.template(temp)
-      sampleCollection[lang] = testFn(data).toString()
-    });
-
+    // const sampleCollection: samplesMap = {};
+    // Object.entries(templates).forEach(([lang, temp]) => {
+    //   const testFn = Dot.template(temp)
+    //   sampleCollection[lang] = testFn(data).toString()
+    // });
+    const sampleCollection: samplesMap = {...snippets};
+    // console.log("collection...", sampleCollection)
     const code = snippets[language.text]
 
     const clipboardCopyFunc = (event: any, text: string) => {

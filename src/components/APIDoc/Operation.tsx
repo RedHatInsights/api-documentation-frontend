@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState} from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {deRef} from "../../utils/Openapi";
 import {
@@ -62,7 +62,6 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
     bodySize: -1,
   }
   const snippets = useSnippets(reqData);
-  const memoizedSnippets = useMemo(() => snippets, [snippets]);;
 
   return (
     <Grid className="pf-u-mt-sm" hasGutter>
@@ -103,7 +102,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
         <ResponseView responses={operation.responses} document={document} />
       </GridItem>
       <GridItem className="pf-m-12-col pf-m-5-col-on-xl pf-u-mt-md-on-xl pf-u-ml-sm-on-xl">
-        <CodeSamples parameters={parameters} verb={verb} path={path} snippets={memoizedSnippets}/>
+        <CodeSamples parameters={parameters} verb={verb} path={path} snippets={snippets}/>
       </GridItem>
     </Grid>
   );
