@@ -10,13 +10,24 @@ export interface Snippets {
   [key: string]: string;
 }
 
-export const DropdownItems = [
-  {value: "go", text: "go", language: Language.go, langLibrary: undefined},
-  {value: "java", text: "java", language: Language.java, langLibrary: "asynchttp"},
-  {value: "node", text: "node", language: Language.javascript, langLibrary: "fetch"},
-  {value: "python", text: "python", language: Language.python, langLibrary: "requests"},
-  {value: "cURL", text: "cURL", language: Language.shell, langLibrary: "curl"},
-]
+export interface SnippetInfoItem {
+  text: string;
+  language: string;
+  highlighter: Language;
+  langLibrary: string|undefined;
+}
+
+export const SnippetItemsArray = [
+  {text: "go", language: "go", highlighter: Language.go, langLibrary: undefined},
+  {text: "java", language: "java", highlighter: Language.java, langLibrary: "asynchttp"},
+  {text: "javascript", language: "javascript", highlighter: Language.javascript, langLibrary: "fetch"},
+  {text: "node", language: "node", highlighter: Language.javascript, langLibrary: "fetch"},
+  {text: "python", language: "python", highlighter: Language.python, langLibrary: "requests"},
+  {text: "c", language: "c", highlighter: Language.cpp, langLibrary: "libcurl"},
+  {text: "ruby", language: "ruby", highlighter: Language.ruby, langLibrary: "native"},
+  {text: "cURL", language: "shell", highlighter: Language.shell, langLibrary: "curl"},
+  {text: "http", language: "http", highlighter: Language.json, langLibrary: "http1.1"},
+] as SnippetInfoItem[];
 
 export const useSnippets = (reqData: RequestFormat): Snippets => {
   const [snippet, setSnippet] = useState<Snippets>({});
@@ -42,12 +53,12 @@ export const useSnippets = (reqData: RequestFormat): Snippets => {
   };
 
   useEffect(() => {
-    DropdownItems.forEach(({ value, language, langLibrary }) => {
+    SnippetItemsArray.forEach(({ language, highlighter, langLibrary }) => {
       getCodeSample(language, langLibrary, reqData).then((sample) => {
         if (sample) {
           setSnippet((prevSnippet) => ({
             ...prevSnippet,
-            [value]: sample as string,
+            [language]: sample as string,
           }));
         }
       });

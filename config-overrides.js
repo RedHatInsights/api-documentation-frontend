@@ -7,7 +7,7 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const configureMonaco = (config) => {
     config.plugins.push(new MonacoWebpackPlugin({
-        languages: ['c', 'go', 'python', 'java', 'javascript', 'shell']
+        languages: ['c', 'go', 'python', 'java', 'javascript', 'shell', 'cpp', 'ruby', 'json']
     }));
 
     return config;

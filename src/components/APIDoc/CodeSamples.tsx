@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
 import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
-import { CodeEditor, Language } from '@patternfly/react-code-editor';
+import { CodeEditor } from '@patternfly/react-code-editor';
 
-import { Snippets } from '../../hooks/useSnippets';
-import { DropdownItemInfo, CodeBlockDropdown } from './CodeBlockDropdown';
+import { SnippetItemsArray, SnippetInfoItem, Snippets } from '../../hooks/useSnippets';
+import { CodeBlockDropdown } from './CodeBlockDropdown';
 
 
 interface CodeSampleProps {
     snippets: Snippets;
 }
 
-export const DropdownItems: DropdownItemInfo[] = [
-  {value: "go", text: "go", language: Language.go, langLibrary: undefined},
-  {value: "java", text: "java", language: Language.java, langLibrary: "asynchttp"},
-  {value: "node", text: "node", language: Language.javascript, langLibrary: "fetch"},
-  {value: "python", text: "python", language: Language.python, langLibrary: "requests"},
-  {value: "cURL", text: "cURL", language: Language.shell, langLibrary: "curl"},
-]
-
 export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}) => {
-    const [language, setLanguage] = useState<DropdownItemInfo>(DropdownItems[0]);
+    const [language, setLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
     const [copied, setCopied] = useState<boolean>(false);
 
     if (Object.keys(snippets).length === 0) {
@@ -41,12 +33,12 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}
           <FlexItem className="pf-u-flex-grow-1 pf-u-pl-lg">
           </FlexItem>
           <FlexItem align={{ default: 'alignRight' }}>
-            <CodeBlockDropdown dropdownItems={DropdownItems} setLanguage={setLanguage}/>
+            <CodeBlockDropdown dropdownItems={SnippetItemsArray} setLanguage={setLanguage}/>
             <ClipboardCopyButton
               id="basic-copy-button"
               textId="code-content"
               aria-label="Copy to clipboard"
-              onClick={e => onCopyClick(e, snippets[language.text])}
+              onClick={e => onCopyClick(e, snippets[language.language])}
               exitDelay={copied ? 1500 : 600}
               variant="plain"
               onTooltipHidden={() => setCopied(false)}
@@ -60,8 +52,8 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}
             isDarkTheme={true}
             isLineNumbersVisible={false}
             isReadOnly={true}
-            code={snippets[language.text]}
-            language={language.language}
+            code={snippets[language.language]}
+            language={language.highlighter}
             height="400px"
           />
       </CardBody>
