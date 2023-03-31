@@ -64,6 +64,7 @@ export const useSnippets = (reqData: RequestFormat): Snippets => {
         }
       });
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
