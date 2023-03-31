@@ -1,42 +1,14 @@
 import React, { useState } from 'react';
-import {OpenAPIV3} from "openapi-types";
-import {DeRefResponse} from "../../utils/Openapi";
 import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
-import Dot from 'dot';
 
 import { Snippets } from '../../hooks/useSnippets';
 import { DropdownItemInfo, CodeBlockDropdown } from './CodeBlockDropdown';
 
 
 interface CodeSampleProps {
-    parameters: DeRefResponse<OpenAPIV3.ParameterObject>[];
-    verb: string;
-    path: string;
     snippets: Snippets;
 }
-
-type paramInfo = {
-    name : string;
-    exampleValues : object;
-}
-
-type templateData = {
-    allHeaders: paramInfo[];
-    bodyParameter: paramInfo[];
-    methodUpper: string;
-    url: string;
-    method: object;
-    requiredParameters: paramInfo[];
-    requiredQueryString: string;
-}
-
-interface samplesMap {
-  [key: string]: string;
-}
-
-Dot.templateSettings.varname = 'data'
-Dot.templateSettings.strip = false
 
 export const DropdownItems: DropdownItemInfo[] = [
   {value: "go", text: "go", language: Language.go, langLibrary: undefined},
@@ -46,33 +18,13 @@ export const DropdownItems: DropdownItemInfo[] = [
   {value: "cURL", text: "cURL", language: Language.shell, langLibrary: "curl"},
 ]
 
-export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameters, verb, path, snippets}) => {
+export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}) => {
     const [language, setLanguage] = useState<DropdownItemInfo>(DropdownItems[0]);
-    const [copied, setCopied] = useState<boolean>(false);  
+    const [copied, setCopied] = useState<boolean>(false);
+
     if (Object.keys(snippets).length === 0) {
-      return null; // Return null if there are no code samples
+      return null; // Return null if there are no code samples; Without this logic the code samples initially shows up as selected
     }
-
-    const data: templateData = {
-        allHeaders: [{name: "Accept", exampleValues: {json: "application/json"}}],
-        bodyParameter: [], //TODO
-        methodUpper: verb.toUpperCase(),
-        url: path,
-        method: {verb: verb},
-        requiredParameters: [{name: "param", exampleValues: {json: "string"}}], //TODO
-        requiredQueryString: "", //TODO
-    }
-
-    verb !== "get" && data.allHeaders.push({name: "Content-Type", exampleValues: {json: "application/json"}})
-
-    // const sampleCollection: samplesMap = {};
-    // Object.entries(templates).forEach(([lang, temp]) => {
-    //   const testFn = Dot.template(temp)
-    //   sampleCollection[lang] = testFn(data).toString()
-    // });
-    const sampleCollection: samplesMap = {...snippets};
-    // console.log("collection...", sampleCollection)
-    const code = snippets[language.text]
 
     const clipboardCopyFunc = (event: any, text: string) => {
         navigator.clipboard.writeText(text);
@@ -94,7 +46,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
               id="basic-copy-button"
               textId="code-content"
               aria-label="Copy to clipboard"
-              onClick={e => onCopyClick(e, code)}
+              onClick={e => onCopyClick(e, snippets[language.text])}
               exitDelay={copied ? 1500 : 600}
               variant="plain"
               onTooltipHidden={() => setCopied(false)}
@@ -108,7 +60,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({parameter
             isDarkTheme={true}
             isLineNumbersVisible={false}
             isReadOnly={true}
-            code={code}
+            code={snippets[language.text]}
             language={language.language}
             height="400px"
           />
