@@ -56,8 +56,8 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
     httpVersion: "HTTP/1.1",
     cookies: [],
     headers: [{name: "Accept", value: "application/json"}],
-    queryString: [], //TODO
-    postData: undefined, //TODO
+    queryString: [], //TODO path params?
+    postData: undefined, //TODO body params
     headersSize: -1,
     bodySize: -1,
   }

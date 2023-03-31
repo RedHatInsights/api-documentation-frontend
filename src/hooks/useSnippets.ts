@@ -52,8 +52,9 @@ export const useSnippets = (reqData: RequestFormat): Snippets => {
     }
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    SnippetItemsArray.forEach(({ language, highlighter, langLibrary }) => {
+    SnippetItemsArray.forEach(({ language, langLibrary }) => {
       getCodeSample(language, langLibrary, reqData).then((sample) => {
         if (sample) {
           setSnippet((prevSnippet) => ({
@@ -64,7 +65,7 @@ export const useSnippets = (reqData: RequestFormat): Snippets => {
       });
     });
   }, []);
-  
+
 
   return snippet;
 };
