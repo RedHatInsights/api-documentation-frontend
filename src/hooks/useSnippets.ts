@@ -56,7 +56,7 @@ export const useSnippets = (languageInfo: SnippetInfoItem, reqData: RequestForma
         }
       })
     }
-  }, [reqData]);
+  }, [languageInfo, reqData]);
 
   return snippet;
 };

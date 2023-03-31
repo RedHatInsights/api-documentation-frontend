@@ -61,6 +61,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
     postData: undefined, //TODO body params
     headersSize: -1,
     bodySize: -1,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [verb, path, codeSampleLanguage]);
 
   const snippets = useSnippets(codeSampleLanguage, reqData);
