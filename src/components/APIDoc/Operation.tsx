@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useMemo } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {deRef} from "../../utils/Openapi";
 import {
@@ -50,7 +50,7 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
 
-  const reqData: RequestFormat = {
+  const reqData: RequestFormat = useMemo(() => ({
     method: verb.toUpperCase(),
     url: "http://example.com"+path,
     httpVersion: "HTTP/1.1",
@@ -60,7 +60,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
     postData: undefined, //TODO body params
     headersSize: -1,
     bodySize: -1,
-  }
+  }), [verb, path]);
 
   const snippets = useSnippets(reqData);
 

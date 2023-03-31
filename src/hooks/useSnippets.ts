@@ -29,30 +29,29 @@ export const SnippetItemsArray = [
   {text: "http", language: "http", highlighter: Language.json, langLibrary: "http1.1"},
 ] as SnippetInfoItem[];
 
+const getCodeSample = async (language: string, langLibrary: string | undefined, requestData: RequestFormat) => {
+  if (!isValidTargetId(language)) {
+    return null;
+  }
+
+  try {
+    const snippet = new HTTPSnippet(requestData);
+    const sample = await snippet.convert(language, langLibrary);
+
+    if (Array.isArray(sample)) {
+      return sample[0];
+    }
+
+    return sample || null;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 export const useSnippets = (reqData: RequestFormat): Snippets => {
   const [snippet, setSnippet] = useState<Snippets>({});
 
-  const getCodeSample = async (language: string, langLibrary: string | undefined, requestData: RequestFormat) => {
-    if (!isValidTargetId(language)) {
-      return null;
-    }
-
-    try {
-      const snippet = new HTTPSnippet(requestData);
-      const sample = await snippet.convert(language, langLibrary);
-
-      if (Array.isArray(sample)) {
-        return sample[0];
-      }
-
-      return sample || null;
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     SnippetItemsArray.forEach(({ language, langLibrary }) => {
       getCodeSample(language, langLibrary, reqData).then((sample) => {
@@ -64,9 +63,7 @@ export const useSnippets = (reqData: RequestFormat): Snippets => {
         }
       });
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, [reqData]);
 
   return snippet;
 };
