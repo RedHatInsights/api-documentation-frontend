@@ -6,10 +6,6 @@ import {Request as RequestFormat} from 'har-format'
 import { HTTPSnippet, isValidTargetId } from 'httpsnippet-lite';
 
 
-export interface Snippets {
-  [key: string]: string;
-}
-
 export interface SnippetInfoItem {
   text: string;
   language: string;
@@ -49,20 +45,17 @@ const getCodeSample = async (language: string, langLibrary: string | undefined, 
   }
 };
 
-export const useSnippets = (reqData: RequestFormat): Snippets => {
-  const [snippet, setSnippet] = useState<Snippets>({});
+export const useSnippets = (languageInfo: SnippetInfoItem, reqData: RequestFormat): string => {
+  const [snippet, setSnippet] = useState<string>('');
 
   useEffect(() => {
-    SnippetItemsArray.forEach(({ language, langLibrary }) => {
-      getCodeSample(language, langLibrary, reqData).then((sample) => {
+    if (languageInfo) {
+      getCodeSample(languageInfo.language, languageInfo.langLibrary, reqData).then((sample) => {
         if (sample) {
-          setSnippet((prevSnippet) => ({
-            ...prevSnippet,
-            [language]: sample as string,
-          }));
+          setSnippet(sample as string);
         }
-      });
-    });
+      })
+    }
   }, [reqData]);
 
   return snippet;

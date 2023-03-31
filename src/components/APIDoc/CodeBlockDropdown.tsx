@@ -1,17 +1,17 @@
 import React from 'react';
 import { Dropdown, DropdownToggle, DropdownItem } from '@patternfly/react-core';
 
-import { SnippetInfoItem } from '../../hooks/useSnippets';
+import { SnippetInfoItem, SnippetItemsArray } from '../../hooks/useSnippets';
 
 
 export interface CodeBlockDropdownProps {
-  dropdownItems: SnippetInfoItem[];
+  language: SnippetInfoItem;
   setLanguage: React.Dispatch<React.SetStateAction<SnippetInfoItem>>;
 }
 
-export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> = ({dropdownItems, setLanguage}) => {
+export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> = ({ language, setLanguage }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(dropdownItems[0].text);
+  const [selected, setSelected] = React.useState(language.text);
 
   const onToggle = (isOpen: boolean) => {
     setIsOpen(isOpen);
@@ -41,7 +41,7 @@ export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> 
         </DropdownToggle>
       }
       isOpen={isOpen}
-      dropdownItems={dropdownItems.map((item, index)=> <DropdownItem key={item.text} value={item.text} onClick={(e)=>onDropdownSelect(e, item)}>{item.text}</DropdownItem>)}
+      dropdownItems={SnippetItemsArray.map((item)=> <DropdownItem key={item.text} value={item.text} onClick={(e)=>onDropdownSelect(e, item)}>{item.text}</DropdownItem>)}
       isPlain
     />
   );

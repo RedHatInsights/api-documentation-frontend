@@ -17,7 +17,7 @@ import { ResponseView } from './ResponseView';
 
 import {Request as RequestFormat} from 'har-format'
 
-import { useSnippets } from '../../hooks/useSnippets';
+import { SnippetInfoItem, SnippetItemsArray, useSnippets } from '../../hooks/useSnippets';
 
 export interface OperationProps {
   verb: string;
@@ -50,19 +50,20 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
 
+  const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
   const reqData: RequestFormat = useMemo(() => ({
     method: verb.toUpperCase(),
     url: "http://example.com"+path,
     httpVersion: "HTTP/1.1",
     cookies: [],
-    headers: [{name: "Accept", value: "application/json"}],
+    headers: [{name: "Accept", value: "application/json"}], //TODO use headers as per schema. Default to application/json.
     queryString: [], //TODO path params?
     postData: undefined, //TODO body params
     headersSize: -1,
     bodySize: -1,
-  }), [verb, path]);
+  }), [verb, path, codeSampleLanguage]);
 
-  const snippets = useSnippets(reqData);
+  const snippets = useSnippets(codeSampleLanguage, reqData);
 
   return (
     <Grid className="pf-u-mt-sm" hasGutter>
@@ -103,7 +104,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
         <ResponseView responses={operation.responses} document={document} />
       </GridItem>
       <GridItem className="pf-m-12-col pf-m-5-col-on-xl pf-u-mt-md-on-xl pf-u-ml-sm-on-xl">
-        <CodeSamples snippets={snippets}/>
+        <CodeSamples codesnippet={snippets} language={codeSampleLanguage} setLanguage={setCodeSampleLanguage}/>
       </GridItem>
     </Grid>
   );

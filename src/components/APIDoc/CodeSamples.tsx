@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor } from '@patternfly/react-code-editor';
 
-import { SnippetItemsArray, SnippetInfoItem, Snippets } from '../../hooks/useSnippets';
+import { SnippetInfoItem, } from '../../hooks/useSnippets';
 import { CodeBlockDropdown } from './CodeBlockDropdown';
 
 
 interface CodeSampleProps {
-    snippets: Snippets;
+  codesnippet: string;
+  language: SnippetInfoItem;
+  setLanguage: React.Dispatch<React.SetStateAction<SnippetInfoItem>>;
 }
 
-export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}) => {
-    const [language, setLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
+export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({ codesnippet, language, setLanguage }) => {
     const [copied, setCopied] = useState<boolean>(false);
 
-    if (Object.keys(snippets).length === 0) {
+    if (!codesnippet) {
       return null; // Return null if there are no code samples; Without this logic the code samples initially shows up as selected
     }
 
@@ -33,12 +34,12 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}
           <FlexItem className="pf-u-flex-grow-1 pf-u-pl-lg">
           </FlexItem>
           <FlexItem align={{ default: 'alignRight' }}>
-            <CodeBlockDropdown dropdownItems={SnippetItemsArray} setLanguage={setLanguage}/>
+            <CodeBlockDropdown language={language} setLanguage={setLanguage}/>
             <ClipboardCopyButton
               id="basic-copy-button"
               textId="code-content"
               aria-label="Copy to clipboard"
-              onClick={e => onCopyClick(e, snippets[language.language])}
+              onClick={e => onCopyClick(e, codesnippet)}
               exitDelay={copied ? 1500 : 600}
               variant="plain"
               onTooltipHidden={() => setCopied(false)}
@@ -52,7 +53,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({snippets}
             isDarkTheme={true}
             isLineNumbersVisible={false}
             isReadOnly={true}
-            code={snippets[language.language]}
+            code={codesnippet}
             language={language.highlighter}
             height="400px"
           />
