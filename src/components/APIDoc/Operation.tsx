@@ -52,7 +52,7 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
 
-  const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
+  const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[4]);
   const reqData: RequestFormat = useMemo(() => buildCodeSampleData(verb, path, parameters, operation.requestBody, document), [verb, path, codeSampleLanguage]);
 
   const snippets = useSnippets(codeSampleLanguage, reqData);
