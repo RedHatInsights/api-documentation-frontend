@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {deRef} from "../../utils/Openapi";
+import { buildCodeSampleData } from '../../utils/Snippets';
 import {
     Grid,
     GridItem,
@@ -47,22 +48,12 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
   </AccordionItem>;
 };
 
+
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
 
   const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
-  const reqData: RequestFormat = useMemo(() => ({
-    method: verb.toUpperCase(),
-    url: "http://example.com"+path,
-    httpVersion: "HTTP/1.1",
-    cookies: [],
-    headers: [{name: "Accept", value: "application/json"}], //TODO use headers as per schema. Default to application/json.
-    queryString: [], //TODO path params?
-    postData: undefined, //TODO body params
-    headersSize: -1,
-    bodySize: -1,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [verb, path, codeSampleLanguage]);
+  const reqData: RequestFormat = useMemo(() => buildCodeSampleData(verb, path, parameters, document), [verb, path, codeSampleLanguage]);
 
   const snippets = useSnippets(codeSampleLanguage, reqData);
 
