@@ -21,7 +21,7 @@ export const GalleryTemplate: FunctionComponent<GaleryProps> = ({id, elements, i
     } : {}), [isHidden]);
 
     return (
-        <Gallery id={id} className="pf-u-m-md" style={style} minWidths={{default: '300px'}} hasGutter>
+        <Gallery id={id} style={style} minWidths={{default: '300px'}} hasGutter>
             { elements.map(apiConfig => (
                 <GalleryItem key={apiConfig.displayName}>
                     <Card displayName={apiConfig.displayName} icon={apiConfig.icon ?? APIConfigurationIcons.GenericIcon} description={apiConfig.description} onClick={() => navigate(pages.getApiPage(apiConfig.id))}>

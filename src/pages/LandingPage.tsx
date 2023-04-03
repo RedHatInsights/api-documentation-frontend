@@ -105,7 +105,7 @@ export const LandingPage: FunctionComponent = () => {
             </div>
           </PageSection>
 
-          <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} padding={{ default: 'noPadding' }} isFilled={true}>
+          <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} isFilled={true}>
           { view === 'grid'
             ? <GridContent galleryId={galleryId} allItems={filteredDocs} items={pagination.items} clearFilters={clearFilters}/>
             : <ListContent galleryId={galleryId} items={pagination.items} clearFilters={clearFilters}/>
