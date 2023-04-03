@@ -53,6 +53,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
 
   const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[4]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const reqData: RequestFormat = useMemo(() => buildCodeSampleData(verb, path, parameters, operation.requestBody, document), [verb, path, codeSampleLanguage]);
 
   const snippets = useSnippets(codeSampleLanguage, reqData);

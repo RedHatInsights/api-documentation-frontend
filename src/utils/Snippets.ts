@@ -11,13 +11,13 @@ const getHeaders = (params: DeRefResponse<OpenAPIV3.ParameterObject>[], document
   if (document.components?.securitySchemes) {
     Object.values(document.components?.securitySchemes).forEach(s => {
       const scheme = deRef(s, document)
-      if ("in" in scheme && scheme.in == "header") {
+      if ("in" in scheme && scheme.in === "header") {
         headers.push({name: scheme.name, value: scheme.type})
       }
     });
   }
   params.forEach(param => {
-    if (param.in == "header" && param.required) {
+    if (param.in === "header" && param.required) {
       let val = param.name
       if (param.schema && "type" in param.schema) {
         val = param.schema.type as string
@@ -36,7 +36,7 @@ const getHeaders = (params: DeRefResponse<OpenAPIV3.ParameterObject>[], document
 }
 
 const getQueryParams = (params: DeRefResponse<OpenAPIV3.ParameterObject>[], document: OpenAPIV3.Document): QueryString[] => {
-  const queryParams = params.filter(param => param.in == 'query' && param.required)
+  const queryParams = params.filter(param => param.in === 'query' && param.required)
 
   const paramsWithValue: QueryString[] = queryParams.map(param => {
     const paramName = param.name
@@ -97,6 +97,5 @@ export const buildCodeSampleData = (verb: string, path: string, params: DeRefRes
     postData: getPostData(requestBody, document),
     headersSize: -1,
     bodySize: -1,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   })
 }
