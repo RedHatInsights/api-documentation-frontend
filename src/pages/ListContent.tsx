@@ -12,35 +12,35 @@ interface ListContentProps {
 }
 
 export const ListContent: FunctionComponent<ListContentProps> = ({galleryId, items, clearFilters}) => {
-    const columnNames = {
-        name: 'Application name',
-        description: 'Description',
-        apiVersion: 'API version',
-        tags: 'Tags',
-      };
+  const columnNames = {
+      name: 'Application name',
+      description: 'Description',
+      apiVersion: 'API version',
+      tags: 'Tags',
+    };
 
-    return <div className="pf-u-m-md">
+  return (
     <TableComposable aria-label="Misc table">
-    <Thead noWrap>
-      <Tr>
-        <Th>
-          <Flex>
-            <FlexItem>
-              {columnNames.name}
-            </FlexItem>
-          </Flex>
-        </Th>
-        <Th>{columnNames.description}</Th>
-        <Th>{columnNames.tags}</Th>
-      </Tr>
-    </Thead>
-    <Tbody>
-    { items.length > 0 ?
+      <Thead noWrap>
+        <Tr>
+          <Th>
+            <Flex>
+              <FlexItem>
+                {columnNames.name}
+              </FlexItem>
+            </Flex>
+          </Th>
+          <Th>{columnNames.description}</Th>
+          <Th>{columnNames.tags}</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+      { items.length > 0 ?
           <ListView
-              id={galleryId}
-              elements={items}
+            id={galleryId}
+            elements={items}
           /> : <NoMatchFound clearFilters={clearFilters} /> }
-    </Tbody>
+      </Tbody>
     </TableComposable>
-  </div>;
+  );
 }
