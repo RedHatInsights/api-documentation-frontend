@@ -97,15 +97,16 @@ const inferContentType = (requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.Req
     if ('content' in value && value.content !== undefined) {
       return Object.keys(value.content)[0]
     }
+    return undefined
   }).filter(val => val !== undefined) as string[]
 
   // giving precedence to the content type mentioned in the requestBody first
   if (requestBodyContentTypes.length > 0) {
     return requestBodyContentTypes[0]
-  } else if (responsesContentTypes.length > 0) {
+  }
+  if (responsesContentTypes.length > 0) {
     return responsesContentTypes[0]
   }
-
   // applicaton/json is the default content type if content type cannot be inferred
   return "application/json"
 }
