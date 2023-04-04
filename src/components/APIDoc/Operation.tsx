@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import {OpenAPIV3} from "openapi-types";
 import {deRef} from "../../utils/Openapi";
-import { buildCodeSampleData } from '../../utils/Snippets';
+import { buildCodeSampleData, BuildCodeSampleDataParams } from '../../utils/Snippets';
 import {
     Grid,
     GridItem,
@@ -52,9 +52,17 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
 
-  const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[4]);
+  const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
+  const codeSampleBuildParams: BuildCodeSampleDataParams = {
+    verb: verb,
+    path: path,
+    params: parameters,
+    requestBody: operation.requestBody,
+    responses:  operation.responses,
+    document: document,
+  }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const reqData: RequestFormat = useMemo(() => buildCodeSampleData(verb, path, parameters, operation.requestBody, document), [verb, path, codeSampleLanguage]);
+  const reqData: RequestFormat = useMemo(() => buildCodeSampleData(codeSampleBuildParams), [verb, path, codeSampleLanguage]);
 
   const snippets = useSnippets(codeSampleLanguage, reqData);
 

@@ -5,7 +5,7 @@ import { DeRefResponse, deRef, recursiveDeRef } from './Openapi';
 import {Request as RequestFormat, Header, QueryString, PostData} from 'har-format'
 
 
-const getHeaders = (params: DeRefResponse<OpenAPIV3.ParameterObject>[], document: OpenAPIV3.Document): Header[] => {
+const getHeaders = (inferredContentType: string, params: DeRefResponse<OpenAPIV3.ParameterObject>[], document: OpenAPIV3.Document): Header[] => {
   const headers: Header[] = []
 
   if (document.components?.securitySchemes) {
@@ -26,10 +26,10 @@ const getHeaders = (params: DeRefResponse<OpenAPIV3.ParameterObject>[], document
     }
   })
 
-  // setting 'Content-Type' 'application/json' as a default header
+  // setting 'Content-Type' as a default header
   const hasContentType = headers.some(header => header.name === 'Content-Type');
   if (!hasContentType) {
-    headers.push({ name: 'Content-Type', value: 'application/json' });
+    headers.push({ name: 'Content-Type', value: inferredContentType });
   }
 
   return headers
@@ -86,13 +86,46 @@ const getPostData = (requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestB
   return {mimeType: 'application/json', text: requestBodyText}
 }
 
-export const buildCodeSampleData = (verb: string, path: string, params: DeRefResponse<OpenAPIV3.ParameterObject>[], requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject | undefined, document: OpenAPIV3.Document): RequestFormat => {
+const inferContentType = (requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject | undefined, responses: OpenAPIV3.ResponsesObject): string => {
+  let requestBodyContentTypes: string[] = [];
+
+  if (requestBody && 'content' in requestBody) {
+    requestBodyContentTypes = Object.keys(requestBody.content)
+  }
+
+  const responsesContentTypes = Object.values(responses).map((value) => {
+    if ('content' in value && value.content !== undefined) {
+      return Object.keys(value.content)[0]
+    }
+  }).filter(val => val !== undefined) as string[]
+
+  // giving precedence to the content type mentioned in the requestBody first
+  if (requestBodyContentTypes.length > 0) {
+    return requestBodyContentTypes[0]
+  } else if (responsesContentTypes.length > 0) {
+    return responsesContentTypes[0]
+  }
+
+  // applicaton/json is the default content type if content type cannot be inferred
+  return "application/json"
+}
+
+export interface BuildCodeSampleDataParams {
+  verb: string;
+  path: string;
+  params: DeRefResponse<OpenAPIV3.ParameterObject>[];
+  requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject | undefined;
+  responses: OpenAPIV3.ResponsesObject;
+  document: OpenAPIV3.Document;
+}
+export const buildCodeSampleData = ({verb, path, params, requestBody, responses, document}: BuildCodeSampleDataParams): RequestFormat => {
+  const inferredContentType = inferContentType(requestBody, responses)
   return ({
     method: verb.toUpperCase(),
     url: "http://example.com"+path,
     httpVersion: "HTTP/1.1",
     cookies: [],
-    headers: getHeaders(params, document),
+    headers: getHeaders(inferredContentType, params, document),
     queryString: getQueryParams(params, document),
     postData: getPostData(requestBody, document),
     headersSize: -1,

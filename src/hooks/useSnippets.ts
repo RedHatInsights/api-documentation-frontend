@@ -14,11 +14,11 @@ export interface SnippetInfoItem {
 }
 
 export const SnippetItemsArray = [
+  {text: "python", language: "python", highlighter: Language.python, langLibrary: "requests"},
   {text: "go", language: "go", highlighter: Language.go, langLibrary: undefined},
   {text: "java", language: "java", highlighter: Language.java, langLibrary: "asynchttp"},
   {text: "javascript", language: "javascript", highlighter: Language.javascript, langLibrary: "fetch"},
   {text: "node", language: "node", highlighter: Language.javascript, langLibrary: "fetch"},
-  {text: "python", language: "python", highlighter: Language.python, langLibrary: "requests"},
   {text: "c", language: "c", highlighter: Language.cpp, langLibrary: "libcurl"},
   {text: "ruby", language: "ruby", highlighter: Language.ruby, langLibrary: "native"},
   {text: "cURL", language: "shell", highlighter: Language.shell, langLibrary: "curl"},
