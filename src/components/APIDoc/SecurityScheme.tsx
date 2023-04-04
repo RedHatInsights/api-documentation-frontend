@@ -36,6 +36,6 @@ const SecuritySchemeApiKey: React.FunctionComponent<OpenAPIV3.ApiKeySecuritySche
             <li>Parameter name: {api.name}</li>
             <li>In: {api.in}</li>
         </ul>
-        <span>{api.description}</span>
+        <span className="apid-m-text-break-all">{api.description}</span>
     </>;
 }
