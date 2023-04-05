@@ -131,7 +131,7 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
 
   const schemaKeyValArray = Object.entries(schema.properties)
   if (schemaKeyValArray.length < 1) {
-    return [{name: "schema undefined"}] as TreeViewDataItem[]
+    return [{name: "Any data"}] as TreeViewDataItem[]
   }
 
   const schemaData = schemaKeyValArray.map(([key, value]) => {
