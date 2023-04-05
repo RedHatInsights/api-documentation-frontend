@@ -100,10 +100,29 @@
   .pf-c-accordion__toggle.pf-m-expanded {
     background: var(--pf-global--BackgroundColor--light-200);
   }
-  .pf-c-accordion__toggle-text {
-    flex-grow: 1;
-    text-align: left;
-    margin-left: var(--pf-global--spacer--md);
+  .pf-c-accordion__toggle {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    &-icon {
+      align-self: flex-start;
+      margin-right: var(--pf-global--spacer--sm);
+    }
+    &-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      white-space: nowrap;
+       // temp fix - until conflict with sidebar is resolved
+      @media screen and (min-width: 769px) and (max-width: 1200px) {
+        width:450px;
+      }
+       @media screen and (min-width: 1201px) and (max-width: 1400px)  {
+        width:800px;
+      }
+      @media screen and (min-width: 1401px) {
+        width:1000px;
+      }
+    }
   }
 }
 
@@ -115,8 +134,11 @@
   .pf-c-accordion__toggle.pf-m-expanded {
     background: var(--pf-global--BackgroundColor--light-200);
   }
+    .pf-c-accordion__toggle {
+    flex-direction: row-reverse;
+    justify-content: flex-end,
+  }
   .pf-c-accordion__toggle-text {
-    flex-grow: 1;
     text-align: left;
     margin-left: var(--pf-global--spacer--md);
   }
