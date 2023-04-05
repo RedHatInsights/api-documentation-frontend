@@ -588,7 +588,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   },
   {
     id: "case-management",
-    displayName: "Case Management",
+    displayName: "Case Management API",
     description: "Support Services Case Management API",
     icon: "GenericIcon",
     apiPath: "./apis/access/case-management/openapi.json",

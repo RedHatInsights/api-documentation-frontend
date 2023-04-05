@@ -2127,7 +2127,8 @@
           "rhosak",
           "rhacs",
           "rhods",
-          "BASILISK"
+          "BASILISK",
+          "rosa"
         ],
         "type": "string"
       },

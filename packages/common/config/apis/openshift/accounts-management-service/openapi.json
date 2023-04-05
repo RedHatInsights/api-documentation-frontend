@@ -580,7 +580,8 @@
               "managed_by": {
                 "enum": [
                   "SSO",
-                  "OCM"
+                  "OCM",
+                  "RBAC"
                 ],
                 "type": "string"
               },
@@ -622,6 +623,13 @@
                 "format": "date-time",
                 "type": "string"
               },
+              "managed_by": {
+                "enum": [
+                  "OCM",
+                  "RBAC"
+                ],
+                "type": "string"
+              },
               "updated_at": {
                 "format": "date-time",
                 "type": "string"
@@ -629,7 +637,8 @@
             },
             "required": [
               "account_id",
-              "account_group_id"
+              "account_group_id",
+              "managed_by"
             ],
             "type": "object"
           }
@@ -2337,6 +2346,63 @@
           }
         ]
       },
+      "QuotaAuthorizationRequest": {
+        "properties": {
+          "account_username": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "quota_version": {
+            "type": "string"
+          },
+          "reserve": {
+            "type": "boolean"
+          },
+          "resources": {
+            "items": {
+              "$ref": "#/components/schemas/ReservedResource"
+            },
+            "type": "array"
+          },
+          "subscription_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "account_username",
+          "resources"
+        ],
+        "type": "object"
+      },
+      "QuotaAuthorizationResponse": {
+        "properties": {
+          "allowed": {
+            "type": "boolean"
+          },
+          "excess_resources": {
+            "items": {
+              "$ref": "#/components/schemas/ExcessResource"
+            },
+            "type": "array"
+          },
+          "organization_id": {
+            "type": "string"
+          },
+          "subscription": {
+            "$ref": "#/components/schemas/ObjectReference"
+          }
+        },
+        "required": [
+          "allowed",
+          "excess_resources"
+        ],
+        "type": "object"
+      },
       "QuotaCost": {
         "allOf": [
           {
@@ -3037,7 +3103,8 @@
               "managed_by": {
                 "enum": [
                   "Config",
-                  "User"
+                  "User",
+                  "RBAC"
                 ],
                 "type": "string"
               },
@@ -6860,6 +6927,73 @@
         "summary": "Returns a list of deleted subscriptions"
       }
     },
+    "/api/accounts_mgmt/v1/deleted_subscriptions/{id}": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletedSubscription"
+                }
+              }
+            },
+            "description": "A JSON object of a single deleted subscription"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized to perform operation"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Resource does not exist"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Fetches a deleted subscription by id"
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/id"
+        }
+      ]
+    },
     "/api/accounts_mgmt/v1/errors": {
       "get": {
         "responses": {
@@ -9468,6 +9602,99 @@
           "$ref": "#/components/parameters/externalResourceId"
         }
       ]
+    },
+    "/api/accounts_mgmt/v1/quota_authorizations": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuotaAuthorizationRequest"
+              }
+            }
+          },
+          "description": "User data and intention",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuotaAuthorizationResponse"
+                }
+              }
+            },
+            "description": "The authorization action was successful"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unauthorized to perform operation"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "AMS subscription exists but is associated with another account"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "The limits for this subscription are exceeded."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Other cluster authorization error"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Authorizes a user to consume or release a single quantity of quota"
+      }
     },
     "/api/accounts_mgmt/v1/quota_cost": {
       "get": {

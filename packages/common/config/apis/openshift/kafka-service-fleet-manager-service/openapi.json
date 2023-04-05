@@ -213,9 +213,48 @@
           "region": "eu-west-1"
         }
       },
-      "EnterpriseClusterListItemExample": {
+      "EnterpriseClusterAddonParametersResponseExample": {
+        "value": {
+          "fleetshard_parameters": [
+            {
+              "id": "sso-auth-server-url",
+              "value": "http://someurl/auth/realms/rhoas"
+            },
+            {
+              "id": "sso-client-id",
+              "value": "kas-fleetshard-agent-1234abcd1234abcd1234abcd1234abcd"
+            },
+            {
+              "id": "sso-secret",
+              "value": "some-secret"
+            },
+            {
+              "id": "cluster-id",
+              "value": "1234abcd1234abcd1234abcd1234abcd"
+            },
+            {
+              "id": "poll-interval",
+              "value": "15s"
+            },
+            {
+              "id": "resync-interval",
+              "value": "60s"
+            }
+          ],
+          "href": "/api/kafkas_mgmr/v1/clusters/abcd1234ascd3456fdks9485lskd030h/addon_parameters",
+          "id": "abcd1234ascd3456fdks9485lskd030h",
+          "kind": "ClusterAddonParameters"
+        }
+      },
+      "EnterpriseClusterExample": {
         "value": {
           "access_kafkas_via_private_network": false,
+          "capacity_information": {
+            "consumed_kafka_streaming_units": 1,
+            "kafka_machine_pool_node_count": 3,
+            "maximum_kafka_streaming_units": 1,
+            "remaining_kafka_streaming_units": 0
+          },
           "cloud_provider": "aws",
           "cluster_id": "abcd1234ascd3456fdks9485lskd030h",
           "href": "/api/kafkas_mgmr/v1/clusters/abcd1234ascd3456fdks9485lskd030h",
@@ -223,12 +262,131 @@
           "kind": "cluster",
           "multi_az": true,
           "region": "us-east-1",
-          "status": "ready"
+          "status": "ready",
+          "supported_instance_types": {
+            "display_name": "Standard",
+            "id": "standard",
+            "sizes": [
+              {
+                "capacity_consumed": 1,
+                "display_name": "1",
+                "egress_throughput_per_sec": {
+                  "bytes": 31457280
+                },
+                "id": "x1",
+                "ingress_throughput_per_sec": {
+                  "bytes": 31457280
+                },
+                "maturity_status": "stable",
+                "max_connection_attempts_per_sec": 100,
+                "max_data_retention_period": "P14D",
+                "max_data_retention_size": {
+                  "bytes": 1073741800000
+                },
+                "max_message_size": {
+                  "bytes": 1048576
+                },
+                "max_partitions": 1000,
+                "min_in_sync_replicas": 1,
+                "quota_consumed": 1,
+                "quota_type": "RHOSAK",
+                "replication_factor": 1,
+                "supported_az_modes": [
+                  "multi"
+                ],
+                "total_max_connections": 3000
+              }
+            ],
+            "supported_billing_models": [
+              {
+                "ams_billing_models": [
+                  "standard"
+                ],
+                "ams_product": "RHOSAKCC",
+                "ams_resource": "rhosak",
+                "id": "enterprise"
+              }
+            ]
+          }
         }
       },
-      "EnterpriseClusterWithAddonParametersExample": {
+      "EnterpriseClusterListExample": {
         "value": {
-          "access_kafkas_via_private_network": true,
+          "items": [
+            {
+              "access_kafkas_via_private_network": false,
+              "capacity_information": {
+                "consumed_kafka_streaming_units": 1,
+                "kafka_machine_pool_node_count": 3,
+                "maximum_kafka_streaming_units": 1,
+                "remaining_kafka_streaming_units": 0
+              },
+              "cloud_provider": "aws",
+              "cluster_id": "abcd1234ascd3456fdks9485lskd030h",
+              "href": "/api/kafkas_mgmr/v1/clusters/abcd1234ascd3456fdks9485lskd030h",
+              "id": "abcd1234ascd3456fdks9485lskd030h",
+              "kind": "cluster",
+              "multi_az": true,
+              "region": "us-east-1",
+              "status": "ready",
+              "supported_instance_types": {
+                "display_name": "Standard",
+                "id": "standard",
+                "sizes": [
+                  {
+                    "capacity_consumed": 1,
+                    "display_name": "1",
+                    "egress_throughput_per_sec": {
+                      "bytes": 31457280
+                    },
+                    "id": "x1",
+                    "ingress_throughput_per_sec": {
+                      "bytes": 31457280
+                    },
+                    "maturity_status": "stable",
+                    "max_connection_attempts_per_sec": 100,
+                    "max_data_retention_period": "P14D",
+                    "max_data_retention_size": {
+                      "bytes": 1073741800000
+                    },
+                    "max_message_size": {
+                      "bytes": 1048576
+                    },
+                    "max_partitions": 1000,
+                    "min_in_sync_replicas": 1,
+                    "quota_consumed": 1,
+                    "quota_type": "rhosak",
+                    "replication_factor": 1,
+                    "supported_az_modes": [
+                      "multi"
+                    ],
+                    "total_max_connections": 3000
+                  }
+                ],
+                "supported_billing_models": [
+                  {
+                    "ams_billing_models": [
+                      "standard"
+                    ],
+                    "ams_product": "RHOSAKCC",
+                    "ams_resource": "rhosak",
+                    "id": "enterprise"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "EnterpriseClusterRegistrationResponseExample": {
+        "value": {
+          "access_kafkas_via_private_network": false,
+          "capacity_information": {
+            "consumed_kafka_streaming_units": 1,
+            "kafka_machine_pool_node_count": 3,
+            "maximum_kafka_streaming_units": 1,
+            "remaining_kafka_streaming_units": 0
+          },
           "cloud_provider": "aws",
           "cluster_id": "abcd1234ascd3456fdks9485lskd030h",
           "fleetshard_parameters": [
@@ -260,8 +418,54 @@
           "href": "/api/kafkas_mgmr/v1/clusters/abcd1234ascd3456fdks9485lskd030h",
           "id": "abcd1234ascd3456fdks9485lskd030h",
           "kind": "cluster",
+          "multi_az": true,
           "region": "us-east-1",
-          "status": "ready"
+          "status": "ready",
+          "supported_instance_types": {
+            "display_name": "Standard",
+            "id": "standard",
+            "sizes": [
+              {
+                "capacity_consumed": 1,
+                "display_name": "1",
+                "egress_throughput_per_sec": {
+                  "bytes": 31457280
+                },
+                "id": "x1",
+                "ingress_throughput_per_sec": {
+                  "bytes": 31457280
+                },
+                "maturity_status": "stable",
+                "max_connection_attempts_per_sec": 100,
+                "max_data_retention_period": "P14D",
+                "max_data_retention_size": {
+                  "bytes": 1073741800000
+                },
+                "max_message_size": {
+                  "bytes": 1048576
+                },
+                "max_partitions": 1000,
+                "min_in_sync_replicas": 1,
+                "quota_consumed": 1,
+                "quota_type": "rhosak",
+                "replication_factor": 1,
+                "supported_az_modes": [
+                  "multi"
+                ],
+                "total_max_connections": 3000
+              }
+            ],
+            "supported_billing_models": [
+              {
+                "ams_billing_models": [
+                  "standard"
+                ],
+                "ams_product": "RHOSAKCC",
+                "ams_resource": "rhosak",
+                "id": "enterprise"
+              }
+            ]
+          }
         }
       },
       "EnterpriseOsdClusterPayloadExample": {
@@ -576,7 +780,7 @@
         }
       },
       "search": {
-        "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are `cloud_provider`, `name`, `owner`, `region`, `status` and `cluster_id`. Allowed comparators are `<>`, `=`, `IN`, `NOT IN`, `LIKE`, or `ILIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\nTo return a Kafka instance with the name `my-kafka` and the region `aws`, use the following syntax:\n\n```\nname = my-kafka and cloud_provider = aws\n```\n\nTo return a Kafka instance with a name that starts with `my`, use the following syntax:\n\n```\nname like my%25\n```\n\nTo return a Kafka instance with a name containing `test` matching any character case combinations, use the following syntax:\n\n```\nname ilike %25test%25\n```\n\nIf the parameter isn't provided, or if the value is empty, then all the Kafka instances\nthat the user has permission to see are returned.\n\nNote. If the query is invalid, an error is returned.\n",
+        "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are `cloud_provider`, `name`, `owner`, `region`, `status`, `instance_type`, and `cluster_id`. Allowed comparators are `<>`, `=`, `IN`, `NOT IN`, `LIKE`, or `ILIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\nTo return a Kafka instance with the name `my-kafka` and the region `aws`, use the following syntax:\n\n```\nname = my-kafka and cloud_provider = aws\n```\n\nTo return a Kafka instance with a name that starts with `my`, use the following syntax:\n\n```\nname like my%25\n```\n\nTo return a Kafka instance with a name containing `test` matching any character case combinations, use the following syntax:\n\n```\nname ilike %25test%25\n```\n\nIf the parameter isn't provided, or if the value is empty, then all the Kafka instances\nthat the user has permission to see are returned.\n\nNote. If the query is invalid, an error is returned.\n",
         "examples": {
           "search": {
             "value": "name = my-kafka and cloud_provider = aws"
@@ -739,18 +943,16 @@
       "EnterpriseCluster": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/EnterpriseClusterListItem"
+            "$ref": "#/components/schemas/ObjectReference"
           },
           {
             "properties": {
+              "access_kafkas_via_private_network": {
+                "description": "Indicates whether Kafkas created on this data plane cluster have to be accessed via private network",
+                "type": "boolean"
+              },
               "capacity_information": {
                 "description": "Returns the capacity related information",
-                "example": {
-                  "consumed_kafka_streaming_units": 1,
-                  "kafka_machine_pool_node_count": 3,
-                  "maximum_kafka_streaming_units": 1,
-                  "remaining_kafka_streaming_units": 0
-                },
                 "properties": {
                   "consumed_kafka_streaming_units": {
                     "description": "The number of Kafka streaming units that have been consumed on this cluster",
@@ -777,60 +979,6 @@
                 ],
                 "type": "object"
               },
-              "supported_instance_types": {
-                "$ref": "#/components/schemas/SupportedKafkaInstanceTypesList",
-                "type": "object"
-              }
-            },
-            "type": "object"
-          }
-        ]
-      },
-      "EnterpriseClusterList": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/List"
-          },
-          {
-            "example": {
-              "item": {
-                "$ref": "#/components/examples/EnterpriseClusterListItemExample"
-              },
-              "kind": "ClusterList",
-              "page": "1",
-              "size": "1",
-              "total": "1"
-            },
-            "properties": {
-              "items": {
-                "items": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/EnterpriseClusterListItem"
-                    }
-                  ]
-                },
-                "type": "array"
-              }
-            },
-            "required": [
-              "items"
-            ],
-            "type": "object"
-          }
-        ]
-      },
-      "EnterpriseClusterListItem": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/ObjectReference"
-          },
-          {
-            "properties": {
-              "access_kafkas_via_private_network": {
-                "description": "Indicates whether Kafkas created on this data plane cluster have to be accessed via private network",
-                "type": "boolean"
-              },
               "cloud_provider": {
                 "description": "The cloud provider for this cluster. This valus will be used as the Kafka's cloud provider value when a Kafka is created on this cluster",
                 "type": "string"
@@ -850,6 +998,10 @@
               "status": {
                 "description": "The status of Enterprise cluster registration",
                 "type": "string"
+              },
+              "supported_instance_types": {
+                "$ref": "#/components/schemas/SupportedKafkaInstanceTypesList",
+                "type": "object"
               }
             },
             "required": [
@@ -860,28 +1012,61 @@
           }
         ]
       },
-      "EnterpriseClusterWithAddonParameters": {
+      "EnterpriseClusterAddonParameters": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/EnterpriseClusterListItem"
+            "$ref": "#/components/schemas/ObjectReference"
+          },
+          {
+            "$ref": "#/components/schemas/EnterpriseClusterFleetshardParameters"
+          }
+        ],
+        "description": "Enterprise Cluster get addon parameters response"
+      },
+      "EnterpriseClusterFleetshardParameters": {
+        "description": "Enterprise Cluster fleetshard parameters object",
+        "properties": {
+          "fleetshard_parameters": {
+            "$ref": "#/components/schemas/FleetshardParametersArray"
+          }
+        },
+        "type": "object"
+      },
+      "EnterpriseClusterList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
           },
           {
             "properties": {
-              "fleetshard_parameters": {
+              "items": {
                 "items": {
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/FleetshardParameter"
+                      "$ref": "#/components/schemas/EnterpriseCluster"
                     }
                   ]
                 },
                 "type": "array"
               }
             },
+            "required": [
+              "items"
+            ],
             "type": "object"
           }
+        ]
+      },
+      "EnterpriseClusterRegistrationResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EnterpriseCluster"
+          },
+          {
+            "$ref": "#/components/schemas/EnterpriseClusterFleetshardParameters"
+          }
         ],
-        "description": "Enterprise cluster with addon parameters"
+        "description": "Enterprise Cluster registration response.\nIt returns additional privileged information compared to The\ninformation returned by EnterpriseCluster"
       },
       "EnterpriseOsdClusterPayload": {
         "description": "Schema for the request body sent to /clusters POST",
@@ -980,6 +1165,13 @@
           }
         },
         "type": "object"
+      },
+      "FleetshardParametersArray": {
+        "description": "Enterprise Cluster fleetshard parameters array",
+        "items": {
+          "$ref": "#/components/schemas/FleetshardParameter"
+        },
+        "type": "array"
       },
       "InstantQuery": {
         "properties": {
@@ -1815,11 +2007,7 @@
             "properties": {
               "collections": {
                 "items": {
-                  "allOf": [
-                    {
-                      "$ref": "#/components/schemas/ObjectReference"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ObjectReference"
                 },
                 "type": "array"
               },
@@ -1851,7 +2039,7 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0"
     },
     "title": "Kafka Management API",
-    "version": "1.15.0"
+    "version": "1.16.0"
   },
   "openapi": "3.0.0",
   "paths": {
@@ -2006,6 +2194,11 @@
           "200": {
             "content": {
               "application/json": {
+                "examples": {
+                  "EnterpriseClusterListExample": {
+                    "$ref": "#/components/examples/EnterpriseClusterListExample"
+                  }
+                },
                 "schema": {
                   "$ref": "#/components/schemas/EnterpriseClusterList"
                 }
@@ -2106,8 +2299,13 @@
           "200": {
             "content": {
               "application/json": {
+                "examples": {
+                  "EnterpriseClusterRegistrationResponseExample": {
+                    "$ref": "#/components/examples/EnterpriseClusterRegistrationResponseExample"
+                  }
+                },
                 "schema": {
-                  "$ref": "#/components/schemas/EnterpriseClusterWithAddonParameters"
+                  "$ref": "#/components/schemas/EnterpriseClusterRegistrationResponse"
                 }
               }
             },
@@ -2340,8 +2538,8 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "EnterpriseClusterListItemExample": {
-                    "$ref": "#/components/examples/EnterpriseClusterListItemExample"
+                  "EnterpriseClusterExample": {
+                    "$ref": "#/components/examples/EnterpriseClusterExample"
                   }
                 },
                 "schema": {
@@ -2424,8 +2622,8 @@
     },
     "/api/kafkas_mgmt/v1/clusters/{id}/addon_parameters": {
       "get": {
-        "description": "Returns enterprise data plane cluster by ID along with its addon parameters",
-        "operationId": "getEnterpriseClusterWithAddonParameters",
+        "description": "Returns the addon parameters belonging to the enterprise dataplane\ncluster {id}",
+        "operationId": "getEnterpriseClusterAddonParameters",
         "parameters": [
           {
             "description": "ID of the enterprise data plane cluster",
@@ -2442,16 +2640,16 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "EnterpriseClusterWithAddonsExample": {
-                    "$ref": "#/components/examples/EnterpriseClusterWithAddonParametersExample"
+                  "EnterpriseClusterAddonParametersExample": {
+                    "$ref": "#/components/examples/EnterpriseClusterAddonParametersResponseExample"
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/EnterpriseClusterWithAddonParameters"
+                  "$ref": "#/components/schemas/EnterpriseClusterAddonParameters"
                 }
               }
             },
-            "description": "Returns the enterprise data plane cluster with addon parameters for an existing enterprise data plane cluster with provided ID"
+            "description": "Returns the addon parameters belonging to the enterprise dataplane\ncluster {id}"
           },
           "401": {
             "content": {

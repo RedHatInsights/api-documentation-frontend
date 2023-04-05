@@ -50,6 +50,15 @@
           "reason": "The requested resource doesn't exist"
         }
       },
+      "409Example": {
+        "value": {
+          "code": "CONNECTOR-MGMT-21",
+          "href": "/api/connector_mgmt/v1/errors/21",
+          "id": "409",
+          "kind": "Error",
+          "reason": "An attempt was made to modify an immutable field"
+        }
+      },
       "409NameConflictExample": {
         "value": {
           "code": "CONNECTOR-MGMT-36",
@@ -2732,6 +2741,21 @@
               }
             },
             "description": "No matching resource exists"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/409Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "An attempt was made to modify an immutable field"
           },
           "410": {
             "content": {
