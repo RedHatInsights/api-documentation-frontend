@@ -586,4 +586,20 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
+  {
+    id: "case-management",
+    displayName: "Case Management",
+    description: "Support Services Case Management API",
+    icon: "GenericIcon",
+    apiPath: "./apis/access/case-management/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/access/case-management/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [
+      apiLabelsMap["ansible"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["openshift"],
+    ],
+  },
 ];

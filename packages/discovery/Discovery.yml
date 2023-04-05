@@ -360,6 +360,20 @@ apis:
         tags:
           - openshift
           - infrastructure
+  - id: access
+    name: Red Hat Access
+    apps:
+      - id: case-management
+        name: Case Management API
+        description: Support Services Case Management API
+        url: https://access.redhat.com/management/api/case_management/swagger.json
+        useLocalFile: true
+        apiType: openapi-v3
+        # tags may need to be updated; this API is different for the rest
+        tags:
+          - ansible
+          - rhel
+          - openshift
   - id: app-studio-hacbs
     name: AppStudio and HACBS
     apps:
