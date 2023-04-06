@@ -163,3 +163,10 @@
 .apid-m-text-break-all {
   word-break: break-all;
 }
+
+.apid-landing-list-grid-buttons {
+  .pf-c-button {
+    --pf-c-button--disabled--BackgroundColor: var(--pf-c-button--m-primary--BackgroundColor);
+    --pf-c-button--m-primary--BackgroundColor: var(--pf-c-button--disabled--BackgroundColor);
+  }
+}
