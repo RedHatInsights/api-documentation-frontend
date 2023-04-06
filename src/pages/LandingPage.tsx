@@ -100,7 +100,7 @@ export const LandingPage: FunctionComponent = () => {
 
           <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
             <div className="pf-u-text-align-right">
-              <Button isDisabled={view === 'grid'} variant="link" icon={<ThIcon />} onClick={() => changeView('grid')} className="apid-landing-layout-button" isInline isLarge/>
+              <Button isDisabled={view === 'grid'} variant="link" icon={<ThIcon />} onClick={() => changeView('grid')} className="pf-u-mr-sm apid-landing-layout-button" isInline isLarge/>
               <Button isDisabled={view === 'list'} variant="link" icon={<ThListIcon />} onClick={() => changeView('list')} className="apid-landing-layout-button" isInline isLarge/>
             </div>
           </PageSection>
