@@ -23,9 +23,9 @@ const getTitle = (type: DisplayedTagsType) => {
         case 'use-case':
             return 'Use Case';
         case 'service':
-            return 'Saas Services';
+            return 'Saas Service';
         case 'platform':
-            return 'Supporting Red Hat Platform';
+            return 'Red Hat Platform';
     }
 
     assertNever(type);
