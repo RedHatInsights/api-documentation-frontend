@@ -31,7 +31,7 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   ansible: {
     id: "ansible",
     name: "Ansible",
-    type: "service",
+    type: "platform",
     devRedHatTaxonomy: {
       topic: "Automation",
       product: "Red Hat Ansible Automation Platform",
@@ -120,7 +120,7 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   },
   openshift: {
     id: "openshift",
-    name: "Openshift",
+    name: "OpenShift",
     type: "platform",
     devRedHatTaxonomy: {
       topic: undefined,
