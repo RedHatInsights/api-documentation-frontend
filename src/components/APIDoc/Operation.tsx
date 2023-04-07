@@ -11,7 +11,8 @@ import {
     AccordionItem,
     AccordionToggle, AccordionContent
 } from "@patternfly/react-core";
-import {TableComposable, Tbody, Td, Thead, Tr} from "@patternfly/react-table";
+
+import { ParameterView } from './ParameterView';
 import {CodeSamples} from "./CodeSamples";
 import { RequestBodyView } from './RequestBodyView';
 import { ResponseView } from './ResponseView';
@@ -51,6 +52,8 @@ export const Operation: React.FunctionComponent<OperationProps> = props => {
 
 const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, operation, document}) => {
   const parameters = (operation.parameters || []).map(p => deRef(p, document));
+  const queryParameters = parameters.filter(p => p.in === "query");
+  const pathParameters = parameters.filter(p => p.in === "path");
 
   const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
   const codeSampleBuildParams: BuildCodeSampleDataParams = {
@@ -74,33 +77,8 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
         </TextContent>
       </GridItem>
       <GridItem className="pf-m-12-col pf-m-7-col-on-xl">
-      { parameters.length > 0 && <>
-        <TextContent>
-          <Text component={TextVariants.h3} className="pf-u-pb-lg">Parameters</Text>
-        </TextContent>
-        <TableComposable variant="compact">
-          <Thead>
-            <Tr>
-              <Td>Name</Td>
-              <Td>In</Td>
-              <Td>Type</Td>
-              <Td>Required</Td>
-              <Td>Description</Td>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {parameters.map(((p, index) => (
-              <Tr key={index}>
-                <Td>{p.name}</Td>
-                <Td>{p.in}</Td>
-                <Td>{getType(p.schema, document)}</Td>
-                <Td>{p.required ? 'Yes' : 'No'}</Td>
-                <Td>{p.description}</Td>
-              </Tr>
-            )))}
-          </Tbody>
-        </TableComposable>
-        </> }
+        { pathParameters.length > 0 && <ParameterView title="Path Parameters" parameters={pathParameters} document={document}/> }
+        { queryParameters.length > 0 && <ParameterView title="Query Parameters" parameters={queryParameters} document={document}/> }
         { operation.requestBody && <RequestBodyView requestBody={operation.requestBody} document={document} /> }
         <ResponseView responses={operation.responses} document={document} />
       </GridItem>
@@ -110,17 +88,3 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
     </Grid>
   );
   }
-
-const getType = (schema: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | undefined, document: OpenAPIV3.Document) => {
-    if (schema === undefined) {
-        return 'Unknown';
-    }
-
-    const dSchema = deRef(schema, document);
-
-    if (dSchema.enum) {
-        return dSchema.enum.join(' | ');
-    }
-
-    return dSchema.type;
-}
