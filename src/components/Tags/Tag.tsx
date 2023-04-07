@@ -12,6 +12,7 @@ const colorForLabelType = (type: APILabel['type']): LabelProps['color'] => {
         case "platform":
             return 'green';
         case "service":
+            return `orange`;
         case "use-case":
             return 'blue';
         default:
