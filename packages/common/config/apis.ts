@@ -187,7 +187,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/automation-hub/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["automation"]],
+    tags: [
+        apiLabelsMap["ansible"],
+        apiLabelsMap["automation"]
+      ],
   },
   {
     id: "cost-management",
