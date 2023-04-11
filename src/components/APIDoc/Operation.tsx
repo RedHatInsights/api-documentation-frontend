@@ -77,8 +77,18 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
         </TextContent>
       </GridItem>
       <GridItem className="pf-m-12-col pf-m-7-col-on-xl">
-        { pathParameters.length > 0 && <ParameterView title="Path Parameters" parameters={pathParameters} document={document}/> }
-        { queryParameters.length > 0 && <ParameterView title="Query Parameters" parameters={queryParameters} document={document}/> }
+        <Grid hasGutter>
+          { pathParameters.length > 0 &&
+            <GridItem className="pf-m-12-col">
+              <ParameterView title="Path Parameters" parameters={pathParameters} document={document}/>
+            </GridItem>
+          }
+          { queryParameters.length > 0 &&
+            <GridItem className="pf-m-12-col">
+              <ParameterView title="Query Parameters" parameters={queryParameters} document={document}/>
+            </GridItem>
+          }
+        </Grid>
         { operation.requestBody && <RequestBodyView requestBody={operation.requestBody} document={document} /> }
         <ResponseView responses={operation.responses} document={document} />
       </GridItem>
