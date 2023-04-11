@@ -428,7 +428,7 @@ apis:
 tags:
   - id: ansible
     name: Ansible
-    type: service
+    type: platform
     dev-rh:taxonomy:
       product: Red Hat Ansible Automation Platform
       topic: Automation
