@@ -9245,8 +9245,11 @@
     }
   },
   "info": {
-    "title": "Automation Hub API",
-    "version": "v3",
+    "contact": {
+      "email": "pulp-list@redhat.com",
+      "name": "Pulp Team",
+      "url": "https://pulpproject.org"
+    },
     "description": "Fetch, Upload, Organize, and Distribute Ansible Collections",
     "license": {
       "name": "GPLv2+",
