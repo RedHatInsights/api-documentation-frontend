@@ -90,11 +90,7 @@ export const LandingPage: FunctionComponent = () => {
         <SidebarContent className="pf-u-display-flex pf-u-flex-direction-column">
           <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
             <TextContent>
-              <Text component={TextVariants.h1}>The Red Hat API Documentation and Guides</Text>
-              <Text component={TextVariants.p}>
-                Here you'll find APIs for many Red Hat products and services.
-                Check back regularly as we're adding new ones all the time.
-              </Text>
+              <Text component={TextVariants.h1}>API Catalog and Documentation</Text>
             </TextContent>
           </PageSection>
 
