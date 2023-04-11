@@ -180,7 +180,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "automation-hub",
     displayName: "Automation Hub",
-    description: "Upload, Organize, and Distribute Ansible Collections",
+    description: "Fetch, Upload, Organize, and Distribute Ansible Collections",
     icon: "AnsibleIcon",
     apiPath: "./apis/hcc-insights/automation-hub/openapi.json",
     getApi: () =>
