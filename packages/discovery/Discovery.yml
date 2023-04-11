@@ -15,7 +15,7 @@ apis:
           - observe
       - id: automation-hub
         name: Automation Hub
-        description: Fetch, Upload, Organize, and Distribute Ansible Collections
+        description: Fetch, upload, organize, and distribute Ansible Collections
         url: https://console.redhat.com/api/automation-hub/v3/openapi.json
         apiType: openapi-v3
         icon: ansible

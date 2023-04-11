@@ -31,7 +31,7 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   ansible: {
     id: "ansible",
     name: "Ansible",
-    type: "platform",
+    type: "service",
     devRedHatTaxonomy: {
       topic: "Automation",
       product: "Red Hat Ansible Automation Platform",
@@ -120,7 +120,7 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   },
   openshift: {
     id: "openshift",
-    name: "OpenShift",
+    name: "Openshift",
     type: "platform",
     devRedHatTaxonomy: {
       topic: undefined,
@@ -180,7 +180,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "automation-hub",
     displayName: "Automation Hub",
-    description: "Fetch, Upload, Organize, and Distribute Ansible Collections",
+    description: "Fetch, upload, organize, and distribute Ansible Collections",
     icon: "AnsibleIcon",
     apiPath: "./apis/hcc-insights/automation-hub/openapi.json",
     getApi: () =>
