@@ -23,7 +23,7 @@ apis:
           - automation
       - id: compliance
         name: Compliance
-        description: This is the API for Cloud Services for RHEL Compliance.
+        description: This is the API for Cloud Services for RHEL Compliance
         url: https://console.redhat.com/api/compliance/v1/openapi.json
         apiType: openapi-v3
         icon: insights
@@ -34,7 +34,7 @@ apis:
         skipReason: Has a minor validation error with openapi
       - id: cost-management
         name: Cost Management
-        description: The API for Project Koku and OpenShift cost management.
+        description: The API for Project Koku and OpenShift cost management
         url: https://console.redhat.com/api/cost-management/v1/openapi.json
         apiType: openapi-v3
         icon: openshift
@@ -42,7 +42,7 @@ apis:
           - spend-management
       - id: drift
         name: Drift Backend Service
-        description: Service that returns differences between systems.
+        description: Service that returns differences between systems
         url: https://console.redhat.com/api/drift/v1/openapi.json
         useLocalFile: true
         apiType: openapi-v3
@@ -217,7 +217,7 @@ apis:
           - identify-and-access-management
       - id: rhsm-subscriptions
         name: Subscriptions
-        description: REST interface for the rhsm-subscriptions service.
+        description: REST interface for the rhsm-subscriptions service
         url: https://console.redhat.com/api/rhsm-subscriptions/v1/openapi.json
         apiType: openapi-v3
         icon: subscriptions
@@ -276,7 +276,7 @@ apis:
         skipReason: Has validation errors
       - id: connector-management
         name: Connector Management
-        description: Connector Management API is a REST API to manage connectors.
+        description: Connector Management API is a REST API to manage connectors
         url: https://api.openshift.com/api/connector_mgmt/v1/openapi
         apiType: openapi-v3
         tags:
@@ -284,7 +284,7 @@ apis:
           - infrastructure
       - id: image-builder-composer
         name: Image Builder Composer
-        description: Service to build and install images.
+        description: Service to build and install images
         url: https://api.openshift.com/api/image-builder-composer/v2/openapi
         apiType: openapi-v3
         tags:
@@ -294,7 +294,7 @@ apis:
         skipReason: Has validation errors
       - id: image-builder-worker
         name: Image Builder Worker
-        description: This is an API for workers to request and handle jobs.
+        description: This is an API for workers to request and handle jobs
         url: https://api.openshift.com/api/image-builder-worker/v1/openapi
         apiType: openapi-v3
         tags:
@@ -312,7 +312,7 @@ apis:
           - infrastructure
       - id: rhacs-service-fleet-manager
         name: RHACS Service Fleet Manager
-        description: Rest API to manage instances of ACS components.
+        description: Rest API to manage instances of ACS components
         url: https://api.openshift.com/api/rhacs/v1/openapi
         apiType: openapi-v3
         tags:
@@ -320,7 +320,7 @@ apis:
           - infrastructure
       - id: service-logs
         name: Service Logs
-        description: Receives and maintains logs from internal sources related to OpenShift clusters.
+        description: Receives and maintains logs from internal sources related to OpenShift clusters
         url: https://api.openshift.com/api/service_logs/v1/openapi
         apiType: openapi-v3
         tags:
@@ -328,7 +328,7 @@ apis:
           - infrastructure
       - id: service-registry-management
         name: Service Registry Management
-        description: Service Registry Management API is a REST API for managing Service Registry instances.
+        description: Service Registry Management API is a REST API for managing Service Registry instances
         url: https://api.openshift.com/api/serviceregistry_mgmt/v1/openapi
         apiType: openapi-v3
         tags:
