@@ -192,7 +192,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "cost-management",
     displayName: "Cost Management",
-    description: "The API for Project Koku and OpenShift cost management",
+    description: "The API for Project Koku and OpenShift cost management.",
     icon: "OpenShiftIcon",
     apiPath: "./apis/hcc-insights/cost-management/openapi.json",
     getApi: () =>
@@ -204,7 +204,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "drift",
     displayName: "Drift Backend Service",
-    description: "Service that returns differences between systems",
+    description: "Service that returns differences between systems.",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/drift/openapi.json",
     getApi: () =>
@@ -444,7 +444,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "rhsm-subscriptions",
     displayName: "Subscriptions",
-    description: "REST interface for the rhsm-subscriptions service",
+    description: "REST interface for the rhsm-subscriptions service.",
     icon: "SubscriptionsIcon",
     apiPath: "./apis/hcc-insights/rhsm-subscriptions/openapi.json",
     getApi: () =>
@@ -502,7 +502,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "connector-management",
     displayName: "Connector Management",
-    description: "Connector Management API is a REST API to manage connectors",
+    description: "Connector Management API is a REST API to manage connectors.",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/connector-management/openapi.json",
     getApi: () =>
@@ -527,7 +527,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
     id: "rhacs-service-fleet-manager",
     displayName: "RHACS Service Fleet Manager",
-    description: "Rest API to manage instances of ACS components",
+    description: "Rest API to manage instances of ACS components.",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/rhacs-service-fleet-manager/openapi.json",
     getApi: () =>
@@ -540,7 +540,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     id: "service-logs",
     displayName: "Service Logs",
     description:
-      "Receives and maintains logs from internal sources related to OpenShift clusters",
+      "Receives and maintains logs from internal sources related to OpenShift clusters.",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/service-logs/openapi.json",
     getApi: () =>
@@ -553,7 +553,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     id: "service-registry-management",
     displayName: "Service Registry Management",
     description:
-      "Service Registry Management API is a REST API for managing Service Registry instances",
+      "Service Registry Management API is a REST API for managing Service Registry instances.",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/service-registry-management/openapi.json",
     getApi: () =>
