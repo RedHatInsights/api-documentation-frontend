@@ -450,7 +450,7 @@
           "errors": {
             "items": {
               "example": {
-                "detail": "{'sources': ['RabbitMQ unavailable. Unable to update Source ID 1.']}",
+                "detail": "{'sources': ['Redis unavailable. Unable to update Source ID 1.']}",
                 "source": "detail",
                 "status": 424
               },
@@ -3769,6 +3769,36 @@
         ],
         "example": -10,
         "type": "integer"
+      },
+      "ResourceTypeAwsCategories": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "properties": {
+              "data": {
+                "example": [
+                  {
+                    "enabled": "True",
+                    "key": "env",
+                    "values": [
+                      "prod",
+                      "ephemeral",
+                      "stage"
+                    ]
+                  }
+                ],
+                "items": {},
+                "type": "array"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ]
       },
       "ResourceTypeListOut": {
         "properties": {
@@ -7709,6 +7739,41 @@
           }
         },
         "summary": "List AWS Accounts For RBAC",
+        "tags": [
+          "Resource Type"
+        ]
+      }
+    },
+    "/resource-types/aws-categories/": {
+      "get": {
+        "operationId": "listResourcesAwsCategories",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/QueryOffset"
+          },
+          {
+            "$ref": "#/components/parameters/QueryLimit"
+          },
+          {
+            "$ref": "#/components/parameters/QueryValue"
+          },
+          {
+            "$ref": "#/components/parameters/QueryOrder"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTypeAwsCategories"
+                }
+              }
+            },
+            "description": "| - 200 response"
+          }
+        },
+        "summary": "Obtain mapping of key and values for AWS Categories.",
         "tags": [
           "Resource Type"
         ]
