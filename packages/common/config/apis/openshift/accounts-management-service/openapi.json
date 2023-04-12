@@ -378,7 +378,11 @@
               "SubscriptionLabelInternal",
               "SelfAccessReview",
               "SubscriptionInternal",
-              "SubscriptionRoleBinding"
+              "SubscriptionRoleBinding",
+              "ClusterSelfManaged",
+              "ClusterSelfManagedAddon",
+              "ClusterSelfManagedLabel",
+              "ClusterSelfManagedStatus"
             ],
             "type": "string"
           },
@@ -461,7 +465,11 @@
               "SubscriptionLabelInternal",
               "SelfAccessReview",
               "SubscriptionInternal",
-              "SubscriptionRoleBinding"
+              "SubscriptionRoleBinding",
+              "ClusterSelfManaged",
+              "ClusterSelfManagedAddon",
+              "ClusterSelfManagedLabel",
+              "ClusterSelfManagedStatus"
             ],
             "type": "string"
           },
@@ -3297,7 +3305,11 @@
               "SubscriptionLabelInternal",
               "SelfAccessReview",
               "SubscriptionInternal",
-              "SubscriptionRoleBinding"
+              "SubscriptionRoleBinding",
+              "ClusterSelfManaged",
+              "ClusterSelfManagedAddon",
+              "ClusterSelfManagedLabel",
+              "ClusterSelfManagedStatus"
             ],
             "type": "string"
           },
