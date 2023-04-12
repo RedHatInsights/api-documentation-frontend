@@ -5,8 +5,6 @@ import {
   Page,
   PageSection,
   PageSectionVariants, 
-  Pagination,
-  PageSectionVariants, 
   Pagination, 
   PaginationProps,
   Sidebar,
