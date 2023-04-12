@@ -25,7 +25,7 @@ export const ApiDoc: FunctionComponent<ApiDocProps> = props => {
           <Text component={TextVariants.h1}>
             {getTitleWithVersion(openapi)}
           </Text>
-          <Text component={TextVariants.p}>
+          <Text component={TextVariants.p} className="pf-u-pb-md">
             { openapi.info.description }
           </Text>
         </TextContent>
