@@ -4,7 +4,8 @@ import {
   Form,
   Page,
   PageSection,
-  PageSectionVariants, Pagination,
+  PageSectionVariants, 
+  Pagination,
   Sidebar,
   SidebarContent,
   SidebarPanel,
@@ -114,7 +115,7 @@ export const LandingPage: FunctionComponent = () => {
 
           <PageSection className="pf-u-pl-md" padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
             <Pagination
-                itemCount={pagination.count}
+                itemCount={filteredDocs.length}
                 perPage={pagination.perPage}
                 page={pagination.page}
                 onSetPage={(_event, page) => pagination.onSetPage(page)}
