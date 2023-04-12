@@ -6,10 +6,18 @@ interface PaginatedState {
     page: number;
 }
 
+const defaultAvailablePerPage: ReadonlyArray<number> = [
+    10,
+    20,
+    50
+];
+
 export interface PaginationInfo<T> extends PaginatedState {
     items: ReadonlyArray<T>;
     onSetPage: Dispatch<SetStateAction<number>>;
     onSetPerPage: Dispatch<SetStateAction<number>>;
+    availablePerPage: ReadonlyArray<number>;
+    setAvailablePerPage: (availablePerPage?: ReadonlyArray<number>) => void;
 }
 
 export const usePagination = <T>(elements: ReadonlyArray<T>, defaultPerPage = 10): PaginationInfo<T> => {
@@ -18,6 +26,8 @@ export const usePagination = <T>(elements: ReadonlyArray<T>, defaultPerPage = 10
         perPage: defaultPerPage,
         page: 1
     });
+
+    const [availablePerPage, setAvailablePerPage] = useState<ReadonlyArray<number>>();
 
     const [paginatedElements, setPaginatedElements] = useState<ReadonlyArray<T>>([]);
 
@@ -43,6 +53,10 @@ export const usePagination = <T>(elements: ReadonlyArray<T>, defaultPerPage = 10
         ...paging,
         items: paginatedElements,
         onSetPage,
-        onSetPerPage
+        onSetPerPage,
+        availablePerPage: availablePerPage ?? defaultAvailablePerPage,
+        setAvailablePerPage
     };
 }
+
+usePagination.defaultAvailablePerPage = defaultAvailablePerPage;

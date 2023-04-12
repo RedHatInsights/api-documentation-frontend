@@ -6,12 +6,11 @@ import {NoMatchFound} from "../components/NoMatchFound/NoMatchFound";
 import {ListView} from './ListView';
 
 interface ListContentProps {
-    galleryId: string;
     items: ReadonlyArray<APIConfiguration>;
     clearFilters: () => void;
 }
 
-export const ListContent: FunctionComponent<ListContentProps> = ({galleryId, items, clearFilters}) => {
+export const ListContent: FunctionComponent<ListContentProps> = ({items, clearFilters}) => {
   const columnNames = {
       name: 'Application name',
       description: 'Description',
@@ -37,7 +36,6 @@ export const ListContent: FunctionComponent<ListContentProps> = ({galleryId, ite
       <Tbody>
       { items.length > 0 ?
           <ListView
-            id={galleryId}
             elements={items}
           /> : <NoMatchFound clearFilters={clearFilters} /> }
       </Tbody>

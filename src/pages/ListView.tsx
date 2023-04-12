@@ -6,12 +6,11 @@ import {useNavigate} from "react-router";
 import {Tag, Tags} from "../components/Tags";
 
 interface ListViewProps {
-    id: string;
     elements: ReadonlyArray<APIConfiguration>;
     isHidden?: boolean
 }
 
-export const ListView: FunctionComponent<ListViewProps> = ({id, elements}) => {
+export const ListView: FunctionComponent<ListViewProps> = ({elements}) => {
   const navigate = useNavigate();
   return (
       <Fragment>
@@ -20,7 +19,7 @@ export const ListView: FunctionComponent<ListViewProps> = ({id, elements}) => {
                 <Td modifier="fitContent">
                   <Flex>
                     <FlexItem >
-                      <Button variant="link" onClick={() => navigate(pages.getApiPage(apiConfig.id))}>
+                      <Button isInline variant="link" onClick={() => navigate(pages.getApiPage(apiConfig.id))}>
                         {apiConfig.displayName}
                       </Button>
                     </FlexItem>

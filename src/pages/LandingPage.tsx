@@ -1,17 +1,22 @@
-import {CSSProperties, FunctionComponent, useEffect, useMemo, useState} from 'react';
+import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
-  Button,
+  Flex, FlexItem,
   Form,
   Page,
   PageSection,
   PageSectionVariants, 
   Pagination,
+  PageSectionVariants, 
+  Pagination, 
+  PaginationProps,
   Sidebar,
   SidebarContent,
-  SidebarPanel,
+  SidebarPanel, Split, SplitItem,
   Text,
   TextContent,
-  TextVariants
+  TextVariants,
+  ToggleGroup,
+  ToggleGroupItem
 } from "@patternfly/react-core";
 import {apiConfigurations, apiLabels} from "@apidocs/common";
 import { SearchInput } from '@patternfly/react-core';
@@ -45,12 +50,20 @@ export const LandingPage: FunctionComponent = () => {
 
   const galleryId = 'apid-c-api-gallery';
   const pagination = usePagination(filteredDocs, 10);
-  const galleryHeight = usePaginatedGallery(galleryId, view === 'grid', pagination.onSetPage, pagination.onSetPerPage);
+
+  usePaginatedGallery(galleryId, view === 'grid', {
+    setPage: pagination.onSetPage,
+    perPage: pagination.perPage,
+    setPerPage: pagination.onSetPerPage,
+    setAvailablePerPage: pagination.setAvailablePerPage,
+    defaultAvailablePerPage: usePagination.defaultAvailablePerPage
+  });
 
   const changeView = (toView: 'grid' | 'list') => {
     setView(toView);
     pagination.onSetPage(1);
     if (toView === 'list') {
+      pagination.setAvailablePerPage();
       pagination.onSetPerPage(10);
     }
   }
@@ -66,9 +79,24 @@ export const LandingPage: FunctionComponent = () => {
     onSetPage(1);
   }, [filteredDocs, pagination.onSetPage]);
 
-  const galleryPageStyle: CSSProperties = {
-    minHeight: Math.max(galleryHeight ?? 0, 500)
-  };
+  // For some reason the type doesn't like 'ref'.
+  const basePaginationProps: Omit<PaginationProps, 'ref'> = {
+    itemCount: filteredDocs.length,
+    perPage: pagination.perPage,
+    page: pagination.page,
+    onSetPage: (_event, page) => pagination.onSetPage(page),
+    onPerPageSelect: (_event, perPage, newPage) => {
+      pagination.onSetPerPage(perPage);
+      pagination.onSetPage(newPage);
+    },
+    perPageOptions: pagination.availablePerPage.map(a => ({
+      title: a.toString(),
+      value: a
+    })),
+    dropDirection: "up",
+    variant: "bottom",
+    className: "pf-u-py-sm"
+  }
 
   return <>
     <Helmet>
@@ -91,46 +119,40 @@ export const LandingPage: FunctionComponent = () => {
         <SidebarContent className="pf-u-display-flex pf-u-flex-direction-column">
           <PageSection variant={PageSectionVariants.darker} className="pf-u-px-2xl-on-md pf-u-pb-2xl pf-u-background-color-dark-100">
             <TextContent>
-              <Text component={TextVariants.h1}>The Red Hat API Documentation and Guides</Text>
-              <Text component={TextVariants.p}>
-                Here you'll find APIs for many Red Hat products and services.
-                Check back regularly as we're adding new ones all the time.
-              </Text>
+              <Text component={TextVariants.h1}>API Catalog and Documentation</Text>
             </TextContent>
           </PageSection>
 
           <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
-            <div className="pf-u-text-align-right">
-              <Button isDisabled={view === 'grid'} variant="link" icon={<ThIcon />} onClick={() => changeView('grid')} className="pf-u-mr-sm apid-landing-layout-button" isInline isLarge/>
-              <Button isDisabled={view === 'list'} variant="link" icon={<ThListIcon />} onClick={() => changeView('list')} className="apid-landing-layout-button" isInline isLarge/>
-            </div>
+            <Flex direction={{ default: "rowReverse" }}>
+              <FlexItem>
+                <Split>
+                  <SplitItem>
+                    <Pagination
+                        { ...basePaginationProps }
+                        isCompact
+                    />
+                  </SplitItem>
+                  <SplitItem className="apid-landing-layout-toggle-group">
+                    <ToggleGroup aria-label="API content type toggle group">
+                      <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
+                      <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
+                    </ToggleGroup>
+                  </SplitItem>
+                </Split>
+              </FlexItem>
+            </Flex>
           </PageSection>
 
-          <PageSection className="apid-c-page__main-section-gallery" style={galleryPageStyle} isFilled={true}>
+          <PageSection className="apid-c-page__main-section-gallery" isFilled={true}>
           { view === 'grid'
             ? <GridContent galleryId={galleryId} allItems={filteredDocs} items={pagination.items} clearFilters={clearFilters}/>
-            : <ListContent galleryId={galleryId} items={pagination.items} clearFilters={clearFilters}/>
+            : <ListContent items={pagination.items} clearFilters={clearFilters}/>
           }
           </PageSection>
 
           <PageSection className="pf-u-pl-md" padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
-            <Pagination
-                itemCount={filteredDocs.length}
-                perPage={pagination.perPage}
-                page={pagination.page}
-                onSetPage={(_event, page) => pagination.onSetPage(page)}
-                onPerPageSelect={(_event, perPage, newPage) => {
-                  pagination.onSetPerPage(perPage);
-                  pagination.onSetPage(newPage);
-                }}
-                perPageOptions={view === 'grid' ? [{
-                  title: pagination.perPage.toString(),
-                  value: pagination.perPage
-                }] : undefined}
-                dropDirection="up"
-                variant="bottom"
-                className="pf-u-py-sm"
-            />
+            <Pagination { ...basePaginationProps} />
           </PageSection>
         </SidebarContent>
       </Sidebar>
