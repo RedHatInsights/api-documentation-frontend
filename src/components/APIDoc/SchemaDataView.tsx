@@ -1,10 +1,13 @@
-import React, { useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import { TreeView, TreeViewDataItem, Text, TextContent, TextVariants, Flex, FlexItem, AccordionItem, AccordionToggle, AccordionContent, Card, CardBody } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { deRef, DeRefResponse } from '../../utils/Openapi';
 
 import { PropertyView } from './SchemaPropertyView';
+import {getSchemaId} from "../../utils/OpenapiHtmlIds";
+import {useLocation} from "react-use";
+import {SchemaType} from "./SchemaType";
 
 export interface SchemaDataViewProps {
   schemaName: string;
@@ -13,16 +16,41 @@ export interface SchemaDataViewProps {
 }
 
 export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ schemaName, schema, document }) => {
-  const schemaData = getTreeViewData(schemaName, schema, document)
+  const schemaData = getTreeViewData(schemaName, schema, document);
+  const {hash: locationHash} = useLocation();
 
-  const id = `schema-${schemaName}`;
+  const id = getSchemaId(schemaName);
+  const idWithHash = `#${id}`;
   const [isExpanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (locationHash === idWithHash) {
+      setExpanded(true);
+    }
+  }, [locationHash, idWithHash]);
+
+  const switchExpanded = () => {
+    setExpanded(prev => {
+      // Reset the hash if we collapse it
+      if (prev && locationHash === idWithHash) {
+        const scrollX = window.scrollX;
+        const scrollY = window.scrollY;
+        window.location.hash = '';
+        window.scrollTo({
+          left: scrollX,
+          top: scrollY
+        });
+      }
+
+      return !prev;
+    });
+  };
 
   return <AccordionItem>
       <AccordionToggle
           id={id}
           isExpanded={isExpanded}
-          onClick={() => setExpanded(prev => !prev)}
+          onClick={switchExpanded}
           className="pf-u-flex-direction-row-reverse pf-u-py-md"
       >
           <span className="pf-u-font-weight-normal pf-u-color-100 pf-u-mr-lg">{schemaName}</span>
@@ -44,12 +72,11 @@ interface ConditionSchemaProps {
   document: OpenAPIV3.Document;
 }
 const ConditionSchema:React.FunctionComponent<ConditionSchemaProps> = ({condition, schemas, document}) => {
-  let singleSchemas: string[] = []
+  let singleSchemas: ReactNode[] = []
 
   const schemasData = schemas.map((schema) => {
     if ('$ref' in schema) {
-      const refSchemaName = schema.$ref.split('/').at(-1) as string
-      singleSchemas.push(refSchemaName)
+      singleSchemas.push(<SchemaType schema={schema} document={document}/>);
       return undefined
     }
     if ('type' in schema) {
@@ -116,7 +143,12 @@ const findConditionKey = (value: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObj
 
 const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>, document: OpenAPIV3.Document) => {
   if (schema.type && !schema.properties) {
-    return [{ name: <PropertyView propSchema={schema} propName={schema.deRefData ? schema.deRefData.name : ""} propertyType={schema.type} required={false}/>}] as TreeViewDataItem[]
+    return [{ name: <PropertyView
+          propSchema={schema}
+          propName={schema.deRefData ? schema.deRefData.name : ""}
+          propertyType={<SchemaType schema={schema} document={document}/>}
+          required={false}/>
+    }] as TreeViewDataItem[]
   }
 
   const conditionalSchema = findConditionKey(schema)
@@ -135,15 +167,15 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
   }
 
   const schemaData = schemaKeyValArray.map(([key, value]) => {
-    let propertyType = "object"
-    let children: TreeViewDataItem[] | undefined = undefined
+    let propertyType: string | ReactNode = "object"
+    let children: TreeViewDataItem[] | undefined = undefined;
 
     const conditionalSchema = findConditionKey(value);
     if (conditionalSchema) {
       const {schemaKey, schemaVal} = conditionalSchema
       children = [{name: <ConditionSchema condition={schemaKey} schemas={schemaVal} document={document}/>}] as TreeViewDataItem[]
     } else if ('$ref' in value ) {
-      propertyType = value.$ref.split('/').at(-1) as string
+      propertyType = <SchemaType schema={value} document={document}/>;
     }  else {
       propertyType = 'type' in value ? value.type as string : 'any type'
 
@@ -153,10 +185,10 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
           const {schemaKey, schemaVal} = itemConditionalSchema
           children = [{name: <ConditionSchema condition={schemaKey} schemas={schemaVal} document={document}/>}] as TreeViewDataItem[]
         } else if ('type' in value.items) {
-          propertyType = `${propertyType} of ${value.items.type}`
+          propertyType = <SchemaType schema={value} document={document}/>;
         }
         if ('$ref' in value.items) {
-          propertyType = `${propertyType} of ${value.items.$ref.split('/').at(-1) as string}`
+          propertyType = <SchemaType schema={value} document={document}/>;
         }
         if ('properties' in value.items) {
           const items = deRef(value.items, document)
@@ -169,8 +201,8 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
     }
 
     return {
-      name: <PropertyView propSchema={value} propName={key as string} propertyType={propertyType} required={schema.required?.includes(key)}/>,
-      id: `${key}-${propertyType}`,
+      name: <PropertyView propSchema={value} propName={key} propertyType={propertyType} required={schema.required?.includes(key)}/>,
+      id: key,
       children: children,
     }
   }) as TreeViewDataItem[]

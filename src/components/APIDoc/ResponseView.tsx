@@ -9,7 +9,7 @@ import {
 } from "@patternfly/react-core";
 import {ExpandableRowContent, TableComposable, Tbody, Td, Th, Thead, Tr} from "@patternfly/react-table";
 import {ExampleResponse} from "./ExampleResponse";
-
+import {SchemaType} from "./SchemaType";
 
 interface ResponseViewProps {
   responses: OpenAPIV3.ResponsesObject;
@@ -23,7 +23,7 @@ export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({respon
     return isExpanding ? [...otherExpandedRowNames, code] : otherExpandedRowNames;
     });
   const isCodeExpanded = (code: string) => expandedCodes.includes(code);
-  
+
   const responseMap = Object.entries(responses ?? {});
 
   const responseExamples = React.useMemo(() => {
@@ -33,7 +33,7 @@ export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({respon
 
     return undefined;
   }, [ responses, document]);
-  
+
   return (
     <>
       { responseMap.length > 0 && <>
@@ -75,7 +75,7 @@ export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({respon
         })}
         </Tbody>
         </TableComposable>
-      </> }           
+      </> }
     </>
   )
 }
@@ -86,6 +86,6 @@ const getResponseSchema = (response: OpenAPIV3.ResponseObject, document: OpenAPI
       return 'None';
   }
 
-  // Previously filtered for undefined schemas
-  return deRef(contents[0].schema!, document).deRefData?.name;
+  // Todo we should try to display all available types
+  return <SchemaType document={document} schema={contents[0].schema!} />;
 }

@@ -2,8 +2,7 @@ import React from "react"
 import { OpenAPIV3 } from 'openapi-types';
 import {Flex, FlexItem, Text, TextContent, TextVariants} from '@patternfly/react-core';
 import { TableComposable, Tbody, Td, Thead, Tr } from "@patternfly/react-table";
-import { deRef } from "../../utils/Openapi";
-
+import {SchemaType} from "./SchemaType";
 
 interface ParameterViewProps {
     title: string;
@@ -37,7 +36,7 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({titl
                             </FlexItem>
                         </Flex>
                     </Td>
-                    <Td>{getType(p.schema, document)}</Td>
+                    <Td><SchemaType schema={p.schema} document={document} writeEnums/></Td>
                     <Td>{p.description}</Td>
                 </Tr>
                 )))}
@@ -45,19 +44,4 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({titl
             </TableComposable>
         </>
     )
-}
-
-
-const getType = (schema: OpenAPIV3.SchemaObject | OpenAPIV3.ReferenceObject | undefined, document: OpenAPIV3.Document) => {
-    if (schema === undefined) {
-        return 'Unknown';
-    }
-
-    const dSchema = deRef(schema, document);
-
-    if (dSchema.enum) {
-        return dSchema.enum.join(' | ');
-    }
-
-    return dSchema.type;
 }

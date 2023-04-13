@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import { Text, TextContent, TextVariants, Flex, FlexItem, Label, LabelGroup } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
@@ -6,7 +6,7 @@ import { OpenAPIV3 } from 'openapi-types';
 interface PropertyViewComponentProps {
   propSchema?: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject;
   propName: string;
-  propertyType: string;
+  propertyType: ReactNode;
   required: boolean | undefined;
 }
 
