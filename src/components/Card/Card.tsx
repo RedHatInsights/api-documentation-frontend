@@ -1,4 +1,4 @@
-import {FunctionComponent, PropsWithChildren, MouseEvent} from 'react';
+import {FunctionComponent, PropsWithChildren, MouseEvent, KeyboardEvent} from 'react';
 import {Card as PFCard, CardBody, Split, SplitItem, Text, TextContent, TextVariants} from '@patternfly/react-core';
 
 import {APIConfigurationIcons} from '@apidocs/common';
@@ -21,8 +21,20 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({displayNa
     }
   }
 
+  const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+    if (event.target !== event.currentTarget) {
+      return;
+    }
+
+    if (["Enter", "Space"].includes(event.code)) {
+      onClick();
+    }
+  }
+
   return <PFCard
     onClick={onCardClick}
+    onKeyDown={onKeyDown}
+    role="link"
     isSelectableRaised
     isFullHeight
      >
