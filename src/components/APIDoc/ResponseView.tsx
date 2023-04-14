@@ -52,25 +52,33 @@ export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({respon
         <Tbody>
         {responseMap.map(([code, response],rowIndex) => {
           const dResponse = deRef(response, document);
+
+          let expandInfo;
+          if (responseExamples && responseExamples[code]?.length > 0) {
+            expandInfo = {
+              rowIndex,
+              isExpanded: isCodeExpanded(code),
+              onToggle: () => setCodeExpanded(code, !isCodeExpanded(code)),
+              expandId: 'response-code-expanded'
+            }
+          }
+
           return <>
             <Tr key={code} >
-              <Td expand={{
-                  rowIndex,
-                  isExpanded: isCodeExpanded(code),
-                  onToggle: () => setCodeExpanded(code, !isCodeExpanded(code)),
-                  expandId: 'response-code-exanded'
-              }}/>
+              <Td expand={expandInfo}/>
               <Td>{code}</Td>
               <Td>{dResponse.description}</Td>
               <Td>{getResponseSchema(dResponse, document)}</Td>
             </Tr>
-            <Tr isExpanded={isCodeExpanded(code)}>
+            {
+              expandInfo && <Tr isExpanded={isCodeExpanded(code)}>
               <Td noPadding={true} colSpan={4}>
                   <ExpandableRowContent>
-                    {responseExamples && <ExampleResponse response={code in responseExamples ? responseExamples[code] : ""}/>}
+                    {responseExamples && <ExampleResponse response={responseExamples[code]}/>}
                   </ExpandableRowContent>
               </Td>
             </Tr>
+            }
           </>;
         })}
         </Tbody>
