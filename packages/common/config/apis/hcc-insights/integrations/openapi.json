@@ -636,6 +636,9 @@
           "display_name": {
             "type": "string"
           },
+          "fully_qualified_name": {
+            "type": "string"
+          },
           "id": {
             "$ref": "#/components/schemas/UUID"
           },
