@@ -2390,7 +2390,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/ErrorNotFound"
                 }
               }
             },
@@ -3635,7 +3635,7 @@
             }
           },
           {
-            "description": "The application name(s) to filter roles by, from permissions. This is an exact match. You may also use a comma-separated list to match on multiple applications.",
+            "description": "The application name(s) to filter roles by, from permissions or external tenant name. This is an exact match. You may also use a comma-separated list to match on multiple applications.",
             "in": "query",
             "name": "application",
             "required": false,

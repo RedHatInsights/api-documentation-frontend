@@ -34,6 +34,15 @@
           "$ref": "#/components/schemas/OrganizationFilter"
         }
       },
+      "QueryAccount": {
+        "description": "Parameter for matching the account data using a contains.",
+        "in": "query",
+        "name": "account",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
       "QueryDelta": {
         "description": "Toggle to include delta values in report.",
         "in": "query",
@@ -73,6 +82,15 @@
           "type": "object"
         },
         "style": "deepObject"
+      },
+      "QueryKey": {
+        "description": "Parameter for matching on a key using a contains.",
+        "in": "query",
+        "name": "key",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
       },
       "QueryKeyOnly": {
         "description": "Flag to indicate whether or not only the tag key values will be returned.",
@@ -128,6 +146,15 @@
           "type": "object"
         },
         "style": "deepObject"
+      },
+      "QuerySearch": {
+        "description": "Parameter for matching on a key using a contains.",
+        "in": "query",
+        "name": "search",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
       },
       "QueryStartDate": {
         "description": "String to indicate start date of date range.",
@@ -7749,16 +7776,19 @@
         "operationId": "listResourcesAwsCategories",
         "parameters": [
           {
-            "$ref": "#/components/parameters/QueryOffset"
+            "$ref": "#/components/parameters/QueryLimit"
           },
           {
-            "$ref": "#/components/parameters/QueryLimit"
+            "$ref": "#/components/parameters/QueryKey"
+          },
+          {
+            "$ref": "#/components/parameters/QuerySearch"
           },
           {
             "$ref": "#/components/parameters/QueryValue"
           },
           {
-            "$ref": "#/components/parameters/QueryOrder"
+            "$ref": "#/components/parameters/QueryAccount"
           }
         ],
         "responses": {
