@@ -20,6 +20,7 @@ import { ResponseView } from './ResponseView';
 import {Request as RequestFormat} from 'har-format'
 
 import { SnippetInfoItem, SnippetItemsArray, useSnippets } from '../../hooks/useSnippets';
+import { useLanguage } from '../../utils/LanguageContext';
 
 export interface OperationProps {
   verb: string;
@@ -55,7 +56,8 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
   const queryParameters = parameters.filter(p => p.in === "query");
   const pathParameters = parameters.filter(p => p.in === "path");
 
-  const [codeSampleLanguage, setCodeSampleLanguage] = useState<SnippetInfoItem>(SnippetItemsArray[0]);
+  const codeSampleLanguage = useLanguage();
+
   const codeSampleBuildParams: BuildCodeSampleDataParams = {
     verb: verb,
     path: path,
@@ -93,7 +95,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({verb, path, 
         <ResponseView responses={operation.responses} document={document} />
       </GridItem>
       <GridItem className="pf-m-12-col pf-m-5-col-on-xl pf-u-mt-md-on-xl pf-u-ml-sm-on-xl">
-        <CodeSamples codesnippet={snippets} language={codeSampleLanguage} setLanguage={setCodeSampleLanguage}/>
+        <CodeSamples codesnippet={snippets}/>
       </GridItem>
     </Grid>
   );

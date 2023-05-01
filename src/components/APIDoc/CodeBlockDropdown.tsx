@@ -2,14 +2,13 @@ import React from 'react';
 import { Dropdown, DropdownToggle, DropdownItem } from '@patternfly/react-core';
 
 import { SnippetInfoItem, SnippetItemsArray } from '../../hooks/useSnippets';
+import { useSetLanguage, useLanguage } from '../../utils/LanguageContext';
 
 
-export interface CodeBlockDropdownProps {
-  language: SnippetInfoItem;
-  setLanguage: React.Dispatch<React.SetStateAction<SnippetInfoItem>>;
-}
+export const CodeBlockDropdown: React.FunctionComponent = () => {
+  const language = useLanguage();
+  const setLanguage = useSetLanguage();
 
-export const CodeBlockDropdown: React.FunctionComponent<CodeBlockDropdownProps> = ({ language, setLanguage }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(language.text);
 

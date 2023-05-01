@@ -4,16 +4,16 @@ import { CodeEditor } from '@patternfly/react-code-editor';
 
 import { SnippetInfoItem, } from '../../hooks/useSnippets';
 import { CodeBlockDropdown } from './CodeBlockDropdown';
-
+import { useLanguage } from '../../utils/LanguageContext';
 
 interface CodeSampleProps {
   codesnippet: string;
-  language: SnippetInfoItem;
-  setLanguage: React.Dispatch<React.SetStateAction<SnippetInfoItem>>;
 }
 
-export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({ codesnippet, language, setLanguage }) => {
+export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({ codesnippet }) => {
     const [copied, setCopied] = useState<boolean>(false);
+
+    const language = useLanguage();
 
     if (!codesnippet) {
       return null; // Return null if there are no code samples; Without this logic the code samples initially shows up as selected
@@ -34,7 +34,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({ codesnip
           <FlexItem className="pf-u-flex-grow-1 pf-u-pl-lg">
           </FlexItem>
           <FlexItem align={{ default: 'alignRight' }}>
-            <CodeBlockDropdown language={language} setLanguage={setLanguage}/>
+            <CodeBlockDropdown />
             <ClipboardCopyButton
               id="basic-copy-button"
               textId="code-content"

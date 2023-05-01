@@ -22,6 +22,8 @@ import {useGroupedOperations} from "../components/APIDoc/hooks/useGroupedOperati
 import {SidebarApiSections} from "../components/SideBar/SidebarApiSections";
 import {fromApiLabels} from "../utils/DevelopersRedHatTaxonomy";
 import {Config} from "../config";
+import { LanguageProvider } from '../utils/LanguageContext';
+
 
 type ApiState = {
     isLoading: true;
@@ -66,6 +68,7 @@ export const APIPage: FunctionComponent = () => {
     const taxonomyData = fromApiLabels(selectedApi.tags);
 
     return <>
+        <LanguageProvider>
         <Helmet>
             <title>{selectedApi.displayName} | {Config.title} </title>
             <meta name="rhd:node-type" content="api_docs" />
@@ -96,5 +99,6 @@ export const APIPage: FunctionComponent = () => {
             </SidebarContent>
           </Sidebar>
         </Page>
+        </LanguageProvider>
     </>;
 };
