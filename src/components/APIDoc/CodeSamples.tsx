@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Card, CardBody, CardHeader, ClipboardCopyButton, FlexItem } from '@patternfly/react-core';
 import { CodeEditor } from '@patternfly/react-code-editor';
 
-import { SnippetInfoItem, } from '../../hooks/useSnippets';
 import { CodeBlockDropdown } from './CodeBlockDropdown';
 import { useLanguage } from '../../utils/LanguageContext';
 

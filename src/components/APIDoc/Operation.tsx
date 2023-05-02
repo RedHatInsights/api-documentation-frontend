@@ -19,7 +19,7 @@ import { ResponseView } from './ResponseView';
 
 import {Request as RequestFormat} from 'har-format'
 
-import { SnippetInfoItem, SnippetItemsArray, useSnippets } from '../../hooks/useSnippets';
+import { useSnippets } from '../../hooks/useSnippets';
 import { useLanguage } from '../../utils/LanguageContext';
 
 export interface OperationProps {

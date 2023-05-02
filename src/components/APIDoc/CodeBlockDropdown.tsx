@@ -10,7 +10,6 @@ export const CodeBlockDropdown: React.FunctionComponent = () => {
   const setLanguage = useSetLanguage();
 
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(language.text);
 
   const onToggle = (isOpen: boolean) => {
     setIsOpen(isOpen);
@@ -27,7 +26,6 @@ export const CodeBlockDropdown: React.FunctionComponent = () => {
   };
 
   const onDropdownSelect = (event: any, item: SnippetInfoItem) => {
-    setSelected(item.text);
     setLanguage(item);
   }
 
@@ -36,7 +34,7 @@ export const CodeBlockDropdown: React.FunctionComponent = () => {
       onSelect={onSelect}
       toggle={
         <DropdownToggle id="toggle-basic" onToggle={onToggle}>
-          {selected}
+          {language.text}
         </DropdownToggle>
       }
       isOpen={isOpen}
