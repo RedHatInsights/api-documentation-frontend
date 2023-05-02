@@ -88,11 +88,11 @@ export const APIPage: FunctionComponent = () => {
             </Breadcrumb>
           </PageSection>
           <Sidebar>
-            <SidebarPanel className="pf-u-p-lg" style={{ height: '92vh', overflow: 'auto' }} >
+            <SidebarPanel className="pf-u-p-lg">
                 <SidebarApiSections openapi={openapi} groupedOperations={groupedOperations} />
             </SidebarPanel>
 
-            <SidebarContent style={{ height: '92vh', overflow: 'auto' }} >
+            <SidebarContent>
               { (apiState.isLoading || !apiState.api || groupedOperations.loading) ?
                   <Bullseye><Spinner /></Bullseye> :
                   <ApiDoc openapi={apiState.api} groupedOperations={groupedOperations.value} /> }
