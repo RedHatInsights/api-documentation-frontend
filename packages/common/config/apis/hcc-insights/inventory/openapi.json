@@ -132,8 +132,20 @@
         "schema": {
           "enum": [
             "name",
-            "updated",
             "host_ids"
+          ],
+          "type": "string"
+        }
+      },
+      "groupOrderHowParam": {
+        "description": "Direction of the ordering; defaults to ASC for name, and to DESC for host_ids",
+        "in": "query",
+        "name": "order_how",
+        "required": false,
+        "schema": {
+          "enum": [
+            "ASC",
+            "DESC"
           ],
           "type": "string"
         }
@@ -180,6 +192,19 @@
           "type": "string"
         }
       },
+      "hostOrderHowParam": {
+        "description": "Direction of the ordering; defaults to ASC for display_name, and to DESC for updated and operating_system",
+        "in": "query",
+        "name": "order_how",
+        "required": false,
+        "schema": {
+          "enum": [
+            "ASC",
+            "DESC"
+          ],
+          "type": "string"
+        }
+      },
       "hostnameOrId": {
         "description": "Filter by display_name, fqdn, id (case-insensitive)",
         "in": "query",
@@ -196,19 +221,6 @@
         "required": false,
         "schema": {
           "format": "uuid",
-          "type": "string"
-        }
-      },
-      "orderHowParam": {
-        "description": "Direction of the ordering; defaults to ASC for display_name, and to DESC for updated and operating_system",
-        "in": "query",
-        "name": "order_how",
-        "required": false,
-        "schema": {
-          "enum": [
-            "ASC",
-            "DESC"
-          ],
           "type": "string"
         }
       },
@@ -1000,8 +1012,8 @@
             "format": "date-time",
             "type": "string"
           },
-          "host_ids": {
-            "$ref": "#/components/schemas/HostIds",
+          "host_count": {
+            "$ref": "#/components/schemas/HostCount",
             "x-scope": [
               "",
               "#/components/schemas/GroupQueryOutput",
@@ -1074,6 +1086,11 @@
         "title": "An Inventory Groups query result",
         "type": "object"
       },
+      "HostCount": {
+        "description": "The number of hosts associated with the group.",
+        "example": 3,
+        "type": "integer"
+      },
       "HostId": {
         "$ref": "#/components/schemas/NonStrictUUID",
         "x-scope": [
@@ -1086,8 +1103,7 @@
           "$ref": "#/components/schemas/NonStrictUUID",
           "x-scope": [
             "",
-            "#/components/schemas/GroupQueryOutput",
-            "#/components/schemas/GroupOut",
+            "#/components/schemas/GroupIn",
             "#/components/schemas/HostIds"
           ]
         },
@@ -1510,7 +1526,7 @@
               "red",
               "green"
             ],
-            "example": "green, red, purple",
+            "example": "green, red",
             "maxLength": 5,
             "type": "string"
           },
@@ -2409,7 +2425,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/orderHowParam",
+            "$ref": "#/components/parameters/groupOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -2522,6 +2538,30 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/groupIdList",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/perPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/groupOrderByParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/groupOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -2839,7 +2879,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/orderHowParam",
+            "$ref": "#/components/parameters/hostOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -3056,7 +3096,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/orderHowParam",
+            "$ref": "#/components/parameters/hostOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -3100,7 +3140,7 @@
         ]
       },
       "patch": {
-        "description": "Update a host <br /><br /> Required permissions: inventory:hosts:write",
+        "description": "Update hosts <br /><br /> Required permissions: inventory:hosts:write",
         "operationId": "api.host.patch_host_by_id",
         "parameters": [
           {
@@ -3127,12 +3167,12 @@
               }
             }
           },
-          "description": "A group of fields to be updated on the host",
+          "description": "A group of fields to be updated on the hosts",
           "required": true
         },
         "responses": {
           "200": {
-            "description": "Successfully updated the host."
+            "description": "Successfully updated the hosts."
           },
           "400": {
             "description": "Invalid request."
@@ -3146,7 +3186,7 @@
             "ApiKeyAuth": []
           }
         ],
-        "summary": "Update a host",
+        "summary": "Update hosts",
         "tags": [
           "hosts"
         ]
@@ -3300,7 +3340,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/orderHowParam",
+            "$ref": "#/components/parameters/hostOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -3380,7 +3420,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/orderHowParam",
+            "$ref": "#/components/parameters/hostOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -3423,7 +3463,7 @@
     },
     "/hosts/{host_id_list}/tags/count": {
       "get": {
-        "description": "Get the number of tags on a host <br /><br /> Required permissions: inventory:hosts:read",
+        "description": "Get the number of tags on a host or hosts <br /><br /> Required permissions: inventory:hosts:read",
         "operationId": "api.host.get_host_tag_count",
         "parameters": [
           {
@@ -3451,7 +3491,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/orderHowParam",
+            "$ref": "#/components/parameters/hostOrderHowParam",
             "x-scope": [
               ""
             ]
@@ -3480,7 +3520,7 @@
             "ApiKeyAuth": []
           }
         ],
-        "summary": "Get the number of tags on a host",
+        "summary": "Get the number of tags on a host or hosts",
         "tags": [
           "hosts"
         ]
