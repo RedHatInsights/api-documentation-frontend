@@ -9,7 +9,7 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
     <script>
-      if ("%PENDO_ENABLED%" === "true") {
+      if ("%REACT_APP_PENDO_ENABLED%" === "true") {
         (function(apiKey){
           (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
 
@@ -25,7 +25,7 @@
                 id: 'VISITOR-UNIQUE-ID'
               },
             });
-        })("%PENDO_API_KEY%");
+        })("%REACT_APP_PENDO_API_KEY%");
       }
       </script>
 

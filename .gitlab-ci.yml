@@ -100,7 +100,7 @@ deploy_prod:
       npm install -g @spaship/cli react-app-rewired
       npm ci
       SITEMAP_BASE_URL=https://developers.redhat.com/api-catalog npm run sitemap
-      PENDO_ENABLED=true PENDO_API_KEY=issasecret npm run build
+      REACT_APP_PENDO_ENABLED=true REACT_APP_PENDO_API_KEY=issasecret npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_PROD_WEB_PROPERTY --apikey=$SPASHIP_PROD_API_KEY
   rules:
