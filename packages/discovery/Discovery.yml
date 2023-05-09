@@ -208,14 +208,14 @@ apis:
         url: https://console.redhat.com/api/rbac/v1/openapi.json
         apiType: openapi-v3
         tags:
-          - identify-and-access-management
+          - identity-and-access-management
       - id: sources
         name: Sources
         description: Sources API
         url: https://console.redhat.com/api/sources/v3.1/openapi.json
         apiType: openapi-v3
         tags:
-          - identify-and-access-management
+          - identity-and-access-management
       - id: rhsm-subscriptions
         name: Subscriptions
         description: REST interface for the rhsm-subscriptions service
@@ -466,14 +466,14 @@ tags:
   - id: inventories
     name: Inventories
     type: service
-  - id: identify-and-access-management
-    name: Identify and Access Management
+  - id: identity-and-access-management
+    name: Identity and Access Management
     type: use-case
   - id: observe
     name: Observe
     type: use-case
   - id: openshift
-    name: Openshift
+    name: OpenShift
     type: platform
   - id: rhel
     name: RHEL

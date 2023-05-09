@@ -100,9 +100,9 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
       product: undefined,
     },
   },
-  "identify-and-access-management": {
-    id: "identify-and-access-management",
-    name: "Identify and Access Management",
+  "identity-and-access-management": {
+    id: "identity-and-access-management",
+    name: "Identity and Access Management",
     type: "use-case",
     devRedHatTaxonomy: {
       topic: undefined,
@@ -120,7 +120,7 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   },
   openshift: {
     id: "openshift",
-    name: "Openshift",
+    name: "OpenShift",
     type: "platform",
     devRedHatTaxonomy: {
       topic: undefined,
@@ -427,7 +427,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/rbac/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["identify-and-access-management"]],
+    tags: [apiLabelsMap["identity-and-access-management"]],
   },
   {
     id: "sources",
@@ -439,7 +439,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/sources/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["identify-and-access-management"]],
+    tags: [apiLabelsMap["identity-and-access-management"]],
   },
   {
     id: "rhsm-subscriptions",
