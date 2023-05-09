@@ -30,6 +30,24 @@
           "$ref": "#/components/schemas/ExecutorId"
         }
       },
+      "Fields": {
+        "description": "Add playbook run data to the response",
+        "in": "query",
+        "name": "fields[data]",
+        "required": false,
+        "schema": {
+          "default": [
+            "playbook_runs"
+          ],
+          "items": {
+            "enum": [
+              "playbook_runs"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
       "HideArchived": {
         "description": "Hide archived playbooks",
         "in": "query",
@@ -1228,6 +1246,12 @@
           "needs_reboot": {
             "$ref": "#/components/schemas/RemediationNeedsReboot"
           },
+          "playbook_runs": {
+            "items": {
+              "$ref": "#/components/schemas/PlaybookRunDetails"
+            },
+            "type": "array"
+          },
           "resolved_count": {
             "$ref": "#/components/schemas/ResolvedCount"
           },
@@ -1662,6 +1686,9 @@
           },
           {
             "$ref": "#/components/parameters/HideArchived"
+          },
+          {
+            "$ref": "#/components/parameters/Fields"
           }
         ],
         "responses": {

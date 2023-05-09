@@ -525,7 +525,8 @@
         "enum": [
           "webhook",
           "email_subscription",
-          "camel"
+          "camel",
+          "ansible"
         ],
         "type": "string"
       },
