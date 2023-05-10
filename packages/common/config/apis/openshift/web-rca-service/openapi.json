@@ -68,6 +68,16 @@
           "type": "string"
         }
       },
+      "follow_up_status_rep": {
+        "description": "Textual value of the follow up status.\nE.g. open, done, archived",
+        "in": "query",
+        "name": "follow_up_status",
+        "required": false,
+        "schema": {
+          "default": "",
+          "type": "string"
+        }
+      },
       "from": {
         "description": "Restrict results to all records created after the given date.",
         "in": "query",
@@ -741,6 +751,9 @@
                 },
                 "type": "array"
               },
+              "post_mortem_review": {
+                "type": "string"
+              },
               "primary_team": {
                 "type": "string"
               },
@@ -854,6 +867,9 @@
               "$ref": "#/components/schemas/User"
             },
             "type": "array"
+          },
+          "post_mortem_review": {
+            "type": "string"
           },
           "primary_team": {
             "type": "string"
@@ -3002,6 +3018,9 @@
         },
         {
           "$ref": "#/components/parameters/products"
+        },
+        {
+          "$ref": "#/components/parameters/follow_up_status_rep"
         }
       ]
     },

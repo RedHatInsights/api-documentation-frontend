@@ -162,14 +162,14 @@ export const apiLabels = Object.values(apiLabelsMap) as ReadonlyArray<
 
 export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   {
-    id: "insights",
+    id: "insights-advisor",
     displayName: "Advisor",
     description: "The API of the Advisor project in Insights",
     icon: "InsightsIcon",
-    apiPath: "./apis/hcc-insights/insights/openapi.json",
+    apiPath: "./apis/hcc-insights/insights-advisor/openapi.json",
     getApi: () =>
       import(
-        "./apis/hcc-insights/insights/openapi.json"
+        "./apis/hcc-insights/insights-advisor/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
     tags: [
       apiLabelsMap["rhel"],
