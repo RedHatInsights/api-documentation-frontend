@@ -4,13 +4,14 @@ import {Card as PFCard, CardBody, Split, SplitItem, Text, TextContent, TextVaria
 import {APIConfigurationIcons} from '@apidocs/common';
 
 export interface CardProps {
+  apiId: string;
   displayName: string;
   icon?: keyof typeof APIConfigurationIcons;
   description: string;
   onClick: () => void;
 }
 
-export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({displayName, icon, description, onClick, children}) => {
+export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({apiId, displayName, icon, description, onClick, children}) => {
   const TitleIcon = icon ? APIConfigurationIcons[icon] : APIConfigurationIcons.GenericIcon;
 
   const onCardClick = (event: MouseEvent) => {
@@ -37,6 +38,7 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({displayNa
     role="link"
     isSelectableRaised
     isFullHeight
+    ouiaId={apiId}
      >
       <CardBody>
         <Split className="pf-u-mb-sm">

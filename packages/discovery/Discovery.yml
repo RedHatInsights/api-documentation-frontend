@@ -3,7 +3,7 @@ apis:
   - id: hcc-insights
     name: Hybrid Cloud Console and Insights
     apps:
-      - id: insights
+      - id: insights-advisor
         name: Advisor
         description: The API of the Advisor project in Insights
         url: https://console.redhat.com/api/insights/v1/openapi.json
