@@ -199,7 +199,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/cost-management/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["spend-management"]],
+    tags: [apiLabelsMap["spend-management"], apiLabelsMap["insights"]],
   },
   {
     id: "drift",
@@ -216,6 +216,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["rhel"],
       apiLabelsMap["observe"],
       apiLabelsMap["openshift"],
+      apiLabelsMap["insights"],
     ],
   },
   {
@@ -233,6 +234,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["rhel"],
       apiLabelsMap["observe"],
       apiLabelsMap["openshift"],
+      apiLabelsMap["insights"],
     ],
   },
   {
@@ -250,6 +252,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["rhel"],
       apiLabelsMap["observe"],
       apiLabelsMap["openshift"],
+      apiLabelsMap["insights"],
     ],
   },
   {
@@ -262,7 +265,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/image-builder/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["deploy"]],
+    tags: [apiLabelsMap["deploy"], apiLabelsMap["insights"]],
   },
   {
     id: "integrations",
@@ -344,6 +347,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["security"],
       apiLabelsMap["rhel"],
       apiLabelsMap["observe"],
+      apiLabelsMap["insights"],
     ],
   },
   {
@@ -373,6 +377,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["ansible"],
       apiLabelsMap["rhel"],
       apiLabelsMap["observe"],
+      apiLabelsMap["insights"],
     ],
   },
   {
@@ -391,6 +396,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["observe"],
       apiLabelsMap["security"],
       apiLabelsMap["ansible"],
+      apiLabelsMap["insights"],
     ],
   },
   {
@@ -403,7 +409,11 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/ros/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["observe"], apiLabelsMap["rhel"]],
+    tags: [
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["insights"],
+    ],
   },
   {
     id: "edge",
@@ -473,6 +483,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       apiLabelsMap["openshift"],
       apiLabelsMap["security"],
       apiLabelsMap["rhel"],
+      apiLabelsMap["insights"],
     ],
   },
   {
