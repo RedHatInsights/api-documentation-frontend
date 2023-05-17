@@ -41,6 +41,7 @@ apis:
         icon: openshift
         tags:
           - spend-management
+          - insights
       - id: drift
         name: Drift Backend Service
         description: Service that returns differences between systems
@@ -52,6 +53,7 @@ apis:
           - rhel
           - observe
           - openshift
+          - insights
       - id: system-baseline
         name: Drift Baseline
         description: Service that returns system baselines
@@ -63,6 +65,7 @@ apis:
           - rhel
           - observe
           - openshift
+          - insights
       - id: historical-system-profiles
         name: 'Drift Historical Systems Profile Service '
         description: Service that returns system baselines
@@ -74,6 +77,7 @@ apis:
           - rhel
           - observe
           - openshift
+          - insights
       - id: image-builder
         name: Image Builder
         description: Service that relays image build requests
@@ -83,6 +87,7 @@ apis:
         icon: insights
         tags:
           - deploy
+          - insights
       - id: integrations
         name: Integrations
         description: The API for Integrations
@@ -143,6 +148,7 @@ apis:
           - security
           - rhel
           - observe
+          - insights
       - id: playbook-dispatcher
         name: Playbook Dispatcher
         description: Service for running Ansible Playbooks on hosts connected via Cloud Connector
@@ -161,6 +167,7 @@ apis:
           - ansible
           - rhel
           - observe
+          - insights
       - id: config-manager
         name: Red Hat Connector
         description: Config manager service
@@ -183,6 +190,7 @@ apis:
           - observe
           - security
           - ansible
+          - insights
       - id: ros
         name: Resource Optimization
         description: Flask Backend API for Resource Optimization Service
@@ -192,6 +200,7 @@ apis:
         tags:
           - observe
           - rhel
+          - insights
         useLocalFile: true
       - id: edge
         name: RHEL for Edge
@@ -237,6 +246,7 @@ apis:
           - openshift
           - security
           - rhel
+          - insights
   - id: openshift
     name: Openshift
     apps:
