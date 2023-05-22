@@ -138,6 +138,7 @@ apis:
         tags:
           - infrastructure
           - openshift
+          - insights
       - id: patch
         name: Patch
         description: API of the Patch application on console.redhat.com
