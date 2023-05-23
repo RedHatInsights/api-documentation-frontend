@@ -331,7 +331,11 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       import(
         "./apis/hcc-insights/insights-results-aggregator/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
-    tags: [apiLabelsMap["infrastructure"], apiLabelsMap["openshift"]],
+    tags: [
+      apiLabelsMap["infrastructure"],
+      apiLabelsMap["openshift"],
+      apiLabelsMap["insights"],
+    ],
   },
   {
     id: "patch",
