@@ -15,14 +15,8 @@ export const CodeBlockDropdown: React.FunctionComponent = () => {
     setIsOpen(isOpen);
   };
 
-  const onFocus = () => {
-    const element = document.getElementById('toggle-basic');
-    element?.focus();
-  };
-
   const onSelect = (event: any) => {
     setIsOpen(false);
-    onFocus();
   };
 
   const onDropdownSelect = (event: any, item: SnippetInfoItem) => {
@@ -33,7 +27,7 @@ export const CodeBlockDropdown: React.FunctionComponent = () => {
     <Dropdown
       onSelect={onSelect}
       toggle={
-        <DropdownToggle id="toggle-basic" onToggle={onToggle}>
+        <DropdownToggle onToggle={onToggle}>
           {language.text}
         </DropdownToggle>
       }
