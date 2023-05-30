@@ -46,7 +46,6 @@ apis:
         name: Drift Backend Service
         description: Service that returns differences between systems
         url: https://console.redhat.com/api/drift/v1/openapi.json
-        useLocalFile: true
         apiType: openapi-v3
         tags:
           - ansible
@@ -58,7 +57,6 @@ apis:
         name: Drift Baseline
         description: Service that returns system baselines
         url: https://console.redhat.com/api/system-baseline/v1/openapi.json
-        useLocalFile: true
         apiType: openapi-v3
         tags:
           - ansible
@@ -70,7 +68,6 @@ apis:
         name: 'Drift Historical Systems Profile Service '
         description: Service that returns system baselines
         url: https://console.redhat.com/api/historical-system-profiles/v1/openapi.json
-        useLocalFile: true
         apiType: openapi-v3
         tags:
           - ansible
