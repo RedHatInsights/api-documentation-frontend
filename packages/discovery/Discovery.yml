@@ -127,10 +127,19 @@ apis:
         tags:
           - infrastructure
           - openshift
-      - id: insights-results-aggregator
-        name: Results Aggregator
+      - id: insights-results-aggregator_v1
+        name: Results Aggregator V1
         description: Aggregation service for the results of running Insights rules
         url: https://console.redhat.com/api/insights-results-aggregator/v1/openapi.json
+        apiType: openapi-v3
+        tags:
+          - infrastructure
+          - openshift
+          - insights
+      - id: insights-results-aggregator_v2
+        name: Results Aggregator V2
+        description: Aggregation service for the results of running Insights rules
+        url: https://console.redhat.com/api/insights-results-aggregator/v2/openapi.json
         apiType: openapi-v3
         tags:
           - infrastructure
