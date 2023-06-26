@@ -392,6 +392,15 @@ apis:
           - ansible
           - rhel
           - openshift
+      - id: security-data
+        name: Red Hat Security Data API
+        description: Query security data to retrieve CVRF, CVE and OVAL data
+        url: https://access.redhat.com/hydra/rest/securitydata/api-docs
+        useLocalFile: true
+        apiType: openapi-v3
+        tags:
+          - security
+          - integrations-and-notifications
   - id: app-studio-hacbs
     name: AppStudio and HACBS
     apps:

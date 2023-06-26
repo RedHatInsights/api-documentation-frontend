@@ -1,0 +1,582 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "securitydata-api",
+    "version": "1.8.3"
+  },
+  "servers": [
+    {
+      "url": ""
+    }
+  ],
+  "tags": [
+    {
+      "name": "health",
+      "description": "Security Data API endpoints"
+    },
+    {
+      "name": "version"
+    },
+    {
+      "name": "{resource}"
+    },
+    {
+      "name": "cve"
+    },
+    {
+      "name": "oval"
+    },
+    {
+      "name": "cvrf"
+    }
+  ],
+  "paths": {
+    "/health/": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Check if the Security Data API is reachable",
+        "operationId": "healthSecurityDataAPI",
+        "responses": {
+          "200": {
+            "description": "Security Data API is reachable",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/version/": {
+      "get": {
+        "tags": [
+          "version"
+        ],
+        "summary": "Check the version of Security Data API that is running",
+        "operationId": "versionSecurityDataAPI",
+        "responses": {
+          "200": {
+            "content": {}
+          }
+        }
+      }
+    },
+    "/{resource}/": {
+      "get": {
+        "tags": [
+          "{resource}"
+        ],
+        "summary": "Controller for Security Data Endpoints",
+        "parameters": [
+          {
+            "name": "resource",
+            "in": "path",
+            "description": "Resource type (cvrf/cve/oval)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of documents",
+            "content": {}
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/cve/{id}": {
+      "get": {
+        "tags": [
+          "cve"
+        ],
+        "summary": "Retrieve full CVE details",
+        "operationId": "cve:findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "CVE_ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of CVE in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CveOutputModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oval/{id}": {
+      "get": {
+        "tags": [
+          "oval"
+        ],
+        "summary": "deprecated:OVAL details for the RHSA",
+        "operationId": "oval:findById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "RHSA_ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalDefinitions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oval/ovalstreams": {
+      "get": {
+        "tags": [
+          "oval"
+        ],
+        "summary": "GET ALL OVAL STREAM details for the RHSA",
+        "operationId": "direct:getAllOvalStreams",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label of oval Stream",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "oval streams after date",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL Stream in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalStreams"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oval/ovalstreams.html": {
+      "get": {
+        "tags": [
+          "oval"
+        ],
+        "summary": "GET ALL OVAL STREAM details for the RHSA in HTML format",
+        "operationId": "direct:getAllOvalStreamsHtml",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label of oval Stream",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "oval streams after date",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL Stream in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalStreams"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oval/ovalstreams.json": {
+      "get": {
+        "tags": [
+          "oval"
+        ],
+        "summary": "GET ALL OVAL STREAM details for the RHSA in JSON format",
+        "operationId": "direct:getAllOvalStreamsJson",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label of oval Stream",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "oval streams after date",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL Stream in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalStreams"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oval/ovalstreams.xml": {
+      "get": {
+        "tags": [
+          "oval"
+        ],
+        "summary": "GET ALL OVAL STREAM details for the RHSA in XML format",
+        "operationId": "direct:getAllOvalStreamsXml",
+        "parameters": [
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label of oval Stream",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "oval streams after date",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL Stream in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalStreams"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/oval/ovalstreams/{base}": {
+      "get": {
+        "tags": [
+          "oval"
+        ],
+        "summary": "OVAL STREAM details for the RHSA",
+        "operationId": "direct:getOvalStreams",
+        "parameters": [
+          {
+            "name": "base",
+            "in": "path",
+            "description": "Base of Oval Stream",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "description": "label of oval Stream",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "oval streams after date",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL Stream in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalStreams"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/cvrf/{id}": {
+      "get": {
+        "tags": [
+          "cvrf"
+        ],
+        "summary": "CVRF details for the RHSA",
+        "operationId": "cvrf:findOvalById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "RHSA_ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CvrfOutputModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/cvrf/{id}/{oval}": {
+      "get": {
+        "tags": [
+          "cvrf"
+        ],
+        "summary": "deprecated:OVAL details for the RHSA",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "RHSA_ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "oval",
+            "in": "path",
+            "description": "oval.xml/oval.json",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Representation of OVAL in requested format",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OvalDefinitions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CveOutputModel": {
+        "type": "object",
+        "xml": {
+          "name": "Vulnerability"
+        }
+      },
+      "OvalDefinitions": {
+        "type": "object",
+        "xml": {
+          "name": "OvalDefinitions"
+        }
+      },
+      "OvalStream": {
+        "type": "object",
+        "properties": {
+          "stream": {
+            "type": "string"
+          },
+          "sha256sum": {
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "string"
+          },
+          "lastModified": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resourceUrl": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      },
+      "OvalStreams": {
+        "type": "object",
+        "properties": {
+          "getovalStream": {
+            "type": "array",
+            "xml": {
+              "name": "OvalStream"
+            },
+            "items": {
+              "$ref": "#/components/schemas/OvalStream"
+            }
+          }
+        },
+        "xml": {
+          "name": "OvalStreams"
+        }
+      },
+      "CvrfOutputModel": {
+        "type": "object",
+        "xml": {
+          "name": "Cvrfs"
+        }
+      }
+    }
+  }
+}
