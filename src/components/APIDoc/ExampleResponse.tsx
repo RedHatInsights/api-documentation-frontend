@@ -8,8 +8,7 @@ export interface ExampleResponseProps {
 
 export const ExampleResponse: React.FunctionComponent<ExampleResponseProps> = ({response}) => {
     const codeByLines = response.split('\n');
-    const first5Lines = codeByLines.slice(0, 5).join('\n');
-    const remaining = codeByLines.slice(5, codeByLines.length).join('\n');
+    const showMore = codeByLines.length > 8;
     const id = `example-response-${stringHash(response)}`;
 
     const [isExpanded, setExpanded] = React.useState(false);
@@ -18,12 +17,16 @@ export const ExampleResponse: React.FunctionComponent<ExampleResponseProps> = ({
     return <>
         <CodeBlock>
             <CodeBlockCode>
-                {first5Lines}
-                {remaining.length > 0 && <ExpandableSection isExpanded={isExpanded} isDetached contentId={id}>
-                    {remaining}
-                </ExpandableSection>}
+                {showMore ? <>
+                    {codeByLines.slice(0, 5).join('\n')}
+                    <ExpandableSection isExpanded={isExpanded} isDetached contentId={id}>
+                        {codeByLines.slice(5).join('\n')}
+                    </ExpandableSection>
+                </> : <>
+                    {codeByLines.join('\n')}
+                </>}
             </CodeBlockCode>
-            {remaining.length > 0 && <ExpandableSectionToggle
+            {showMore && <ExpandableSectionToggle
                 isExpanded={isExpanded}
                 onToggle={onToggle}
                 contentId="code-block-expand"
