@@ -396,27 +396,11 @@
         },
         "type": "object"
       },
-      "EmailSubscriptionProperties": {
-        "properties": {
-          "group_id": {
-            "$ref": "#/components/schemas/UUID"
-          },
-          "ignore_preferences": {
-            "type": "boolean"
-          },
-          "only_admins": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "only_admins",
-          "ignore_preferences"
-        ],
-        "type": "object"
-      },
       "EmailSubscriptionType": {
         "enum": [
-          "DAILY"
+          "INSTANT",
+          "DAILY",
+          "DRAWER"
         ],
         "type": "string"
       },
@@ -449,7 +433,7 @@
                 "$ref": "#/components/schemas/WebhookProperties"
               },
               {
-                "$ref": "#/components/schemas/EmailSubscriptionProperties"
+                "$ref": "#/components/schemas/SystemSubscriptionProperties"
               },
               {
                 "$ref": "#/components/schemas/CamelProperties"
@@ -526,7 +510,8 @@
           "webhook",
           "email_subscription",
           "camel",
-          "ansible"
+          "ansible",
+          "drawer"
         ],
         "type": "string"
       },
@@ -1000,7 +985,7 @@
         ],
         "type": "object"
       },
-      "RequestEmailSubscriptionProperties": {
+      "RequestSystemSubscriptionProperties": {
         "properties": {
           "group_id": {
             "$ref": "#/components/schemas/UUID"
@@ -1039,6 +1024,24 @@
           "MAINTENANCE"
         ],
         "type": "string"
+      },
+      "SystemSubscriptionProperties": {
+        "properties": {
+          "group_id": {
+            "$ref": "#/components/schemas/UUID"
+          },
+          "ignore_preferences": {
+            "type": "boolean"
+          },
+          "only_admins": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "only_admins",
+          "ignore_preferences"
+        ],
+        "type": "object"
       },
       "Template": {
         "properties": {
@@ -1180,13 +1183,13 @@
   "info": {
     "description": "The API for Notifications",
     "title": "Notifications",
-    "version": "1.0"
+    "version": "v1.0"
   },
   "openapi": "3.0.3",
   "paths": {
     "/notifications/behaviorGroups": {
       "post": {
-        "operationId": "NotificationResource_createBehaviorGroup",
+        "operationId": "NotificationResource$V1_createBehaviorGroup",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1217,28 +1220,14 @@
               }
             },
             "description": "Bad or no content passed."
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Create a behavior group - assigning actions and linking to event types as requested",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Create a behavior group - assigning actions and linking to event types as requested"
       }
     },
     "/notifications/behaviorGroups/affectedByRemovalOfEndpoint/{endpointId}": {
       "get": {
-        "operationId": "NotificationResource_getBehaviorGroupsAffectedByRemovalOfEndpoint",
+        "operationId": "NotificationResource$V1_getBehaviorGroupsAffectedByRemovalOfEndpoint",
         "parameters": [
           {
             "in": "path",
@@ -1262,28 +1251,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the behavior groups affected by the removal of an endpoint.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the behavior groups affected by the removal of an endpoint."
       }
     },
     "/notifications/behaviorGroups/{behaviorGroupId}/actions": {
       "put": {
-        "operationId": "NotificationResource_updateBehaviorGroupActions",
+        "operationId": "NotificationResource$V1_updateBehaviorGroupActions",
         "parameters": [
           {
             "description": "The UUID of the behavior group to update",
@@ -1319,28 +1294,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Update the list of actions of a behavior group.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Update the list of actions of a behavior group."
       }
     },
     "/notifications/behaviorGroups/{id}": {
       "delete": {
-        "operationId": "NotificationResource_deleteBehaviorGroup",
+        "operationId": "NotificationResource$V1_deleteBehaviorGroup",
         "parameters": [
           {
             "description": "The UUID of the behavior group to delete",
@@ -1362,26 +1323,12 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Delete a behavior group.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Delete a behavior group."
       },
       "put": {
-        "operationId": "NotificationResource_updateBehaviorGroup",
+        "operationId": "NotificationResource$V1_updateBehaviorGroup",
         "parameters": [
           {
             "description": "The UUID of the behavior group to update",
@@ -1425,12 +1372,6 @@
             },
             "description": "Bad or no content passed."
           },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
-          },
           "404": {
             "content": {
               "text/plain": {
@@ -1442,20 +1383,12 @@
             "description": "No behavior group found with the passed id."
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Update a behavior group.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Update a behavior group."
       }
     },
     "/notifications/bundles/{bundleId}/behaviorGroups": {
       "get": {
-        "operationId": "NotificationResource_findBehaviorGroupsByBundleId",
+        "operationId": "NotificationResource$V1_findBehaviorGroupsByBundleId",
         "parameters": [
           {
             "description": "UUID of the bundle to retrieve the behavior groups for.",
@@ -1480,28 +1413,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the behavior groups of a bundle.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the behavior groups of a bundle."
       }
     },
     "/notifications/bundles/{bundleName}": {
       "get": {
-        "operationId": "NotificationResource_getBundleByName",
+        "operationId": "NotificationResource$V1_getBundleByName",
         "parameters": [
           {
             "in": "path",
@@ -1522,28 +1441,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the bundle by name",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the bundle by name"
       }
     },
     "/notifications/bundles/{bundleName}/applications/{applicationName}": {
       "get": {
-        "operationId": "NotificationResource_getApplicationByNameAndBundleName",
+        "operationId": "NotificationResource$V1_getApplicationByNameAndBundleName",
         "parameters": [
           {
             "in": "path",
@@ -1572,28 +1477,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the application by name of a given bundle name",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the application by name of a given bundle name"
       }
     },
     "/notifications/bundles/{bundleName}/applications/{applicationName}/eventTypes/{eventTypeName}": {
       "get": {
-        "operationId": "NotificationResource_getEventTypesByNameAndBundleAndApplicationName",
+        "operationId": "NotificationResource$V1_getEventTypesByNameAndBundleAndApplicationName",
         "parameters": [
           {
             "in": "path",
@@ -1630,28 +1521,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the event type by name of a given bundle name and application name",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the event type by name of a given bundle name and application name"
       }
     },
     "/notifications/eventTypes": {
       "get": {
-        "operationId": "NotificationResource_getEventTypes",
+        "operationId": "NotificationResource$V1_getEventTypes",
         "parameters": [
           {
             "in": "query",
@@ -1735,28 +1612,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve all event types. The returned list can be filtered by bundle or application.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve all event types. The returned list can be filtered by bundle or application."
       }
     },
     "/notifications/eventTypes/affectedByRemovalOfBehaviorGroup/{behaviorGroupId}": {
       "get": {
-        "operationId": "NotificationResource_getEventTypesAffectedByRemovalOfBehaviorGroup",
+        "operationId": "NotificationResource$V1_getEventTypesAffectedByRemovalOfBehaviorGroup",
         "parameters": [
           {
             "description": "The UUID of the behavior group to check",
@@ -1781,28 +1644,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the event types affected by the removal of a behavior group.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the event types affected by the removal of a behavior group."
       }
     },
     "/notifications/eventTypes/{eventTypeId}/behaviorGroups": {
       "get": {
-        "operationId": "NotificationResource_getLinkedBehaviorGroups",
+        "operationId": "NotificationResource$V1_getLinkedBehaviorGroups",
         "parameters": [
           {
             "in": "path",
@@ -1870,26 +1719,12 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the behavior groups linked to an event type.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Retrieve the behavior groups linked to an event type."
       },
       "put": {
-        "operationId": "NotificationResource_updateEventTypeBehaviors",
+        "operationId": "NotificationResource$V1_updateEventTypeBehaviors",
         "parameters": [
           {
             "description": "UUID of the eventType to associate with the behavior group(s)",
@@ -1926,28 +1761,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Update the list of behavior groups of an event type.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Update the list of behavior groups of an event type."
       }
     },
     "/notifications/eventTypes/{eventTypeId}/behaviorGroups/{behaviorGroupId}": {
       "delete": {
-        "operationId": "NotificationResource_deleteBehaviorGroupFromEventType",
+        "operationId": "NotificationResource$V1_deleteBehaviorGroupFromEventType",
         "parameters": [
           {
             "in": "path",
@@ -1969,28 +1790,14 @@
         "responses": {
           "204": {
             "description": "No Content"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Delete a behavior group from the given event type.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Delete a behavior group from the given event type."
       }
     },
     "/notifications/eventTypes/{eventTypeUuid}/behaviorGroups/{behaviorGroupUuid}": {
       "put": {
-        "operationId": "NotificationResource_appendBehaviorGroupToEventType",
+        "operationId": "NotificationResource$V1_appendBehaviorGroupToEventType",
         "parameters": [
           {
             "in": "path",
@@ -2012,29 +1819,15 @@
         "responses": {
           "204": {
             "description": "No Content"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Add a behavior group to the given event type.",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Add a behavior group to the given event type."
       }
     },
     "/notifications/events": {
       "get": {
         "description": "Allowed `sort_by` fields are `bundle`, `application`, `event` and `created`. The ordering can be optionally specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `desc` for the `created` field and to `asc` for all other fields.",
-        "operationId": "EventResource_getEvents",
+        "operationId": "EventResource$V1_getEvents",
         "parameters": [
           {
             "in": "query",
@@ -2192,28 +1985,14 @@
               }
             },
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Retrieve the event log entries.",
-        "tags": [
-          "Event Resource"
-        ]
+        "summary": "Retrieve the event log entries."
       }
     },
     "/notifications/facets/applications": {
       "get": {
-        "operationId": "NotificationResource_getApplicationsFacets",
+        "operationId": "NotificationResource$V1_getApplicationsFacets",
         "parameters": [
           {
             "in": "query",
@@ -2238,15 +2017,12 @@
             "description": "OK"
           }
         },
-        "summary": "Return a thin list of configured applications. This can be used to configure a filter in the UI",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Return a thin list of configured applications. This can be used to configure a filter in the UI"
       }
     },
     "/notifications/facets/bundles": {
       "get": {
-        "operationId": "NotificationResource_getBundleFacets",
+        "operationId": "NotificationResource$V1_getBundleFacets",
         "parameters": [
           {
             "in": "query",
@@ -2271,37 +2047,20 @@
             "description": "OK"
           }
         },
-        "summary": "Return a thin list of configured bundles. This can be used to configure a filter in the UI",
-        "tags": [
-          "Notification Resource"
-        ]
+        "summary": "Return a thin list of configured bundles. This can be used to configure a filter in the UI"
       }
     },
     "/org-config/daily-digest/time-preference": {
       "get": {
-        "operationId": "OrgConfigResource_getDailyDigestTimePreference",
+        "operationId": "OrgConfigResource$V1_getDailyDigestTimePreference",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
-        },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "tags": [
-          "Org Config Resource"
-        ]
+        }
       },
       "put": {
-        "operationId": "OrgConfigResource_saveDailyDigestTimePreference",
+        "operationId": "OrgConfigResource$V1_saveDailyDigestTimePreference",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2314,28 +2073,14 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Not Authorized"
-          },
-          "403": {
-            "description": "Not Allowed"
           }
         },
-        "security": [
-          {
-            "SecurityScheme": []
-          }
-        ],
-        "summary": "Save the daily digest UTC time preference. To cover all time zones conversion to UTC, the accepted minute values are 00, 15, 30 and 45.",
-        "tags": [
-          "Org Config Resource"
-        ]
+        "summary": "Save the daily digest UTC time preference. To cover all time zones conversion to UTC, the accepted minute values are 00, 15, 30 and 45."
       }
     },
     "/user-config/notification-preference": {
       "get": {
-        "operationId": "UserConfigResource_getSettingsSchema",
+        "operationId": "UserConfigResource$V1_getSettingsSchema",
         "parameters": [
           {
             "in": "query",
@@ -2349,13 +2094,10 @@
           "200": {
             "description": "OK"
           }
-        },
-        "tags": [
-          "User Config Resource"
-        ]
+        }
       },
       "post": {
-        "operationId": "UserConfigResource_saveSettings",
+        "operationId": "UserConfigResource$V1_saveSettings",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2369,15 +2111,12 @@
           "200": {
             "description": "OK"
           }
-        },
-        "tags": [
-          "User Config Resource"
-        ]
+        }
       }
     },
     "/user-config/notification-preference/{bundleName}/{applicationName}": {
       "get": {
-        "operationId": "UserConfigResource_getPreferences",
+        "operationId": "UserConfigResource$V1_getPreferences",
         "parameters": [
           {
             "in": "path",
@@ -2407,10 +2146,7 @@
             },
             "description": "OK"
           }
-        },
-        "tags": [
-          "User Config Resource"
-        ]
+        }
       }
     }
   },

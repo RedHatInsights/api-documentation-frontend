@@ -1061,8 +1061,8 @@
             "type": "boolean"
           },
           "value": {
-            "format": "double",
-            "type": "number"
+            "format": "int32",
+            "type": "integer"
           }
         },
         "required": [
@@ -1083,12 +1083,6 @@
           },
           "granularity": {
             "$ref": "#/components/schemas/GranularityType"
-          },
-          "has_cloudigrade_data": {
-            "type": "boolean"
-          },
-          "has_cloudigrade_mismatch": {
-            "type": "boolean"
           },
           "metric_id": {
             "type": "string"
@@ -1187,16 +1181,6 @@
             "description": "The start date for this snapshot entry. Dates are returned in UTC. Clients must consult the 'granularity' field in the TallyReport to determine the length of time each TallySnapshot covers.",
             "format": "date-time",
             "type": "string"
-          },
-          "has_cloudigrade_data": {
-            "default": false,
-            "description": "Indicates whether this tally report was enriched with data from Cloudigrade.",
-            "type": "boolean"
-          },
-          "has_cloudigrade_mismatch": {
-            "default": false,
-            "description": "Indicates whether this tally report appears to have a mismatch in reporting between Cloudigrade and other data sources. This may or may not indicate an issue with data data sources.",
-            "type": "boolean"
           },
           "has_data": {
             "type": "boolean"

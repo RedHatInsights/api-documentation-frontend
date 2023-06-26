@@ -296,6 +296,18 @@
           "type": "array"
         }
       },
+      "resourceTypesPerPageParam": {
+        "description": "A number of items to return per page.",
+        "in": "query",
+        "name": "per_page",
+        "required": false,
+        "schema": {
+          "default": 10,
+          "maximum": 100,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
       "searchParam": {
         "description": "Used for searching tags and sap_sids that match the given search string. For searching tags, a tag's namespace, key, and/or value is used for matching.",
         "in": "query",
@@ -859,6 +871,19 @@
                 },
                 "type": "array"
               },
+              "groups": {
+                "description": "The groups that the host belongs to, if any.",
+                "items": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput",
+                    "#/components/schemas/HostOut",
+                    "#/components/schemas/CreateHostOut"
+                  ]
+                },
+                "type": "array"
+              },
               "id": {
                 "description": "A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.",
                 "example": "3f01b55457674041b75e41829bcee1dc",
@@ -960,7 +985,9 @@
         "$ref": "#/components/schemas/NonStrictUUID",
         "x-scope": [
           "",
-          "#/components/schemas/GroupQueryOutput",
+          "#/components/schemas/HostQueryOutput",
+          "#/components/schemas/HostOut",
+          "#/components/schemas/CreateHostOut",
           "#/components/schemas/GroupOut",
           "#/components/schemas/GroupId"
         ]
@@ -1003,7 +1030,9 @@
             "$ref": "#/components/schemas/AccountNumber",
             "x-scope": [
               "",
-              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1012,19 +1041,13 @@
             "format": "date-time",
             "type": "string"
           },
-          "host_count": {
-            "$ref": "#/components/schemas/HostCount",
-            "x-scope": [
-              "",
-              "#/components/schemas/GroupQueryOutput",
-              "#/components/schemas/GroupOut"
-            ]
-          },
           "id": {
             "$ref": "#/components/schemas/GroupId",
             "x-scope": [
               "",
-              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1032,7 +1055,9 @@
             "$ref": "#/components/schemas/GroupName",
             "x-scope": [
               "",
-              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1040,7 +1065,9 @@
             "$ref": "#/components/schemas/OrgId",
             "x-scope": [
               "",
-              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/HostQueryOutput",
+              "#/components/schemas/HostOut",
+              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1050,7 +1077,34 @@
             "type": "string"
           }
         },
-        "title": "Group Out",
+        "title": "Group Out Properties",
+        "type": "object"
+      },
+      "GroupOutWithHostCount": {
+        "allOf": [
+          {
+            "properties": {
+              "group_out": {
+                "$ref": "#/components/schemas/GroupOut",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/GroupQueryOutput",
+                  "#/components/schemas/GroupOutWithHostCount"
+                ]
+              },
+              "host_count": {
+                "$ref": "#/components/schemas/HostCount",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/GroupQueryOutput",
+                  "#/components/schemas/GroupOutWithHostCount"
+                ]
+              }
+            }
+          }
+        ],
+        "description": "Data of a single group belonging to an account.",
+        "title": "Group properties with host count",
         "type": "object"
       },
       "GroupQueryOutput": {
@@ -1067,7 +1121,7 @@
               "results": {
                 "description": "Actual group search query result entries.",
                 "items": {
-                  "$ref": "#/components/schemas/GroupOut",
+                  "$ref": "#/components/schemas/GroupOutWithHostCount",
                   "x-scope": [
                     "",
                     "#/components/schemas/GroupQueryOutput"
@@ -1347,6 +1401,135 @@
         "example": "aws",
         "nullable": true,
         "type": "string"
+      },
+      "ResourceTypesGroupsQueryOutput": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ResourceTypesQueryOutput/allOf/0",
+            "x-scope": [
+              "",
+              "#/components/schemas/ResourceTypesGroupsQueryOutput"
+            ]
+          },
+          {
+            "properties": {
+              "data": {
+                "description": "Actual group search query result entries.",
+                "items": {
+                  "$ref": "#/components/schemas/GroupOutWithHostCount",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/ResourceTypesGroupsQueryOutput"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "A paginated group search query result with group entries and their Inventory metadata in paginated resource-types response format.",
+        "title": "An Inventory Groups query result in resource-types response format",
+        "type": "object"
+      },
+      "ResourceTypesOut": {
+        "description": "Data describing a single resource-types RBAC object.",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "path": {
+            "description": "The path for the RBAC endpoint for the resource type",
+            "type": "string"
+          },
+          "value": {
+            "description": "The name of the resource type",
+            "type": "string"
+          }
+        },
+        "title": "A resource type query result",
+        "type": "object"
+      },
+      "ResourceTypesQueryOutput": {
+        "allOf": [
+          {
+            "properties": {
+              "links": {
+                "description": "A collection of pagination links for resource-types endpoints",
+                "properties": {
+                  "first": {
+                    "description": "The URI path for the first page in the pagination",
+                    "type": "string"
+                  },
+                  "last": {
+                    "description": "The URI path for the last page in the pagination",
+                    "type": "string"
+                  },
+                  "next": {
+                    "description": "The URI path for the next page in the pagination",
+                    "nullable": true,
+                    "type": "string"
+                  },
+                  "previous": {
+                    "description": "The URI path for the previous page in the pagination",
+                    "nullable": true,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "first",
+                  "previous",
+                  "next",
+                  "last"
+                ],
+                "type": "object"
+              },
+              "meta": {
+                "description": "The metadata for resource-types responses",
+                "properties": {
+                  "count": {
+                    "description": "The total number of objects returned by the query.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "count"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+              "meta",
+              "links"
+            ],
+            "type": "object"
+          },
+          {
+            "properties": {
+              "data": {
+                "description": "Actual resource-types object data.",
+                "items": {
+                  "$ref": "#/components/schemas/ResourceTypesOut",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/ResourceTypesQueryOutput"
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ],
+        "description": "A paginated list of resource-types RBAC objects.",
+        "title": "A resource-types query result",
+        "type": "object"
       },
       "SatelliteId": {
         "description": "A Red Hat Satellite ID of a RHEL host.  This field is considered to be a canonical fact.",
@@ -1968,6 +2151,43 @@
             "maxLength": 10,
             "type": "string"
           },
+          "systemd": {
+            "description": "Object for whole system systemd state, as reported by systemctl status --all",
+            "properties": {
+              "failed": {
+                "description": "The number of jobs failed",
+                "example": 1,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "jobs_queued": {
+                "description": "The number of jobs jobs_queued",
+                "example": 4,
+                "minimum": 0,
+                "type": "integer"
+              },
+              "state": {
+                "description": "The state of the systemd subsystem",
+                "enum": [
+                  "initializing",
+                  "starting",
+                  "running",
+                  "degraded",
+                  "maintenance",
+                  "stopping"
+                ],
+                "example": "initializing, starting, running, degraded, maintenance, stopping",
+                "maxLength": 12,
+                "type": "string"
+              }
+            },
+            "required": [
+              "state",
+              "jobs_queued",
+              "failed"
+            ],
+            "type": "object"
+          },
           "tuned_profile": {
             "description": "Current profile resulting from command tuned-adm active",
             "example": "desktop, example, laptop",
@@ -2478,7 +2698,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GroupOut",
+                  "$ref": "#/components/schemas/GroupOutWithHostCount",
                   "x-scope": [
                     ""
                   ]
@@ -2630,7 +2850,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GroupOut",
+                  "$ref": "#/components/schemas/GroupOutWithHostCount",
                   "x-scope": [
                     ""
                   ]
@@ -2657,10 +2877,68 @@
         ]
       }
     },
+    "/groups/{group_id}/hosts": {
+      "post": {
+        "description": "Adds the host list in the request body to the provided group. <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.host_group.add_host_list_to_group",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/groupId",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HostIds",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "A list of hosts IDs to associate with the provided group.",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupOutWithHostCount",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully associated hosts with group."
+          },
+          "400": {
+            "description": "Invalid request."
+          },
+          "404": {
+            "description": "Group not found."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Add host IDs to the provided group",
+        "tags": [
+          "groups"
+        ]
+      }
+    },
     "/groups/{group_id}/hosts/{host_id_list}": {
       "delete": {
         "description": "Delete one or more hosts from a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
-        "operationId": "api.group.delete_hosts_from_group",
+        "operationId": "api.host_group.delete_hosts_from_group",
         "parameters": [
           {
             "$ref": "#/components/parameters/groupId",
@@ -3523,6 +3801,94 @@
         "summary": "Get the number of tags on a host or hosts",
         "tags": [
           "hosts"
+        ]
+      }
+    },
+    "/resource-types": {
+      "get": {
+        "description": "Returns the list of available RBAC resource types. <br /><br /> Required permissions: inventory:*:*",
+        "operationId": "api.resource_type.get_resource_type_list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceTypesPerPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTypesQueryOutput",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully read the resource types list."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get the list of resource types",
+        "tags": [
+          "resource-types"
+        ]
+      }
+    },
+    "/resource-types/inventory-groups": {
+      "get": {
+        "description": "Returns the list of groups in the current account. <br /><br /> Required permissions: inventory:*:*",
+        "operationId": "api.resource_type.get_resource_type_groups_list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/resourceTypesPerPageParam",
+            "x-scope": [
+              ""
+            ]
+          },
+          {
+            "$ref": "#/components/parameters/pageParam",
+            "x-scope": [
+              ""
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceTypesGroupsQueryOutput",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Successfully read the resource-types groups list."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get the list of inventory groups in resource-types format",
+        "tags": [
+          "resource-types"
         ]
       }
     },

@@ -37,6 +37,15 @@
           "type": "string"
         }
       },
+      "deleteAssociatedResources": {
+        "description": "If true, deletes the associated resources (e.g. role bindings) for an account along with the account itself",
+        "in": "query",
+        "name": "deleteAssociatedResources",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
       "dryRun": {
         "description": "If true, instructs API to avoid making any changes, but rather run through validations only.",
         "in": "query",
@@ -422,6 +431,9 @@
             "type": "string"
           },
           "organization_id": {
+            "type": "string"
+          },
+          "reason": {
             "type": "string"
           },
           "resource_type": {
@@ -981,6 +993,12 @@
           },
           "cloud_provider_id": {
             "type": "string"
+          },
+          "contracts": {
+            "items": {
+              "$ref": "#/components/schemas/Contract"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -1394,7 +1412,8 @@
                   "marketplace",
                   "marketplace-aws",
                   "marketplace-rhm",
-                  "marketplace-azure"
+                  "marketplace-azure",
+                  "marketplace-gcp"
                 ],
                 "type": "string"
               },
@@ -1448,6 +1467,36 @@
             "type": "object"
           }
         ]
+      },
+      "Contract": {
+        "properties": {
+          "dimensions": {
+            "items": {
+              "$ref": "#/components/schemas/ContractDimension"
+            },
+            "type": "array"
+          },
+          "end_date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "start_date": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ContractDimension": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
       },
       "DefaultCapability": {
         "allOf": [
@@ -1611,7 +1660,8 @@
                   "marketplace",
                   "marketplace-aws",
                   "marketplace-rhm",
-                  "marketplace-azure"
+                  "marketplace-azure",
+                  "marketplace-gcp"
                 ],
                 "type": "string"
               },
@@ -2359,6 +2409,12 @@
           "account_username": {
             "type": "string"
           },
+          "availability_zone": {
+            "type": "string"
+          },
+          "cloud_provider_id": {
+            "type": "string"
+          },
           "display_name": {
             "type": "string"
           },
@@ -2370,6 +2426,9 @@
           },
           "reserve": {
             "type": "boolean"
+          },
+          "resource_id": {
+            "type": "string"
           },
           "resources": {
             "items": {
@@ -2507,7 +2566,8 @@
                   "marketplace",
                   "marketplace-aws",
                   "marketplace-rhm",
-                  "marketplace-azure"
+                  "marketplace-azure",
+                  "marketplace-gcp"
                 ],
                 "type": "string"
               },
@@ -2756,7 +2816,8 @@
                   "marketplace",
                   "marketplace-aws",
                   "marketplace-rhm",
-                  "marketplace-azure"
+                  "marketplace-azure",
+                  "marketplace-gcp"
                 ],
                 "type": "string"
               },
@@ -2815,7 +2876,8 @@
                   "marketplace",
                   "marketplace-aws",
                   "marketplace-rhm",
-                  "marketplace-azure"
+                  "marketplace-azure",
+                  "marketplace-gcp"
                 ],
                 "type": "string"
               },
@@ -2897,7 +2959,8 @@
               "marketplace",
               "marketplace-aws",
               "marketplace-rhm",
-              "marketplace-azure"
+              "marketplace-azure",
+              "marketplace-gcp"
             ],
             "type": "string"
           }
@@ -3815,7 +3878,8 @@
               "marketplace",
               "marketplace-aws",
               "marketplace-azure",
-              "marketplace-rhm"
+              "marketplace-rhm",
+              "marketplace-gcp"
             ],
             "type": "string"
           },
@@ -4473,6 +4537,11 @@
     },
     "/api/accounts_mgmt/v1/accounts/{id}": {
       "delete": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/deleteAssociatedResources"
+          }
+        ],
         "responses": {
           "204": {
             "description": "Account successfully deleted"
@@ -4872,7 +4941,7 @@
                 }
               }
             },
-            "description": "No label with specified key on specified organizations id exists"
+            "description": "No label with specified key on specified account id exists"
           },
           "500": {
             "content": {
@@ -4932,7 +5001,7 @@
                 }
               }
             },
-            "description": "No label with specified key on specified organizations id exists"
+            "description": "No label with specified key on specified account id exists"
           },
           "500": {
             "content": {
@@ -4950,7 +5019,7 @@
             "Bearer": []
           }
         ],
-        "summary": "Get subscription labels by label key"
+        "summary": "Get account labels by label key"
       },
       "parameters": [
         {
@@ -5031,7 +5100,7 @@
                 }
               }
             },
-            "description": "Unexpected error updating organizations label"
+            "description": "Unexpected error updating account label"
           }
         },
         "security": [
@@ -8061,7 +8130,7 @@
             "Bearer": []
           }
         ],
-        "summary": "Get subscription labels by label key"
+        "summary": "Get organization labels by label key"
       },
       "parameters": [
         {
@@ -9016,6 +9085,12 @@
           "$ref": "#/components/parameters/search"
         },
         {
+          "$ref": "#/components/parameters/page"
+        },
+        {
+          "$ref": "#/components/parameters/size"
+        },
+        {
           "$ref": "#/components/parameters/fetchRelatedResources"
         },
         {
@@ -9805,6 +9880,12 @@
       "parameters": [
         {
           "$ref": "#/components/parameters/search"
+        },
+        {
+          "$ref": "#/components/parameters/page"
+        },
+        {
+          "$ref": "#/components/parameters/size"
         },
         {
           "$ref": "#/components/parameters/fetchRelatedResources"
@@ -11400,6 +11481,12 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/search"
+          },
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/size"
           }
         ],
         "responses": {

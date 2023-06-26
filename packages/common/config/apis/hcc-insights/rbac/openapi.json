@@ -955,6 +955,17 @@
             "format": "email",
             "type": "string"
           },
+          "external_source_id": {
+            "example": "1",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
           "first_name": {
             "example": "John",
             "type": "string"
@@ -2423,6 +2434,20 @@
             "required": true,
             "schema": {
               "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Get only admin users within an account.",
+            "in": "query",
+            "name": "admin_only",
+            "required": false,
+            "schema": {
+              "default": "false",
+              "enum": [
+                "true",
+                "false"
+              ],
               "type": "string"
             }
           },

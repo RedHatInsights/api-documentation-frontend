@@ -15099,6 +15099,9 @@
       },
       "v1.ImageSetView": {
         "properties": {
+          "Distribution": {
+            "type": "string"
+          },
           "ID": {
             "minimum": 0,
             "type": "integer"
@@ -15112,6 +15115,12 @@
           },
           "Name": {
             "type": "string"
+          },
+          "OutputTypes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "Status": {
             "type": "string"

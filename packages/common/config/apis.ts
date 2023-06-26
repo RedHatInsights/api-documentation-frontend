@@ -190,6 +190,24 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
   },
   {
+    id: "compliance",
+    displayName: "Compliance",
+    description:
+      "Assess, monitor, and report on the security-policy compliance of RHEL systems",
+    icon: "InsightsIcon",
+    apiPath: "./apis/hcc-insights/compliance/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/compliance/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [
+      apiLabelsMap["insights"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["security"],
+    ],
+  },
+  {
     id: "cost-management",
     displayName: "Cost Management",
     description: "The API for Project Koku and OpenShift cost management",
@@ -321,15 +339,32 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["infrastructure"], apiLabelsMap["openshift"]],
   },
   {
-    id: "insights-results-aggregator",
-    displayName: "Results Aggregator",
+    id: "insights-results-aggregator_v1",
+    displayName: "Results Aggregator V1",
     description:
       "Aggregation service for the results of running Insights rules",
     icon: "GenericIcon",
-    apiPath: "./apis/hcc-insights/insights-results-aggregator/openapi.json",
+    apiPath: "./apis/hcc-insights/insights-results-aggregator_v1/openapi.json",
     getApi: () =>
       import(
-        "./apis/hcc-insights/insights-results-aggregator/openapi.json"
+        "./apis/hcc-insights/insights-results-aggregator_v1/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [
+      apiLabelsMap["infrastructure"],
+      apiLabelsMap["openshift"],
+      apiLabelsMap["insights"],
+    ],
+  },
+  {
+    id: "insights-results-aggregator_v2",
+    displayName: "Results Aggregator V2",
+    description:
+      "Aggregation service for the results of running Insights rules",
+    icon: "GenericIcon",
+    apiPath: "./apis/hcc-insights/insights-results-aggregator_v2/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/insights-results-aggregator_v2/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
     tags: [
       apiLabelsMap["infrastructure"],

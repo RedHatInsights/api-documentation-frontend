@@ -124,6 +124,16 @@
           "type": "string"
         }
       },
+      "invalid": {
+        "description": "true restricts output to only invalid incidents and omits incident details from reporting, false restricts output to real valid incidents and includes incident details in reporting. No value or nil means all incidents.",
+        "in": "query",
+        "name": "invalid",
+        "required": false,
+        "schema": {
+          "nullable": true,
+          "type": "boolean"
+        }
+      },
       "mine": {
         "description": "If true, restricts output to records owned by the requesting user.",
         "in": "query",
@@ -595,6 +605,10 @@
               "incident": {
                 "$ref": "#/components/schemas/ObjectReference"
               },
+              "issue_created_at": {
+                "format": "date-time",
+                "type": "string"
+              },
               "owner": {
                 "type": "string"
               },
@@ -742,6 +756,10 @@
               "incident_type": {
                 "type": "string"
               },
+              "invalid": {
+                "nullable": true,
+                "type": "boolean"
+              },
               "on_call_person": {
                 "$ref": "#/components/schemas/User"
               },
@@ -785,6 +803,9 @@
                 "type": "string"
               },
               "responsible_manager": {
+                "$ref": "#/components/schemas/User"
+              },
+              "scribe": {
                 "$ref": "#/components/schemas/User"
               },
               "severity": {
@@ -859,6 +880,9 @@
           "incident_type": {
             "type": "string"
           },
+          "invalid": {
+            "type": "boolean"
+          },
           "on_call_person": {
             "$ref": "#/components/schemas/ObjectReference"
           },
@@ -893,6 +917,9 @@
             "type": "array"
           },
           "responsible_manager": {
+            "$ref": "#/components/schemas/ObjectReference"
+          },
+          "scribe": {
             "$ref": "#/components/schemas/ObjectReference"
           },
           "severity": {
@@ -1328,6 +1355,9 @@
           },
           {
             "$ref": "#/components/parameters/private"
+          },
+          {
+            "$ref": "#/components/parameters/invalid"
           }
         ],
         "responses": {
