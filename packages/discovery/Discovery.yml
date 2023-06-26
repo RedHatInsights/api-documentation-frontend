@@ -24,15 +24,15 @@ apis:
           - automation
       - id: compliance
         name: Compliance
-        description: This is the API for Cloud Services for RHEL Compliance
+        description: Assess, monitor, and report on the security-policy compliance of RHEL systems
         url: https://console.redhat.com/api/compliance/v1/openapi.json
         apiType: openapi-v3
         icon: insights
         tags:
+          - insights
+          - observe
           - rhel
           - security
-        skip: true
-        skipReason: Has a minor validation error with openapi
       - id: cost-management
         name: Cost Management
         description: The API for Project Koku and OpenShift cost management
