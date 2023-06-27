@@ -148,7 +148,7 @@ apis:
       - id: patch
         name: Patch
         description: API of the Patch application on console.redhat.com
-        url: https://console.redhat.com/api/patch/v2/openapi.json
+        url: https://console.redhat.com/api/patch/v3/openapi.json
         apiType: openapi-v3
         icon: insights
         tags:
