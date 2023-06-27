@@ -1,6 +1,6 @@
 {
-  "short_name": "API Docs",
-  "name": "API Docs",
+  "short_name": "API Catalog",
+  "name": "API Catalog",
   "icons": [],
   "start_url": "%PUBLIC_URL%",
   "display": "standalone",
