@@ -71,7 +71,7 @@ export const APIPage: FunctionComponent = () => {
         <LanguageProvider>
         <Helmet>
             <title>{selectedApi.displayName} | {Config.title} </title>
-            <meta name="rhd:node-type" content="api_docs" />
+            <meta name="rhd:node-type" content="api_catalog" />
             <meta name="description" content={selectedApi.description} />
             { taxonomyData.map(t => (
                 <meta name={`rhd:taxonomy-${t.type}`} content={t.value} />
