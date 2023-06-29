@@ -1,11 +1,53 @@
 {
   "components": {
     "schemas": {
-      "controllers.AdvisoriesResponse": {
+      "controllers.AdvisoriesDBLookupV3": {
+        "properties": {
+          "advisory_type_name": {
+            "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
+            "type": "string"
+          },
+          "applicable_systems": {
+            "type": "integer"
+          },
+          "cve_count": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "installable_systems": {
+            "type": "integer"
+          },
+          "public_date": {
+            "type": "string"
+          },
+          "reboot_required": {
+            "type": "boolean"
+          },
+          "release_versions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "severity": {
+            "type": "integer"
+          },
+          "synopsis": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.AdvisoriesResponseV3": {
         "properties": {
           "data": {
             "items": {
-              "$ref": "#/components/schemas/controllers.AdvisoryItem"
+              "$ref": "#/components/schemas/controllers.AdvisoryItemV3"
             },
             "type": "array"
           },
@@ -116,12 +158,8 @@
         },
         "type": "object"
       },
-      "controllers.AdvisoryInlineItem": {
+      "controllers.AdvisoryItemAttributesV3": {
         "properties": {
-          "advisory_type": {
-            "description": "Deprecated, not useful database ID (0 - unknown, 1 -, enhancement, 2 - bugfix, 3 - security, 4 - unspecified)",
-            "type": "integer"
-          },
           "advisory_type_name": {
             "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
             "type": "string"
@@ -135,8 +173,8 @@
           "description": {
             "type": "string"
           },
-          "id": {
-            "type": "string"
+          "installable_systems": {
+            "type": "integer"
           },
           "public_date": {
             "type": "string"
@@ -159,10 +197,10 @@
         },
         "type": "object"
       },
-      "controllers.AdvisoryItem": {
+      "controllers.AdvisoryItemV3": {
         "properties": {
           "attributes": {
-            "$ref": "#/components/schemas/controllers.AdvisoryItemAttributes"
+            "$ref": "#/components/schemas/controllers.AdvisoryItemAttributesV3"
           },
           "id": {
             "type": "string"
@@ -173,51 +211,122 @@
         },
         "type": "object"
       },
-      "controllers.AdvisoryItemAttributes": {
+      "controllers.AdvisorySystemDBLookup": {
         "properties": {
-          "advisory_type": {
-            "description": "Deprecated, not useful database ID (0 - unknown, 1 -, enhancement, 2 - bugfix, 3 - security, 4 - unspecified)",
+          "baseline_id": {
             "type": "integer"
           },
-          "advisory_type_name": {
-            "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
+          "baseline_name": {
             "type": "string"
           },
-          "applicable_systems": {
-            "type": "integer"
-          },
-          "cve_count": {
-            "type": "integer"
-          },
-          "description": {
+          "created": {
             "type": "string"
           },
-          "public_date": {
+          "culled_timestamp": {
             "type": "string"
           },
-          "reboot_required": {
+          "display_name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "last_upload": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "rhsm": {
+            "type": "string"
+          },
+          "stale": {
             "type": "boolean"
           },
-          "release_versions": {
+          "stale_timestamp": {
+            "type": "string"
+          },
+          "stale_warning_timestamp": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tags": {
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/controllers.SystemTag"
             },
             "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.AdvisorySystemItem": {
+        "properties": {
+          "attributes": {
+            "$ref": "#/components/schemas/controllers.AdvisorySystemItemAttributes"
           },
-          "severity": {
-            "type": "integer"
+          "id": {
+            "type": "string"
           },
-          "synopsis": {
+          "type": {
             "type": "string"
           }
         },
         "type": "object"
       },
-      "controllers.AdvisorySystemsResponse": {
+      "controllers.AdvisorySystemItemAttributes": {
+        "properties": {
+          "baseline_id": {
+            "type": "integer"
+          },
+          "baseline_name": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "culled_timestamp": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "last_upload": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "rhsm": {
+            "type": "string"
+          },
+          "stale": {
+            "type": "boolean"
+          },
+          "stale_timestamp": {
+            "type": "string"
+          },
+          "stale_warning_timestamp": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemTag"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.AdvisorySystemsResponseV3": {
         "properties": {
           "data": {
             "items": {
-              "$ref": "#/components/schemas/controllers.SystemItem"
+              "$ref": "#/components/schemas/controllers.AdvisorySystemItem"
             },
             "type": "array"
           },
@@ -245,12 +354,21 @@
           "config": {
             "$ref": "#/components/schemas/controllers.BaselineConfig"
           },
+          "creator": {
+            "type": "string"
+          },
           "description": {
+            "type": "string"
+          },
+          "last_edited": {
             "type": "string"
           },
           "name": {
             "description": "Baseline name",
             "example": "my_baseline",
+            "type": "string"
+          },
+          "published": {
             "type": "string"
           }
         },
@@ -302,9 +420,19 @@
       },
       "controllers.BaselineItemAttributes": {
         "properties": {
+          "creator": {
+            "type": "string"
+          },
+          "last_edited": {
+            "type": "string"
+          },
           "name": {
             "description": "Baseline name",
             "example": "my-baseline",
+            "type": "string"
+          },
+          "published": {
+            "description": "Created and updated dates",
             "type": "string"
           },
           "systems": {
@@ -317,10 +445,49 @@
       },
       "controllers.BaselineSystemAttributes": {
         "properties": {
+          "applicable_other_count": {
+            "type": "integer"
+          },
+          "applicable_rhba_count": {
+            "type": "integer"
+          },
+          "applicable_rhea_count": {
+            "type": "integer"
+          },
+          "applicable_rhsa_count": {
+            "type": "integer"
+          },
           "display_name": {
             "description": "Baseline system display name",
             "example": "my-baselined-system",
             "type": "string"
+          },
+          "installable_other_count": {
+            "type": "integer"
+          },
+          "installable_rhba_count": {
+            "type": "integer"
+          },
+          "installable_rhea_count": {
+            "type": "integer"
+          },
+          "installable_rhsa_count": {
+            "type": "integer"
+          },
+          "last_upload": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "rhsm": {
+            "type": "string"
+          },
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemTag"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -339,6 +506,58 @@
             "description": "Document type name",
             "example": "baseline_system",
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.BaselineSystemsDBLookup": {
+        "properties": {
+          "applicable_other_count": {
+            "type": "integer"
+          },
+          "applicable_rhba_count": {
+            "type": "integer"
+          },
+          "applicable_rhea_count": {
+            "type": "integer"
+          },
+          "applicable_rhsa_count": {
+            "type": "integer"
+          },
+          "display_name": {
+            "description": "Baseline system display name",
+            "example": "my-baselined-system",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "installable_other_count": {
+            "type": "integer"
+          },
+          "installable_rhba_count": {
+            "type": "integer"
+          },
+          "installable_rhea_count": {
+            "type": "integer"
+          },
+          "installable_rhsa_count": {
+            "type": "integer"
+          },
+          "last_upload": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "rhsm": {
+            "type": "string"
+          },
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemTag"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -372,6 +591,65 @@
         },
         "type": "object"
       },
+      "controllers.BaselinesMeta": {
+        "properties": {
+          "creators": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "filter": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/controllers.FilterData"
+            },
+            "description": "Used filters",
+            "type": "object"
+          },
+          "has_systems": {
+            "description": "Show whether customer has some registered systems",
+            "type": "boolean"
+          },
+          "limit": {
+            "description": "Used response limit (page size) - pagination",
+            "example": 20,
+            "type": "integer"
+          },
+          "offset": {
+            "description": "Used response offset - pagination",
+            "example": 0,
+            "type": "integer"
+          },
+          "search": {
+            "description": "Used search terms",
+            "example": "kernel",
+            "type": "string"
+          },
+          "sort": {
+            "description": "Used sorting fields",
+            "example": [
+              "name"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "subtotals": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Some subtotals used by some endpoints",
+            "type": "object"
+          },
+          "total_items": {
+            "description": "Total items count to return",
+            "example": 1000,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
       "controllers.BaselinesResponse": {
         "properties": {
           "data": {
@@ -385,7 +663,7 @@
             "$ref": "#/components/schemas/controllers.Links"
           },
           "meta": {
-            "$ref": "#/components/schemas/controllers.ListMeta"
+            "$ref": "#/components/schemas/controllers.BaselinesMeta"
           }
         },
         "type": "object"
@@ -447,8 +725,36 @@
         },
         "type": "object"
       },
+      "controllers.IDStatus": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "controllers.IDsResponse": {
         "properties": {
+          "ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.IDsStatusResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.IDStatus"
+            },
+            "type": "array"
+          },
           "ids": {
             "items": {
               "type": "string"
@@ -582,16 +888,19 @@
           "summary": {
             "type": "string"
           },
-          "systems_installed": {
+          "systems_applicable": {
             "type": "integer"
           },
-          "systems_updatable": {
+          "systems_installable": {
+            "type": "integer"
+          },
+          "systems_installed": {
             "type": "integer"
           }
         },
         "type": "object"
       },
-      "controllers.PackageSystemItem": {
+      "controllers.PackageSystemItemV3": {
         "properties": {
           "available_evra": {
             "type": "string"
@@ -619,15 +928,18 @@
           },
           "updatable": {
             "type": "boolean"
+          },
+          "update_status": {
+            "type": "string"
           }
         },
         "type": "object"
       },
-      "controllers.PackageSystemsResponse": {
+      "controllers.PackageSystemsResponseV3": {
         "properties": {
           "data": {
             "items": {
-              "$ref": "#/components/schemas/controllers.PackageSystemItem"
+              "$ref": "#/components/schemas/controllers.PackageSystemItemV3"
             },
             "type": "array"
           },
@@ -684,10 +996,6 @@
       },
       "controllers.SystemAdvisoriesDBLookup": {
         "properties": {
-          "advisory_type": {
-            "description": "Deprecated, not useful database ID (0 - unknown, 1 -, enhancement, 2 - bugfix, 3 - security, 4 - unspecified)",
-            "type": "integer"
-          },
           "advisory_type_name": {
             "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
             "type": "string"
@@ -715,6 +1023,9 @@
           },
           "severity": {
             "type": "integer"
+          },
+          "status": {
+            "type": "string"
           },
           "synopsis": {
             "type": "string"
@@ -756,10 +1067,6 @@
       },
       "controllers.SystemAdvisoryItemAttributes": {
         "properties": {
-          "advisory_type": {
-            "description": "Deprecated, not useful database ID (0 - unknown, 1 -, enhancement, 2 - bugfix, 3 - security, 4 - unspecified)",
-            "type": "integer"
-          },
           "advisory_type_name": {
             "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
             "type": "string"
@@ -785,8 +1092,73 @@
           "severity": {
             "type": "integer"
           },
+          "status": {
+            "type": "string"
+          },
           "synopsis": {
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.SystemDBLookupV3": {
+        "properties": {
+          "baseline_id": {
+            "type": "integer"
+          },
+          "baseline_name": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "culled_timestamp": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "last_upload": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "other_count": {
+            "type": "integer"
+          },
+          "packages_installed": {
+            "type": "integer"
+          },
+          "rhba_count": {
+            "type": "integer"
+          },
+          "rhea_count": {
+            "type": "integer"
+          },
+          "rhsa_count": {
+            "type": "integer"
+          },
+          "rhsm": {
+            "type": "string"
+          },
+          "stale": {
+            "type": "boolean"
+          },
+          "stale_timestamp": {
+            "type": "string"
+          },
+          "stale_warning_timestamp": {
+            "type": "string"
+          },
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemTag"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -799,93 +1171,10 @@
         },
         "type": "object"
       },
-      "controllers.SystemInlineItem": {
-        "properties": {
-          "baseline_name": {
-            "type": "string"
-          },
-          "baseline_uptodate": {
-            "type": "boolean"
-          },
-          "created": {
-            "type": "string"
-          },
-          "culled_timestamp": {
-            "type": "string"
-          },
-          "display_name": {
-            "type": "string"
-          },
-          "id": {
-            "type": "string"
-          },
-          "insights_id": {
-            "type": "string"
-          },
-          "last_evaluation": {
-            "type": "string"
-          },
-          "last_upload": {
-            "type": "string"
-          },
-          "os": {
-            "type": "string"
-          },
-          "os_major": {
-            "type": "string"
-          },
-          "os_minor": {
-            "type": "string"
-          },
-          "os_name": {
-            "type": "string"
-          },
-          "other_count": {
-            "type": "integer"
-          },
-          "packages_installed": {
-            "type": "integer"
-          },
-          "packages_updatable": {
-            "type": "integer"
-          },
-          "rhba_count": {
-            "type": "integer"
-          },
-          "rhea_count": {
-            "type": "integer"
-          },
-          "rhsa_count": {
-            "type": "integer"
-          },
-          "rhsm": {
-            "type": "string"
-          },
-          "stale": {
-            "type": "boolean"
-          },
-          "stale_timestamp": {
-            "type": "string"
-          },
-          "stale_warning_timestamp": {
-            "type": "string"
-          },
-          "tags": {
-            "items": {
-              "$ref": "#/components/schemas/controllers.SystemTag"
-            },
-            "type": "array"
-          },
-          "third_party": {
-            "type": "boolean"
-          }
-        },
-        "type": "object"
-      },
       "controllers.SystemItem": {
         "properties": {
           "attributes": {
-            "$ref": "#/components/schemas/controllers.SystemItemAttributes"
+            "$ref": "#/components/schemas/controllers.SystemItemAttributesAll"
           },
           "id": {
             "type": "string"
@@ -896,8 +1185,11 @@
         },
         "type": "object"
       },
-      "controllers.SystemItemAttributes": {
+      "controllers.SystemItemAttributesAll": {
         "properties": {
+          "baseline_id": {
+            "type": "integer"
+          },
           "baseline_name": {
             "type": "string"
           },
@@ -976,7 +1268,80 @@
         },
         "type": "object"
       },
-      "controllers.SystemPackageData": {
+      "controllers.SystemItemAttributesV3": {
+        "properties": {
+          "baseline_id": {
+            "type": "integer"
+          },
+          "baseline_name": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "culled_timestamp": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "last_upload": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "other_count": {
+            "type": "integer"
+          },
+          "packages_installed": {
+            "type": "integer"
+          },
+          "rhba_count": {
+            "type": "integer"
+          },
+          "rhea_count": {
+            "type": "integer"
+          },
+          "rhsa_count": {
+            "type": "integer"
+          },
+          "rhsm": {
+            "type": "string"
+          },
+          "stale": {
+            "type": "boolean"
+          },
+          "stale_timestamp": {
+            "type": "string"
+          },
+          "stale_warning_timestamp": {
+            "type": "string"
+          },
+          "tags": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemTag"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.SystemItemV3": {
+        "properties": {
+          "attributes": {
+            "$ref": "#/components/schemas/controllers.SystemItemAttributesV3"
+          },
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.SystemPackageDataV3": {
         "properties": {
           "description": {
             "type": "string"
@@ -992,6 +1357,9 @@
           },
           "updatable": {
             "type": "boolean"
+          },
+          "update_status": {
+            "type": "string"
           },
           "updates": {
             "items": {
@@ -1002,7 +1370,7 @@
         },
         "type": "object"
       },
-      "controllers.SystemPackageInline": {
+      "controllers.SystemPackageInlineV3": {
         "properties": {
           "description": {
             "type": "string"
@@ -1010,7 +1378,10 @@
           "evra": {
             "type": "string"
           },
-          "latest_evra": {
+          "latest_applicable": {
+            "type": "string"
+          },
+          "latest_installable": {
             "type": "string"
           },
           "name": {
@@ -1021,15 +1392,18 @@
           },
           "updatable": {
             "type": "boolean"
+          },
+          "update_status": {
+            "type": "string"
           }
         },
         "type": "object"
       },
-      "controllers.SystemPackageResponse": {
+      "controllers.SystemPackageResponseV3": {
         "properties": {
           "data": {
             "items": {
-              "$ref": "#/components/schemas/controllers.SystemPackageData"
+              "$ref": "#/components/schemas/controllers.SystemPackageDataV3"
             },
             "type": "array"
           },
@@ -1124,11 +1498,11 @@
         },
         "type": "object"
       },
-      "controllers.SystemsResponse": {
+      "controllers.SystemsResponseV3": {
         "properties": {
           "data": {
             "items": {
-              "$ref": "#/components/schemas/controllers.SystemItem"
+              "$ref": "#/components/schemas/controllers.SystemItemV3"
             },
             "type": "array"
           },
@@ -1182,6 +1556,9 @@
           },
           "evra": {
             "type": "string"
+          },
+          "status": {
+            "type": "string"
           }
         },
         "type": "object"
@@ -1211,7 +1588,7 @@
       "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
     },
     "title": "Patchman-engine API",
-    "version": "v2.3.67"
+    "version": "v3.3.7"
   },
   "openapi": "3.0.1",
   "paths": {
@@ -1243,10 +1620,11 @@
             "schema": {
               "enum": [
                 "id",
-                "name",
-                "advisory_type",
+                "advisory_type_name",
                 "synopsis",
                 "public_date",
+                "severity",
+                "installable_systems",
                 "applicable_systems"
               ],
               "type": "string"
@@ -1295,14 +1673,6 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[advisory_type]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[advisory_type_name]",
             "schema": {
               "type": "string"
@@ -1312,6 +1682,14 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[severity]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[installable_systems]",
             "schema": {
               "type": "string"
             }
@@ -1396,7 +1774,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.AdvisoriesResponse"
+                  "$ref": "#/components/schemas/controllers.AdvisoriesResponseV3"
                 }
               }
             },
@@ -1546,11 +1924,9 @@
                 "display_name",
                 "last_evaluation",
                 "last_upload",
-                "rhsa_count",
-                "rhba_count",
-                "rhea_count",
-                "other_count",
-                "stale"
+                "stale",
+                "status",
+                "template"
               ],
               "type": "string"
             }
@@ -1574,63 +1950,7 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[insights_id]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[display_name]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[last_evaluation]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[last_upload]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[rhsa_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[rhba_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[rhea_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[other_count]",
             "schema": {
               "type": "string"
             }
@@ -1646,7 +1966,7 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[stale_timestamp]",
+            "name": "filter[status]",
             "schema": {
               "type": "string"
             }
@@ -1654,47 +1974,7 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[stale_warning_timestamp]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[culled_timestamp]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[created]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osname]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osminor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osmajor]",
+            "name": "filter[template]",
             "schema": {
               "type": "string"
             }
@@ -1779,7 +2059,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.AdvisorySystemsResponse"
+                  "$ref": "#/components/schemas/controllers.AdvisorySystemsResponseV3"
                 }
               }
             },
@@ -1853,7 +2133,10 @@
               "enum": [
                 "id",
                 "name",
-                "config"
+                "systems",
+                "published",
+                "last_edited",
+                "creator"
               ],
               "type": "string"
             }
@@ -2307,8 +2590,17 @@
             "schema": {
               "enum": [
                 "id",
-                "name",
-                "config"
+                "display_name",
+                "os",
+                "installable_rhsa_count",
+                "installable_rhba_count",
+                "installable_rhea_count",
+                "installable_other_count",
+                "applicable_rhsa_count",
+                "applicable_rhba_count",
+                "applicable_rhea_count",
+                "applicable_other_count",
+                "last_upload"
               ],
               "type": "string"
             }
@@ -2330,6 +2622,14 @@
             }
           },
           {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[os]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Tag filter",
             "explode": true,
             "in": "query",
@@ -2341,6 +2641,59 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter only SAP systems",
+            "in": "query",
+            "name": "filter[system_profile][sap_system]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by their SAP SIDs",
+            "explode": true,
+            "in": "query",
+            "name": "filter[system_profile][sap_sids][in]",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter systems by ansible",
+            "in": "query",
+            "name": "filter[system_profile][ansible]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by ansible version",
+            "in": "query",
+            "name": "filter[system_profile][ansible][controller_version]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by mssql version",
+            "in": "query",
+            "name": "filter[system_profile][mssql]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by mssql version",
+            "in": "query",
+            "name": "filter[system_profile][mssql][version]",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -2477,7 +2830,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.AdvisoryInlineItem"
+                    "$ref": "#/components/schemas/controllers.AdvisoriesDBLookupV3"
                   },
                   "type": "array"
                 }
@@ -2485,7 +2838,7 @@
               "text/csv": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.AdvisoryInlineItem"
+                    "$ref": "#/components/schemas/controllers.AdvisoriesDBLookupV3"
                   },
                   "type": "array"
                 }
@@ -2573,71 +2926,7 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[last_evaluation]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[last_upload]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[rhsa_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[rhba_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[rhea_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[other_count]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[stale]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[packages_installed]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[packages_updatable]",
             "schema": {
               "type": "string"
             }
@@ -2696,30 +2985,6 @@
             }
           },
           {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osname]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osminor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osmajor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "description": "Filter OS version",
             "in": "query",
             "name": "filter[os]",
@@ -2747,7 +3012,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.SystemInlineItem"
+                    "$ref": "#/components/schemas/controllers.AdvisorySystemDBLookup"
                   },
                   "type": "array"
                 }
@@ -2755,7 +3020,7 @@
               "text/csv": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.SystemInlineItem"
+                    "$ref": "#/components/schemas/controllers.AdvisorySystemDBLookup"
                   },
                   "type": "array"
                 }
@@ -2830,6 +3095,202 @@
           }
         ],
         "summary": "Export systems for my account"
+      }
+    },
+    "/export/baselines/{baseline_id}/systems": {
+      "get": {
+        "description": "Export systems applicable to a baseline",
+        "operationId": "exportBaselineSystems",
+        "parameters": [
+          {
+            "description": "Baseline ID",
+            "in": "path",
+            "name": "baseline_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Find matching text",
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[display_name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[os]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Tag filter",
+            "explode": true,
+            "in": "query",
+            "name": "tags",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter only SAP systems",
+            "in": "query",
+            "name": "filter[system_profile][sap_system]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by their SAP SIDs",
+            "explode": true,
+            "in": "query",
+            "name": "filter[system_profile][sap_sids][in]",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter systems by ansible",
+            "in": "query",
+            "name": "filter[system_profile][ansible]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by ansible version",
+            "in": "query",
+            "name": "filter[system_profile][ansible][controller_version]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by mssql version",
+            "in": "query",
+            "name": "filter[system_profile][mssql]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by mssql version",
+            "in": "query",
+            "name": "filter[system_profile][mssql][version]",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/controllers.BaselineSystemsDBLookup"
+                  },
+                  "type": "array"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/controllers.BaselineSystemsDBLookup"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "RhIdentity": []
+          }
+        ],
+        "summary": "Export systems belonging to a baseline"
       }
     },
     "/export/packages": {
@@ -3040,7 +3501,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.PackageSystemItem"
+                    "$ref": "#/components/schemas/controllers.PackageSystemItemV3"
                   },
                   "type": "array"
                 }
@@ -3129,14 +3590,6 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[last_evaluation]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[last_upload]",
             "schema": {
               "type": "string"
@@ -3186,14 +3639,6 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[packages_installed]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[packages_updatable]",
             "schema": {
               "type": "string"
             }
@@ -3254,30 +3699,6 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[osname]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osminor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osmajor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[baseline_name]",
             "schema": {
               "type": "string"
@@ -3311,7 +3732,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.SystemInlineItem"
+                    "$ref": "#/components/schemas/controllers.SystemDBLookupV3"
                   },
                   "type": "array"
                 }
@@ -3319,7 +3740,7 @@
               "text/csv": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.SystemInlineItem"
+                    "$ref": "#/components/schemas/controllers.SystemDBLookupV3"
                   },
                   "type": "array"
                 }
@@ -3605,7 +4026,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/controllers.SystemPackageInline"
+                    "$ref": "#/components/schemas/controllers.SystemPackageInlineV3"
                   },
                   "type": "array"
                 }
@@ -3759,6 +4180,14 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[severity]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[installable_systems]",
             "schema": {
               "type": "string"
             }
@@ -4161,7 +4590,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.IDsResponse"
+                  "$ref": "#/components/schemas/controllers.IDsStatusResponse"
                 }
               }
             },
@@ -4204,6 +4633,146 @@
           }
         ],
         "summary": "Show me systems on which the given advisory is applicable"
+      }
+    },
+    "/ids/baselines/{baseline_id}/systems": {
+      "get": {
+        "description": "Show me all systems applicable to a baseline",
+        "operationId": "listBaselineSystemsIds",
+        "parameters": [
+          {
+            "description": "Baseline ID",
+            "in": "path",
+            "name": "baseline_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Limit for paging, set -1 to return all",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Offset for paging",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Sort field",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "enum": [
+                "id",
+                "display_name",
+                "os",
+                "installable_rhsa_count",
+                "installable_rhba_count",
+                "installable_rhea_count",
+                "installable_other_count",
+                "applicable_rhsa_count",
+                "applicable_rhba_count",
+                "applicable_rhea_count",
+                "applicable_other_count",
+                "last_upload"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Find matching text",
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[display_name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[os]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Tag filter",
+            "explode": true,
+            "in": "query",
+            "name": "tags",
+            "schema": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/controllers.IDsResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "RhIdentity": []
+          }
+        ],
+        "summary": "Show me all systems belonging to a baseline"
       }
     },
     "/ids/packages/{package_name}/systems": {
@@ -4308,7 +4877,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.IDsResponse"
+                  "$ref": "#/components/schemas/controllers.IDsStatusResponse"
                 }
               }
             },
@@ -4382,7 +4951,6 @@
               "enum": [
                 "id",
                 "display_name",
-                "last_evaluation",
                 "last_upload",
                 "rhsa_count",
                 "rhba_count",
@@ -4390,7 +4958,7 @@
                 "other_count",
                 "stale",
                 "packages_installed",
-                "packages_updatable"
+                "baseline_name"
               ],
               "type": "string"
             }
@@ -4399,14 +4967,6 @@
             "description": "Find matching text",
             "in": "query",
             "name": "search",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[insights_id]",
             "schema": {
               "type": "string"
             }
@@ -4423,14 +4983,6 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[display_name]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[last_evaluation]",
             "schema": {
               "type": "string"
             }
@@ -4494,14 +5046,6 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[packages_updatable]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[stale_timestamp]",
             "schema": {
               "type": "string"
@@ -4527,30 +5071,6 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[created]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osname]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osminor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osmajor]",
             "schema": {
               "type": "string"
             }
@@ -4793,7 +5313,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.IDsResponse"
+                  "$ref": "#/components/schemas/controllers.IDsStatusResponse"
                 }
               }
             },
@@ -4868,7 +5388,8 @@
                 "id",
                 "name",
                 "systems_installed",
-                "systems_updatable"
+                "systems_installable",
+                "systems_applicable"
               ],
               "type": "string"
             }
@@ -4900,7 +5421,15 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[systems_updatable]",
+            "name": "filter[systems_installable]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[systems_applicable]",
             "schema": {
               "type": "string"
             }
@@ -5190,6 +5719,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[updatable]",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -5197,7 +5734,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.PackageSystemsResponse"
+                  "$ref": "#/components/schemas/controllers.PackageSystemsResponseV3"
                 }
               }
             },
@@ -5352,7 +5889,6 @@
               "enum": [
                 "id",
                 "display_name",
-                "last_evaluation",
                 "last_upload",
                 "rhsa_count",
                 "rhba_count",
@@ -5360,7 +5896,7 @@
                 "other_count",
                 "stale",
                 "packages_installed",
-                "packages_updatable"
+                "baseline_name"
               ],
               "type": "string"
             }
@@ -5369,14 +5905,6 @@
             "description": "Find matching text",
             "in": "query",
             "name": "search",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[insights_id]",
             "schema": {
               "type": "string"
             }
@@ -5393,14 +5921,6 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[display_name]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[last_evaluation]",
             "schema": {
               "type": "string"
             }
@@ -5464,14 +5984,6 @@
           {
             "description": "Filter",
             "in": "query",
-            "name": "filter[packages_updatable]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
             "name": "filter[stale_timestamp]",
             "schema": {
               "type": "string"
@@ -5497,30 +6009,6 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[created]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osname]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osminor]",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "description": "Filter",
-            "in": "query",
-            "name": "filter[osmajor]",
             "schema": {
               "type": "string"
             }
@@ -5613,7 +6101,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.SystemsResponse"
+                  "$ref": "#/components/schemas/controllers.SystemsResponseV3"
                 }
               }
             },
@@ -6013,7 +6501,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/controllers.SystemPackageResponse"
+                  "$ref": "#/components/schemas/controllers.SystemPackageResponseV3"
                 }
               }
             },
@@ -6134,7 +6622,7 @@
     },
     "/views/advisories/systems": {
       "post": {
-        "description": "View advisory-system pairs for selected systems and advisories",
+        "description": "View advisory-system pairs for selected systems and installable advisories",
         "operationId": "viewAdvisoriesSystems",
         "requestBody": {
           "content": {
@@ -6184,13 +6672,13 @@
             "RhIdentity": []
           }
         ],
-        "summary": "View advisory-system pairs for selected systems and advisories",
+        "summary": "View advisory-system pairs for selected systems and installable advisories",
         "x-codegen-request-body-name": "body"
       }
     },
     "/views/systems/advisories": {
       "post": {
-        "description": "View system-advisory pairs for selected systems and advisories",
+        "description": "View system-advisory pairs for selected systems and installable advisories",
         "operationId": "viewSystemsAdvisories",
         "requestBody": {
           "content": {
@@ -6240,14 +6728,14 @@
             "RhIdentity": []
           }
         ],
-        "summary": "View system-advisory pairs for selected systems and advisories",
+        "summary": "View system-advisory pairs for selected systems and installable advisories",
         "x-codegen-request-body-name": "body"
       }
     }
   },
   "servers": [
     {
-      "url": "/api/patch/v2"
+      "url": "/api/patch/v3"
     }
   ]
 }

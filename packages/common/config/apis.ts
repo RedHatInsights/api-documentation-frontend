@@ -455,6 +455,22 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "repositories",
+    displayName: "Repositories",
+    description: "Manage sources of content to use within console.redhat.com",
+    icon: "InsightsIcon",
+    apiPath: "./apis/hcc-insights/repositories/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/repositories/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [
+      apiLabelsMap["deploy"],
+      apiLabelsMap["insights"],
+      apiLabelsMap["rhel"],
+    ],
+  },
+  {
     id: "edge",
     displayName: "RHEL for Edge",
     description: "RHEL for Edge API",
