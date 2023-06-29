@@ -209,6 +209,16 @@ apis:
           - rhel
           - insights
         useLocalFile: true
+      - id: repositories
+        name: Repositories
+        description: Manage sources of content to use within console.redhat.com
+        url: https://console.redhat.com/api/content-sources/v1/openapi.json
+        apiType: openapi-v3
+        icon: insights
+        tags:
+          - deploy
+          - insights
+          - rhel
       - id: edge
         name: RHEL for Edge
         description: RHEL for Edge API
