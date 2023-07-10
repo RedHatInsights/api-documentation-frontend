@@ -279,7 +279,8 @@ apis:
         name: Assisted-Install Service
         description: Assisted installation
         url: https://api.openshift.com/api/assisted-install/v2/openapi
-        apiType: openapi-v2
+        apiType: openapi-v3
+        useLocalFile: true
         tags:
           - openshift
           - infrastructure
