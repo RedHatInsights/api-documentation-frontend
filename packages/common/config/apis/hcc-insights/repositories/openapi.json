@@ -1,6 +1,25 @@
 {
   "components": {
     "schemas": {
+      "api.Feature": {
+        "properties": {
+          "accessible": {
+            "description": "Whether the current user can access the feature",
+            "type": "boolean"
+          },
+          "enabled": {
+            "description": "Whether the feature is enabled on the running server",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "api.FeatureSet": {
+        "additionalProperties": {
+          "$ref": "#/components/schemas/api.Feature"
+        },
+        "type": "object"
+      },
       "api.FetchGPGKeyResponse": {
         "properties": {
           "gpg_key": {
@@ -97,6 +116,60 @@
           },
           "suggested_name": {
             "description": "Suggested name of the popular repository",
+            "type": "string"
+          },
+          "url": {
+            "description": "URL of the remote yum repository",
+            "type": "string"
+          },
+          "uuid": {
+            "description": "UUID of the repository if it exists for the user",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "api.PublicRepositoryCollectionResponse": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/api.PublicRepositoryResponse"
+            },
+            "type": "array"
+          },
+          "links": {
+            "$ref": "#/components/schemas/api.Links"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/api.ResponseMetadata"
+          }
+        },
+        "type": "object"
+      },
+      "api.PublicRepositoryResponse": {
+        "properties": {
+          "last_introspection_error": {
+            "description": "Error of last attempted introspection",
+            "type": "string"
+          },
+          "last_introspection_time": {
+            "description": "Timestamp of last attempted introspection",
+            "type": "string"
+          },
+          "last_success_introspection_time": {
+            "description": "Timestamp of last successful introspection",
+            "type": "string"
+          },
+          "last_update_introspection_time": {
+            "description": "Timestamp of last introspection that had updates",
+            "type": "string"
+          },
+          "package_count": {
+            "description": "Number of packages last read in the repository",
+            "type": "integer"
+          },
+          "status": {
+            "description": "Introspection status of the repository",
             "type": "string"
           },
           "url": {
@@ -432,6 +505,44 @@
         },
         "type": "object"
       },
+      "api.SnapshotCollectionResponse": {
+        "properties": {
+          "data": {
+            "description": "Requested Data",
+            "items": {
+              "$ref": "#/components/schemas/api.SnapshotResponse"
+            },
+            "type": "array"
+          },
+          "links": {
+            "$ref": "#/components/schemas/api.Links"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/api.ResponseMetadata"
+          }
+        },
+        "type": "object"
+      },
+      "api.SnapshotResponse": {
+        "properties": {
+          "content_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Count of each content type",
+            "type": "object"
+          },
+          "created_at": {
+            "description": "Datetime the snapshot was created",
+            "type": "string"
+          },
+          "distribution_path": {
+            "description": "Path to pulp distribution",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "api.TaskInfoCollectionResponse": {
         "properties": {
           "data": {
@@ -475,6 +586,17 @@
           "uuid": {
             "description": "UUID of the object",
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "api.UUIDListRequest": {
+        "properties": {
+          "uuids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -583,6 +705,28 @@
   },
   "openapi": "3.0.3",
   "paths": {
+    "/features/": {
+      "get": {
+        "description": "Get features available for the user within their Organization",
+        "operationId": "listFeatures",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.FeatureSet"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "List Features within the application, whether they are enabled, and whether the requesting user can use them",
+        "tags": [
+          "features"
+        ]
+      }
+    },
     "/popular_repositories/": {
       "get": {
         "description": "Get popular repositories",
@@ -642,6 +786,86 @@
         "summary": "List Popular Repositories",
         "tags": [
           "popular_repositories"
+        ]
+      }
+    },
+    "/public_repositories/": {
+      "get": {
+        "description": "Get public repositories.\nA public repository is a defined repository that is available to all accounts for the purposes of searching for rpm names by URL.\nIt does not show up via the normal repositories API.",
+        "operationId": "listPublicRepositories",
+        "parameters": [
+          {
+            "description": "Offset into the list of results to return in the response",
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Limit the number of items returned",
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.PublicRepositoryCollectionResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "List Public Repositories",
+        "tags": [
+          "public_repositories"
         ]
       }
     },
@@ -980,6 +1204,83 @@
           }
         },
         "summary": "Bulk create repositories",
+        "tags": [
+          "repositories"
+        ]
+      }
+    },
+    "/repositories/bulk_delete/": {
+      "post": {
+        "description": "bulk delete repositories",
+        "operationId": "bulkDeleteRepositories",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.UUIDListRequest"
+              }
+            }
+          },
+          "description": "Identifiers of the repositories",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "description": "Repositories were successfully deleted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "Bulk delete repositories",
         "tags": [
           "repositories"
         ]
@@ -1476,6 +1777,78 @@
         "tags": [
           "repositories",
           "rpms"
+        ]
+      }
+    },
+    "/repositories/{uuid}/snapshots/": {
+      "get": {
+        "operationId": "listSnapshots",
+        "parameters": [
+          {
+            "description": "Identifier of the Repository",
+            "in": "path",
+            "name": "uuid",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.SnapshotCollectionResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errors.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "List snapshots of a repository",
+        "tags": [
+          "repositories"
         ]
       }
     },

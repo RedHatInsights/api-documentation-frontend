@@ -554,6 +554,18 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
+    id: "assisted-install-service",
+    displayName: "Assisted-Install Service",
+    description: "Assisted installation",
+    icon: "GenericIcon",
+    apiPath: "./apis/openshift/assisted-install-service/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/openshift/assisted-install-service/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
     id: "authorization-service",
     displayName: "Authorization Service",
     description: "Enables access control on resources of OCM services",

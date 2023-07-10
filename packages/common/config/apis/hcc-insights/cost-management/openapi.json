@@ -747,6 +747,32 @@
         },
         "type": "object"
       },
+      "GetAwsCategorySettings": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "properties": {
+              "data": {
+                "example": [
+                  {
+                    "enabled": "True",
+                    "key": "env",
+                    "uuid": "be9b46e1-ae73-425c-a3bc-738018d2a41f"
+                  }
+                ],
+                "items": {},
+                "type": "array"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ]
+      },
       "IngressReportIn": {
         "allOf": [
           {
@@ -937,6 +963,32 @@
           "default_cost_type"
         ]
       },
+      "ModifyKeySettingsRequestBody": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "properties": {
+              "data": {
+                "example": [
+                  {
+                    "ids": [
+                      "be9b46e1-ae73-425c-a3bc-738018d2a41f"
+                    ]
+                  }
+                ],
+                "items": {},
+                "type": "array"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ]
+      },
       "OrgUnitId": {
         "example": "R_001",
         "type": "string"
@@ -1061,6 +1113,30 @@
             "type": "integer"
           }
         }
+      },
+      "PutAccountSettingRequestBody": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ListPagination"
+          },
+          {
+            "properties": {
+              "data": {
+                "example": [
+                  {
+                    "cost_type": "blended_cost"
+                  }
+                ],
+                "items": {},
+                "type": "array"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "type": "object"
+          }
+        ]
       },
       "Report": {
         "properties": {
@@ -3412,10 +3488,10 @@
                       {
                         "accounts": [
                           {
-                            "account": "4418636104713",
+                            "account": "9420673783214",
                             "values": [
                               {
-                                "account": "4418636104713",
+                                "account": "9420673783214",
                                 "cost": {
                                   "markup": {
                                     "units": "USD",
@@ -4527,6 +4603,47 @@
           }
         },
         "summary": "Obtain a specific current user account setting",
+        "tags": [
+          "Account Settings"
+        ]
+      },
+      "put": {
+        "operationId": "putAccountSettings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutAccountSettingRequestBody"
+              }
+            }
+          },
+          "description": "Modify account setting",
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected Error"
+          }
+        },
+        "security": [
+          {
+            "basic_auth": []
+          }
+        ],
+        "summary": "Modify a specific current user account setting.",
         "tags": [
           "Account Settings"
         ]
@@ -8503,6 +8620,134 @@
           }
         ],
         "summary": "Assign to cost management settings",
+        "tags": [
+          "Settings"
+        ]
+      }
+    },
+    "/settings/aws_category_keys/": {
+      "get": {
+        "operationId": "getAwsCategoryKeysSettings",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GetAwsCategorySettings"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "New api endpoint for retrieving aws category keys."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected Error"
+          }
+        },
+        "security": [
+          {
+            "basic_auth": []
+          }
+        ],
+        "summary": "Query to cost management settings",
+        "tags": [
+          "Settings"
+        ]
+      }
+    },
+    "/settings/aws_category_keys/disable/": {
+      "put": {
+        "operationId": "putDisableAwsCategoryKeysSettings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModifyKeySettingsRequestBody"
+              }
+            }
+          },
+          "description": "Disable aws category key by uuid",
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected Error"
+          }
+        },
+        "security": [
+          {
+            "basic_auth": []
+          }
+        ],
+        "summary": "Disable aws category key by uuid.",
+        "tags": [
+          "Settings"
+        ]
+      }
+    },
+    "/settings/aws_category_keys/enable/": {
+      "put": {
+        "operationId": "putEnableAwsCategoryKeysSettings",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModifyKeySettingsRequestBody"
+              }
+            }
+          },
+          "description": "Enable aws category key by uuid",
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected Error"
+          }
+        },
+        "security": [
+          {
+            "basic_auth": []
+          }
+        ],
+        "summary": "Enable aws category key by uuid.",
         "tags": [
           "Settings"
         ]

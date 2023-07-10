@@ -1896,6 +1896,17 @@
             "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
             "type": "string"
           },
+          "public_ipv4_addresses": {
+            "items": {
+              "description": "The external IPv4 address of the system",
+              "example": "12.23.31.32",
+              "format": "ipv4",
+              "maxLength": 15,
+              "type": "string"
+            },
+            "type": "array",
+            "x-indexed": false
+          },
           "releasever": {
             "description": "Release name of the system distribution (from yum/dnf)",
             "example": "7, 7.0, 7Server, 8, 8.4",

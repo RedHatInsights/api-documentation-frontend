@@ -562,6 +562,22 @@
         "title": "Root Type for Instance",
         "type": "object"
       },
+      "InstanceGuestReport": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Host"
+            },
+            "type": "array"
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinks"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/MetaCount"
+          }
+        }
+      },
       "InstanceMeta": {
         "description": "The details of the entire list of InstanceData",
         "example": {
@@ -2263,6 +2279,130 @@
             "description": "The request for instances was successful."
           }
         },
+        "tags": [
+          "instances"
+        ]
+      }
+    },
+    "/instances/{id}/guests": {
+      "description": "Operations for instance-id mappings.",
+      "get": {
+        "operationId": "getInstanceGuests",
+        "parameters": [
+          {
+            "description": "The instance ID we wish to query",
+            "explode": false,
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "description": "The number of items to skip before starting to collect the result set",
+            "explode": true,
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "style": "form"
+          },
+          {
+            "description": "The numbers of items to return",
+            "explode": true,
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/vnd.api+json": {
+                "example": {
+                  "data": [
+                    {
+                      "display_name": "guest01.example.com",
+                      "inventory_id": "d6214a0b-b344-4778-831c-d53dcacb2da3",
+                      "last_seen": "2020-01-01T00:00:00Z",
+                      "subscription_manager_id": "adafd9d5-5b00-42fa-a6c9-75801d45cc6d"
+                    },
+                    {
+                      "display_name": "guest02.example.com",
+                      "inventory_id": "9358e312-1c9f-42f4-8910-dcef6e970852",
+                      "last_seen": "2020-01-01T00:00:00Z",
+                      "subscription_manager_id": "b101a72f-1859-4489-acb8-d6d31c2578c4"
+                    }
+                  ],
+                  "links": {
+                    "first": "/api/rhsm-subscriptions/v1/instances/c5mu16smf1c22rn8e730/guests?offset=0&limit=5",
+                    "last": "/api/rhsm-subscriptions/v1/instances/c5mu16smf1c22rn8e730/guests?offset=5&limit=5",
+                    "next": "/api/rhsm-subscriptions/v1/instances/c5mu16smf1c22rn8e730/guests?offset=5&limit=5",
+                    "previous": null
+                  },
+                  "meta": {
+                    "count": 10
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/InstanceGuestReport"
+                }
+              }
+            },
+            "description": "The request for a capacity report was successful."
+          },
+          "400": {
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            },
+            "description": "The server could could not process the current request."
+          },
+          "403": {
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            },
+            "description": "The request was valid, but the request was refused by the server."
+          },
+          "404": {
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            },
+            "description": "The requested resource was not found."
+          },
+          "500": {
+            "content": {
+              "application/vnd.api+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                }
+              }
+            },
+            "description": "An internal server error has occurred and is not recoverable."
+          }
+        },
+        "summary": "Fetch guests for the instance id.",
         "tags": [
           "instances"
         ]
