@@ -75,6 +75,14 @@ apis:
           - observe
           - openshift
           - insights
+      - id: export-service
+        name: Export Service
+        description: Service to enable users to export data in specific formats (JSON or CSV)
+        url: https://console.redhat.com/api/export/v1/openapi.json
+        apiType: openapi-v3
+        icon: insights
+        tags:
+          - insights
       - id: image-builder
         name: Image Builder
         description: Service that relays image build requests
