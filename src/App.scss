@@ -5,6 +5,17 @@
  }
 
 .apid-c-page-landingpage {
+  .apid-split-l-pagination {
+    width: 100%;
+    flex-direction: row;
+    @media screen and (max-width: 998px) {
+      flex-direction: column;
+    }
+  }
+  .apid-legacy-button {
+    --pf-c-button--m-secondary--hover--BackgroundColor: var(--pf-c-button--m-primary--BackgroundColor);
+    --pf-c-button--m-secondary--hover--Color: var(--pf-global--Color--light-100);
+  }
   .pf-c-sidebar__main {
     height: 100%;
   }

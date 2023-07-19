@@ -1,6 +1,7 @@
 import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
-  Flex, FlexItem,
+  Button,
+  Flex,
   Form,
   Page,
   PageSection,
@@ -124,26 +125,29 @@ export const LandingPage: FunctionComponent = () => {
 
           <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
             <Flex direction={{ default: "rowReverse" }}>
-              <FlexItem>
-                <Split>
-                  <SplitItem>
-                    <Pagination
-                        { ...basePaginationProps }
-                        isCompact
-                    />
-                  </SplitItem>
-                  <SplitItem className="apid-landing-layout-toggle-group">
-                    <ToggleGroup aria-label="API content type toggle group">
-                      <Tooltip content="Show card view">
-                        <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
-                      </Tooltip>
-                      <Tooltip content="Show table view">
-                        <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
-                      </Tooltip>
-                    </ToggleGroup>
-                  </SplitItem>
-                </Split>
-              </FlexItem>
+              <Split className="apid-split-l-pagination">
+                <SplitItem className="pf-u-pb-md pf-u-pt-md-on-md pf-u-pl-sm-on-md" isFilled>
+                  <Button component="a" target="_blank" href="https://console.redhat.com/docs/api" variant="secondary" className="apid-legacy-button">
+                    Use the legacy API documentation site
+                  </Button>
+                </SplitItem>    
+                <SplitItem>
+                  <Pagination
+                      { ...basePaginationProps }
+                      isCompact
+                  />
+                </SplitItem>
+                <SplitItem className="apid-landing-layout-toggle-group">
+                  <ToggleGroup aria-label="API content type toggle group">
+                    <Tooltip content="Show card view">
+                      <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
+                    </Tooltip>
+                    <Tooltip content="Show table view">
+                      <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
+                    </Tooltip>
+                  </ToggleGroup>
+                </SplitItem>
+              </Split>
             </Flex>
           </PageSection>
 
