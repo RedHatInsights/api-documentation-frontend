@@ -901,6 +901,31 @@
         ],
         "type": "string"
       },
+      "PageBehaviorGroup": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/BehaviorGroup"
+            },
+            "type": "array"
+          },
+          "links": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "links",
+          "meta"
+        ],
+        "type": "object"
+      },
       "PageEventLogEntry": {
         "properties": {
           "data": {
@@ -1744,9 +1769,23 @@
               }
             },
             "description": "OK"
+          },
+          "401": {
+            "description": "Not Authorized"
+          },
+          "403": {
+            "description": "Not Allowed"
           }
         },
-        "summary": "Retrieve the behavior groups linked to an event type."
+        "security": [
+          {
+            "SecurityScheme": []
+          }
+        ],
+        "summary": "Retrieve the behavior groups linked to an event type.",
+        "tags": [
+          "V 1"
+        ]
       },
       "put": {
         "operationId": "NotificationResource$V1_updateEventTypeBehaviors",

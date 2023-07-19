@@ -901,6 +901,31 @@
         ],
         "type": "string"
       },
+      "PageBehaviorGroup": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/BehaviorGroup"
+            },
+            "type": "array"
+          },
+          "links": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "links",
+          "meta"
+        ],
+        "type": "object"
+      },
       "PageEventLogEntry": {
         "properties": {
           "data": {

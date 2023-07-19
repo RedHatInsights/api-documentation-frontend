@@ -274,6 +274,19 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "export-service",
+    displayName: "Export Service",
+    description:
+      "Service to enable users to export data in specific formats (JSON or CSV)",
+    icon: "InsightsIcon",
+    apiPath: "./apis/hcc-insights/export-service/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/export-service/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [apiLabelsMap["insights"]],
+  },
+  {
     id: "image-builder",
     displayName: "Image Builder",
     description: "Service that relays image build requests",

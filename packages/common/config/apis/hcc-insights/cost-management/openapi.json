@@ -4609,6 +4609,17 @@
       },
       "put": {
         "operationId": "putAccountSettings",
+        "parameters": [
+          {
+            "description": "Name of a setting to get",
+            "in": "path",
+            "name": "setting",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {

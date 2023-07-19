@@ -905,6 +905,9 @@
           "available_evra": {
             "type": "string"
           },
+          "baseline_id": {
+            "type": "integer"
+          },
           "baseline_name": {
             "type": "string"
           },
@@ -918,6 +921,12 @@
             "type": "string"
           },
           "installed_evra": {
+            "type": "string"
+          },
+          "os": {
+            "type": "string"
+          },
+          "rhsm": {
             "type": "string"
           },
           "tags": {
@@ -1588,7 +1597,7 @@
       "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
     },
     "title": "Patchman-engine API",
-    "version": "v3.3.15"
+    "version": "v3.3.19"
   },
   "openapi": "3.0.1",
   "paths": {
