@@ -380,6 +380,16 @@ apis:
         tags:
           - openshift
           - infrastructure
+      - id: ocp-vulnerability
+        name: Vulnerability Dashboard
+        description: OCP Vulnerability API
+        url: https://console.redhat.com/api/ocp-vulnerability/v1/openapi.json
+        apiType: openapi-v3
+        tags:
+          - insights
+          - infrastructure
+          - observe
+          - openshift
       - id: web-rca-service
         name: Web-RCA Service
         description: Web-RCA Service API
