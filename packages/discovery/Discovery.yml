@@ -260,7 +260,6 @@ apis:
         apiType: openapi-v3
         tags:
           - observe
-          - openshift
           - security
           - rhel
           - insights
