@@ -92,6 +92,16 @@ apis:
         apiType: openapi-v3
         tags:
           - integrations-and-notifications
+      - id: launch
+        name: Launch
+        description: Use predefined Integrations with cloud providers to Launch Image builder images into hyperscalers
+        url: https://console.redhat.com/api/provisioning/v1/openapi.json
+        apiType: openapi-v3
+        icon: insights
+        tags:
+          - deploy
+          - insights
+          - rhel
       - id: malware-detection
         name: Malware Detection
         description: The API of the Malware-Detection project in Insights
@@ -387,9 +397,9 @@ apis:
         apiType: openapi-v3
         tags:
           - insights
-          - infrastructure
           - observe
           - openshift
+          - security
       - id: web-rca-service
         name: Web-RCA Service
         description: Web-RCA Service API
