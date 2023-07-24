@@ -311,6 +311,23 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["integrations-and-notifications"]],
   },
   {
+    id: "launch",
+    displayName: "Launch",
+    description:
+      "Use predefined Integrations with cloud providers to Launch Image builder images into hyperscalers",
+    icon: "InsightsIcon",
+    apiPath: "./apis/hcc-insights/launch/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/launch/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [
+      apiLabelsMap["deploy"],
+      apiLabelsMap["insights"],
+      apiLabelsMap["rhel"],
+    ],
+  },
+  {
     id: "inventory",
     displayName: "Managed Inventory",
     description:
@@ -548,7 +565,6 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       ) as unknown as Promise<OpenAPIV3.Document>,
     tags: [
       apiLabelsMap["observe"],
-      apiLabelsMap["openshift"],
       apiLabelsMap["security"],
       apiLabelsMap["rhel"],
       apiLabelsMap["insights"],
@@ -664,6 +680,23 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
         "./apis/openshift/upgrades-information-service/openapi.json"
       ) as unknown as Promise<OpenAPIV3.Document>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
+    id: "ocp-vulnerability",
+    displayName: "Vulnerability Dashboard",
+    description: "OCP Vulnerability API",
+    icon: "GenericIcon",
+    apiPath: "./apis/openshift/ocp-vulnerability/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/openshift/ocp-vulnerability/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [
+      apiLabelsMap["insights"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["openshift"],
+      apiLabelsMap["security"],
+    ],
   },
   {
     id: "web-rca-service",
