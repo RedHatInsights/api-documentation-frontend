@@ -145,6 +145,13 @@ apis:
         tags:
           - infrastructure
           - openshift
+      - id: payload_ingress
+        name: Payload Ingress Service
+        description: console.redhat.com Payload Ingress Service
+        url: https://console.redhat.com/api/ingress/v1/openapi.json
+        apiType: openapi-v3
+        tags:
+          - insights
       - id: insights-results-aggregator_v1
         name: Results Aggregator V1
         description: Aggregation service for the results of running Insights rules
