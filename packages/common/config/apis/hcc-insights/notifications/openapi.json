@@ -398,9 +398,7 @@
       },
       "EmailSubscriptionType": {
         "enum": [
-          "INSTANT",
-          "DAILY",
-          "DRAWER"
+          "DAILY"
         ],
         "type": "string"
       },
@@ -2119,6 +2117,13 @@
         "operationId": "OrgConfigResource$V1_getDailyDigestTimePreference",
         "responses": {
           "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "description": "OK"
           }
         }
@@ -2135,8 +2140,11 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid minute value specified"
           }
         },
         "summary": "Save the daily digest UTC time preference. To cover all time zones conversion to UTC, the accepted minute values are 00, 15, 30 and 45."

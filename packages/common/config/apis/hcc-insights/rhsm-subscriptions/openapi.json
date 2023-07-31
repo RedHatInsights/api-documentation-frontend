@@ -46,6 +46,13 @@
       "BillingAccountId": {
         "type": "string"
       },
+      "BillingCategory": {
+        "enum": [
+          "prepaid",
+          "on-demand"
+        ],
+        "type": "string"
+      },
       "BillingProviderType": {
         "enum": [
           "",
@@ -3331,6 +3338,17 @@
             "schema": {
               "default": false,
               "type": "boolean"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Include only report data matching the specified billing_category.",
+            "explode": true,
+            "in": "query",
+            "name": "billing_category",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/BillingCategory"
             },
             "style": "form"
           }

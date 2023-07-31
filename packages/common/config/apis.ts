@@ -369,6 +369,18 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["infrastructure"], apiLabelsMap["openshift"]],
   },
   {
+    id: "payload_ingress",
+    displayName: "Payload Ingress Service",
+    description: "console.redhat.com Payload Ingress Service",
+    icon: "GenericIcon",
+    apiPath: "./apis/hcc-insights/payload_ingress/openapi.json",
+    getApi: () =>
+      import(
+        "./apis/hcc-insights/payload_ingress/openapi.json"
+      ) as unknown as Promise<OpenAPIV3.Document>,
+    tags: [apiLabelsMap["insights"]],
+  },
+  {
     id: "insights-results-aggregator_v1",
     displayName: "Results Aggregator V1",
     description:

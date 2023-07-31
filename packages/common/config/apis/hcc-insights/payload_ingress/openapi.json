@@ -1,0 +1,252 @@
+{
+  "components": {
+    "schemas": {
+      "TrackResponse": {
+        "properties": {
+          "date": {
+            "type": "string"
+          },
+          "inventory_id": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "status_msg": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TrackResponseFull": {
+        "properties": {
+          "data": {
+            "items": {
+              "properties": {
+                "account": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "integer"
+                },
+                "inventory_id": {
+                  "type": "string"
+                },
+                "org_id": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                },
+                "service": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "status_msg": {
+                  "type": "string"
+                },
+                "system_id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "duration": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "UploadResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string"
+          },
+          "upload": {
+            "properties": {
+              "account": {
+                "type": "string"
+              },
+              "org_id": {
+                "description": "Tennant customer identifier used by front office systems (SSO, RHSM, Customer Portal)",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Payload Ingress Service",
+    "title": "Ingress",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/track/{request_id}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "request_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "verbosity",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "maximum": 2,
+              "minimum": 0,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/TrackResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TrackResponseFull"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Payload responses"
+          },
+          "400": {
+            "description": "Request_id is not in an UUID format"
+          },
+          "403": {
+            "description": "Authentication failure for specific request_id"
+          },
+          "404": {
+            "description": "Request_id not found"
+          }
+        },
+        "summary": "Find status of a specific request",
+        "tags": [
+          "ingress"
+        ]
+      }
+    },
+    "/upload": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "properties": {
+                  "file": {
+                    "format": "binary",
+                    "type": "string"
+                  },
+                  "metadata": {
+                    "additionalProperties": {
+                      "type": "string"
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              }
+            },
+            "description": "Advisor content type with no metadata accepted for processing"
+          },
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              }
+            },
+            "description": "Payload was accepted for processing."
+          },
+          "401": {
+            "description": "Authentication missing from request"
+          },
+          "413": {
+            "description": "Payload too large"
+          },
+          "415": {
+            "description": "Content type of payload is unsupported."
+          }
+        },
+        "summary": "Accepts a payload",
+        "tags": [
+          "ingress"
+        ]
+      }
+    },
+    "/version": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Version information"
+          },
+          "401": {
+            "description": "Authentication missing from request"
+          }
+        },
+        "summary": "Returns version information",
+        "tags": [
+          "ingress"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://cloud.redhat.com/api/ingress/v1"
+    }
+  ],
+  "tags": [
+    {
+      "description": "ingress API endpoint",
+      "name": "ingress"
+    }
+  ]
+}

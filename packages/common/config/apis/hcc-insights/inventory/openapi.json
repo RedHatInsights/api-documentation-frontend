@@ -115,13 +115,16 @@
           "type": "string"
         }
       },
-      "groupNameExplicit": {
+      "groupNameListParam": {
         "description": "Filter by group name",
         "in": "query",
         "name": "group_name",
         "required": false,
         "schema": {
-          "type": "string"
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
         }
       },
       "groupOrderByParam": {
@@ -132,13 +135,13 @@
         "schema": {
           "enum": [
             "name",
-            "host_ids"
+            "host_count"
           ],
           "type": "string"
         }
       },
       "groupOrderHowParam": {
-        "description": "Direction of the ordering; defaults to ASC for name, and to DESC for host_ids",
+        "description": "Direction of the ordering; defaults to ASC for name, and to DESC for host_count",
         "in": "query",
         "name": "order_how",
         "required": false,
@@ -510,6 +513,117 @@
         },
         "title": "Host data"
       },
+      "AssignmentRuleIn": {
+        "allOf": [
+          {
+            "properties": {
+              "description": {
+                "maxLength": 255,
+                "minLength": 1,
+                "nullable": true,
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "filter": {
+                "type": "object"
+              },
+              "group_id": {
+                "$ref": "#/components/schemas/GroupId",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/AssignmentRuleIn"
+                ]
+              },
+              "name": {
+                "maxLength": 255,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "group_id",
+              "filter",
+              "enabled"
+            ]
+          }
+        ],
+        "description": "Data for a single Assignment Rule",
+        "title": "Assignment Rule In",
+        "type": "object"
+      },
+      "AssignmentRuleOut": {
+        "allOf": [
+          {
+            "properties": {
+              "account": {
+                "$ref": "#/components/schemas/AccountNumber",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/AssignmentRuleOut"
+                ]
+              },
+              "created_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "description": {
+                "minLength": 1,
+                "nullable": true,
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "filter": {
+                "type": "object"
+              },
+              "group_id": {
+                "$ref": "#/components/schemas/GroupId",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/AssignmentRuleOut"
+                ]
+              },
+              "id": {
+                "$ref": "#/components/schemas/NonStrictUUID",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/AssignmentRuleOut"
+                ]
+              },
+              "modified_on": {
+                "format": "date-time",
+                "type": "string"
+              },
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "org_id": {
+                "$ref": "#/components/schemas/OrgId",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/AssignmentRuleOut"
+                ]
+              }
+            },
+            "required": [
+              "name",
+              "group_id",
+              "filter",
+              "enabled",
+              "created_on",
+              "modified_on"
+            ]
+          }
+        ],
+        "description": "Data for a single Assignment Rule response",
+        "title": "Assignment Rule response",
+        "type": "object"
+      },
       "BiosUuid": {
         "description": "A UUID of the host machine BIOS.  This field is considered to be a canonical fact.",
         "example": "22cd8e39-13bb-4d02-8316-84b850dc5136",
@@ -697,7 +811,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -707,7 +820,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -717,7 +829,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -727,7 +838,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -737,7 +847,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -747,7 +856,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -757,7 +865,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -767,7 +874,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           },
@@ -777,7 +883,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/CanonicalFactsOut"
             ]
           }
@@ -811,136 +916,6 @@
         ],
         "description": "Data required to create a check-in record for a host.",
         "title": "Check-in data",
-        "type": "object"
-      },
-      "CreateHostOut": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/CanonicalFactsOut",
-            "x-scope": [
-              "",
-              "#/components/schemas/HostQueryOutput",
-              "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut"
-            ]
-          },
-          {
-            "properties": {
-              "account": {
-                "$ref": "#/components/schemas/AccountNumber",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/HostQueryOutput",
-                  "#/components/schemas/HostOut",
-                  "#/components/schemas/CreateHostOut"
-                ]
-              },
-              "ansible_host": {
-                "description": "The ansible host name for remediations",
-                "example": "host1.mydomain.com",
-                "nullable": true,
-                "type": "string"
-              },
-              "created": {
-                "description": "A timestamp when the entry was created.",
-                "format": "date-time",
-                "type": "string"
-              },
-              "culled_timestamp": {
-                "description": "Timestamp from which the host is considered deleted.",
-                "format": "date-time",
-                "nullable": true,
-                "type": "string"
-              },
-              "display_name": {
-                "description": "A host’s human-readable display name, e.g. in a form of a domain name.",
-                "example": "host1.mydomain.com",
-                "nullable": true,
-                "type": "string"
-              },
-              "facts": {
-                "description": "A set of facts belonging to the host.",
-                "items": {
-                  "$ref": "#/components/schemas/FactSet",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/HostQueryOutput",
-                    "#/components/schemas/HostOut",
-                    "#/components/schemas/CreateHostOut"
-                  ]
-                },
-                "type": "array"
-              },
-              "groups": {
-                "description": "The groups that the host belongs to, if any.",
-                "items": {
-                  "$ref": "#/components/schemas/GroupOut",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/HostQueryOutput",
-                    "#/components/schemas/HostOut",
-                    "#/components/schemas/CreateHostOut"
-                  ]
-                },
-                "type": "array"
-              },
-              "id": {
-                "description": "A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.",
-                "example": "3f01b55457674041b75e41829bcee1dc",
-                "type": "string"
-              },
-              "org_id": {
-                "$ref": "#/components/schemas/OrgId",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/HostQueryOutput",
-                  "#/components/schemas/HostOut",
-                  "#/components/schemas/CreateHostOut"
-                ]
-              },
-              "per_reporter_staleness": {
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/PerReporterStaleness",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/HostQueryOutput",
-                    "#/components/schemas/HostOut",
-                    "#/components/schemas/CreateHostOut"
-                  ]
-                },
-                "description": "Reporting source of the last checkin status, stale_timestamp, and last_check_in.",
-                "type": "object"
-              },
-              "reporter": {
-                "description": "Reporting source of the host. Used when updating the stale_timestamp.",
-                "nullable": true,
-                "type": "string"
-              },
-              "stale_timestamp": {
-                "description": "Timestamp from which the host is considered stale.",
-                "format": "date-time",
-                "nullable": true,
-                "type": "string"
-              },
-              "stale_warning_timestamp": {
-                "description": "Timestamp from which the host is considered too stale to be listed without an explicit toggle.",
-                "format": "date-time",
-                "nullable": true,
-                "type": "string"
-              },
-              "updated": {
-                "description": "A timestamp when the entry was last updated.",
-                "format": "date-time",
-                "type": "string"
-              }
-            },
-            "required": [
-              "org_id"
-            ]
-          }
-        ],
-        "description": "Data of a single host belonging to an account. Represents the hosts without its Inventory metadata.",
-        "title": "Create Host Out",
         "type": "object"
       },
       "FactSet": {
@@ -987,7 +962,6 @@
           "",
           "#/components/schemas/HostQueryOutput",
           "#/components/schemas/HostOut",
-          "#/components/schemas/CreateHostOut",
           "#/components/schemas/GroupOut",
           "#/components/schemas/GroupId"
         ]
@@ -1032,7 +1006,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1047,7 +1020,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1057,7 +1029,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1067,7 +1038,6 @@
               "",
               "#/components/schemas/HostQueryOutput",
               "#/components/schemas/HostOut",
-              "#/components/schemas/CreateHostOut",
               "#/components/schemas/GroupOut"
             ]
           },
@@ -1083,15 +1053,15 @@
       "GroupOutWithHostCount": {
         "allOf": [
           {
+            "$ref": "#/components/schemas/GroupOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/GroupQueryOutput",
+              "#/components/schemas/GroupOutWithHostCount"
+            ]
+          },
+          {
             "properties": {
-              "group_out": {
-                "$ref": "#/components/schemas/GroupOut",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/GroupQueryOutput",
-                  "#/components/schemas/GroupOutWithHostCount"
-                ]
-              },
               "host_count": {
                 "$ref": "#/components/schemas/HostCount",
                 "x-scope": [
@@ -1167,7 +1137,7 @@
       "HostOut": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/CreateHostOut",
+            "$ref": "#/components/schemas/CanonicalFactsOut",
             "x-scope": [
               "",
               "#/components/schemas/HostQueryOutput",
@@ -1176,6 +1146,37 @@
           },
           {
             "properties": {
+              "account": {
+                "$ref": "#/components/schemas/AccountNumber",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/HostQueryOutput",
+                  "#/components/schemas/HostOut"
+                ]
+              },
+              "ansible_host": {
+                "description": "The ansible host name for remediations",
+                "example": "host1.mydomain.com",
+                "nullable": true,
+                "type": "string"
+              },
+              "created": {
+                "description": "A timestamp when the entry was created.",
+                "format": "date-time",
+                "type": "string"
+              },
+              "culled_timestamp": {
+                "description": "Timestamp from which the host is considered deleted.",
+                "format": "date-time",
+                "nullable": true,
+                "type": "string"
+              },
+              "display_name": {
+                "description": "A host’s human-readable display name, e.g. in a form of a domain name.",
+                "example": "host1.mydomain.com",
+                "nullable": true,
+                "type": "string"
+              },
               "facts": {
                 "description": "A set of facts belonging to the host.",
                 "items": {
@@ -1187,13 +1188,75 @@
                   ]
                 },
                 "type": "array"
+              },
+              "groups": {
+                "description": "The groups that the host belongs to, if any.",
+                "items": {
+                  "$ref": "#/components/schemas/GroupOut",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput",
+                    "#/components/schemas/HostOut"
+                  ]
+                },
+                "type": "array"
+              },
+              "id": {
+                "description": "A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.",
+                "example": "3f01b55457674041b75e41829bcee1dc",
+                "type": "string"
+              },
+              "org_id": {
+                "$ref": "#/components/schemas/OrgId",
+                "x-scope": [
+                  "",
+                  "#/components/schemas/HostQueryOutput",
+                  "#/components/schemas/HostOut"
+                ]
+              },
+              "per_reporter_staleness": {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/PerReporterStaleness",
+                  "x-scope": [
+                    "",
+                    "#/components/schemas/HostQueryOutput",
+                    "#/components/schemas/HostOut"
+                  ]
+                },
+                "description": "Reporting source of the last checkin status, stale_timestamp, and last_check_in.",
+                "type": "object"
+              },
+              "reporter": {
+                "description": "Reporting source of the host. Used when updating the stale_timestamp.",
+                "nullable": true,
+                "type": "string"
+              },
+              "stale_timestamp": {
+                "description": "Timestamp from which the host is considered stale.",
+                "format": "date-time",
+                "nullable": true,
+                "type": "string"
+              },
+              "stale_warning_timestamp": {
+                "description": "Timestamp from which the host is considered too stale to be listed without an explicit toggle.",
+                "format": "date-time",
+                "nullable": true,
+                "type": "string"
+              },
+              "updated": {
+                "description": "A timestamp when the entry was last updated.",
+                "format": "date-time",
+                "type": "string"
               }
             },
-            "type": "object"
+            "required": [
+              "org_id"
+            ]
           }
         ],
-        "description": "A database entry representing a single host with its Inventory metadata.",
-        "title": "A Host Inventory entry"
+        "description": "Data of a single host belonging to an account. Represents the hosts without its Inventory metadata.",
+        "title": "Host Out",
+        "type": "object"
       },
       "HostQueryOutput": {
         "allOf": [
@@ -1405,7 +1468,7 @@
       "ResourceTypesGroupsQueryOutput": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/ResourceTypesQueryOutput/allOf/0",
+            "$ref": "#/components/schemas/ResourceTypesPaginationOut",
             "x-scope": [
               "",
               "#/components/schemas/ResourceTypesGroupsQueryOutput"
@@ -1453,59 +1516,66 @@
         "title": "A resource type query result",
         "type": "object"
       },
-      "ResourceTypesQueryOutput": {
-        "allOf": [
-          {
+      "ResourceTypesPaginationOut": {
+        "properties": {
+          "links": {
+            "description": "A collection of pagination links for resource-types endpoints",
             "properties": {
-              "links": {
-                "description": "A collection of pagination links for resource-types endpoints",
-                "properties": {
-                  "first": {
-                    "description": "The URI path for the first page in the pagination",
-                    "type": "string"
-                  },
-                  "last": {
-                    "description": "The URI path for the last page in the pagination",
-                    "type": "string"
-                  },
-                  "next": {
-                    "description": "The URI path for the next page in the pagination",
-                    "nullable": true,
-                    "type": "string"
-                  },
-                  "previous": {
-                    "description": "The URI path for the previous page in the pagination",
-                    "nullable": true,
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "first",
-                  "previous",
-                  "next",
-                  "last"
-                ],
-                "type": "object"
+              "first": {
+                "description": "The URI path for the first page in the pagination",
+                "type": "string"
               },
-              "meta": {
-                "description": "The metadata for resource-types responses",
-                "properties": {
-                  "count": {
-                    "description": "The total number of objects returned by the query.",
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "count"
-                ],
-                "type": "object"
+              "last": {
+                "description": "The URI path for the last page in the pagination",
+                "type": "string"
+              },
+              "next": {
+                "description": "The URI path for the next page in the pagination",
+                "nullable": true,
+                "type": "string"
+              },
+              "previous": {
+                "description": "The URI path for the previous page in the pagination",
+                "nullable": true,
+                "type": "string"
               }
             },
             "required": [
-              "meta",
-              "links"
+              "first",
+              "previous",
+              "next",
+              "last"
             ],
             "type": "object"
+          },
+          "meta": {
+            "description": "The metadata for resource-types responses",
+            "properties": {
+              "count": {
+                "description": "The total number of objects returned by the query.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "count"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "meta",
+          "links"
+        ],
+        "type": "object"
+      },
+      "ResourceTypesQueryOutput": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ResourceTypesPaginationOut",
+            "x-scope": [
+              "",
+              "#/components/schemas/ResourceTypesQueryOutput"
+            ]
           },
           {
             "properties": {
@@ -2626,6 +2696,50 @@
   },
   "openapi": "3.0.0",
   "paths": {
+    "/assignment-rules": {
+      "post": {
+        "description": "Create Assignment Rule object using post request <br /><br /> Required permissions: inventory:groups:write",
+        "operationId": "api.assignment_rule.create_assignment_rule",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignmentRuleIn",
+                "x-scope": [
+                  ""
+                ]
+              }
+            }
+          },
+          "description": "Data required to create Assignment Rule object",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentRuleOut",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Assignment Rule created"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create Assignment Rule object"
+      }
+    },
     "/groups": {
       "get": {
         "description": "Read the entire list of all groups available to the account. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read",
@@ -3037,7 +3151,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/groupNameExplicit",
+            "$ref": "#/components/parameters/groupNameListParam",
             "x-scope": [
               ""
             ]
@@ -3138,7 +3252,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/groupNameExplicit",
+            "$ref": "#/components/parameters/groupNameListParam",
             "x-scope": [
               ""
             ]
@@ -3284,7 +3398,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateHostOut",
+                  "$ref": "#/components/schemas/HostOut",
                   "x-scope": [
                     ""
                   ]
@@ -4294,7 +4408,7 @@
             ]
           },
           {
-            "$ref": "#/components/parameters/groupNameExplicit",
+            "$ref": "#/components/parameters/groupNameListParam",
             "x-scope": [
               ""
             ]

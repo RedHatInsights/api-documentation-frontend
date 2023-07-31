@@ -228,6 +228,12 @@
           "display_name": {
             "type": "string"
           },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
+          },
           "id": {
             "type": "string"
           },
@@ -291,6 +297,12 @@
           },
           "display_name": {
             "type": "string"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
           },
           "last_upload": {
             "type": "string"
@@ -462,6 +474,12 @@
             "example": "my-baselined-system",
             "type": "string"
           },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
+          },
           "installable_other_count": {
             "type": "integer"
           },
@@ -528,6 +546,12 @@
             "description": "Baseline system display name",
             "example": "my-baselined-system",
             "type": "string"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
           },
           "id": {
             "type": "string"
@@ -917,6 +941,12 @@
           "display_name": {
             "type": "string"
           },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
+          },
           "id": {
             "type": "string"
           },
@@ -1127,6 +1157,12 @@
           "display_name": {
             "type": "string"
           },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
+          },
           "id": {
             "type": "string"
           },
@@ -1180,6 +1216,17 @@
         },
         "type": "object"
       },
+      "controllers.SystemGroup": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "controllers.SystemItem": {
         "properties": {
           "attributes": {
@@ -1213,6 +1260,12 @@
           },
           "display_name": {
             "type": "string"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
           },
           "insights_id": {
             "type": "string"
@@ -1293,6 +1346,12 @@
           },
           "display_name": {
             "type": "string"
+          },
+          "groups": {
+            "items": {
+              "$ref": "#/components/schemas/controllers.SystemGroup"
+            },
+            "type": "array"
           },
           "last_upload": {
             "type": "string"
@@ -1467,6 +1526,22 @@
         },
         "type": "object"
       },
+      "controllers.SystemVmaasJSONResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/vmaas.UpdatesV3Request"
+          }
+        },
+        "type": "object"
+      },
+      "controllers.SystemYumUpdatesResponse": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/vmaas.UpdatesV3Response"
+          }
+        },
+        "type": "object"
+      },
       "controllers.SystemsAdvisoriesRequest": {
         "properties": {
           "advisories": {
@@ -1579,6 +1654,133 @@
           }
         },
         "type": "object"
+      },
+      "vmaas.UpdatesV3Request": {
+        "properties": {
+          "basearch": {
+            "type": "string"
+          },
+          "epoch_required": {
+            "description": "VMaaS will check package_list and return error if we provide package_list without epochs",
+            "type": "boolean"
+          },
+          "latest_only": {
+            "type": "boolean"
+          },
+          "modules_list": {
+            "items": {
+              "$ref": "#/components/schemas/vmaas.UpdatesV3RequestModulesList"
+            },
+            "type": "array"
+          },
+          "optimistic_updates": {
+            "description": "Search for updates of unknown package EVRAs.",
+            "type": "boolean"
+          },
+          "package_list": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "releasever": {
+            "type": "string"
+          },
+          "repository_list": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "security_only": {
+            "type": "boolean"
+          },
+          "third_party": {
+            "description": "Include content from \\\"third party\\\" repositories into the response, disabled by default.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "vmaas.UpdatesV3RequestModulesList": {
+        "properties": {
+          "module_name": {
+            "type": "string"
+          },
+          "module_stream": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "vmaas.UpdatesV3Response": {
+        "properties": {
+          "basearch": {
+            "type": "string"
+          },
+          "last_change": {
+            "type": "string"
+          },
+          "modules_list": {
+            "items": {
+              "$ref": "#/components/schemas/vmaas.UpdatesV3RequestModulesList"
+            },
+            "type": "array"
+          },
+          "releasever": {
+            "type": "string"
+          },
+          "repository_list": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "update_list": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/vmaas.UpdatesV3ResponseUpdateList"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "vmaas.UpdatesV3ResponseAvailableUpdates": {
+        "properties": {
+          "basearch": {
+            "type": "string"
+          },
+          "erratum": {
+            "type": "string"
+          },
+          "evra": {
+            "type": "string"
+          },
+          "package": {
+            "type": "string"
+          },
+          "package_name": {
+            "type": "string"
+          },
+          "releasever": {
+            "type": "string"
+          },
+          "repository": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "vmaas.UpdatesV3ResponseUpdateList": {
+        "properties": {
+          "available_updates": {
+            "items": {
+              "$ref": "#/components/schemas/vmaas.UpdatesV3ResponseAvailableUpdates"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
       }
     },
     "securitySchemes": {
@@ -1597,7 +1799,7 @@
       "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
     },
     "title": "Patchman-engine API",
-    "version": "v3.3.19"
+    "version": "v3.4.9"
   },
   "openapi": "3.0.1",
   "paths": {
@@ -1723,6 +1925,14 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "description": "Filter only SAP systems",
@@ -2008,6 +2218,14 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "description": "Filter only SAP systems",
@@ -2652,6 +2870,14 @@
             "style": "form"
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -2941,6 +3167,14 @@
             }
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -3156,6 +3390,14 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "description": "Filter only SAP systems",
@@ -3438,6 +3680,14 @@
             }
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -3648,6 +3898,14 @@
             "description": "Filter",
             "in": "query",
             "name": "filter[packages_installed]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
             "schema": {
               "type": "string"
             }
@@ -4223,6 +4481,14 @@
             "style": "form"
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -4541,6 +4807,14 @@
             "style": "form"
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -4828,6 +5102,14 @@
             "style": "form"
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -5112,6 +5394,14 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "description": "Filter only SAP systems",
@@ -5465,6 +5755,14 @@
             "style": "form"
           },
           {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Filter only SAP systems",
             "in": "query",
             "name": "filter[system_profile][sap_system]",
@@ -5675,6 +5973,14 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "description": "Filter only SAP systems",
@@ -6050,6 +6356,14 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter systems by inventory groups",
+            "in": "query",
+            "name": "filter[group_name][in]",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "description": "Filter only SAP systems",
@@ -6503,6 +6817,14 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "description": "Filter",
+            "in": "query",
+            "name": "filter[update_status]",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -6553,6 +6875,136 @@
           }
         ],
         "summary": "Show me details about a system packages by given inventory id"
+      }
+    },
+    "/systems/{inventory_id}/vmaas_json": {
+      "get": {
+        "description": "Show me system's json request for VMaaS",
+        "operationId": "systemVmaasJson",
+        "parameters": [
+          {
+            "description": "Inventory ID",
+            "in": "path",
+            "name": "inventory_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/controllers.SystemVmaasJSONResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "RhIdentity": []
+          }
+        ],
+        "summary": "Show me system's json request for VMaaS"
+      }
+    },
+    "/systems/{inventory_id}/yum_updates": {
+      "get": {
+        "description": "Show me system's yum_updates (client side evaluation data)",
+        "operationId": "systemYumUpdates",
+        "parameters": [
+          {
+            "description": "Inventory ID",
+            "in": "path",
+            "name": "inventory_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/controllers.SystemYumUpdatesResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/utils.ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "RhIdentity": []
+          }
+        ],
+        "summary": "Show me system's yum_updates (client side evaluation data)"
       }
     },
     "/tags": {
