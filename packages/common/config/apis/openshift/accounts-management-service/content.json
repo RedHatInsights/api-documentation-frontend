@@ -805,6 +805,57 @@
             }
           ]
         },
+        "BillingModel": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "billing_model_type": {
+                  "enum": [
+                    "standard",
+                    "marketplace",
+                    "marketplace-aws",
+                    "marketplace-azure",
+                    "marketplace-rhm",
+                    "marketplace-gcp"
+                  ],
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "marketplace": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "billing_model_type"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "BillingModelList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/BillingModel"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "Capability": {
           "allOf": [
             {
@@ -5374,6 +5425,66 @@
           },
           {
             "$ref": "#/components/parameters/rotationId"
+          }
+        ]
+      },
+      "/api/accounts_mgmt/v1/billing_models": {
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BillingModelList"
+                  }
+                }
+              },
+              "description": "A JSON array of billing model objects"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns a list of available billing models"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/size"
           }
         ]
       },
