@@ -25,6 +25,7 @@
     "index.ts",
     "router",
     "config",
+    "types.ts",
     "config/apis/**/*.json"
   ]
 }

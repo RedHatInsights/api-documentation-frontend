@@ -11,11 +11,10 @@ import {
     SidebarPanel,
     Spinner,
 } from "@patternfly/react-core";
-import {apiConfigurations} from "@apidocs/common";
+import {apiConfigurations, APIContent} from "@apidocs/common";
 import {useNavigate, useParams} from "react-router";
 import {ApiDoc} from "../components/APIDoc/ApiDoc";
 import {usePromise} from "react-use";
-import {OpenAPIV3} from "openapi-types";
 import {Helmet} from "react-helmet-async";
 import {useTags} from "../components/APIDoc/hooks/useTags";
 import {useGroupedOperations} from "../components/APIDoc/hooks/useGroupedOperations";
@@ -29,7 +28,7 @@ type ApiState = {
     isLoading: true;
 } | {
     isLoading: false;
-    api: OpenAPIV3.Document | undefined;
+    api: APIContent | undefined;
 }
 
 export const APIPage: FunctionComponent = () => {
@@ -47,7 +46,7 @@ export const APIPage: FunctionComponent = () => {
         (async () => {
             if (selectedApi) {
                 await promiseOnMounted;
-                const resolved = await selectedApi.getApi();
+                const resolved = await selectedApi.getApiContent();
                 setApiState({
                     isLoading: false,
                     api: resolved
@@ -56,7 +55,7 @@ export const APIPage: FunctionComponent = () => {
         })();
     }, [promiseOnMounted, selectedApi]);
 
-    const openapi = 'api' in apiState ? apiState.api : undefined;
+    const openapi = 'api' in apiState ? apiState.api?.openapi : undefined;
     const tags = useTags(openapi);
     const groupedOperations = useGroupedOperations(openapi, tags);
 
@@ -95,7 +94,7 @@ export const APIPage: FunctionComponent = () => {
             <SidebarContent>
               { (apiState.isLoading || !apiState.api || groupedOperations.loading) ?
                   <Bullseye><Spinner /></Bullseye> :
-                  <ApiDoc openapi={apiState.api} groupedOperations={groupedOperations.value} /> }
+                  <ApiDoc openapi={openapi} groupedOperations={groupedOperations.value} /> }
             </SidebarContent>
           </Sidebar>
         </Page>

@@ -9,41 +9,47 @@ import {getCommand} from "./program.js";
 import { fileURLToPath } from 'url'
 import * as Eta from "eta"
 import SwaggerParser from "@apidevtools/swagger-parser";
-import {OpenAPI} from "openapi-types";
-import {canonicalize} from "json-canonicalize";
+import {OpenAPI, OpenAPIV3} from "openapi-types";
 import sortedJsonStringify from 'sorted-json-stringify';
+import {getDocumentationContents} from "./documentation";
+import {APIContent} from "@apidocs/common";
 
 interface Options {
-    discoveryFile: string;
+    inputDir: string;
     outputDir: string;
     skipApiFetch: boolean;
 }
 
-type BuildApi = {
+export type BuildApi = {
     path: Array<string>;
-    apiContent: object;
+    apiContent: APIContent;
     app: App;
+    group: Group;
     apiIsValid: boolean;
 }
 
 // output dir to place the openapi files
 const OUTPUT_APIS_DIR = 'apis';
+const CONTENT_FILE = 'content.json';
+// input discovery file
+const DISCOVERY_FILE = 'Discovery.yml';
 
 // How many files download at once (concurrency)
 const DOWNLOAD_AT_ONCE = 5;
 
-const getApiContent = async (discoveryPath: string, app: App, group: string, options: Options): Promise<string> => {
+const getOpenAPIContent = async (discoveryPath: string, app: App, group: string, options: Options): Promise<string> => {
     if (options.skipApiFetch) {
         const apiPath = path.resolve(
             options.outputDir,
             OUTPUT_APIS_DIR,
             group,
             app.id,
-            'openapi.json'
+            CONTENT_FILE
         );
 
         if (existsSync(apiPath)) {
-            return readFileSync(apiPath).toString();
+            const apiContents = readFileSync(apiPath).toString();
+            return JSON.stringify((JSON.parse(apiContents) as APIContent).openapi);
         }
 
         // Return an empty json if we don't have the file and we are not to fetch apis
@@ -66,8 +72,7 @@ const getApiContent = async (discoveryPath: string, app: App, group: string, opt
     }
 }
 
-const getDiscoveryPath = (options: Options): string => path.dirname(options.discoveryFile);
-const areCanonicallyEqual = (object1: object, object2: object) => canonicalize(object1) === canonicalize(object2);
+const getDiscoveryPath = (options: Options): string => options.inputDir;
 
 const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<BuildApi>> => Promise.all(groups
     .flatMap(group => group.apps
@@ -78,9 +83,9 @@ const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<Bui
                 let content = {};
                 let apiIsValid = false;
                 try {
-                    const apiContent = await getApiContent(getDiscoveryPath(options), app, group.id, options);
-                    content = JSON.parse(apiContent);
-                    await SwaggerParser.validate(JSON.parse(apiContent) as OpenAPI.Document);
+                    const openApiContent = await getOpenAPIContent(getDiscoveryPath(options), app, group.id, options);
+                    content = JSON.parse(openApiContent);
+                    await SwaggerParser.validate(JSON.parse(openApiContent) as OpenAPI.Document);
                     if ('openapi' in content && typeof content.openapi === 'string' && content.openapi.match(/^3(.\d(.\d)?)?/)) {
                         apiIsValid = true;
                     }
@@ -90,8 +95,12 @@ const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<Bui
 
                 return ({
                     path: [ group.id, app.id ],
-                    apiContent: content,
+                    apiContent: {
+                        openapi: content as OpenAPIV3.Document,
+                        extras: {}
+                    },
                     app,
+                    group,
                     apiIsValid
                 })
             });
@@ -128,7 +137,7 @@ const cleanUnusedApiFiles = (foundApis: Array<BuildApi>, options: Options) => {
         ));
 }
 
-const writeOpenApiFiles = (foundApis: Array<BuildApi>, options: Options) => {
+const writeApiContent = (foundApis: Array<BuildApi>, options: Options) => {
     foundApis.forEach(api => {
 
         if (!api.apiIsValid) {
@@ -147,31 +156,18 @@ const writeOpenApiFiles = (foundApis: Array<BuildApi>, options: Options) => {
             }
         );
 
-        // We are not writing the JSON file if the contents represent the same OpenAPI
         const destinationFile = path.resolve(
             options.outputDir,
             OUTPUT_APIS_DIR,
             ...api.path,
-            'openapi.json'
+            CONTENT_FILE
         );
 
-        let writeFile = true;
-        if (existsSync(destinationFile)) {
-            if (areCanonicallyEqual(
-                JSON.parse(readFileSync(destinationFile).toString()),
-                api.apiContent
-            )) {
-                writeFile = false;
-            }
-        }
-
-        if (writeFile) {
-            writeFileSync(
-                destinationFile,
-                // Store the json in a consistent way
-                sortedJsonStringify(api.apiContent, null, 2)
-            );
-        }
+        writeFileSync(
+            destinationFile,
+            // Store the json in a consistent way
+            sortedJsonStringify(api.apiContent, null, 2)
+        );
     });
 };
 
@@ -199,6 +195,16 @@ const writeTsTemplates = (foundApis: Array<BuildApi>, tags: Array<Tag>, options:
     );
 }
 
+const fetchDocumentationContents = (buildApis: ReadonlyArray<BuildApi>, options: Options) => {
+    buildApis.forEach(api => {
+        const contents = getDocumentationContents(api.group, api.app, options.inputDir);
+
+        if (Object.entries(contents).length > 0) {
+            (api.apiContent as any).extras = contents;
+        }
+    });
+}
+
 const filterTags = (tags: ReadonlyArray<Tag>, apis: ReadonlyArray<BuildApi>) => {
     return tags.filter(t => {
         // Only include tags that are in at least one api
@@ -207,11 +213,13 @@ const filterTags = (tags: ReadonlyArray<Tag>, apis: ReadonlyArray<BuildApi>) => 
 }
 
 export const execute = async (options: Options) => {
-    const discoveryContent = parse(readFileSync(options.discoveryFile).toString()) as Discovery;
+    const discoveryContent = parse(readFileSync(path.resolve(options.inputDir, DISCOVERY_FILE)).toString()) as Discovery;
 
     const buildApis: Array<BuildApi> = await downloadApis(discoveryContent.apis, options);
     cleanUnusedApiFiles(buildApis, options);
-    writeOpenApiFiles(buildApis, options);
+    fetchDocumentationContents(buildApis, options);
+    writeApiContent(buildApis, options);
+
 
     const tags = filterTags(discoveryContent.tags, buildApis);
 
@@ -225,6 +233,8 @@ if (process.argv) {
     if (nodePath === modulePath) {
         const command = getCommand();
         command.parse(process.argv);
+
+        console.log('Running with the following arguments', command.opts());
         execute(command.opts() as Options);
     }
 }

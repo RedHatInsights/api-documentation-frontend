@@ -1,0 +1,2014 @@
+{
+  "extras": {},
+  "openapi": {
+    "components": {
+      "examples": {
+        "400CreationExample": {
+          "value": {
+            "code": "RHACS-MGMT-103",
+            "href": "/api/rhacs/v1/errors/103",
+            "id": "103",
+            "kind": "Error",
+            "operation_id": "1iWIimqGcrDuL61aUxIZqBTqNRa",
+            "reason": "Synchronous action is not supported, use async=true parameter"
+          }
+        },
+        "400DeletionExample": {
+          "value": {
+            "code": "RHACS-MGMT-103",
+            "href": "/api/rhacs/v1/errors/103",
+            "id": "103",
+            "kind": "Error",
+            "operation_id": "1iWIimqGcrDuL61aUxIZqBTqNRa",
+            "reason": "Synchronous action is not supported, use async=true parameter"
+          }
+        },
+        "400InvalidQueryExample": {
+          "value": {
+            "code": "RHACS-MGMT-23",
+            "href": "/api/rhacs/v1/errors/23",
+            "id": "23",
+            "kind": "Error",
+            "operation_id": "1lWDGuybIrEnxrAem724gqkkiDv",
+            "reason": "Failed to parse search query: Unable to list Central requests for api_central_service: RHACS-MGMT-23: Failed to parse search query: Unsupported column name for search: 'id'. Supported column names are: region, name, cloud_provider, name, status. Query invalid: id = 123"
+          }
+        },
+        "400MissingParameterExample": {
+          "value": {
+            "code": "RHACS-MGMT-21",
+            "href": "/api/rhacs/v1/errors/21",
+            "id": "21",
+            "kind": "Error",
+            "operation_id": "1lWDGuybIrEnxrAem724gqkkiDv",
+            "reason": "missing path parameter: central id"
+          }
+        },
+        "401Example": {
+          "value": {
+            "code": "RHACS-MGMT-11",
+            "href": "/api/rhacs/v1/errors/11",
+            "id": "11",
+            "kind": "Error",
+            "operation_id": "1iY3UhEhwmXBpWPfI2lNekpd4ZD",
+            "reason": "Unable to verify JWT token: Required authorization token not found"
+          }
+        },
+        "403Example": {
+          "value": {
+            "code": "RHACS-MGMT-4",
+            "href": "/api/rhacs/v1/errors/4",
+            "id": "4",
+            "kind": "Error",
+            "operation_id": "1lY3UiEhznXBpWPfI2lNejpd4YC",
+            "reason": "User 'foo-bar' is not authorized to access the service."
+          }
+        },
+        "403MaxAllowedInstanceReachedExample": {
+          "value": {
+            "code": "RHACS-MGMT-5",
+            "href": "/api/rhacs/v1/errors/5",
+            "id": "5",
+            "kind": "Error",
+            "operation_id": "1lY3UiEkxnXBpVPeI2oNejd3XB",
+            "reason": "User 'foo-bar' has reached a maximum number of 6 allowed instances."
+          }
+        },
+        "403TermsNotAcceptedExample": {
+          "value": {
+            "code": "RHACS-MGMT-12",
+            "href": "/api/rhacs/v1/errors/12",
+            "id": "12",
+            "kind": "Error",
+            "operation_id": "kXCzWPeI2oXBpVPeI2LvF9jMQY",
+            "reason": "Required terms have not been accepted"
+          }
+        },
+        "404DeleteExample": {
+          "value": {
+            "code": "RHACS-MGMT-7",
+            "href": "/api/rhacs/v1/errors/7",
+            "id": "7",
+            "kind": "Error",
+            "operation_id": "1iYO7g2g6HTdUKUa2ksH82kQD3y",
+            "reason": "CentralResource with id='1iK3duVYIvv5YvLlyz1mGR3JyqN' not found"
+          }
+        },
+        "404Example": {
+          "value": {
+            "code": "RHACS-MGMT-7",
+            "href": "/api/rhacs/v1/errors/7",
+            "id": "7",
+            "kind": "Error",
+            "reason": "The requested resource doesn't exist"
+          }
+        },
+        "409NameConflictExample": {
+          "value": {
+            "code": "RHACS-MGMT-36",
+            "href": "/api/rhacs/v1/errors/36",
+            "id": "36",
+            "kind": "Error",
+            "operation_id": "6kY0UiEkzkXCzWPeI2oYehd3ED",
+            "reason": "Cental name is already used"
+          }
+        },
+        "500DeleteExample": {
+          "value": {
+            "code": "RHACS-MGMT-9",
+            "href": "/api/rhacs/v1/errors/9",
+            "id": "9",
+            "kind": "Error",
+            "operation_id": "1iYTsWry6nsqb2sNmFj5bXpD7Ca",
+            "reason": "error deleting syncset: OCM-EX-9: failed to delete syncset: ext-serviceapi-1ix03lndlmq0qfc7sita5sljv8e for cluster id: 1g5d88q0lrcdv4g7alb7slfgnj3dhbsj%!(EXTRA *errors.Error=identifier is '404', code is 'CLUSTERS-MGMT-404' and operation identifier is '1g5or50viu07oealuehrkc26dgftj1ac': Cluster '1g5d88q0lrcdv4g7alb7slfgnj3dhbsj' not found)"
+          }
+        },
+        "500Example": {
+          "value": {
+            "code": "RHACS-MGMT-9",
+            "href": "/api/rhacs/v1/errors/9",
+            "id": "9",
+            "kind": "Error",
+            "operation_id": "1ieELvF9jMQY6YghfM9gGRsHvEW",
+            "reason": "Unspecified error"
+          }
+        },
+        "CentralRequestExample": {
+          "value": {
+            "centralDataURL": "https://rhacs-data-a3a9c5b9-0283-4ff8-9b9e-da2209da17c3.example.rhacs.com",
+            "centralUIURL": "https://rhacs-a3a9c5b9-0283-4ff8-9b9e-da2209da17c3.example.rhacs.com",
+            "cloud_provider": "aws",
+            "created_at": "2020-10-05T12:51:24.053142Z",
+            "href": "/api/rhacs/v1/centrals/a3a9c5b9-0283-4ff8-9b9e-da2209da17c3",
+            "id": "a3a9c5b9-0283-4ff8-9b9e-da2209da17c3",
+            "instance_type": "standard",
+            "kind": "central",
+            "multi_az": true,
+            "name": "serviceapi",
+            "owner": "api_central_service",
+            "region": "us-east-1",
+            "status": "ready",
+            "updated_at": "2020-10-05T12:56:36.362208Z",
+            "version": "2.6.0"
+          }
+        },
+        "CentralRequestFailedCreationStatusExample": {
+          "value": {
+            "centralDataURL": "https://rhacs-data-a3a9c5b9-0283-4ff8-9b9e-da2209da17c3.example.rhacs.com",
+            "centralUIURL": "https://rhacs-a3a9c5b9-0283-4ff8-9b9e-da2209da17c3.example.rhacs.com",
+            "cloud_provider": "aws",
+            "created_at": "2020-10-05T12:51:24.053142Z",
+            "failed_reason": "a reason the Central request creation failed",
+            "href": "/api/rhacs/v1/centrals/a3a9c5b9-0283-4ff8-9b9e-da2209da17c3",
+            "id": "a3a9c5b9-0283-4ff8-9b9e-da2209da17c3",
+            "instance_type": "standard",
+            "kind": "central",
+            "multi_az": true,
+            "name": "serviceapi",
+            "owner": "api_central_service",
+            "region": "us-east-1",
+            "status": "failed",
+            "updated_at": "2020-10-05T12:56:36.362208Z"
+          }
+        },
+        "CentralRequestListExample": {
+          "value": {
+            "items": [
+              {
+                "centralDataURL": "https://rhacs-data-a3a9c5b9-0283-4ff8-9b9e-da2209da17c3.example.rhacs.com",
+                "centralUIURL": "https://rhacs-a3a9c5b9-0283-4ff8-9b9e-da2209da17c3.example.rhacs.com",
+                "cloud_provider": "aws",
+                "created_at": "2020-10-05T12:51:24.053142Z",
+                "href": "/api/rhacs/v1/centrals/a3a9c5b9-0283-4ff8-9b9e-da2209da17c3",
+                "id": "a3a9c5b9-0283-4ff8-9b9e-da2209da17c3",
+                "instance_type": "standard",
+                "kind": "central",
+                "multi_az": true,
+                "name": "serviceapi",
+                "owner": "alice",
+                "region": "us-east-1",
+                "status": "ready",
+                "updated_at": "2020-10-05T12:56:36.362208Z",
+                "version": "2.6.0"
+              }
+            ],
+            "kind": "CentralRequestList",
+            "page": "1",
+            "size": "1",
+            "total": "1"
+          }
+        },
+        "CloudAccountsList": {
+          "value": {
+            "cloudAccounts": [
+              {
+                "cloudAccountId": "cloudAccountId",
+                "cloudProviderId": "cloudProviderId"
+              }
+            ]
+          }
+        },
+        "CloudProviderExample": {
+          "value": {
+            "display_name": "Amazon Web Services",
+            "enabled": true,
+            "id": "aws",
+            "kind": "CloudProvider",
+            "name": "aws"
+          }
+        },
+        "CloudRegionExample": {
+          "value": {
+            "display_name": "US East, N. Virginia",
+            "enabled": true,
+            "id": "us-east-1",
+            "kind": "CloudRegion",
+            "supported_instance_types": [
+              "standard",
+              "eval"
+            ]
+          }
+        },
+        "EURegionExample": {
+          "value": {
+            "cloud_provider": "aws",
+            "name": "serviceapitest",
+            "region": "eu-west-1"
+          }
+        },
+        "MetricsInstantQueryExample": {
+          "value": {
+            "metric": {
+              "__name__": "central_server_brokertopicmetrics_bytes_in_total",
+              "central_operator_io_cluster": "central-service",
+              "topic": "__consumer_offsets"
+            },
+            "timestamp": 1611670230000,
+            "value": 84154
+          }
+        },
+        "MetricsRangeQueryExample": {
+          "value": {
+            "metric": {
+              "__name__": "central_server_brokertopicmetrics_bytes_in_total",
+              "central_operator_io_cluster": "central-service",
+              "topic": "__consumer_offsets"
+            },
+            "values": [
+              {
+                "timestamp": 1611670230000,
+                "value": 84154
+              },
+              {
+                "timestamp": 1611670260000,
+                "value": 85888
+              },
+              {
+                "timestamp": 1611670290000,
+                "value": 87622
+              }
+            ]
+          }
+        },
+        "USRegionExample": {
+          "value": {
+            "cloud_provider": "aws",
+            "name": "serviceapitest",
+            "region": "us-east-1"
+          }
+        }
+      },
+      "parameters": {
+        "duration": {
+          "description": "The length of time in minutes for which to return the metrics",
+          "examples": {
+            "duration": {
+              "value": 5
+            }
+          },
+          "in": "query",
+          "name": "duration",
+          "required": true,
+          "schema": {
+            "default": 5,
+            "format": "int64",
+            "maximum": 4320,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "filters": {
+          "description": "List of metrics to fetch. Fetch all metrics when empty. List entries are Central internal metric names.",
+          "in": "query",
+          "name": "filters",
+          "schema": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "id": {
+          "description": "The ID of record",
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        "instance_type": {
+          "description": "The Central instance type to filter the results by",
+          "examples": {
+            "eval_instance_type": {
+              "value": "eval"
+            },
+            "standard_instance_type": {
+              "value": "standard"
+            }
+          },
+          "in": "query",
+          "name": "instance_type",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        "interval": {
+          "description": "The interval in seconds between data points",
+          "examples": {
+            "interval": {
+              "value": 30
+            }
+          },
+          "in": "query",
+          "name": "interval",
+          "required": true,
+          "schema": {
+            "default": 30,
+            "format": "int64",
+            "maximum": 10800,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        "orderBy": {
+          "description": "Specifies the order by criteria. The syntax of this parameter is\nsimilar to the syntax of the `order by` clause of an SQL statement.\nEach query can be ordered by any of the following `centralRequests` fields:\n\n* centralUIURL\n* centralDataURL\n* cloud_provider\n* cluster_id\n* created_at\n* href\n* id\n* instance_type\n* multi_az\n* name\n* organisation_id\n* owner\n* region\n* status\n* updated_at\n* version\n\nFor example, to return all Central instances ordered by their name, use the following syntax:\n\n```sql\nname asc\n```\n\nTo return all Central instances ordered by their name _and_ created date, use the following syntax:\n\n```sql\nname asc, created_at asc\n```\n\nIf the parameter isn't provided, or if the value is empty, then\nthe results are ordered by name.",
+          "examples": {
+            "orderBy": {
+              "value": "name asc"
+            }
+          },
+          "explode": true,
+          "in": "query",
+          "name": "orderBy",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "style": "form"
+        },
+        "page": {
+          "description": "Page index",
+          "examples": {
+            "page": {
+              "value": "1"
+            }
+          },
+          "in": "query",
+          "name": "page",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        "search": {
+          "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are `cloud_provider`, `name`, `owner`, `region`, and `status`. Allowed comparators are `<>`, `=`, or `LIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\nTo return a Central instance with the name `my-central` and the region `aws`, use the following syntax:\n\n```\nname = my-central and cloud_provider = aws\n```[p-]\n\nTo return a Central instance with a name that starts with `my`, use the following syntax:\n\n```\nname like my%25\n```\n\nIf the parameter isn't provided, or if the value is empty, then all the Central instances\nthat the user has permission to see are returned.\n\nNote. If the query is invalid, an error is returned.\n",
+          "examples": {
+            "search": {
+              "value": "name = my-central and cloud_provider = aws"
+            }
+          },
+          "explode": true,
+          "in": "query",
+          "name": "search",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "style": "form"
+        },
+        "size": {
+          "description": "Number of items in each page",
+          "examples": {
+            "size": {
+              "value": "100"
+            }
+          },
+          "in": "query",
+          "name": "size",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
+      "schemas": {
+        "CentralRequest": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "example": {
+                "$ref": "#/components/examples/CentralRequestExample"
+              },
+              "properties": {
+                "centralDataURL": {
+                  "type": "string"
+                },
+                "centralUIURL": {
+                  "type": "string"
+                },
+                "cloud_account_id": {
+                  "description": "Cloud Account ID",
+                  "type": "string"
+                },
+                "cloud_provider": {
+                  "description": "Name of Cloud used to deploy. For example AWS",
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "failed_reason": {
+                  "type": "string"
+                },
+                "instance_type": {
+                  "type": "string"
+                },
+                "multi_az": {
+                  "type": "boolean"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "region": {
+                  "description": "Values will be regions of specific cloud provider. For example: us-east-1 for AWS",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Values: [accepted, preparing, provisioning, ready, failed, deprovision, deleting] ",
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "version": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "multi_az"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "CentralRequestList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "example": {
+                "item": {
+                  "$ref": "#/components/examples/CentralRequestExample"
+                },
+                "kind": "CentralRequestList",
+                "page": "1",
+                "size": "1",
+                "total": "1"
+              },
+              "properties": {
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/CentralRequest"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "CentralRequestPayload": {
+          "description": "Schema for the request body sent to /centrals POST",
+          "properties": {
+            "central": {
+              "$ref": "#/components/schemas/CentralSpec"
+            },
+            "cloud_account_id": {
+              "description": "The cloud account ID that is linked to the ACS instance",
+              "type": "string"
+            },
+            "cloud_provider": {
+              "description": "The cloud provider where the Central component will be created in",
+              "type": "string"
+            },
+            "multi_az": {
+              "description": "Set this to true to configure the Central component to be multiAZ",
+              "type": "boolean"
+            },
+            "name": {
+              "description": "The name of the Central component. It must consist of lower-case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character, and can not be longer than 32 characters.",
+              "type": "string"
+            },
+            "region": {
+              "description": "The region where the Central component cluster will be created in",
+              "type": "string"
+            },
+            "scanner": {
+              "$ref": "#/components/schemas/ScannerSpec"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "CentralSpec": {
+          "properties": {
+            "resources": {
+              "$ref": "#/components/schemas/ResourceRequirements"
+            }
+          },
+          "type": "object"
+        },
+        "CloudAccount": {
+          "properties": {
+            "cloudAccountId": {
+              "type": "string"
+            },
+            "cloudProviderId": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "CloudAccountsList": {
+          "properties": {
+            "cloudAccounts": {
+              "items": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CloudAccount"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "CloudProvider": {
+          "description": "Cloud provider.",
+          "properties": {
+            "display_name": {
+              "description": "Name of the cloud provider for display purposes.",
+              "type": "string"
+            },
+            "enabled": {
+              "description": "Whether the cloud provider is enabled for deploying an OSD cluster.",
+              "type": "boolean"
+            },
+            "id": {
+              "description": "Unique identifier of the object.",
+              "type": "string"
+            },
+            "kind": {
+              "description": "Indicates the type of this object. Will be 'CloudProvider' link.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Human friendly identifier of the cloud provider, for example `aws`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "enabled"
+          ]
+        },
+        "CloudProviderList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "example": {
+                "item": {
+                  "$ref": "#/components/examples/CloudProviderExample"
+                },
+                "kind": "CloudProviderList",
+                "page": "1",
+                "size": "1",
+                "total": "1"
+              },
+              "properties": {
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/CloudProvider"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "CloudRegion": {
+          "description": "Description of a region of a cloud provider.",
+          "properties": {
+            "display_name": {
+              "description": "Name of the region for display purposes, for example `N. Virginia`.",
+              "type": "string"
+            },
+            "enabled": {
+              "default": false,
+              "description": "Whether the region is enabled for deploying an OSD cluster.",
+              "type": "boolean"
+            },
+            "id": {
+              "description": "Unique identifier of the object.",
+              "type": "string"
+            },
+            "kind": {
+              "description": "Indicates the type of this object. Will be 'CloudRegion'.",
+              "type": "string"
+            },
+            "supported_instance_types": {
+              "description": "The Central component instance types supported by this region.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "enabled",
+            "supported_instance_types"
+          ]
+        },
+        "CloudRegionList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "example": {
+                "item": {
+                  "$ref": "#/components/examples/CloudRegionExample"
+                },
+                "kind": "CloudRegionList",
+                "page": "1",
+                "size": "1",
+                "total": "1"
+              },
+              "properties": {
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/CloudRegion"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "Error": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "operation_id": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "ErrorList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "InstantQuery": {
+          "properties": {
+            "metric": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "timestamp": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "value": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        },
+        "List": {
+          "properties": {
+            "kind": {
+              "type": "string"
+            },
+            "page": {
+              "type": "integer"
+            },
+            "size": {
+              "type": "integer"
+            },
+            "total": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "page",
+            "size",
+            "total",
+            "items"
+          ],
+          "type": "object"
+        },
+        "MetricsFederationResult": {
+          "type": "string"
+        },
+        "MetricsInstantQueryList": {
+          "allOf": [
+            {
+              "example": {
+                "id": "1nbpS70HduPe4l0to8jSg2CLzfu",
+                "items": {
+                  "$ref": "#/components/examples/MetricsInstantQueryExample"
+                },
+                "kind": "MetricsInstantQueryList"
+              },
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/InstantQuery"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "kind": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "MetricsRangeQueryList": {
+          "allOf": [
+            {
+              "example": {
+                "id": "1nbpS70HduPe4l0to8jSg2CLzfu",
+                "items": {
+                  "$ref": "#/components/examples/MetricsRangeQueryExample"
+                },
+                "kind": "MetricsRangeQueryList"
+              },
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/RangeQuery"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                },
+                "kind": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "ObjectReference": {
+          "properties": {
+            "href": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "RangeQuery": {
+          "properties": {
+            "metric": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "values": {
+              "items": {
+                "$ref": "#/components/schemas/values"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "ResourceList": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "ResourceRequirements": {
+          "properties": {
+            "limits": {
+              "$ref": "#/components/schemas/ResourceList"
+            },
+            "requests": {
+              "$ref": "#/components/schemas/ResourceList"
+            }
+          },
+          "type": "object"
+        },
+        "ScannerSpec": {
+          "properties": {
+            "analyzer": {
+              "properties": {
+                "resources": {
+                  "$ref": "#/components/schemas/ResourceRequirements"
+                },
+                "scaling": {
+                  "properties": {
+                    "autoScaling": {
+                      "type": "string"
+                    },
+                    "maxReplicas": {
+                      "format": "int32",
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "minReplicas": {
+                      "format": "int32",
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "replicas": {
+                      "format": "int32",
+                      "minimum": 1,
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "db": {
+              "properties": {
+                "resources": {
+                  "$ref": "#/components/schemas/ResourceRequirements"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "ServiceStatus": {
+          "description": "Schema for the service status response body",
+          "example": {
+            "centrals": {
+              "max_capacity_reached": true
+            }
+          },
+          "properties": {
+            "centrals": {
+              "description": "The RHACS resource api status",
+              "properties": {
+                "max_capacity_reached": {
+                  "description": "Indicates whether maximum service capacity has been reached",
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "max_capacity_reached"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "VersionMetadata": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "example": {
+                "collections": [
+                  {
+                    "href": "/api/rhacs/v1/centrals",
+                    "id": "centrals",
+                    "kind": "CentralList"
+                  }
+                ],
+                "href": "/api/rhacs/v1",
+                "id": "v1",
+                "kind": "APIVersion"
+              },
+              "properties": {
+                "collections": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/ObjectReference"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "values": {
+          "properties": {
+            "timestamp": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "value": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "type": "object"
+        }
+      },
+      "securitySchemes": {
+        "Bearer": {
+          "bearerFormat": "JWT",
+          "scheme": "bearer",
+          "type": "http"
+        }
+      }
+    },
+    "info": {
+      "description": "Red Hat Advanced Cluster Security (RHACS) Service Fleet Manager is a Rest API to manage instances of ACS components.",
+      "title": "Red Hat Advanced Cluster Security Service Fleet Manager",
+      "version": "1.2.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+      "/api/rhacs/v1": {
+        "get": {
+          "operationId": "getVersionMetadata",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/VersionMetadata"
+                  }
+                }
+              },
+              "description": "Version metadata"
+            }
+          },
+          "summary": "Returns the version metadata"
+        }
+      },
+      "/api/rhacs/v1/centrals": {
+        "get": {
+          "description": "Only returns those centrals that are owned by the organisation of the user authenticated for the request.",
+          "operationId": "getCentrals",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/orderBy"
+            },
+            {
+              "$ref": "#/components/parameters/search"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "CentralRequestListExample": {
+                      "$ref": "#/components/examples/CentralRequestListExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/CentralRequestList"
+                  }
+                }
+              },
+              "description": "A list of Central requests"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "InvalidQueryExample": {
+                      "$ref": "#/components/examples/400InvalidQueryExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "403Example": {
+                      "$ref": "#/components/examples/403Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "User not authorized to access the service"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns a list of Central requests"
+        },
+        "post": {
+          "description": "Each central has a single owner organisation and a single owner user. Creates a new Central that is owned by the user and organisation authenticated for the request.",
+          "operationId": "createCentral",
+          "parameters": [
+            {
+              "description": "Perform the action in an asynchronous manner",
+              "in": "query",
+              "name": "async",
+              "required": true,
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EURegion": {
+                    "$ref": "#/components/examples/EURegionExample"
+                  },
+                  "USRegion": {
+                    "$ref": "#/components/examples/USRegionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/CentralRequestPayload"
+                }
+              }
+            },
+            "description": "Central data",
+            "required": true
+          },
+          "responses": {
+            "202": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "CentralRequestPostResponseExample": {
+                      "$ref": "#/components/examples/CentralRequestExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/CentralRequest"
+                  }
+                }
+              },
+              "description": "Accepted"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "400CreationExample": {
+                      "$ref": "#/components/examples/400CreationExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "403Example": {
+                      "$ref": "#/components/examples/403Example"
+                    },
+                    "403MaxAllowedInstanceReachedExample": {
+                      "$ref": "#/components/examples/403MaxAllowedInstanceReachedExample"
+                    },
+                    "403TermsNotAcceptedExample": {
+                      "$ref": "#/components/examples/403TermsNotAcceptedExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "User forbidden either because the user is not authorized to access the service or because the maximum number of instances that can be created by this user has been reached."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "404Example": {
+                      "$ref": "#/components/examples/404Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "The requested resource doesn't exist"
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "409NameConflictExample": {
+                      "$ref": "#/components/examples/409NameConflictExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "A conflict has been detected in the creation of this resource"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred while creating the Central request"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Creates a Central request"
+        }
+      },
+      "/api/rhacs/v1/centrals/{id}": {
+        "delete": {
+          "description": "The only users authorized for this operation are:\n1) The administrator of the owner organisation of the specified Central.\n2) The owner user, and only if it is also part of the owner organisation of the specified Central.\n",
+          "operationId": "deleteCentralById",
+          "parameters": [
+            {
+              "description": "Perform the action in an asynchronous manner",
+              "in": "query",
+              "name": "async",
+              "required": true,
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          ],
+          "responses": {
+            "202": {
+              "description": "Deleted"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "400DeletionExample": {
+                      "$ref": "#/components/examples/400DeletionExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "403Example": {
+                      "$ref": "#/components/examples/403Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "User not authorized to access the service"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "404DeleteExample": {
+                      "$ref": "#/components/examples/404DeleteExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No Central request with specified ID exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500DeleteExample": {
+                      "$ref": "#/components/examples/500DeleteExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Deletes a Central request by ID"
+        },
+        "get": {
+          "description": "This operation is only authorized to users in the same organisation as the owner organisation of the specified Central.",
+          "operationId": "getCentralById",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "CentralRequestGetResponseExample": {
+                      "$ref": "#/components/examples/CentralRequestExample"
+                    },
+                    "CentralRequestGetResponseWithFailedCreationStatusExample": {
+                      "$ref": "#/components/examples/CentralRequestFailedCreationStatusExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/CentralRequest"
+                  }
+                }
+              },
+              "description": "Central request found by ID"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "403Example": {
+                      "$ref": "#/components/examples/403Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "User not authorized to access the service"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "404Example": {
+                      "$ref": "#/components/examples/404Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No Central request with specified ID exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns a Central request by ID"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ]
+      },
+      "/api/rhacs/v1/centrals/{id}/metrics/federate": {
+        "get": {
+          "operationId": "federateMetrics",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Returned Central metrics in a Prometheus text format"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "MissingParameterExample": {
+                      "$ref": "#/components/examples/400MissingParameterExample"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "404Example": {
+                      "$ref": "#/components/examples/404Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Central ID not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns all metrics in scrapeable format for a given Central ID"
+        }
+      },
+      "/api/rhacs/v1/centrals/{id}/metrics/query": {
+        "get": {
+          "operationId": "getMetricsByInstantQuery",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            },
+            {
+              "$ref": "#/components/parameters/filters"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/MetricsInstantQueryList"
+                  }
+                }
+              },
+              "description": "Returned JSON array of Prometheus metrics objects from observatorium"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns metrics with instant query by Central ID"
+        }
+      },
+      "/api/rhacs/v1/centrals/{id}/metrics/query_range": {
+        "get": {
+          "operationId": "getMetricsByRangeQuery",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            },
+            {
+              "$ref": "#/components/parameters/duration"
+            },
+            {
+              "$ref": "#/components/parameters/interval"
+            },
+            {
+              "$ref": "#/components/parameters/filters"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/MetricsRangeQueryList"
+                  }
+                }
+              },
+              "description": "Returned JSON array of Prometheus metrics objects from observatorium"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns metrics with timeseries range query by Central ID"
+        }
+      },
+      "/api/rhacs/v1/cloud_accounts": {
+        "get": {
+          "operationId": "getCloudAccounts",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CloudAccountsList"
+                  }
+                }
+              },
+              "description": "Returned list of supported cloud provider regions"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns the list of cloud accounts which belong to user's organization"
+        }
+      },
+      "/api/rhacs/v1/cloud_providers": {
+        "get": {
+          "operationId": "getCloudProviders",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CloudProviderList"
+                  }
+                }
+              },
+              "description": "Returned list of supported cloud providers"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns the list of supported cloud providers"
+        }
+      },
+      "/api/rhacs/v1/cloud_providers/{id}/regions": {
+        "get": {
+          "operationId": "getCloudProviderRegions",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            },
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/instance_type"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CloudRegionList"
+                  }
+                }
+              },
+              "description": "Returned list of supported cloud provider regions"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "401Example": {
+                      "$ref": "#/components/examples/401Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns the list of supported regions of the supported cloud provider"
+        }
+      },
+      "/api/rhacs/v1/errors": {
+        "get": {
+          "operationId": "getErrors",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorList"
+                  }
+                }
+              },
+              "description": "List of possible errors"
+            }
+          },
+          "summary": "Returns the list of possible API errors",
+          "tags": [
+            "errors"
+          ]
+        }
+      },
+      "/api/rhacs/v1/errors/{id}": {
+        "get": {
+          "operationId": "getErrorById",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Get error by Id"
+            }
+          },
+          "summary": "Returns the error by id",
+          "tags": [
+            "errors"
+          ]
+        }
+      },
+      "/api/rhacs/v1/status": {
+        "get": {
+          "operationId": "getServiceStatus",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ServiceStatus"
+                  }
+                }
+              },
+              "description": "Ok"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "500Example": {
+                      "$ref": "#/components/examples/500Example"
+                    }
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Returns the status of resources, such as whether maximum service capacity has been reached"
+        }
+      }
+    },
+    "servers": [
+      {
+        "description": "Main (production) server",
+        "url": "https://api.openshift.com"
+      },
+      {
+        "description": "Staging server",
+        "url": "https://api.stage.openshift.com"
+      },
+      {
+        "description": "localhost",
+        "url": "http://localhost:8000"
+      },
+      {
+        "description": "current domain",
+        "url": "/"
+      }
+    ]
+  }
+}

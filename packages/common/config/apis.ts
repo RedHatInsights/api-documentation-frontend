@@ -3,29 +3,7 @@
 
 import { OpenAPIV3 } from "openapi-types";
 
-import { APIConfigurationIcons } from "./APIConfigurationIcons";
-
-export interface APIConfiguration {
-  id: string;
-  displayName: string;
-  icon: keyof typeof APIConfigurationIcons;
-  description: string;
-  apiPath: string;
-  getApi: () => Promise<OpenAPIV3.Document>;
-  tags: ReadonlyArray<Readonly<APILabel>>;
-}
-
-export interface DevRedHatTaxonomy {
-  topic?: string;
-  product?: string;
-}
-
-export interface APILabel {
-  id: string;
-  name: string;
-  type: "use-case" | "service" | "platform";
-  devRedHatTaxonomy: DevRedHatTaxonomy;
-}
+import { APIConfiguration, APIContent, APILabel } from "../types";
 
 export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   ansible: {
@@ -167,10 +145,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API of the Advisor project in Insights",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/insights-advisor/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/insights-advisor/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/insights-advisor/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["rhel"],
       apiLabelsMap["insights"],
@@ -183,10 +161,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Fetch, upload, organize, and distribute Ansible Collections",
     icon: "AnsibleIcon",
     apiPath: "./apis/hcc-insights/automation-hub/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/automation-hub/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/automation-hub/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
   },
   {
@@ -196,10 +174,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Assess, monitor, and report on the security-policy compliance of RHEL systems",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/compliance/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/compliance/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/compliance/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["insights"],
       apiLabelsMap["observe"],
@@ -213,10 +191,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Project Koku and OpenShift cost management",
     icon: "OpenShiftIcon",
     apiPath: "./apis/hcc-insights/cost-management/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/cost-management/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/cost-management/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["spend-management"], apiLabelsMap["insights"]],
   },
   {
@@ -225,10 +203,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that returns differences between systems",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/drift/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/drift/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/drift/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["ansible"],
       apiLabelsMap["rhel"],
@@ -243,10 +221,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that returns system baselines",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/system-baseline/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/system-baseline/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/system-baseline/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["ansible"],
       apiLabelsMap["rhel"],
@@ -261,10 +239,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that returns system baselines",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/historical-system-profiles/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/historical-system-profiles/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/historical-system-profiles/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["ansible"],
       apiLabelsMap["rhel"],
@@ -280,10 +258,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service to enable users to export data in specific formats (JSON or CSV)",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/export-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/export-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/export-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["insights"]],
   },
   {
@@ -292,10 +270,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that relays image build requests",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/image-builder/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/image-builder/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/image-builder/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["deploy"], apiLabelsMap["insights"]],
   },
   {
@@ -304,10 +282,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Integrations",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/integrations/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/integrations/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/integrations/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["integrations-and-notifications"]],
   },
   {
@@ -317,10 +295,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Use predefined Integrations with cloud providers to Launch Image builder images into hyperscalers",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/launch/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/launch/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/launch/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["deploy"],
       apiLabelsMap["insights"],
@@ -334,10 +312,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "REST interface for the Insights Platform Host Inventory application",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/inventory/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/inventory/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/inventory/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["inventories"],
       apiLabelsMap["rhel"],
@@ -350,10 +328,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Notifications",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/notifications/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/notifications/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/notifications/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["integrations-and-notifications"]],
   },
   {
@@ -362,10 +340,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Gathering Conditions Services to Insights Operator",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/gathering/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/gathering/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/gathering/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["infrastructure"], apiLabelsMap["openshift"]],
   },
   {
@@ -374,10 +352,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "console.redhat.com Payload Ingress Service",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/payload_ingress/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/payload_ingress/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/payload_ingress/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["insights"]],
   },
   {
@@ -387,10 +365,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Aggregation service for the results of running Insights rules",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/insights-results-aggregator_v1/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/insights-results-aggregator_v1/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/insights-results-aggregator_v1/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["infrastructure"],
       apiLabelsMap["openshift"],
@@ -404,10 +382,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Aggregation service for the results of running Insights rules",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/insights-results-aggregator_v2/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/insights-results-aggregator_v2/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/insights-results-aggregator_v2/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["infrastructure"],
       apiLabelsMap["openshift"],
@@ -420,10 +398,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "API of the Patch application on console.redhat.com",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/patch/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/patch/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/patch/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["security"],
       apiLabelsMap["rhel"],
@@ -438,10 +416,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service for running Ansible Playbooks on hosts connected via Cloud Connector",
     icon: "AnsibleIcon",
     apiPath: "./apis/hcc-insights/playbook-dispatcher/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/playbook-dispatcher/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/playbook-dispatcher/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["insights"], apiLabelsMap["rhel"]],
   },
   {
@@ -450,10 +428,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Policies",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/policies/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/policies/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/policies/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["ansible"],
       apiLabelsMap["rhel"],
@@ -467,10 +445,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Insights Remediations Service",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/remediations/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/remediations/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/remediations/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["automation"],
       apiLabelsMap["rhel"],
@@ -486,10 +464,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Flask Backend API for Resource Optimization Service",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/ros/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/ros/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/ros/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["observe"],
       apiLabelsMap["rhel"],
@@ -502,10 +480,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Manage sources of content to use within console.redhat.com",
     icon: "InsightsIcon",
     apiPath: "./apis/hcc-insights/repositories/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/repositories/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/repositories/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["deploy"],
       apiLabelsMap["insights"],
@@ -518,10 +496,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "RHEL for Edge API",
     icon: "EdgeIcon",
     apiPath: "./apis/hcc-insights/edge/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/edge/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/edge/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["edge"], apiLabelsMap["rhel"]],
   },
   {
@@ -530,10 +508,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Role Based Access Control",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/rbac/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/rbac/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/rbac/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["identity-and-access-management"]],
   },
   {
@@ -542,10 +520,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Sources API",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/sources/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/sources/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/sources/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["identity-and-access-management"]],
   },
   {
@@ -554,10 +532,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "REST interface for the rhsm-subscriptions service",
     icon: "SubscriptionsIcon",
     apiPath: "./apis/hcc-insights/rhsm-subscriptions/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/rhsm-subscriptions/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/rhsm-subscriptions/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["inventories"],
       apiLabelsMap["openshift"],
@@ -571,10 +549,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Vulnerability API",
     icon: "GenericIcon",
     apiPath: "./apis/hcc-insights/vulnerability/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/hcc-insights/vulnerability/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/hcc-insights/vulnerability/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["observe"],
       apiLabelsMap["security"],
@@ -588,10 +566,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Manage user subscriptions and clusters",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/accounts-management-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/accounts-management-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/accounts-management-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -600,10 +578,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Assisted installation",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/assisted-install-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/assisted-install-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/assisted-install-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -612,10 +590,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Enables access control on resources of OCM services",
     icon: "OpenShiftIcon",
     apiPath: "./apis/openshift/authorization-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/authorization-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/authorization-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -624,10 +602,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Connector Management API is a REST API to manage connectors",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/connector-management/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/connector-management/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/connector-management/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -637,10 +615,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiPath:
       "./apis/openshift/kafka-service-fleet-manager-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/kafka-service-fleet-manager-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/kafka-service-fleet-manager-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -649,10 +627,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Rest API to manage instances of ACS components",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/rhacs-service-fleet-manager/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/rhacs-service-fleet-manager/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/rhacs-service-fleet-manager/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -662,10 +640,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Receives and maintains logs from internal sources related to OpenShift clusters",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/service-logs/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/service-logs/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/service-logs/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -675,10 +653,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service Registry Management API is a REST API for managing Service Registry instances",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/service-registry-management/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/service-registry-management/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/service-registry-management/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -687,10 +665,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Upgrades Information Service API",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/upgrades-information-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/upgrades-information-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/upgrades-information-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -699,10 +677,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "OCP Vulnerability API",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/ocp-vulnerability/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/ocp-vulnerability/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/ocp-vulnerability/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["insights"],
       apiLabelsMap["observe"],
@@ -716,10 +694,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Web-RCA Service API",
     icon: "GenericIcon",
     apiPath: "./apis/openshift/web-rca-service/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/openshift/web-rca-service/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/openshift/web-rca-service/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
@@ -728,10 +706,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Support Services Case Management API",
     icon: "GenericIcon",
     apiPath: "./apis/access/case-management/openapi.json",
-    getApi: () =>
+    getApiContent: () =>
       import(
-        "./apis/access/case-management/openapi.json"
-      ) as unknown as Promise<OpenAPIV3.Document>,
+        "./apis/access/case-management/content.json"
+      ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["ansible"],
       apiLabelsMap["rhel"],

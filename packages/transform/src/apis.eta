@@ -3,29 +3,7 @@
 
 import {OpenAPIV3} from "openapi-types";
 
-import {APIConfigurationIcons} from './APIConfigurationIcons';
-
-export interface APIConfiguration {
-    id: string;
-    displayName: string;
-    icon:  keyof typeof APIConfigurationIcons;
-    description: string;
-    apiPath: string;
-    getApi: () => Promise<OpenAPIV3.Document>;
-    tags: ReadonlyArray<Readonly<APILabel>>;
-}
-
-export interface DevRedHatTaxonomy {
-    topic?: string;
-    product?: string;
-}
-
-export interface APILabel {
-    id: string;
-    name: string;
-    type: 'use-case' | 'service' | 'platform';
-    devRedHatTaxonomy: DevRedHatTaxonomy;
-}
+import {APIConfiguration, APIContent, APILabel} from "../types";
 
 export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   <% it.tags.forEach(tag => { %>
@@ -48,7 +26,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
         description: '<%= api.app.description %>',
         icon: '<%~ E.includeFile('icon', {icon: api.app.icon}) %>',
         apiPath: './apis/<%=api.path.join('/')%>/openapi.json',
-        getApi: () => import('./apis/<%=api.path.join('/')%>/openapi.json') as unknown as Promise<OpenAPIV3.Document>,
+        getApiContent: () => import('./apis/<%=api.path.join('/')%>/content.json') as unknown as Promise<APIContent>,
         tags: [
             <% api.app.tags.forEach(function(tag){ %>
                 apiLabelsMap['<%= tag %>'],

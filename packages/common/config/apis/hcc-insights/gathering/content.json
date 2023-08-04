@@ -1,0 +1,288 @@
+{
+  "extras": {},
+  "openapi": {
+    "info": {
+      "contact": {},
+      "description": "Gathering Conditions Services to Insights Operator.",
+      "title": "Insights Operator Gathering Conditions Service",
+      "version": "0.1"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+      "/gathering_rules": {
+        "description": "This endpoint returns an array of the available rules stored. This array contains the conditions and gathering functions for the Insights Operator. These rules are used in https://github.com/openshift/insights-operator/blob/master/pkg/gatherers/conditional/conditional_gatherer.go.",
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "List of rules": {
+                      "value": {
+                        "rules": [
+                          {
+                            "conditions": [
+                              {
+                                "alert": {
+                                  "name": "SamplesImagestreamImportFailing"
+                                },
+                                "type": "alert_is_firing"
+                              }
+                            ],
+                            "gathering_functions": {
+                              "image_streams_of_namespace": {
+                                "namespace": "openshift-cluster-samples-operator"
+                              },
+                              "logs_of_namespace": {
+                                "namespace": "openshift-cluster-samples-operator",
+                                "tail_lines": 100
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "properties": {
+                      "rules": {
+                        "items": {
+                          "properties": {
+                            "conditions": {
+                              "items": {
+                                "properties": {
+                                  "alert": {
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "alert",
+                                  "type"
+                                ],
+                                "type": "object"
+                              },
+                              "type": "array"
+                            },
+                            "gathering_functions": {
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "conditions",
+                            "gathering_functions"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "version": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": ""
+            },
+            "500": {
+              "description": "Found an unexpected error while geting the rules returned."
+            }
+          }
+        },
+        "summary": "Return the list of gathering rules"
+      },
+      "/openapi.json": {
+        "get": {
+          "description": "The OpenAPI specification of this REST API service that is represented in formatted and human-readable JSON is available under this endpoint.",
+          "operationId": "getOpenApi",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "info": {
+                        "properties": {
+                          "description": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "openapi": {
+                        "type": "string"
+                      },
+                      "paths": {
+                        "description": "Available paths and their descriptions.",
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "A JSON containing the OpenAPI specification for this service."
+            }
+          },
+          "summary": "Returns the OpenAPI specification JSON."
+        }
+      },
+      "/v1/gathering_rules": {
+        "description": "This endpoint returns an array of the available rules stored. This array contains the conditions and gathering functions for the Insights Operator. These rules are used in https://github.com/openshift/insights-operator/blob/master/pkg/gatherers/conditional/conditional_gatherer.go.",
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "List of rules": {
+                      "value": {
+                        "rules": [
+                          {
+                            "conditions": [
+                              {
+                                "alert": {
+                                  "name": "SamplesImagestreamImportFailing"
+                                },
+                                "type": "alert_is_firing"
+                              }
+                            ],
+                            "gathering_functions": {
+                              "image_streams_of_namespace": {
+                                "namespace": "openshift-cluster-samples-operator"
+                              },
+                              "logs_of_namespace": {
+                                "namespace": "openshift-cluster-samples-operator",
+                                "tail_lines": 100
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "schema": {
+                    "properties": {
+                      "rules": {
+                        "items": {
+                          "properties": {
+                            "conditions": {
+                              "items": {
+                                "properties": {
+                                  "alert": {
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "alert",
+                                  "type"
+                                ],
+                                "type": "object"
+                              },
+                              "type": "array"
+                            },
+                            "gathering_functions": {
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "conditions",
+                            "gathering_functions"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "version": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": ""
+            },
+            "500": {
+              "description": "Found an unexpected error while geting the rules returned."
+            }
+          }
+        },
+        "summary": "Return the list of gathering rules"
+      },
+      "/v1/openapi.json": {
+        "get": {
+          "description": "The OpenAPI specification of this REST API service that is represented in formatted and human-readable JSON is available under this endpoint.",
+          "operationId": "getOpenApiV1",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "info": {
+                        "properties": {
+                          "description": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "version": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "openapi": {
+                        "type": "string"
+                      },
+                      "paths": {
+                        "description": "Available paths and their descriptions.",
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "A JSON containing the OpenAPI specification for this service."
+            }
+          },
+          "summary": "Returns the OpenAPI specification JSON."
+        }
+      }
+    }
+  }
+}
