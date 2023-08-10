@@ -14,7 +14,7 @@ export const createApiUrlItems = (config: ReadonlyArray<Readonly<APIConfiguratio
 
     return config.map(c => ({
         loc: pages.getApiPage(c.id),
-        lastmod:  statSync(path.join('..', 'common', 'config', c.apiPath)).mtime.toISOString()
+        lastmod:  statSync(path.join('..', 'common', 'config', c.apiContentPath)).mtime.toISOString()
     }));
 }
 
