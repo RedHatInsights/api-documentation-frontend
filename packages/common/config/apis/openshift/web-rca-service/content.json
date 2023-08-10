@@ -727,6 +727,13 @@
                 "ansible_playbook": {
                   "type": "string"
                 },
+                "bad_rollout": {
+                  "nullable": true,
+                  "type": "boolean"
+                },
+                "bad_rollout_commit": {
+                  "type": "string"
+                },
                 "created_at": {
                   "format": "date-time",
                   "type": "string"

@@ -18893,6 +18893,16 @@
                 }
               },
               "description": "repository file not found."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/v1.InternalServerError"
+                  }
+                }
+              },
+              "description": "There was an internal server error."
             }
           },
           "summary": "Return the update transaction repository content located at repoFilePath from root repository"

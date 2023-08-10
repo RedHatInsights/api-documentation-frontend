@@ -675,11 +675,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/AccountGroupAssignment"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/AccountGroupAssignment"
                   },
                   "type": "array"
                 }
@@ -697,11 +693,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/AccountGroup"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/AccountGroup"
                   },
                   "type": "array"
                 }
@@ -741,11 +733,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/Account"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/Account"
                   },
                   "type": "array"
                 }
@@ -1210,6 +1198,9 @@
                 "$ref": "#/components/schemas/ReservedResource"
               },
               "type": "array"
+            },
+            "xcm_region_id": {
+              "type": "string"
             }
           },
           "required": [
@@ -1399,11 +1390,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/ClusterTransfer"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/ClusterTransfer"
                   },
                   "type": "array"
                 }
@@ -2259,11 +2246,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/Organization"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/Organization"
                   },
                   "type": "array"
                 }
@@ -2411,11 +2394,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/PullSecretRotation"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/PullSecretRotation"
                   },
                   "type": "array"
                 }
@@ -3827,6 +3806,9 @@
                     "Disaster Recovery",
                     "Academic"
                   ],
+                  "type": "string"
+                },
+                "xcm_region_id": {
                   "type": "string"
                 }
               },
