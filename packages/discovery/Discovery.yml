@@ -153,8 +153,8 @@ apis:
         tags:
           - insights
       - id: insights-results-aggregator_v1
-        name: Insights Advisor for OpenShift V1 (legacy)
-        description: Aggregation service for Insights Advisor recommendations. Exposes available cluster recommendations
+        name: Insights Advisor for OpenShift V1
+        description: Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters
         url: https://console.redhat.com/api/insights-results-aggregator/v1/openapi.json
         apiType: openapi-v3
         tags:
@@ -162,9 +162,10 @@ apis:
           - insights
           - observe
           - openshift
+          - workloads
       - id: insights-results-aggregator_v2
-        name: Insights Advisor for OpenShift V2 (preferred, includes new features)
-        description: Aggregation service for Insights Advisor recommendations. Exposes available cluster recommendations
+        name: Insights Advisor for OpenShift V2
+        description: Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters
         url: https://console.redhat.com/api/insights-results-aggregator/v2/openapi.json
         apiType: openapi-v3
         tags:
@@ -172,6 +173,7 @@ apis:
           - insights
           - observe
           - openshift
+          - workloads
       - id: patch
         name: Patch
         description: API of the Patch application on console.redhat.com
@@ -554,4 +556,7 @@ tags:
     type: use-case
   - id: system-configuration
     name: System Configuration
+    type: use-case
+  - id: workloads
+    name: Workloads
     type: use-case
