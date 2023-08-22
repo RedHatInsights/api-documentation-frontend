@@ -233,11 +233,7 @@
               "properties": {
                 "items": {
                   "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/ClusterLog"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/ClusterLog"
                   },
                   "type": "array"
                 }

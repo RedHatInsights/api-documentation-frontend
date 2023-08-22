@@ -132,6 +132,15 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
       product: undefined,
     },
   },
+  workloads: {
+    id: "workloads",
+    name: "Workloads",
+    type: "use-case",
+    devRedHatTaxonomy: {
+      topic: undefined,
+      product: undefined,
+    },
+  },
 };
 
 export const apiLabels = Object.values(apiLabelsMap) as ReadonlyArray<
@@ -361,9 +370,9 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   },
   {
     id: "insights-results-aggregator_v1",
-    displayName: "Results Aggregator V1",
+    displayName: "Insights Advisor for OpenShift V1",
     description:
-      "Aggregation service for the results of running Insights rules",
+      "Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters",
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/insights-results-aggregator_v1/content.json",
@@ -373,15 +382,17 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["infrastructure"],
-      apiLabelsMap["openshift"],
       apiLabelsMap["insights"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["openshift"],
+      apiLabelsMap["workloads"],
     ],
   },
   {
     id: "insights-results-aggregator_v2",
-    displayName: "Results Aggregator V2",
+    displayName: "Insights Advisor for OpenShift V2",
     description:
-      "Aggregation service for the results of running Insights rules",
+      "Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters",
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/insights-results-aggregator_v2/content.json",
@@ -391,8 +402,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["infrastructure"],
-      apiLabelsMap["openshift"],
       apiLabelsMap["insights"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["openshift"],
+      apiLabelsMap["workloads"],
     ],
   },
   {

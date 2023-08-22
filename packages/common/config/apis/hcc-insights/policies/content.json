@@ -134,7 +134,6 @@
             },
             "lastTriggered": {
               "format": "int64",
-              "readOnly": true,
               "type": "integer"
             },
             "mtime": {

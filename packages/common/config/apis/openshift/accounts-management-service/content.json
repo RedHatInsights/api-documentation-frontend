@@ -1199,7 +1199,7 @@
               },
               "type": "array"
             },
-            "xcm_region_id": {
+            "xcm_id": {
               "type": "string"
             }
           },
@@ -3808,7 +3808,7 @@
                   ],
                   "type": "string"
                 },
-                "xcm_region_id": {
+                "xcm_id": {
                   "type": "string"
                 }
               },
@@ -5467,6 +5467,73 @@
           },
           {
             "$ref": "#/components/parameters/size"
+          }
+        ]
+      },
+      "/api/accounts_mgmt/v1/billing_models/{id}": {
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BillingModel"
+                  }
+                }
+              },
+              "description": "Billing model found by id"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No billing model with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get a billing model"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
           }
         ]
       },
