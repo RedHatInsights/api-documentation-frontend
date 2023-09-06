@@ -88,6 +88,8 @@ export const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> =
   return(
     <LabelGroup>
       {propSchema.format && <Label isCompact>{propSchema.format}</Label>}
+      {propSchema.description && <LabelGroup categoryName="Description:"><Text>{propSchema.description}</Text></LabelGroup>}
+      {propSchema.example && <LabelGroup categoryName="Example"><Label>{propSchema.example}</Label></LabelGroup>}
       {propSchema.default && <Label isCompact>default: {propSchema.default}</Label>}
       {propSchema.enum && <LabelGroup categoryName="Enums">{propSchema.enum.map(e => <Label key={e} isCompact>{e}</Label>)}</LabelGroup>}
       {propSchema.pattern && <Label isCompact>pattern: {propSchema.pattern}</Label>}
@@ -102,5 +104,6 @@ export const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> =
       {propSchema.writeOnly && <Label isCompact>write only</Label>}
       {propSchema.deprecated && <Label isCompact>deprecated</Label>}
     </LabelGroup>
+    
   )
 }
