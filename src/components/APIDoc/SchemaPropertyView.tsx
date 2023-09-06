@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import { Text, TextContent, TextVariants, Flex, FlexItem, Label, LabelGroup } from '@patternfly/react-core';
+import { Text, TextContent, TextVariants, Flex, FlexItem, Label, LabelGroup, LevelItem, Level } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 
@@ -88,7 +88,7 @@ export const ExtraPropertyView:React.FunctionComponent<ExtraPropertyViewProps> =
   return(
     <LabelGroup>
       {propSchema.format && <Label isCompact>{propSchema.format}</Label>}
-      {propSchema.description && <LabelGroup categoryName="Description:"><Text>{propSchema.description}</Text></LabelGroup>}
+      {propSchema.description && <Level><Text>{propSchema.description}</Text></Level>}
       {propSchema.example && <LabelGroup categoryName="Example"><Label>{propSchema.example}</Label></LabelGroup>}
       {propSchema.default && <Label isCompact>default: {propSchema.default}</Label>}
       {propSchema.enum && <LabelGroup categoryName="Enums">{propSchema.enum.map(e => <Label key={e} isCompact>{e}</Label>)}</LabelGroup>}
