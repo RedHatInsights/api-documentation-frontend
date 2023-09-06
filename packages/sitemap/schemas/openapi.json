@@ -1,0 +1,117 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Catalog API",
+    "description": "The API Catalog is a front-end application that helps users with viewing documentations for numerous APIs",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://developers.redhat.com/api-catalog",
+      "description": "Production Server"
+    }
+  ],
+  "paths": {
+    "/canonical.json": {
+      "get": {
+        "summary": "Canonical json for the search platform",
+        "description": "Provides the canonical json document used by the search platform to index API Catalog",
+        "operationId": "api.canonical_json",
+        "responses": {
+          "207": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CanonicalJsonResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CanonicalJsonResponse": {
+        "type": "object",
+        "properties": {
+          "data_source": {
+            "description": "This data attribute is an alias for the data source. This is obtained from the search platform team.",
+            "type": "string",
+            "enum": [
+              "dev_api_catalog"
+            ]
+          },
+          "documents": {
+            "$ref": "#/components/schemas/Documents"
+          }
+        }
+      },
+      "Documents": {
+        "description": "This is an array that can contain one or more documents to include in the index.",
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Document"
+        }
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "solr_command": {
+            "description": "valid values are \"index\" and \"delete\" (default is index) (delete not available for all feeds).",
+            "type": "string",
+            "enum": [
+              "index",
+              "delete"
+            ],
+            "default": "index"
+          },
+          "content_type": {
+            "description": "A value representing the type of document.",
+            "type": "string",
+            "enum": [
+              "documentation"
+            ]
+          },
+          "id": {
+            "description": "Value that uniquely identifies this document from all others in the data source.",
+            "type": "string",
+            "example": "api-id"
+          },
+          "uri": {
+            "description": "URI value needed to access the document in the source system.",
+            "type": "string",
+            "format": "url",
+            "example": "https://developers.redhat.com/api-catalog/api/api-id"
+          },
+          "name": {
+            "description": "The name of the API",
+            "type": "string",
+            "minLength": 1,
+            "example": "API Name | API Catalog and Documentation"
+          },
+          "description": {
+            "description": "A short description of the API",
+            "type": "string",
+            "minLength": 1,
+            "example": "The API description"
+          },
+          "content_summaries": {
+            "description": "The extacted summaries of the content of the API",
+            "type": "array",
+            "example": [
+              "List all APIs",
+              "Show individual API documentation",
+              "Filter APIs by tag"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
