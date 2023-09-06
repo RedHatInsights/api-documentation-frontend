@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import { Text, TextContent, TextVariants, Flex, FlexItem, Label, LabelGroup, LevelItem, Level } from '@patternfly/react-core';
+import { Text, TextContent, TextVariants, Flex, FlexItem, Label, LabelGroup, Level } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 
