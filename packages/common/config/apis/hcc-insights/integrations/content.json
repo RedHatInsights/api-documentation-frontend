@@ -126,6 +126,17 @@
         },
         "ApplicationSettingsValue": {
           "properties": {
+            "eventTypes": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/EventTypeSettingsValue"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "ApplicationSettingsValue1": {
+          "properties": {
             "hasForcedEmail": {
               "type": "boolean"
             },
@@ -253,6 +264,17 @@
             "applications": {
               "additionalProperties": {
                 "$ref": "#/components/schemas/ApplicationSettingsValue"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "BundleSettingsValue1": {
+          "properties": {
+            "applications": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ApplicationSettingsValue1"
               },
               "type": "object"
             }
@@ -400,9 +422,7 @@
         },
         "EmailSubscriptionType": {
           "enum": [
-            "INSTANT",
-            "DAILY",
-            "DRAWER"
+            "DAILY"
           ],
           "type": "string"
         },
@@ -506,6 +526,18 @@
             "FAILED"
           ],
           "type": "string"
+        },
+        "EndpointTestRequest": {
+          "properties": {
+            "message": {
+              "pattern": "\\S",
+              "type": "string"
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object"
         },
         "EndpointType": {
           "enum": [
@@ -669,6 +701,20 @@
             "eventTypeId",
             "behaviorGroupId"
           ],
+          "type": "object"
+        },
+        "EventTypeSettingsValue": {
+          "properties": {
+            "emailSubscriptionTypes": {
+              "additionalProperties": {
+                "type": "boolean"
+              },
+              "type": "object"
+            },
+            "hasForcedEmail": {
+              "type": "boolean"
+            }
+          },
           "type": "object"
         },
         "Facet": {
@@ -1060,6 +1106,17 @@
           "type": "object"
         },
         "SettingsValues": {
+          "properties": {
+            "bundles": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/BundleSettingsValue1"
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "SettingsValuesByEventType": {
           "properties": {
             "bundles": {
               "additionalProperties": {
@@ -1770,6 +1827,15 @@
               }
             }
           ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EndpointTestRequest"
+                }
+              }
+            }
+          },
           "responses": {
             "204": {
               "description": "No Content"

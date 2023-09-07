@@ -4527,7 +4527,7 @@
       "url": "https://github.com/project-koku/"
     },
     "info": {
-      "description": "The API for Project Koku and OpenShift cost management. You can find out more about Project Koku at [https://github.com/project-koku/](https://github.com/project-koku/).",
+      "description": "The API for Cost Management",
       "license": {
         "name": "AGPL-3.0",
         "url": "https://opensource.org/licenses/AGPL-3.0"
@@ -8822,9 +8822,9 @@
               "basic_auth": []
             }
           ],
-          "summary": "List the sources",
+          "summary": "List the integrations",
           "tags": [
-            "Sources"
+            "Integrations"
           ]
         }
       },
@@ -8885,7 +8885,7 @@
           },
           "summary": "List available AWS S3 regions",
           "tags": [
-            "Sources"
+            "Integrations"
           ]
         }
       },
@@ -8945,9 +8945,9 @@
               "basic_auth": []
             }
           ],
-          "summary": "Get a source",
+          "summary": "Get an integration",
           "tags": [
-            "Sources"
+            "Integrations"
           ]
         }
       },
@@ -9021,9 +9021,9 @@
               "basic_auth": []
             }
           ],
-          "summary": "Get a source statistics",
+          "summary": "Get integration statistics",
           "tags": [
-            "Sources"
+            "Integrations"
           ]
         }
       },
@@ -10360,8 +10360,8 @@
         "name": "OCI Reports"
       },
       {
-        "description": "Operations about platform sources interactions",
-        "name": "Sources"
+        "description": "Operations about platform integrations interactions",
+        "name": "Integrations"
       },
       {
         "description": "Operations about cost model interactions",

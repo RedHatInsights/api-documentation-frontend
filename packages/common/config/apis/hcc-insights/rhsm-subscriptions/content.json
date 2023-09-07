@@ -596,7 +596,7 @@
               "Storage-Gibibytes",
               "Transfer-Gibibytes"
             ],
-            "product": "RHEL",
+            "product": "RHEL Server",
             "service_level": "Premium",
             "usage": "Production"
           },
@@ -844,16 +844,12 @@
         "ProductId": {
           "enum": [
             "OpenShift Container Platform",
-            "RHEL",
             "RHEL Compute Node",
-            "RHEL Desktop",
             "RHEL for ARM",
             "RHEL for IBM Power",
             "RHEL for IBM z",
             "RHEL for x86",
-            "RHEL Server",
             "RHEL Workstation",
-            "Satellite",
             "Satellite Capsule",
             "Satellite Server",
             "OpenShift-metrics",
@@ -1479,15 +1475,15 @@
                       }
                     ],
                     "links": {
-                      "first": "/api/rhsm-subscriptions/v1/capacity/RHEL?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
-                      "last": "/api/rhsm-subscriptions/v1/capacity/RHEL?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
-                      "next": "/api/rhsm-subscriptions/v1/capacity/RHEL?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
+                      "first": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
+                      "last": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
+                      "next": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
                       "previous": null
                     },
                     "meta": {
                       "count": 10,
                       "granularity": "Daily",
-                      "product": "RHEL",
+                      "product": "RHEL Server",
                       "service_level": "Premium"
                     }
                   },
@@ -1697,15 +1693,15 @@
                       }
                     ],
                     "links": {
-                      "first": "/api/rhsm-subscriptions/v1/capacity/RHEL/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
-                      "last": "/api/rhsm-subscriptions/v1/capacity/RHEL/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
-                      "next": "/api/rhsm-subscriptions/v1/capacity/RHEL/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
+                      "first": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
+                      "last": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
+                      "next": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
                       "previous": null
                     },
                     "meta": {
                       "count": 10,
                       "granularity": "Daily",
-                      "product": "RHEL",
+                      "product": "RHEL Server",
                       "service_level": "Premium"
                     }
                   },
@@ -1922,14 +1918,14 @@
                       }
                     ],
                     "links": {
-                      "first": "/api/rhsm-subscriptions/v1/hosts/RHEL?sla=Premium&usage=Production&offset=0&limit=5",
-                      "last": "/api/rhsm-subscriptions/v1/hosts/RHEL?sla=Premium&usage=Production&offset=5&limit=5",
-                      "next": "/api/rhsm-subscriptions/v1/hosts/RHEL?sla=Premium&usage=Production&offset=5&limit=5",
+                      "first": "/api/rhsm-subscriptions/v1/hosts/RHEL%20for%20x86?sla=Premium&usage=Production&offset=0&limit=5",
+                      "last": "/api/rhsm-subscriptions/v1/hosts/RHEL%20for%20x86?sla=Premium&usage=Production&offset=5&limit=5",
+                      "next": "/api/rhsm-subscriptions/v1/hosts/RHEL%20for%20x86?sla=Premium&usage=Production&offset=5&limit=5",
                       "previous": null
                     },
                     "meta": {
                       "count": 10,
-                      "product": "RHEL",
+                      "product": "RHEL Server",
                       "service_level": "Premium",
                       "usage": "Production"
                     }
@@ -3121,15 +3117,15 @@
                       }
                     ],
                     "links": {
-                      "first": "/api/rhsm-subscriptions/v1/tally/products/RHEL?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
-                      "last": "/api/rhsm-subscriptions/v1/tally/products/RHEL?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
-                      "next": "/api/rhsm-subscriptions/v1/tally/products/RHEL?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
+                      "first": "/api/rhsm-subscriptions/v1/tally/products/RHEL%20for%20x86?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
+                      "last": "/api/rhsm-subscriptions/v1/tally/products/RHEL%20for%20x86?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
+                      "next": "/api/rhsm-subscriptions/v1/tally/products/RHEL%20for%20x86?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
                       "previous": null
                     },
                     "meta": {
                       "count": 10,
                       "granularity": "Daily",
-                      "product": "RHEL",
+                      "product": "RHEL Server",
                       "service_level": "Premium",
                       "total_core_hours": 30,
                       "total_instance_hours": 20,
@@ -3193,7 +3189,7 @@
       "/tally/products/{product_id}/{metric_id}": {
         "description": "Operations on a data set of a given tally report.",
         "get": {
-          "description": "If page header parameters are omitted, any dates missing data will have an entry with null as the value.",
+          "description": "If the report is requested in a running total format, each temporal unit of the report period (days, hours, etc.) will give the running total since the start of the report period and set the has_data field as true, whether or not there is data that lands in that specific temporal unit.  However, if the report period stretches into the future, temporal units in the future will have a value of zero and have has_data set to false.\nFor example, if we have daily values of 0, 1, 0, 3, 0 and request a running total report ending two days from now, we'll get back '(0, true), (1, true), (1, true), (4, true), (4, true), (0, false), (0, false)'. ",
           "operationId": "getTallyReportData",
           "parameters": [
             {
@@ -3332,7 +3328,7 @@
               "style": "form"
             },
             {
-              "description": "Defines the end of the report period. Defaults to the current time. Dates should be provided in UTC.",
+              "description": "Whether to report the total for each temporal unit of the report period individually or as a running total since the beginning of the report period.",
               "explode": true,
               "in": "query",
               "name": "use_running_totals_format",
@@ -3407,7 +3403,7 @@
               "description": "An internal server error has occurred and is not recoverable."
             }
           },
-          "summary": "Fetch tally report data for an account and product. ",
+          "summary": "Fetch tally report data for an account and product.",
           "tags": [
             "tally"
           ]

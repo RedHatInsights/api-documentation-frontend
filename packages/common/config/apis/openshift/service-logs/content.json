@@ -626,6 +626,115 @@
           "summary": "Get log by record id"
         }
       },
+      "/api/service_logs/v1/clusters/cluster_logs": {
+        "get": {
+          "parameters": [
+            {
+              "in": "query",
+              "name": "any-id",
+              "required": true,
+              "schema": {
+                "minProperties": 1,
+                "properties": {
+                  "cluster_id": {
+                    "description": "Id of a cluster (cluster_id)",
+                    "type": "string"
+                  },
+                  "cluster_uuid": {
+                    "description": "External id of a cluster (cluster_uuid)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/search"
+            },
+            {
+              "$ref": "#/components/parameters/orderBy"
+            },
+            {
+              "$ref": "#/components/parameters/fields"
+            },
+            {
+              "$ref": "#/components/parameters/format"
+            },
+            {
+              "$ref": "#/components/parameters/fetchAccounts"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ClusterLogList"
+                  }
+                },
+                "text/csv": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "A JSON array or CSV of Cluster Service records"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad request: At least one of cluster_uuid and cluster_id is required"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get all service logs for a cluster specified by cluster_id and/or cluster_uuid"
+        }
+      },
       "/api/service_logs/v1/clusters/{uuid}/cluster_logs": {
         "get": {
           "parameters": [

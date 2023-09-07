@@ -231,7 +231,14 @@
                 "steps": 3,
                 "success": false
               }
-            ]
+            ],
+            "links": {
+              "next": "",
+              "previous": ""
+            },
+            "metadata": {
+              "total": 3
+            }
           }
         },
         "v1.GenericReservationResponsePayloadPendingExample": {
@@ -341,11 +348,18 @@
                 "body": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEhnn80ZywmjeBFFOGm+cm+5HUwm62qTVnjKlOdYFLHN lzap",
                 "fingerprint": "gL/y6MvNmJ8jDXtsL/oMmK8jUuIefN39BBuvYw/Rndk=",
                 "fingerprint_legacy": "ee:f1:d4:62:99:ab:17:d9:3b:00:66:62:32:b2:55:9e",
-                "id": 1,
+                "id": 3,
                 "name": "My key",
                 "type": "ssh-ed25519"
               }
-            ]
+            ],
+            "links": {
+              "next": "",
+              "previous": "/api/provisioning/v1/pubkeys?limit=2&offset=0"
+            },
+            "metadata": {
+              "total": 3
+            }
           }
         },
         "v1.PubkeyRequestExample": {
@@ -371,15 +385,24 @@
                 "id": "654321",
                 "name": "My AWS account",
                 "source_type_id": "",
+                "status": "available",
                 "uid": ""
               },
               {
                 "id": "543621",
                 "name": "My other AWS account",
                 "source_type_id": "",
+                "status": "available",
                 "uid": ""
               }
-            ]
+            ],
+            "links": {
+              "next": "",
+              "previous": "/api/provisioning/v1/sources?limit=2&offset=0"
+            },
+            "metadata": {
+              "total": 4
+            }
           }
         },
         "v1.SourceUploadInfoAWSResponse": {
@@ -405,6 +428,26 @@
             },
             "gcp": null,
             "provider": "azure"
+          }
+        }
+      },
+      "parameters": {
+        "Limit": {
+          "description": "The number of items to return",
+          "in": "query",
+          "name": "limit",
+          "schema": {
+            "default": 100,
+            "type": "integer"
+          }
+        },
+        "Offset": {
+          "description": "The number of items to skip before starting to collect the result set",
+          "in": "query",
+          "name": "offset",
+          "schema": {
+            "default": 0,
+            "type": "integer"
           }
         }
       },
@@ -926,6 +969,25 @@
                 "type": "object"
               },
               "type": "array"
+            },
+            "links": {
+              "properties": {
+                "next": {
+                  "type": "string"
+                },
+                "previous": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "metadata": {
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
@@ -1026,6 +1088,25 @@
                 "type": "object"
               },
               "type": "array"
+            },
+            "links": {
+              "properties": {
+                "next": {
+                  "type": "string"
+                },
+                "previous": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "metadata": {
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
@@ -1044,6 +1125,9 @@
                   "source_type_id": {
                     "type": "string"
                   },
+                  "status": {
+                    "type": "string"
+                  },
                   "uid": {
                     "type": "string"
                   }
@@ -1051,6 +1135,25 @@
                 "type": "object"
               },
               "type": "array"
+            },
+            "links": {
+              "properties": {
+                "next": {
+                  "type": "string"
+                },
+                "previous": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "metadata": {
+              "properties": {
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
@@ -1067,9 +1170,11 @@
         "v1.PubkeyRequest": {
           "properties": {
             "body": {
+              "description": "User facing name of the newly created pubkey",
               "type": "string"
             },
             "name": {
+              "description": "Public portion of a SSH key pair",
               "type": "string"
             }
           },
@@ -1136,6 +1241,9 @@
             "source_type_id": {
               "type": "string"
             },
+            "status": {
+              "type": "string"
+            },
             "uid": {
               "type": "string"
             }
@@ -1188,7 +1296,7 @@
         "name": "GPL-3.0"
       },
       "title": "provisioning-api",
-      "version": "1.5.0"
+      "version": "1.6.0"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -1292,6 +1400,14 @@
         "get": {
           "description": "A pubkey represents an SSH public portion of a key pair with name and body. This operation returns list of all pubkeys for particular account.\n",
           "operationId": "getPubkeyList",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/Limit"
+            },
+            {
+              "$ref": "#/components/parameters/Offset"
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -1438,6 +1554,14 @@
         "get": {
           "description": "A reservation is a way to activate a job, keeps all data needed for a job to start. This operation returns list of all reservations for particular account. To get a reservation with common fields, use /reservations/ID. To get a detailed reservation with all fields which are different per provider, use /reservations/aws/ID. Reservation can be in three states: pending, success, failed. This can be recognized by the success field (null for pending, true for success, false for failure). See the examples.\n",
           "operationId": "getReservationsList",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/Limit"
+            },
+            {
+              "$ref": "#/components/parameters/Offset"
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -1806,6 +1930,12 @@
                 ],
                 "type": "string"
               }
+            },
+            {
+              "$ref": "#/components/parameters/Limit"
+            },
+            {
+              "$ref": "#/components/parameters/Offset"
             }
           ],
           "responses": {

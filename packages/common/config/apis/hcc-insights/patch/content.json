@@ -1637,9 +1637,6 @@
         },
         "models.PackageUpdate": {
           "properties": {
-            "advisory": {
-              "type": "string"
-            },
             "evra": {
               "type": "string"
             },
@@ -1804,7 +1801,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.4.9"
+      "version": "v3.4.25"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -1933,11 +1930,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -1951,7 +1953,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -2226,11 +2228,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -2244,7 +2251,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -2876,11 +2883,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -2894,7 +2906,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -3173,11 +3185,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -3191,7 +3208,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -3398,11 +3415,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -3416,7 +3438,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -3686,11 +3708,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -3704,7 +3731,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -3909,11 +3936,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -3927,7 +3959,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -4487,11 +4519,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -4505,7 +4542,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -4813,11 +4850,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -4831,7 +4873,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -5108,11 +5150,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -5126,7 +5173,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -5402,11 +5449,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -5420,7 +5472,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -5761,11 +5813,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -5779,7 +5836,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -5981,11 +6038,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -5999,7 +6061,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"
@@ -6364,11 +6426,16 @@
             },
             {
               "description": "Filter systems by inventory groups",
+              "explode": true,
               "in": "query",
-              "name": "filter[group_name][in]",
+              "name": "filter[group_name]",
               "schema": {
-                "type": "string"
-              }
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             },
             {
               "description": "Filter only SAP systems",
@@ -6382,7 +6449,7 @@
               "description": "Filter systems by their SAP SIDs",
               "explode": true,
               "in": "query",
-              "name": "filter[system_profile][sap_sids][in]",
+              "name": "filter[system_profile][sap_sids]",
               "schema": {
                 "items": {
                   "type": "string"

@@ -432,6 +432,9 @@
             "cluster_uuid": {
               "type": "string"
             },
+            "is_ocm_internal": {
+              "type": "boolean"
+            },
             "organization_id": {
               "type": "string"
             },
@@ -811,6 +814,12 @@
                   ],
                   "type": "string"
                 },
+                "description": {
+                  "type": "string"
+                },
+                "display_name": {
+                  "type": "string"
+                },
                 "id": {
                   "type": "string"
                 },
@@ -820,7 +829,9 @@
               },
               "required": [
                 "id",
-                "billing_model_type"
+                "billing_model_type",
+                "display_name",
+                "description"
               ],
               "type": "object"
             }
