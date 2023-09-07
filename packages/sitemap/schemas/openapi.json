@@ -47,7 +47,11 @@
           "documents": {
             "$ref": "#/components/schemas/Documents"
           }
-        }
+        },
+        "required": [
+          "data_source",
+          "documents"
+        ]
       },
       "Documents": {
         "description": "This is an array that can contain one or more documents to include in the index.",
@@ -73,17 +77,20 @@
             "type": "string",
             "enum": [
               "documentation"
-            ]
+            ],
+            "default": "documentation"
           },
           "id": {
             "description": "Value that uniquely identifies this document from all others in the data source.",
             "type": "string",
+            "minLength": 1,
             "example": "api-id"
           },
           "uri": {
             "description": "URI value needed to access the document in the source system.",
             "type": "string",
             "format": "url",
+            "minLength": 1,
             "example": "https://developers.redhat.com/api-catalog/api/api-id"
           },
           "name": {
@@ -110,7 +117,16 @@
               "type": "string"
             }
           }
-        }
+        },
+        "required": [
+          "solr_command",
+          "content_type",
+          "id",
+          "uri",
+          "name",
+          "description",
+          "content_summaries"
+        ]
       }
     }
   }
