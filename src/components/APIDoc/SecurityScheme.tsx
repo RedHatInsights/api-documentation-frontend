@@ -1,5 +1,6 @@
 import React from 'react';
 import {OpenAPIV3} from "openapi-types";
+import ReactMarkdown from "react-markdown";
 
 export interface SecuritySchemesProps {
     securityScheme: OpenAPIV3.SecuritySchemeObject;
@@ -24,7 +25,12 @@ const SecuritySchemeHttp: React.FunctionComponent<OpenAPIV3.HttpSecurityScheme> 
     return <>
         <span>HTTP Authentication, scheme: {http.scheme}</span>
         <br/>
-        <span>{http.description}</span>
+        {
+            http.description &&
+            <span>
+                <ReactMarkdown>{http.description}</ReactMarkdown>
+            </span>
+        }
     </>;
 }
 
@@ -36,6 +42,11 @@ const SecuritySchemeApiKey: React.FunctionComponent<OpenAPIV3.ApiKeySecuritySche
             <li>Parameter name: {api.name}</li>
             <li>In: {api.in}</li>
         </ul>
-        <span className="apid-m-text-break-all">{api.description}</span>
+        {
+            api.description &&
+            <span className="apid-m-text-break-all">
+                <ReactMarkdown>{api.description}</ReactMarkdown>
+            </span>
+        }
     </>;
 }

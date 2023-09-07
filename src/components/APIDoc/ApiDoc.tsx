@@ -10,6 +10,7 @@ import {getAuthenticationId, getOperationId, getSchemasId} from "../../utils/Ope
 import {getTitleWithVersion} from "../../utils/OpenapiSelectors";
 import {APIContent, ExtraAPIContent} from "@apidocs/common";
 import {DocumentContent} from "../DocumentContent/DocumentContent";
+import ReactMarkdown from "react-markdown";
 
 interface ApiDocProps {
     apiContent: APIContent;
@@ -28,9 +29,12 @@ export const ApiDoc: FunctionComponent<ApiDocProps> = props => {
           <Text component={TextVariants.h1}>
             {getTitleWithVersion(openapi)}
           </Text>
-          <Text component={TextVariants.p} className="pf-u-pb-md">
-            { openapi.info.description }
-          </Text>
+          {
+            openapi.info.description &&
+            <Text component={TextVariants.p} className="pf-u-pb-md">
+              <ReactMarkdown>{ openapi.info.description }</ReactMarkdown>
+            </Text>
+          }
         </TextContent>
 
         { openapi.servers && (

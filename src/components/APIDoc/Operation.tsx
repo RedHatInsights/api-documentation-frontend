@@ -17,6 +17,7 @@ import {
   AccordionContent,
   Label,
 } from "@patternfly/react-core";
+import ReactMarkdown from "react-markdown";
 
 import { ParameterView } from "./ParameterView";
 import { CodeSamples } from "./CodeSamples";
@@ -112,7 +113,12 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({
     <Grid className="pf-u-mt-sm" hasGutter>
       <GridItem className="pf-m-12-col">
         <TextContent>
-          <Text component={TextVariants.p}>{operation.description}</Text>
+          {
+            operation.description &&
+            <Text component={TextVariants.p}>
+              <ReactMarkdown>{operation.description}</ReactMarkdown>
+            </Text>
+          }
         </TextContent>
       </GridItem>
       <GridItem className="pf-m-12-col pf-m-7-col-on-xl">
