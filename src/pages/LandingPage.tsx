@@ -1,4 +1,4 @@
-import {FunctionComponent, useEffect, useMemo, useState} from 'react';
+import {FunctionComponent, useEffect, useMemo } from 'react';
 import {
   Button,
   Flex,
@@ -29,18 +29,22 @@ import {usePaginatedGallery} from "../components/Card/usePaginatedGallery";
 
 import { GridContent } from './GridContent';
 import { ListContent } from './ListContent';
-import {usePagination} from "../hooks/usePagination";
+import { useLandingConfigStore, usePaginationStore, defaultAvailablePerPage } from '../hooks/useStore';
 import {Config} from "../config";
 
 export const LandingPage: FunctionComponent = () => {
-  const [searchInput, setSearchInput] = useState('');
-  const [view, setView] = useState<'grid'|'list'>('grid');
+  const searchInput = useLandingConfigStore((state) => state.searchInput)
+  const setSearchInput = useLandingConfigStore((state) => state.updateInput)
+
+  const selectedTags = useLandingConfigStore((state) => state.selectedTags)
+  const setSelectedTags = useLandingConfigStore((state) => state.updateSelectedTags)
+
+  const view = useLandingConfigStore((state) => state.view)
+  const setView = useLandingConfigStore((state) => state.updateView)
 
   const onChange = (searchInput: string) => {
     setSearchInput(searchInput);
   };
-
-  const [selectedTags, setSelectedTags] = useState<ReadonlyArray<string>>([]);
 
   const filteredDocs = useMemo(() => apiConfigurations
       .filter((apiConfig) => apiConfig.displayName.toLowerCase().includes(searchInput.toLowerCase()))
@@ -49,45 +53,51 @@ export const LandingPage: FunctionComponent = () => {
   );
 
   const galleryId = 'apid-c-api-gallery';
-  const pagination = usePagination(filteredDocs, 10);
+
+  const pagination = usePaginationStore();
+
+  useEffect(() => {
+    pagination.setItems(filteredDocs.slice((pagination.page - 1) * pagination.perPage, pagination.page * pagination.perPage));
+  }, [pagination.page, pagination.perPage, filteredDocs]);
 
   usePaginatedGallery(galleryId, view === 'grid', {
-    setPage: pagination.onSetPage,
+    setPage: pagination.setPage,
+    page: pagination.page,
     perPage: pagination.perPage,
-    setPerPage: pagination.onSetPerPage,
+    setPerPage: pagination.setPerPage,
     setAvailablePerPage: pagination.setAvailablePerPage,
-    defaultAvailablePerPage: usePagination.defaultAvailablePerPage
+    defaultAvailablePerPage: defaultAvailablePerPage
   });
 
   const changeView = (toView: 'grid' | 'list') => {
     setView(toView);
-    pagination.onSetPage(1);
+    pagination.setPage(1);
     if (toView === 'list') {
-      pagination.setAvailablePerPage();
-      pagination.onSetPerPage(10);
+      pagination.setAvailablePerPage(defaultAvailablePerPage);
+      pagination.setPerPage(10);
     }
   }
 
   const clearFilters = () => {
     setSearchInput('');
     setSelectedTags([]);
-    pagination.onSetPage(1);
+    pagination.setPage(1);
   };
 
   useEffect(() => {
-    const onSetPage = pagination.onSetPage;
+    const onSetPage = pagination.setPage;
     onSetPage(1);
-  }, [filteredDocs, pagination.onSetPage]);
+  }, [filteredDocs, pagination.setPage]);
 
   // For some reason the type doesn't like 'ref'.
   const basePaginationProps: Omit<PaginationProps, 'ref'> = {
     itemCount: filteredDocs.length,
     perPage: pagination.perPage,
     page: pagination.page,
-    onSetPage: (_event, page) => pagination.onSetPage(page),
+    onSetPage: (_event, page) => pagination.setPage(page),
     onPerPageSelect: (_event, perPage, newPage) => {
-      pagination.onSetPerPage(perPage);
-      pagination.onSetPage(newPage);
+      pagination.setPerPage(perPage);
+      pagination.setPage(newPage);
     },
     perPageOptions: pagination.availablePerPage.map(a => ({
       title: a.toString(),

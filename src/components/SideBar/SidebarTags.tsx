@@ -1,13 +1,12 @@
-import React, {Dispatch, FunctionComponent, SetStateAction, useMemo} from "react";
+import React, {FunctionComponent, useMemo} from "react";
 import {APILabel} from "@apidocs/common";
 import {Checkbox, Text, TextContent, TextVariants} from "@patternfly/react-core";
 import assertNever from "assert-never";
-import produce from "immer";
 
 interface SidebarTagsProps {
     tags: ReadonlyArray<APILabel>;
     selected: ReadonlyArray<string>;
-    setSelected: Dispatch<SetStateAction<ReadonlyArray<string>>>;
+    setSelected: (tagsArray: ReadonlyArray<string>) => void;
 }
 
 const displayedTags: ReadonlyArray<APILabel['type']> = [
@@ -46,6 +45,19 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({tags, selected
         } as Record<DisplayedTagsType, Array<APILabel>>
     ), [tags]);
 
+    const updateSelectedTags = (selectedTags: ReadonlyArray<string>, tagId: string, isChecked: boolean) => {
+        const index = selectedTags.indexOf(tagId);
+        const newSelectedTags = [...selectedTags]
+
+        if (index === -1 && isChecked) {
+            newSelectedTags.push(tagId);
+        } else if (index !== -1 && !isChecked) {
+            newSelectedTags.splice(index, 1);
+        }
+
+        return newSelectedTags
+    }
+
     return (
         <TextContent>
             {displayedTags.map((type, index) =>
@@ -58,15 +70,7 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({tags, selected
                                 id={`sidebar-tag-checkbox-${tag.id}`}
                                 label={tag.name}
                                 name={tag.name}
-                                onChange={isChecked => setSelected(produce(draft => {
-                                    const index = draft.indexOf(tag.id);
-
-                                    if (index === -1 && isChecked) {
-                                        draft.push(tag.id);
-                                    } else if (index !== -1 && !isChecked) {
-                                        draft.splice(index, 1);
-                                    }
-                                }))}
+                                onChange={isChecked => setSelected(updateSelectedTags(selected, tag.id, isChecked))}
                                 isChecked={selected.includes(tag.id)}
                             />)}
                         </>

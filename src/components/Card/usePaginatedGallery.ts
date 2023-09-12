@@ -1,19 +1,20 @@
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {useDebounce, useWindowSize} from "react-use";
 import {useGetHtmlElementById} from "../../hooks/useGetHtmlElementById";
 
 interface PerPageOptions {
-    setPage: Dispatch<SetStateAction<number>>,
-    setPerPage: Dispatch<SetStateAction<number>>,
+    setPage:(page: number) => void,
+    setPerPage: (perPage: number) => void,
+    page: number,
     perPage: number,
-    setAvailablePerPage: (availablePerPage?: ReadonlyArray<number>) => void,
+    setAvailablePerPage: (availablePerPage: ReadonlyArray<number>) => void,
     defaultAvailablePerPage: ReadonlyArray<number>
 }
 
 export const usePaginatedGallery = (
     cardContainerId: string,
     usingGallery: boolean,
-    {setPage, setPerPage, perPage, setAvailablePerPage, defaultAvailablePerPage}: PerPageOptions
+    {setPage, setPerPage, page, perPage, setAvailablePerPage, defaultAvailablePerPage}: PerPageOptions
 ): void => {
     const { width: windowSizeWidth, height: windowSizeHeight } = useWindowSize();
     const [debouncedSize, setDebouncedSize] = useState<[number, number]>([windowSizeWidth , windowSizeHeight]);
@@ -45,13 +46,7 @@ export const usePaginatedGallery = (
             });
 
             setAvailablePerPage(availablePerPage);
-            setPerPage(prev => {
-                if (availablePerPage.includes(prev)) {
-                    return prev;
-                }
-
-                return availablePerPage[0];
-            });
+            setPerPage(availablePerPage.includes(perPage) ? perPage : availablePerPage[0])
         }
     }, [elementsPerRow, setAvailablePerPage, setPerPage, defaultAvailablePerPage]);
 
@@ -59,7 +54,7 @@ export const usePaginatedGallery = (
     useEffect(() => {
         if (usingGallery && gallery && gallery.children.length > 0) {
             const lastPage = Math.floor(gallery.childElementCount / (perPage)) + 1;
-            setPage(prev => Math.min(prev, lastPage));
+            setPage(Math.min(page, lastPage));
         }
     }, [perPage, setPage, gallery, usingGallery]);
 };
