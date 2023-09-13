@@ -56,17 +56,15 @@ export const LandingPage: FunctionComponent = () => {
 
   const pagination = usePaginationStore();
 
-  useEffect(() => {
-    pagination.setItems(filteredDocs.slice((pagination.page - 1) * pagination.perPage, pagination.page * pagination.perPage));
-  }, [pagination.page, pagination.perPage, filteredDocs]);
-
   usePaginatedGallery(galleryId, view === 'grid', {
     setPage: pagination.setPage,
     page: pagination.page,
     perPage: pagination.perPage,
     setPerPage: pagination.setPerPage,
     setAvailablePerPage: pagination.setAvailablePerPage,
-    defaultAvailablePerPage: defaultAvailablePerPage
+    defaultAvailablePerPage: defaultAvailablePerPage,
+    elements: filteredDocs,
+    setItems: pagination.setItems,
   });
 
   const changeView = (toView: 'grid' | 'list') => {
@@ -83,11 +81,6 @@ export const LandingPage: FunctionComponent = () => {
     setSelectedTags([]);
     pagination.setPage(1);
   };
-
-  useEffect(() => {
-    const onSetPage = pagination.setPage;
-    onSetPage(1);
-  }, [filteredDocs, pagination.setPage]);
 
   // For some reason the type doesn't like 'ref'.
   const basePaginationProps: Omit<PaginationProps, 'ref'> = {

@@ -1,3 +1,4 @@
+import { APIConfiguration } from "@apidocs/common";
 import { useEffect, useState} from "react";
 import {useDebounce, useWindowSize} from "react-use";
 import {useGetHtmlElementById} from "../../hooks/useGetHtmlElementById";
@@ -8,13 +9,15 @@ interface PerPageOptions {
     page: number,
     perPage: number,
     setAvailablePerPage: (availablePerPage: ReadonlyArray<number>) => void,
-    defaultAvailablePerPage: ReadonlyArray<number>
+    defaultAvailablePerPage: ReadonlyArray<number>,
+    elements: ReadonlyArray<APIConfiguration>,
+    setItems: (elements: ReadonlyArray<APIConfiguration>) => void,
 }
 
 export const usePaginatedGallery = (
     cardContainerId: string,
     usingGallery: boolean,
-    {setPage, setPerPage, page, perPage, setAvailablePerPage, defaultAvailablePerPage}: PerPageOptions
+    {setPage, setPerPage, page, perPage, setAvailablePerPage, defaultAvailablePerPage, elements, setItems}: PerPageOptions
 ): void => {
     const { width: windowSizeWidth, height: windowSizeHeight } = useWindowSize();
     const [debouncedSize, setDebouncedSize] = useState<[number, number]>([windowSizeWidth , windowSizeHeight]);
@@ -37,6 +40,10 @@ export const usePaginatedGallery = (
             setElementsPerRow(undefined);
         }
     }, [debouncedSize, gallery, usingGallery]);
+
+    useEffect(() => {
+        setItems(elements.slice((page - 1) * perPage, page * perPage));
+      }, [page, perPage, elements]);
 
     // Updates the available elements if the elements per row is different
     useEffect(() => {
