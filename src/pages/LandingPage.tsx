@@ -1,4 +1,4 @@
-import {FunctionComponent, useEffect, useMemo } from 'react';
+import {FunctionComponent, useMemo } from 'react';
 import {
   Button,
   Flex,

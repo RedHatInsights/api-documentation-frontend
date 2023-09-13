@@ -43,7 +43,7 @@ export const usePaginatedGallery = (
 
     useEffect(() => {
         setItems(elements.slice((page - 1) * perPage, page * perPage));
-      }, [page, perPage, elements]);
+      }, [page, perPage, elements, setItems]);
 
     // Updates the available elements if the elements per row is different
     useEffect(() => {
@@ -55,7 +55,7 @@ export const usePaginatedGallery = (
             setAvailablePerPage(availablePerPage);
             setPerPage(availablePerPage.includes(perPage) ? perPage : availablePerPage[0])
         }
-    }, [elementsPerRow, setAvailablePerPage, setPerPage, defaultAvailablePerPage]);
+    }, [elementsPerRow, setAvailablePerPage, setPerPage, perPage, defaultAvailablePerPage]);
 
     // Updates current page
     useEffect(() => {
@@ -63,5 +63,5 @@ export const usePaginatedGallery = (
             const lastPage = Math.floor(gallery.childElementCount / (perPage)) + 1;
             setPage(Math.min(page, lastPage));
         }
-    }, [perPage, setPage, gallery, usingGallery]);
+    }, [page, perPage, setPage, gallery, usingGallery]);
 };
