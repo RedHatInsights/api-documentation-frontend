@@ -6,7 +6,7 @@ import assertNever from "assert-never";
 interface SidebarTagsProps {
     tags: ReadonlyArray<APILabel>;
     selected: ReadonlyArray<string>;
-    setSelected: (tagsArray: ReadonlyArray<string>) => void;
+    setSelected: (tagId: string, isChecked: boolean) => void;
 }
 
 const displayedTags: ReadonlyArray<APILabel['type']> = [
@@ -45,19 +45,6 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({tags, selected
         } as Record<DisplayedTagsType, Array<APILabel>>
     ), [tags]);
 
-    const updateSelectedTags = (selectedTags: ReadonlyArray<string>, tagId: string, isChecked: boolean) => {
-        const index = selectedTags.indexOf(tagId);
-        const newSelectedTags = [...selectedTags]
-
-        if (index === -1 && isChecked) {
-            newSelectedTags.push(tagId);
-        } else if (index !== -1 && !isChecked) {
-            newSelectedTags.splice(index, 1);
-        }
-
-        return newSelectedTags
-    }
-
     return (
         <TextContent>
             {displayedTags.map((type, index) =>
@@ -70,7 +57,7 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({tags, selected
                                 id={`sidebar-tag-checkbox-${tag.id}`}
                                 label={tag.name}
                                 name={tag.name}
-                                onChange={isChecked => setSelected(updateSelectedTags(selected, tag.id, isChecked))}
+                                onChange={isChecked => setSelected(tag.id, isChecked)}
                                 isChecked={selected.includes(tag.id)}
                             />)}
                         </>

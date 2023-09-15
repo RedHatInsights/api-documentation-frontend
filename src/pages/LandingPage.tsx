@@ -29,34 +29,29 @@ import {usePaginatedGallery} from "../components/Card/usePaginatedGallery";
 
 import { GridContent } from './GridContent';
 import { ListContent } from './ListContent';
-import { useLandingConfigStore, usePaginationStore, defaultAvailablePerPage } from '../hooks/useStore';
+import { useLandingConfigStore } from '../store/useLandingConfigStore';
+import { usePaginationStore, defaultAvailablePerPage } from '../store/usePaginationStore';
 import {Config} from "../config";
 
 export const LandingPage: FunctionComponent = () => {
-  const searchInput = useLandingConfigStore((state) => state.searchInput)
-  const setSearchInput = useLandingConfigStore((state) => state.updateInput)
-
-  const selectedTags = useLandingConfigStore((state) => state.selectedTags)
-  const setSelectedTags = useLandingConfigStore((state) => state.updateSelectedTags)
-
-  const view = useLandingConfigStore((state) => state.view)
-  const setView = useLandingConfigStore((state) => state.updateView)
+  const landingStore = useLandingConfigStore();
 
   const onChange = (searchInput: string) => {
-    setSearchInput(searchInput);
+    landingStore.setSearchInput(searchInput);
+    pagination.setPage(1);
   };
 
   const filteredDocs = useMemo(() => apiConfigurations
-      .filter((apiConfig) => apiConfig.displayName.toLowerCase().includes(searchInput.toLowerCase()))
-      .filter(apiConfig => selectedTags.length === 0 || apiConfig.tags.some(tag => selectedTags.includes(tag.id))),
-  [searchInput, selectedTags]
+      .filter((apiConfig) => apiConfig.displayName.toLowerCase().includes(landingStore.searchInput.toLowerCase()))
+      .filter(apiConfig => landingStore.selectedTags.length === 0 || apiConfig.tags.some(tag => landingStore.selectedTags.includes(tag.id))),
+  [landingStore.searchInput, landingStore.selectedTags]
   );
 
   const galleryId = 'apid-c-api-gallery';
 
   const pagination = usePaginationStore();
 
-  usePaginatedGallery(galleryId, view === 'grid', {
+  usePaginatedGallery(galleryId, landingStore.view === 'grid', {
     setPage: pagination.setPage,
     page: pagination.page,
     perPage: pagination.perPage,
@@ -68,7 +63,7 @@ export const LandingPage: FunctionComponent = () => {
   });
 
   const changeView = (toView: 'grid' | 'list') => {
-    setView(toView);
+    landingStore.setView(toView);
     pagination.setPage(1);
     if (toView === 'list') {
       pagination.setAvailablePerPage(defaultAvailablePerPage);
@@ -77,10 +72,15 @@ export const LandingPage: FunctionComponent = () => {
   }
 
   const clearFilters = () => {
-    setSearchInput('');
-    setSelectedTags([]);
+    landingStore.setSearchInput('');
+    landingStore.setSelectedTags([]);
     pagination.setPage(1);
   };
+
+  const onTagsChange = (tagId: string, isChecked: boolean) => {
+    landingStore.updateSingleTag(tagId, isChecked);
+    pagination.setPage(1);
+  }
 
   // For some reason the type doesn't like 'ref'.
   const basePaginationProps: Omit<PaginationProps, 'ref'> = {
@@ -112,11 +112,11 @@ export const LandingPage: FunctionComponent = () => {
           <Form>
             <SearchInput
               placeholder="Find by product or service name"
-              value={searchInput}
+              value={landingStore.searchInput}
               onChange={(_event, searchInput) => onChange(searchInput)}
               onClear={() => onChange('')}
             />
-            <SidebarTags tags={apiLabels} selected={selectedTags} setSelected={setSelectedTags} />
+            <SidebarTags tags={apiLabels} selected={landingStore.selectedTags} setSelected={onTagsChange} />
           </Form>
         </SidebarPanel>
         <SidebarContent className="pf-u-display-flex pf-u-flex-direction-column">
@@ -143,10 +143,10 @@ export const LandingPage: FunctionComponent = () => {
                 <SplitItem className="apid-landing-layout-toggle-group">
                   <ToggleGroup aria-label="API content type toggle group">
                     <Tooltip content="Show card view">
-                      <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={view === 'grid'} onChange={() => changeView('grid')} />
+                      <ToggleGroupItem buttonId="display-cards" icon={<ThIcon />} aria-label="Cards display" isSelected={landingStore.view === 'grid'} onChange={() => changeView('grid')} />
                     </Tooltip>
                     <Tooltip content="Show table view">
-                      <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={view === 'list'} onChange={() => changeView('list')} />
+                      <ToggleGroupItem buttonId="display-list" icon={<ThListIcon />} aria-label="Table display" isSelected={landingStore.view === 'list'} onChange={() => changeView('list')} />
                     </Tooltip>
                   </ToggleGroup>
                 </SplitItem>
@@ -155,7 +155,7 @@ export const LandingPage: FunctionComponent = () => {
           </PageSection>
 
           <PageSection className="apid-c-page__main-section-gallery" isFilled={true}>
-          { view === 'grid'
+          { landingStore.view === 'grid'
             ? <GridContent galleryId={galleryId} allItems={filteredDocs} items={pagination.items} clearFilters={clearFilters}/>
             : <ListContent items={pagination.items} clearFilters={clearFilters}/>
           }
