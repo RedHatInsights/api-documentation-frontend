@@ -76,7 +76,7 @@ export const APIPage: FunctionComponent = () => {
                 <meta name={`rhd:taxonomy-${t.type}`} content={t.value} />
             )) }
         </Helmet>
-        <Page className="apid-c-page-apipage pf-u-background-color-100" >
+        <Page className="apid-c-page-apipage pf-u-background-color-100">
           <PageSection variant={PageSectionVariants.light}>
             <Breadcrumb>
               <BreadcrumbItem to='#' onClick={(event) => {
