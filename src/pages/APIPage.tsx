@@ -76,8 +76,8 @@ export const APIPage: FunctionComponent = () => {
                 <meta name={`rhd:taxonomy-${t.type}`} content={t.value} />
             )) }
         </Helmet>
-        <Page className="apid-c-page-apipage pf-u-background-color-100"  >
-          <PageSection variant={PageSectionVariants.light} >
+        <Page className="apid-c-page-apipage pf-u-background-color-100" >
+          <PageSection variant={PageSectionVariants.light}>
             <Breadcrumb>
               <BreadcrumbItem to='#' onClick={(event) => {
                     event.preventDefault();
@@ -86,7 +86,7 @@ export const APIPage: FunctionComponent = () => {
               <BreadcrumbItem isActive>{selectedApi.displayName}</BreadcrumbItem>
             </Breadcrumb>
           </PageSection>
-          <Sidebar >
+          <Sidebar>
             <SidebarPanel className="pf-u-p-lg">
                 <SidebarApiSections openapi={openapi} groupedOperations={groupedOperations} />
             </SidebarPanel>
