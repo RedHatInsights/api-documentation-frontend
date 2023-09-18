@@ -1,9 +1,9 @@
 import {Fragment, FunctionComponent} from "react";
-import {Button, Flex, FlexItem} from "@patternfly/react-core";
+import {Flex, FlexItem} from "@patternfly/react-core";
 import {Tr, Td} from '@patternfly/react-table';
 import {APIConfiguration, pages} from "@apidocs/common";
-import {useNavigate} from "react-router";
 import {Tag, Tags} from "../components/Tags";
+import {Link} from "react-router-dom";
 
 interface ListViewProps {
     elements: ReadonlyArray<APIConfiguration>;
@@ -11,7 +11,6 @@ interface ListViewProps {
 }
 
 export const ListView: FunctionComponent<ListViewProps> = ({elements}) => {
-  const navigate = useNavigate();
   return (
       <Fragment>
         { elements.map(apiConfig => (
@@ -19,9 +18,9 @@ export const ListView: FunctionComponent<ListViewProps> = ({elements}) => {
                 <Td modifier="fitContent">
                   <Flex>
                     <FlexItem >
-                      <Button isInline variant="link" onClick={() => navigate(pages.getApiPage(apiConfig.id))}>
+                      <Link to={pages.getApiPage(apiConfig.id)}>
                         {apiConfig.displayName}
-                      </Button>
+                      </Link>
                     </FlexItem>
                   </Flex>
                 </Td>
