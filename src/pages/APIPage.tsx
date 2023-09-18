@@ -1,5 +1,6 @@
 import {FunctionComponent, useEffect, useMemo, useState} from 'react';
 import {
+    BackToTop,
     Breadcrumb,
     BreadcrumbItem,
     Bullseye,
@@ -22,7 +23,6 @@ import {SidebarApiSections} from "../components/SideBar/SidebarApiSections";
 import {fromApiLabels} from "../utils/DevelopersRedHatTaxonomy";
 import {Config} from "../config";
 import { LanguageProvider } from '../utils/LanguageContext';
-
 
 type ApiState = {
     isLoading: true;
@@ -76,8 +76,8 @@ export const APIPage: FunctionComponent = () => {
                 <meta name={`rhd:taxonomy-${t.type}`} content={t.value} />
             )) }
         </Helmet>
-        <Page className="apid-c-page-apipage pf-u-background-color-100">
-          <PageSection variant={PageSectionVariants.light}>
+        <Page className="apid-c-page-apipage pf-u-background-color-100"  >
+          <PageSection variant={PageSectionVariants.light} >
             <Breadcrumb>
               <BreadcrumbItem to='#' onClick={(event) => {
                     event.preventDefault();
@@ -86,17 +86,18 @@ export const APIPage: FunctionComponent = () => {
               <BreadcrumbItem isActive>{selectedApi.displayName}</BreadcrumbItem>
             </Breadcrumb>
           </PageSection>
-          <Sidebar>
+          <Sidebar >
             <SidebarPanel className="pf-u-p-lg">
                 <SidebarApiSections openapi={openapi} groupedOperations={groupedOperations} />
             </SidebarPanel>
-
             <SidebarContent>
               { (apiState.isLoading || !apiState.api || groupedOperations.loading) ?
                   <Bullseye><Spinner /></Bullseye> :
                   <ApiDoc apiContent={apiState.api} groupedOperations={groupedOperations.value} /> }
             </SidebarContent>
+
           </Sidebar>
+          <BackToTop  style={{position: 'fixed'}}/>
         </Page>
         </LanguageProvider>
     </>;
