@@ -95,7 +95,6 @@ export const APIPage: FunctionComponent = () => {
                   <Bullseye><Spinner /></Bullseye> :
                   <ApiDoc apiContent={apiState.api} groupedOperations={groupedOperations.value} /> }
             </SidebarContent>
-
           </Sidebar>
           <BackToTop  style={{position: 'fixed'}}/>
         </Page>
