@@ -96,7 +96,7 @@ export const APIPage: FunctionComponent = () => {
                   <ApiDoc apiContent={apiState.api} groupedOperations={groupedOperations.value} /> }
             </SidebarContent>
           </Sidebar>
-          <BackToTop className='pf-c-back-to-top'/>
+          <BackToTop/>
         </Page>
         </LanguageProvider>
     </>;
