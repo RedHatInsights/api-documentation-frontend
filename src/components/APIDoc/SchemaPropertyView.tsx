@@ -8,13 +8,11 @@ import {
   Label,
   LabelGroup,
   Level,
-  TextInput,
-  TreeViewDataItem,
-  TreeView,
+  ExpandableSection,
+  CodeBlock,
+  CodeBlockCode,
 } from "@patternfly/react-core";
 import { OpenAPIV3 } from "openapi-types";
-import { ExpandableRowContent } from "@patternfly/react-table";
-import { ExampleResponse } from "./ExampleResponse";
 
 interface PropertyViewComponentProps {
   propSchema?: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject;
@@ -27,8 +25,13 @@ export const PropertyView: React.FunctionComponent<
   PropertyViewComponentProps
 > = ({ propSchema, propName, propertyType, required }) => {
   let extraProps;
+  let extraExample;
   if (propSchema && !("$ref" in propSchema)) {
     extraProps = <ExtraPropertyView propSchema={propSchema} />;
+    if(propSchema.example) {
+      extraExample = <ExtraExampleView propSchema={propSchema} />
+    }
+
   }
   return (
     <Flex>
@@ -46,12 +49,18 @@ export const PropertyView: React.FunctionComponent<
                 {required && "*"}
               </Text>
             </FlexItem>
+            <FlexItem>
+                <Text 
+                  component={TextVariants.p}>
+                  {propertyType}
+                </Text>
+            </FlexItem>
           </Flex>
-        </TextContent>
-      </FlexItem>
-      <FlexItem>
-        <TextContent>
-          <Text component={TextVariants.p}>{propertyType}</Text>
+          <Flex>
+            <FlexItem>
+              {extraExample}
+            </FlexItem>
+          </Flex>
         </TextContent>
       </FlexItem>
       <FlexItem>{extraProps}</FlexItem>
@@ -59,13 +68,37 @@ export const PropertyView: React.FunctionComponent<
   );
 };
 
+interface ExtraExampleViewProps {
+  propSchema: OpenAPIV3.SchemaObject;
+}
+
+export const ExtraExampleView: React.FunctionComponent<
+  ExtraExampleViewProps
+> = ({ propSchema }) => {
+  return (
+    <><Flex>
+    {propSchema.description && (
+      <Level>
+        <Text>{propSchema.description}</Text>
+      </Level>
+    )}
+    </Flex>
+    <ExpandableSection toggleText="Example">
+      <CodeBlock>
+        <CodeBlockCode id="code-content">{propSchema.example}</CodeBlockCode>
+      </CodeBlock>
+    </ExpandableSection>
+    </>
+  )
+}
+  
+
 interface ExtraPropertyViewProps {
   propSchema: OpenAPIV3.SchemaObject;
 }
 export const ExtraPropertyView: React.FunctionComponent<
   ExtraPropertyViewProps
 > = ({ propSchema }) => {
-  console.log(propSchema);
   let maxMin: string | undefined;
   if (propSchema.maximum && propSchema.minimum) {
     maxMin =
@@ -106,84 +139,9 @@ export const ExtraPropertyView: React.FunctionComponent<
   } else if (propSchema.minItems) {
     maxMinProps = `min ${propSchema.minProperties} properties`;
   }
-
-  const GuidesTreeView: React.FunctionComponent = () => {
-    const options: TreeViewDataItem[] = [
-      {
-        name: 'Application launcher',
-        id: 'AppLaunch',
-        children: [
-          {
-            name: 'Application 1',
-            id: 'App1',
-            children: [
-              { name: 'Settings', id: 'App1Settings' },
-              { name: 'Current', id: 'App1Current' }
-            ]
-          },
-          {
-            name: 'Application 2',
-            id: 'App2',
-            children: [
-              { name: 'Settings', id: 'App2Settings' },
-              {
-                name: 'Loader',
-                id: 'App2Loader',
-                children: [
-                  { name: 'Loading App 1', id: 'LoadApp1' },
-                  { name: 'Loading App 2', id: 'LoadApp2' },
-                  { name: 'Loading App 3', id: 'LoadApp3' }
-                ]
-              }
-            ]
-          }
-        ],
-        defaultExpanded: true
-      },
-      {
-        name: 'Cost management',
-        id: 'Cost',
-        children: [
-          {
-            name: 'Application 3',
-            id: 'App3',
-            children: [
-              { name: 'Settings', id: 'App3Settings' },
-              { name: 'Current', id: 'App3Current' }
-            ]
-          }
-        ]
-      },
-      {
-        name: 'Sources',
-        id: 'Sources',
-        children: [{ name: 'Application 4', id: 'App4', children: [{ name: 'Settings', id: 'App4Settings' }] }]
-      },
-      {
-        name: 'Really really really long folder name that overflows the container it is in',
-        id: 'Long',
-        children: [{ name: 'Application 5', id: 'App5' }]
-      }
-    ];
-    return <TreeView data={options} hasGuides={true} />;
-  }
-
   return (
     <LabelGroup>
       {propSchema.format && <Label isCompact>{propSchema.format}</Label>}
-      {propSchema.description && (
-        <Level>
-          <Text>{propSchema.description}</Text>
-        </Level>
-      )}
-      {propSchema.example && (
-        <TextInput
-          value={propSchema.example}
-          type="text"
-          readOnly
-          aria-label="schema example"
-        />
-      )}
       {propSchema.default && (
         <Label isCompact>default: {propSchema.default}</Label>
       )}
