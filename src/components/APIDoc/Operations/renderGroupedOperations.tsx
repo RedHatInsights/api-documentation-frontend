@@ -15,6 +15,7 @@ const mapToOperation = (operationId: string, operations: GroupedOperations['oper
     return <Operation
         key={operation.id}
         verb={operation.verb}
+        baseUrl={operation.baseUrl}
         path={operation.path}
         operation={operation.rawOperation}
         document={openapi}

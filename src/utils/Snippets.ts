@@ -113,17 +113,23 @@ const inferContentType = (requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.Req
 
 export interface BuildCodeSampleDataParams {
   verb: string;
+  baseUrl?: string;
   path: string;
   params: DeRefResponse<OpenAPIV3.ParameterObject>[];
   requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject | undefined;
   responses: OpenAPIV3.ResponsesObject;
   document: OpenAPIV3.Document;
 }
-export const buildCodeSampleData = ({verb, path, params, requestBody, responses, document}: BuildCodeSampleDataParams): RequestFormat => {
+export const buildCodeSampleData = ({verb, baseUrl, path, params, requestBody, responses, document}: BuildCodeSampleDataParams): RequestFormat => {
   const inferredContentType = inferContentType(requestBody, responses)
+
+  if (!baseUrl) {
+    baseUrl = "http://example.com"
+  }
+
   return ({
     method: verb.toUpperCase(),
-    url: "http://example.com"+path,
+    url: baseUrl+path,
     httpVersion: "HTTP/1.1",
     cookies: [],
     headers: getHeaders(inferredContentType, params, document),

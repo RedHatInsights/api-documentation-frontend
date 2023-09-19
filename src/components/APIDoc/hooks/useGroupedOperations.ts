@@ -6,6 +6,7 @@ interface Operation {
     id: string;
     rawOperation: OpenAPIV3.OperationObject;
     verb: string;
+    baseUrl: string;
     path: string;
 }
 
@@ -33,6 +34,7 @@ const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) =>
                         id: operationId,
                         rawOperation: operation,
                         verb,
+                        baseUrl: "example.com",
                         path
                     };
 

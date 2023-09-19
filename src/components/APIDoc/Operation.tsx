@@ -32,6 +32,7 @@ import InfoCircleIcon from "@patternfly/react-icons/dist/esm/icons/info-circle-i
 
 export interface OperationProps {
   verb: string;
+  baseUrl: string;
   path: string;
   operation: OpenAPIV3.OperationObject;
   document: OpenAPIV3.Document;
@@ -81,6 +82,7 @@ export const Operation: React.FunctionComponent<OperationProps> = (props) => {
 
 const OperationContent: React.FunctionComponent<OperationProps> = ({
   verb,
+  baseUrl,
   path,
   operation,
   document,
@@ -95,6 +97,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({
 
   const codeSampleBuildParams: BuildCodeSampleDataParams = {
     verb: verb,
+    baseUrl: baseUrl,
     path: path,
     params: parameters,
     requestBody: operation.requestBody,
