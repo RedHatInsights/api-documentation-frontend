@@ -113,7 +113,7 @@ const inferContentType = (requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.Req
 
 export interface BuildCodeSampleDataParams {
   verb: string;
-  baseUrl?: string;
+  baseUrl: string;
   path: string;
   params: DeRefResponse<OpenAPIV3.ParameterObject>[];
   requestBody: OpenAPIV3.ReferenceObject | OpenAPIV3.RequestBodyObject | undefined;
@@ -123,10 +123,7 @@ export interface BuildCodeSampleDataParams {
 export const buildCodeSampleData = ({verb, baseUrl, path, params, requestBody, responses, document}: BuildCodeSampleDataParams): RequestFormat => {
   const inferredContentType = inferContentType(requestBody, responses)
 
-  if (!baseUrl) {
-    baseUrl = "http://example.com"
-  }
-
+  console.log("URL: ", baseUrl+path)
   return ({
     method: verb.toUpperCase(),
     url: baseUrl+path,

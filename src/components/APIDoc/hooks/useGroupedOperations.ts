@@ -23,12 +23,12 @@ export interface GroupedOperations {
 const operationVerbs: string[] = ["get", "post", "patch", "put", "delete", "options", "head", "trace"]
 
 const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) => {
-    let baseUrl = openapi.servers && openapi.servers.length > 0 ? openapi.servers[0].url : "https://example.com";
-    // if it ends in a /, remove it
+    let baseUrl = openapi.servers && openapi.servers.length > 0 ? openapi.servers[0].url : "www.example.com";
+    // if baseUrl ends in a /, remove it
     if (baseUrl.endsWith("/")) {
         baseUrl = baseUrl.substring(0, baseUrl.length - 1);
     }
-    
+
     Object.entries(openapi.paths)
         // Looks like openapi v3.1 supports components here as well
         .forEach(([path, pathObject]) =>
