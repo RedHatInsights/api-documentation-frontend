@@ -23,7 +23,15 @@ export interface GroupedOperations {
 const operationVerbs: string[] = ["get", "post", "patch", "put", "delete", "options", "head", "trace"]
 
 const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) => {
-    let baseUrl = openapi.servers && openapi.servers.length > 0 ? openapi.servers[0].url : "www.example.com";
+    const defaultUrl = "https://www.example.com"
+    let baseUrl = openapi.servers && openapi.servers.length > 0 ? openapi.servers[0].url : defaultUrl;
+    // check that baseUrl is a valid url
+    try {
+        new URL(baseUrl);
+    } catch (e) {
+        console.warn("Invalid baseUrl: ", baseUrl, e)
+        baseUrl = defaultUrl;
+    }
     // if baseUrl ends in a /, remove it
     if (baseUrl.endsWith("/")) {
         baseUrl = baseUrl.substring(0, baseUrl.length - 1);
