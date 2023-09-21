@@ -282,6 +282,16 @@ apis:
           - openshift
           - edge
           - rhel
+      - id: tasks
+        name: Tasks
+        description: API for managing and issuing Red Hat generated tasks on your infrastructure
+        url: https://console.redhat.com/api/tasks/v1/openapi.json
+        apiType: openapi-v3
+        tags:
+          - automation
+          - insights
+          - observe
+          - rhel
       - id: vulnerability
         name: Vulnerability Management
         description: Vulnerability API
