@@ -3,6 +3,69 @@
   "openapi": {
     "components": {
       "parameters": {
+        "assignmentRuleId": {
+          "description": "assignment-rule ID.",
+          "in": "path",
+          "name": "assignment_rule_id",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/NonStrictUUID",
+            "x-scope": [
+              ""
+            ]
+          }
+        },
+        "assignmentRuleIdList": {
+          "description": "A comma-separated list of assignment-rule IDs.",
+          "in": "path",
+          "name": "assignment_rule_id_list",
+          "required": true,
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/NonStrictUUID",
+              "x-scope": [
+                "",
+                "#/components/parameters/assignmentRuleIdList"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "assignmentRuleName": {
+          "description": "Filter by assignment-rule name",
+          "in": "query",
+          "name": "name",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        "assignmentRuleOrderByParam": {
+          "description": "Ordering field name",
+          "in": "query",
+          "name": "order_by",
+          "required": false,
+          "schema": {
+            "enum": [
+              "name",
+              "group_id"
+            ],
+            "type": "string"
+          }
+        },
+        "assignmentRuleOrderHowParam": {
+          "description": "Direction of the ordering; defaults to ASC for name, and to DESC for host_ids",
+          "in": "query",
+          "name": "order_how",
+          "required": false,
+          "schema": {
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "type": "string"
+          }
+        },
         "branchId": {
           "description": "Filter by branch_id",
           "in": "query",
@@ -191,6 +254,7 @@
           "schema": {
             "enum": [
               "display_name",
+              "group_name",
               "updated",
               "operating_system"
             ],
@@ -437,6 +501,124 @@
           "nullable": true,
           "type": "string"
         },
+        "AccountStalenessId": {
+          "description": "Account Staleness UID",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/NonStrictUUID",
+              "x-scope": [
+                "",
+                "#/components/schemas/AccountStalenessOutput",
+                "#/components/schemas/AccountStalenessId"
+              ]
+            },
+            {
+              "$ref": "#/components/schemas/SystemDefaultId",
+              "x-scope": [
+                "",
+                "#/components/schemas/AccountStalenessOutput",
+                "#/components/schemas/AccountStalenessId"
+              ]
+            }
+          ]
+        },
+        "AccountStalenessIn": {
+          "anyOf": [
+            {
+              "properties": {
+                "conventional_culling_delta": {
+                  "maxLength": 36,
+                  "type": "string"
+                },
+                "conventional_stale_warning_delta": {
+                  "maxLength": 36,
+                  "type": "string"
+                },
+                "conventional_staleness_delta": {
+                  "maxLength": 36,
+                  "type": "string"
+                },
+                "immutable_culling_delta": {
+                  "maxLength": 36,
+                  "type": "string"
+                },
+                "immutable_stale_warning_delta": {
+                  "maxLength": 36,
+                  "type": "string"
+                },
+                "immutable_staleness_delta": {
+                  "maxLength": 36,
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "description": "Data of a single account staleness.",
+          "title": "Account Staleness In",
+          "type": "object"
+        },
+        "AccountStalenessOutput": {
+          "description": "Data of a account staleness.",
+          "properties": {
+            "account": {
+              "$ref": "#/components/schemas/AccountNumber",
+              "x-scope": [
+                "",
+                "#/components/schemas/AccountStalenessOutput"
+              ]
+            },
+            "conventional_culling_delta": {
+              "maxLength": 36,
+              "type": "string"
+            },
+            "conventional_stale_warning_delta": {
+              "maxLength": 36,
+              "type": "string"
+            },
+            "conventional_staleness_delta": {
+              "maxLength": 36,
+              "type": "string"
+            },
+            "created_at": {
+              "description": "A timestamp when the entry was created.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/AccountStalenessId",
+              "x-scope": [
+                "",
+                "#/components/schemas/AccountStalenessOutput"
+              ]
+            },
+            "immutable_culling_delta": {
+              "maxLength": 36,
+              "type": "string"
+            },
+            "immutable_stale_warning_delta": {
+              "maxLength": 36,
+              "type": "string"
+            },
+            "immutable_staleness_delta": {
+              "maxLength": 36,
+              "type": "string"
+            },
+            "org_id": {
+              "$ref": "#/components/schemas/OrgId",
+              "x-scope": [
+                "",
+                "#/components/schemas/AccountStalenessOutput"
+              ]
+            },
+            "updated_at": {
+              "description": "A timestamp when the entry was last updated.",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "title": "Account Staleness Out",
+          "type": "object"
+        },
         "ActiveTags": {
           "allOf": [
             {
@@ -515,115 +697,150 @@
           },
           "title": "Host data"
         },
+        "AssignmentRuleId": {
+          "$ref": "#/components/schemas/NonStrictUUID",
+          "x-scope": [
+            ""
+          ]
+        },
         "AssignmentRuleIn": {
-          "allOf": [
-            {
-              "properties": {
-                "description": {
-                  "maxLength": 255,
-                  "minLength": 1,
-                  "nullable": true,
-                  "type": "string"
-                },
-                "enabled": {
-                  "type": "boolean"
-                },
-                "filter": {
-                  "type": "object"
-                },
-                "group_id": {
-                  "$ref": "#/components/schemas/GroupId",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/AssignmentRuleIn"
-                  ]
-                },
-                "name": {
-                  "maxLength": 255,
-                  "minLength": 1,
-                  "type": "string"
-                }
-              },
-              "required": [
-                "name",
-                "group_id",
-                "filter",
-                "enabled"
-              ]
-            }
-          ],
           "description": "Data for a single Assignment Rule",
+          "properties": {
+            "description": {
+              "maxLength": 255,
+              "minLength": 1,
+              "nullable": true,
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "filter": {
+              "type": "object"
+            },
+            "group_id": {
+              "$ref": "#/components/schemas/GroupId",
+              "x-scope": [
+                "",
+                "#/components/schemas/AssignmentRuleIn"
+              ]
+            },
+            "name": {
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "group_id",
+            "filter",
+            "enabled"
+          ],
           "title": "Assignment Rule In",
           "type": "object"
         },
         "AssignmentRuleOut": {
+          "description": "Data for a single Assignment Rule response",
+          "properties": {
+            "account": {
+              "$ref": "#/components/schemas/AccountNumber",
+              "x-scope": [
+                "",
+                "#/components/schemas/AssignmentRuleQueryOutput",
+                "#/components/schemas/AssignmentRuleOut"
+              ]
+            },
+            "created_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "description": {
+              "minLength": 1,
+              "nullable": true,
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "filter": {
+              "type": "object"
+            },
+            "group_id": {
+              "$ref": "#/components/schemas/GroupId",
+              "x-scope": [
+                "",
+                "#/components/schemas/AssignmentRuleQueryOutput",
+                "#/components/schemas/AssignmentRuleOut"
+              ]
+            },
+            "id": {
+              "$ref": "#/components/schemas/NonStrictUUID",
+              "x-scope": [
+                "",
+                "#/components/schemas/AssignmentRuleQueryOutput",
+                "#/components/schemas/AssignmentRuleOut"
+              ]
+            },
+            "modified_on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "org_id": {
+              "$ref": "#/components/schemas/OrgId",
+              "x-scope": [
+                "",
+                "#/components/schemas/AssignmentRuleQueryOutput",
+                "#/components/schemas/AssignmentRuleOut"
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "group_id",
+            "filter",
+            "enabled",
+            "created_on",
+            "modified_on"
+          ],
+          "title": "Assignment Rule response",
+          "type": "object"
+        },
+        "AssignmentRuleQueryOutput": {
           "allOf": [
             {
+              "$ref": "#/components/schemas/PaginationOut",
+              "x-scope": [
+                "",
+                "#/components/schemas/AssignmentRuleQueryOutput"
+              ]
+            },
+            {
               "properties": {
-                "account": {
-                  "$ref": "#/components/schemas/AccountNumber",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/AssignmentRuleOut"
-                  ]
-                },
-                "created_on": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "description": {
-                  "minLength": 1,
-                  "nullable": true,
-                  "type": "string"
-                },
-                "enabled": {
-                  "type": "boolean"
-                },
-                "filter": {
-                  "type": "object"
-                },
-                "group_id": {
-                  "$ref": "#/components/schemas/GroupId",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/AssignmentRuleOut"
-                  ]
-                },
-                "id": {
-                  "$ref": "#/components/schemas/NonStrictUUID",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/AssignmentRuleOut"
-                  ]
-                },
-                "modified_on": {
-                  "format": "date-time",
-                  "type": "string"
-                },
-                "name": {
-                  "minLength": 1,
-                  "type": "string"
-                },
-                "org_id": {
-                  "$ref": "#/components/schemas/OrgId",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/AssignmentRuleOut"
-                  ]
+                "results": {
+                  "description": "Actual assignment-rule search query result entries.",
+                  "items": {
+                    "$ref": "#/components/schemas/AssignmentRuleOut",
+                    "x-scope": [
+                      "",
+                      "#/components/schemas/AssignmentRuleQueryOutput"
+                    ]
+                  },
+                  "type": "array"
                 }
               },
               "required": [
-                "name",
-                "group_id",
-                "filter",
-                "enabled",
-                "created_on",
-                "modified_on"
-              ]
+                "results"
+              ],
+              "type": "object"
             }
           ],
-          "description": "Data for a single Assignment Rule response",
-          "title": "Assignment Rule response",
+          "description": "A paginated assignment-rule search query result with assignment-rule entries and their Inventory metadata.",
+          "title": "An Inventory Assignment Rules query result",
           "type": "object"
         },
         "BiosUuid": {
@@ -1631,6 +1848,11 @@
           "nullable": true,
           "type": "string"
         },
+        "SystemDefaultId": {
+          "example": "system_default",
+          "pattern": "system_default",
+          "type": "string"
+        },
         "SystemProfile": {
           "description": "Representation of the system profile fields",
           "properties": {
@@ -1933,10 +2155,11 @@
                   "description": "Name of the distro/os",
                   "enum": [
                     "RHEL",
-                    "CentOS"
+                    "CentOS",
+                    "CentOS Linux"
                   ],
-                  "example": "RHEL, CentOS, RHEL",
-                  "maxLength": 6,
+                  "example": "RHEL, CentOS, CentOS Linux",
+                  "maxLength": 12,
                   "type": "string"
                 }
               },
@@ -1967,6 +2190,17 @@
               "maxLength": 36,
               "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
               "type": "string"
+            },
+            "public_dns": {
+              "items": {
+                "description": "The external DNS of the system",
+                "example": "ec2-12-34-56-78.us-west-2.compute.amazonaws.com",
+                "format": "string",
+                "maxLength": 100,
+                "type": "string"
+              },
+              "type": "array",
+              "x-indexed": false
             },
             "public_ipv4_addresses": {
               "items": {
@@ -2698,7 +2932,250 @@
     },
     "openapi": "3.0.0",
     "paths": {
+      "/account/staleness": {
+        "delete": {
+          "description": "Delete an account staleness <br /><br /> Required permissions: inventory:staleness:write",
+          "operationId": "api.account_staleness.delete_staleness",
+          "responses": {
+            "204": {
+              "description": "Successfully deleted account staleness."
+            },
+            "400": {
+              "description": "Invalid request."
+            },
+            "404": {
+              "description": "Account Staleness not found."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "BearerAuth": []
+            }
+          ],
+          "summary": "Delete an account staleness",
+          "tags": [
+            "accounts_staleness"
+          ]
+        },
+        "get": {
+          "description": "Read the entire list of all accounts staleness available. Required permissions: inventory:TODO:read",
+          "operationId": "api.account_staleness.get_staleness",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "x-scope": [
+                      ""
+                    ]
+                  }
+                }
+              },
+              "description": "Successfully read the staleness account."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "BearerAuth": []
+            }
+          ],
+          "summary": "Read the entire list of account staleness",
+          "tags": [
+            "accounts_staleness"
+          ]
+        },
+        "patch": {
+          "description": "Update account staleness record. Required permissions: inventory:staleness:write",
+          "operationId": "api.account_staleness.update_staleness",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountStalenessIn",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Data required to update a record for a account staleness.",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "x-scope": [
+                      ""
+                    ]
+                  }
+                }
+              },
+              "description": "Successfully account staleness updated."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "BearerAuth": []
+            }
+          ],
+          "summary": "Update account staleness record",
+          "tags": [
+            "accounts_staleness"
+          ]
+        },
+        "post": {
+          "description": "Create account staleness record. Required permissions: inventory:TODO:write",
+          "operationId": "api.account_staleness.create_staleness",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountStalenessIn",
+                  "x-scope": [
+                    ""
+                  ]
+                }
+              }
+            },
+            "description": "Data required to create a record for a account staleness.",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "x-scope": [
+                      ""
+                    ]
+                  }
+                }
+              },
+              "description": "Successfully account staleness created."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "BearerAuth": []
+            }
+          ],
+          "summary": "Create account staleness record",
+          "tags": [
+            "accounts_staleness"
+          ]
+        }
+      },
+      "/account/staleness/defaults": {
+        "get": {
+          "description": "Read the entire list of all accounts staleness available. Required permissions: inventory:TODO:read",
+          "operationId": "api.account_staleness.get_default_staleness",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "x-scope": [
+                      ""
+                    ]
+                  }
+                }
+              },
+              "description": "Successfully read the staleness account."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            },
+            {
+              "BearerAuth": []
+            }
+          ],
+          "summary": "Read the entire list of account staleness",
+          "tags": [
+            "accounts_staleness"
+          ]
+        }
+      },
       "/assignment-rules": {
+        "get": {
+          "description": "Read the entire list of all assignment-rules available to the account. [Not Implemented] Required permissions: inventory:groups:read",
+          "operationId": "api.assignment_rule.get_assignment_rules_list",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/assignmentRuleName",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/perPageParam",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/pageParam",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/assignmentRuleOrderByParam",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/assignmentRuleOrderHowParam",
+              "x-scope": [
+                ""
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput",
+                    "x-scope": [
+                      ""
+                    ]
+                  }
+                }
+              },
+              "description": "Successfully read the assignment-rules list."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Read the entire list of assignment-rules [Not Implemented]",
+          "tags": [
+            "groups"
+          ]
+        },
         "post": {
           "description": "Create Assignment Rule object using post request <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.assignment_rule.create_assignment_rule",
@@ -2739,12 +3216,83 @@
               "BearerAuth": []
             }
           ],
-          "summary": "Create Assignment Rule object"
+          "summary": "Create Assignment Rule object",
+          "tags": [
+            "groups"
+          ]
+        }
+      },
+      "/assignment-rules/{assignment_rule_id_list}": {
+        "get": {
+          "description": "Find one or more assignment rules by their IDs. <br /><br /> Required permissions: inventory:groups:read",
+          "operationId": "api.assignment_rule.get_assignment_rules_by_id",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/assignmentRuleIdList",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/perPageParam",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/pageParam",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/assignmentRuleOrderByParam",
+              "x-scope": [
+                ""
+              ]
+            },
+            {
+              "$ref": "#/components/parameters/assignmentRuleOrderHowParam",
+              "x-scope": [
+                ""
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput",
+                    "x-scope": [
+                      ""
+                    ]
+                  }
+                }
+              },
+              "description": "Successfully searched for assignment rules."
+            },
+            "400": {
+              "description": "Invalid request."
+            },
+            "404": {
+              "description": "Assignment rules not found."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Find assignment rules by their IDs",
+          "tags": [
+            "groups"
+          ]
         }
       },
       "/groups": {
         "get": {
-          "description": "Read the entire list of all groups available to the account. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read",
+          "description": "Read the entire list of all groups available to the account. <br /><br /> Required permissions: inventory:groups:read",
           "operationId": "api.group.get_group_list",
           "parameters": [
             {
@@ -2798,13 +3346,13 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "Read the entire list of groups [Not Implemented]",
+          "summary": "Read the entire list of groups",
           "tags": [
             "groups"
           ]
         },
         "post": {
-          "description": "Creates a new group containing the hosts associated with the host IDs provided. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+          "description": "Creates a new group containing the hosts associated with the host IDs provided. <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.group.create_group",
           "requestBody": {
             "content": {
@@ -2843,7 +3391,7 @@
               "BearerAuth": []
             }
           ],
-          "summary": "Create a new group matching the provided name and list of hosts IDs [Not Implemented]",
+          "summary": "Create a new group matching the provided name and list of hosts IDs",
           "tags": [
             "groups"
           ]
@@ -2851,7 +3399,7 @@
       },
       "/groups/{group_id_list}": {
         "delete": {
-          "description": "Delete a list of groups. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+          "description": "Delete a list of groups. <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.group.delete_groups",
           "parameters": [
             {
@@ -2874,13 +3422,13 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "Delete a list of groups [Not Implemented]",
+          "summary": "Delete a list of groups",
           "tags": [
             "groups"
           ]
         },
         "get": {
-          "description": "Find one or more groups by their IDs. [Not Implemented] <br /><br /> Required permissions: inventory:groups:read",
+          "description": "Find one or more groups by their IDs. <br /><br /> Required permissions: inventory:groups:read",
           "operationId": "api.group.get_groups_by_id",
           "parameters": [
             {
@@ -2940,7 +3488,7 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "Find groups by their IDs [Not Implemented]",
+          "summary": "Find groups by their IDs",
           "tags": [
             "groups"
           ]
@@ -2948,7 +3496,7 @@
       },
       "/groups/{group_id}": {
         "patch": {
-          "description": "Merge group information. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+          "description": "Merge group information. <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.group.patch_group_by_id",
           "parameters": [
             {
@@ -2998,7 +3546,7 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "Merge group information [Not Implemented]",
+          "summary": "Merge group information",
           "tags": [
             "groups"
           ]
@@ -3064,7 +3612,7 @@
       },
       "/groups/{group_id}/hosts/{host_id_list}": {
         "delete": {
-          "description": "Delete one or more hosts from a group. [Not Implemented] <br /><br /> Required permissions: inventory:groups:write",
+          "description": "Delete one or more hosts from a group. <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.host_group.delete_hosts_from_group",
           "parameters": [
             {
@@ -3093,7 +3641,7 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "Delete one or more hosts from a group [Not Implemented]",
+          "summary": "Delete one or more hosts from a group",
           "tags": [
             "groups"
           ]
@@ -3933,7 +4481,7 @@
       },
       "/resource-types": {
         "get": {
-          "description": "Returns the list of available RBAC resource types. <br /><br /> Required permissions: inventory:*:*",
+          "description": "Returns the list of available RBAC resource types. <br /><br /> Required permissions: rbac:*:*",
           "operationId": "api.resource_type.get_resource_type_list",
           "parameters": [
             {
@@ -3977,9 +4525,15 @@
       },
       "/resource-types/inventory-groups": {
         "get": {
-          "description": "Returns the list of groups in the current account. <br /><br /> Required permissions: inventory:*:*",
+          "description": "Returns the list of groups in the current account. <br /><br /> Required permissions: rbac:*:*",
           "operationId": "api.resource_type.get_resource_type_groups_list",
           "parameters": [
+            {
+              "$ref": "#/components/parameters/groupName",
+              "x-scope": [
+                ""
+              ]
+            },
             {
               "$ref": "#/components/parameters/resourceTypesPerPageParam",
               "x-scope": [
@@ -4311,7 +4865,10 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "validate system profile schema"
+          "summary": "validate system profile schema",
+          "tags": [
+            "system_profile"
+          ]
         }
       },
       "/tags": {

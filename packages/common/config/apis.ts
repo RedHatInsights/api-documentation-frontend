@@ -560,6 +560,24 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "tasks",
+    displayName: "Tasks",
+    description:
+      "API for managing and issuing Red Hat generated tasks on your infrastructure",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/hcc-insights/tasks/content.json",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/tasks/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["automation"],
+      apiLabelsMap["insights"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+    ],
+  },
+  {
     id: "vulnerability",
     displayName: "Vulnerability Management",
     description: "Vulnerability API",

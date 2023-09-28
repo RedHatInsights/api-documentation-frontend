@@ -785,6 +785,12 @@
                 "email": {
                   "type": "string"
                 },
+                "first_name": {
+                  "type": "string"
+                },
+                "last_name": {
+                  "type": "string"
+                },
                 "name": {
                   "type": "string"
                 },
@@ -1607,6 +1613,9 @@
                   "type": "string"
                 },
                 "metrics": {
+                  "type": "string"
+                },
+                "original_id": {
                   "type": "string"
                 },
                 "query_timestamp": {

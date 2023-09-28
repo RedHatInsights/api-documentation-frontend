@@ -179,10 +179,10 @@
               "$ref": "#/components/schemas/GranularityType"
             },
             "metric_id": {
-              "$ref": "#/components/schemas/MetricId"
+              "type": "string"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "service_level": {
               "$ref": "#/components/schemas/ServiceLevelType"
@@ -207,7 +207,7 @@
               "$ref": "#/components/schemas/GranularityType"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "service_level": {
               "$ref": "#/components/schemas/ServiceLevelType"
@@ -474,7 +474,7 @@
               "type": "integer"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "service_level": {
               "$ref": "#/components/schemas/ServiceLevelType"
@@ -618,7 +618,7 @@
               "type": "array"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "service_level": {
               "$ref": "#/components/schemas/ServiceLevelType"
@@ -716,15 +716,7 @@
           ]
         },
         "MetricId": {
-          "enum": [
-            "Cores",
-            "Sockets",
-            "Core-seconds",
-            "Instance-hours",
-            "Storage-gibibyte-months",
-            "Storage-gibibytes",
-            "Transfer-gibibytes"
-          ],
+          "format": "MetricId",
           "type": "string"
         },
         "OptInConfig": {
@@ -842,24 +834,7 @@
           ]
         },
         "ProductId": {
-          "enum": [
-            "OpenShift Container Platform",
-            "RHEL Compute Node",
-            "RHEL for ARM",
-            "RHEL for IBM Power",
-            "RHEL for IBM z",
-            "RHEL for x86",
-            "RHEL Workstation",
-            "Satellite Capsule",
-            "Satellite Server",
-            "OpenShift-metrics",
-            "OpenShift-dedicated-metrics",
-            "rhosak",
-            "rhacs",
-            "rhods",
-            "BASILISK",
-            "rosa"
-          ],
+          "format": "ProductId",
           "type": "string"
         },
         "ReportCategory": {
@@ -980,7 +955,7 @@
               "type": "integer"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "report_category": {
               "$ref": "#/components/schemas/ReportCategory"
@@ -1109,7 +1084,7 @@
               "type": "string"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "service_level": {
               "$ref": "#/components/schemas/ServiceLevelType"
@@ -1138,7 +1113,7 @@
               "$ref": "#/components/schemas/GranularityType"
             },
             "product": {
-              "$ref": "#/components/schemas/ProductId"
+              "type": "string"
             },
             "service_level": {
               "$ref": "#/components/schemas/ServiceLevelType"
@@ -2176,7 +2151,7 @@
               "name": "uom",
               "required": false,
               "schema": {
-                "$ref": "#/components/schemas/MetricId"
+                "type": "string"
               },
               "style": "form"
             },

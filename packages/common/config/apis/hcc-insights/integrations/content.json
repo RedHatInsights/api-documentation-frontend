@@ -135,20 +135,6 @@
           },
           "type": "object"
         },
-        "ApplicationSettingsValue1": {
-          "properties": {
-            "hasForcedEmail": {
-              "type": "boolean"
-            },
-            "notifications": {
-              "additionalProperties": {
-                "type": "boolean"
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
         "BasicAuthentication": {
           "properties": {
             "password": {
@@ -264,17 +250,6 @@
             "applications": {
               "additionalProperties": {
                 "$ref": "#/components/schemas/ApplicationSettingsValue"
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "BundleSettingsValue1": {
-          "properties": {
-            "applications": {
-              "additionalProperties": {
-                "$ref": "#/components/schemas/ApplicationSettingsValue1"
               },
               "type": "object"
             }
@@ -404,6 +379,32 @@
           },
           "required": [
             "status"
+          ],
+          "type": "object"
+        },
+        "DrawerEntryPayload": {
+          "properties": {
+            "created": {
+              "$ref": "#/components/schemas/LocalDateTime"
+            },
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/UUID"
+            },
+            "read": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "read"
           ],
           "type": "object"
         },
@@ -598,9 +599,7 @@
         "EventLogEntryAction": {
           "properties": {
             "details": {
-              "additionalProperties": {
-                "type": "object"
-              },
+              "additionalProperties": {},
               "type": "object"
             },
             "endpoint_id": {
@@ -903,9 +902,7 @@
               "$ref": "#/components/schemas/LocalDateTime"
             },
             "details": {
-              "additionalProperties": {
-                "type": "object"
-              },
+              "additionalProperties": {},
               "type": "object"
             },
             "endpointId": {
@@ -954,6 +951,31 @@
             "data": {
               "items": {
                 "$ref": "#/components/schemas/BehaviorGroup"
+              },
+              "type": "array"
+            },
+            "links": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "data",
+            "links",
+            "meta"
+          ],
+          "type": "object"
+        },
+        "PageDrawerEntryPayload": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/DrawerEntryPayload"
               },
               "type": "array"
             },
@@ -1105,17 +1127,6 @@
           },
           "type": "object"
         },
-        "SettingsValues": {
-          "properties": {
-            "bundles": {
-              "additionalProperties": {
-                "$ref": "#/components/schemas/BundleSettingsValue1"
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
         "SettingsValuesByEventType": {
           "properties": {
             "bundles": {
@@ -1243,15 +1254,25 @@
           },
           "type": "object"
         },
-        "UserConfigPreferences": {
+        "UpdateNotificationDrawerStatus": {
           "properties": {
-            "daily_email": {
-              "type": "boolean"
+            "notification_ids": {
+              "items": {
+                "format": "uuid",
+                "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
             },
-            "instant_email": {
+            "read_status": {
               "type": "boolean"
             }
           },
+          "required": [
+            "notification_ids",
+            "read_status"
+          ],
           "type": "object"
         },
         "WebhookProperties": {
@@ -1290,7 +1311,7 @@
       }
     },
     "info": {
-      "description": "The API for Integrations",
+      "description": "The API for Integrations provides endpoints that you can use to create and manage integrations between third-party applications and the Red Hat Hybrid Cloud Console.",
       "title": "Integrations",
       "version": "v1.0"
     },
@@ -1298,7 +1319,7 @@
     "paths": {
       "/endpoints": {
         "get": {
-          "description": "Get a list of endpoints filtered down by the passed parameters.",
+          "description": "Provides a list of endpoints. Use this endpoint to find specific endpoints.",
           "operationId": "EndpointResource$V1_getEndpoints",
           "parameters": [
             {
@@ -1385,7 +1406,7 @@
           "summary": "List endpoints"
         },
         "post": {
-          "description": "Create a new endpoint from the passed data",
+          "description": "Creates a new endpoint by providing data such as a description, a name, and the endpoint properties. Use this endpoint to create endpoints for integration with third-party services such as webhooks, Slack, or Google Chat.",
           "operationId": "EndpointResource$V1_createEndpoint",
           "requestBody": {
             "content": {
@@ -1415,94 +1436,9 @@
           "summary": "Create a new endpoint"
         }
       },
-      "/endpoints/email/subscription/{bundleName}/{applicationName}/{type}": {
-        "delete": {
-          "deprecated": true,
-          "operationId": "EndpointResource$V1_unsubscribeEmail",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "applicationName",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "bundleName",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "type",
-              "required": true,
-              "schema": {
-                "$ref": "#/components/schemas/EmailSubscriptionType"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "description": "OK"
-            }
-          }
-        },
-        "put": {
-          "deprecated": true,
-          "operationId": "EndpointResource$V1_subscribeEmail",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "applicationName",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "bundleName",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "type",
-              "required": true,
-              "schema": {
-                "$ref": "#/components/schemas/EmailSubscriptionType"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "boolean"
-                  }
-                }
-              },
-              "description": "OK"
-            }
-          }
-        }
-      },
       "/endpoints/system/drawer_subscription": {
         "post": {
+          "description": "Adds the drawer system endpoint into the system and specifies the role-based access control (RBAC) group that will receive notifications. Use this endpoint to add an animation as a notification in the UI.",
           "operationId": "EndpointResource$V1_getOrCreateDrawerSubscriptionEndpoint",
           "requestBody": {
             "content": {
@@ -1525,11 +1461,13 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Add a drawer endpoint"
         }
       },
       "/endpoints/system/email_subscription": {
         "post": {
+          "description": "Adds the email subscription endpoint into the system and specifies the role-based access control (RBAC) group that will receive email notifications. Use this endpoint in behavior groups to send emails when an action linked to the behavior group is triggered.",
           "operationId": "EndpointResource$V1_getOrCreateEmailSubscriptionEndpoint",
           "requestBody": {
             "content": {
@@ -1552,11 +1490,13 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Create an email subscription endpoint"
         }
       },
       "/endpoints/{id}": {
         "delete": {
+          "description": "Deletes an endpoint. Use this endpoint to delete an endpoint that is no longer needed. Deleting an endpoint that is already linked to a behavior group will unlink it from the behavior group. You cannot delete system endpoints.",
           "operationId": "EndpointResource$V1_deleteEndpoint",
           "parameters": [
             {
@@ -1573,9 +1513,11 @@
               "content": {},
               "description": "The integration has been deleted"
             }
-          }
+          },
+          "summary": "Delete an endpoint"
         },
         "get": {
+          "description": "Retrieves the public information associated with an endpoint such as its description, name, and properties.",
           "operationId": "EndpointResource$V1_getEndpoint",
           "parameters": [
             {
@@ -1598,9 +1540,11 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Retrieve an endpoint"
         },
         "put": {
+          "description": "Updates the endpoint configuration. Use this to update an existing endpoint. Any changes to the endpoint take place immediately.",
           "operationId": "EndpointResource$V1_updateEndpoint",
           "parameters": [
             {
@@ -1633,11 +1577,13 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Update an endpoint"
         }
       },
       "/endpoints/{id}/enable": {
         "delete": {
+          "description": "Disables an endpoint so that the endpoint will not be executed after an operation that uses the endpoint is started. An operation that is already running can still execute the endpoint. Disable an endpoint when you want to stop it from running and might want to re-enable it in the future.",
           "operationId": "EndpointResource$V1_disableEndpoint",
           "parameters": [
             {
@@ -1654,9 +1600,11 @@
               "content": {},
               "description": "The integration has been disabled"
             }
-          }
+          },
+          "summary": "Disable an endpoint"
         },
         "put": {
+          "description": "Enables an endpoint that is disabled so that the endpoint will be executed on the following operations that use the endpoint. An operation must be restarted to use the enabled endpoint.",
           "operationId": "EndpointResource$V1_enableEndpoint",
           "parameters": [
             {
@@ -1679,7 +1627,8 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Enable an endpoint"
         }
       },
       "/endpoints/{id}/history": {
@@ -1780,6 +1729,7 @@
       },
       "/endpoints/{id}/history/{history_id}/details": {
         "get": {
+          "description": "Retrieves extended information about the outcome of an event notification related to the specified endpoint. Use this endpoint to learn why an event delivery failed.",
           "operationId": "EndpointResource$V1_getDetailedEndpointHistory",
           "parameters": [
             {
@@ -1810,11 +1760,13 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Retrieve event notification details"
         }
       },
       "/endpoints/{uuid}/test": {
         "post": {
+          "description": "Generates a test notification for a particular endpoint. Use this endpoint to test that an integration that you created works as expected. This endpoint triggers a test notification that should be received by the target recipient. For example, if you set up a webhook as the action to take upon receiving a notification, you should receive a test notification when using this endpoint.",
           "operationId": "EndpointResource$V1_testEndpoint",
           "parameters": [
             {
@@ -1840,7 +1792,8 @@
             "204": {
               "description": "No Content"
             }
-          }
+          },
+          "summary": "Generate a test notification"
         }
       }
     },

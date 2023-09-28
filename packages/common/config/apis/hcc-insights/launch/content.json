@@ -232,11 +232,11 @@
                 "success": false
               }
             ],
-            "links": {
-              "next": "",
-              "previous": ""
-            },
             "metadata": {
+              "links": {
+                "next": "",
+                "previous": ""
+              },
               "total": 3
             }
           }
@@ -333,7 +333,14 @@
                 "id": "lt-9843797432897342",
                 "name": "XXL large backend API"
               }
-            ]
+            ],
+            "metadata": {
+              "links": {
+                "next": "",
+                "previous": ""
+              },
+              "total": 0
+            }
           }
         },
         "v1.NoopReservationResponsePayloadExample": {
@@ -353,11 +360,11 @@
                 "type": "ssh-ed25519"
               }
             ],
-            "links": {
-              "next": "",
-              "previous": "/api/provisioning/v1/pubkeys?limit=2&offset=0"
-            },
             "metadata": {
+              "links": {
+                "next": "",
+                "previous": "/api/provisioning/v1/pubkeys?limit=2&offset=0"
+              },
               "total": 3
             }
           }
@@ -396,11 +403,11 @@
                 "uid": ""
               }
             ],
-            "links": {
-              "next": "",
-              "previous": "/api/provisioning/v1/sources?limit=2&offset=0"
-            },
             "metadata": {
+              "links": {
+                "next": "",
+                "previous": "/api/provisioning/v1/sources?limit=2&offset=0"
+              },
               "total": 4
             }
           }
@@ -433,7 +440,7 @@
       },
       "parameters": {
         "Limit": {
-          "description": "The number of items to return",
+          "description": "The number of items to return.",
           "in": "query",
           "name": "limit",
           "schema": {
@@ -442,12 +449,21 @@
           }
         },
         "Offset": {
-          "description": "The number of items to skip before starting to collect the result set",
+          "description": "The number of items to skip before starting to collect the result set.",
           "in": "query",
           "name": "offset",
           "schema": {
             "default": 0,
             "type": "integer"
+          }
+        },
+        "Token": {
+          "description": "The token used for requesting the next page of results; empty token for the first page",
+          "in": "query",
+          "name": "token",
+          "schema": {
+            "default": "",
+            "type": "string"
           }
         }
       },
@@ -970,19 +986,19 @@
               },
               "type": "array"
             },
-            "links": {
-              "properties": {
-                "next": {
-                  "type": "string"
-                },
-                "previous": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
             "metadata": {
               "properties": {
+                "links": {
+                  "properties": {
+                    "next": {
+                      "type": "string"
+                    },
+                    "previous": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "total": {
                   "type": "integer"
                 }
@@ -1056,6 +1072,25 @@
                 "type": "object"
               },
               "type": "array"
+            },
+            "metadata": {
+              "properties": {
+                "links": {
+                  "properties": {
+                    "next": {
+                      "type": "string"
+                    },
+                    "previous": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
@@ -1089,19 +1124,19 @@
               },
               "type": "array"
             },
-            "links": {
-              "properties": {
-                "next": {
-                  "type": "string"
-                },
-                "previous": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
             "metadata": {
               "properties": {
+                "links": {
+                  "properties": {
+                    "next": {
+                      "type": "string"
+                    },
+                    "previous": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "total": {
                   "type": "integer"
                 }
@@ -1136,19 +1171,19 @@
               },
               "type": "array"
             },
-            "links": {
-              "properties": {
-                "next": {
-                  "type": "string"
-                },
-                "previous": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
             "metadata": {
               "properties": {
+                "links": {
+                  "properties": {
+                    "next": {
+                      "type": "string"
+                    },
+                    "previous": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
                 "total": {
                   "type": "integer"
                 }
@@ -1170,11 +1205,11 @@
         "v1.PubkeyRequest": {
           "properties": {
             "body": {
-              "description": "User facing name of the newly created pubkey",
+              "description": "Add a public part of a SSH key pair.",
               "type": "string"
             },
             "name": {
-              "description": "Public portion of a SSH key pair",
+              "description": "Enter the name of the newly created pubkey.",
               "type": "string"
             }
           },
@@ -1296,7 +1331,7 @@
         "name": "GPL-3.0"
       },
       "title": "provisioning-api",
-      "version": "1.6.0"
+      "version": "1.7.0"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -1398,7 +1433,7 @@
       },
       "/pubkeys": {
         "get": {
-          "description": "A pubkey represents an SSH public portion of a key pair with name and body. This operation returns list of all pubkeys for particular account.\n",
+          "description": "Returns a list of all public keys available in a particular account.\n",
           "operationId": "getPubkeyList",
           "parameters": [
             {
@@ -1422,7 +1457,7 @@
                   }
                 }
               },
-              "description": "Returned on success."
+              "description": "OK. Returned on success."
             },
             "500": {
               "$ref": "#/components/responses/InternalError"
@@ -1433,7 +1468,7 @@
           ]
         },
         "post": {
-          "description": "A pubkey represents an SSH public portion of a key pair with name and body. When pubkey is created, it is stored in the Provisioning database. Pubkeys are uploaded to clouds when an instance is launched. Some fields (e.g. type or fingerprint) are read only.\n",
+          "description": "Creates a new public key and stores it in the provisioning database. Public keys are uploaded to clouds at the time of launching an instance. Some fields such as type or fingerprint are read-only.\n",
           "operationId": "createPubkey",
           "requestBody": {
             "content": {
@@ -1465,7 +1500,7 @@
                   }
                 }
               },
-              "description": "Returned on success."
+              "description": "OK. Returned on success."
             },
             "500": {
               "$ref": "#/components/responses/InternalError"
@@ -1478,11 +1513,11 @@
       },
       "/pubkeys/{ID}": {
         "delete": {
-          "description": "A pubkey represents an SSH public portion of a key pair with name and body. If a pubkey was uploaded to one or more clouds, the deletion request will attempt to delete those SSH keys from all clouds. This means in order to delete a pubkey the account must have valid credentials to all cloud accounts the pubkey was uploaded to, otherwise the delete operation will fail and the pubkey will not be deleted from Provisioning database. This operation returns no body.\n",
+          "description": "Deletes SSH keys that were uploaded with the specified public key from all the clouds. If a public key (pubkey) has been uploaded to one or more cloud providers, the deletion request attempts to remove those SSH keys from all associated clouds. Therefore, to delete a public key, the account must possess valid credentials for all cloud accounts to which the pubkey was uploaded. Otherwise, the delete operation fails, and the public key is not removed from the Provisioning database. This operation does not return a response body.\n",
           "operationId": "removePubkeyById",
           "parameters": [
             {
-              "description": "Database ID of resource.",
+              "description": "Enter the database ID of resource.",
               "in": "path",
               "name": "ID",
               "required": true,
@@ -1508,7 +1543,7 @@
           ]
         },
         "get": {
-          "description": "A pubkey represents an SSH public portion of a key pair with name and body. Pubkeys must have unique name and body (SSH public key fingerprint) per each account. Pubkey type is detected during create operation as well as fingerprints. Currently two types are supported: RSA and ssh-ed25519. Also, two fingerprint types are calculated: standard SHA fingerprint and legacy MD5 fingerprint available under fingerprint_legacy field. Fingerprints are used to check uniqueness of key.\n",
+          "description": "Gets details of the specified public key.",
           "operationId": "getPubkeyById",
           "parameters": [
             {
@@ -1536,7 +1571,7 @@
                   }
                 }
               },
-              "description": "Returned on success"
+              "description": "OK. Returned on success"
             },
             "404": {
               "$ref": "#/components/responses/NotFound"
@@ -1963,98 +1998,9 @@
           ]
         }
       },
-      "/sources/{ID}/account_identity": {
-        "get": {
-          "deprecated": true,
-          "description": "This endpoint is deprecated. Please use upload_info instead",
-          "operationId": "getSourceAccountIdentity",
-          "parameters": [
-            {
-              "description": "Source ID from Sources Database",
-              "in": "path",
-              "name": "ID",
-              "required": true,
-              "schema": {
-                "format": "int64",
-                "type": "integer"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/v1.AccountIDTypeResponse"
-                  }
-                }
-              },
-              "description": "Return on success."
-            },
-            "404": {
-              "$ref": "#/components/responses/NotFound"
-            },
-            "500": {
-              "$ref": "#/components/responses/InternalError"
-            }
-          },
-          "tags": [
-            "Source"
-          ]
-        }
-      },
-      "/sources/{ID}/instance_types": {
-        "get": {
-          "deprecated": true,
-          "description": "Deprecated endpoint, use /instance_types instead.",
-          "operationId": "getInstanceTypeList",
-          "parameters": [
-            {
-              "description": "Source ID from Sources Database",
-              "in": "path",
-              "name": "ID",
-              "required": true,
-              "schema": {
-                "format": "int64",
-                "type": "integer"
-              }
-            },
-            {
-              "description": "Hyperscaler region",
-              "in": "query",
-              "name": "region",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/v1.ListInstaceTypeResponse"
-                  }
-                }
-              },
-              "description": "Return on success."
-            },
-            "404": {
-              "$ref": "#/components/responses/NotFound"
-            },
-            "500": {
-              "$ref": "#/components/responses/InternalError"
-            }
-          },
-          "tags": [
-            "Source"
-          ]
-        }
-      },
       "/sources/{ID}/launch_templates": {
         "get": {
-          "description": "Return a list of launch templates.\nA launch template is a configuration set with a name that is available through hyperscaler API. When creating reservations, launch template can be provided in order to set additional configuration for instances.\nCurrently only AWS Launch Templates are supported.\n",
+          "description": "Return a list of launch templates.\nA launch template is a configuration set with a name that is available through hyperscaler API. When creating reservations, launch template can be provided in order to set additional configuration for instances. In GCP, when using templates, propagated user attributes are not overridden or updated. Only new attributes are added to the instance.\nCurrently AWS and GCP Launch Templates are supported.\n",
           "operationId": "getLaunchTemplatesList",
           "parameters": [
             {
@@ -2075,6 +2021,12 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "$ref": "#/components/parameters/Token"
+            },
+            {
+              "$ref": "#/components/parameters/Limit"
             }
           ],
           "responses": {
@@ -2169,7 +2121,7 @@
     ],
     "tags": [
       {
-        "description": "Public SSH keys operations",
+        "description": "A pubkey represents the SSH public portion of a key pair with a name and body. Public key types and fingerprints are detected during their creation process. Two types are supported: RSA and ssh-ed25519. Fingerprints are calculated in two ways: using the standard SHA method and the legacy MD5 method, which is available under the fingerprint_legacy field. Each public key has a unique name and body and helps in verifying the uniqueness of the keys. Using this API, you can perform the following operations.\n",
         "name": "Pubkey"
       }
     ]

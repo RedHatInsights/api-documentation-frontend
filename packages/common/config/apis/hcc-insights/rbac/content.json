@@ -1440,6 +1440,21 @@
               }
             },
             {
+              "description": "Set the status of users to get back.",
+              "in": "query",
+              "name": "status",
+              "required": false,
+              "schema": {
+                "default": "enabled",
+                "enum": [
+                  "enabled",
+                  "disabled",
+                  "all"
+                ],
+                "type": "string"
+              }
+            },
+            {
               "$ref": "#/components/parameters/QueryLimit"
             },
             {

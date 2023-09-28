@@ -135,20 +135,6 @@
           },
           "type": "object"
         },
-        "ApplicationSettingsValue1": {
-          "properties": {
-            "hasForcedEmail": {
-              "type": "boolean"
-            },
-            "notifications": {
-              "additionalProperties": {
-                "type": "boolean"
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
         "BasicAuthentication": {
           "properties": {
             "password": {
@@ -264,17 +250,6 @@
             "applications": {
               "additionalProperties": {
                 "$ref": "#/components/schemas/ApplicationSettingsValue"
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "BundleSettingsValue1": {
-          "properties": {
-            "applications": {
-              "additionalProperties": {
-                "$ref": "#/components/schemas/ApplicationSettingsValue1"
               },
               "type": "object"
             }
@@ -404,6 +379,32 @@
           },
           "required": [
             "status"
+          ],
+          "type": "object"
+        },
+        "DrawerEntryPayload": {
+          "properties": {
+            "created": {
+              "$ref": "#/components/schemas/LocalDateTime"
+            },
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/UUID"
+            },
+            "read": {
+              "type": "boolean"
+            },
+            "source": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "read"
           ],
           "type": "object"
         },
@@ -598,9 +599,7 @@
         "EventLogEntryAction": {
           "properties": {
             "details": {
-              "additionalProperties": {
-                "type": "object"
-              },
+              "additionalProperties": {},
               "type": "object"
             },
             "endpoint_id": {
@@ -903,9 +902,7 @@
               "$ref": "#/components/schemas/LocalDateTime"
             },
             "details": {
-              "additionalProperties": {
-                "type": "object"
-              },
+              "additionalProperties": {},
               "type": "object"
             },
             "endpointId": {
@@ -954,6 +951,31 @@
             "data": {
               "items": {
                 "$ref": "#/components/schemas/BehaviorGroup"
+              },
+              "type": "array"
+            },
+            "links": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "data",
+            "links",
+            "meta"
+          ],
+          "type": "object"
+        },
+        "PageDrawerEntryPayload": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/DrawerEntryPayload"
               },
               "type": "array"
             },
@@ -1105,17 +1127,6 @@
           },
           "type": "object"
         },
-        "SettingsValues": {
-          "properties": {
-            "bundles": {
-              "additionalProperties": {
-                "$ref": "#/components/schemas/BundleSettingsValue1"
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
         "SettingsValuesByEventType": {
           "properties": {
             "bundles": {
@@ -1243,15 +1254,25 @@
           },
           "type": "object"
         },
-        "UserConfigPreferences": {
+        "UpdateNotificationDrawerStatus": {
           "properties": {
-            "daily_email": {
-              "type": "boolean"
+            "notification_ids": {
+              "items": {
+                "format": "uuid",
+                "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
             },
-            "instant_email": {
+            "read_status": {
               "type": "boolean"
             }
           },
+          "required": [
+            "notification_ids",
+            "read_status"
+          ],
           "type": "object"
         },
         "WebhookProperties": {
@@ -1290,7 +1311,7 @@
       }
     },
     "info": {
-      "description": "The API for Notifications",
+      "description": "The API for Notifications provides endpoints that you can use to create and manage event notifications between third-party applications and the Red Hat Hybrid Cloud Console.",
       "title": "Notifications",
       "version": "v1.0"
     },
@@ -1298,6 +1319,7 @@
     "paths": {
       "/notifications/behaviorGroups": {
         "post": {
+          "description": "Creates a behavior group that defines which notifications will be sent to external services after an event is received. Use this endpoint to control the types of events users are notified about.",
           "operationId": "NotificationResource$V1_createBehaviorGroup",
           "requestBody": {
             "content": {
@@ -1331,11 +1353,12 @@
               "description": "Bad or no content passed."
             }
           },
-          "summary": "Create a behavior group - assigning actions and linking to event types as requested"
+          "summary": "Create a behavior group"
         }
       },
       "/notifications/behaviorGroups/affectedByRemovalOfEndpoint/{endpointId}": {
         "get": {
+          "description": "Lists the behavior groups that are affected by the removal of an endpoint. Use this endpoint to understand how removing an endpoint affects existing behavior groups.",
           "operationId": "NotificationResource$V1_getBehaviorGroupsAffectedByRemovalOfEndpoint",
           "parameters": [
             {
@@ -1362,11 +1385,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the behavior groups affected by the removal of an endpoint."
+          "summary": "List the behavior groups affected by the removal of an endpoint"
         }
       },
       "/notifications/behaviorGroups/{behaviorGroupId}/actions": {
         "put": {
+          "description": "Updates the list of actions to be executed in that particular behavior group after an event is received.",
           "operationId": "NotificationResource$V1_updateBehaviorGroupActions",
           "parameters": [
             {
@@ -1405,11 +1429,12 @@
               "description": "OK"
             }
           },
-          "summary": "Update the list of actions of a behavior group."
+          "summary": "Update the list of behavior group actions"
         }
       },
       "/notifications/behaviorGroups/{id}": {
         "delete": {
+          "description": "Deletes a behavior group and all of its configured actions. Use this endpoint when you no longer need a behavior group.",
           "operationId": "NotificationResource$V1_deleteBehaviorGroup",
           "parameters": [
             {
@@ -1434,9 +1459,10 @@
               "description": "OK"
             }
           },
-          "summary": "Delete a behavior group."
+          "summary": "Delete a behavior group"
         },
         "put": {
+          "description": "Updates the details of a behavior group. Use this endpoint to update the list of related endpoints and event types associated with this behavior group.",
           "operationId": "NotificationResource$V1_updateBehaviorGroup",
           "parameters": [
             {
@@ -1492,11 +1518,12 @@
               "description": "No behavior group found with the passed id."
             }
           },
-          "summary": "Update a behavior group."
+          "summary": "Update a behavior group"
         }
       },
       "/notifications/bundles/{bundleId}/behaviorGroups": {
         "get": {
+          "description": "Lists the behavior groups associated with a bundle. Use this endpoint to see the behavior groups that are configured for a particular bundle for a particular tenant.",
           "operationId": "NotificationResource$V1_findBehaviorGroupsByBundleId",
           "parameters": [
             {
@@ -1524,11 +1551,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the behavior groups of a bundle."
+          "summary": "List behavior groups in a bundle"
         }
       },
       "/notifications/bundles/{bundleName}": {
         "get": {
+          "description": "Retrieves the details of a bundle by searching by its name.",
           "operationId": "NotificationResource$V1_getBundleByName",
           "parameters": [
             {
@@ -1552,11 +1580,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the bundle by name"
+          "summary": "Retrieve a bundle by name"
         }
       },
       "/notifications/bundles/{bundleName}/applications/{applicationName}": {
         "get": {
+          "description": "Retrieves an application by bundle and application names. Use this endpoint to  find an application by searching for the bundle that the application is part of. This is useful if you do not know the UUID of the bundle or application.",
           "operationId": "NotificationResource$V1_getApplicationByNameAndBundleName",
           "parameters": [
             {
@@ -1588,11 +1617,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the application by name of a given bundle name"
+          "summary": "Retrieve an application by bundle and application names"
         }
       },
       "/notifications/bundles/{bundleName}/applications/{applicationName}/eventTypes/{eventTypeName}": {
         "get": {
+          "description": "Retrieves the details of an event type by specifying the bundle name, the application name, and the event type name.",
           "operationId": "NotificationResource$V1_getEventTypesByNameAndBundleAndApplicationName",
           "parameters": [
             {
@@ -1632,11 +1662,166 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the event type by name of a given bundle name and application name"
+          "summary": "Retrieve an event type by bundle, application and event type names"
+        }
+      },
+      "/notifications/drawer": {
+        "get": {
+          "description": "Allowed `sort_by` fields are `bundleIds`, `applicationIds`, `eventTypeIds`, `startTime`, `endTime` and `read`. The ordering can be optionally specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `desc` for the `created` field and to `asc` for all other fields.",
+          "operationId": "DrawerResource$V1_getDrawerEntries",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "appIds",
+              "schema": {
+                "items": {
+                  "format": "uuid",
+                  "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            {
+              "in": "query",
+              "name": "bundleIds",
+              "schema": {
+                "items": {
+                  "format": "uuid",
+                  "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            {
+              "in": "query",
+              "name": "endDate",
+              "schema": {
+                "$ref": "#/components/schemas/LocalDateTime"
+              }
+            },
+            {
+              "in": "query",
+              "name": "eventTypeIds",
+              "schema": {
+                "items": {
+                  "format": "uuid",
+                  "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            {
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "default": "20",
+                "format": "int32",
+                "maximum": 200,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "format": "int32",
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "pageNumber",
+              "schema": {
+                "format": "int32",
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "readStatus",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "deprecated": true,
+              "in": "query",
+              "name": "sortBy",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "sort_by",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "startDate",
+              "schema": {
+                "$ref": "#/components/schemas/LocalDateTime"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PageDrawerEntryPayload"
+                  }
+                }
+              },
+              "description": "OK"
+            }
+          },
+          "summary": "Retrieve drawer notifications entries."
+        }
+      },
+      "/notifications/drawer/read": {
+        "put": {
+          "description": "Update drawer notifications status.",
+          "operationId": "DrawerResource$V1_updateNotificationReadStatus",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateNotificationDrawerStatus"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "format": "int32",
+                    "type": "integer"
+                  }
+                }
+              },
+              "description": "OK"
+            }
+          },
+          "summary": "Update drawer notifications status."
         }
       },
       "/notifications/eventTypes": {
         "get": {
+          "description": "Lists all event types. You can filter the returned list by bundle or application name.",
           "operationId": "NotificationResource$V1_getEventTypes",
           "parameters": [
             {
@@ -1723,11 +1908,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve all event types. The returned list can be filtered by bundle or application."
+          "summary": "List all event types"
         }
       },
       "/notifications/eventTypes/affectedByRemovalOfBehaviorGroup/{behaviorGroupId}": {
         "get": {
+          "description": "Lists the event types that will be affected by the removal of a behavior group. Use this endpoint to see which event types will be removed if you delete a behavior group.",
           "operationId": "NotificationResource$V1_getEventTypesAffectedByRemovalOfBehaviorGroup",
           "parameters": [
             {
@@ -1755,11 +1941,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the event types affected by the removal of a behavior group."
+          "summary": "List the event types affected by the removal of a behavior group"
         }
       },
       "/notifications/eventTypes/{eventTypeId}/behaviorGroups": {
         "get": {
+          "description": "Lists the behavior groups that are linked to an event type. Use this endpoint to see which behavior groups will be affected if you delete an event type.",
           "operationId": "NotificationResource$V1_getLinkedBehaviorGroups",
           "parameters": [
             {
@@ -1841,12 +2028,13 @@
               "SecurityScheme": []
             }
           ],
-          "summary": "Retrieve the behavior groups linked to an event type.",
+          "summary": "List the behavior groups linked to an event type",
           "tags": [
             "V 1"
           ]
         },
         "put": {
+          "description": "Updates the list of behavior groups associated with an event type.",
           "operationId": "NotificationResource$V1_updateEventTypeBehaviors",
           "parameters": [
             {
@@ -1886,11 +2074,12 @@
               "description": "OK"
             }
           },
-          "summary": "Update the list of behavior groups of an event type."
+          "summary": "Update the list of behavior groups for an event type"
         }
       },
       "/notifications/eventTypes/{eventTypeId}/behaviorGroups/{behaviorGroupId}": {
         "delete": {
+          "description": "Adds a behavior group to the specified event type.",
           "operationId": "NotificationResource$V1_deleteBehaviorGroupFromEventType",
           "parameters": [
             {
@@ -1915,7 +2104,7 @@
               "description": "No Content"
             }
           },
-          "summary": "Delete a behavior group from the given event type."
+          "summary": "Add a behavior group to an event type"
         }
       },
       "/notifications/eventTypes/{eventTypeUuid}/behaviorGroups/{behaviorGroupUuid}": {
@@ -1949,7 +2138,7 @@
       },
       "/notifications/events": {
         "get": {
-          "description": "Allowed `sort_by` fields are `bundle`, `application`, `event` and `created`. The ordering can be optionally specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `desc` for the `created` field and to `asc` for all other fields.",
+          "description": "Retrieves the event log entries. Use this endpoint to review a full history of the events related to the tenant. You can sort by the bundle, application, event, and created fields. You can specify the sort order by appending :asc or :desc to the field, for example bundle:desc. Sorting defaults to desc for the created field and to asc for all other fields.",
           "operationId": "EventResource$V1_getEvents",
           "parameters": [
             {
@@ -2110,11 +2299,12 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the event log entries."
+          "summary": "Retrieve the event log entries"
         }
       },
       "/notifications/facets/applications": {
         "get": {
+          "description": "Returns a list of configured applications that includes the application name, the display name, and the ID. You can use this list to configure a filter in the UI.",
           "operationId": "NotificationResource$V1_getApplicationsFacets",
           "parameters": [
             {
@@ -2140,11 +2330,12 @@
               "description": "OK"
             }
           },
-          "summary": "Return a thin list of configured applications. This can be used to configure a filter in the UI"
+          "summary": "List configured applications"
         }
       },
       "/notifications/facets/bundles": {
         "get": {
+          "description": "Returns a list of configured bundles that includes the bundle name, the display name, and the ID. You can use this list to configure a filter in the UI.",
           "operationId": "NotificationResource$V1_getBundleFacets",
           "parameters": [
             {
@@ -2170,11 +2361,12 @@
               "description": "OK"
             }
           },
-          "summary": "Return a thin list of configured bundles. This can be used to configure a filter in the UI"
+          "summary": "List configured bundles"
         }
       },
       "/org-config/daily-digest/time-preference": {
         "get": {
+          "description": "Retrieves the daily digest time setting. Use this endpoint to check the time that daily emails are sent.",
           "operationId": "OrgConfigResource$V1_getDailyDigestTimePreference",
           "responses": {
             "200": {
@@ -2187,9 +2379,11 @@
               },
               "description": "OK"
             }
-          }
+          },
+          "summary": "Retrieve the daily digest time"
         },
         "put": {
+          "description": "Sets the daily digest UTC time. The accepted minute values are 00, 15, 30, and 45. Use this endpoint to set the time when daily emails are sent.",
           "operationId": "OrgConfigResource$V1_saveDailyDigestTimePreference",
           "requestBody": {
             "content": {
@@ -2208,78 +2402,7 @@
               "description": "Invalid minute value specified"
             }
           },
-          "summary": "Save the daily digest UTC time preference. To cover all time zones conversion to UTC, the accepted minute values are 00, 15, 30 and 45."
-        }
-      },
-      "/user-config/notification-preference": {
-        "get": {
-          "operationId": "UserConfigResource$V1_getSettingsSchema",
-          "parameters": [
-            {
-              "in": "query",
-              "name": "bundleName",
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        },
-        "post": {
-          "operationId": "UserConfigResource$V1_saveSettings",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SettingsValues"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          }
-        }
-      },
-      "/user-config/notification-preference/{bundleName}/{applicationName}": {
-        "get": {
-          "operationId": "UserConfigResource$V1_getPreferences",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "applicationName",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "bundleName",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/UserConfigPreferences"
-                  }
-                }
-              },
-              "description": "OK"
-            }
-          }
+          "summary": "Set the daily digest time"
         }
       }
     },

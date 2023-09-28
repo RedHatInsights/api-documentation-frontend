@@ -167,6 +167,12 @@
                 "description": {
                   "type": "string"
                 },
+                "doc_references": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
                 "email": {
                   "type": "string"
                 },
@@ -189,7 +195,21 @@
                     "clustercreate-details",
                     "clusterremove-high-level",
                     "clusterremove-details",
-                    "cluster-state-updates"
+                    "cluster-state-updates",
+                    "Customer data",
+                    "Customer applications",
+                    "Developer services",
+                    "Platform monitoring",
+                    "Logging",
+                    "Application networking",
+                    "Cluster networking",
+                    "Virtual networking management",
+                    "Virtual compute management",
+                    "Cluster version",
+                    "Capacity management",
+                    "Virtual storage management",
+                    "AWS software",
+                    "Hardware/AWS global infrastructure"
                   ],
                   "type": "string"
                 },
@@ -202,7 +222,9 @@
                     "Info",
                     "Warning",
                     "Error",
-                    "Fatal"
+                    "Fatal",
+                    "Major",
+                    "Critical"
                   ],
                   "type": "string"
                 },
@@ -220,6 +242,9 @@
                   "type": "string"
                 }
               },
+              "required": [
+                "severity"
+              ],
               "type": "object"
             }
           ]

@@ -221,6 +221,9 @@
             "baseline_name": {
               "type": "string"
             },
+            "built_pkgcache": {
+              "type": "boolean"
+            },
             "created": {
               "type": "string"
             },
@@ -247,6 +250,9 @@
             },
             "rhsm": {
               "type": "string"
+            },
+            "satellite_managed": {
+              "type": "boolean"
             },
             "stale": {
               "type": "boolean"
@@ -291,6 +297,9 @@
             "baseline_name": {
               "type": "string"
             },
+            "built_pkgcache": {
+              "type": "boolean"
+            },
             "created": {
               "type": "string"
             },
@@ -314,6 +323,9 @@
             },
             "rhsm": {
               "type": "string"
+            },
+            "satellite_managed": {
+              "type": "boolean"
             },
             "stale": {
               "type": "boolean"
@@ -1150,6 +1162,9 @@
             "baseline_name": {
               "type": "string"
             },
+            "built_pkgcache": {
+              "type": "boolean"
+            },
             "created": {
               "type": "string"
             },
@@ -1191,6 +1206,9 @@
             },
             "rhsm": {
               "type": "string"
+            },
+            "satellite_managed": {
+              "type": "boolean"
             },
             "stale": {
               "type": "boolean"
@@ -1254,6 +1272,9 @@
             "baseline_uptodate": {
               "type": "boolean"
             },
+            "built_pkgcache": {
+              "type": "boolean"
+            },
             "created": {
               "type": "string"
             },
@@ -1311,6 +1332,9 @@
             "rhsm": {
               "type": "string"
             },
+            "satellite_managed": {
+              "type": "boolean"
+            },
             "stale": {
               "type": "boolean"
             },
@@ -1339,6 +1363,9 @@
             },
             "baseline_name": {
               "type": "string"
+            },
+            "built_pkgcache": {
+              "type": "boolean"
             },
             "created": {
               "type": "string"
@@ -1378,6 +1405,9 @@
             },
             "rhsm": {
               "type": "string"
+            },
+            "satellite_managed": {
+              "type": "boolean"
             },
             "stale": {
               "type": "boolean"
@@ -1801,7 +1831,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.4.25"
+      "version": "v3.5.1"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2466,7 +2496,7 @@
           "summary": "Show me all baselines for all my systems"
         },
         "put": {
-          "description": "Create a baseline for my set of systems",
+          "description": "Create a baseline for my set of systems. System cannot be satellite managed.",
           "operationId": "createBaseline",
           "requestBody": {
             "content": {
@@ -2717,7 +2747,7 @@
           "summary": "Show baseline detail by given baseline ID"
         },
         "put": {
-          "description": "Update a baseline for my set of systems",
+          "description": "Update a baseline for my set of systems. System cannot be satellite managed.",
           "operationId": "updateBaseline",
           "parameters": [
             {
@@ -4678,7 +4708,9 @@
                   "rhba_count",
                   "rhea_count",
                   "other_count",
-                  "stale"
+                  "satellite_managed",
+                  "stale",
+                  "built_pkgcache"
                 ],
                 "type": "string"
               }
@@ -4766,6 +4798,14 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[stale]",
               "schema": {
                 "type": "string"
@@ -4831,6 +4871,14 @@
               "description": "Filter OS version",
               "in": "query",
               "name": "filter[os]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[built_pkgcache]",
               "schema": {
                 "type": "string"
               }
@@ -5301,7 +5349,9 @@
                   "other_count",
                   "stale",
                   "packages_installed",
-                  "baseline_name"
+                  "baseline_name",
+                  "satellite_managed",
+                  "built_pkgcache"
                 ],
                 "type": "string"
               }
@@ -5430,6 +5480,22 @@
               "description": "Filter OS version",
               "in": "query",
               "name": "filter[os]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[built_pkgcache]",
               "schema": {
                 "type": "string"
               }
