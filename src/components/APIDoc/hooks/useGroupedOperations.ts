@@ -22,9 +22,26 @@ export interface GroupedOperations {
 
 const operationVerbs: string[] = ["get", "post", "patch", "put", "delete", "options", "head", "trace"]
 
+const getServerURL = (server: OpenAPIV3.ServerObject): string => {
+    let serverURL = server.url
+    if (server.description) {
+        serverURL = `${server.description}: ${server.url}`
+    }
+
+    if (!server.variables) {
+        return serverURL
+    }
+
+    for (const variable in server.variables) {
+        serverURL = serverURL.replace(`{${variable}}`, server.variables[variable].default)
+    }
+
+    return serverURL
+}
+
 const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) => {
     const defaultUrl = "https://www.example.com"
-    let baseUrl = openapi.servers && openapi.servers.length > 0 ? openapi.servers[0].url : defaultUrl;
+    let baseUrl = getServerURL(openapi.servers?.[0] || {url: defaultUrl});
     // check that baseUrl is a valid url
     try {
         new URL(baseUrl);
@@ -36,6 +53,10 @@ const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) =>
     if (baseUrl.endsWith("/")) {
         baseUrl = baseUrl.substring(0, baseUrl.length - 1);
     }
+
+    console.log("baseUrl: ", baseUrl)
+
+
 
     Object.entries(openapi.paths)
         // Looks like openapi v3.1 supports components here as well
