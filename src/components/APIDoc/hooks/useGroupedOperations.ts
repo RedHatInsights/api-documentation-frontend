@@ -24,9 +24,6 @@ const operationVerbs: string[] = ["get", "post", "patch", "put", "delete", "opti
 
 const getServerURL = (server: OpenAPIV3.ServerObject): string => {
     let serverURL = server.url
-    if (server.description) {
-        serverURL = `${server.description}: ${server.url}`
-    }
 
     if (!server.variables) {
         return serverURL
@@ -42,6 +39,7 @@ const getServerURL = (server: OpenAPIV3.ServerObject): string => {
 const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) => {
     const defaultUrl = "https://www.example.com"
     let baseUrl = getServerURL(openapi.servers?.[0] || {url: defaultUrl});
+
     // check that baseUrl is a valid url
     try {
         new URL(baseUrl);
@@ -53,10 +51,6 @@ const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) =>
     if (baseUrl.endsWith("/")) {
         baseUrl = baseUrl.substring(0, baseUrl.length - 1);
     }
-
-    console.log("baseUrl: ", baseUrl)
-
-
 
     Object.entries(openapi.paths)
         // Looks like openapi v3.1 supports components here as well
