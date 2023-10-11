@@ -49,6 +49,7 @@
     "@patternfly/react-styles": "^4.92.3",
     "@patternfly/react-table": "^4.112.6",
     "@patternfly/react-tokens": "^4.94.3",
+    "axios": "^1.5.1",
     "httpsnippet-lite": "^3.0.4",
     "immer": "^9.0.19",
     "lodash.snakecase": "^4.1.1",

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {APIConfiguration} from "@apidocs/common";
 
 type Document = {
@@ -51,4 +52,48 @@ export const collector = async (config: ReadonlyArray<Readonly<APIConfiguration>
     }
 
     return JSON.stringify(collection)
+}
+
+export const syncCollection = (content: string) => {
+    const syncActive = process.env.HYDRA_SYNC_ACTIVE;
+
+    if (syncActive == "true") {
+        const jwtFetchUrl = process.env.JWT_FETCH_URL as string;
+        const clientId = process.env.CLIENT_ID;
+        const clientSecret = process.env.CLIENT_SECRET;
+
+        const authHeader = `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`;
+        const jwtRequestBody = 'grant_type=client_credentials';
+
+        axios.post(jwtFetchUrl, jwtRequestBody, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': authHeader
+            }
+        })
+        .then(response => {
+            const jwtToken = response.data;
+            const accessToken = jwtToken.access_token;
+
+            const indexUrl = process.env.INDEX_URL as string;
+
+            axios.post(indexUrl, content, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authrization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                console.log("Request to Hydra syccessful:", response.data);
+            })
+            .catch(error => {
+                console.error("Error sending request to Hydra:", error);
+            });
+        })
+        .catch(error => {
+            console.log("Error fetching JWT token:", error);
+        })
+    } else {
+        console.log("ACTIVE_SYNC is set to false. Skipping Search Service data sync.")
+    }
 }

@@ -4,7 +4,7 @@ import path from "path";
 import {statSync, writeFileSync} from 'fs';
 import {createSitemap} from "sitemaps";
 import {UrlItem} from "sitemaps";
-import {collector} from './collector';
+import { collector, syncCollection } from './collector';
 
 
 interface Options {
@@ -49,6 +49,7 @@ export const execute = async (options: Options) => {
     });
 
     const collectorContent = await collector(apiConfigurations, options.baseUri)
+    syncCollection(collectorContent)
     writeCollectorContent(collectorContent, options)
 }
 
