@@ -49,7 +49,7 @@ export const execute = async (options: Options) => {
     });
 
     const collectorContent = await collector(apiConfigurations, options.baseUri)
-    syncCollection(collectorContent)
+    await syncCollection(collectorContent)
     writeCollectorContent(collectorContent, options)
 }
 
