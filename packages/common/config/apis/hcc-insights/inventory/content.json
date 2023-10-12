@@ -200,7 +200,8 @@
           "schema": {
             "enum": [
               "name",
-              "host_count"
+              "host_count",
+              "updated"
             ],
             "type": "string"
           }
@@ -500,124 +501,6 @@
           "example": "000102",
           "nullable": true,
           "type": "string"
-        },
-        "AccountStalenessId": {
-          "description": "Account Staleness UID",
-          "oneOf": [
-            {
-              "$ref": "#/components/schemas/NonStrictUUID",
-              "x-scope": [
-                "",
-                "#/components/schemas/AccountStalenessOutput",
-                "#/components/schemas/AccountStalenessId"
-              ]
-            },
-            {
-              "$ref": "#/components/schemas/SystemDefaultId",
-              "x-scope": [
-                "",
-                "#/components/schemas/AccountStalenessOutput",
-                "#/components/schemas/AccountStalenessId"
-              ]
-            }
-          ]
-        },
-        "AccountStalenessIn": {
-          "anyOf": [
-            {
-              "properties": {
-                "conventional_culling_delta": {
-                  "maxLength": 36,
-                  "type": "string"
-                },
-                "conventional_stale_warning_delta": {
-                  "maxLength": 36,
-                  "type": "string"
-                },
-                "conventional_staleness_delta": {
-                  "maxLength": 36,
-                  "type": "string"
-                },
-                "immutable_culling_delta": {
-                  "maxLength": 36,
-                  "type": "string"
-                },
-                "immutable_stale_warning_delta": {
-                  "maxLength": 36,
-                  "type": "string"
-                },
-                "immutable_staleness_delta": {
-                  "maxLength": 36,
-                  "type": "string"
-                }
-              }
-            }
-          ],
-          "description": "Data of a single account staleness.",
-          "title": "Account Staleness In",
-          "type": "object"
-        },
-        "AccountStalenessOutput": {
-          "description": "Data of a account staleness.",
-          "properties": {
-            "account": {
-              "$ref": "#/components/schemas/AccountNumber",
-              "x-scope": [
-                "",
-                "#/components/schemas/AccountStalenessOutput"
-              ]
-            },
-            "conventional_culling_delta": {
-              "maxLength": 36,
-              "type": "string"
-            },
-            "conventional_stale_warning_delta": {
-              "maxLength": 36,
-              "type": "string"
-            },
-            "conventional_staleness_delta": {
-              "maxLength": 36,
-              "type": "string"
-            },
-            "created_at": {
-              "description": "A timestamp when the entry was created.",
-              "format": "date-time",
-              "type": "string"
-            },
-            "id": {
-              "$ref": "#/components/schemas/AccountStalenessId",
-              "x-scope": [
-                "",
-                "#/components/schemas/AccountStalenessOutput"
-              ]
-            },
-            "immutable_culling_delta": {
-              "maxLength": 36,
-              "type": "string"
-            },
-            "immutable_stale_warning_delta": {
-              "maxLength": 36,
-              "type": "string"
-            },
-            "immutable_staleness_delta": {
-              "maxLength": 36,
-              "type": "string"
-            },
-            "org_id": {
-              "$ref": "#/components/schemas/OrgId",
-              "x-scope": [
-                "",
-                "#/components/schemas/AccountStalenessOutput"
-              ]
-            },
-            "updated_at": {
-              "description": "A timestamp when the entry was last updated.",
-              "format": "date-time",
-              "type": "string"
-            }
-          },
-          "title": "Account Staleness Out",
-          "type": "object"
         },
         "ActiveTags": {
           "allOf": [
@@ -1826,6 +1709,111 @@
           "nullable": true,
           "type": "string"
         },
+        "StalenessId": {
+          "description": "Account Staleness UID",
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/NonStrictUUID",
+              "x-scope": [
+                "",
+                "#/components/schemas/StalenessOutput",
+                "#/components/schemas/StalenessId"
+              ]
+            },
+            {
+              "$ref": "#/components/schemas/SystemDefaultId",
+              "x-scope": [
+                "",
+                "#/components/schemas/StalenessOutput",
+                "#/components/schemas/StalenessId"
+              ]
+            }
+          ]
+        },
+        "StalenessIn": {
+          "anyOf": [
+            {
+              "properties": {
+                "conventional_culling_delta": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "conventional_stale_warning_delta": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "conventional_staleness_delta": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "immutable_culling_delta": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "immutable_stale_warning_delta": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "immutable_staleness_delta": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              }
+            }
+          ],
+          "description": "Data of a single account staleness.",
+          "title": "Account Staleness In",
+          "type": "object"
+        },
+        "StalenessOutput": {
+          "description": "Data of a account staleness.",
+          "properties": {
+            "conventional_culling_delta": {
+              "type": "integer"
+            },
+            "conventional_stale_warning_delta": {
+              "type": "integer"
+            },
+            "conventional_staleness_delta": {
+              "type": "integer"
+            },
+            "created_at": {
+              "description": "A timestamp when the entry was created.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/StalenessId",
+              "x-scope": [
+                "",
+                "#/components/schemas/StalenessOutput"
+              ]
+            },
+            "immutable_culling_delta": {
+              "type": "integer"
+            },
+            "immutable_stale_warning_delta": {
+              "type": "integer"
+            },
+            "immutable_staleness_delta": {
+              "type": "integer"
+            },
+            "org_id": {
+              "$ref": "#/components/schemas/OrgId",
+              "x-scope": [
+                "",
+                "#/components/schemas/StalenessOutput"
+              ]
+            },
+            "updated_at": {
+              "description": "A timestamp when the entry was last updated.",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "title": "Account Staleness Out",
+          "type": "object"
+        },
         "StructuredTag": {
           "properties": {
             "key": {
@@ -2477,6 +2465,16 @@
                   "minimum": 0,
                   "type": "integer"
                 },
+                "failed_services": {
+                  "description": "List of all failed jobs.",
+                  "items": {
+                    "description": "The name of a failed job.",
+                    "example": "ex1, ex2, ex3",
+                    "maxLength": 1000,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
                 "jobs_queued": {
                   "description": "The number of jobs jobs_queued",
                   "example": 4,
@@ -2504,6 +2502,14 @@
                 "failed"
               ],
               "type": "object"
+            },
+            "threads_per_core": {
+              "description": "Number of CPU threads per CPU core. Typical values: 1, 2, 4",
+              "example": 2,
+              "format": "int32",
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
             },
             "tuned_profile": {
               "description": "Current profile resulting from command tuned-adm active",
@@ -2935,7 +2941,7 @@
       "/account/staleness": {
         "delete": {
           "description": "Delete an account staleness <br /><br /> Required permissions: inventory:staleness:write",
-          "operationId": "api.account_staleness.delete_staleness",
+          "operationId": "api.staleness.delete_staleness",
           "responses": {
             "204": {
               "description": "Successfully deleted account staleness."
@@ -2962,13 +2968,13 @@
         },
         "get": {
           "description": "Read the entire list of all accounts staleness available. Required permissions: inventory:TODO:read",
-          "operationId": "api.account_staleness.get_staleness",
+          "operationId": "api.staleness.get_staleness",
           "responses": {
             "200": {
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "$ref": "#/components/schemas/StalenessOutput",
                     "x-scope": [
                       ""
                     ]
@@ -2993,12 +2999,12 @@
         },
         "patch": {
           "description": "Update account staleness record. Required permissions: inventory:staleness:write",
-          "operationId": "api.account_staleness.update_staleness",
+          "operationId": "api.staleness.update_staleness",
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccountStalenessIn",
+                  "$ref": "#/components/schemas/StalenessIn",
                   "x-scope": [
                     ""
                   ]
@@ -3013,7 +3019,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "$ref": "#/components/schemas/StalenessOutput",
                     "x-scope": [
                       ""
                     ]
@@ -3038,12 +3044,12 @@
         },
         "post": {
           "description": "Create account staleness record. Required permissions: inventory:TODO:write",
-          "operationId": "api.account_staleness.create_staleness",
+          "operationId": "api.staleness.create_staleness",
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccountStalenessIn",
+                  "$ref": "#/components/schemas/StalenessIn",
                   "x-scope": [
                     ""
                   ]
@@ -3058,7 +3064,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "$ref": "#/components/schemas/StalenessOutput",
                     "x-scope": [
                       ""
                     ]
@@ -3085,13 +3091,13 @@
       "/account/staleness/defaults": {
         "get": {
           "description": "Read the entire list of all accounts staleness available. Required permissions: inventory:TODO:read",
-          "operationId": "api.account_staleness.get_default_staleness",
+          "operationId": "api.staleness.get_default_staleness",
           "responses": {
             "200": {
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AccountStalenessOutput",
+                    "$ref": "#/components/schemas/StalenessOutput",
                     "x-scope": [
                       ""
                     ]
@@ -3392,6 +3398,40 @@
             }
           ],
           "summary": "Create a new group matching the provided name and list of hosts IDs",
+          "tags": [
+            "groups"
+          ]
+        }
+      },
+      "/groups/hosts/{host_id_list}": {
+        "delete": {
+          "description": "Delete a list of hosts from the groups they are in. <br /><br /> Required permissions: inventory:groups:write",
+          "operationId": "api.group.delete_hosts_from_different_groups",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/hostIdList",
+              "x-scope": [
+                ""
+              ]
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "The hosts were successfully removed from their groups."
+            },
+            "400": {
+              "description": "Invalid request."
+            },
+            "404": {
+              "description": "The provided hosts are ungrouped."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Delete a list of hosts from the groups they are in",
           "tags": [
             "groups"
           ]

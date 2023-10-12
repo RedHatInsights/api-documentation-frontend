@@ -261,6 +261,13 @@
             "basic_authentication": {
               "$ref": "#/components/schemas/BasicAuthentication"
             },
+            "bearer_authentication": {
+              "type": "string"
+            },
+            "bearer_authentication_sources_id": {
+              "format": "int64",
+              "type": "integer"
+            },
             "disable_ssl_verification": {
               "type": "boolean"
             },
@@ -423,7 +430,9 @@
         },
         "EmailSubscriptionType": {
           "enum": [
-            "DAILY"
+            "INSTANT",
+            "DAILY",
+            "DRAWER"
           ],
           "type": "string"
         },
@@ -1279,6 +1288,9 @@
           "properties": {
             "basic_authentication": {
               "$ref": "#/components/schemas/BasicAuthentication"
+            },
+            "bearer_authentication": {
+              "type": "string"
             },
             "disable_ssl_verification": {
               "type": "boolean"

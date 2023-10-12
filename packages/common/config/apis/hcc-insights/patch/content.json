@@ -1831,7 +1831,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.5.1"
+      "version": "v3.5.10"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2182,7 +2182,8 @@
                   "last_upload",
                   "stale",
                   "status",
-                  "template"
+                  "template",
+                  "groups"
                 ],
                 "type": "string"
               }
@@ -2869,7 +2870,8 @@
                   "applicable_rhba_count",
                   "applicable_rhea_count",
                   "applicable_other_count",
-                  "last_upload"
+                  "last_upload",
+                  "groups"
                 ],
                 "type": "string"
               }
@@ -6344,7 +6346,8 @@
                   "other_count",
                   "stale",
                   "packages_installed",
-                  "baseline_name"
+                  "baseline_name",
+                  "groups"
                 ],
                 "type": "string"
               }

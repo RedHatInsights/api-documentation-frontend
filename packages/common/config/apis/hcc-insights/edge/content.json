@@ -696,6 +696,14 @@
             "UpdatedAt": {
               "$ref": "#/components/schemas/models.EdgeAPITime"
             },
+            "group_name": {
+              "description": "the inventory group name",
+              "type": "string"
+            },
+            "group_uuid": {
+              "description": "the inventory group id",
+              "type": "string"
+            },
             "org_id": {
               "type": "string"
             }
