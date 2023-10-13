@@ -3,7 +3,7 @@ import {APIConfiguration} from "@apidocs/common";
 
 type Document = {
     solr_command: string;
-    content_type: string;
+    contentType: string;
     id: string;
     uri: string;
     name: string;
@@ -33,7 +33,7 @@ const getDocuments = (config: ReadonlyArray<Readonly<APIConfiguration>>, baseurl
 
         return {
             solr_command: "index",
-            content_type: "documentation",
+            contentType: "documentation",
             id: api.id,
             uri: `${baseurl}/api/${api.id}`,
             name: `${api.displayName} | API Catalog and Documentation`,
