@@ -11,7 +11,7 @@ type Document = {
 }
 
 type CanonicalFormat = {
-    data_source: string;
+    dataSource: string;
     documents: Array<Document>;
 }
 
@@ -47,7 +47,7 @@ export const collector = async (config: ReadonlyArray<Readonly<APIConfiguration>
     const documents = await getDocuments(config, baseurl)
 
     const collection: CanonicalFormat = {
-        data_source: "dev_api_catalog",
+        dataSource: "dev_api_catalog",
         documents: documents
     }
 
@@ -80,7 +80,7 @@ export const syncCollection = async (content: string): Promise<void> => {
                 axios.post(indexUrl, content, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authrization': `Bearer ${accessToken}`
+                        'Authorization': `Bearer ${accessToken}`
                     }
                 })
                 .then(response => {
