@@ -71,7 +71,7 @@ deploy_qa:
     - |
       npm install -g @spaship/cli react-app-rewired
       npm ci
-      HYDRA_SYNC_ACTIVE=true JWT_FETCH_URL=$QA_JWT_FETCH_URL CLIENT_ID=$QA_CLIENT_ID CLIENT_SECRET=$QA_CLIENT_SECRET INDEX_URL=$QA_INDEX_URL SITEMAP_BASE_URL=https://developers.qa.redhat.com/api-catalog npm run sitemap
+      NODE_DEBUG=tls,https HYDRA_SYNC_ACTIVE=true JWT_FETCH_URL=$QA_JWT_FETCH_URL CLIENT_ID=$QA_CLIENT_ID CLIENT_SECRET=$QA_CLIENT_SECRET INDEX_URL=$QA_INDEX_URL SITEMAP_BASE_URL=https://developers.qa.redhat.com/api-catalog npm run sitemap
       npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_QA_WEB_PROPERTY --apikey=$SPASHIP_QA_API_KEY
