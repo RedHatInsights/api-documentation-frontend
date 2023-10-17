@@ -12,11 +12,12 @@ deploy_dev:
       libxss1 libxtst6 ca-certificates fonts-liberation libnss3 lsb-release
       xdg-utils wget libnss3 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0
       libxdamage1 libxcomposite1 libxfixes3 libxrandr2 libgbm1
+    - wget -O /etc/ca-certificates/mtls-ca-validators.crt https://certs.corp.redhat.com/certs/mtls-ca-validators.crt
   script:
     - |
       npm install -g @spaship/cli react-app-rewired
       npm ci
-      HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$DEV_JWT_FETCH_URL CLIENT_ID=$DEV_CLIENT_ID CLIENT_SECRET=$DEV_CLIENT_SECRET INDEX_URL=$DEV_INDEX_URL SITEMAP_BASE_URL=https://developers.dev.redhat.com/api-catalog npm run sitemap
+      NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$DEV_JWT_FETCH_URL CLIENT_ID=$DEV_CLIENT_ID CLIENT_SECRET=$DEV_CLIENT_SECRET INDEX_URL=$DEV_INDEX_URL SITEMAP_BASE_URL=https://developers.dev.redhat.com/api-catalog npm run sitemap
       npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_DEV_WEB_PROPERTY --apikey=$SPASHIP_DEV_API_KEY
@@ -39,11 +40,12 @@ deploy_stage:
       libxss1 libxtst6 ca-certificates fonts-liberation libnss3 lsb-release
       xdg-utils wget libnss3 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0
       libxdamage1 libxcomposite1 libxfixes3 libxrandr2 libgbm1
+    - wget -O /etc/ca-certificates/mtls-ca-validators.crt https://certs.corp.redhat.com/certs/mtls-ca-validators.crt
   script:
     - |
       npm install -g @spaship/cli react-app-rewired
       npm ci
-      HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$STAGE_JWT_FETCH_URL CLIENT_ID=$STAGE_CLIENT_ID CLIENT_SECRET=$STAGE_CLIENT_SECRET INDEX_URL=$STAGE_INDEX_URL SITEMAP_BASE_URL=https://developers.stage.redhat.com/api-catalog npm run sitemap
+      NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$STAGE_JWT_FETCH_URL CLIENT_ID=$STAGE_CLIENT_ID CLIENT_SECRET=$STAGE_CLIENT_SECRET INDEX_URL=$STAGE_INDEX_URL SITEMAP_BASE_URL=https://developers.stage.redhat.com/api-catalog npm run sitemap
       npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_STAGE_WEB_PROPERTY --apikey=$SPASHIP_STAGE_API_KEY
