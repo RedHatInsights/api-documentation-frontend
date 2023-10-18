@@ -1076,8 +1076,29 @@
               "type": "string"
             },
             "value": {
-              "example": "123456",
-              "type": "string"
+              "oneOf": [
+                {
+                  "example": "123456",
+                  "nullable": true,
+                  "type": "string"
+                },
+                {
+                  "example": [
+                    "value1",
+                    "value2"
+                  ],
+                  "items": {
+                    "oneOf": [
+                      {
+                        "example": "value1",
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "nullable": true,
+                  "type": "array"
+                }
+              ]
             }
           },
           "required": [

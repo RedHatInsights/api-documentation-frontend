@@ -70,9 +70,6 @@
         "CandlepinPool": {
           "description": "Subset of Candlepin pool data that rhsm-subscriptions understands.",
           "properties": {
-            "accountNumber": {
-              "type": "string"
-            },
             "activeSubscription": {
               "type": "boolean"
             },
@@ -752,9 +749,6 @@
         },
         "OptInConfig_data_account": {
           "properties": {
-            "account_number": {
-              "type": "string"
-            },
             "created": {
               "format": "date-time",
               "type": "string"
@@ -801,9 +795,6 @@
         },
         "OptInConfig_meta": {
           "properties": {
-            "account_number": {
-              "type": "string"
-            },
             "org_id": {
               "type": "string"
             }
@@ -2435,7 +2426,7 @@
           "operationId": "deleteOptInConfig",
           "responses": {
             "204": {
-              "description": "Successfully deleted the opt-in configuration for the accociated account/org"
+              "description": "Successfully deleted the opt-in configuration for the accociated org"
             },
             "400": {
               "content": {
@@ -2478,7 +2469,7 @@
               "description": "An internal server error has occurred and is not recoverable."
             }
           },
-          "summary": "Delete an opt-in config for the associated account/org. The account number and org ID are pulled from the identity header."
+          "summary": "Delete an opt-in config for the associated org. The org ID are pulled from the identity header."
         },
         "description": "Endpoint for opting into subscription watch.",
         "get": {
@@ -2489,12 +2480,6 @@
                 "application/vnd.api+json": {
                   "example": {
                     "data": {
-                      "account": {
-                        "account_number": 12345,
-                        "created": "2017-08-04T17:32:05Z",
-                        "last_updated": "2017-08-04T17:32:05Z",
-                        "opt_in_type": "API"
-                      },
                       "opt_in_complete": true,
                       "org": {
                         "created": "2017-08-04T17:32:05Z",
@@ -2504,7 +2489,6 @@
                       }
                     },
                     "meta": {
-                      "account_number": 12345,
                       "org_id": 1111
                     }
                   },
@@ -2566,12 +2550,6 @@
                 "application/vnd.api+json": {
                   "example": {
                     "data": {
-                      "account": {
-                        "account_number": 12345,
-                        "created": "2017-08-04T17:32:05Z",
-                        "last_updated": "2017-08-04T17:32:05Z",
-                        "opt_in_type": "API"
-                      },
                       "opt_in_complete": true,
                       "org": {
                         "created": "2017-08-04T17:32:05Z",
@@ -2581,7 +2559,6 @@
                       }
                     },
                     "meta": {
-                      "account_number": 12345,
                       "org_id": 1111
                     }
                   },
@@ -2633,7 +2610,7 @@
               "description": "An internal server error has occurred and is not recoverable."
             }
           },
-          "summary": "Create/Update an account's opt-in configuration. Account and Org ID are defined by the identity header."
+          "summary": "Create/Update an account's opt-in configuration. Org ID are defined by the identity header."
         }
       },
       "/subscriptions/products/{product_id}": {

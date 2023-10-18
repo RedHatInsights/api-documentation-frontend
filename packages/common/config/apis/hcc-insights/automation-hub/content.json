@@ -6295,7 +6295,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2023-09-11",
+              "default": "2023-09-18",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
@@ -10827,8 +10827,8 @@
       "x-pulp-app-versions": {
         "ansible": "0.19.0",
         "container": "2.15.2",
-        "core": "3.28.10",
-        "galaxy": "4.8.0dev"
+        "core": "3.28.12",
+        "galaxy": "4.9.0dev"
       },
       "x-pulp-domain-enabled": false
     },
