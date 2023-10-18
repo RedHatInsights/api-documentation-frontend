@@ -37,7 +37,7 @@
       "CanonicalJsonResponse": {
         "type": "object",
         "properties": {
-          "data_source": {
+          "dataSource": {
             "description": "This data attribute is an alias for the data source. This is obtained from the search platform team.",
             "type": "string",
             "enum": [
@@ -49,7 +49,7 @@
           }
         },
         "required": [
-          "data_source",
+          "dataSource",
           "documents"
         ]
       },
@@ -72,7 +72,7 @@
             ],
             "default": "index"
           },
-          "content_type": {
+          "contentType": {
             "description": "A value representing the type of document.",
             "type": "string",
             "enum": [
@@ -120,7 +120,7 @@
         },
         "required": [
           "solr_command",
-          "content_type",
+          "contentType",
           "id",
           "uri",
           "name",
