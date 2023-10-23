@@ -1285,10 +1285,9 @@
         }
       },
       "securitySchemes": {
-        "3ScaleIdentity": {
-          "description": "Base64-encoded JSON identity header provided by 3Scale. Contains an\naccount number of the user issuing the request. Format of the JSON:\n```\n{\n    \"identity\": {\n        \"account_number\": \"account123\",\n        \"type\": \"User\",\n        \"user\" : {\n            \"is_org_admin\": true\n        },\n        \"internal\" : {\n            \"org_id\": \"org123\"\n        }\n    }\n}\n```\nEncoded (via `base64 -w0`):\n`eyJpZGVudGl0eSI6eyJhY2NvdW50X251bWJlciI6ImFjY291bnQxMjMiLCJ0eXBlIjoiVXNlciIsInVzZXIiOnsiaXNfb3JnX2FkbWluIjp0cnVlfSwiaW50ZXJuYWwiOnsib3JnX2lkIjoib3JnMTIzIn19fQo=`\n",
+        "Authorization": {
           "in": "header",
-          "name": "x-rh-identity",
+          "name": "Authorization",
           "type": "apiKey"
         }
       }

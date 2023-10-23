@@ -2917,12 +2917,10 @@
         }
       },
       "securitySchemes": {
-        "ApiKeyAuth": {
-          "description": "Base64-encoded JSON identity header provided by 3Scale. Contains an org_id of the user issuing the request. Format of the JSON: {\"identity\": {\"org_id\": \"12345678\"}}",
+        "Authorization": {
           "in": "header",
-          "name": "x-rh-identity",
-          "type": "apiKey",
-          "x-apikeyInfoFunc": "app.auth.authentication_header_handler"
+          "name": "Authorization",
+          "type": "apiKey"
         },
         "BearerAuth": {
           "scheme": "bearer",

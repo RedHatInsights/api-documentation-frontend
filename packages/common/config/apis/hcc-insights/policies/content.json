@@ -1046,7 +1046,7 @@
     "servers": [
       {
         "description": "Production Server",
-        "url": "https://cloud.redhat.com",
+        "url": "https://console.redhat.com",
         "variables": {
           "basePath": {
             "default": "/api/policies/v1.0"

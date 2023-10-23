@@ -305,10 +305,9 @@
         }
       },
       "securitySchemes": {
-        "ApiKeyAuth": {
-          "description": "Identity header provided by 3scale",
+        "Authorization": {
           "in": "header",
-          "name": "x-rh-identity",
+          "name": "Authorization",
           "type": "apiKey"
         }
       }

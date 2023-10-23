@@ -1816,9 +1816,9 @@
         }
       },
       "securitySchemes": {
-        "RhIdentity": {
+        "Authorization": {
           "in": "header",
-          "name": "x-rh-identity",
+          "name": "Authorization",
           "type": "apiKey"
         }
       }

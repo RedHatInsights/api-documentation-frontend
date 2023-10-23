@@ -1854,16 +1854,15 @@
         }
       },
       "securitySchemes": {
+        "Authorization": {
+          "in": "header",
+          "name": "Authorization",
+          "type": "apiKey"
+        },
         "basic-auth": {
           "description": "Basic authentication. Required for the \"stage\" and \"production\" environments",
           "scheme": "basic",
           "type": "http"
-        },
-        "x-rh-identity": {
-          "description": "Base64 encoded XRHID header's value",
-          "in": "header",
-          "name": "x-rh-identity",
-          "type": "apiKey"
         },
         "x-rh-sources-account-number": {
           "description": "EBS account number to identify the tenant. Warning: it's being deprecated",

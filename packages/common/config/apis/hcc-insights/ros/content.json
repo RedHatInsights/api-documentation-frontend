@@ -616,10 +616,9 @@
         }
       },
       "securitySchemes": {
-        "RhIdentity": {
-          "description": "Base64-encoded JSON identity header provided by 3Scale. Contains an account number of the user issuing the request. Format of the JSON{'identity': {'account_number': '12345678'}}",
+        "Authorization": {
           "in": "header",
-          "name": "x-rh-identity",
+          "name": "Authorization",
           "type": "apiKey"
         }
       }
