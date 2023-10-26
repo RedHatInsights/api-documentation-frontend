@@ -103,7 +103,8 @@
           }
         },
         "fields_param": {
-          "description": "Fetches only mentioned system_profile fields",
+          "description": "Fetches only mentioned system_profile fields. For example, <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": [\"arch\", \"host_type\"]} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?fields[system_profile]=arch,host_type\"",
+          "example": {},
           "explode": true,
           "in": "query",
           "name": "fields",
@@ -119,7 +120,8 @@
           "x-validator": "sparseFields"
         },
         "filter_param": {
-          "description": "Filters hosts based on system_profile fields",
+          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\"",
+          "example": {},
           "explode": true,
           "in": "query",
           "name": "filter",

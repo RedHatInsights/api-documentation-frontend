@@ -7298,10 +7298,6 @@
       {
         "description": "The API of the Advisor project in Insights",
         "url": "https://console.redhat.com/"
-      },
-      {
-        "description": "The API of the Advisor project in Insights",
-        "url": "https://cloud.redhat.com/"
       }
     ]
   }
