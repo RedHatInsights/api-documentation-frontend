@@ -33,7 +33,7 @@ export const SidebarApiSections: FunctionComponent<SidebarApiSectionsProps> = ({
                         key={g.id}
                         href={`#${getOperationGroupId(g.id)}`}
                     >
-                        {g.description || g.name}
+                        {g.name || g.description}
                     </JumpLinksItem>
                 ));
 
