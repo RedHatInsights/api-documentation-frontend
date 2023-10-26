@@ -27,7 +27,7 @@ export const renderGroupOperations = ({groupedOperations, openapi}: GroupedOpera
         ...(groupedOperations.groups.map(group => <StackItem key={`group-${group.id}`} id={getOperationGroupId(group.id)}>
             <TextContent className="pf-u-pb-lg">
                 <Text component={TextVariants.h3}>
-                    { group.description || group.name }
+                    { group.name || group.description }
                 </Text>
             </TextContent>
             <Operations>{group
