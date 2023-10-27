@@ -1,5 +1,7 @@
 import axios from 'axios';
 import {APIConfiguration} from "@apidocs/common";
+import path from "path";
+import {statSync} from 'fs';
 
 type Document = {
     solr_command: string;
@@ -8,6 +10,11 @@ type Document = {
     uri: string;
     name: string;
     description: string;
+    product: Array<string>;
+    topic: Array<string>;
+    last_modified_date_dt: string;
+    entity_id: string;
+    api_id: string;
 }
 
 type CanonicalFormat = {
@@ -31,6 +38,14 @@ const getDocuments = (config: ReadonlyArray<Readonly<APIConfiguration>>, baseurl
             }
         })
 
+        const products = new Set<string>()
+        const topics = new Set<string>()
+
+        api.tags.forEach((tag) => {
+            tag.devRedHatTaxonomy.product && products.add(tag.devRedHatTaxonomy.product)
+            tag.devRedHatTaxonomy.topic && topics.add(tag.devRedHatTaxonomy.topic)
+        })
+
         return {
             solr_command: "index",
             contentType: "documentation",
@@ -38,7 +53,12 @@ const getDocuments = (config: ReadonlyArray<Readonly<APIConfiguration>>, baseurl
             uri: `${baseurl}/api/${api.id}`,
             name: `${api.displayName} | API Catalog and Documentation`,
             description: api.description,
-            content_summaries: contentSummaries
+            content_summaries: contentSummaries,
+            product: Array.from(products),
+            topic: Array.from(topics),
+            last_modified_date_dt: statSync(path.join('..', 'common', 'config', api.apiContentPath)).mtime.toISOString(),
+            entity_id: "api_catalog",
+            api_id: api.id,
         }}
     )
 )
