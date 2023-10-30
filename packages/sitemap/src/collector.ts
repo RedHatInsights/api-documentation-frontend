@@ -38,12 +38,12 @@ const getDocuments = (config: ReadonlyArray<Readonly<APIConfiguration>>, baseurl
             }
         })
 
-        const products = new Set<string>()
-        const topics = new Set<string>()
+        const products = new Set<string>();
+        const topics = new Set<string>();
 
         api.tags.forEach((tag) => {
-            tag.devRedHatTaxonomy.product && products.add(tag.devRedHatTaxonomy.product)
-            tag.devRedHatTaxonomy.topic && topics.add(tag.devRedHatTaxonomy.topic)
+            tag.devRedHatTaxonomy.product && products.add(tag.devRedHatTaxonomy.product);
+            tag.devRedHatTaxonomy.topic && topics.add(tag.devRedHatTaxonomy.topic);
         })
 
         return {
