@@ -18,7 +18,7 @@ deploy_dev:
       npm install -g @spaship/cli react-app-rewired
       npm ci
       NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$DEV_JWT_FETCH_URL CLIENT_ID=$DEV_CLIENT_ID CLIENT_SECRET=$DEV_CLIENT_SECRET INDEX_URL=$DEV_INDEX_URL SITEMAP_BASE_URL=https://developers.dev.redhat.com/api-catalog npm run sitemap
-      npm run build
+      REACT_APP_ENV=development npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_DEV_WEB_PROPERTY --apikey=$SPASHIP_DEV_API_KEY
   rules:
@@ -46,7 +46,7 @@ deploy_stage:
       npm install -g @spaship/cli react-app-rewired
       npm ci
       NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$STAGE_JWT_FETCH_URL CLIENT_ID=$STAGE_CLIENT_ID CLIENT_SECRET=$STAGE_CLIENT_SECRET INDEX_URL=$STAGE_INDEX_URL SITEMAP_BASE_URL=https://developers.stage.redhat.com/api-catalog npm run sitemap
-      npm run build
+      REACT_APP_ENV=staging npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_STAGE_WEB_PROPERTY --apikey=$SPASHIP_STAGE_API_KEY
   rules:
@@ -75,7 +75,7 @@ deploy_qa:
       npm install -g @spaship/cli react-app-rewired
       npm ci
       NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=true JWT_FETCH_URL=$QA_JWT_FETCH_URL CLIENT_ID=$QA_CLIENT_ID CLIENT_SECRET=$QA_CLIENT_SECRET INDEX_URL=$QA_INDEX_URL SITEMAP_BASE_URL=https://developers.qa.redhat.com/api-catalog npm run sitemap
-      npm run build
+      REACT_APP_ENV=qa npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_QA_WEB_PROPERTY --apikey=$SPASHIP_QA_API_KEY
   rules:
@@ -104,7 +104,7 @@ deploy_prod:
       npm install -g @spaship/cli react-app-rewired
       npm ci
       HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$PROD_JWT_FETCH_URL CLIENT_ID=$PROD_CLIENT_ID CLIENT_SECRET=$PROD_CLIENT_SECRET INDEX_URL=$PROD_INDEX_URL SITEMAP_BASE_URL=https://developers.redhat.com/api-catalog npm run sitemap
-      REACT_APP_PENDO_ENABLED=true REACT_APP_PENDO_API_KEY=4c10d138-7686-497b-5938-3a40b35ac4aa npm run build
+      REACT_APP_ENV=production REACT_APP_PENDO_ENABLED=true REACT_APP_PENDO_API_KEY=4c10d138-7686-497b-5938-3a40b35ac4aa npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_PROD_WEB_PROPERTY --apikey=$SPASHIP_PROD_API_KEY
   rules:
