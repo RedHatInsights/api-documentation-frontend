@@ -1099,7 +1099,7 @@
       },
       "/cluster/{clusterId}/upgrade-risks-prediction": {
         "get": {
-          "description": "The title of the rule, a short description.",
+          "description": "Get a prediction of whether a cluster upgrade would fail.",
           "operationId": "getUpgradeRisksPrediction",
           "parameters": [
             {
