@@ -66,7 +66,7 @@
               "$ref": "#/components/schemas/UUID"
             },
             "subscription_type": {
-              "$ref": "#/components/schemas/EmailSubscriptionType"
+              "$ref": "#/components/schemas/SubscriptionType"
             },
             "updated": {
               "$ref": "#/components/schemas/LocalDateTime"
@@ -121,6 +121,35 @@
           "required": [
             "id",
             "display_name"
+          ],
+          "type": "object"
+        },
+        "ApplicationDTO": {
+          "properties": {
+            "bundle_id": {
+              "$ref": "#/components/schemas/UUID"
+            },
+            "created": {
+              "type": "string"
+            },
+            "display_name": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/UUID"
+            },
+            "name": {
+              "pattern": "[a-z][a-z_0-9-]*",
+              "type": "string"
+            },
+            "owner_role": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "display_name",
+            "bundle_id"
           ],
           "type": "object"
         },
@@ -428,12 +457,6 @@
           },
           "type": "object"
         },
-        "EmailSubscriptionType": {
-          "enum": [
-            "DAILY"
-          ],
-          "type": "string"
-        },
         "Endpoint": {
           "properties": {
             "created": {
@@ -671,6 +694,9 @@
               "maxLength": 255,
               "pattern": "[a-z][a-z_0-9-]*",
               "type": "string"
+            },
+            "subscribed_by_default": {
+              "type": "boolean"
             }
           },
           "required": [
@@ -1152,6 +1178,12 @@
           ],
           "type": "string"
         },
+        "SubscriptionType": {
+          "enum": [
+            "DAILY"
+          ],
+          "type": "string"
+        },
         "SystemSubscriptionProperties": {
           "properties": {
             "group_id": {
@@ -1231,6 +1263,20 @@
           "format": "uuid",
           "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
           "type": "string"
+        },
+        "UpdateApplicationRequest": {
+          "properties": {
+            "display_name": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "owner_role": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "UpdateBehaviorGroupRequest": {
           "properties": {

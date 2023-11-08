@@ -763,6 +763,17 @@
           },
           "type": "object"
         },
+        "controllers.IDSatelliteManaged": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "satellite_managed": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
         "controllers.IDStatus": {
           "properties": {
             "id": {
@@ -776,6 +787,23 @@
         },
         "controllers.IDsResponse": {
           "properties": {
+            "ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.IDsSatelliteManagedResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.IDSatelliteManaged"
+              },
+              "type": "array"
+            },
             "ids": {
               "items": {
                 "type": "string"
@@ -1831,7 +1859,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.5.10"
+      "version": "v3.5.18"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -5587,7 +5615,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.IDsResponse"
+                    "$ref": "#/components/schemas/controllers.IDsSatelliteManagedResponse"
                   }
                 }
               },

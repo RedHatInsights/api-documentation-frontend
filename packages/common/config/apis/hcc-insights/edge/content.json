@@ -1032,10 +1032,32 @@
               },
               "type": "array"
             },
+            "enforce_edge_groups": {
+              "description": "Whether to enforce the edge groups usage",
+              "type": "boolean"
+            },
             "total": {
               "description": "Total number of device",
               "example": 40,
               "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "models.DeviceViewListResponseAPI": {
+          "properties": {
+            "count": {
+              "description": "The overall number of devices",
+              "example": 40,
+              "type": "integer"
+            },
+            "data": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/models.DeviceViewListAPI"
+                }
+              ],
+              "description": "The devices view data"
             }
           },
           "type": "object"
@@ -1182,6 +1204,16 @@
               "description": "The device name",
               "example": "test_device_api_static",
               "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "models.EnforceEdgeGroupsAPI": {
+          "properties": {
+            "enforce_edge_groups": {
+              "description": "whether to enforce edge groups usage",
+              "example": false,
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -2221,6 +2253,37 @@
           ]
         }
       },
+      "/device-groups/enforce-edge-groups": {
+        "get": {
+          "description": "Returns whether the edge groups is enforced for the current organization",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/models.EnforceEdgeGroupsAPI"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.BadRequest"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            }
+          },
+          "summary": "Returns whether the edge groups is enforced for the current organization",
+          "tags": [
+            "Device Groups"
+          ]
+        }
+      },
       "/device-groups/{ID}": {
         "delete": {
           "description": "Deletes an existing device group",
@@ -2863,7 +2926,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/models.DeviceViewListAPI"
+                    "$ref": "#/components/schemas/models.DeviceViewListResponseAPI"
                   }
                 }
               },
@@ -2971,7 +3034,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/models.DeviceViewListAPI"
+                    "$ref": "#/components/schemas/models.DeviceViewListResponseAPI"
                   }
                 }
               },

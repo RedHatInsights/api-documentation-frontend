@@ -845,13 +845,14 @@
               "type": "string"
             },
             "version": {
-              "readOnly": true,
+              "maxLength": 128,
               "type": "string"
             }
           },
           "required": [
             "created_at",
-            "updated_at"
+            "updated_at",
+            "version"
           ],
           "type": "object"
         },
@@ -952,14 +953,15 @@
               "type": "string"
             },
             "version": {
-              "readOnly": true,
+              "maxLength": 128,
               "type": "string"
             }
           },
           "required": [
             "created_at",
             "signatures",
-            "updated_at"
+            "updated_at",
+            "version"
           ],
           "type": "object"
         },
@@ -2368,10 +2370,12 @@
             },
             "resources": {
               "type": "string"
+            },
+            "users": {
+              "type": "string"
             }
           },
           "required": [
-            "groups",
             "name"
           ],
           "type": "object"
@@ -2490,10 +2494,12 @@
             },
             "resources": {
               "type": "string"
+            },
+            "users": {
+              "type": "string"
             }
           },
           "required": [
-            "groups",
             "name"
           ],
           "type": "object"
@@ -2549,11 +2555,11 @@
                 }
               ],
               "readOnly": true
+            },
+            "users": {
+              "type": "string"
             }
           },
-          "required": [
-            "groups"
-          ],
           "type": "object"
         },
         "NestedRole": {
@@ -4788,6 +4794,9 @@
             },
             "resources": {
               "type": "string"
+            },
+            "users": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -5923,11 +5932,6 @@
           ],
           "type": "string"
         },
-        "ProgressReport": {
-          "description": "Base serializer for use with :class:`pulpcore.app.models.Model`\n\nThis ensures that all Serializers provide values for the 'pulp_href` field.\n\nThe class provides a default for the ``ref_name`` attribute in the\nModelSerializers's ``Meta`` class. This ensures that the OpenAPI definitions\nof plugins are namespaced properly.",
-          "properties": {},
-          "type": "object"
-        },
         "ProgressReportResponse": {
           "description": "Base serializer for use with :class:`pulpcore.app.models.Model`\n\nThis ensures that all Serializers provide values for the 'pulp_href` field.\n\nThe class provides a default for the ``ref_name`` attribute in the\nModelSerializers's ``Meta`` class. This ensures that the OpenAPI definitions\nof plugins are namespaced properly.",
           "properties": {
@@ -6295,7 +6299,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2023-09-30",
+              "default": "2023-10-08",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
@@ -7210,26 +7214,6 @@
           },
           "type": "object"
         },
-        "Task": {
-          "description": "Base serializer for use with :class:`pulpcore.app.models.Model`\n\nThis ensures that all Serializers provide values for the 'pulp_href` field.\n\nThe class provides a default for the ``ref_name`` attribute in the\nModelSerializers's ``Meta`` class. This ensures that the OpenAPI definitions\nof plugins are namespaced properly.",
-          "properties": {
-            "logging_cid": {
-              "description": "The logging correlation id associated with this task",
-              "minLength": 1,
-              "type": "string"
-            },
-            "name": {
-              "description": "The name of task.",
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": [
-            "logging_cid",
-            "name"
-          ],
-          "type": "object"
-        },
         "TaskGroupOperationResponse": {
           "description": "Serializer for asynchronous operations that return a task group.",
           "properties": {
@@ -7575,14 +7559,15 @@
               "type": "string"
             },
             "version": {
-              "readOnly": true,
+              "maxLength": 128,
               "type": "string"
             }
           },
           "required": [
             "created_at",
             "signatures",
-            "updated_at"
+            "updated_at",
+            "version"
           ],
           "type": "object"
         },
@@ -8432,12 +8417,8 @@
               "type": "string"
             },
             "last_sync_task": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/TaskResponse"
-                }
-              ],
-              "readOnly": true
+              "readOnly": true,
+              "type": "string"
             },
             "last_synced_metadata_time": {
               "description": "Last synced metadata time.",
@@ -10825,9 +10806,9 @@
         "url": "https://pulp.plan.io/attachments/download/517478/pulp_logo_word_rectangle.svg"
       },
       "x-pulp-app-versions": {
-        "ansible": "0.19.0",
+        "ansible": "0.20.2",
         "container": "2.15.2",
-        "core": "3.28.12",
+        "core": "3.28.17",
         "galaxy": "4.9.0dev"
       },
       "x-pulp-domain-enabled": false
@@ -17669,7 +17650,7 @@
       },
       "/api/automation-hub/content/{path}/v3/plugin/ansible/content/{distro_base_path}/namespaces/": {
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_content_v3_plugin_ansible_content_namespaces_list",
           "parameters": [
             {
@@ -17929,7 +17910,7 @@
           ]
         },
         "post": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_content_v3_plugin_ansible_content_namespaces_create",
           "parameters": [
             {
@@ -18028,7 +18009,7 @@
           ]
         },
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_content_v3_plugin_ansible_content_namespaces_read",
           "parameters": [
             {
@@ -18095,7 +18076,7 @@
           ]
         },
         "patch": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_content_v3_plugin_ansible_content_namespaces_partial_update",
           "parameters": [
             {
@@ -46458,7 +46439,7 @@
       },
       "/api/automation-hub/v3/plugin/ansible/content/{distro_base_path}/namespaces/": {
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_v3_plugin_ansible_content_namespaces_list",
           "parameters": [
             {
@@ -46710,7 +46691,7 @@
           ]
         },
         "post": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_v3_plugin_ansible_content_namespaces_create",
           "parameters": [
             {
@@ -46793,7 +46774,7 @@
           ]
         },
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_v3_plugin_ansible_content_namespaces_read",
           "parameters": [
             {
@@ -46852,7 +46833,7 @@
           ]
         },
         "patch": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "api_automation_hub_v3_plugin_ansible_content_namespaces_partial_update",
           "parameters": [
             {
@@ -50415,7 +50396,7 @@
       },
       "/pulp_ansible/galaxy/default/api/v3/plugin/ansible/content/{distro_base_path}/namespaces/": {
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_default_api_v3_plugin_ansible_content_namespaces_list",
           "parameters": [
             {
@@ -50667,7 +50648,7 @@
           ]
         },
         "post": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_default_api_v3_plugin_ansible_content_namespaces_create",
           "parameters": [
             {
@@ -50750,7 +50731,7 @@
           ]
         },
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_default_api_v3_plugin_ansible_content_namespaces_read",
           "parameters": [
             {
@@ -50809,7 +50790,7 @@
           ]
         },
         "patch": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_default_api_v3_plugin_ansible_content_namespaces_partial_update",
           "parameters": [
             {
@@ -54664,7 +54645,7 @@
       },
       "/pulp_ansible/galaxy/{path}/api/v3/plugin/ansible/content/{distro_base_path}/namespaces/": {
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_api_v3_plugin_ansible_content_namespaces_list",
           "parameters": [
             {
@@ -54924,7 +54905,7 @@
           ]
         },
         "post": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_api_v3_plugin_ansible_content_namespaces_create",
           "parameters": [
             {
@@ -55023,7 +55004,7 @@
           ]
         },
         "get": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_api_v3_plugin_ansible_content_namespaces_read",
           "parameters": [
             {
@@ -55090,7 +55071,7 @@
           ]
         },
         "patch": {
-          "description": "Custom exception handler mixin class.",
+          "description": "Provides the authentication and permission classes from settings.",
           "operationId": "pulp_ansible_galaxy_api_v3_plugin_ansible_content_namespaces_partial_update",
           "parameters": [
             {

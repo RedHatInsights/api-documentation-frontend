@@ -514,9 +514,6 @@
         "CentralRequestPayload": {
           "description": "Schema for the request body sent to /centrals POST",
           "properties": {
-            "central": {
-              "$ref": "#/components/schemas/CentralSpec"
-            },
             "cloud_account_id": {
               "description": "The cloud account ID that is linked to the ACS instance",
               "type": "string"
@@ -536,22 +533,11 @@
             "region": {
               "description": "The region where the Central component cluster will be created in",
               "type": "string"
-            },
-            "scanner": {
-              "$ref": "#/components/schemas/ScannerSpec"
             }
           },
           "required": [
             "name"
           ],
-          "type": "object"
-        },
-        "CentralSpec": {
-          "properties": {
-            "resources": {
-              "$ref": "#/components/schemas/ResourceRequirements"
-            }
-          },
           "type": "object"
         },
         "CloudAccount": {
@@ -882,67 +868,6 @@
                 "$ref": "#/components/schemas/values"
               },
               "type": "array"
-            }
-          },
-          "type": "object"
-        },
-        "ResourceList": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object"
-        },
-        "ResourceRequirements": {
-          "properties": {
-            "limits": {
-              "$ref": "#/components/schemas/ResourceList"
-            },
-            "requests": {
-              "$ref": "#/components/schemas/ResourceList"
-            }
-          },
-          "type": "object"
-        },
-        "ScannerSpec": {
-          "properties": {
-            "analyzer": {
-              "properties": {
-                "resources": {
-                  "$ref": "#/components/schemas/ResourceRequirements"
-                },
-                "scaling": {
-                  "properties": {
-                    "autoScaling": {
-                      "type": "string"
-                    },
-                    "maxReplicas": {
-                      "format": "int32",
-                      "minimum": 1,
-                      "type": "integer"
-                    },
-                    "minReplicas": {
-                      "format": "int32",
-                      "minimum": 1,
-                      "type": "integer"
-                    },
-                    "replicas": {
-                      "format": "int32",
-                      "minimum": 1,
-                      "type": "integer"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
-            "db": {
-              "properties": {
-                "resources": {
-                  "$ref": "#/components/schemas/ResourceRequirements"
-                }
-              },
-              "type": "object"
             }
           },
           "type": "object"
