@@ -1727,6 +1727,7 @@
       "/hosts/products/{product_id}": {
         "description": "Operations for hosts for a given account and product",
         "get": {
+          "deprecated": true,
           "operationId": "getHosts",
           "parameters": [
             {
@@ -1952,6 +1953,7 @@
       "/hosts/{hypervisor_uuid}/guests": {
         "description": "Operations for hypervisor-guest mappings.",
         "get": {
+          "deprecated": true,
           "operationId": "getHypervisorGuests",
           "parameters": [
             {

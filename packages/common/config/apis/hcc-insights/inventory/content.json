@@ -5059,36 +5059,6 @@
             "tags"
           ]
         }
-      },
-      "/unleash/inventory_groups_toggle": {
-        "get": {
-          "description": "Returns the value of the hbi.api.inventory-groups toggle, if able to be retrieved.",
-          "operationId": "api.unleash.get_inventory_groups_toggle",
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/UnleashToggleOut",
-                    "x-scope": [
-                      ""
-                    ]
-                  }
-                }
-              },
-              "description": "The value of the Inventory Groups toggle"
-            }
-          },
-          "security": [
-            {
-              "ApiKeyAuth": []
-            }
-          ],
-          "summary": "Check whether the Groups feature is enabled",
-          "tags": [
-            "unleash"
-          ]
-        }
       }
     },
     "servers": [
