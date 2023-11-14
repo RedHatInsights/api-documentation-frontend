@@ -1001,6 +1001,9 @@
             "rhsm": {
               "type": "string"
             },
+            "satellite_managed": {
+              "type": "boolean"
+            },
             "tags": {
               "items": {
                 "$ref": "#/components/schemas/controllers.SystemTag"
@@ -1859,7 +1862,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.5.18"
+      "version": "v3.5.23"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2211,7 +2214,9 @@
                   "stale",
                   "status",
                   "template",
-                  "groups"
+                  "groups",
+                  "satellite_managed",
+                  "built_pkgcache"
                 ],
                 "type": "string"
               }
@@ -2268,6 +2273,22 @@
               "description": "Filter OS version",
               "in": "query",
               "name": "filter[os]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[built_pkgcache]",
               "schema": {
                 "type": "string"
               }
@@ -5291,6 +5312,14 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems managed by satellite",
+              "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -6199,6 +6228,14 @@
               }
             },
             {
+              "description": "Filter systems managed by satellite",
+              "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "Filter",
               "in": "query",
               "name": "filter[updatable]",
@@ -6375,7 +6412,9 @@
                   "stale",
                   "packages_installed",
                   "baseline_name",
-                  "groups"
+                  "groups",
+                  "satellite_managed",
+                  "built_pkgcache"
                 ],
                 "type": "string"
               }
@@ -6496,6 +6535,22 @@
               "description": "Filter",
               "in": "query",
               "name": "filter[baseline_name]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[built_pkgcache]",
               "schema": {
                 "type": "string"
               }
