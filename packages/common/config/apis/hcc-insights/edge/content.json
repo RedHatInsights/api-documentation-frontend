@@ -987,6 +987,14 @@
               "description": "Status of Dispatch",
               "type": "string"
             },
+            "GroupName": {
+              "description": "the inventory group name",
+              "type": "string"
+            },
+            "GroupUUID": {
+              "description": "the inventory group id",
+              "type": "string"
+            },
             "ImageID": {
               "description": "ID of image",
               "example": 323241,
@@ -1759,6 +1767,47 @@
             },
             "org_id": {
               "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "models.InventoryGroupDevicesUpdateInfoResponseAPI": {
+          "properties": {
+            "devices_count": {
+              "description": "the overall count of all devices that belongs to inventory group",
+              "example": 25,
+              "type": "integer"
+            },
+            "group_uuid": {
+              "description": "the inventory group id",
+              "example": "b579a578-1a6f-48d5-8a45-21f2a656a5d4",
+              "type": "string"
+            },
+            "image_set_id": {
+              "description": "the image set id common to all inventory group devices",
+              "example": 1024,
+              "type": "integer"
+            },
+            "image_sets_count": {
+              "description": "how much image set ids the inventory group devices belongs to",
+              "example": 1,
+              "type": "integer"
+            },
+            "update_devices_uuids": {
+              "description": "the list of devices uuids that belongs to inventory group that are available to update",
+              "example": [
+                "b579a578-1a6f-48d5-8a45-21f2a656a5d4",
+                "1abb288d-6d88-4e2d-bdeb-fcc536be58ec"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "update_valid": {
+              "description": "whether the inventory group devices update is valid",
+              "example": true,
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -4592,6 +4641,69 @@
           "summary": "Placeholder summary",
           "tags": [
             "Images"
+          ]
+        }
+      },
+      "/inventory-groups/{GroupUUID}/update-info": {
+        "get": {
+          "description": "Gets the inventory group update info",
+          "operationId": "GetInventoryGroupDevicesUpdateInfo",
+          "parameters": [
+            {
+              "description": "a unique uuid to identify the inventory group",
+              "in": "path",
+              "name": "GroupUUID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/models.InventoryGroupDevicesUpdateInfoResponseAPI"
+                  }
+                }
+              },
+              "description": "The requested inventory group update info"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.BadRequest"
+                  }
+                }
+              },
+              "description": "The request sent couldn't be processed"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.NotFound"
+                  }
+                }
+              },
+              "description": "The requested inventory group was not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.InternalServerError"
+                  }
+                }
+              },
+              "description": "There was an internal server error"
+            }
+          },
+          "summary": "Gets the inventory group update info",
+          "tags": [
+            "Updates (Systems)"
           ]
         }
       },

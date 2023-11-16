@@ -968,6 +968,9 @@
             },
             {
               "properties": {
+                "ansible_playbook": {
+                  "type": "string"
+                },
                 "created_at": {
                   "format": "date-time",
                   "type": "string"
@@ -988,7 +991,6 @@
                   "type": "string"
                 },
                 "url": {
-                  "nullable": true,
                   "type": "string"
                 }
               },
