@@ -742,102 +742,6 @@
           },
           "type": "object"
         },
-        "PaginatedRenderedReportList": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/RenderedReport"
-              },
-              "type": "array"
-            },
-            "links": {
-              "properties": {
-                "first": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "last": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "next": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "previous": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "meta": {
-              "properties": {
-                "count": {
-                  "example": 169,
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "PaginatedReportList": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/Report"
-              },
-              "type": "array"
-            },
-            "links": {
-              "properties": {
-                "first": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "last": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "next": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "previous": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "meta": {
-              "properties": {
-                "count": {
-                  "example": 169,
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
         "PaginatedRuleForAccountList": {
           "properties": {
             "data": {
@@ -6320,24 +6224,6 @@
               }
             },
             {
-              "description": "Number of results to return per page.",
-              "in": "query",
-              "name": "limit",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "description": "The initial index from which to return the results.",
-              "in": "query",
-              "name": "offset",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
               "description": "Tags have a namespace, key and value in the form namespace/key=value",
               "in": "query",
               "name": "tags",
@@ -6367,7 +6253,10 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/PaginatedRenderedReportList"
+                    "items": {
+                      "$ref": "#/components/schemas/RenderedReport"
+                    },
+                    "type": "array"
                   }
                 }
               },
@@ -6424,24 +6313,6 @@
               "style": "form"
             },
             {
-              "description": "Number of results to return per page.",
-              "in": "query",
-              "name": "limit",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "description": "The initial index from which to return the results.",
-              "in": "query",
-              "name": "offset",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
               "description": "Tags have a namespace, key and value in the form namespace/key=value",
               "in": "query",
               "name": "tags",
@@ -6471,7 +6342,10 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/PaginatedReportList"
+                    "items": {
+                      "$ref": "#/components/schemas/Report"
+                    },
+                    "type": "array"
                   }
                 }
               },

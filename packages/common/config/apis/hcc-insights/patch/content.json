@@ -73,6 +73,9 @@
               },
               "type": "object"
             },
+            "links": {
+              "$ref": "#/components/schemas/controllers.Links"
+            },
             "meta": {
               "$ref": "#/components/schemas/controllers.ListMeta"
             }
@@ -1639,6 +1642,9 @@
               },
               "type": "object"
             },
+            "links": {
+              "$ref": "#/components/schemas/controllers.Links"
+            },
             "meta": {
               "$ref": "#/components/schemas/controllers.ListMeta"
             }
@@ -1747,6 +1753,12 @@
               "type": "string"
             },
             "repository_list": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "repository_paths": {
               "items": {
                 "type": "string"
               },
@@ -1862,7 +1874,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.5.23"
+      "version": "v3.5.30"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -7309,6 +7321,103 @@
         "post": {
           "description": "View advisory-system pairs for selected systems and installable advisories",
           "operationId": "viewAdvisoriesSystems",
+          "parameters": [
+            {
+              "description": "Limit for paging, set -1 to return all",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Offset for paging",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Tag filter",
+              "explode": true,
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by inventory groups",
+              "explode": true,
+              "in": "query",
+              "name": "filter[group_name]",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter only SAP systems",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by their SAP SIDs",
+              "explode": true,
+              "in": "query",
+              "name": "filter[system_profile][sap_sids]",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by ansible",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ansible version",
+              "in": "query",
+              "name": "filter[system_profile][ansible][controller_version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by mssql version",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by mssql version",
+              "in": "query",
+              "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {
@@ -7365,6 +7474,103 @@
         "post": {
           "description": "View system-advisory pairs for selected systems and installable advisories",
           "operationId": "viewSystemsAdvisories",
+          "parameters": [
+            {
+              "description": "Limit for paging, set -1 to return all",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Offset for paging",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Tag filter",
+              "explode": true,
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by inventory groups",
+              "explode": true,
+              "in": "query",
+              "name": "filter[group_name]",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter only SAP systems",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by their SAP SIDs",
+              "explode": true,
+              "in": "query",
+              "name": "filter[system_profile][sap_sids]",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by ansible",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ansible version",
+              "in": "query",
+              "name": "filter[system_profile][ansible][controller_version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by mssql version",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by mssql version",
+              "in": "query",
+              "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {

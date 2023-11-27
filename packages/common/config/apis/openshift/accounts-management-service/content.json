@@ -294,7 +294,7 @@
           }
         },
         "search": {
-          "description": "\n**Important Note**\nAccount Management Service uses **KSUID** as an **ID** field.\nKSUID contains a timestamp component that allows them to be sorted by generation time.\nAs this field uses an index, please use it to sort by instead of `created_at` field.\n\nSpecifies the search criteria. The syntax of this parameter is\nsimilar to the syntax of the _where_ clause of an SQL statement,\nusing the names of the json attributes / column names of the account.\nFor example, in order to retrieve all the accounts with a username\nstarting with `my`:\n\n```sql\nusername like 'my%'\n```\n\nThe search criteria can also be applied on related resource.\nFor example, in order to retrieve all the subscriptions labeled by `foo=bar`,\n\n```sql\nlabels.key = 'foo' and labels.value = 'bar'\n```\n\nIf the parameter isn't provided, or if the value is empty, then\nall the accounts that the user has permission to see will be\nreturned.",
+          "description": "Specifies the search criteria. The syntax of this parameter is\nsimilar to the syntax of the _where_ clause of an SQL statement,\nusing the names of the json attributes / column names of the account.\nFor example, in order to retrieve all the accounts with a username starting with `my`:\n\n```sql\nusername like 'my%'\n```\n\n> **Important Note**:\nAccount Management Service uses **KSUID** as an **ID** field.\nKSUID contains a timestamp component that allows them to be sorted by generation time.\nAs this field uses an index, please use it to sort by instead of `created_at` field.\n\nThe search criteria can also be applied on related resource.\nFor example, in order to retrieve all the subscriptions labeled by `foo=bar`,\n\n```sql\nlabels.key = 'foo' and labels.value = 'bar'\n```\n\nIf the parameter isn't provided, or if the value is empty, then\nall the accounts that the user has permission to see will be\nreturned.",
           "in": "query",
           "name": "search",
           "required": false,
@@ -4348,7 +4348,7 @@
       "title": "Account Management Service API",
       "version": "0.0.1"
     },
-    "openapi": "3.0.1",
+    "openapi": "3.0.0",
     "paths": {
       "/api/accounts_mgmt/v1/access_token": {
         "post": {
