@@ -103,7 +103,7 @@ deploy_prod:
       echo "Deploying $CI_COMMIT_TAG to Production"
       npm install -g @spaship/cli react-app-rewired
       npm ci
-      HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$PROD_JWT_FETCH_URL CLIENT_ID=$PROD_CLIENT_ID CLIENT_SECRET=$PROD_CLIENT_SECRET INDEX_URL=$PROD_INDEX_URL SITEMAP_BASE_URL=https://developers.redhat.com/api-catalog npm run sitemap
+      HYDRA_SYNC_ACTIVE=true JWT_FETCH_URL=$PROD_JWT_FETCH_URL CLIENT_ID=$PROD_CLIENT_ID CLIENT_SECRET=$PROD_CLIENT_SECRET INDEX_URL=$PROD_INDEX_URL SITEMAP_BASE_URL=https://developers.redhat.com/api-catalog npm run sitemap
       REACT_APP_ENV=production REACT_APP_PENDO_ENABLED=true REACT_APP_PENDO_API_KEY=4c10d138-7686-497b-5938-3a40b35ac4aa npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_PROD_WEB_PROPERTY --apikey=$SPASHIP_PROD_API_KEY
