@@ -57,7 +57,7 @@
         "QueryEndDate": {
           "description": "String to indicate end date of date range.",
           "in": "query",
-          "name": "QueryEndDate",
+          "name": "end_date",
           "schema": {
             "example": "1970-01-01",
             "type": "string"
@@ -67,7 +67,7 @@
           "description": "The filter to apply to the report as a URL encoded dictionary.",
           "explode": true,
           "in": "query",
-          "name": "QueryFilter",
+          "name": "filter",
           "required": false,
           "schema": {
             "type": "object"
@@ -161,7 +161,7 @@
         "QueryStartDate": {
           "description": "String to indicate start date of date range.",
           "in": "query",
-          "name": "QueryStartDate",
+          "name": "start_date",
           "schema": {
             "example": "1970-01-01",
             "type": "string"

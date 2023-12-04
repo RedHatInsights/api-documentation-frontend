@@ -399,8 +399,7 @@
               "enum": [
                 "fresh",
                 "stale",
-                "stale_warning",
-                "unknown"
+                "stale_warning"
               ],
               "type": "string"
             },
@@ -408,7 +407,7 @@
           }
         },
         "stalenessParam": {
-          "description": "Culling states of the hosts. Default: fresh,stale,unknown",
+          "description": "Culling states of the hosts. Default: fresh, stale and stale_warning",
           "in": "query",
           "name": "staleness",
           "required": false,
@@ -416,15 +415,13 @@
             "default": [
               "fresh",
               "stale",
-              "stale_warning",
-              "unknown"
+              "stale_warning"
             ],
             "items": {
               "enum": [
                 "fresh",
                 "stale",
-                "stale_warning",
-                "unknown"
+                "stale_warning"
               ],
               "type": "string"
             },
@@ -2517,6 +2514,13 @@
               "description": "Current profile resulting from command tuned-adm active",
               "example": "desktop, example, laptop",
               "maxLength": 256,
+              "type": "string"
+            },
+            "virtual_host_uuid": {
+              "description": "Hypervisor host identity (subscription manager id)",
+              "example": "0ddf52cb-94e3-4ada-bdf7-d424a547b671, 6996463b-c9d4-402b-ad37-8ab5556ddf88, 0c352918-fa05-4f05-996c-6c43ec0b3c5e",
+              "maxLength": 36,
+              "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
               "type": "string"
             },
             "yum_repos": {

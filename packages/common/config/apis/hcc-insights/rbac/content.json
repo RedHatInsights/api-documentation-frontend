@@ -2409,7 +2409,14 @@
               "description": "A comma separated list of usernames for principals to remove from the group",
               "in": "query",
               "name": "usernames",
-              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A comma separated list of usernames for service accounts to remove from the group",
+              "in": "query",
+              "name": "service-accounts",
               "schema": {
                 "type": "string"
               }
@@ -4224,7 +4231,34 @@
     ],
     "servers": [
       {
-        "url": "/api/rbac/v1"
+        "description": "Production Server",
+        "url": "https://console.redhat.com/{basePath}",
+        "variables": {
+          "basePath": {
+            "default": "api/rbac/v1"
+          }
+        }
+      },
+      {
+        "description": "Staging Server",
+        "url": "https://console.stage.redhat.com/{basePath}",
+        "variables": {
+          "basePath": {
+            "default": "api/rbac/v1"
+          }
+        }
+      },
+      {
+        "description": "Development Server",
+        "url": "http://localhost:{port}/{basePath}",
+        "variables": {
+          "basePath": {
+            "default": "api/rbac/v1"
+          },
+          "port": {
+            "default": "8000"
+          }
+        }
       }
     ],
     "tags": [

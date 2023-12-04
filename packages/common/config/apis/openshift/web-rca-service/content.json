@@ -185,7 +185,7 @@
           }
         },
         "order_by": {
-          "description": "Specifies the order by criteria. The syntax of this parameter is\nsimilar to the syntax of the _order by_ clause of an SQL statement.\nWe support ordering by these fields:\n- id\n- incident_id\n- name\n- email\n- username\n- status\n- severity\n- product\n- last_updated\n- summary\n- created_at\n\n\n\n```sql\nname asc\n```\n\nOr in order to retrieve all incidents ordered by username _and_ email:\n\n```sql\nname asc, email asc\n```\n\nIf the parameter isn't provided, or if the value is empty, then\nno explicit ordering will be applied.",
+          "description": "Specifies the order by criteria. The syntax of this parameter is\nsimilar to the syntax of the _order by_ clause of an SQL statement.\nWe support ordering by these fields:\n- id\n- incident_id\n- name\n- email\n- username\n- status\n- severity\n- product\n- last_updated\n- summary\n- created_at\n- working_time\n\n\n\n```sql\nname asc\n```\n\nOr in order to retrieve all incidents ordered by username _and_ email:\n\n```sql\nname asc, email asc\n```\n\nIf the parameter isn't provided, or if the value is empty, then\nno explicit ordering will be applied.",
           "in": "query",
           "name": "order_by",
           "required": false,
@@ -850,6 +850,10 @@
                     "$ref": "#/components/schemas/User"
                   },
                   "type": "array"
+                },
+                "working_time": {
+                  "format": "int64",
+                  "type": "integer"
                 }
               },
               "type": "object"
