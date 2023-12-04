@@ -45,7 +45,7 @@ deploy_stage:
     - |
       npm install -g @spaship/cli react-app-rewired
       npm ci
-      NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=false JWT_FETCH_URL=$STAGE_JWT_FETCH_URL CLIENT_ID=$STAGE_CLIENT_ID CLIENT_SECRET=$STAGE_CLIENT_SECRET INDEX_URL=$STAGE_INDEX_URL SITEMAP_BASE_URL=https://developers.stage.redhat.com/api-catalog npm run sitemap
+      NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt HYDRA_SYNC_ACTIVE=true JWT_FETCH_URL=$STAGE_JWT_FETCH_URL CLIENT_ID=$STAGE_CLIENT_ID CLIENT_SECRET=$STAGE_CLIENT_SECRET INDEX_URL=$STAGE_INDEX_URL SITEMAP_BASE_URL=https://developers.stage.redhat.com/api-catalog npm run sitemap
       REACT_APP_ENV=staging npm run build
       npm run prerender
       spaship deploy --env=$SPASHIP_STAGE_WEB_PROPERTY --apikey=$SPASHIP_STAGE_API_KEY
