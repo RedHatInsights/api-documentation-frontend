@@ -48,7 +48,7 @@ const getDocuments = (config: ReadonlyArray<Readonly<APIConfiguration>>, baseurl
 
         return {
             solr_command: "index",
-            contentType: "documentation",
+            contentType: "api_catalog",
             id: api.id,
             uri: `${baseurl}/api/${api.id}`,
             name: `${api.displayName} | API Catalog and Documentation`,
