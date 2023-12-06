@@ -399,7 +399,8 @@
               "enum": [
                 "fresh",
                 "stale",
-                "stale_warning"
+                "stale_warning",
+                "unknown"
               ],
               "type": "string"
             },
@@ -421,7 +422,8 @@
               "enum": [
                 "fresh",
                 "stale",
-                "stale_warning"
+                "stale_warning",
+                "unknown"
               ],
               "type": "string"
             },

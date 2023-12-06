@@ -2051,6 +2051,9 @@
             "internal_only": {
               "type": "boolean"
             },
+            "org_id": {
+              "type": "string"
+            },
             "subject": {
               "type": "string"
             },

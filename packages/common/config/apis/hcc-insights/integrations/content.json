@@ -1180,7 +1180,9 @@
         },
         "SubscriptionType": {
           "enum": [
-            "DAILY"
+            "INSTANT",
+            "DAILY",
+            "DRAWER"
           ],
           "type": "string"
         },
@@ -1354,6 +1356,32 @@
             "url",
             "method",
             "disable_ssl_verification"
+          ],
+          "type": "object"
+        },
+        "X509Certificate": {
+          "properties": {
+            "application": {
+              "type": "string"
+            },
+            "bundle": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/UUID"
+            },
+            "source_environment": {
+              "type": "string"
+            },
+            "subject_dn": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "subject_dn",
+            "source_environment",
+            "bundle",
+            "application"
           ],
           "type": "object"
         }
