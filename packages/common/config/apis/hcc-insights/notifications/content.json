@@ -420,6 +420,9 @@
         },
         "DrawerEntryPayload": {
           "properties": {
+            "bundle": {
+              "type": "string"
+            },
             "created": {
               "$ref": "#/components/schemas/LocalDateTime"
             },
@@ -1180,9 +1183,7 @@
         },
         "SubscriptionType": {
           "enum": [
-            "INSTANT",
-            "DAILY",
-            "DRAWER"
+            "DAILY"
           ],
           "type": "string"
         },

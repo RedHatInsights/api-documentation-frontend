@@ -5373,6 +5373,7 @@
                 "enum": [
                   "-critical_hits",
                   "-display_name",
+                  "-group_name",
                   "-hits",
                   "-impacted_date",
                   "-important_hits",
@@ -5382,6 +5383,7 @@
                   "-rhel_version",
                   "critical_hits",
                   "display_name",
+                  "group_name",
                   "hits",
                   "impacted_date",
                   "important_hits",
