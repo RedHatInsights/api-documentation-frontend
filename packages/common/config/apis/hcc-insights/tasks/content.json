@@ -35,6 +35,9 @@
         },
         "ExecutedTask": {
           "properties": {
+            "alerts_count": {
+              "type": "integer"
+            },
             "end_time": {
               "format": "date-time",
               "nullable": true,
@@ -80,6 +83,7 @@
             }
           },
           "required": [
+            "alerts_count",
             "id",
             "initiated_by",
             "name",
@@ -163,16 +167,35 @@
         },
         "ExecutedTaskParameter": {
           "properties": {
+            "default": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "description": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "id": {
+              "readOnly": true,
+              "type": "integer"
+            },
             "key": {
               "type": "string"
             },
+            "required": {
+              "readOnly": true,
+              "type": "boolean"
+            },
             "value": {
-              "maxLength": 250,
               "type": "string"
             }
           },
           "required": [
+            "default",
+            "description",
+            "id",
             "key",
+            "required",
             "value"
           ],
           "type": "object"
@@ -909,6 +932,7 @@
                     "7.9",
                     "8.0",
                     "8.1",
+                    "8.10",
                     "8.2",
                     "8.3",
                     "8.4",
@@ -920,7 +944,8 @@
                     "9.0",
                     "9.1",
                     "9.2",
-                    "9.3"
+                    "9.3",
+                    "9.4"
                   ],
                   "type": "string"
                 },
@@ -1122,6 +1147,7 @@
                     "7.9",
                     "8.0",
                     "8.1",
+                    "8.10",
                     "8.2",
                     "8.3",
                     "8.4",
@@ -1133,7 +1159,8 @@
                     "9.0",
                     "9.1",
                     "9.2",
-                    "9.3"
+                    "9.3",
+                    "9.4"
                   ],
                   "type": "string"
                 },
@@ -1374,12 +1401,8 @@
     },
     "servers": [
       {
-        "description": "The API of the Advisor project in Insights",
+        "description": "The API for managing and issuing Red Hat generated tasks on your infrastructure",
         "url": "https://console.redhat.com/"
-      },
-      {
-        "description": "The API of the Advisor project in Insights",
-        "url": "https://cloud.redhat.com/"
       }
     ]
   }
