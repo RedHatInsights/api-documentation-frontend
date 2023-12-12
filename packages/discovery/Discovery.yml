@@ -120,7 +120,6 @@ apis:
           - observe
           - rhel
           - security
-        skipReason: It's a graphql API
       - id: inventory
         name: Managed Inventory
         description: REST interface for the Insights Platform Host Inventory application
