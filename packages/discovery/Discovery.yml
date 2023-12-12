@@ -112,13 +112,14 @@ apis:
           - rhel
       - id: malware-detection
         name: Malware Detection
-        description: The API of the Malware-Detection project in Insights
-        apiType: graphql
+        description: Service that detects potential malware on your RHEL systems
+        url: https://console.redhat.com/api/malware-detection/v1/openapi.json
+        apiType: openapi-v3
         icon: insights
         tags:
+          - observe
           - rhel
           - security
-        skip: true
         skipReason: It's a graphql API
       - id: inventory
         name: Managed Inventory
