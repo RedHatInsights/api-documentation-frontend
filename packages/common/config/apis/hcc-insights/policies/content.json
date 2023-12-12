@@ -223,76 +223,17 @@
           "operationId": "getPolicies",
           "parameters": [
             {
-              "description": "Operations used with the filter",
+              "description": "Page number, starts 0, if not specified uses 0.",
               "in": "query",
-              "name": "filter:op[description]",
+              "name": "offset",
               "schema": {
-                "default": "equal",
-                "enum": [
-                  "equal",
-                  "like",
-                  "ilike",
-                  "not_equal"
-                ],
-                "type": "string"
-              }
-            },
-            {
-              "description": "Operations used with the filter",
-              "in": "query",
-              "name": "filter:op[name]",
-              "schema": {
-                "default": "equal",
-                "enum": [
-                  "equal",
-                  "like",
-                  "ilike",
-                  "not_equal"
-                ],
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filtering policies by the description depending on the Filter operator used.",
-              "in": "query",
-              "name": "filter[description]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filtering policies by the is_enabled field.Defaults to true if no operand is given.",
-              "in": "query",
-              "name": "filter[is_enabled]",
-              "schema": {
-                "default": "true",
-                "enum": [
-                  "true",
-                  "false"
-                ],
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filtering policies by the name depending on the Filter operator used.",
-              "in": "query",
-              "name": "filter[name]",
-              "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
               "description": "Number of items per page, if not specified uses 50. -1 can be used to specify an unlimited page, when specified it ignores the offset",
               "in": "query",
               "name": "limit",
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "description": "Page number, starts 0, if not specified uses 0.",
-              "in": "query",
-              "name": "offset",
               "schema": {
                 "type": "integer"
               }
@@ -320,6 +261,65 @@
                 "enum": [
                   "asc",
                   "desc"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filtering policies by the name depending on the Filter operator used.",
+              "in": "query",
+              "name": "filter[name]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Operations used with the filter",
+              "in": "query",
+              "name": "filter:op[name]",
+              "schema": {
+                "default": "equal",
+                "enum": [
+                  "equal",
+                  "like",
+                  "ilike",
+                  "not_equal"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filtering policies by the description depending on the Filter operator used.",
+              "in": "query",
+              "name": "filter[description]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Operations used with the filter",
+              "in": "query",
+              "name": "filter:op[description]",
+              "schema": {
+                "default": "equal",
+                "enum": [
+                  "equal",
+                  "like",
+                  "ilike",
+                  "not_equal"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filtering policies by the is_enabled field.Defaults to true if no operand is given.",
+              "in": "query",
+              "name": "filter[is_enabled]",
+              "schema": {
+                "default": "true",
+                "enum": [
+                  "true",
+                  "false"
                 ],
                 "type": "string"
               }
@@ -472,17 +472,10 @@
           "operationId": "getPoliciesIds",
           "parameters": [
             {
-              "description": "Operations used with the filter",
+              "description": "Filtering policies by the name depending on the Filter operator used.",
               "in": "query",
-              "name": "filter:op[description]",
+              "name": "filter[name]",
               "schema": {
-                "default": "equal",
-                "enum": [
-                  "equal",
-                  "like",
-                  "ilike",
-                  "not_equal"
-                ],
                 "type": "string"
               }
             },
@@ -510,6 +503,21 @@
               }
             },
             {
+              "description": "Operations used with the filter",
+              "in": "query",
+              "name": "filter:op[description]",
+              "schema": {
+                "default": "equal",
+                "enum": [
+                  "equal",
+                  "like",
+                  "ilike",
+                  "not_equal"
+                ],
+                "type": "string"
+              }
+            },
+            {
               "description": "Filtering policies by the is_enabled field.Defaults to true if no operand is given.",
               "in": "query",
               "name": "filter[is_enabled]",
@@ -519,14 +527,6 @@
                   "true",
                   "false"
                 ],
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filtering policies by the name depending on the Filter operator used.",
-              "in": "query",
-              "name": "filter[name]",
-              "schema": {
                 "type": "string"
               }
             }
@@ -843,25 +843,26 @@
           "operationId": "getPoliciesByIdHistoryTrigger",
           "parameters": [
             {
-              "description": "UUID of the policy",
-              "in": "path",
-              "name": "id",
-              "required": true,
+              "description": "Page number, starts 0, if not specified uses 0.",
+              "in": "query",
+              "name": "offset",
               "schema": {
-                "$ref": "#/components/schemas/UUID"
+                "type": "integer"
               }
             },
             {
-              "description": "Operations used with the name filter",
+              "description": "Number of items per page, if not specified uses 50. Maximum value is 200.",
               "in": "query",
-              "name": "filter:op[id]",
+              "name": "limit",
               "schema": {
-                "default": "equal",
-                "enum": [
-                  "equal",
-                  "not_equal",
-                  "like"
-                ],
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filtering history entries by the host name depending on the Filter operator used.",
+              "in": "query",
+              "name": "filter[name]",
+              "schema": {
                 "type": "string"
               }
             },
@@ -888,27 +889,17 @@
               }
             },
             {
-              "description": "Filtering history entries by the host name depending on the Filter operator used.",
+              "description": "Operations used with the name filter",
               "in": "query",
-              "name": "filter[name]",
+              "name": "filter:op[id]",
               "schema": {
+                "default": "equal",
+                "enum": [
+                  "equal",
+                  "not_equal",
+                  "like"
+                ],
                 "type": "string"
-              }
-            },
-            {
-              "description": "Number of items per page, if not specified uses 50. Maximum value is 200.",
-              "in": "query",
-              "name": "limit",
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "description": "Page number, starts 0, if not specified uses 0.",
-              "in": "query",
-              "name": "offset",
-              "schema": {
-                "type": "integer"
               }
             },
             {
@@ -934,6 +925,15 @@
                   "desc"
                 ],
                 "type": "string"
+              }
+            },
+            {
+              "description": "UUID of the policy",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/UUID"
               }
             }
           ],

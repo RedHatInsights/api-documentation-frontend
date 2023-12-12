@@ -316,6 +316,22 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "malware-detection",
+    displayName: "Malware Detection",
+    description: "Service that detects potential malware on your RHEL systems",
+    icon: "InsightsIcon",
+    apiContentPath: "./apis/hcc-insights/malware-detection/content.json",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/malware-detection/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["security"],
+    ],
+  },
+  {
     id: "inventory",
     displayName: "Managed Inventory",
     description:
