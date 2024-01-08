@@ -392,10 +392,9 @@
         }
       },
       "securitySchemes": {
-        "ApiKeyAuth": {
-          "description": "Identity header provided by 3scale",
+        "Authorization": {
           "in": "header",
-          "name": "x-rh-identity",
+          "name": "Authorization",
           "type": "apiKey"
         }
       }
@@ -710,6 +709,34 @@
         "get": {
           "description": "list systems with baseline",
           "operationId": "system_baseline.views.v1.list_systems_with_baseline",
+          "parameters": [
+            {
+              "description": "list of Inventory Group IDs to filter by",
+              "in": "query",
+              "name": "group_ids[]",
+              "required": false,
+              "schema": {
+                "items": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "list of Inventory Group names to filter by",
+              "in": "query",
+              "name": "group_names[]",
+              "required": false,
+              "schema": {
+                "items": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "content": {

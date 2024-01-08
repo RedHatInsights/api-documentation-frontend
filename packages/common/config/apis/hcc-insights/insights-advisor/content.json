@@ -12,7 +12,7 @@
             },
             "created_by": {
               "description": "The user who created the ack",
-              "maxLength": 32,
+              "maxLength": 255,
               "type": "string"
             },
             "justification": {
@@ -91,7 +91,7 @@
             },
             "created_by": {
               "description": "The user who created the ack",
-              "maxLength": 32,
+              "maxLength": 255,
               "type": "string"
             },
             "justification": {
@@ -2400,42 +2400,6 @@
           ],
           "tags": [
             "account"
-          ]
-        }
-      },
-      "/api/insights/v1/account_setting/": {
-        "get": {
-          "description": "Show this account's settings, or the defaults.\n\nThis will not create a new account settings object if none exists.",
-          "operationId": "account_setting_retrieve",
-          "responses": {
-            "200": {
-              "description": "No response body"
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "account_setting"
-          ]
-        },
-        "post": {
-          "description": "Update this account's settings, and return the updated settings.\n\nA new object will be created, even if the default settings are supplied.",
-          "operationId": "account_setting_create",
-          "responses": {
-            "201": {
-              "description": "No response body"
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "account_setting"
           ]
         }
       },

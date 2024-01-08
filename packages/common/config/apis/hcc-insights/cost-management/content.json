@@ -198,6 +198,39 @@
         }
       },
       "requestBodies": {
+        "CostGroupsBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "example": [
+                  {
+                    "group": "Platform",
+                    "project": "accounting"
+                  },
+                  {
+                    "group": "Platform",
+                    "project": "infra"
+                  }
+                ],
+                "items": {
+                  "properties": {
+                    "group": {
+                      "type": "string"
+                    },
+                    "project": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "minItems": 1,
+                "type": "array"
+              }
+            }
+          },
+          "description": "List of project name and cost group",
+          "required": true
+        },
         "PutTagsBody": {
           "content": {
             "application/json": {
@@ -228,6 +261,36 @@
         }
       },
       "schemas": {
+        "CostGroupsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "clusters": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "default": {
+                    "type": "boolean"
+                  },
+                  "group": {
+                    "type": "string"
+                  },
+                  "project": {
+                    "type": "string"
+                  }
+                }
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "type": "object"
+        },
         "CostModel": {
           "properties": {
             "currency": {
@@ -5846,6 +5909,12 @@
           ]
         }
       },
+      "/recommendations/openshift": {
+        "$ref": "https://raw.githubusercontent.com/RedHatInsights/ros-ocp-backend/main/openapi.json#/paths/~1recommendations~1openshift"
+      },
+      "/recommendations/openshift/{recommendation-id}": {
+        "$ref": "https://raw.githubusercontent.com/RedHatInsights/ros-ocp-backend/main/openapi.json#/paths/~1recommendations~1openshift~1%7Brecommendation-id%7D"
+      },
       "/reports/aws/costs/": {
         "get": {
           "operationId": "getAWSCostReports",
@@ -8827,6 +8896,98 @@
           ]
         }
       },
+      "/settings/cost-groups/": {
+        "delete": {
+          "operationId": "deleteSettingsCostGroups",
+          "responses": {
+            "204": {
+              "description": "Cost groups updated"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            }
+          },
+          "summary": "Remove projects from a coust group",
+          "tags": [
+            "Settings",
+            "Cost Groups"
+          ]
+        },
+        "get": {
+          "operationId": "getSettingsCostGroups",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/QueryOffset"
+            },
+            {
+              "$ref": "#/components/parameters/QueryLimit"
+            },
+            {
+              "$ref": "#/components/parameters/QueryFilter"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CostGroupsResponse"
+                  }
+                }
+              },
+              "description": "OpenShift projects and the current cost group"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            }
+          },
+          "summary": "Query which projects belong to which cost groups",
+          "tags": [
+            "Settings",
+            "Cost Groups"
+          ]
+        },
+        "put": {
+          "operationId": "putSettingsCostGroups",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/CostGroupsBody"
+          },
+          "responses": {
+            "204": {
+              "description": "Cost groups updated"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            }
+          },
+          "summary": "Add projects to a cost group",
+          "tags": [
+            "Settings",
+            "Cost Groups"
+          ]
+        }
+      },
       "/settings/tags/": {
         "get": {
           "operationId": "getSettingsTags",
@@ -10637,6 +10798,10 @@
       {
         "description": "Operations about status",
         "name": "Status"
+      },
+      {
+        "description": "Resource Optimization for Openshift",
+        "name": "Optimizations"
       }
     ]
   }

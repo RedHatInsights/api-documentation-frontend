@@ -698,7 +698,13 @@
               "pattern": "[a-z][a-z_0-9-]*",
               "type": "string"
             },
+            "not_subscription_locked_or_subscribed_by_default": {
+              "type": "boolean"
+            },
             "subscribed_by_default": {
+              "type": "boolean"
+            },
+            "subscription_locked": {
               "type": "boolean"
             }
           },
@@ -747,6 +753,9 @@
               "type": "object"
             },
             "hasForcedEmail": {
+              "type": "boolean"
+            },
+            "subscriptionLocked": {
               "type": "boolean"
             }
           },

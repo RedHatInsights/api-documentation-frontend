@@ -141,6 +141,13 @@
           },
           "type": "array"
         },
+        "namespaceId": {
+          "description": "ID of the namespace in a valid UUID format",
+          "format": "uuid",
+          "maxLength": 36,
+          "minLength": 36,
+          "type": "string"
+        },
         "ratingSchema": {
           "properties": {
             "rating": {
@@ -1470,6 +1477,282 @@
             }
           },
           "summary": "Read all metrics exposed by this service"
+        }
+      },
+      "/namespaces/dvo": {
+        "get": {
+          "description": "For the user's organization, return a list of namespaces and aggregate information about each namespace",
+          "operationId": "getDVONamespaces",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "status": {
+                        "$ref": "#/components/schemas/statusResponse"
+                      },
+                      "workloads": {
+                        "description": "A list of namespaces, aggregate data about their workloads and DVO recommendations. Returns an empty list when a cluster is known, but no recommendations were found.",
+                        "items": {
+                          "properties": {
+                            "cluster": {
+                              "properties": {
+                                "display_name": {
+                                  "description": "A human-readable name for the cluster",
+                                  "example": "Production cluster 1",
+                                  "type": "string"
+                                },
+                                "uuid": {
+                                  "$ref": "#/components/schemas/clusterId"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "metadata": {
+                              "properties": {
+                                "highest_severity": {
+                                  "description": "Highest recommendation severity affecting this namespace",
+                                  "type": "integer"
+                                },
+                                "hits_by_severity": {
+                                  "additionalProperties": {
+                                    "type": "integer"
+                                  },
+                                  "description": "A dictionary with the number of DVO recommendation hits grouped by their severity. Always provides the severity keys even if there are no recommendations currently hitting.",
+                                  "example": {
+                                    "1": 2,
+                                    "2": 3,
+                                    "3": 0,
+                                    "4": 1
+                                  },
+                                  "type": "object"
+                                },
+                                "last_checked_at": {
+                                  "description": "Timestamp of the last analysis",
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "objects": {
+                                  "description": "Total number of objects affecting this namespace",
+                                  "type": "integer"
+                                },
+                                "recommendations": {
+                                  "description": "Total number of DVO recommendations affecting an organization affecting this namespace",
+                                  "type": "integer"
+                                },
+                                "reported_at": {
+                                  "description": "Timestamp of the first analysis",
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "namespace": {
+                              "properties": {
+                                "name": {
+                                  "description": "A human-readable name for the namespace",
+                                  "example": "Production namespace 1",
+                                  "type": "string"
+                                },
+                                "uuid": {
+                                  "$ref": "#/components/schemas/namespaceId"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "status": {
+                              "$ref": "#/components/schemas/statusResponse"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "workloads"
+                    ],
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Namespaces for DVO workloads"
+            },
+            "400": {
+              "description": "Invalid request or invalid cluster ID"
+            },
+            "404": {
+              "description": "Cluster was not found in the AMS API."
+            }
+          },
+          "summary": "Retrieve DVO namespaces and recommendation aggregations for the whole organization",
+          "tags": [
+            "prod"
+          ]
+        }
+      },
+      "/namespaces/dvo/{namespaceId}/cluster/{clusterId}": {
+        "get": {
+          "description": "For the given cluster and namespace IDs, return a list of DVO recommendations, complete with the descriptions and steps to resolve.",
+          "operationId": "getDVONamespaceCluster",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "clusterId",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/clusterId"
+              }
+            },
+            {
+              "in": "path",
+              "name": "namespaceId",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/requestId"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "cluster": {
+                        "properties": {
+                          "display_name": {
+                            "description": "A human-readable name for the cluster",
+                            "example": "Production cluster 1",
+                            "type": "string"
+                          },
+                          "uuid": {
+                            "$ref": "#/components/schemas/clusterId"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "metadata": {
+                        "properties": {
+                          "highest_severity": {
+                            "description": "Highest recommendation severity affecting this namespace + cluster",
+                            "type": "integer"
+                          },
+                          "hits_by_severity": {
+                            "additionalProperties": {
+                              "type": "integer"
+                            },
+                            "description": "A dictionary with the number of DVO recommendation hits grouped by their severity. Always provides the severity keys even if there are no recommendations currently hitting.",
+                            "example": {
+                              "1": 2,
+                              "2": 3,
+                              "3": 0,
+                              "4": 1
+                            },
+                            "type": "object"
+                          },
+                          "last_checked_at": {
+                            "description": "Timestamp of the last analysis",
+                            "format": "date-time",
+                            "type": "string"
+                          },
+                          "objects": {
+                            "description": "Total number of objects affecting this namespace and cluster",
+                            "type": "integer"
+                          },
+                          "recommendations": {
+                            "description": "Total number of DVO recommendations affecting this namespace and cluster",
+                            "type": "integer"
+                          },
+                          "reported_at": {
+                            "description": "Timestamp of the first analysis",
+                            "format": "date-time",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "namespace": {
+                        "properties": {
+                          "name": {
+                            "description": "A human-readable name for the namespace",
+                            "example": "Production namespace 1",
+                            "type": "string"
+                          },
+                          "uuid": {
+                            "$ref": "#/components/schemas/namespaceId"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "recommendations": {
+                        "items": {
+                          "properties": {
+                            "check": {
+                              "description": "The rule ID in the | format.",
+                              "example": "rule.module|ERROR_KEY",
+                              "type": "string"
+                            },
+                            "description": {
+                              "description": "The title of the rule, a short description.",
+                              "type": "string"
+                            },
+                            "objects": {
+                              "items": {
+                                "properties": {
+                                  "kind": {
+                                    "description": "The kind/category of the object.",
+                                    "type": "string"
+                                  },
+                                  "uid": {
+                                    "description": "ID of the object.",
+                                    "type": "string"
+                                  }
+                                },
+                                "type": "object"
+                              },
+                              "type": "array"
+                            },
+                            "remediation": {
+                              "description": "Resolution steps of the issue, possibly linking to a resolution article in the knowledge base.",
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "status": {
+                        "$ref": "#/components/schemas/statusResponse"
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "cluster",
+                      "namespace",
+                      "metadata",
+                      "recommendations"
+                    ],
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "DVO recommendations for namespace + cluster"
+            },
+            "400": {
+              "description": "Invalid request or invalid cluster ID"
+            },
+            "404": {
+              "description": "Data for cluster and namespace were not found in the storage."
+            }
+          },
+          "summary": "Retrieve DVO recommendations for a single namespace + cluster combination.",
+          "tags": [
+            "prod"
+          ]
         }
       },
       "/openapi.json": {

@@ -2075,6 +2075,56 @@
           ],
           "type": "object"
         },
+        "NotifyDetailsRequest": {
+          "properties": {
+            "bcc_address": {
+              "type": "string"
+            },
+            "cluster_id": {
+              "type": "string"
+            },
+            "cluster_uuid": {
+              "type": "string"
+            },
+            "include_red_hat_associates": {
+              "type": "boolean"
+            },
+            "internal_only": {
+              "description": "The `internal_only` parameter is used for validation. Specifically to check if there is a discrepancy between the email address and the log type.",
+              "type": "boolean"
+            },
+            "org_id": {
+              "type": "string"
+            },
+            "subject": {
+              "type": "string"
+            },
+            "subscription_id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "NotifyDetailsResponse": {
+          "properties": {
+            "associates": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "external_org_id": {
+              "type": "string"
+            },
+            "recipients": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "ObjectReference": {
           "properties": {
             "href": {
@@ -7744,6 +7794,89 @@
             }
           ],
           "summary": "Notify the owner of cluster/subscription"
+        }
+      },
+      "/api/accounts_mgmt/v1/notify_details": {
+        "post": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotifyDetailsRequest"
+                }
+              }
+            },
+            "description": "The notification parameters such as bcc_address,cluster_id etc",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotifyDetailsResponse"
+                  }
+                }
+              },
+              "description": "Notification details returned successfully"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No such notification details can be returned"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get and validate notification details"
         }
       },
       "/api/accounts_mgmt/v1/organizations": {
@@ -14045,6 +14178,16 @@
                 }
               },
               "description": "Registry credential token is invalid"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Registry credential token is not found"
             },
             "500": {
               "content": {
