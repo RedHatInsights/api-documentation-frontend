@@ -13,6 +13,15 @@ apis:
           - rhel
           - insights
           - observe
+      - id: ansible-automation-controller
+        name: Ansible automation controller API
+        description: Define, operate, scale, and delegate automation across your enterprise
+        url: https://raw.githubusercontent.com/ansible/aap-docs/2.4/controller-api/_swagger/ansible-controller-api.json
+        apiType: openapi-v3
+        icon: ansible
+        tags:
+          - ansible
+          - automation
       - id: automation-hub
         name: Automation Hub
         description: Fetch, upload, organize, and distribute Ansible Collections
