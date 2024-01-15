@@ -9,11 +9,12 @@ import {getCommand} from "./program.js";
 import { fileURLToPath } from 'url'
 import * as Eta from "eta"
 import SwaggerParser from "@apidevtools/swagger-parser";
-import {OpenAPI, OpenAPIV3} from "openapi-types";
+import {OpenAPI, OpenAPIV2, OpenAPIV3} from "openapi-types";
 import sortedJsonStringify from 'sorted-json-stringify';
 import {getDocumentationContents} from "./documentation";
 import {APIContent} from "@apidocs/common";
 import {OPENAPI_DIR} from "./constants";
+import {convert} from 'swagger2openapi';
 
 interface Options {
     inputDir: string;
@@ -27,6 +28,7 @@ export type BuildApi = {
     app: App;
     group: Group;
     apiIsValid: boolean;
+    error: undefined | string;
 }
 
 // output dir to place the openapi files
@@ -82,15 +84,64 @@ const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<Bui
             return await pLimit(DOWNLOAD_AT_ONCE)(async (): Promise<BuildApi> => {
                 let content = {};
                 let apiIsValid = false;
+                let error: string | undefined = undefined;
                 try {
-                    const openApiContent = await getOpenAPIContent(getDiscoveryPath(options), app, group.id, options);
+                    let openApiContent = await getOpenAPIContent(getDiscoveryPath(options), app, group.id, options);
                     content = JSON.parse(openApiContent);
-                    await SwaggerParser.validate(JSON.parse(openApiContent) as OpenAPI.Document);
-                    if ('openapi' in content && typeof content.openapi === 'string' && content.openapi.match(/^3(.\d(.\d)?)?/)) {
-                        apiIsValid = true;
+
+                    // Try to parse apps that are still using swagger (openapi v2)
+                    if ('swagger' in content && typeof content['swagger'] === 'string' && content['swagger'].match(/^2(.\d(.\d)?)?/)) {
+                        content = await new Promise((resolve, reject) => {
+                            convert(content as OpenAPIV2.Document, {
+                                warnOnly: true,
+                                patch: true
+                            }, (err, options) => {
+                                if (options?.openapi) {
+                                    resolve(options.openapi);
+                                    return;
+                                }
+
+                                reject(err);
+                            });
+                        });
+                        openApiContent = JSON.stringify(content);
                     }
-                } catch {
+
+                    // SwaggerParse does not leave in good shape the input, pass a new one.
+                    await SwaggerParser.validate(JSON.parse(openApiContent) as OpenAPI.Document, {
+                        resolve: {
+                            file: {
+                                canRead: () => true,
+                                read: (file): string | Buffer | Promise<string | Buffer> => {
+                                    if (app.url) {
+                                        const url = new URL(app.url);
+                                        url.pathname = file.url;
+                                        return got.get(url.toString()).text()
+                                    }
+
+                                    throw new Error('URL not set');
+                                }
+                            }
+                        }
+                    });
+                    if ('openapi' in content && typeof content.openapi === 'string') {
+                        if (content.openapi.match(/^3(.\d(.\d)?)?/)) {
+                            apiIsValid = true;
+                        } else {
+                            error = `API is not Openapi V3 or Swagger (V2)`;
+                        }
+                    }
+                } catch(e) {
                     // Ignore exceptions, API is not valid.
+                    if (typeof e === 'string') {
+                        error = e;
+                    } else if (e instanceof Error) {
+                        error = e.message;
+                    } else {
+                        error = `Unable to fetch and validate the API. ${e}`;
+                    }
+
+                    error = error.replace("\n", " ");
                 }
 
                 return ({
@@ -101,7 +152,8 @@ const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<Bui
                     },
                     app,
                     group,
-                    apiIsValid
+                    apiIsValid,
+                    error
                 })
             });
         })
@@ -164,7 +216,7 @@ const writeApiContent = (foundApis: Array<BuildApi>, options: Options) => {
     foundApis.forEach(api => {
 
         if (!api.apiIsValid) {
-            console.error(`Validation failed for app: ${api.app.id}... Skipping`);
+            console.error(`Validation failed for app: ${api.app.id} (${api.error})... Skipping`);
             return;
         }
 
@@ -179,12 +231,7 @@ const writeApiContent = (foundApis: Array<BuildApi>, options: Options) => {
             }
         );
 
-        const destinationFile = path.resolve(
-            options.outputDir,
-            OUTPUT_APIS_DIR,
-            ...api.path,
-            CONTENT_FILE
-        );
+        const destinationFile = contentFile(api, options);
 
         writeFileSync(
             destinationFile,
@@ -199,7 +246,14 @@ const writeTsTemplates = (foundApis: Array<BuildApi>, tags: Array<Tag>, options:
     const templateString = readFileSync(templateFile).toString();
 
     const result = Eta.render(templateString, {
-        api: foundApis,
+        api: foundApis.filter(api => {
+            if (api.apiIsValid) {
+                return true;
+            }
+
+            // If the API is not valid, check if we have a last know state and use that one.
+            return existsSync(contentFile(api, options));
+        }),
         tags: tags
     }, {
         filename: templateFile
@@ -233,6 +287,15 @@ const filterTags = (tags: ReadonlyArray<Tag>, apis: ReadonlyArray<BuildApi>) => 
         // Only include tags that are in at least one api
         return apis.some(api => api.app.tags?.includes(t.id));
     });
+}
+
+const contentFile = (api: BuildApi, options: Options) => {
+    return path.resolve(
+        options.outputDir,
+        OUTPUT_APIS_DIR,
+        ...api.path,
+        CONTENT_FILE
+    );
 }
 
 export const execute = async (options: Options) => {

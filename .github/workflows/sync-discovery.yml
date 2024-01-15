@@ -35,12 +35,6 @@ jobs:
         body: |
           There were some changes in the discovery or the contents of the APIs.
           
-          Here are the errors of the script (if any):
-          
-          ```
-            ${{steps.discovery_run.outputs.stderr}}
-          ```
-          
           Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action
         commit-message: Syncing API
         delete-branch: true
