@@ -1735,27 +1735,27 @@
           "anyOf": [
             {
               "properties": {
-                "conventional_culling_delta": {
+                "conventional_time_to_delete": {
                   "minimum": 1,
                   "type": "integer"
                 },
-                "conventional_stale_warning_delta": {
+                "conventional_time_to_stale": {
                   "minimum": 1,
                   "type": "integer"
                 },
-                "conventional_staleness_delta": {
+                "conventional_time_to_stale_warning": {
                   "minimum": 1,
                   "type": "integer"
                 },
-                "immutable_culling_delta": {
+                "immutable_time_to_delete": {
                   "minimum": 1,
                   "type": "integer"
                 },
-                "immutable_stale_warning_delta": {
+                "immutable_time_to_stale": {
                   "minimum": 1,
                   "type": "integer"
                 },
-                "immutable_staleness_delta": {
+                "immutable_time_to_stale_warning": {
                   "minimum": 1,
                   "type": "integer"
                 }
@@ -1769,13 +1769,13 @@
         "StalenessOutput": {
           "description": "Data of a account staleness.",
           "properties": {
-            "conventional_culling_delta": {
+            "conventional_time_to_delete": {
               "type": "integer"
             },
-            "conventional_stale_warning_delta": {
+            "conventional_time_to_stale": {
               "type": "integer"
             },
-            "conventional_staleness_delta": {
+            "conventional_time_to_stale_warning": {
               "type": "integer"
             },
             "created_at": {
@@ -1790,13 +1790,13 @@
                 "#/components/schemas/StalenessOutput"
               ]
             },
-            "immutable_culling_delta": {
+            "immutable_time_to_delete": {
               "type": "integer"
             },
-            "immutable_stale_warning_delta": {
+            "immutable_time_to_stale": {
               "type": "integer"
             },
-            "immutable_staleness_delta": {
+            "immutable_time_to_stale_warning": {
               "type": "integer"
             },
             "org_id": {

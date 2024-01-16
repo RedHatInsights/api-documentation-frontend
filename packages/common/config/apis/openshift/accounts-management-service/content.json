@@ -1216,6 +1216,9 @@
               },
               "type": "array"
             },
+            "scope": {
+              "type": "string"
+            },
             "xcm_id": {
               "type": "string"
             }
@@ -2106,24 +2109,56 @@
           "type": "object"
         },
         "NotifyDetailsResponse": {
-          "properties": {
-            "associates": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
             },
-            "external_org_id": {
-              "type": "string"
-            },
-            "recipients": {
-              "items": {
-                "type": "string"
+            {
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
               },
-              "type": "array"
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object"
             }
-          },
-          "type": "object"
+          ]
+        },
+        "NotifyDetailsResponseList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "associates": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/NotifyDetailsResponse"
+                  },
+                  "type": "array"
+                },
+                "recipeints": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
         },
         "ObjectReference": {
           "properties": {
@@ -3026,6 +3061,9 @@
                   ],
                   "type": "string"
                 },
+                "scope": {
+                  "type": "string"
+                },
                 "subscription": {
                   "$ref": "#/components/schemas/ObjectReference"
                 },
@@ -3480,7 +3518,8 @@
                 "ClusterSelfManaged",
                 "ClusterSelfManagedAddon",
                 "ClusterSelfManagedLabel",
-                "ClusterSelfManagedStatus"
+                "ClusterSelfManagedStatus",
+                "ClusterKubeletConfig"
               ],
               "type": "string"
             },
@@ -7814,11 +7853,11 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/NotifyDetailsResponse"
+                    "$ref": "#/components/schemas/NotifyDetailsResponseList"
                   }
                 }
               },
-              "description": "Notification details returned successfully"
+              "description": "A JSON array of Notification details with a key-value pair"
             },
             "400": {
               "content": {

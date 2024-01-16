@@ -2196,6 +2196,20 @@
           ],
           "type": "object"
         },
+        "LegacyRoleTagResponse": {
+          "properties": {
+            "count": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "name": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "ManifestCopy": {
           "description": "Serializer for copying manifests from a source repository to a destination repository.",
           "properties": {
@@ -3340,6 +3354,47 @@
           },
           "type": "object"
         },
+        "PaginatedLegacyRoleTagResponseList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/LegacyRoleTagResponse"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 123,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "PaginatedMultipleArtifactContentResponseList": {
           "properties": {
             "count": {
@@ -3647,6 +3702,47 @@
                 "$ref": "#/components/schemas/RoleResponse"
               },
               "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "PaginatedSearchResultsResponseList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/SearchResultsResponse"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 123,
+                  "type": "integer"
+                }
+              },
+              "type": "object"
             }
           },
           "type": "object"
@@ -6299,7 +6395,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2023-12-08",
+              "default": "2023-12-17",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
@@ -6865,6 +6961,72 @@
           "required": [
             "name",
             "permissions"
+          ],
+          "type": "object"
+        },
+        "SearchResultsResponse": {
+          "properties": {
+            "avatar_url": {
+              "type": "string"
+            },
+            "contents": {
+              "type": "object"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            },
+            "download_count": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "last_updated": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "latest_version": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "namespace": {
+              "type": "string"
+            },
+            "platforms": {
+              "type": "object"
+            },
+            "relevance": {
+              "format": "double",
+              "type": "number"
+            },
+            "search": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "object"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "avatar_url",
+            "contents",
+            "deprecated",
+            "description",
+            "download_count",
+            "last_updated",
+            "latest_version",
+            "name",
+            "namespace",
+            "platforms",
+            "relevance",
+            "search",
+            "tags",
+            "type"
           ],
           "type": "object"
         },
@@ -10808,8 +10970,8 @@
       "x-pulp-app-versions": {
         "ansible": "0.20.2",
         "container": "2.15.2",
-        "core": "3.28.17",
-        "galaxy": "4.9.0dev"
+        "core": "3.28.18",
+        "galaxy": "4.10.0dev"
       },
       "x-pulp-domain-enabled": false
     },
@@ -13837,6 +13999,162 @@
           ]
         }
       },
+      "/api/automation-hub/_ui/v1/search/": {
+        "get": {
+          "description": "Lists Search results for Collections + Roles.\nAggregates search from Collections and Roles in the same results set.\n\n\n## filtering\n\n- **search_type:** [\"sql\", \"websearch\"]\n- **keywords:** string\n    - queried against name,namespace,description,tags,platform\n    - when search_type is websearch allows operators e.g: \"this OR that AND (A OR B) -C\"\n    - when search_type is sql performs a SQL ilike on the same fields\n- **type:** [\"collection\", \"role\"]\n- **deprecated:** boolean\n- **name:** string (iexact query)\n- **namespace:** string (iexact query)\n- **tags:** string[] (allows multiple &tags=..&tags=..)\n- **platform:** string\n\n## Sorting\n\nSorting is performed by passing `order_by` parameter, optionally prefixed with `-` for DESC,\nthe allowed fields are:\n\n- name\n- namespace_name\n- download_count\n- last_updated\n- relevance (only when search_type is websearch)\n\n## Pagination\n\nPagination is based on `limit` and `offset` parameters.\n\n## Results\n\nResults are embedded in the pagination serializer including\n`meta:count` and `links:first,previous,next,last`.\n\nThe `data` key contains the results in the format::\n\n```python\n{\n  \"name\": \"brunogphmzthghu\",\n  \"namespace\": \"brunovrhvjkdh\",\n  \"description\": \"Lorem ipsum dolor sit amet, consectetur adipisicing elit.\",\n  \"type\": \"role\",\n  \"latest_version\": \"1.4.9\",\n  \"avatar_url\": \"https://github.com/brunogphmzthghu.png,\n  \"contents\": [],\n  \"download_count\": 9999,\n  \"last_updated\": \"2023-11-09T15:17:01.235457Z\",\n  \"deprecated\": false,\n  \"tags\": [\"development\", \"java\", \"python\"],\n  \"platforms\": [{\"name\": \"Ubuntu\", \"versions\": [\"jammy\", \"focal\"]}]\n}\n```",
+          "operationId": "api_automation_hub__ui_v1_search_list",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "deprecated",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Search term to be queried against search vector if search_type is websearch or SQL ilike if search_type is sql",
+              "in": "query",
+              "name": "keywords",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Executes iexact filter on name",
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Executes iexact filter on namespace",
+              "in": "query",
+              "name": "namespace",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "order_by",
+              "schema": {
+                "enum": [
+                  "-download_count",
+                  "-last_updated",
+                  "-name",
+                  "-namespace_name",
+                  "-relevance",
+                  "download_count",
+                  "last_updated",
+                  "name",
+                  "namespace_name",
+                  "relevance"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "platform",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "search_type",
+              "schema": {
+                "default": "websearch",
+                "enum": [
+                  "sql",
+                  "websearch"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "in": "query",
+              "name": "type",
+              "schema": {
+                "enum": [
+                  "collection",
+                  "role"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedSearchResultsResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {}
+          ],
+          "tags": [
+            "Api: _Ui V1 Search"
+          ]
+        }
+      },
       "/api/automation-hub/_ui/v1/settings/": {
         "get": {
           "operationId": "api_automation_hub__ui_v1_settings_get",
@@ -14196,6 +14514,228 @@
           "summary": "List tags",
           "tags": [
             "Api: _Ui V1 Tags"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v1/tags/collections/": {
+        "get": {
+          "description": "ViewSet for collections' tags within the system.",
+          "operationId": "api_automation_hub__ui_v1_tags_collections_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__icontains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__startswith",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Ordering\n\n* `name` - Name\n* `-name` - Name (descending)\n* `count` - Count\n* `-count` - Count (descending)",
+              "explode": false,
+              "in": "query",
+              "name": "sort",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "-count",
+                    "-name",
+                    "count",
+                    "name"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedTagResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List tags",
+          "tags": [
+            "Api: _Ui V1 Tags Collections"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v1/tags/roles/": {
+        "get": {
+          "description": "ViewSet for roles' tags within the system.\nTags can be populated manually by running `django-admin populate-role-tags`.",
+          "operationId": "api_automation_hub__ui_v1_tags_roles_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__icontains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__startswith",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Ordering\n\n* `name` - Name\n* `-name` - Name (descending)\n* `count` - Count\n* `-count` - Count (descending)",
+              "explode": false,
+              "in": "query",
+              "name": "sort",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "-count",
+                    "-name",
+                    "count",
+                    "name"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedLegacyRoleTagResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List legacy role tags",
+          "tags": [
+            "Api: _Ui V1 Tags Roles"
           ]
         }
       },

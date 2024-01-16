@@ -598,23 +598,6 @@
           "title": "Root Type for InstanceMeta",
           "type": "object"
         },
-        "InstanceReportSort": {
-          "enum": [
-            "display_name",
-            "last_seen",
-            "Cores",
-            "Sockets",
-            "Core-seconds",
-            "Instance-hours",
-            "Storage-gibibyte-months",
-            "Transfer-gibibytes",
-            "vCPUs",
-            "billing_provider",
-            "number_of_guests",
-            "category"
-          ],
-          "type": "string"
-        },
         "InstanceResponse": {
           "description": "The output data of a product instance metrics",
           "example": {
@@ -1858,13 +1841,13 @@
               "style": "form"
             },
             {
-              "description": "What property to sort by (optional)",
+              "description": "What property to sort by. Options are: display_name, last_seen, billing_provider, number_of_guests, category, or by a metric ID. (optional)",
               "explode": true,
               "in": "query",
               "name": "sort",
               "required": false,
               "schema": {
-                "$ref": "#/components/schemas/InstanceReportSort"
+                "type": "string"
               },
               "style": "form"
             },
