@@ -171,6 +171,13 @@
           },
           "type": "object"
         }
+      },
+      "securitySchemes": {
+        "SecurityScheme": {
+          "description": "Authentication",
+          "scheme": "basic",
+          "type": "http"
+        }
       }
     },
     "info": {

@@ -798,7 +798,18 @@
               "schema": {
                 "example": {
                   "associate": true,
-                  "id": 5
+                  "id": 2
+                }
+              }
+            }
+          }
+        },
+        "Job_Templates_job_templates_partial_updateData": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "example": {
+                  "name": "foooooo"
                 }
               }
             }
@@ -1083,40 +1094,6 @@
             }
           }
         },
-        "Projects_projects_partial_updateData": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "example": {
-                  "name": "foooooo"
-                }
-              }
-            }
-          }
-        },
-        "Users_users_roles_createData": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "example": {
-                  "id": 2
-                }
-              }
-            }
-          }
-        },
-        "Workflow_Job_Template_Nodes_workflow_job_template_nodes_always_nodes_createData": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "example": {
-                  "associate": true,
-                  "id": 2
-                }
-              }
-            }
-          }
-        },
         "Workflow_Job_Template_Nodes_workflow_job_template_nodes_createData": {
           "content": {
             "application/json": {
@@ -1269,6 +1246,64 @@
           "operationId": "Versioning_read",
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "activity_stream": "/api/v2/activity_stream/",
+                        "ad_hoc_commands": "/api/v2/ad_hoc_commands/",
+                        "analytics": "/api/v2/analytics/",
+                        "applications": "/api/v2/applications/",
+                        "bulk": "/api/v2/bulk/",
+                        "config": "/api/v2/config/",
+                        "constructed_inventory": "/api/v2/constructed_inventories/",
+                        "credential_input_sources": "/api/v2/credential_input_sources/",
+                        "credential_types": "/api/v2/credential_types/",
+                        "credentials": "/api/v2/credentials/",
+                        "dashboard": "/api/v2/dashboard/",
+                        "execution_environments": "/api/v2/execution_environments/",
+                        "groups": "/api/v2/groups/",
+                        "host_metric_summary_monthly": "/api/v2/host_metric_summary_monthly/",
+                        "host_metrics": "/api/v2/host_metrics/",
+                        "hosts": "/api/v2/hosts/",
+                        "instance_groups": "/api/v2/instance_groups/",
+                        "instances": "/api/v2/instances/",
+                        "inventory": "/api/v2/inventories/",
+                        "inventory_sources": "/api/v2/inventory_sources/",
+                        "inventory_updates": "/api/v2/inventory_updates/",
+                        "job_templates": "/api/v2/job_templates/",
+                        "jobs": "/api/v2/jobs/",
+                        "labels": "/api/v2/labels/",
+                        "me": "/api/v2/me/",
+                        "mesh_visualizer": "/api/v2/mesh_visualizer/",
+                        "metrics": "/api/v2/metrics/",
+                        "notification_templates": "/api/v2/notification_templates/",
+                        "notifications": "/api/v2/notifications/",
+                        "organizations": "/api/v2/organizations/",
+                        "ping": "/api/v2/ping/",
+                        "project_updates": "/api/v2/project_updates/",
+                        "projects": "/api/v2/projects/",
+                        "roles": "/api/v2/roles/",
+                        "schedules": "/api/v2/schedules/",
+                        "settings": "/api/v2/settings/",
+                        "system_job_templates": "/api/v2/system_job_templates/",
+                        "system_jobs": "/api/v2/system_jobs/",
+                        "teams": "/api/v2/teams/",
+                        "tokens": "/api/v2/tokens/",
+                        "unified_job_templates": "/api/v2/unified_job_templates/",
+                        "unified_jobs": "/api/v2/unified_jobs/",
+                        "users": "/api/v2/users/",
+                        "workflow_approvals": "/api/v2/workflow_approvals/",
+                        "workflow_job_nodes": "/api/v2/workflow_job_nodes/",
+                        "workflow_job_template_nodes": "/api/v2/workflow_job_template_nodes/",
+                        "workflow_job_templates": "/api/v2/workflow_job_templates/",
+                        "workflow_jobs": "/api/v2/workflow_jobs/"
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -11684,57 +11719,6 @@
                             "consumed_capacity": 0,
                             "created": "2018-02-01T08:00:00.000000Z",
                             "credential": null,
-                            "id": 2,
-                            "instances": 0,
-                            "is_container_group": false,
-                            "jobs_running": 0,
-                            "jobs_total": 0,
-                            "max_concurrent_jobs": 0,
-                            "max_forks": 0,
-                            "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-1",
-                            "percent_capacity_remaining": 0,
-                            "pod_spec_override": "",
-                            "policy_instance_list": [],
-                            "policy_instance_minimum": 0,
-                            "policy_instance_percentage": 0,
-                            "related": {
-                              "access_list": "/api/v2/instance_groups/2/access_list/",
-                              "instances": "/api/v2/instance_groups/2/instances/",
-                              "jobs": "/api/v2/instance_groups/2/jobs/",
-                              "object_roles": "/api/v2/instance_groups/2/object_roles/"
-                            },
-                            "summary_fields": {
-                              "object_roles": {
-                                "admin_role": {
-                                  "description": "Can manage all aspects of the instance group",
-                                  "id": 24,
-                                  "name": "Admin"
-                                },
-                                "read_role": {
-                                  "description": "May view settings for the instance group",
-                                  "id": 26,
-                                  "name": "Read"
-                                },
-                                "use_role": {
-                                  "description": "Can use the instance group in a job template",
-                                  "id": 25,
-                                  "name": "Use"
-                                }
-                              },
-                              "user_capabilities": {
-                                "delete": true,
-                                "edit": true
-                              }
-                            },
-                            "type": "instance_group",
-                            "url": "/api/v2/instance_groups/2/"
-                          },
-                          {
-                            "capacity": 0,
-                            "consumed_capacity": 0,
-                            "created": "2018-02-01T08:00:00.000000Z",
-                            "credential": null,
                             "id": 4,
                             "instances": 0,
                             "is_container_group": false,
@@ -11743,7 +11727,7 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-4",
+                            "name": "group-3",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -11786,6 +11770,57 @@
                             "consumed_capacity": 0,
                             "created": "2018-02-01T08:00:00.000000Z",
                             "credential": null,
+                            "id": 2,
+                            "instances": 0,
+                            "is_container_group": false,
+                            "jobs_running": 0,
+                            "jobs_total": 0,
+                            "max_concurrent_jobs": 0,
+                            "max_forks": 0,
+                            "modified": "2018-02-01T08:00:00.000000Z",
+                            "name": "group-2",
+                            "percent_capacity_remaining": 0,
+                            "pod_spec_override": "",
+                            "policy_instance_list": [],
+                            "policy_instance_minimum": 0,
+                            "policy_instance_percentage": 0,
+                            "related": {
+                              "access_list": "/api/v2/instance_groups/2/access_list/",
+                              "instances": "/api/v2/instance_groups/2/instances/",
+                              "jobs": "/api/v2/instance_groups/2/jobs/",
+                              "object_roles": "/api/v2/instance_groups/2/object_roles/"
+                            },
+                            "summary_fields": {
+                              "object_roles": {
+                                "admin_role": {
+                                  "description": "Can manage all aspects of the instance group",
+                                  "id": 24,
+                                  "name": "Admin"
+                                },
+                                "read_role": {
+                                  "description": "May view settings for the instance group",
+                                  "id": 26,
+                                  "name": "Read"
+                                },
+                                "use_role": {
+                                  "description": "Can use the instance group in a job template",
+                                  "id": 25,
+                                  "name": "Use"
+                                }
+                              },
+                              "user_capabilities": {
+                                "delete": true,
+                                "edit": true
+                              }
+                            },
+                            "type": "instance_group",
+                            "url": "/api/v2/instance_groups/2/"
+                          },
+                          {
+                            "capacity": 0,
+                            "consumed_capacity": 0,
+                            "created": "2018-02-01T08:00:00.000000Z",
+                            "credential": null,
                             "id": 5,
                             "instances": 0,
                             "is_container_group": false,
@@ -11794,7 +11829,7 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-0",
+                            "name": "group-1",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -11845,7 +11880,7 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-2",
+                            "name": "group-4",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -11896,7 +11931,7 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-3",
+                            "name": "group-0",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -14923,15 +14958,7 @@
             }
           ],
           "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": {
-                    "webhook_credential": 1
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/requestBodies/Job_Templates_job_templates_partial_updateData"
           },
           "responses": {
             "200": {
@@ -14946,7 +14973,7 @@
                         "ask_execution_environment_on_launch": false,
                         "ask_forks_on_launch": false,
                         "ask_instance_groups_on_launch": false,
-                        "ask_inventory_on_launch": false,
+                        "ask_inventory_on_launch": true,
                         "ask_job_slice_count_on_launch": false,
                         "ask_job_type_on_launch": false,
                         "ask_labels_on_launch": false,
@@ -14968,7 +14995,7 @@
                         "forks": 0,
                         "host_config_key": "",
                         "id": 2,
-                        "inventory": 1,
+                        "inventory": null,
                         "job_slice_count": 1,
                         "job_tags": "",
                         "job_type": "run",
@@ -14976,9 +15003,9 @@
                         "last_job_run": null,
                         "limit": "",
                         "modified": "2018-02-01T08:00:00.000000Z",
-                        "name": "jt",
+                        "name": "foooooo",
                         "next_job_run": null,
-                        "organization": 1,
+                        "organization": null,
                         "playbook": "helloworld.yml",
                         "prevent_instance_group_fallback": false,
                         "project": 1,
@@ -14988,7 +15015,6 @@
                           "copy": "/api/v2/job_templates/2/copy/",
                           "credentials": "/api/v2/job_templates/2/credentials/",
                           "instance_groups": "/api/v2/job_templates/2/instance_groups/",
-                          "inventory": "/api/v2/inventories/1/",
                           "jobs": "/api/v2/job_templates/2/jobs/",
                           "labels": "/api/v2/job_templates/2/labels/",
                           "launch": "/api/v2/job_templates/2/launch/",
@@ -14996,14 +15022,12 @@
                           "notification_templates_started": "/api/v2/job_templates/2/notification_templates_started/",
                           "notification_templates_success": "/api/v2/job_templates/2/notification_templates_success/",
                           "object_roles": "/api/v2/job_templates/2/object_roles/",
-                          "organization": "/api/v2/organizations/1/",
                           "project": "/api/v2/projects/1/",
                           "schedules": "/api/v2/job_templates/2/schedules/",
                           "slice_workflow_jobs": "/api/v2/job_templates/2/slice_workflow_jobs/",
                           "survey_spec": "/api/v2/job_templates/2/survey_spec/",
-                          "webhook_credential": "/api/v2/credentials/1/",
                           "webhook_key": "/api/v2/job_templates/2/webhook_key/",
-                          "webhook_receiver": "/api/v2/job_templates/2/gitlab/"
+                          "webhook_receiver": ""
                         },
                         "scm_branch": "",
                         "skip_tags": "",
@@ -15011,20 +15035,6 @@
                         "status": "never updated",
                         "summary_fields": {
                           "credentials": [],
-                          "inventory": {
-                            "description": "",
-                            "has_active_failures": false,
-                            "has_inventory_sources": false,
-                            "hosts_with_active_failures": 0,
-                            "id": 1,
-                            "inventory_sources_with_failures": 0,
-                            "kind": "",
-                            "name": "test_inv",
-                            "organization_id": 1,
-                            "total_groups": 0,
-                            "total_hosts": 0,
-                            "total_inventory_sources": 0
-                          },
                           "labels": {
                             "count": 0,
                             "results": []
@@ -15032,30 +15042,25 @@
                           "object_roles": {
                             "admin_role": {
                               "description": "Can manage all aspects of the job template",
-                              "id": 28,
+                              "id": 20,
                               "name": "Admin"
                             },
                             "execute_role": {
                               "description": "May run the job template",
-                              "id": 29,
+                              "id": 21,
                               "name": "Execute"
                             },
                             "read_role": {
                               "description": "May view settings for the job template",
-                              "id": 30,
+                              "id": 22,
                               "name": "Read"
                             }
                           },
-                          "organization": {
-                            "description": "org",
-                            "id": 1,
-                            "name": "org"
-                          },
                           "project": {
                             "allow_override": false,
-                            "description": "test_proj-description",
+                            "description": "",
                             "id": 1,
-                            "name": "test_proj",
+                            "name": "test-proj",
                             "scm_type": "",
                             "status": "missing"
                           },
@@ -15066,14 +15071,6 @@
                             "edit": true,
                             "schedule": true,
                             "start": true
-                          },
-                          "webhook_credential": {
-                            "cloud": false,
-                            "credential_type_id": 1,
-                            "description": "",
-                            "id": 1,
-                            "kind": "gitlab_token",
-                            "name": "test-cred"
                           }
                         },
                         "survey_enabled": false,
@@ -15082,8 +15079,8 @@
                         "url": "/api/v2/job_templates/2/",
                         "use_fact_cache": false,
                         "verbosity": 0,
-                        "webhook_credential": 1,
-                        "webhook_service": "gitlab"
+                        "webhook_credential": null,
+                        "webhook_service": ""
                       }
                     }
                   }
@@ -16082,57 +16079,6 @@
                             "consumed_capacity": 0,
                             "created": "2018-02-01T08:00:00.000000Z",
                             "credential": null,
-                            "id": 2,
-                            "instances": 0,
-                            "is_container_group": false,
-                            "jobs_running": 0,
-                            "jobs_total": 0,
-                            "max_concurrent_jobs": 0,
-                            "max_forks": 0,
-                            "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-4",
-                            "percent_capacity_remaining": 0,
-                            "pod_spec_override": "",
-                            "policy_instance_list": [],
-                            "policy_instance_minimum": 0,
-                            "policy_instance_percentage": 0,
-                            "related": {
-                              "access_list": "/api/v2/instance_groups/2/access_list/",
-                              "instances": "/api/v2/instance_groups/2/instances/",
-                              "jobs": "/api/v2/instance_groups/2/jobs/",
-                              "object_roles": "/api/v2/instance_groups/2/object_roles/"
-                            },
-                            "summary_fields": {
-                              "object_roles": {
-                                "admin_role": {
-                                  "description": "Can manage all aspects of the instance group",
-                                  "id": 9,
-                                  "name": "Admin"
-                                },
-                                "read_role": {
-                                  "description": "May view settings for the instance group",
-                                  "id": 11,
-                                  "name": "Read"
-                                },
-                                "use_role": {
-                                  "description": "Can use the instance group in a job template",
-                                  "id": 10,
-                                  "name": "Use"
-                                }
-                              },
-                              "user_capabilities": {
-                                "delete": true,
-                                "edit": true
-                              }
-                            },
-                            "type": "instance_group",
-                            "url": "/api/v2/instance_groups/2/"
-                          },
-                          {
-                            "capacity": 0,
-                            "consumed_capacity": 0,
-                            "created": "2018-02-01T08:00:00.000000Z",
-                            "credential": null,
                             "id": 4,
                             "instances": 0,
                             "is_container_group": false,
@@ -16141,7 +16087,7 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-1",
+                            "name": "group-4",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -16178,6 +16124,57 @@
                             },
                             "type": "instance_group",
                             "url": "/api/v2/instance_groups/4/"
+                          },
+                          {
+                            "capacity": 0,
+                            "consumed_capacity": 0,
+                            "created": "2018-02-01T08:00:00.000000Z",
+                            "credential": null,
+                            "id": 5,
+                            "instances": 0,
+                            "is_container_group": false,
+                            "jobs_running": 0,
+                            "jobs_total": 0,
+                            "max_concurrent_jobs": 0,
+                            "max_forks": 0,
+                            "modified": "2018-02-01T08:00:00.000000Z",
+                            "name": "group-3",
+                            "percent_capacity_remaining": 0,
+                            "pod_spec_override": "",
+                            "policy_instance_list": [],
+                            "policy_instance_minimum": 0,
+                            "policy_instance_percentage": 0,
+                            "related": {
+                              "access_list": "/api/v2/instance_groups/5/access_list/",
+                              "instances": "/api/v2/instance_groups/5/instances/",
+                              "jobs": "/api/v2/instance_groups/5/jobs/",
+                              "object_roles": "/api/v2/instance_groups/5/object_roles/"
+                            },
+                            "summary_fields": {
+                              "object_roles": {
+                                "admin_role": {
+                                  "description": "Can manage all aspects of the instance group",
+                                  "id": 18,
+                                  "name": "Admin"
+                                },
+                                "read_role": {
+                                  "description": "May view settings for the instance group",
+                                  "id": 20,
+                                  "name": "Read"
+                                },
+                                "use_role": {
+                                  "description": "Can use the instance group in a job template",
+                                  "id": 19,
+                                  "name": "Use"
+                                }
+                              },
+                              "user_capabilities": {
+                                "delete": true,
+                                "edit": true
+                              }
+                            },
+                            "type": "instance_group",
+                            "url": "/api/v2/instance_groups/5/"
                           },
                           {
                             "capacity": 0,
@@ -16286,7 +16283,7 @@
                             "consumed_capacity": 0,
                             "created": "2018-02-01T08:00:00.000000Z",
                             "credential": null,
-                            "id": 5,
+                            "id": 2,
                             "instances": 0,
                             "is_container_group": false,
                             "jobs_running": 0,
@@ -16294,33 +16291,33 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-3",
+                            "name": "group-1",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
                             "policy_instance_minimum": 0,
                             "policy_instance_percentage": 0,
                             "related": {
-                              "access_list": "/api/v2/instance_groups/5/access_list/",
-                              "instances": "/api/v2/instance_groups/5/instances/",
-                              "jobs": "/api/v2/instance_groups/5/jobs/",
-                              "object_roles": "/api/v2/instance_groups/5/object_roles/"
+                              "access_list": "/api/v2/instance_groups/2/access_list/",
+                              "instances": "/api/v2/instance_groups/2/instances/",
+                              "jobs": "/api/v2/instance_groups/2/jobs/",
+                              "object_roles": "/api/v2/instance_groups/2/object_roles/"
                             },
                             "summary_fields": {
                               "object_roles": {
                                 "admin_role": {
                                   "description": "Can manage all aspects of the instance group",
-                                  "id": 18,
+                                  "id": 9,
                                   "name": "Admin"
                                 },
                                 "read_role": {
                                   "description": "May view settings for the instance group",
-                                  "id": 20,
+                                  "id": 11,
                                   "name": "Read"
                                 },
                                 "use_role": {
                                   "description": "Can use the instance group in a job template",
-                                  "id": 19,
+                                  "id": 10,
                                   "name": "Use"
                                 }
                               },
@@ -16330,7 +16327,7 @@
                               }
                             },
                             "type": "instance_group",
-                            "url": "/api/v2/instance_groups/5/"
+                            "url": "/api/v2/instance_groups/2/"
                           }
                         ]
                       }
@@ -17518,6 +17515,31 @@
           ],
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "webhook_key": ""
+                      }
+                    }
+                  }
+                }
+              },
+              "description": ""
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "detail": "You do not have permission to perform this action."
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -17540,6 +17562,31 @@
           ],
           "responses": {
             "201": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "webhook_key": "OYHih5hJB1XsCLRr0DndmSkJsaEFFqeOZnuKRnDUvQBg9JSH5z"
+                      }
+                    }
+                  }
+                }
+              },
+              "description": ""
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "detail": "You do not have permission to perform this action."
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -19888,7 +19935,7 @@
                             "consumed_capacity": 0,
                             "created": "2018-02-01T08:00:00.000000Z",
                             "credential": null,
-                            "id": 4,
+                            "id": 5,
                             "instances": 0,
                             "is_container_group": false,
                             "jobs_running": 0,
@@ -19897,6 +19944,108 @@
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
                             "name": "group-2",
+                            "percent_capacity_remaining": 0,
+                            "pod_spec_override": "",
+                            "policy_instance_list": [],
+                            "policy_instance_minimum": 0,
+                            "policy_instance_percentage": 0,
+                            "related": {
+                              "access_list": "/api/v2/instance_groups/5/access_list/",
+                              "instances": "/api/v2/instance_groups/5/instances/",
+                              "jobs": "/api/v2/instance_groups/5/jobs/",
+                              "object_roles": "/api/v2/instance_groups/5/object_roles/"
+                            },
+                            "summary_fields": {
+                              "object_roles": {
+                                "admin_role": {
+                                  "description": "Can manage all aspects of the instance group",
+                                  "id": 28,
+                                  "name": "Admin"
+                                },
+                                "read_role": {
+                                  "description": "May view settings for the instance group",
+                                  "id": 30,
+                                  "name": "Read"
+                                },
+                                "use_role": {
+                                  "description": "Can use the instance group in a job template",
+                                  "id": 29,
+                                  "name": "Use"
+                                }
+                              },
+                              "user_capabilities": {
+                                "delete": true,
+                                "edit": true
+                              }
+                            },
+                            "type": "instance_group",
+                            "url": "/api/v2/instance_groups/5/"
+                          },
+                          {
+                            "capacity": 0,
+                            "consumed_capacity": 0,
+                            "created": "2018-02-01T08:00:00.000000Z",
+                            "credential": null,
+                            "id": 1,
+                            "instances": 0,
+                            "is_container_group": false,
+                            "jobs_running": 0,
+                            "jobs_total": 0,
+                            "max_concurrent_jobs": 0,
+                            "max_forks": 0,
+                            "modified": "2018-02-01T08:00:00.000000Z",
+                            "name": "group-1",
+                            "percent_capacity_remaining": 0,
+                            "pod_spec_override": "",
+                            "policy_instance_list": [],
+                            "policy_instance_minimum": 0,
+                            "policy_instance_percentage": 0,
+                            "related": {
+                              "access_list": "/api/v2/instance_groups/1/access_list/",
+                              "instances": "/api/v2/instance_groups/1/instances/",
+                              "jobs": "/api/v2/instance_groups/1/jobs/",
+                              "object_roles": "/api/v2/instance_groups/1/object_roles/"
+                            },
+                            "summary_fields": {
+                              "object_roles": {
+                                "admin_role": {
+                                  "description": "Can manage all aspects of the instance group",
+                                  "id": 16,
+                                  "name": "Admin"
+                                },
+                                "read_role": {
+                                  "description": "May view settings for the instance group",
+                                  "id": 18,
+                                  "name": "Read"
+                                },
+                                "use_role": {
+                                  "description": "Can use the instance group in a job template",
+                                  "id": 17,
+                                  "name": "Use"
+                                }
+                              },
+                              "user_capabilities": {
+                                "delete": true,
+                                "edit": true
+                              }
+                            },
+                            "type": "instance_group",
+                            "url": "/api/v2/instance_groups/1/"
+                          },
+                          {
+                            "capacity": 0,
+                            "consumed_capacity": 0,
+                            "created": "2018-02-01T08:00:00.000000Z",
+                            "credential": null,
+                            "id": 4,
+                            "instances": 0,
+                            "is_container_group": false,
+                            "jobs_running": 0,
+                            "jobs_total": 0,
+                            "max_concurrent_jobs": 0,
+                            "max_forks": 0,
+                            "modified": "2018-02-01T08:00:00.000000Z",
+                            "name": "group-0",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -19990,57 +20139,6 @@
                             "consumed_capacity": 0,
                             "created": "2018-02-01T08:00:00.000000Z",
                             "credential": null,
-                            "id": 1,
-                            "instances": 0,
-                            "is_container_group": false,
-                            "jobs_running": 0,
-                            "jobs_total": 0,
-                            "max_concurrent_jobs": 0,
-                            "max_forks": 0,
-                            "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-1",
-                            "percent_capacity_remaining": 0,
-                            "pod_spec_override": "",
-                            "policy_instance_list": [],
-                            "policy_instance_minimum": 0,
-                            "policy_instance_percentage": 0,
-                            "related": {
-                              "access_list": "/api/v2/instance_groups/1/access_list/",
-                              "instances": "/api/v2/instance_groups/1/instances/",
-                              "jobs": "/api/v2/instance_groups/1/jobs/",
-                              "object_roles": "/api/v2/instance_groups/1/object_roles/"
-                            },
-                            "summary_fields": {
-                              "object_roles": {
-                                "admin_role": {
-                                  "description": "Can manage all aspects of the instance group",
-                                  "id": 16,
-                                  "name": "Admin"
-                                },
-                                "read_role": {
-                                  "description": "May view settings for the instance group",
-                                  "id": 18,
-                                  "name": "Read"
-                                },
-                                "use_role": {
-                                  "description": "Can use the instance group in a job template",
-                                  "id": 17,
-                                  "name": "Use"
-                                }
-                              },
-                              "user_capabilities": {
-                                "delete": true,
-                                "edit": true
-                              }
-                            },
-                            "type": "instance_group",
-                            "url": "/api/v2/instance_groups/1/"
-                          },
-                          {
-                            "capacity": 0,
-                            "consumed_capacity": 0,
-                            "created": "2018-02-01T08:00:00.000000Z",
-                            "credential": null,
                             "id": 2,
                             "instances": 0,
                             "is_container_group": false,
@@ -20049,7 +20147,7 @@
                             "max_concurrent_jobs": 0,
                             "max_forks": 0,
                             "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-0",
+                            "name": "group-3",
                             "percent_capacity_remaining": 0,
                             "pod_spec_override": "",
                             "policy_instance_list": [],
@@ -20086,57 +20184,6 @@
                             },
                             "type": "instance_group",
                             "url": "/api/v2/instance_groups/2/"
-                          },
-                          {
-                            "capacity": 0,
-                            "consumed_capacity": 0,
-                            "created": "2018-02-01T08:00:00.000000Z",
-                            "credential": null,
-                            "id": 5,
-                            "instances": 0,
-                            "is_container_group": false,
-                            "jobs_running": 0,
-                            "jobs_total": 0,
-                            "max_concurrent_jobs": 0,
-                            "max_forks": 0,
-                            "modified": "2018-02-01T08:00:00.000000Z",
-                            "name": "group-3",
-                            "percent_capacity_remaining": 0,
-                            "pod_spec_override": "",
-                            "policy_instance_list": [],
-                            "policy_instance_minimum": 0,
-                            "policy_instance_percentage": 0,
-                            "related": {
-                              "access_list": "/api/v2/instance_groups/5/access_list/",
-                              "instances": "/api/v2/instance_groups/5/instances/",
-                              "jobs": "/api/v2/instance_groups/5/jobs/",
-                              "object_roles": "/api/v2/instance_groups/5/object_roles/"
-                            },
-                            "summary_fields": {
-                              "object_roles": {
-                                "admin_role": {
-                                  "description": "Can manage all aspects of the instance group",
-                                  "id": 28,
-                                  "name": "Admin"
-                                },
-                                "read_role": {
-                                  "description": "May view settings for the instance group",
-                                  "id": 30,
-                                  "name": "Read"
-                                },
-                                "use_role": {
-                                  "description": "Can use the instance group in a job template",
-                                  "id": 29,
-                                  "name": "Use"
-                                }
-                              },
-                              "user_capabilities": {
-                                "delete": true,
-                                "edit": true
-                              }
-                            },
-                            "type": "instance_group",
-                            "url": "/api/v2/instance_groups/5/"
                           }
                         ]
                       }
@@ -21101,22 +21148,6 @@
           "operationId": "System Configuration_ping_list",
           "responses": {
             "200": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "active_node": "awx_1",
-                        "ha": false,
-                        "install_uuid": "00000000-0000-0000-0000-000000000000",
-                        "instance_groups": [],
-                        "instances": [],
-                        "version": "4.4.9.dev3+gc159f5ce40"
-                      }
-                    }
-                  }
-                }
-              },
               "description": ""
             }
           },
@@ -21661,7 +21692,7 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Projects_projects_partial_updateData"
+            "$ref": "#/components/requestBodies/Job_Templates_job_templates_partial_updateData"
           },
           "responses": {
             "200": {
@@ -28158,6 +28189,20 @@
           ],
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "count": 0,
+                        "next": null,
+                        "previous": null,
+                        "results": []
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -28315,6 +28360,50 @@
           ],
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "auth": [],
+                        "created": "2018-02-01T08:00:00.000000Z",
+                        "email": "",
+                        "external_account": null,
+                        "first_name": "",
+                        "id": 1,
+                        "is_superuser": true,
+                        "is_system_auditor": false,
+                        "last_login": null,
+                        "last_name": "",
+                        "ldap_dn": "",
+                        "modified": null,
+                        "related": {
+                          "access_list": "/api/v2/users/1/access_list/",
+                          "activity_stream": "/api/v2/users/1/activity_stream/",
+                          "admin_of_organizations": "/api/v2/users/1/admin_of_organizations/",
+                          "authorized_tokens": "/api/v2/users/1/authorized_tokens/",
+                          "credentials": "/api/v2/users/1/credentials/",
+                          "organizations": "/api/v2/users/1/organizations/",
+                          "personal_tokens": "/api/v2/users/1/personal_tokens/",
+                          "projects": "/api/v2/users/1/projects/",
+                          "roles": "/api/v2/users/1/roles/",
+                          "teams": "/api/v2/users/1/teams/",
+                          "tokens": "/api/v2/users/1/tokens/"
+                        },
+                        "summary_fields": {
+                          "user_capabilities": {
+                            "delete": false,
+                            "edit": true
+                          }
+                        },
+                        "type": "user",
+                        "url": "/api/v2/users/1/",
+                        "username": "admin"
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -29307,7 +29396,15 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Users_users_roles_createData"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": 2
+                  }
+                }
+              }
+            }
           },
           "responses": {
             "201": {
@@ -29874,20 +29971,6 @@
           "responses": {
             "201": {
               "description": ""
-            },
-            "400": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "error": "This workflow step has already been approved or denied."
-                      }
-                    }
-                  }
-                }
-              },
-              "description": ""
             }
           },
           "summary": " Retrieve a Workflow Approval",
@@ -29946,20 +30029,6 @@
           ],
           "responses": {
             "201": {
-              "description": ""
-            },
-            "400": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "error": "This workflow step has already been approved or denied."
-                      }
-                    }
-                  }
-                }
-              },
               "description": ""
             }
           },
@@ -30526,7 +30595,7 @@
                         "failure_nodes": [],
                         "forks": null,
                         "id": 1,
-                        "identifier": "72eae8a5-f224-476b-a883-fa1d1b50ca30",
+                        "identifier": "38d5fa6e-9c0e-4aa0-a57d-0b848a49f6e5",
                         "inventory": null,
                         "job_slice_count": null,
                         "job_tags": null,
@@ -30795,10 +30864,24 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Workflow_Job_Template_Nodes_workflow_job_template_nodes_always_nodes_createData"
+            "$ref": "#/components/requestBodies/Job_Templates_job_templates_instance_groups_createData"
           },
           "responses": {
             "201": {
+              "description": ""
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "Error": "Relationship not allowed."
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -30834,29 +30917,6 @@
           ],
           "responses": {
             "200": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {}
-                    }
-                  }
-                }
-              },
-              "description": ""
-            },
-            "404": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "detail": "Not found."
-                      }
-                    }
-                  }
-                }
-              },
               "description": ""
             }
           },
@@ -30884,8 +30944,8 @@
               "application/json": {
                 "schema": {
                   "example": {
-                    "description": "An approval",
-                    "name": "URL Test",
+                    "description": "Approval Node",
+                    "name": "Test",
                     "timeout": 0
                   }
                 }
@@ -30900,28 +30960,58 @@
                     "response": {
                       "value": {
                         "created": "2018-02-01T08:00:00.000000Z",
-                        "description": "An approval",
+                        "description": "Approval Node",
                         "execution_environment": null,
-                        "id": 3,
+                        "id": 2,
                         "last_job_failed": false,
                         "last_job_run": null,
                         "modified": "2018-02-01T08:00:00.000000Z",
-                        "name": "URL Test",
+                        "name": "Test",
                         "next_job_run": null,
                         "related": {
-                          "jobs": "/api/v2/workflow_approval_templates/3/approvals/"
+                          "jobs": "/api/v2/workflow_approval_templates/2/approvals/"
                         },
                         "status": "never updated",
                         "summary_fields": {
                           "workflow_job_template": {
                             "description": "",
-                            "id": 2,
-                            "name": ""
+                            "id": 1,
+                            "name": "test-workflow_job_template"
                           }
                         },
                         "timeout": 0,
                         "type": "workflow_approval_template",
-                        "url": "/api/v2/workflow_approval_templates/3/"
+                        "url": "/api/v2/workflow_approval_templates/2/"
+                      }
+                    }
+                  }
+                }
+              },
+              "description": ""
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "name": [
+                          "This field may not be blank."
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "description": ""
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "detail": "You do not have permission to perform this action."
                       }
                     }
                   }
@@ -31003,19 +31093,19 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Users_users_roles_createData"
+            "$ref": "#/components/requestBodies/Instance_Groups_instance_groups_instances_createData"
           },
           "responses": {
             "201": {
               "description": ""
             },
-            "400": {
+            "403": {
               "content": {
                 "application/json": {
                   "examples": {
                     "response": {
                       "value": {
-                        "msg": "This launch configuration already provides a Machine credential."
+                        "detail": "You do not have permission to perform this action."
                       }
                     }
                   }
@@ -31097,7 +31187,7 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Workflow_Job_Template_Nodes_workflow_job_template_nodes_always_nodes_createData"
+            "$ref": "#/components/requestBodies/Job_Templates_job_templates_instance_groups_createData"
           },
           "responses": {
             "201": {
@@ -31351,7 +31441,7 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Workflow_Job_Template_Nodes_workflow_job_template_nodes_always_nodes_createData"
+            "$ref": "#/components/requestBodies/Job_Templates_job_templates_instance_groups_createData"
           },
           "responses": {
             "201": {
@@ -31529,7 +31619,7 @@
             }
           ],
           "requestBody": {
-            "$ref": "#/components/requestBodies/Projects_projects_partial_updateData"
+            "$ref": "#/components/requestBodies/Job_Templates_job_templates_partial_updateData"
           },
           "responses": {
             "200": {
@@ -32083,84 +32173,6 @@
           },
           "responses": {
             "201": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "allow_simultaneous": false,
-                        "canceled_on": null,
-                        "created": "2018-02-01T08:00:00.000000Z",
-                        "description": "",
-                        "elapsed": 0,
-                        "extra_vars": "{}",
-                        "failed": false,
-                        "finished": null,
-                        "id": 1,
-                        "ignored_fields": {},
-                        "inventory": null,
-                        "is_sliced_job": false,
-                        "job_args": "",
-                        "job_cwd": "",
-                        "job_env": {},
-                        "job_explanation": "",
-                        "job_tags": null,
-                        "job_template": null,
-                        "launch_type": "manual",
-                        "launched_by": {},
-                        "limit": null,
-                        "modified": "2018-02-01T08:00:00.000000Z",
-                        "name": "foobar",
-                        "related": {
-                          "activity_stream": "/api/v2/workflow_jobs/1/activity_stream/",
-                          "cancel": "/api/v2/workflow_jobs/1/cancel/",
-                          "labels": "/api/v2/workflow_jobs/1/labels/",
-                          "notifications": "/api/v2/workflow_jobs/1/notifications/",
-                          "relaunch": "/api/v2/workflow_jobs/1/relaunch/",
-                          "unified_job_template": "/api/v2/workflow_job_templates/3/",
-                          "workflow_job_template": "/api/v2/workflow_job_templates/3/",
-                          "workflow_nodes": "/api/v2/workflow_jobs/1/workflow_nodes/"
-                        },
-                        "result_traceback": "",
-                        "scm_branch": null,
-                        "skip_tags": null,
-                        "started": null,
-                        "status": "pending",
-                        "summary_fields": {
-                          "labels": {
-                            "count": 0,
-                            "results": []
-                          },
-                          "unified_job_template": {
-                            "description": "",
-                            "id": 3,
-                            "name": "foobar",
-                            "unified_job_type": "workflow_job"
-                          },
-                          "user_capabilities": {
-                            "delete": true,
-                            "start": true
-                          },
-                          "workflow_job_template": {
-                            "description": "",
-                            "id": 3,
-                            "name": "foobar"
-                          }
-                        },
-                        "type": "workflow_job",
-                        "unified_job_template": 3,
-                        "url": "/api/v2/workflow_jobs/1/",
-                        "webhook_credential": null,
-                        "webhook_guid": "",
-                        "webhook_service": "",
-                        "work_unit_id": null,
-                        "workflow_job": 1,
-                        "workflow_job_template": 3
-                      }
-                    }
-                  }
-                }
-              },
               "description": ""
             }
           },
@@ -32914,6 +32926,31 @@
           ],
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "webhook_key": ""
+                      }
+                    }
+                  }
+                }
+              },
+              "description": ""
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "detail": "You do not have permission to perform this action."
+                      }
+                    }
+                  }
+                }
+              },
               "description": ""
             }
           },
@@ -32941,21 +32978,7 @@
                   "examples": {
                     "response": {
                       "value": {
-                        "webhook_key": "a7MWBgNLQO64l35HrqZYulzlJ9lVkalFgBorC2Uc84SEm56DS5"
-                      }
-                    }
-                  }
-                }
-              },
-              "description": ""
-            },
-            "403": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "response": {
-                      "value": {
-                        "detail": "You do not have permission to perform this action."
+                        "webhook_key": "zWLKLWibCqWijUiay1bS6W7J9EMFJI728cib0m5ZuUwvLyF1kf"
                       }
                     }
                   }
@@ -33115,7 +33138,7 @@
                         "failure_nodes": [],
                         "forks": null,
                         "id": 1,
-                        "identifier": "f0d26215-17a4-4adb-ac63-65b3adbc4236",
+                        "identifier": "22bcf9d9-151a-445c-9efb-e7dfd1329a90",
                         "inventory": null,
                         "job_slice_count": null,
                         "job_tags": null,
@@ -33155,6 +33178,22 @@
                         "url": "/api/v2/workflow_job_template_nodes/1/",
                         "verbosity": null,
                         "workflow_job_template": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "description": ""
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "response": {
+                      "value": {
+                        "limit": [
+                          "Field is not configured to prompt on launch."
+                        ]
                       }
                     }
                   }

@@ -8897,29 +8897,6 @@
         }
       },
       "/settings/cost-groups/": {
-        "delete": {
-          "operationId": "deleteSettingsCostGroups",
-          "responses": {
-            "204": {
-              "description": "Cost groups updated"
-            },
-            "400": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Bad Request"
-            }
-          },
-          "summary": "Remove projects from a coust group",
-          "tags": [
-            "Settings",
-            "Cost Groups"
-          ]
-        },
         "get": {
           "operationId": "getSettingsCostGroups",
           "parameters": [
@@ -8960,7 +8937,37 @@
             "Settings",
             "Cost Groups"
           ]
-        },
+        }
+      },
+      "/settings/cost-groups/remove/": {
+        "put": {
+          "operationId": "putSettingsCostGroupsRemove",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/CostGroupsBody"
+          },
+          "responses": {
+            "204": {
+              "description": "Cost groups updated"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            }
+          },
+          "summary": "Remove projects from a cost group",
+          "tags": [
+            "Settings",
+            "Cost Groups"
+          ]
+        }
+      },
+      "/settings/cost/groups/add/": {
         "put": {
           "operationId": "putSettingsCostGroups",
           "requestBody": {

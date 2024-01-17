@@ -2149,7 +2149,7 @@
                   },
                   "type": "array"
                 },
-                "recipeints": {
+                "recipients": {
                   "items": {
                     "type": "string"
                   },
