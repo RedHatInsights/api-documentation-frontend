@@ -218,6 +218,9 @@
             "Version": {
               "type": "integer"
             },
+            "activationKey": {
+              "type": "string"
+            },
             "org_id": {
               "type": "string"
             },
@@ -1321,6 +1324,9 @@
             },
             "Version": {
               "type": "integer"
+            },
+            "activationKey": {
+              "type": "string"
             },
             "org_id": {
               "type": "string"

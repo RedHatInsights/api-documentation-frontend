@@ -381,7 +381,13 @@
         "controllers.BaselineDetailAttributes": {
           "properties": {
             "config": {
-              "$ref": "#/components/schemas/controllers.BaselineConfig"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselineConfig"
+                }
+              ],
+              "description": "Baseline config",
+              "type": "object"
             },
             "creator": {
               "type": "string"
@@ -406,7 +412,13 @@
         "controllers.BaselineDetailItem": {
           "properties": {
             "attributes": {
-              "$ref": "#/components/schemas/controllers.BaselineDetailAttributes"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselineDetailAttributes"
+                }
+              ],
+              "description": "Additional baseline attributes",
+              "type": "object"
             },
             "id": {
               "description": "Baseline ID",
@@ -432,7 +444,13 @@
         "controllers.BaselineItem": {
           "properties": {
             "attributes": {
-              "$ref": "#/components/schemas/controllers.BaselineItemAttributes"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselineItemAttributes"
+                }
+              ],
+              "description": "Additional baseline attributes",
+              "type": "object"
             },
             "id": {
               "description": "Unique baseline id",
@@ -530,7 +548,13 @@
         "controllers.BaselineSystemItem": {
           "properties": {
             "attributes": {
-              "$ref": "#/components/schemas/controllers.BaselineSystemAttributes"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselineSystemAttributes"
+                }
+              ],
+              "description": "Additional baseline system attributes",
+              "type": "object"
             },
             "inventory_id": {
               "description": "Baseline system inventory ID (uuid format)",
@@ -701,10 +725,22 @@
               "type": "array"
             },
             "links": {
-              "$ref": "#/components/schemas/controllers.Links"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.Links"
+                }
+              ],
+              "description": "Pagination links",
+              "type": "object"
             },
             "meta": {
-              "$ref": "#/components/schemas/controllers.BaselinesMeta"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselinesMeta"
+                }
+              ],
+              "description": "Generic response fields (pagination params, filters etc.)",
+              "type": "object"
             }
           },
           "type": "object"
@@ -712,7 +748,13 @@
         "controllers.CreateBaselineRequest": {
           "properties": {
             "config": {
-              "$ref": "#/components/schemas/controllers.BaselineConfig"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselineConfig"
+                }
+              ],
+              "description": "Baseline config to filter applicable advisories and package updates for the associated systems (optional).",
+              "type": "object"
             },
             "description": {
               "description": "Description of the baseline (optional).",
@@ -1190,6 +1232,18 @@
         },
         "controllers.SystemDBLookupV3": {
           "properties": {
+            "applicable_other_count": {
+              "type": "integer"
+            },
+            "applicable_rhba_count": {
+              "type": "integer"
+            },
+            "applicable_rhea_count": {
+              "type": "integer"
+            },
+            "applicable_rhsa_count": {
+              "type": "integer"
+            },
             "baseline_id": {
               "type": "integer"
             },
@@ -1217,6 +1271,21 @@
             "id": {
               "type": "string"
             },
+            "installable_other_count": {
+              "type": "integer"
+            },
+            "installable_rhba_count": {
+              "type": "integer"
+            },
+            "installable_rhea_count": {
+              "type": "integer"
+            },
+            "installable_rhsa_count": {
+              "type": "integer"
+            },
+            "last_evaluation": {
+              "type": "string"
+            },
             "last_upload": {
               "type": "string"
             },
@@ -1224,6 +1293,12 @@
               "type": "string"
             },
             "other_count": {
+              "type": "integer"
+            },
+            "packages_applicable": {
+              "type": "integer"
+            },
+            "packages_installable": {
               "type": "integer"
             },
             "packages_installed": {
@@ -1265,7 +1340,13 @@
         "controllers.SystemDetailResponse": {
           "properties": {
             "data": {
-              "$ref": "#/components/schemas/controllers.SystemItem"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.SystemItem"
+                }
+              ],
+              "description": "use SystemItem not SystemItemV3 to display more info about system",
+              "type": "object"
             }
           },
           "type": "object"
@@ -1297,6 +1378,18 @@
         },
         "controllers.SystemItemAttributesAll": {
           "properties": {
+            "applicable_other_count": {
+              "type": "integer"
+            },
+            "applicable_rhba_count": {
+              "type": "integer"
+            },
+            "applicable_rhea_count": {
+              "type": "integer"
+            },
+            "applicable_rhsa_count": {
+              "type": "integer"
+            },
             "baseline_id": {
               "type": "integer"
             },
@@ -1327,6 +1420,18 @@
             "insights_id": {
               "type": "string"
             },
+            "installable_other_count": {
+              "type": "integer"
+            },
+            "installable_rhba_count": {
+              "type": "integer"
+            },
+            "installable_rhea_count": {
+              "type": "integer"
+            },
+            "installable_rhsa_count": {
+              "type": "integer"
+            },
             "last_evaluation": {
               "type": "string"
             },
@@ -1346,6 +1451,12 @@
               "type": "string"
             },
             "other_count": {
+              "type": "integer"
+            },
+            "packages_applicable": {
+              "type": "integer"
+            },
+            "packages_installable": {
               "type": "integer"
             },
             "packages_installed": {
@@ -1392,6 +1503,18 @@
         },
         "controllers.SystemItemAttributesV3": {
           "properties": {
+            "applicable_other_count": {
+              "type": "integer"
+            },
+            "applicable_rhba_count": {
+              "type": "integer"
+            },
+            "applicable_rhea_count": {
+              "type": "integer"
+            },
+            "applicable_rhsa_count": {
+              "type": "integer"
+            },
             "baseline_id": {
               "type": "integer"
             },
@@ -1416,6 +1539,21 @@
               },
               "type": "array"
             },
+            "installable_other_count": {
+              "type": "integer"
+            },
+            "installable_rhba_count": {
+              "type": "integer"
+            },
+            "installable_rhea_count": {
+              "type": "integer"
+            },
+            "installable_rhsa_count": {
+              "type": "integer"
+            },
+            "last_evaluation": {
+              "type": "string"
+            },
             "last_upload": {
               "type": "string"
             },
@@ -1423,6 +1561,12 @@
               "type": "string"
             },
             "other_count": {
+              "type": "integer"
+            },
+            "packages_applicable": {
+              "type": "integer"
+            },
+            "packages_installable": {
               "type": "integer"
             },
             "packages_installed": {
@@ -1671,7 +1815,13 @@
         "controllers.UpdateBaselineRequest": {
           "properties": {
             "config": {
-              "$ref": "#/components/schemas/controllers.BaselineConfig"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.BaselineConfig"
+                }
+              ],
+              "description": "Updated baseline config (optional)",
+              "type": "object"
             },
             "description": {
               "description": "Description of the baseline (optional).",
@@ -1874,7 +2024,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.6.0"
+      "version": "v3.6.8"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -3974,6 +4124,14 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[last_evaluation]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[last_upload]",
               "schema": {
                 "type": "string"
@@ -4014,6 +4172,70 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[installable_rhsa_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhba_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhea_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_other_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhsa_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhba_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhea_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_other_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[stale]",
               "schema": {
                 "type": "string"
@@ -4023,6 +4245,22 @@
               "description": "Filter",
               "in": "query",
               "name": "filter[packages_installed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_installable]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_applicable]",
               "schema": {
                 "type": "string"
               }
@@ -5454,6 +5692,14 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[last_evaluation]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[last_upload]",
               "schema": {
                 "type": "string"
@@ -5494,6 +5740,70 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[installable_rhsa_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhba_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhea_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_other_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhsa_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhba_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhea_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_other_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[stale]",
               "schema": {
                 "type": "string"
@@ -5503,6 +5813,22 @@
               "description": "Filter",
               "in": "query",
               "name": "filter[packages_installed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_installable]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_applicable]",
               "schema": {
                 "type": "string"
               }
@@ -6458,6 +6784,14 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[last_evaluation]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[last_upload]",
               "schema": {
                 "type": "string"
@@ -6498,6 +6832,70 @@
             {
               "description": "Filter",
               "in": "query",
+              "name": "filter[installable_rhsa_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhba_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhea_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_other_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhsa_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhba_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhea_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_other_count]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
               "name": "filter[stale]",
               "schema": {
                 "type": "string"
@@ -6507,6 +6905,22 @@
               "description": "Filter",
               "in": "query",
               "name": "filter[packages_installed]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_installable]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_applicable]",
               "schema": {
                 "type": "string"
               }
@@ -7628,6 +8042,7 @@
       {
         "url": "/api/patch/v3"
       }
-    ]
+    ],
+    "x-original-swagger-version": "2.0"
   }
 }
