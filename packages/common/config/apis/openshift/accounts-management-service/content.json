@@ -7771,6 +7771,7 @@
       },
       "/api/accounts_mgmt/v1/notify": {
         "post": {
+          "deprecated": true,
           "requestBody": {
             "content": {
               "application/json": {
@@ -13127,6 +13128,7 @@
           }
         ],
         "post": {
+          "deprecated": true,
           "requestBody": {
             "content": {
               "application/json": {
