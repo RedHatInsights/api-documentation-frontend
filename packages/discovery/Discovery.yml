@@ -287,10 +287,11 @@ apis:
         apiType: openapi-v3
         icon: subscriptions
         tags:
+          - edge
           - inventories
           - openshift
-          - edge
           - rhel
+          - subscriptions
       - id: tasks
         name: Tasks
         description: API for managing and issuing Red Hat generated tasks on your infrastructure
@@ -573,6 +574,9 @@ tags:
   - id: spend-management
     name: Spend Management
     type: use-case
+  - id: subscriptions
+    name: Subscriptions
+    type: service
   - id: system-configuration
     name: System Configuration
     type: use-case

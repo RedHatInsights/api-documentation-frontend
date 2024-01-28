@@ -22,7 +22,7 @@ const getTitle = (type: DisplayedTagsType) => {
         case 'use-case':
             return 'Use Case';
         case 'service':
-            return 'Saas Service';
+            return 'SaaS Service';
         case 'platform':
             return 'Red Hat Platform';
     }
