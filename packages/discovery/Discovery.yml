@@ -576,7 +576,7 @@ tags:
     type: use-case
   - id: subscriptions
     name: Subscriptions
-    type: service
+    type: use-case
   - id: system-configuration
     name: System Configuration
     type: use-case
