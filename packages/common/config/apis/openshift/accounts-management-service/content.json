@@ -2131,34 +2131,27 @@
           ]
         },
         "NotifyDetailsResponseList": {
-          "allOf": [
-            {
-              "$ref": "#/components/schemas/List"
-            },
-            {
-              "properties": {
-                "associates": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "items": {
-                  "items": {
-                    "$ref": "#/components/schemas/NotifyDetailsResponse"
-                  },
-                  "type": "array"
-                },
-                "recipients": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
+          "properties": {
+            "associates": {
+              "items": {
+                "type": "string"
               },
-              "type": "object"
+              "type": "array"
+            },
+            "items": {
+              "items": {
+                "$ref": "#/components/schemas/NotifyDetailsResponse"
+              },
+              "type": "array"
+            },
+            "recipients": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
-          ]
+          },
+          "type": "object"
         },
         "ObjectReference": {
           "properties": {

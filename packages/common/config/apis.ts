@@ -135,7 +135,7 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
   subscriptions: {
     id: "subscriptions",
     name: "Subscriptions",
-    type: "service",
+    type: "use-case",
     devRedHatTaxonomy: {
       topic: undefined,
       product: undefined,
