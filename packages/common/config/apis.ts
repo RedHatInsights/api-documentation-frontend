@@ -132,6 +132,15 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
       product: undefined,
     },
   },
+  subscriptions: {
+    id: "subscriptions",
+    name: "Subscriptions",
+    type: "service",
+    devRedHatTaxonomy: {
+      topic: undefined,
+      product: undefined,
+    },
+  },
   workloads: {
     id: "workloads",
     name: "Workloads",
@@ -583,10 +592,11 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
         "./apis/hcc-insights/rhsm-subscriptions/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [
+      apiLabelsMap["edge"],
       apiLabelsMap["inventories"],
       apiLabelsMap["openshift"],
-      apiLabelsMap["edge"],
       apiLabelsMap["rhel"],
+      apiLabelsMap["subscriptions"],
     ],
   },
   {
