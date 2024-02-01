@@ -268,6 +268,10 @@
               "additionalProperties": {},
               "type": "object"
             },
+            "run_id": {
+              "format": "uuid",
+              "type": "string"
+            },
             "status": {
               "type": "string"
             },
@@ -285,9 +289,32 @@
             "display_name",
             "executed_task",
             "results",
+            "run_id",
             "status",
             "system",
             "updated_on"
+          ],
+          "type": "object"
+        },
+        "JobLog": {
+          "description": "A line of information relating to the progress of a job.",
+          "properties": {
+            "created_at": {
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "is_ok": {
+              "type": "boolean"
+            },
+            "line": {
+              "maxLength": 255,
+              "type": "string"
+            }
+          },
+          "required": [
+            "created_at",
+            "line"
           ],
           "type": "object"
         },
@@ -423,6 +450,54 @@
             "data": {
               "items": {
                 "$ref": "#/components/schemas/Job"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 169,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "PaginatedJobLogList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/JobLog"
               },
               "type": "array"
             },
@@ -1029,6 +1104,144 @@
           ],
           "tags": [
             "executed_task"
+          ]
+        }
+      },
+      "/api/tasks/v1/job": {
+        "get": {
+          "description": "View the jobs of running executed tasks.",
+          "operationId": "job_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedJobList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {
+              "x-rh-identity": []
+            }
+          ],
+          "tags": [
+            "job"
+          ]
+        }
+      },
+      "/api/tasks/v1/job/{run_id}": {
+        "get": {
+          "description": "View the jobs of running executed tasks.",
+          "operationId": "job_retrieve",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "run_id",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {
+              "x-rh-identity": []
+            }
+          ],
+          "tags": [
+            "job"
+          ]
+        }
+      },
+      "/api/tasks/v1/job/{run_id}/log": {
+        "get": {
+          "description": "Show the log lines for this job.",
+          "operationId": "job_log_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "path",
+              "name": "run_id",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedJobLogList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {
+              "x-rh-identity": []
+            }
+          ],
+          "tags": [
+            "job"
           ]
         }
       },

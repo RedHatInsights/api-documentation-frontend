@@ -1200,7 +1200,8 @@
                 "RHOSETrial",
                 "RHACS",
                 "RHACSTrial",
-                "ARO"
+                "ARO",
+                "RHOIC"
               ],
               "type": "string"
             },

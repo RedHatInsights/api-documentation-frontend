@@ -18,15 +18,6 @@
             "type": "string"
           }
         },
-        "OCPTagsFilter": {
-          "description": "The cluster_id or cluster_alias to filter on",
-          "in": "query",
-          "name": "cluster",
-          "required": false,
-          "schema": {
-            "$ref": "#/components/schemas/cluster"
-          }
-        },
         "OrganizationFilter": {
           "description": "String to indicate org unit id",
           "in": "query",
@@ -4664,7 +4655,7 @@
       },
       "securitySchemes": {
         "basic_auth": {
-          "description": "The userid/password is needed when accessing this API externally",
+          "description": "Use service account authentication to access this API. See the cost management documentation for details.",
           "scheme": "basic",
           "type": "http"
         }
@@ -4675,13 +4666,13 @@
       "url": "https://github.com/project-koku/"
     },
     "info": {
-      "description": "The API for Cost Management",
+      "description": "Access your cloud and OpenShift data you integrated with cost management.",
       "license": {
         "name": "AGPL-3.0",
         "url": "https://opensource.org/licenses/AGPL-3.0"
       },
       "title": "Cost Management",
-      "version": "1.0.2"
+      "version": "v1"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -10035,9 +10026,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             }
           ],
           "responses": {
@@ -10091,9 +10079,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             }
           ],
           "responses": {
@@ -10144,9 +10129,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             },
             {
               "description": "The tag key to get",
@@ -10230,9 +10212,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             }
           ],
           "responses": {
@@ -10283,9 +10262,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             },
             {
               "description": "The tag key to get",
@@ -10369,9 +10345,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             }
           ],
           "responses": {
@@ -10422,9 +10395,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             },
             {
               "description": "The tag key to get",
@@ -10508,9 +10478,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             }
           ],
           "responses": {
@@ -10561,9 +10528,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             },
             {
               "description": "The tag key to get",
@@ -10644,9 +10608,6 @@
             },
             {
               "$ref": "#/components/parameters/ReportQueryLimit"
-            },
-            {
-              "$ref": "#/components/parameters/OCPTagsFilter"
             },
             {
               "description": "The tag key to get",
