@@ -3,6 +3,25 @@
   "openapi": {
     "components": {
       "parameters": {
+        "any_id": {
+          "in": "query",
+          "name": "any-id",
+          "required": true,
+          "schema": {
+            "minProperties": 1,
+            "properties": {
+              "cluster_id": {
+                "description": "Id of a cluster (cluster_id)",
+                "type": "string"
+              },
+              "cluster_uuid": {
+                "description": "External id of a cluster (cluster_uuid)",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
         "cluster_id": {
           "description": "Id of a cluster (cluster_id)",
           "in": "query",
@@ -346,6 +365,17 @@
             }
           },
           "type": "object"
+        },
+        "WarehouseCount": {
+          "properties": {
+            "total": {
+              "format": "int64",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "total"
+          ]
         }
       },
       "securitySchemes": {
@@ -656,23 +686,7 @@
         "get": {
           "parameters": [
             {
-              "in": "query",
-              "name": "any-id",
-              "required": true,
-              "schema": {
-                "minProperties": 1,
-                "properties": {
-                  "cluster_id": {
-                    "description": "Id of a cluster (cluster_id)",
-                    "type": "string"
-                  },
-                  "cluster_uuid": {
-                    "description": "External id of a cluster (cluster_uuid)",
-                    "type": "string"
-                  }
-                },
-                "type": "object"
-              }
+              "$ref": "#/components/parameters/any_id"
             },
             {
               "$ref": "#/components/parameters/page"
@@ -851,6 +865,138 @@
             }
           ],
           "summary": "Get all service logs for a specific cluster"
+        }
+      },
+      "/api/service_logs/v1/warehouse": {
+        "delete": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/any_id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WarehouseCount"
+                  }
+                }
+              },
+              "description": "Log records were successfully warehoused"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No log record with specified id exist"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred deleting the log records"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Warehouse service logs for clusters specified by a comma-separated cluster_ids and/or cluster_uuids"
+        },
+        "get": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/any_id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WarehouseCount"
+                  }
+                }
+              },
+              "description": "A number of records found (in `total` field)"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad request: At least one of cluster_uuid and cluster_id is required"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get number of service logs for clusters specified by a comma-separated cluster_ids and/or cluster_uuids"
         }
       }
     },

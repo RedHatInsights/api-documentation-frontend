@@ -1543,12 +1543,22 @@
             "check_in_succeeded": {
               "type": "boolean"
             },
+            "culled_timestamp": {
+              "example": "2020-02-17T08:07:03.354307+00:00",
+              "format": "date-time",
+              "type": "string"
+            },
             "last_check_in": {
               "example": "2020-02-10T08:07:03.354307+00:00",
               "format": "date-time",
               "type": "string"
             },
             "stale_timestamp": {
+              "example": "2020-02-17T08:07:03.354307+00:00",
+              "format": "date-time",
+              "type": "string"
+            },
+            "stale_warning_timestamp": {
               "example": "2020-02-17T08:07:03.354307+00:00",
               "format": "date-time",
               "type": "string"

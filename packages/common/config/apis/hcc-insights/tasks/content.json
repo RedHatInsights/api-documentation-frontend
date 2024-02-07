@@ -69,6 +69,9 @@
             "task_description": {
               "type": "string"
             },
+            "task_filter_message": {
+              "type": "string"
+            },
             "task_slug": {
               "pattern": "^[-a-zA-Z0-9_]+$",
               "type": "string"
@@ -91,6 +94,7 @@
             "status",
             "systems_count",
             "task_description",
+            "task_filter_message",
             "task_slug",
             "task_title",
             "task_url"
@@ -142,6 +146,9 @@
             "task_description": {
               "type": "string"
             },
+            "task_filter_message": {
+              "type": "string"
+            },
             "task_slug": {
               "pattern": "^[-a-zA-Z0-9_]+$",
               "type": "string"
@@ -160,6 +167,7 @@
             "status",
             "systems_count",
             "task_description",
+            "task_filter_message",
             "task_slug",
             "task_title"
           ],

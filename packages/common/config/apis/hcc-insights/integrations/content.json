@@ -904,10 +904,10 @@
           "type": "string"
         },
         "LocalTime": {
-          "example": "13:45.30.123456789",
+          "example": "13:45:30.123456789",
           "externalDocs": {
             "description": "As defined by 'partial-time' in RFC3339",
-            "url": "https://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14"
+            "url": "https://www.rfc-editor.org/rfc/rfc3339.html#section-5.6"
           },
           "format": "local-time",
           "type": "string"
@@ -1192,9 +1192,7 @@
         },
         "SubscriptionType": {
           "enum": [
-            "INSTANT",
-            "DAILY",
-            "DRAWER"
+            "DAILY"
           ],
           "type": "string"
         },
@@ -1396,13 +1394,6 @@
             "application"
           ],
           "type": "object"
-        }
-      },
-      "securitySchemes": {
-        "SecurityScheme": {
-          "description": "Authentication",
-          "scheme": "basic",
-          "type": "http"
         }
       }
     },
@@ -1805,19 +1796,8 @@
                 }
               },
               "description": "OK"
-            },
-            "401": {
-              "description": "Not Authorized"
-            },
-            "403": {
-              "description": "Not Allowed"
             }
           },
-          "security": [
-            {
-              "SecurityScheme": []
-            }
-          ],
           "tags": [
             "V 1"
           ]

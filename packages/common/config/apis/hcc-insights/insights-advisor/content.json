@@ -3069,6 +3069,22 @@
               "style": "form"
             },
             {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
               "description": "Display a system with this uuid",
               "in": "query",
               "name": "uuid",
@@ -3114,6 +3130,210 @@
         "get": {
           "description": "List the report details of each rule affecting each system.\n\nSystem and Rule are referred to by ID only, to be correlated with the\nRule and System export data.  It's like the hits output but much\nless repetitive.",
           "operationId": "export_reports_list",
+          "parameters": [
+            {
+              "description": "Display rules of this category (number)",
+              "in": "query",
+              "name": "category",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display systems with this text in their display_name",
+              "in": "query",
+              "name": "display_name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "pattern": "^[A-Z]..$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "List of Inventory host group names",
+              "in": "query",
+              "name": "groups",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display rules that have a playbook",
+              "in": "query",
+              "name": "has_playbook",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Display rules of this impact level (1..4)",
+              "in": "query",
+              "name": "impact",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display only rules that cause an incident",
+              "in": "query",
+              "name": "incident",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Display only rules of this likelihood level (1..4)",
+              "in": "query",
+              "name": "likelihood",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display rules that require a reboot to fix",
+              "in": "query",
+              "name": "reboot",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Display rules with this resolution risk level (1..4)",
+              "in": "query",
+              "name": "res_risk",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display rules with this text in their text fields",
+              "in": "query",
+              "name": "text",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Display rules with this total risk level (1..4)",
+              "in": "query",
+              "name": "total_risk",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display a system with this uuid",
+              "in": "query",
+              "name": "uuid",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -3143,6 +3363,210 @@
         "get": {
           "description": "List the report details of each rule affecting each system.\n\nSystem and Rule are referred to by ID only, to be correlated with the\nRule and System export data.  It's like the hits output but much\nless repetitive.",
           "operationId": "export_rules_list",
+          "parameters": [
+            {
+              "description": "Display rules of this category (number)",
+              "in": "query",
+              "name": "category",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display systems with this text in their display_name",
+              "in": "query",
+              "name": "display_name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "pattern": "^[A-Z]..$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "List of Inventory host group names",
+              "in": "query",
+              "name": "groups",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display rules that have a playbook",
+              "in": "query",
+              "name": "has_playbook",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Display rules of this impact level (1..4)",
+              "in": "query",
+              "name": "impact",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display only rules that cause an incident",
+              "in": "query",
+              "name": "incident",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Display only rules of this likelihood level (1..4)",
+              "in": "query",
+              "name": "likelihood",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display rules that require a reboot to fix",
+              "in": "query",
+              "name": "reboot",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Display rules with this resolution risk level (1..4)",
+              "in": "query",
+              "name": "res_risk",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display rules with this text in their text fields",
+              "in": "query",
+              "name": "text",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Display rules with this total risk level (1..4)",
+              "in": "query",
+              "name": "total_risk",
+              "schema": {
+                "items": {
+                  "enum": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ],
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Display a system with this uuid",
+              "in": "query",
+              "name": "uuid",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -3240,6 +3664,22 @@
                 ],
                 "type": "string"
               }
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -4117,6 +4557,22 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -4327,6 +4783,22 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -4872,6 +5344,22 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -5240,6 +5728,22 @@
                 "items": {
                   "format": "regex",
                   "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -6155,6 +6659,22 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -6260,6 +6780,22 @@
               "style": "form"
             },
             {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
               "description": "A UUID string identifying this inventory host.",
               "in": "path",
               "name": "uuid",
@@ -6342,6 +6878,22 @@
                 "items": {
                   "format": "regex",
                   "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -6498,6 +7050,22 @@
                 "items": {
                   "format": "regex",
                   "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -6875,6 +7443,22 @@
                 "items": {
                   "format": "regex",
                   "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Search for systems with this updater type",
+              "in": "query",
+              "name": "update_method",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "dnfyum",
+                    "ostree"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
