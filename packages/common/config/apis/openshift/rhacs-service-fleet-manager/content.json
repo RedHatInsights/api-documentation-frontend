@@ -465,6 +465,12 @@
                   "description": "Values: [accepted, preparing, provisioning, ready, failed, deprovision, deleting] ",
                   "type": "string"
                 },
+                "traits": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
                 "updated_at": {
                   "format": "date-time",
                   "type": "string"
