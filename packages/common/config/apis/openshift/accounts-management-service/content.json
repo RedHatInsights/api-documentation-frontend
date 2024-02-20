@@ -3472,7 +3472,8 @@
                 "ClusterSelfManagedAddon",
                 "ClusterSelfManagedLabel",
                 "ClusterSelfManagedStatus",
-                "ClusterKubeletConfig"
+                "ClusterKubeletConfig",
+                "ClusterBreakGlassCredential"
               ],
               "type": "string"
             },
@@ -3848,7 +3849,8 @@
                     "Standard",
                     "Premium",
                     "Self-Support",
-                    "None"
+                    "None",
+                    "Supported By IBM"
                   ],
                   "type": "string"
                 },
@@ -4052,7 +4054,8 @@
                 "Standard",
                 "Premium",
                 "Self-Support",
-                "None"
+                "None",
+                "SupportedByIBM"
               ],
               "type": "string"
             },

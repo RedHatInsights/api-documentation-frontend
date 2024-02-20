@@ -145,6 +145,7 @@
               "type": "string"
             },
             "rating": {
+              "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
               "enum": [
                 -1,
                 0,
@@ -152,9 +153,11 @@
               ],
               "maximum": 32767,
               "minimum": -32768,
-              "type": "integer"
+              "type": "integer",
+              "x-spec-enum-id": "77fd471e36283637"
             },
             "rule": {
+              "description": "Rule ID from Insights",
               "type": "string"
             },
             "updated_at": {
@@ -288,6 +291,7 @@
               "type": "string"
             },
             "rule": {
+              "description": "Rule ID from Insights",
               "type": "string"
             },
             "system_uuid": {
@@ -319,6 +323,7 @@
               "type": "string"
             },
             "rule": {
+              "description": "Rule ID from Insights",
               "type": "string"
             },
             "system_uuid": {
@@ -1264,10 +1269,7 @@
         },
         "Report": {
           "properties": {
-            "details": {
-              "additionalProperties": {},
-              "type": "object"
-            },
+            "details": {},
             "impacted_date": {
               "format": "date-time",
               "readOnly": true,
@@ -1301,10 +1303,7 @@
         "ReportExport": {
           "description": "Report information for export.  Based on CurrentReport with fields from\nRule and Host pulled through for convenience.",
           "properties": {
-            "details": {
-              "additionalProperties": {},
-              "type": "object"
-            },
+            "details": {},
             "host_id": {
               "format": "uuid",
               "readOnly": true,
@@ -1792,6 +1791,7 @@
           "description": "Rule ratings list the rating (-1, 0 or +1) for one or more rules.  The\nrule is listed by its Insights Rule ID.",
           "properties": {
             "rating": {
+              "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
               "enum": [
                 -1,
                 0,
@@ -1799,9 +1799,11 @@
               ],
               "maximum": 32767,
               "minimum": -32768,
-              "type": "integer"
+              "type": "integer",
+              "x-spec-enum-id": "77fd471e36283637"
             },
             "rule": {
+              "description": "Rule ID from Insights",
               "type": "string"
             }
           },

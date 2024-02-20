@@ -272,10 +272,7 @@
             "executed_task": {
               "type": "integer"
             },
-            "results": {
-              "additionalProperties": {},
-              "type": "object"
-            },
+            "results": {},
             "run_id": {
               "format": "uuid",
               "type": "string"
@@ -332,10 +329,7 @@
             "display_name": {
               "type": "string"
             },
-            "results": {
-              "additionalProperties": {},
-              "type": "object"
-            },
+            "results": {},
             "status": {
               "type": "string"
             },

@@ -1568,11 +1568,11 @@
     },
     "info": {
       "contact": {
-        "email": "jharting@redhat.com"
+        "email": "rewhite@redhat.com"
       },
       "description": "Insights Remediations Service",
       "title": "Insights Remediations",
-      "version": "1.3.3"
+      "version": "1.3.4"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -2455,7 +2455,7 @@
     "servers": [
       {
         "description": "production server",
-        "url": "https://cloud.redhat.com/api/remediations/v1"
+        "url": "https://console.redhat.com/api/remediations/v1"
       },
       {
         "description": "relative path",

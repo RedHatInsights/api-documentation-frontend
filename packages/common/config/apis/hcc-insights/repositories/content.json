@@ -103,7 +103,7 @@
               "type": "string"
             },
             "repository_uuids": {
-              "description": "Repository uuids to find snapshots for",
+              "description": "Repository UUIDs to find snapshots for",
               "items": {
                 "type": "string"
               },
@@ -455,6 +455,10 @@
               "description": "GPG key for repository",
               "type": "string"
             },
+            "label": {
+              "description": "Label used to configure the yum repository on clients",
+              "type": "string"
+            },
             "last_introspection_error": {
               "description": "Error of last attempted introspection",
               "type": "string"
@@ -647,6 +651,10 @@
             "environment_name": {
               "description": "Environment found",
               "type": "string"
+            },
+            "id": {
+              "description": "ID of the environment found",
+              "type": "string"
             }
           },
           "type": "object"
@@ -657,8 +665,12 @@
               "description": "Description of the package group found",
               "type": "string"
             },
+            "id": {
+              "description": "Package group ID",
+              "type": "string"
+            },
             "package_group_name": {
-              "description": "Package group found",
+              "description": "Name of package group found",
               "type": "string"
             },
             "package_list": {
@@ -894,6 +906,13 @@
               "description": "Organization ID of the owner",
               "type": "string"
             },
+            "repository_uuids": {
+              "description": "Repositories added to the template",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
             "uuid": {
               "readOnly": true,
               "type": "string"
@@ -901,6 +920,26 @@
             "version": {
               "description": "Version of the template",
               "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "api.TemplateUpdateRequest": {
+          "properties": {
+            "date": {
+              "description": "Latest date to include snapshots for",
+              "type": "string"
+            },
+            "description": {
+              "description": "Description of the template",
+              "type": "string"
+            },
+            "repository_uuids": {
+              "description": "Repositories to add to the template",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           "type": "object"
@@ -1464,7 +1503,7 @@
               }
             },
             {
-              "description": "A comma separated list of uuids to control api response.",
+              "description": "A comma separated list of UUIDs to control api response.",
               "in": "query",
               "name": "uuid",
               "schema": {
@@ -3197,6 +3236,182 @@
           ]
         }
       },
+      "/snapshots/environments/names": {
+        "post": {
+          "description": "This enables users to search for environments in a given list of snapshots.",
+          "operationId": "searchSnapshotEnvironments",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.SnapshotSearchRpmRequest"
+                }
+              }
+            },
+            "description": "request body",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/api.SearchEnvironmentResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unsupported Media Type"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Search environments within snapshots",
+          "tags": [
+            "snapshots",
+            "environments"
+          ]
+        }
+      },
+      "/snapshots/package_groups/names": {
+        "post": {
+          "description": "This enables users to search for package groups in a given list of snapshots.",
+          "operationId": "searchSnapshotPackageGroups",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.SnapshotSearchRpmRequest"
+                }
+              }
+            },
+            "description": "request body",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/api.SearchPackageGroupResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unsupported Media Type"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Search package groups within snapshots",
+          "tags": [
+            "snapshots",
+            "environments"
+          ]
+        }
+      },
       "/snapshots/rpms/names": {
         "post": {
           "description": "This enables users to search for RPMs (Red Hat Package Manager) in a given list of snapshots.",
@@ -3796,6 +4011,208 @@
             }
           },
           "summary": "Get Template",
+          "tags": [
+            "templates"
+          ]
+        },
+        "patch": {
+          "description": "This operation enables updating some subset of attributes of a template",
+          "operationId": "partialUpdateTemplate",
+          "parameters": [
+            {
+              "description": "Template ID.",
+              "in": "path",
+              "name": "uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.TemplateUpdateRequest"
+                }
+              }
+            },
+            "description": "request body",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.TemplateResponse"
+                  }
+                }
+              },
+              "description": "Created",
+              "headers": {
+                "Location": {
+                  "description": "resource URL",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unsupported Media Type"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Update some attributes of a Template",
+          "tags": [
+            "templates"
+          ]
+        },
+        "put": {
+          "description": "This operation enables updating all attributes of a template",
+          "operationId": "fullUpdateTemplate",
+          "parameters": [
+            {
+              "description": "Template ID.",
+              "in": "path",
+              "name": "uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.TemplateUpdateRequest"
+                }
+              }
+            },
+            "description": "request body",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.TemplateResponse"
+                  }
+                }
+              },
+              "description": "Created",
+              "headers": {
+                "Location": {
+                  "description": "resource URL",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unsupported Media Type"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Fully update all attributes of a Template",
           "tags": [
             "templates"
           ]

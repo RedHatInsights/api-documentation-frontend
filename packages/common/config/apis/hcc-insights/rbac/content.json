@@ -639,7 +639,14 @@
           "properties": {
             "principals": {
               "items": {
-                "$ref": "#/components/schemas/PrincipalIn"
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/PrincipalIn"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ServiceAccountIn"
+                  }
+                ]
               },
               "type": "array"
             }
@@ -1355,6 +1362,84 @@
             }
           ]
         },
+        "ServiceAccount": {
+          "properties": {
+            "clientID": {
+              "example": "fe593ba0-9c62-013c-1dc2-6aa2427b506a",
+              "type": "string"
+            },
+            "description": {
+              "example": "My new shiny Service Account",
+              "type": "string"
+            },
+            "name": {
+              "example": "MyServiceAccount",
+              "type": "string"
+            },
+            "owner": {
+              "example": "smithj",
+              "type": "string"
+            },
+            "time_created": {
+              "example": 1706100532,
+              "type": "integer"
+            },
+            "type": {
+              "enum": [
+                "service-account"
+              ],
+              "type": "string"
+            },
+            "username": {
+              "example": "service-account-fe593ba0-9c62-013c-1dc2-6aa2427b506a",
+              "type": "string"
+            }
+          },
+          "required": [
+            "clientID",
+            "username",
+            "type"
+          ]
+        },
+        "ServiceAccountIn": {
+          "properties": {
+            "clientID": {
+              "example": "fe593ba0-9c62-013c-1dc2-6aa2427b506a",
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "service-account"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "clientID"
+          ]
+        },
+        "ServiceAccountPagination": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ListPagination"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceAccount"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
         "Status": {
           "properties": {
             "api_version": {
@@ -1429,6 +1514,7 @@
           "operationId": "getPrincipalAccess",
           "parameters": [
             {
+              "allowEmptyValue": true,
               "description": "The application name(s) to obtain access for the principal. This is an exact match. When no application is supplied, all permissions for the principal are returned. You may also use a comma-separated list to match on multiple applications.",
               "in": "query",
               "name": "application",
@@ -2488,12 +2574,12 @@
               "name": "admin_only",
               "required": false,
               "schema": {
-                "default": "false",
+                "default": false,
                 "enum": [
-                  "true",
-                  "false"
+                  true,
+                  false
                 ],
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -2548,6 +2634,24 @@
                 ],
                 "type": "string"
               }
+            },
+            {
+              "description": "Parameter for filtering the service accounts by their description.",
+              "in": "query",
+              "name": "service_account_description",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Parameter for filtering the service accounts by their name.",
+              "in": "query",
+              "name": "service_account_name",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -2555,7 +2659,14 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/PrincipalPagination"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/PrincipalPagination"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ServiceAccountPagination"
+                      }
+                    ]
                   }
                 }
               },
@@ -3567,12 +3678,12 @@
               "name": "admin_only",
               "required": false,
               "schema": {
-                "default": "false",
+                "default": false,
                 "enum": [
-                  "true",
-                  "false"
+                  true,
+                  false
                 ],
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -3619,7 +3730,14 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/PrincipalPagination"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/PrincipalPagination"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ServiceAccountPagination"
+                      }
+                    ]
                   }
                 }
               },

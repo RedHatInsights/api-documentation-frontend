@@ -260,6 +260,34 @@
           },
           "description": "List of tag UUIDs",
           "required": true
+        },
+        "PutTagsMappingBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "example": {
+                  "children": [
+                    "cdadec18-15b3-4dba-b058-2b195e4eb56a",
+                    "cede0b74-7a26-4929-961a-497733d7af12"
+                  ],
+                  "parent": "96ecdf9a-dea1-4f7c-867d-b8dc513f447c"
+                },
+                "properties": {
+                  "ids": {
+                    "items": {
+                      "format": "uuid",
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "description": "List of tag UUIDs",
+          "required": true
         }
       },
       "schemas": {
@@ -4109,6 +4137,79 @@
             "limit": {
               "example": 200,
               "type": "integer"
+            }
+          }
+        },
+        "SettingsTagsMappingsOptionsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "example": [
+                  {
+                    "key": "app",
+                    "source_type": "Azure",
+                    "uuid": "dd724abf-7a86-4254-a588-940eedec2e7d"
+                  }
+                ],
+                "properties": {
+                  "uuid": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/PaginationLinks"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/PaginationMeta"
+            }
+          }
+        },
+        "SettingsTagsMappingsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "example": [
+                  {
+                    "parent": {
+                      "children": [
+                        {
+                          "key": "mapping",
+                          "source_type": "OCP",
+                          "uuid": "95f2040f-1e60-44c0-a69e-89b8a4cc7216"
+                        }
+                      ],
+                      "key": "environment",
+                      "source_type": "OCP",
+                      "uuid": "35711afc-a0bd-491f-84d1-7cfed0012a24"
+                    }
+                  }
+                ],
+                "properties": {
+                  "uuid": {
+                    "format": "uuid",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/PaginationLinks"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/PaginationMeta"
             }
           }
         },
@@ -9182,6 +9283,384 @@
             }
           ],
           "summary": "Enable tags in Cost Management",
+          "tags": [
+            "Settings"
+          ]
+        }
+      },
+      "/settings/tags/mappings/": {
+        "get": {
+          "operationId": "getSettingsTagsMappings",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/QueryOffset"
+            },
+            {
+              "$ref": "#/components/parameters/QueryLimit"
+            },
+            {
+              "description": "Cloud provider type",
+              "in": "query",
+              "name": "source_type",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "parent key value",
+              "in": "query",
+              "name": "parent",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "child key value",
+              "in": "query",
+              "name": "child",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Field(s) used to sort results. Add a '-' prefix for descending order.",
+              "in": "query",
+              "name": "order_by",
+              "schema": {
+                "example": [
+                  "source_type"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SettingsTagsMappingsResponse"
+                  }
+                }
+              },
+              "description": "Returned tags sucessfully"
+            },
+            "400": {
+              "description": "Invalid request parameter"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "security": [
+            {
+              "basic_auth": []
+            }
+          ],
+          "summary": "Returns relationship mappings for Tag Reconciliation",
+          "tags": [
+            "Settings"
+          ]
+        }
+      },
+      "/settings/tags/mappings/child/": {
+        "get": {
+          "operationId": "getSettingsTagsMappingsChild",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/QueryOffset"
+            },
+            {
+              "$ref": "#/components/parameters/QueryLimit"
+            },
+            {
+              "description": "Cloud provider type",
+              "in": "query",
+              "name": "source_type",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "parent key value",
+              "in": "query",
+              "name": "parent",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "child key value",
+              "in": "query",
+              "name": "child",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Field(s) used to sort results. Add a '-' prefix for descending order.",
+              "in": "query",
+              "name": "order_by",
+              "schema": {
+                "example": [
+                  "source_type"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SettingsTagsMappingsOptionsResponse"
+                  }
+                }
+              },
+              "description": "Returned tags sucessfully"
+            },
+            "400": {
+              "description": "Invalid request parameter"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "security": [
+            {
+              "basic_auth": []
+            }
+          ],
+          "summary": "Returns available options for tags that can be marked as a child.",
+          "tags": [
+            "Settings"
+          ]
+        }
+      },
+      "/settings/tags/mappings/child/add/": {
+        "put": {
+          "operationId": "putSettingsTagsMappingsParent",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/PutTagsMappingBody"
+          },
+          "responses": {
+            "204": {
+              "description": "Successfully changed. No content"
+            },
+            "400": {
+              "description": "Invalid request parameter"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "security": [
+            {
+              "basic_auth": []
+            }
+          ],
+          "summary": "Removes child tags from mapping.",
+          "tags": [
+            "Settings"
+          ]
+        }
+      },
+      "/settings/tags/mappings/child/remove/": {
+        "put": {
+          "operationId": "putSettingsTagsMappingsChildRemove",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/PutTagsBody"
+          },
+          "responses": {
+            "204": {
+              "description": "Successfully changed. No content"
+            },
+            "400": {
+              "description": "Invalid request parameter"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "security": [
+            {
+              "basic_auth": []
+            }
+          ],
+          "summary": "Adds child tags to a parent tag.",
+          "tags": [
+            "Settings"
+          ]
+        }
+      },
+      "/settings/tags/mappings/parent/": {
+        "get": {
+          "operationId": "getSettingsTagsMappingsParent",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/QueryOffset"
+            },
+            {
+              "$ref": "#/components/parameters/QueryLimit"
+            },
+            {
+              "description": "Cloud provider type",
+              "in": "query",
+              "name": "source_type",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "parent key value",
+              "in": "query",
+              "name": "parent",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "child key value",
+              "in": "query",
+              "name": "child",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Field(s) used to sort results. Add a '-' prefix for descending order.",
+              "in": "query",
+              "name": "order_by",
+              "schema": {
+                "example": [
+                  "source_type"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SettingsTagsMappingsOptionsResponse"
+                  }
+                }
+              },
+              "description": "Returned tags sucessfully"
+            },
+            "400": {
+              "description": "Invalid request parameter"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "security": [
+            {
+              "basic_auth": []
+            }
+          ],
+          "summary": "Returns available options for tags that can be marked as a parent.",
+          "tags": [
+            "Settings"
+          ]
+        }
+      },
+      "/settings/tags/mappings/parent/remove/": {
+        "put": {
+          "operationId": "putSettingsTagsMappingsParentRemove",
+          "requestBody": {
+            "$ref": "#/components/requestBodies/PutTagsBody"
+          },
+          "responses": {
+            "204": {
+              "description": "Successfully changed. No content"
+            },
+            "400": {
+              "description": "Invalid request parameter"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "security": [
+            {
+              "basic_auth": []
+            }
+          ],
+          "summary": "Removes all parent and child tags.",
           "tags": [
             "Settings"
           ]

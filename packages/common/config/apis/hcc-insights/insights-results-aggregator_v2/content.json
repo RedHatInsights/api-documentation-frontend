@@ -15,6 +15,33 @@
         }
       },
       "schemas": {
+        "alert": {
+          "properties": {
+            "name": {
+              "example": "SomeCriticalAlert",
+              "type": "string"
+            },
+            "namespace": {
+              "example": "openshift-kube-apiserver",
+              "type": "string"
+            },
+            "severity": {
+              "example": "critical",
+              "type": "string"
+            },
+            "url": {
+              "example": "https://some_url.com/monitoring/alerts?orderBy=asc&sortBy=Severity&alert-name=SomeCriticalAlert",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "namespace",
+            "severity",
+            "url"
+          ],
+          "type": "object"
+        },
         "clusterId": {
           "description": "ID of the cluster in valid UUID format",
           "format": "uuid",
@@ -147,6 +174,33 @@
           "maxLength": 36,
           "minLength": 36,
           "type": "string"
+        },
+        "operator_condition": {
+          "properties": {
+            "condition": {
+              "example": "Degraded",
+              "type": "string"
+            },
+            "name": {
+              "example": "authentication",
+              "type": "string"
+            },
+            "reason": {
+              "example": "AsExpected",
+              "type": "string"
+            },
+            "url": {
+              "example": "https://some_url.com/k8s/cluster/config.openshift.io~v1~ClusterOperator/authentication",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "condition",
+            "reason",
+            "url"
+          ],
+          "type": "object"
         },
         "ratingSchema": {
           "properties": {
@@ -551,6 +605,56 @@
               "type": "object"
             }
           },
+          "type": "object"
+        },
+        "upgradeRisksPrediction": {
+          "properties": {
+            "cluster_id": {
+              "example": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+              "type": "string"
+            },
+            "last_checked_at": {
+              "example": "2011-15-04T00:05:23Z",
+              "format": "date-time",
+              "type": "string"
+            },
+            "prediction_status": {
+              "example": "ok",
+              "type": "string"
+            },
+            "upgrade_recommended": {
+              "example": true,
+              "type": "boolean"
+            },
+            "upgrade_risks_predictors": {
+              "$ref": "#/components/schemas/upgradeRisksPredictors"
+            }
+          },
+          "required": [
+            "cluster_id",
+            "prediction_status"
+          ],
+          "type": "object"
+        },
+        "upgradeRisksPredictors": {
+          "properties": {
+            "alerts": {
+              "items": {
+                "$ref": "#/components/schemas/alert"
+              },
+              "type": "array"
+            },
+            "operator_conditions": {
+              "items": {
+                "$ref": "#/components/schemas/operator_condition"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "alerts",
+            "operator_conditions"
+          ],
           "type": "object"
         }
       }
@@ -1144,57 +1248,7 @@
                             "type": "boolean"
                           },
                           "upgrade_risks_predictors": {
-                            "properties": {
-                              "alerts": {
-                                "items": {
-                                  "properties": {
-                                    "name": {
-                                      "example": "APIRemovedInNextEUSReleaseInUse",
-                                      "type": "string"
-                                    },
-                                    "namespace": {
-                                      "example": "openshift-kube-apiserver",
-                                      "type": "string"
-                                    },
-                                    "severity": {
-                                      "example": "info",
-                                      "type": "string"
-                                    },
-                                    "url": {
-                                      "example": "https://my-cluster.com/monitoring/alerts?orderBy=asc&sortBy=Severity&alert-name=APIRemovedInNextEUSReleaseInUse",
-                                      "type": "string"
-                                    }
-                                  },
-                                  "type": "object"
-                                },
-                                "type": "array"
-                              },
-                              "operator_conditions": {
-                                "items": {
-                                  "properties": {
-                                    "condition": {
-                                      "example": "Failing",
-                                      "type": "string"
-                                    },
-                                    "name": {
-                                      "example": "authentication",
-                                      "type": "string"
-                                    },
-                                    "reason": {
-                                      "example": "AsExpected",
-                                      "type": "string"
-                                    },
-                                    "url": {
-                                      "example": "https://my-cluster.com/k8s/cluster/config.openshift.io~v1~ClusterOperator/authentication",
-                                      "type": "string"
-                                    }
-                                  },
-                                  "type": "object"
-                                },
-                                "type": "array"
-                              }
-                            },
-                            "type": "object"
+                            "$ref": "#/components/schemas/upgradeRisksPredictors"
                           }
                         },
                         "type": "object"
@@ -2337,6 +2391,62 @@
           "summary": "Returns a list of cluster where the given rule is active. Also returns a list of clusters, for which the rule has been disabled.",
           "tags": [
             "rule",
+            "prod"
+          ]
+        }
+      },
+      "/upgrade-risks-prediction": {
+        "post": {
+          "description": "Predictions that are going to be returned are specified by list of cluster IDs that is part of request body.",
+          "operationId": "getUpgradeRisksPredictionForClustersPost",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "example": "{\"clusters\": [\"34c3ecc5-624a-49a5-bab8-4fdc5e51a266\"]}",
+                "schema": {
+                  "properties": {
+                    "clusters": {
+                      "items": {
+                        "$ref": "#/components/schemas/clusterId"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "List of cluster IDs. Each ID must conform to UUID format.",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "predictions": {
+                        "items": {
+                          "$ref": "#/components/schemas/upgradeRisksPrediction"
+                        },
+                        "type": "array"
+                      },
+                      "status": {
+                        "$ref": "#/components/schemas/statusResponse"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "Latest available update prediction for the given list of cluster IDs. Returns status of the prediction and their predictor facts that were taken into account for each cluster."
+            },
+            "400": {
+              "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            }
+          },
+          "summary": "Returns the prediction based on latest stats for the given list of clusters.",
+          "tags": [
             "prod"
           ]
         }
