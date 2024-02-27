@@ -4096,6 +4096,22 @@
               "style": "form"
             },
             {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -4337,6 +4353,22 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
             },
             {
               "description": "Are there systems which contain these SAP SIDs?",
@@ -4703,6 +4735,22 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
             },
             {
               "description": "Are there systems which contain these SAP SIDs?",
@@ -5078,6 +5126,22 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
             },
             {
               "description": "Are there systems which contain these SAP SIDs?",
@@ -5604,6 +5668,44 @@
           "operationId": "rule_systems_retrieve",
           "parameters": [
             {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "pattern": "^[A-Z]..$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
               "in": "query",
               "name": "format",
               "schema": {
@@ -5785,6 +5887,44 @@
           "description": "List systems affected by this rule with additional information about each system\n\nAll systems owned by the user's account, with a current upload\nreporting the given rule, are listed in a paginated format.\n\nAdditional information includes hit counts and upload/stale timestamps.",
           "operationId": "rule_systems_detail_list",
           "parameters": [
+            {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "pattern": "^[A-Z]..$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
             {
               "description": "List of Inventory host group names",
               "in": "query",
@@ -6479,6 +6619,22 @@
               }
             },
             {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -6746,6 +6902,22 @@
           "operationId": "system_rendered_reports_list",
           "parameters": [
             {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -6838,6 +7010,22 @@
           "description": "Returns the list of latest reports for an Inventory Host ID.\n\nReturns reports that:\n * are in the user's account\n * have an active, not-deleted rule\n * where the rule has not been acked by this account\n\nIf the host ID is not found, return an empty list.",
           "operationId": "system_reports_list",
           "parameters": [
+            {
+              "description": "Is this an Ansible system?",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Is this a Microsoft SQL system?",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
             {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",

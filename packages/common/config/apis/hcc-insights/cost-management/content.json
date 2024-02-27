@@ -9496,7 +9496,7 @@
               "basic_auth": []
             }
           ],
-          "summary": "Removes child tags from mapping.",
+          "summary": "Adds child tags to a parent tag.",
           "tags": [
             "Settings"
           ]
@@ -9534,7 +9534,7 @@
               "basic_auth": []
             }
           ],
-          "summary": "Adds child tags to a parent tag.",
+          "summary": "Removes child tags from mapping.",
           "tags": [
             "Settings"
           ]

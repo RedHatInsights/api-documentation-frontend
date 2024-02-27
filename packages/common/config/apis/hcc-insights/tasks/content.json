@@ -221,6 +221,7 @@
               "maxLength": 200,
               "type": "string"
             },
+            "groups": {},
             "id": {
               "format": "uuid",
               "type": "string"
@@ -252,6 +253,7 @@
             "connection_type",
             "culled_timestamp",
             "display_name",
+            "groups",
             "id",
             "os_version",
             "stale_timestamp",
@@ -271,6 +273,9 @@
             },
             "executed_task": {
               "type": "integer"
+            },
+            "has_stdout": {
+              "type": "boolean"
             },
             "results": {},
             "run_id": {
@@ -293,6 +298,7 @@
             "connection_type",
             "display_name",
             "executed_task",
+            "has_stdout",
             "results",
             "run_id",
             "status",
@@ -329,6 +335,9 @@
             "display_name": {
               "type": "string"
             },
+            "has_stdout": {
+              "type": "boolean"
+            },
             "results": {},
             "status": {
               "type": "string"
@@ -344,6 +353,7 @@
           },
           "required": [
             "display_name",
+            "has_stdout",
             "results",
             "status",
             "system_id",
@@ -1247,11 +1257,56 @@
           ]
         }
       },
+      "/api/tasks/v1/job/{run_id}/stdout": {
+        "get": {
+          "description": "Show the stdout for this job",
+          "operationId": "job_stdout_retrieve",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "run_id",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Job"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {
+              "x-rh-identity": []
+            }
+          ],
+          "tags": [
+            "job"
+          ]
+        }
+      },
       "/api/tasks/v1/system": {
         "get": {
           "description": "List the systems that can execute tasks, or the task-related details for\na single system.",
           "operationId": "system_list",
           "parameters": [
+            {
+              "in": "query",
+              "name": "all_systems",
+              "schema": {
+                "default": false,
+                "type": "boolean"
+              }
+            },
             {
               "description": "Display systems with this text in their display_name",
               "in": "query",
