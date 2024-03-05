@@ -83,6 +83,11 @@
               "format": "uri",
               "readOnly": true,
               "type": "string"
+            },
+            "this_url": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -97,7 +102,8 @@
             "task_filter_message",
             "task_slug",
             "task_title",
-            "task_url"
+            "task_url",
+            "this_url"
           ],
           "type": "object"
         },
@@ -155,6 +161,11 @@
             },
             "task_title": {
               "type": "string"
+            },
+            "task_url": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -169,7 +180,8 @@
             "task_description",
             "task_filter_message",
             "task_slug",
-            "task_title"
+            "task_title",
+            "task_url"
           ],
           "type": "object"
         },
@@ -274,8 +286,18 @@
             "executed_task": {
               "type": "integer"
             },
+            "executed_task_link": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
             "has_stdout": {
               "type": "boolean"
+            },
+            "log_link": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
             },
             "results": {},
             "run_id": {
@@ -283,6 +305,11 @@
               "type": "string"
             },
             "status": {
+              "type": "string"
+            },
+            "stdout_link": {
+              "format": "uri",
+              "readOnly": true,
               "type": "string"
             },
             "system": {
@@ -298,10 +325,13 @@
             "connection_type",
             "display_name",
             "executed_task",
+            "executed_task_link",
             "has_stdout",
+            "log_link",
             "results",
             "run_id",
             "status",
+            "stdout_link",
             "system",
             "updated_on"
           ],
@@ -321,11 +351,16 @@
             "line": {
               "maxLength": 255,
               "type": "string"
+            },
+            "run_id": {
+              "format": "uuid",
+              "type": "string"
             }
           },
           "required": [
             "created_at",
-            "line"
+            "line",
+            "run_id"
           ],
           "type": "object"
         },
@@ -338,8 +373,22 @@
             "has_stdout": {
               "type": "boolean"
             },
+            "log_link": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
             "results": {},
+            "run_id": {
+              "format": "uuid",
+              "type": "string"
+            },
             "status": {
+              "type": "string"
+            },
+            "stdout_link": {
+              "format": "uri",
+              "readOnly": true,
               "type": "string"
             },
             "system_id": {
@@ -354,8 +403,11 @@
           "required": [
             "display_name",
             "has_stdout",
+            "log_link",
             "results",
+            "run_id",
             "status",
+            "stdout_link",
             "system_id",
             "updated_on"
           ],
@@ -553,6 +605,54 @@
           },
           "type": "object"
         },
+        "PaginatedTaskHostList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/TaskHost"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 169,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "PaginatedTaskList": {
           "properties": {
             "data": {
@@ -626,6 +726,11 @@
               "pattern": "^[-a-zA-Z0-9_]+$",
               "type": "string"
             },
+            "systems_url": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
             "title": {
               "maxLength": 200,
               "type": "string"
@@ -639,8 +744,71 @@
             "parameters",
             "publish_date",
             "slug",
+            "systems_url",
             "title",
             "type"
+          ],
+          "type": "object"
+        },
+        "TaskHost": {
+          "properties": {
+            "connection_type": {
+              "type": "string"
+            },
+            "culled_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "display_name": {
+              "maxLength": 200,
+              "type": "string"
+            },
+            "groups": {},
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "os_version": {
+              "type": "string"
+            },
+            "requirements": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "stale_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "stale_warning_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "additionalProperties": {},
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "updated": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "required": [
+            "connection_type",
+            "culled_timestamp",
+            "display_name",
+            "groups",
+            "id",
+            "os_version",
+            "requirements",
+            "stale_timestamp",
+            "stale_warning_timestamp",
+            "tags",
+            "updated"
           ],
           "type": "object"
         },
@@ -1125,6 +1293,28 @@
           "operationId": "job_list",
           "parameters": [
             {
+              "description": "Display systems with this text in their display_name",
+              "in": "query",
+              "name": "display_name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "executed_task",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "has_stdout",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
               "description": "Number of results to return per page.",
               "in": "query",
               "name": "limit",
@@ -1141,6 +1331,45 @@
               "schema": {
                 "type": "integer"
               }
+            },
+            {
+              "description": "Sort jobs by this field",
+              "in": "query",
+              "name": "sort",
+              "schema": {
+                "default": "-updated_on",
+                "enum": [
+                  "-display_name",
+                  "-executed_task",
+                  "-status",
+                  "-system",
+                  "-updated_on",
+                  "display_name",
+                  "executed_task",
+                  "status",
+                  "system",
+                  "updated_on"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "status",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "Cancelled",
+                    "Failure",
+                    "Running",
+                    "Success",
+                    "Timeout"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -1165,18 +1394,18 @@
           ]
         }
       },
-      "/api/tasks/v1/job/{run_id}": {
+      "/api/tasks/v1/job/{id}": {
         "get": {
           "description": "View the jobs of running executed tasks.",
           "operationId": "job_retrieve",
           "parameters": [
             {
+              "description": "A unique integer value identifying this job.",
               "in": "path",
-              "name": "run_id",
+              "name": "id",
               "required": true,
               "schema": {
-                "format": "uuid",
-                "type": "string"
+                "type": "integer"
               }
             }
           ],
@@ -1202,11 +1431,20 @@
           ]
         }
       },
-      "/api/tasks/v1/job/{run_id}/log": {
+      "/api/tasks/v1/job/{id}/log": {
         "get": {
           "description": "Show the log lines for this job.",
           "operationId": "job_log_list",
           "parameters": [
+            {
+              "description": "A unique integer value identifying this job.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              }
+            },
             {
               "description": "Number of results to return per page.",
               "in": "query",
@@ -1223,15 +1461,6 @@
               "required": false,
               "schema": {
                 "type": "integer"
-              }
-            },
-            {
-              "in": "path",
-              "name": "run_id",
-              "required": true,
-              "schema": {
-                "format": "uuid",
-                "type": "string"
               }
             }
           ],
@@ -1257,18 +1486,18 @@
           ]
         }
       },
-      "/api/tasks/v1/job/{run_id}/stdout": {
+      "/api/tasks/v1/job/{id}/stdout": {
         "get": {
           "description": "Show the stdout for this job",
           "operationId": "job_stdout_retrieve",
           "parameters": [
             {
+              "description": "A unique integer value identifying this job.",
               "in": "path",
-              "name": "run_id",
+              "name": "id",
               "required": true,
               "schema": {
-                "format": "uuid",
-                "type": "string"
+                "type": "integer"
               }
             }
           ],
@@ -1678,7 +1907,7 @@
       "/api/tasks/v1/task/{slug}/systems": {
         "get": {
           "description": "List all systems, with an extra 'requirements' field that is a list\nof reasons why the system cannot run this task.  If that list is\nempty, the system can run this task; otherwise the reasons should be\ndisplayed.",
-          "operationId": "task_systems_retrieve",
+          "operationId": "task_systems_list",
           "parameters": [
             {
               "in": "query",
@@ -1729,6 +1958,24 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
             },
             {
               "description": "Filter on both operating system name and version. A pipe separates the values. For Example: RHEL|7.9",
@@ -1857,7 +2104,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Task"
+                    "$ref": "#/components/schemas/PaginatedTaskHostList"
                   }
                 }
               },

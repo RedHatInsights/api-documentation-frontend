@@ -1419,6 +1419,30 @@
             "clientID"
           ]
         },
+        "ServiceAccountInGroupResponse": {
+          "properties": {
+            "data": {
+              "additionalProperties": {
+                "description": "The response is a map of the form \"UUID\": (true|false)",
+                "type": "boolean"
+              },
+              "description": "Object which indicates whether the given service account UUIDs in the query parameter are present in the specified group or not",
+              "example": {
+                "3e728bb0-b167-013c-c455-6aa2427b506c": false,
+                "dd946f24-cfda-11ee-acb6-7b2702ff4dc8": true
+              },
+              "type": "object"
+            },
+            "links": {
+              "description": "The links object for this particular response will be empty, since there is no pagination available for the query parameter",
+              "example": {},
+              "type": "object"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/PaginationMeta"
+            }
+          }
+        },
         "ServiceAccountPagination": {
           "allOf": [
             {
@@ -2636,6 +2660,15 @@
               }
             },
             {
+              "description": "By specifying a comma separated list of client IDs with this query parameter, RBAC will return an object with the specified client ID and it's matching boolean value to flag whether the client ID is present in the group or not. This query parameter cannot be used along with any other query parameter.",
+              "in": "query",
+              "name": "service_account_client_ids",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "Parameter for filtering the service accounts by their description.",
               "in": "query",
               "name": "service_account_description",
@@ -2665,6 +2698,9 @@
                       },
                       {
                         "$ref": "#/components/schemas/ServiceAccountPagination"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ServiceAccountInGroupResponse"
                       }
                     ]
                   }
