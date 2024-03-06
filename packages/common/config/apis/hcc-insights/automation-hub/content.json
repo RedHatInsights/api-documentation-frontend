@@ -3679,6 +3679,60 @@
           },
           "type": "object"
         },
+        "PaginatedResourceListResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?offset=400&limit=100",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?offset=200&limit=100",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/ResourceListResponse"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "PaginatedResourceTypeResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?offset=400&limit=100",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?offset=200&limit=100",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/ResourceTypeResponse"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "PaginatedRoleResponseList": {
           "properties": {
             "count": {
@@ -4956,6 +5010,22 @@
             },
             "name": {
               "description": "The unique name.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "PatchedResource": {
+          "properties": {
+            "ansible_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "resource_data": {
+              "type": "object"
+            },
+            "resource_type": {
               "minLength": 1,
               "type": "string"
             }
@@ -6395,7 +6465,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2024-02-03",
+              "default": "2024-02-04",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
@@ -6892,6 +6962,128 @@
               "type": "string"
             }
           },
+          "type": "object"
+        },
+        "Resource": {
+          "properties": {
+            "ansible_id": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "resource_data": {
+              "type": "object"
+            },
+            "resource_type": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource_data",
+            "resource_type"
+          ],
+          "type": "object"
+        },
+        "ResourceListResponse": {
+          "properties": {
+            "ansible_id": {
+              "type": "string"
+            },
+            "detail_url": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "has_serializer": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "nullable": true,
+              "readOnly": true,
+              "type": "string"
+            },
+            "object_id": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "resource_type": {
+              "type": "string"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource_type"
+          ],
+          "type": "object"
+        },
+        "ResourceResponse": {
+          "properties": {
+            "ansible_id": {
+              "type": "string"
+            },
+            "detail_url": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "has_serializer": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "nullable": true,
+              "readOnly": true,
+              "type": "string"
+            },
+            "object_id": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "resource_data": {
+              "type": "object"
+            },
+            "resource_type": {
+              "type": "string"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "resource_data",
+            "resource_type"
+          ],
+          "type": "object"
+        },
+        "ResourceTypeResponse": {
+          "properties": {
+            "externally_managed": {
+              "type": "boolean"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "name": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "shared_resource_type": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "externally_managed"
+          ],
           "type": "object"
         },
         "Role": {
@@ -10968,9 +11160,9 @@
         "url": "https://pulp.plan.io/attachments/download/517478/pulp_logo_word_rectangle.svg"
       },
       "x-pulp-app-versions": {
-        "ansible": "0.20.2",
-        "container": "2.15.2",
-        "core": "3.28.18",
+        "ansible": "0.20.3",
+        "container": "2.15.5",
+        "core": "3.28.23",
         "galaxy": "4.10.0dev"
       },
       "x-pulp-domain-enabled": false
@@ -19198,7 +19390,7 @@
               "in": "query",
               "name": "child_tasks",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -19398,7 +19590,7 @@
               "in": "query",
               "name": "parent_task",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -19582,7 +19774,7 @@
               "in": "query",
               "name": "task_group",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -19591,7 +19783,7 @@
               "in": "query",
               "name": "worker",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -19602,7 +19794,7 @@
               "name": "worker__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -21197,7 +21389,7 @@
               "in": "query",
               "name": "marked_collection",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -21585,7 +21777,7 @@
               "in": "query",
               "name": "signed_collection",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -21594,7 +21786,7 @@
               "in": "query",
               "name": "signing_service",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -22965,7 +23157,7 @@
               }
             },
             {
-              "description": "* `application/vnd.docker.distribution.manifest.v1+json` - application/vnd.docker.distribution.manifest.v1+json\n* `application/vnd.docker.distribution.manifest.v2+json` - application/vnd.docker.distribution.manifest.v2+json\n* `application/vnd.docker.distribution.manifest.list.v2+json` - application/vnd.docker.distribution.manifest.list.v2+json\n* `application/vnd.oci.image.manifest.v1+json` - application/vnd.oci.image.manifest.v1+json\n* `application/vnd.oci.image.index.v1+json` - application/vnd.oci.image.index.v1+json\n\n* `application/vnd.docker.distribution.manifest.v1+json` - application/vnd.docker.distribution.manifest.v1+json\n* `application/vnd.docker.distribution.manifest.v2+json` - application/vnd.docker.distribution.manifest.v2+json\n* `application/vnd.docker.distribution.manifest.list.v2+json` - application/vnd.docker.distribution.manifest.list.v2+json\n* `application/vnd.oci.image.manifest.v1+json` - application/vnd.oci.image.manifest.v1+json\n* `application/vnd.oci.image.index.v1+json` - application/vnd.oci.image.index.v1+json",
+              "description": "* `application/vnd.docker.distribution.manifest.v1+json` - application/vnd.docker.distribution.manifest.v1+json\n* `application/vnd.docker.distribution.manifest.v2+json` - application/vnd.docker.distribution.manifest.v2+json\n* `application/vnd.docker.distribution.manifest.list.v2+json` - application/vnd.docker.distribution.manifest.list.v2+json\n* `application/vnd.oci.image.manifest.v1+json` - application/vnd.oci.image.manifest.v1+json\n* `application/vnd.oci.image.index.v1+json` - application/vnd.oci.image.index.v1+json",
               "explode": true,
               "in": "query",
               "name": "media_type",
@@ -23518,7 +23710,7 @@
               }
             },
             {
-              "description": "* `application/vnd.docker.distribution.manifest.v1+json` - application/vnd.docker.distribution.manifest.v1+json\n* `application/vnd.docker.distribution.manifest.v2+json` - application/vnd.docker.distribution.manifest.v2+json\n* `application/vnd.docker.distribution.manifest.list.v2+json` - application/vnd.docker.distribution.manifest.list.v2+json\n* `application/vnd.oci.image.manifest.v1+json` - application/vnd.oci.image.manifest.v1+json\n* `application/vnd.oci.image.index.v1+json` - application/vnd.oci.image.index.v1+json\n\n* `application/vnd.docker.distribution.manifest.v1+json` - application/vnd.docker.distribution.manifest.v1+json\n* `application/vnd.docker.distribution.manifest.v2+json` - application/vnd.docker.distribution.manifest.v2+json\n* `application/vnd.docker.distribution.manifest.list.v2+json` - application/vnd.docker.distribution.manifest.list.v2+json\n* `application/vnd.oci.image.manifest.v1+json` - application/vnd.oci.image.manifest.v1+json\n* `application/vnd.oci.image.index.v1+json` - application/vnd.oci.image.index.v1+json",
+              "description": "* `application/vnd.docker.distribution.manifest.v1+json` - application/vnd.docker.distribution.manifest.v1+json\n* `application/vnd.docker.distribution.manifest.v2+json` - application/vnd.docker.distribution.manifest.v2+json\n* `application/vnd.docker.distribution.manifest.list.v2+json` - application/vnd.docker.distribution.manifest.list.v2+json\n* `application/vnd.oci.image.manifest.v1+json` - application/vnd.oci.image.manifest.v1+json\n* `application/vnd.oci.image.index.v1+json` - application/vnd.oci.image.index.v1+json",
               "explode": true,
               "in": "query",
               "name": "media_type",
@@ -25336,7 +25528,7 @@
               "in": "query",
               "name": "repository",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -25347,7 +25539,7 @@
               "name": "repository__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -25581,7 +25773,7 @@
               "in": "query",
               "name": "repository",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -25592,7 +25784,7 @@
               "name": "repository__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -26285,7 +26477,7 @@
               "in": "query",
               "name": "repository",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -26296,7 +26488,7 @@
               "name": "repository__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -26978,7 +27170,7 @@
               "in": "query",
               "name": "repository",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -26989,7 +27181,7 @@
               "name": "repository__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -29218,7 +29410,7 @@
               "in": "query",
               "name": "domain",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -35133,7 +35325,7 @@
               "in": "query",
               "name": "remote",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -35408,7 +35600,7 @@
               "in": "query",
               "name": "remote",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -37020,7 +37212,7 @@
               "in": "query",
               "name": "remote",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -38344,7 +38536,7 @@
               "in": "query",
               "name": "remote",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -41289,7 +41481,7 @@
               "in": "query",
               "name": "child_tasks",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -41489,7 +41681,7 @@
               "in": "query",
               "name": "parent_task",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -41665,7 +41857,7 @@
               "in": "query",
               "name": "task_group",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -41674,7 +41866,7 @@
               "in": "query",
               "name": "worker",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -41685,7 +41877,7 @@
               "name": "worker__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -43626,7 +43818,7 @@
               "in": "query",
               "name": "domain",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -47790,7 +47982,7 @@
               "in": "query",
               "name": "child_tasks",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -47990,7 +48182,7 @@
               "in": "query",
               "name": "parent_task",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -48166,7 +48358,7 @@
               "in": "query",
               "name": "task_group",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -48175,7 +48367,7 @@
               "in": "query",
               "name": "worker",
               "schema": {
-                "format": "uri",
+                "format": "uuid",
                 "type": "string"
               }
             },
@@ -48186,7 +48378,7 @@
               "name": "worker__in",
               "schema": {
                 "items": {
-                  "format": "uri",
+                  "format": "uuid",
                   "type": "string"
                 },
                 "type": "array"
@@ -48287,6 +48479,524 @@
           "summary": "Inspect a task",
           "tags": [
             "Tasks"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/metadata/": {
+        "get": {
+          "operationId": "api_automation_hubservice_index_metadata_get",
+          "responses": {
+            "200": {
+              "description": "No response body"
+            }
+          },
+          "tags": [
+            "Api: Metadata"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/resource-types/": {
+        "get": {
+          "operationId": "api_automation_hubservice_index_resource_types_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedResourceTypeResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List resource types",
+          "tags": [
+            "Api: Resource-Types"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/resource-types/{name}/": {
+        "get": {
+          "operationId": "api_automation_hubservice_index_resource_types_read",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "name",
+              "required": true,
+              "schema": {
+                "pattern": "^[^/]+$",
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceTypeResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect a resource type",
+          "tags": [
+            "Api: Resource-Types"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/resource-types/{name}/manifest/": {
+        "get": {
+          "description": "Returns the as a stream the csv of resource_id,hash for a given resource type.",
+          "operationId": "api_automation_hubservice_index_resource_types_manifest_manifest",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "name",
+              "required": true,
+              "schema": {
+                "pattern": "^[^/]+$",
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceTypeResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: Resource-Types Manifest"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/resources/": {
+        "get": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedResourceListResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List resources",
+          "tags": [
+            "Api: Resources"
+          ]
+        },
+        "post": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Create a resource",
+          "tags": [
+            "Api: Resources"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/resources/{ansible_id}/": {
+        "delete": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_delete",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "ansible_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "summary": "Delete a resource",
+          "tags": [
+            "Api: Resources"
+          ]
+        },
+        "get": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_read",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "ansible_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect a resource",
+          "tags": [
+            "Api: Resources"
+          ]
+        },
+        "patch": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_partial_update",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "ansible_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedResource"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedResource"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedResource"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a resource",
+          "tags": [
+            "Api: Resources"
+          ]
+        },
+        "put": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_update",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "ansible_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Resource"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a resource",
+          "tags": [
+            "Api: Resources"
+          ]
+        }
+      },
+      "/api/automation-hubservice-index/resources/{ansible_id}/resource_detail/": {
+        "get": {
+          "description": "Index of all the resources in the system.",
+          "operationId": "api_automation_hubservice_index_resources_resource_detail_resource_detail",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "ansible_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResourceResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: Resources Resource_Detail"
           ]
         }
       },

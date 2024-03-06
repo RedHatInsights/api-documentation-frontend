@@ -294,6 +294,10 @@
             "has_stdout": {
               "type": "boolean"
             },
+            "id": {
+              "readOnly": true,
+              "type": "integer"
+            },
             "log_link": {
               "format": "uri",
               "readOnly": true,
@@ -327,6 +331,7 @@
             "executed_task",
             "executed_task_link",
             "has_stdout",
+            "id",
             "log_link",
             "results",
             "run_id",
@@ -373,6 +378,10 @@
             "has_stdout": {
               "type": "boolean"
             },
+            "id": {
+              "readOnly": true,
+              "type": "integer"
+            },
             "log_link": {
               "format": "uri",
               "readOnly": true,
@@ -403,6 +412,7 @@
           "required": [
             "display_name",
             "has_stdout",
+            "id",
             "log_link",
             "results",
             "run_id",
