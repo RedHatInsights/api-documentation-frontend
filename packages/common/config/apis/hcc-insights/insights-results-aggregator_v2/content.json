@@ -139,6 +139,46 @@
           },
           "type": "object"
         },
+        "dvoReportMeta": {
+          "properties": {
+            "highest_severity": {
+              "description": "Highest recommendation severity affecting this namespace + cluster",
+              "type": "integer"
+            },
+            "hits_by_severity": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "description": "A dictionary with the number of DVO recommendation hits grouped by their severity. Always provides the severity keys even if there are no recommendations currently hitting.",
+              "example": {
+                "1": 2,
+                "2": 3,
+                "3": 0,
+                "4": 1
+              },
+              "type": "object"
+            },
+            "last_checked_at": {
+              "description": "Timestamp of the last analysis",
+              "format": "date-time",
+              "type": "string"
+            },
+            "objects": {
+              "description": "Total number of unique objects (workloads) being affected by DVO recommendations in this namespace. When a workload is being affected by several recommendations at once, it still counts as one affected object/workload in the context of a namespace.",
+              "type": "integer"
+            },
+            "recommendations": {
+              "description": "Total number of DVO recommendations affecting this namespace",
+              "type": "integer"
+            },
+            "reported_at": {
+              "description": "Timestamp of the first analysis",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "gatheringRequests": {
           "description": "List of stored requests for given orgId + clusterId",
           "items": {
@@ -1564,44 +1604,7 @@
                               "type": "object"
                             },
                             "metadata": {
-                              "properties": {
-                                "highest_severity": {
-                                  "description": "Highest recommendation severity affecting this namespace",
-                                  "type": "integer"
-                                },
-                                "hits_by_severity": {
-                                  "additionalProperties": {
-                                    "type": "integer"
-                                  },
-                                  "description": "A dictionary with the number of DVO recommendation hits grouped by their severity. Always provides the severity keys even if there are no recommendations currently hitting.",
-                                  "example": {
-                                    "1": 2,
-                                    "2": 3,
-                                    "3": 0,
-                                    "4": 1
-                                  },
-                                  "type": "object"
-                                },
-                                "last_checked_at": {
-                                  "description": "Timestamp of the last analysis",
-                                  "format": "date-time",
-                                  "type": "string"
-                                },
-                                "objects": {
-                                  "description": "Total number of objects affecting this namespace",
-                                  "type": "integer"
-                                },
-                                "recommendations": {
-                                  "description": "Total number of DVO recommendations affecting an organization affecting this namespace",
-                                  "type": "integer"
-                                },
-                                "reported_at": {
-                                  "description": "Timestamp of the first analysis",
-                                  "format": "date-time",
-                                  "type": "string"
-                                }
-                              },
-                              "type": "object"
+                              "$ref": "#/components/schemas/dvoReportMeta"
                             },
                             "namespace": {
                               "properties": {
@@ -1690,44 +1693,7 @@
                         "type": "object"
                       },
                       "metadata": {
-                        "properties": {
-                          "highest_severity": {
-                            "description": "Highest recommendation severity affecting this namespace + cluster",
-                            "type": "integer"
-                          },
-                          "hits_by_severity": {
-                            "additionalProperties": {
-                              "type": "integer"
-                            },
-                            "description": "A dictionary with the number of DVO recommendation hits grouped by their severity. Always provides the severity keys even if there are no recommendations currently hitting.",
-                            "example": {
-                              "1": 2,
-                              "2": 3,
-                              "3": 0,
-                              "4": 1
-                            },
-                            "type": "object"
-                          },
-                          "last_checked_at": {
-                            "description": "Timestamp of the last analysis",
-                            "format": "date-time",
-                            "type": "string"
-                          },
-                          "objects": {
-                            "description": "Total number of objects affecting this namespace and cluster",
-                            "type": "integer"
-                          },
-                          "recommendations": {
-                            "description": "Total number of DVO recommendations affecting this namespace and cluster",
-                            "type": "integer"
-                          },
-                          "reported_at": {
-                            "description": "Timestamp of the first analysis",
-                            "format": "date-time",
-                            "type": "string"
-                          }
-                        },
-                        "type": "object"
+                        "$ref": "#/components/schemas/dvoReportMeta"
                       },
                       "namespace": {
                         "properties": {
@@ -1750,8 +1716,21 @@
                               "example": "rule.module|ERROR_KEY",
                               "type": "string"
                             },
-                            "description": {
+                            "details": {
                               "description": "The title of the rule, a short description.",
+                              "type": "string"
+                            },
+                            "extra_data": {
+                              "description": "Used as templating/interpolation data for other content (details, resolution, etc.), has varying structure depending on the rules in the report, but should always be a valid JSON object.",
+                              "type": "object"
+                            },
+                            "modified": {
+                              "description": "The date the recommendation was last updated.",
+                              "format": "date-time",
+                              "type": "string"
+                            },
+                            "more_info": {
+                              "description": "Additional information regarding the recommendation.",
                               "type": "string"
                             },
                             "objects": {
@@ -1770,9 +1749,24 @@
                               },
                               "type": "array"
                             },
-                            "remediation": {
+                            "reason": {
+                              "description": "Reason for the issue, giving the user more accurate description of the cause.",
+                              "type": "string"
+                            },
+                            "resolution": {
                               "description": "Resolution steps of the issue, possibly linking to a resolution article in the knowledge base.",
                               "type": "string"
+                            },
+                            "total_risk": {
+                              "description": "Total risk - calculated from rule impact and likelihood.",
+                              "enum": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4
+                              ],
+                              "type": "integer"
                             }
                           },
                           "type": "object"

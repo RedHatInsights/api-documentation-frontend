@@ -489,6 +489,37 @@
           },
           "type": "object"
         },
+        "NoExecutors": {
+          "additionalProperties": false,
+          "properties": {
+            "errors": {
+              "items": {
+                "additionalProperties": true,
+                "properties": {
+                  "code": {
+                    "example": "NO_EXECUTORS",
+                    "type": "string"
+                  },
+                  "id": {
+                    "example": "a8799a02-8be9-11e8-9eb6-529269fb1459",
+                    "type": "string"
+                  },
+                  "status": {
+                    "example": 422,
+                    "type": "integer"
+                  },
+                  "title": {
+                    "example": "No executors available for Playbook \"FiFI playbook 6\" (64d92aeb-9351-4216-8d7c-044d171337bd)",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "Playbook": {
           "description": "Playbook created for the playbook run executor.",
           "type": "string"
@@ -1572,7 +1603,7 @@
       },
       "description": "Insights Remediations Service",
       "title": "Insights Remediations",
-      "version": "1.3.4"
+      "version": "1.3.5"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -2176,6 +2207,16 @@
             },
             "412": {
               "$ref": "#/components/responses/PreconditionFailed"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NoExecutors"
+                  }
+                }
+              },
+              "description": "Unprocessable Content"
             }
           },
           "summary": "Execute remediation",

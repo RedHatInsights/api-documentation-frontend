@@ -9,10 +9,7 @@
           "name": "assignment_rule_id",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/NonStrictUUID",
-            "x-scope": [
-              ""
-            ]
+            "$ref": "#/components/schemas/NonStrictUUID"
           }
         },
         "assignmentRuleIdList": {
@@ -22,11 +19,7 @@
           "required": true,
           "schema": {
             "items": {
-              "$ref": "#/components/schemas/NonStrictUUID",
-              "x-scope": [
-                "",
-                "#/components/parameters/assignmentRuleIdList"
-              ]
+              "$ref": "#/components/schemas/NonStrictUUID"
             },
             "type": "array"
           }
@@ -110,28 +103,20 @@
           "name": "fields",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/SystemProfileNestedObject",
-            "x-scope": [
-              "",
-              "#/components/parameters/fields_param"
-            ]
+            "$ref": "#/components/schemas/SystemProfileNestedObject"
           },
           "style": "deepObject",
           "x-validator": "sparseFields"
         },
         "filter_param": {
-          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\"",
+          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"sap_system\": {\"eq\": \"true\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][sap_system][eq]=true\" <br /><br /> Hosts with host_type \"edge\" are filtered out by default. <br /><br /> To get \"edge\" hosts, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\"",
           "example": {},
           "explode": true,
           "in": "query",
           "name": "filter",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/SystemProfileNestedObject",
-            "x-scope": [
-              "",
-              "#/components/parameters/filter_param"
-            ]
+            "$ref": "#/components/schemas/SystemProfileNestedObject"
           },
           "style": "deepObject"
         },
@@ -150,11 +135,7 @@
           "name": "group_id",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/NonStrictUUID",
-            "x-scope": [
-              "",
-              "#/components/parameters/groupId"
-            ]
+            "$ref": "#/components/schemas/NonStrictUUID"
           }
         },
         "groupIdList": {
@@ -164,11 +145,7 @@
           "required": true,
           "schema": {
             "items": {
-              "$ref": "#/components/schemas/NonStrictUUID",
-              "x-scope": [
-                "",
-                "#/components/parameters/groupIdList"
-              ]
+              "$ref": "#/components/schemas/NonStrictUUID"
             },
             "type": "array"
           }
@@ -227,10 +204,7 @@
           "name": "host_id",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/NonStrictUUID",
-            "x-scope": [
-              ""
-            ]
+            "$ref": "#/components/schemas/NonStrictUUID"
           }
         },
         "hostIdList": {
@@ -240,11 +214,7 @@
           "required": true,
           "schema": {
             "items": {
-              "$ref": "#/components/schemas/NonStrictUUID",
-              "x-scope": [
-                "",
-                "#/components/parameters/hostIdList"
-              ]
+              "$ref": "#/components/schemas/NonStrictUUID"
             },
             "type": "array"
           }
@@ -355,10 +325,14 @@
               "enum": [
                 "insights",
                 "yupana",
+                "satellite",
+                "discovery",
                 "puptoo",
                 "rhsm-conduit",
                 "cloud-connector",
                 "!yupana",
+                "!satellite",
+                "!discovery",
                 "!puptoo",
                 "!rhsm-conduit",
                 "!cloud-connector"
@@ -506,11 +480,7 @@
         "ActiveTags": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/ActiveTags"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
@@ -524,11 +494,7 @@
                         "type": "integer"
                       },
                       "tag": {
-                        "$ref": "#/components/schemas/StructuredTag",
-                        "x-scope": [
-                          "",
-                          "#/components/schemas/ActiveTags"
-                        ]
+                        "$ref": "#/components/schemas/StructuredTag"
                       }
                     },
                     "required": [
@@ -582,10 +548,7 @@
           "title": "Host data"
         },
         "AssignmentRuleId": {
-          "$ref": "#/components/schemas/NonStrictUUID",
-          "x-scope": [
-            ""
-          ]
+          "$ref": "#/components/schemas/NonStrictUUID"
         },
         "AssignmentRuleIn": {
           "description": "Data for a single Assignment Rule",
@@ -603,11 +566,7 @@
               "type": "object"
             },
             "group_id": {
-              "$ref": "#/components/schemas/GroupId",
-              "x-scope": [
-                "",
-                "#/components/schemas/AssignmentRuleIn"
-              ]
+              "$ref": "#/components/schemas/GroupId"
             },
             "name": {
               "maxLength": 255,
@@ -628,12 +587,7 @@
           "description": "Data for a single Assignment Rule response",
           "properties": {
             "account": {
-              "$ref": "#/components/schemas/AccountNumber",
-              "x-scope": [
-                "",
-                "#/components/schemas/AssignmentRuleQueryOutput",
-                "#/components/schemas/AssignmentRuleOut"
-              ]
+              "$ref": "#/components/schemas/AccountNumber"
             },
             "created_on": {
               "format": "date-time",
@@ -651,20 +605,10 @@
               "type": "object"
             },
             "group_id": {
-              "$ref": "#/components/schemas/GroupId",
-              "x-scope": [
-                "",
-                "#/components/schemas/AssignmentRuleQueryOutput",
-                "#/components/schemas/AssignmentRuleOut"
-              ]
+              "$ref": "#/components/schemas/GroupId"
             },
             "id": {
-              "$ref": "#/components/schemas/NonStrictUUID",
-              "x-scope": [
-                "",
-                "#/components/schemas/AssignmentRuleQueryOutput",
-                "#/components/schemas/AssignmentRuleOut"
-              ]
+              "$ref": "#/components/schemas/NonStrictUUID"
             },
             "modified_on": {
               "format": "date-time",
@@ -675,12 +619,7 @@
               "type": "string"
             },
             "org_id": {
-              "$ref": "#/components/schemas/OrgId",
-              "x-scope": [
-                "",
-                "#/components/schemas/AssignmentRuleQueryOutput",
-                "#/components/schemas/AssignmentRuleOut"
-              ]
+              "$ref": "#/components/schemas/OrgId"
             }
           },
           "required": [
@@ -697,22 +636,14 @@
         "AssignmentRuleQueryOutput": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/AssignmentRuleQueryOutput"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
                 "results": {
                   "description": "Actual assignment-rule search query result entries.",
                   "items": {
-                    "$ref": "#/components/schemas/AssignmentRuleOut",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/AssignmentRuleQueryOutput"
-                    ]
+                    "$ref": "#/components/schemas/AssignmentRuleOut"
                   },
                   "type": "array"
                 }
@@ -740,120 +671,55 @@
                 "bios_uuid": {
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/BiosUuid",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/BiosUuid"
                     },
                     {
-                      "$ref": "#/components/schemas/HyphenatedUuid",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/HyphenatedUuid"
                     }
                   ]
                 },
                 "fqdn": {
-                  "$ref": "#/components/schemas/NonNullableString",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/CreateCheckIn",
-                    "#/components/schemas/CanonicalFactsIn"
-                  ]
+                  "$ref": "#/components/schemas/NonNullableString"
                 },
                 "insights_id": {
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/InsightsId",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/InsightsId"
                     },
                     {
-                      "$ref": "#/components/schemas/HyphenatedUuid",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/HyphenatedUuid"
                     }
                   ]
                 },
                 "ip_addresses": {
-                  "$ref": "#/components/schemas/NonNullableStringArray",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/CreateCheckIn",
-                    "#/components/schemas/CanonicalFactsIn"
-                  ]
+                  "$ref": "#/components/schemas/NonNullableStringArray"
                 },
                 "mac_addresses": {
-                  "$ref": "#/components/schemas/NonNullableStringArray",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/CreateCheckIn",
-                    "#/components/schemas/CanonicalFactsIn"
-                  ]
+                  "$ref": "#/components/schemas/NonNullableStringArray"
                 },
                 "provider_id": {
-                  "$ref": "#/components/schemas/NonNullableString",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/CreateCheckIn",
-                    "#/components/schemas/CanonicalFactsIn"
-                  ]
+                  "$ref": "#/components/schemas/NonNullableString"
                 },
                 "provider_type": {
-                  "$ref": "#/components/schemas/NonNullableString",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/CreateCheckIn",
-                    "#/components/schemas/CanonicalFactsIn"
-                  ]
+                  "$ref": "#/components/schemas/NonNullableString"
                 },
                 "satellite_id": {
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/SatelliteId",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/SatelliteId"
                     },
                     {
-                      "$ref": "#/components/schemas/HyphenatedUuid",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/HyphenatedUuid"
                     }
                   ]
                 },
                 "subscription_manager_id": {
                   "allOf": [
                     {
-                      "$ref": "#/components/schemas/SubscriptionManagerId",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/SubscriptionManagerId"
                     },
                     {
-                      "$ref": "#/components/schemas/HyphenatedUuid",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/CreateCheckIn",
-                        "#/components/schemas/CanonicalFactsIn"
-                      ]
+                      "$ref": "#/components/schemas/HyphenatedUuid"
                     }
                   ]
                 }
@@ -909,85 +775,31 @@
         "CanonicalFactsOut": {
           "properties": {
             "bios_uuid": {
-              "$ref": "#/components/schemas/BiosUuid",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/BiosUuid"
             },
             "fqdn": {
-              "$ref": "#/components/schemas/Fqdn",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/Fqdn"
             },
             "insights_id": {
-              "$ref": "#/components/schemas/InsightsId",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/InsightsId"
             },
             "ip_addresses": {
-              "$ref": "#/components/schemas/IpAddresses",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/IpAddresses"
             },
             "mac_addresses": {
-              "$ref": "#/components/schemas/MacAddresses",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/MacAddresses"
             },
             "provider_id": {
-              "$ref": "#/components/schemas/ProviderId",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/ProviderId"
             },
             "provider_type": {
-              "$ref": "#/components/schemas/ProviderType",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/ProviderType"
             },
             "satellite_id": {
-              "$ref": "#/components/schemas/SatelliteId",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/SatelliteId"
             },
             "subscription_manager_id": {
-              "$ref": "#/components/schemas/SubscriptionManagerId",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/CanonicalFactsOut"
-              ]
+              "$ref": "#/components/schemas/SubscriptionManagerId"
             }
           },
           "type": "object"
@@ -999,11 +811,7 @@
         "CreateCheckIn": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/CanonicalFactsIn",
-              "x-scope": [
-                "",
-                "#/components/schemas/CreateCheckIn"
-              ]
+              "$ref": "#/components/schemas/CanonicalFactsIn"
             },
             {
               "properties": {
@@ -1060,32 +868,17 @@
           "type": "string"
         },
         "GroupId": {
-          "$ref": "#/components/schemas/NonStrictUUID",
-          "x-scope": [
-            "",
-            "#/components/schemas/HostQueryOutput",
-            "#/components/schemas/HostOut",
-            "#/components/schemas/GroupOut",
-            "#/components/schemas/GroupId"
-          ]
+          "$ref": "#/components/schemas/NonStrictUUID"
         },
         "GroupIn": {
           "allOf": [
             {
               "properties": {
                 "host_ids": {
-                  "$ref": "#/components/schemas/HostIds",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/GroupIn"
-                  ]
+                  "$ref": "#/components/schemas/HostIds"
                 },
                 "name": {
-                  "$ref": "#/components/schemas/GroupName",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/GroupIn"
-                  ]
+                  "$ref": "#/components/schemas/GroupName"
                 }
               }
             }
@@ -1104,13 +897,7 @@
           "description": "Data of a single group belonging to an account.",
           "properties": {
             "account": {
-              "$ref": "#/components/schemas/AccountNumber",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/GroupOut"
-              ]
+              "$ref": "#/components/schemas/AccountNumber"
             },
             "created": {
               "description": "A timestamp when the entry was created.",
@@ -1118,31 +905,13 @@
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/GroupId",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/GroupOut"
-              ]
+              "$ref": "#/components/schemas/GroupId"
             },
             "name": {
-              "$ref": "#/components/schemas/GroupName",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/GroupOut"
-              ]
+              "$ref": "#/components/schemas/GroupName"
             },
             "org_id": {
-              "$ref": "#/components/schemas/OrgId",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut",
-                "#/components/schemas/GroupOut"
-              ]
+              "$ref": "#/components/schemas/OrgId"
             },
             "updated": {
               "description": "A timestamp when the entry was last updated.",
@@ -1156,22 +925,12 @@
         "GroupOutWithHostCount": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/GroupOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/GroupQueryOutput",
-                "#/components/schemas/GroupOutWithHostCount"
-              ]
+              "$ref": "#/components/schemas/GroupOut"
             },
             {
               "properties": {
                 "host_count": {
-                  "$ref": "#/components/schemas/HostCount",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/GroupQueryOutput",
-                    "#/components/schemas/GroupOutWithHostCount"
-                  ]
+                  "$ref": "#/components/schemas/HostCount"
                 }
               }
             }
@@ -1183,22 +942,14 @@
         "GroupQueryOutput": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/GroupQueryOutput"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
                 "results": {
                   "description": "Actual group search query result entries.",
                   "items": {
-                    "$ref": "#/components/schemas/GroupOutWithHostCount",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/GroupQueryOutput"
-                    ]
+                    "$ref": "#/components/schemas/GroupOutWithHostCount"
                   },
                   "type": "array"
                 }
@@ -1219,20 +970,12 @@
           "type": "integer"
         },
         "HostId": {
-          "$ref": "#/components/schemas/NonStrictUUID",
-          "x-scope": [
-            ""
-          ]
+          "$ref": "#/components/schemas/NonStrictUUID"
         },
         "HostIds": {
           "description": "A comma-separated list of host IDs that belong to the group.",
           "items": {
-            "$ref": "#/components/schemas/NonStrictUUID",
-            "x-scope": [
-              "",
-              "#/components/schemas/GroupIn",
-              "#/components/schemas/HostIds"
-            ]
+            "$ref": "#/components/schemas/NonStrictUUID"
           },
           "nullable": true,
           "type": "array"
@@ -1240,22 +983,12 @@
         "HostOut": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/CanonicalFactsOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/HostOut"
-              ]
+              "$ref": "#/components/schemas/CanonicalFactsOut"
             },
             {
               "properties": {
                 "account": {
-                  "$ref": "#/components/schemas/AccountNumber",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/HostQueryOutput",
-                    "#/components/schemas/HostOut"
-                  ]
+                  "$ref": "#/components/schemas/AccountNumber"
                 },
                 "ansible_host": {
                   "description": "The ansible host name for remediations",
@@ -1283,24 +1016,14 @@
                 "facts": {
                   "description": "A set of facts belonging to the host.",
                   "items": {
-                    "$ref": "#/components/schemas/FactSet",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/HostQueryOutput",
-                      "#/components/schemas/HostOut"
-                    ]
+                    "$ref": "#/components/schemas/FactSet"
                   },
                   "type": "array"
                 },
                 "groups": {
                   "description": "The groups that the host belongs to, if any.",
                   "items": {
-                    "$ref": "#/components/schemas/GroupOut",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/HostQueryOutput",
-                      "#/components/schemas/HostOut"
-                    ]
+                    "$ref": "#/components/schemas/GroupOut"
                   },
                   "type": "array"
                 },
@@ -1310,21 +1033,11 @@
                   "type": "string"
                 },
                 "org_id": {
-                  "$ref": "#/components/schemas/OrgId",
-                  "x-scope": [
-                    "",
-                    "#/components/schemas/HostQueryOutput",
-                    "#/components/schemas/HostOut"
-                  ]
+                  "$ref": "#/components/schemas/OrgId"
                 },
                 "per_reporter_staleness": {
                   "additionalProperties": {
-                    "$ref": "#/components/schemas/PerReporterStaleness",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/HostQueryOutput",
-                      "#/components/schemas/HostOut"
-                    ]
+                    "$ref": "#/components/schemas/PerReporterStaleness"
                   },
                   "description": "Reporting source of the last checkin status, stale_timestamp, and last_check_in.",
                   "type": "object"
@@ -1364,22 +1077,14 @@
         "HostQueryOutput": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
                 "results": {
                   "description": "Actual host search query result entries.",
                   "items": {
-                    "$ref": "#/components/schemas/HostOut",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/HostQueryOutput"
-                    ]
+                    "$ref": "#/components/schemas/HostOut"
                   },
                   "type": "array"
                 }
@@ -1400,12 +1105,7 @@
               "type": "string"
             },
             "system_profile": {
-              "$ref": "#/components/schemas/SystemProfile",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileByHostOut",
-                "#/components/schemas/HostSystemProfileOut"
-              ]
+              "$ref": "#/components/schemas/SystemProfile"
             }
           },
           "title": "Structure of an individual host system profile output",
@@ -1477,36 +1177,16 @@
         "PaginationOut": {
           "properties": {
             "count": {
-              "$ref": "#/components/schemas/Count",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/PaginationOut"
-              ]
+              "$ref": "#/components/schemas/Count"
             },
             "page": {
-              "$ref": "#/components/schemas/Page",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/PaginationOut"
-              ]
+              "$ref": "#/components/schemas/Page"
             },
             "per_page": {
-              "$ref": "#/components/schemas/PerPage",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/PaginationOut"
-              ]
+              "$ref": "#/components/schemas/PerPage"
             },
             "total": {
-              "$ref": "#/components/schemas/Total",
-              "x-scope": [
-                "",
-                "#/components/schemas/HostQueryOutput",
-                "#/components/schemas/PaginationOut"
-              ]
+              "$ref": "#/components/schemas/Total"
             }
           },
           "required": [
@@ -1581,22 +1261,14 @@
         "ResourceTypesGroupsQueryOutput": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/ResourceTypesPaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/ResourceTypesGroupsQueryOutput"
-              ]
+              "$ref": "#/components/schemas/ResourceTypesPaginationOut"
             },
             {
               "properties": {
                 "data": {
                   "description": "Actual group search query result entries.",
                   "items": {
-                    "$ref": "#/components/schemas/GroupOutWithHostCount",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/ResourceTypesGroupsQueryOutput"
-                    ]
+                    "$ref": "#/components/schemas/GroupOutWithHostCount"
                   },
                   "type": "array"
                 }
@@ -1684,22 +1356,14 @@
         "ResourceTypesQueryOutput": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/ResourceTypesPaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/ResourceTypesQueryOutput"
-              ]
+              "$ref": "#/components/schemas/ResourceTypesPaginationOut"
             },
             {
               "properties": {
                 "data": {
                   "description": "Actual resource-types object data.",
                   "items": {
-                    "$ref": "#/components/schemas/ResourceTypesOut",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/ResourceTypesQueryOutput"
-                    ]
+                    "$ref": "#/components/schemas/ResourceTypesOut"
                   },
                   "type": "array"
                 }
@@ -1724,20 +1388,10 @@
           "description": "Account Staleness UID",
           "oneOf": [
             {
-              "$ref": "#/components/schemas/NonStrictUUID",
-              "x-scope": [
-                "",
-                "#/components/schemas/StalenessOutput",
-                "#/components/schemas/StalenessId"
-              ]
+              "$ref": "#/components/schemas/NonStrictUUID"
             },
             {
-              "$ref": "#/components/schemas/SystemDefaultId",
-              "x-scope": [
-                "",
-                "#/components/schemas/StalenessOutput",
-                "#/components/schemas/StalenessId"
-              ]
+              "$ref": "#/components/schemas/SystemDefaultId"
             }
           ]
         },
@@ -1794,11 +1448,7 @@
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/StalenessId",
-              "x-scope": [
-                "",
-                "#/components/schemas/StalenessOutput"
-              ]
+              "$ref": "#/components/schemas/StalenessId"
             },
             "immutable_time_to_delete": {
               "type": "integer"
@@ -1810,11 +1460,7 @@
               "type": "integer"
             },
             "org_id": {
-              "$ref": "#/components/schemas/OrgId",
-              "x-scope": [
-                "",
-                "#/components/schemas/StalenessOutput"
-              ]
+              "$ref": "#/components/schemas/OrgId"
             },
             "updated_at": {
               "description": "A timestamp when the entry was last updated.",
@@ -2035,25 +1681,13 @@
             },
             "disk_devices": {
               "items": {
-                "$ref": "#/components/schemas/SystemProfileDiskDevice",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/SystemProfileByHostOut",
-                  "#/components/schemas/HostSystemProfileOut",
-                  "#/components/schemas/SystemProfile"
-                ]
+                "$ref": "#/components/schemas/SystemProfileDiskDevice"
               },
               "type": "array"
             },
             "dnf_modules": {
               "items": {
-                "$ref": "#/components/schemas/SystemProfileDnfModule",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/SystemProfileByHostOut",
-                  "#/components/schemas/HostSystemProfileOut",
-                  "#/components/schemas/SystemProfile"
-                ]
+                "$ref": "#/components/schemas/SystemProfileDnfModule"
               },
               "type": "array"
             },
@@ -2140,13 +1774,7 @@
             },
             "installed_products": {
               "items": {
-                "$ref": "#/components/schemas/SystemProfileInstalledProduct",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/SystemProfileByHostOut",
-                  "#/components/schemas/HostSystemProfileOut",
-                  "#/components/schemas/SystemProfile"
-                ]
+                "$ref": "#/components/schemas/SystemProfileInstalledProduct"
               },
               "type": "array"
             },
@@ -2157,6 +1785,44 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "intersystems": {
+              "description": "Object containing data specific to InterSystems workload",
+              "properties": {
+                "is_intersystems": {
+                  "description": "Indicates if InterSystems is installed on the system",
+                  "type": "boolean"
+                },
+                "running_instances": {
+                  "items": {
+                    "description": "The info for an InterSystems instance running on the system",
+                    "properties": {
+                      "instance_name": {
+                        "description": "The name of the instance",
+                        "example": "IRIS3, PROD",
+                        "maxLength": 255,
+                        "type": "string"
+                      },
+                      "product": {
+                        "description": "The product of the instance",
+                        "example": "IRIS",
+                        "maxLength": 64,
+                        "type": "string"
+                      },
+                      "version": {
+                        "description": "The version of the instance",
+                        "example": "2023.1, 2023.2",
+                        "maxLength": 7,
+                        "pattern": "^\\d+(\\.\\d+)+$",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
             },
             "is_marketplace": {
               "description": "Indicates whether the host is part of a marketplace install from AWS, Azure, etc.",
@@ -2193,13 +1859,7 @@
             },
             "network_interfaces": {
               "items": {
-                "$ref": "#/components/schemas/SystemProfileNetworkInterface",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/SystemProfileByHostOut",
-                  "#/components/schemas/HostSystemProfileOut",
-                  "#/components/schemas/SystemProfile"
-                ]
+                "$ref": "#/components/schemas/SystemProfileNetworkInterface"
               },
               "type": "array"
             },
@@ -2619,13 +2279,7 @@
             },
             "yum_repos": {
               "items": {
-                "$ref": "#/components/schemas/SystemProfileYumRepo",
-                "x-scope": [
-                  "",
-                  "#/components/schemas/SystemProfileByHostOut",
-                  "#/components/schemas/HostSystemProfileOut",
-                  "#/components/schemas/SystemProfile"
-                ]
+                "$ref": "#/components/schemas/SystemProfileYumRepo"
               },
               "type": "array",
               "x-indexed": false
@@ -2637,22 +2291,14 @@
         "SystemProfileByHostOut": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileByHostOut"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
                 "results": {
                   "description": "Actual host search query result entries.",
                   "items": {
-                    "$ref": "#/components/schemas/HostSystemProfileOut",
-                    "x-scope": [
-                      "",
-                      "#/components/schemas/SystemProfileByHostOut"
-                    ]
+                    "$ref": "#/components/schemas/HostSystemProfileOut"
                   },
                   "type": "array"
                 }
@@ -2687,14 +2333,7 @@
               "type": "string"
             },
             "options": {
-              "$ref": "#/components/schemas/SystemProfileNestedObject",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileByHostOut",
-                "#/components/schemas/HostSystemProfileOut",
-                "#/components/schemas/SystemProfile",
-                "#/components/schemas/SystemProfileDiskDevice"
-              ]
+              "$ref": "#/components/schemas/SystemProfileNestedObject"
             },
             "type": {
               "description": "The mount type",
@@ -2748,10 +2387,7 @@
           "additionalProperties": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/SystemProfileNestedObject",
-                "x-scope": [
-                  ""
-                ]
+                "$ref": "#/components/schemas/SystemProfileNestedObject"
               },
               {
                 "not": {
@@ -2826,11 +2462,7 @@
         "SystemProfileOperatingSystemOut": {
           "properties": {
             "count": {
-              "$ref": "#/components/schemas/Count",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileOperatingSystemOut"
-              ]
+              "$ref": "#/components/schemas/Count"
             },
             "results": {
               "description": "The list of operating_system values on the account",
@@ -2861,22 +2493,14 @@
               "type": "array"
             },
             "total": {
-              "$ref": "#/components/schemas/Total",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileOperatingSystemOut"
-              ]
+              "$ref": "#/components/schemas/Total"
             }
           }
         },
         "SystemProfileSapSystemOut": {
           "properties": {
             "count": {
-              "$ref": "#/components/schemas/Count",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileSapSystemOut"
-              ]
+              "$ref": "#/components/schemas/Count"
             },
             "results": {
               "description": "The list of sap_system values on the account",
@@ -2901,11 +2525,7 @@
               "type": "array"
             },
             "total": {
-              "$ref": "#/components/schemas/Total",
-              "x-scope": [
-                "",
-                "#/components/schemas/SystemProfileSapSystemOut"
-              ]
+              "$ref": "#/components/schemas/Total"
             }
           },
           "type": "object"
@@ -2948,11 +2568,7 @@
         "TagCountOut": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/TagCountOut"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
@@ -2971,22 +2587,14 @@
         "TagsOut": {
           "allOf": [
             {
-              "$ref": "#/components/schemas/PaginationOut",
-              "x-scope": [
-                "",
-                "#/components/schemas/TagsOut"
-              ]
+              "$ref": "#/components/schemas/PaginationOut"
             },
             {
               "properties": {
                 "results": {
                   "additionalProperties": {
                     "items": {
-                      "$ref": "#/components/schemas/StructuredTag",
-                      "x-scope": [
-                        "",
-                        "#/components/schemas/TagsOut"
-                      ]
+                      "$ref": "#/components/schemas/StructuredTag"
                     },
                     "type": "array"
                   },
@@ -3072,10 +2680,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/StalenessOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/StalenessOutput"
                   }
                 }
               },
@@ -3102,10 +2707,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StalenessIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/StalenessIn"
                 }
               }
             },
@@ -3117,10 +2719,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/StalenessOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/StalenessOutput"
                   }
                 }
               },
@@ -3147,10 +2746,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StalenessIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/StalenessIn"
                 }
               }
             },
@@ -3162,10 +2758,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/StalenessOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/StalenessOutput"
                   }
                 }
               },
@@ -3195,10 +2788,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/StalenessOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/StalenessOutput"
                   }
                 }
               },
@@ -3225,34 +2815,19 @@
           "operationId": "api.assignment_rule.get_assignment_rules_list",
           "parameters": [
             {
-              "$ref": "#/components/parameters/assignmentRuleName",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/assignmentRuleName"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/assignmentRuleOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/assignmentRuleOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/assignmentRuleOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/assignmentRuleOrderHowParam"
             }
           ],
           "responses": {
@@ -3260,10 +2835,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput"
                   }
                 }
               },
@@ -3287,10 +2859,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AssignmentRuleIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/AssignmentRuleIn"
                 }
               }
             },
@@ -3302,10 +2871,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AssignmentRuleOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/AssignmentRuleOut"
                   }
                 }
               },
@@ -3332,34 +2898,19 @@
           "operationId": "api.assignment_rule.get_assignment_rules_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/assignmentRuleIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/assignmentRuleIdList"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/assignmentRuleOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/assignmentRuleOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/assignmentRuleOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/assignmentRuleOrderHowParam"
             }
           ],
           "responses": {
@@ -3367,10 +2918,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput"
                   }
                 }
               },
@@ -3400,34 +2948,19 @@
           "operationId": "api.group.get_group_list",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupName",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupName"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/groupOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/groupOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupOrderHowParam"
             }
           ],
           "responses": {
@@ -3435,10 +2968,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/GroupQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/GroupQueryOutput"
                   }
                 }
               },
@@ -3462,10 +2992,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GroupIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/GroupIn"
                 }
               }
             },
@@ -3477,10 +3004,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/GroupOutWithHostCount",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/GroupOutWithHostCount"
                   }
                 }
               },
@@ -3507,10 +3031,7 @@
           "operationId": "api.group.delete_hosts_from_different_groups",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             }
           ],
           "responses": {
@@ -3541,10 +3062,7 @@
           "operationId": "api.group.delete_groups",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupIdList"
             }
           ],
           "responses": {
@@ -3570,34 +3088,19 @@
           "operationId": "api.group.get_groups_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupIdList"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/groupOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/groupOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupOrderHowParam"
             }
           ],
           "responses": {
@@ -3605,10 +3108,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/GroupQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/GroupQueryOutput"
                   }
                 }
               },
@@ -3638,20 +3138,14 @@
           "operationId": "api.group.patch_group_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupId"
             }
           ],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GroupIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/GroupIn"
                 }
               }
             },
@@ -3663,10 +3157,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/GroupOutWithHostCount",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/GroupOutWithHostCount"
                   }
                 }
               },
@@ -3696,20 +3187,14 @@
           "operationId": "api.host_group.add_host_list_to_group",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupId"
             }
           ],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HostIds",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/HostIds"
                 }
               }
             },
@@ -3721,10 +3206,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/GroupOutWithHostCount",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/GroupOutWithHostCount"
                   }
                 }
               },
@@ -3754,16 +3236,10 @@
           "operationId": "api.host_group.delete_hosts_from_group",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupId"
             },
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             }
           ],
           "responses": {
@@ -3791,82 +3267,43 @@
           "operationId": "api.host.delete_hosts_by_filter",
           "parameters": [
             {
-              "$ref": "#/components/parameters/displayName",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/displayName"
             },
             {
-              "$ref": "#/components/parameters/fqdn",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/fqdn"
             },
             {
-              "$ref": "#/components/parameters/hostnameOrId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostnameOrId"
             },
             {
-              "$ref": "#/components/parameters/insightsId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/insightsId"
             },
             {
-              "$ref": "#/components/parameters/providerId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/providerId"
             },
             {
-              "$ref": "#/components/parameters/providerType",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/providerType"
             },
             {
-              "$ref": "#/components/parameters/updatedStart",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/updatedStart"
             },
             {
-              "$ref": "#/components/parameters/updatedEnd",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/updatedEnd"
             },
             {
-              "$ref": "#/components/parameters/groupNameListParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupNameListParam"
             },
             {
-              "$ref": "#/components/parameters/registered_with",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/registered_with"
             },
             {
-              "$ref": "#/components/parameters/stalenessNoDefaultsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/stalenessNoDefaultsParam"
             },
             {
-              "$ref": "#/components/parameters/tagsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/filter_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/filter_param"
             }
           ],
           "responses": {
@@ -3892,118 +3329,61 @@
           "operationId": "api.host.get_host_list",
           "parameters": [
             {
-              "$ref": "#/components/parameters/displayName",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/displayName"
             },
             {
-              "$ref": "#/components/parameters/fqdn",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/fqdn"
             },
             {
-              "$ref": "#/components/parameters/hostnameOrId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostnameOrId"
             },
             {
-              "$ref": "#/components/parameters/insightsId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/insightsId"
             },
             {
-              "$ref": "#/components/parameters/providerId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/providerId"
             },
             {
-              "$ref": "#/components/parameters/providerType",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/providerType"
             },
             {
-              "$ref": "#/components/parameters/updatedStart",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/updatedStart"
             },
             {
-              "$ref": "#/components/parameters/updatedEnd",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/updatedEnd"
             },
             {
-              "$ref": "#/components/parameters/groupNameListParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupNameListParam"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderHowParam"
             },
             {
-              "$ref": "#/components/parameters/stalenessParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/stalenessParam"
             },
             {
-              "$ref": "#/components/parameters/tagsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/registered_with",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/registered_with"
             },
             {
-              "$ref": "#/components/parameters/filter_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/filter_param"
             },
             {
-              "$ref": "#/components/parameters/fields_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/fields_param"
             }
           ],
           "responses": {
@@ -4011,10 +3391,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/HostQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/HostQueryOutput"
                   }
                 }
               },
@@ -4038,10 +3415,7 @@
           "operationId": "api.host.delete_all_hosts",
           "parameters": [
             {
-              "$ref": "#/components/parameters/confirmDeleteAll",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/confirmDeleteAll"
             }
           ],
           "responses": {
@@ -4071,10 +3445,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateCheckIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/CreateCheckIn"
                 }
               }
             },
@@ -4086,10 +3457,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/HostOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/HostOut"
                   }
                 }
               },
@@ -4119,16 +3487,10 @@
           "operationId": "api.host.delete_host_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             }
           ],
           "responses": {
@@ -4157,46 +3519,25 @@
           "operationId": "api.host.get_host_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderHowParam"
             },
             {
-              "$ref": "#/components/parameters/fields_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/fields_param"
             }
           ],
           "responses": {
@@ -4204,10 +3545,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/HostQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/HostQueryOutput"
                   }
                 }
               },
@@ -4235,26 +3573,17 @@
           "operationId": "api.host.patch_host_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             }
           ],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PatchHostIn",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/PatchHostIn"
                 }
               }
             },
@@ -4289,32 +3618,20 @@
           "operationId": "api.host.merge_facts",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/factsNamespace",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/factsNamespace"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             }
           ],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Facts",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/Facts"
                 }
               }
             },
@@ -4347,32 +3664,20 @@
           "operationId": "api.host.replace_facts",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/factsNamespace",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/factsNamespace"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             }
           ],
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Facts",
-                  "x-scope": [
-                    ""
-                  ]
+                  "$ref": "#/components/schemas/Facts"
                 }
               }
             },
@@ -4407,46 +3712,25 @@
           "operationId": "api.host.get_host_system_profile_by_id",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderHowParam"
             },
             {
-              "$ref": "#/components/parameters/branchId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/branchId"
             },
             {
-              "$ref": "#/components/parameters/fields_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/fields_param"
             }
           ],
           "responses": {
@@ -4454,10 +3738,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/SystemProfileByHostOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/SystemProfileByHostOut"
                   }
                 }
               },
@@ -4487,40 +3768,22 @@
           "operationId": "api.host.get_host_tags",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderHowParam"
             },
             {
-              "$ref": "#/components/parameters/searchParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/searchParam"
             }
           ],
           "responses": {
@@ -4528,10 +3791,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/TagsOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/TagsOut"
                   }
                 }
               },
@@ -4558,34 +3818,19 @@
           "operationId": "api.host.get_host_tag_count",
           "parameters": [
             {
-              "$ref": "#/components/parameters/hostIdList",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostIdList"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderHowParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostOrderHowParam"
             }
           ],
           "responses": {
@@ -4593,10 +3838,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/TagCountOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/TagCountOut"
                   }
                 }
               },
@@ -4623,16 +3865,10 @@
           "operationId": "api.resource_type.get_resource_type_list",
           "parameters": [
             {
-              "$ref": "#/components/parameters/resourceTypesPerPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/resourceTypesPerPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             }
           ],
           "responses": {
@@ -4640,10 +3876,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ResourceTypesQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/ResourceTypesQueryOutput"
                   }
                 }
               },
@@ -4667,22 +3900,13 @@
           "operationId": "api.resource_type.get_resource_type_groups_list",
           "parameters": [
             {
-              "$ref": "#/components/parameters/groupName",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupName"
             },
             {
-              "$ref": "#/components/parameters/resourceTypesPerPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/resourceTypesPerPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             }
           ],
           "responses": {
@@ -4690,10 +3914,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ResourceTypesGroupsQueryOutput",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/ResourceTypesGroupsQueryOutput"
                   }
                 }
               },
@@ -4717,40 +3938,22 @@
           "operationId": "api.system_profile.get_operating_system",
           "parameters": [
             {
-              "$ref": "#/components/parameters/tagsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/stalenessParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/stalenessParam"
             },
             {
-              "$ref": "#/components/parameters/registered_with",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/registered_with"
             },
             {
-              "$ref": "#/components/parameters/filter_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/filter_param"
             }
           ],
           "responses": {
@@ -4758,10 +3961,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/SystemProfileOperatingSystemOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/SystemProfileOperatingSystemOut"
                   }
                 }
               },
@@ -4771,10 +3971,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "$ref": "#/components/responses/PageOutOfBounds",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/responses/PageOutOfBounds"
             }
           },
           "security": [
@@ -4794,46 +3991,25 @@
           "operationId": "api.system_profile.get_sap_sids",
           "parameters": [
             {
-              "$ref": "#/components/parameters/searchParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/searchParam"
             },
             {
-              "$ref": "#/components/parameters/tagsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/stalenessParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/stalenessParam"
             },
             {
-              "$ref": "#/components/parameters/registered_with",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/registered_with"
             },
             {
-              "$ref": "#/components/parameters/filter_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/filter_param"
             }
           ],
           "responses": {
@@ -4841,10 +4017,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/SystemProfileSapSystemOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/SystemProfileSapSystemOut"
                   }
                 }
               },
@@ -4854,10 +4027,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "$ref": "#/components/responses/PageOutOfBounds",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/responses/PageOutOfBounds"
             }
           },
           "security": [
@@ -4877,40 +4047,22 @@
           "operationId": "api.system_profile.get_sap_system",
           "parameters": [
             {
-              "$ref": "#/components/parameters/tagsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/stalenessParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/stalenessParam"
             },
             {
-              "$ref": "#/components/parameters/registered_with",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/registered_with"
             },
             {
-              "$ref": "#/components/parameters/filter_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/filter_param"
             }
           ],
           "responses": {
@@ -4918,10 +4070,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/SystemProfileSapSystemOut",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/SystemProfileSapSystemOut"
                   }
                 }
               },
@@ -4931,10 +4080,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "$ref": "#/components/responses/PageOutOfBounds",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/responses/PageOutOfBounds"
             }
           },
           "security": [
@@ -5015,112 +4161,58 @@
           "operationId": "api.tag.get_tags",
           "parameters": [
             {
-              "$ref": "#/components/parameters/tagsParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/tagsOrderBy",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsOrderBy"
             },
             {
-              "$ref": "#/components/parameters/tagsOrderHow",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/tagsOrderHow"
             },
             {
-              "$ref": "#/components/parameters/perPageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/perPageParam"
             },
             {
-              "$ref": "#/components/parameters/pageParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/stalenessParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/stalenessParam"
             },
             {
-              "$ref": "#/components/parameters/searchParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/searchParam"
             },
             {
-              "$ref": "#/components/parameters/displayName",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/displayName"
             },
             {
-              "$ref": "#/components/parameters/fqdn",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/fqdn"
             },
             {
-              "$ref": "#/components/parameters/hostnameOrId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/hostnameOrId"
             },
             {
-              "$ref": "#/components/parameters/insightsId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/insightsId"
             },
             {
-              "$ref": "#/components/parameters/providerId",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/providerId"
             },
             {
-              "$ref": "#/components/parameters/providerType",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/providerType"
             },
             {
-              "$ref": "#/components/parameters/updatedStart",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/updatedStart"
             },
             {
-              "$ref": "#/components/parameters/updatedEnd",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/updatedEnd"
             },
             {
-              "$ref": "#/components/parameters/groupNameListParam",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/groupNameListParam"
             },
             {
-              "$ref": "#/components/parameters/registered_with",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/registered_with"
             },
             {
-              "$ref": "#/components/parameters/filter_param",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/parameters/filter_param"
             }
           ],
           "responses": {
@@ -5128,10 +4220,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ActiveTags",
-                    "x-scope": [
-                      ""
-                    ]
+                    "$ref": "#/components/schemas/ActiveTags"
                   }
                 }
               },
@@ -5141,10 +4230,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "$ref": "#/components/responses/PageOutOfBounds",
-              "x-scope": [
-                ""
-              ]
+              "$ref": "#/components/responses/PageOutOfBounds"
             }
           },
           "security": [
