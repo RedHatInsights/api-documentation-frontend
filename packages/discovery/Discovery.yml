@@ -96,7 +96,6 @@ apis:
         name: Image Builder
         description: Service that relays image build requests
         url: https://console.redhat.com/api/image-builder/v1/openapi.json
-        useLocalFile: true
         apiType: openapi-v3
         icon: insights
         tags:
