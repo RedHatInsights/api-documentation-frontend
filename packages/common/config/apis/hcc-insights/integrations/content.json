@@ -48,19 +48,43 @@
               "$ref": "#/components/schemas/UUID"
             },
             "body_template": {
-              "$ref": "#/components/schemas/Template"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Template"
+                }
+              ],
+              "readOnly": true,
+              "type": "object"
             },
             "body_template_id": {
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "subject_template": {
-              "$ref": "#/components/schemas/Template"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Template"
+                }
+              ],
+              "readOnly": true,
+              "type": "object"
             },
             "subject_template_id": {
               "$ref": "#/components/schemas/UUID"
@@ -69,7 +93,13 @@
               "$ref": "#/components/schemas/SubscriptionType"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -85,13 +115,25 @@
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "display_name": {
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "name": {
               "maxLength": 255,
@@ -99,7 +141,13 @@
               "type": "string"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -197,9 +245,16 @@
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "default_behavior": {
+              "readOnly": true,
               "type": "boolean"
             },
             "display_name": {
@@ -207,10 +262,22 @@
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -222,7 +289,13 @@
         "BehaviorGroupAction": {
           "properties": {
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "endpoint": {
               "$ref": "#/components/schemas/Endpoint"
@@ -251,13 +324,25 @@
         "Bundle": {
           "properties": {
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "display_name": {
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "name": {
               "maxLength": 255,
@@ -265,7 +350,13 @@
               "type": "string"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -463,7 +554,13 @@
         "Endpoint": {
           "properties": {
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "description": {
               "type": "string"
@@ -472,7 +569,13 @@
               "type": "boolean"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "name": {
               "maxLength": 255,
@@ -512,7 +615,13 @@
               "$ref": "#/components/schemas/EndpointType"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -691,7 +800,13 @@
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "name": {
               "maxLength": 255,
@@ -718,7 +833,13 @@
         "EventTypeBehavior": {
           "properties": {
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "event_type": {
               "$ref": "#/components/schemas/EventType"
@@ -797,13 +918,25 @@
         "InstantEmailTemplate": {
           "properties": {
             "body_template": {
-              "$ref": "#/components/schemas/Template"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Template"
+                }
+              ],
+              "readOnly": true,
+              "type": "object"
             },
             "body_template_id": {
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "event_type": {
               "$ref": "#/components/schemas/EventType"
@@ -812,16 +945,34 @@
               "$ref": "#/components/schemas/UUID"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "subject_template": {
-              "$ref": "#/components/schemas/Template"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Template"
+                }
+              ],
+              "readOnly": true,
+              "type": "object"
             },
             "subject_template_id": {
               "$ref": "#/components/schemas/UUID"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -944,7 +1095,13 @@
         "NotificationHistory": {
           "properties": {
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "details": {
               "additionalProperties": {},
@@ -960,7 +1117,13 @@
               "$ref": "#/components/schemas/EndpointType"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "invocationResult": {
               "deprecated": true,
@@ -1217,7 +1380,13 @@
         "Template": {
           "properties": {
             "created": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "data": {
               "type": "string"
@@ -1226,14 +1395,26 @@
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "name": {
               "maxLength": 100,
               "type": "string"
             },
             "updated": {
-              "$ref": "#/components/schemas/LocalDateTime"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -1378,7 +1559,13 @@
               "type": "string"
             },
             "id": {
-              "$ref": "#/components/schemas/UUID"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
             },
             "source_environment": {
               "type": "string"
