@@ -3,7 +3,7 @@
   "openapi": {
     "components": {
       "schemas": {
-        "controllers.AdvisoriesDBLookupV3": {
+        "controllers.AdvisoriesDBLookup": {
           "properties": {
             "advisory_type_name": {
               "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
@@ -45,11 +45,11 @@
           },
           "type": "object"
         },
-        "controllers.AdvisoriesResponseV3": {
+        "controllers.AdvisoriesResponse": {
           "properties": {
             "data": {
               "items": {
-                "$ref": "#/components/schemas/controllers.AdvisoryItemV3"
+                "$ref": "#/components/schemas/controllers.AdvisoryItem"
               },
               "type": "array"
             },
@@ -82,7 +82,7 @@
           },
           "type": "object"
         },
-        "controllers.AdvisoryDetailAttributesV2": {
+        "controllers.AdvisoryDetailAttributes": {
           "properties": {
             "advisory_type_name": {
               "type": "string"
@@ -141,10 +141,10 @@
           },
           "type": "object"
         },
-        "controllers.AdvisoryDetailItemV2": {
+        "controllers.AdvisoryDetailItem": {
           "properties": {
             "attributes": {
-              "$ref": "#/components/schemas/controllers.AdvisoryDetailAttributesV2"
+              "$ref": "#/components/schemas/controllers.AdvisoryDetailAttributes"
             },
             "id": {
               "type": "string"
@@ -155,15 +155,29 @@
           },
           "type": "object"
         },
-        "controllers.AdvisoryDetailResponseV2": {
+        "controllers.AdvisoryDetailResponse": {
           "properties": {
             "data": {
-              "$ref": "#/components/schemas/controllers.AdvisoryDetailItemV2"
+              "$ref": "#/components/schemas/controllers.AdvisoryDetailItem"
             }
           },
           "type": "object"
         },
-        "controllers.AdvisoryItemAttributesV3": {
+        "controllers.AdvisoryItem": {
+          "properties": {
+            "attributes": {
+              "$ref": "#/components/schemas/controllers.AdvisoryItemAttributes"
+            },
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.AdvisoryItemAttributes": {
           "properties": {
             "advisory_type_name": {
               "description": "Advisory type name, proper ordering ensured (unknown, unspecified, other, enhancement, bugfix, security)",
@@ -197,20 +211,6 @@
               "type": "integer"
             },
             "synopsis": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "controllers.AdvisoryItemV3": {
-          "properties": {
-            "attributes": {
-              "$ref": "#/components/schemas/controllers.AdvisoryItemAttributesV3"
-            },
-            "id": {
-              "type": "string"
-            },
-            "type": {
               "type": "string"
             }
           },
@@ -2024,7 +2024,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.6.19"
+      "version": "v3.6.28"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2223,7 +2223,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.AdvisoriesResponseV3"
+                    "$ref": "#/components/schemas/controllers.AdvisoriesResponse"
                   }
                 }
               },
@@ -2288,7 +2288,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.AdvisoryDetailResponseV2"
+                    "$ref": "#/components/schemas/controllers.AdvisoryDetailResponse"
                   }
                 }
               },
@@ -3325,7 +3325,7 @@
                 "application/json": {
                   "schema": {
                     "items": {
-                      "$ref": "#/components/schemas/controllers.AdvisoriesDBLookupV3"
+                      "$ref": "#/components/schemas/controllers.AdvisoriesDBLookup"
                     },
                     "type": "array"
                   }
@@ -3333,7 +3333,7 @@
                 "text/csv": {
                   "schema": {
                     "items": {
-                      "$ref": "#/components/schemas/controllers.AdvisoriesDBLookupV3"
+                      "$ref": "#/components/schemas/controllers.AdvisoriesDBLookup"
                     },
                     "type": "array"
                   }

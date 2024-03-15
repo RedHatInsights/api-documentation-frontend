@@ -18,7 +18,18 @@
                 "pattern": "^[0-9]{12}$",
                 "type": "string"
               },
+              "maxItems": 100,
               "type": "array"
+            },
+            "share_with_sources": {
+              "example": [
+                "12345"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
             }
           },
           "required": [
@@ -51,11 +62,18 @@
               },
               "type": "array",
               "uniqueItems": true
+            },
+            "share_with_sources": {
+              "example": [
+                "12345"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
             }
           },
-          "required": [
-            "share_with_accounts"
-          ],
           "type": "object"
         },
         "AWSUploadStatus": {
@@ -124,20 +142,23 @@
               "example": "ToucanResourceGroup",
               "type": "string"
             },
+            "source_id": {
+              "description": "ID of the source that will be used to resolve the tenant and subscription IDs.\nDo not provide a tenant_id or subscription_id when providing a source_id.\n",
+              "example": "12345",
+              "type": "string"
+            },
             "subscription_id": {
-              "description": "ID of subscription where the image should be uploaded.\n",
+              "description": "ID of subscription where the image should be uploaded.\nWhen providing a subscription_id, also be sure to provide a tenant_id and do not include a source_id.\n",
               "example": "4e5d8b2c-ab24-4413-90c5-612306e809e2",
               "type": "string"
             },
             "tenant_id": {
-              "description": "ID of the tenant where the image should be uploaded. This link explains how\nto find it in the Azure Portal:\nhttps://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-to-find-tenant\n",
+              "description": "ID of the tenant where the image should be uploaded. This link explains how\nto find it in the Azure Portal:\nhttps://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-how-to-find-tenant\nWhen providing a tenant_id, also be sure to provide a subscription_id and do not include a source_id.\n",
               "example": "5c7ef5b6-1c3f-4da0-a622-0b060239d7d7",
               "type": "string"
             }
           },
           "required": [
-            "tenant_id",
-            "subscription_id",
             "resource_group"
           ],
           "type": "object"
@@ -154,6 +175,99 @@
           ],
           "type": "object"
         },
+        "BlueprintItem": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "last_modified_at": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "version",
+            "name",
+            "description",
+            "last_modified_at"
+          ]
+        },
+        "BlueprintResponse": {
+          "properties": {
+            "customizations": {
+              "$ref": "#/components/schemas/Customizations"
+            },
+            "description": {
+              "type": "string"
+            },
+            "distribution": {
+              "$ref": "#/components/schemas/Distributions"
+            },
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "image_requests": {
+              "description": "Array of image requests. Having more image requests in a single blueprint is currently not supported.\n",
+              "items": {
+                "$ref": "#/components/schemas/ImageRequest"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "distribution",
+            "image_requests",
+            "customizations"
+          ]
+        },
+        "BlueprintsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/BlueprintItem"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/ListResponseLinks"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/ListResponseMeta"
+            }
+          },
+          "required": [
+            "meta",
+            "links",
+            "data"
+          ]
+        },
+        "ClientId": {
+          "default": "api",
+          "enum": [
+            "api",
+            "ui"
+          ],
+          "type": "string"
+        },
         "CloneRequest": {
           "oneOf": [
             {
@@ -165,11 +279,31 @@
           "properties": {
             "id": {
               "example": "123e4567-e89b-12d3-a456-426655440000",
+              "format": "uuid",
               "type": "string"
             }
           },
           "required": [
             "id"
+          ]
+        },
+        "CloneStatusResponse": {
+          "allOf": [
+            {
+              "properties": {
+                "compose_id": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            {
+              "$ref": "#/components/schemas/UploadStatus"
+            }
+          ],
+          "required": [
+            "compose_id"
           ]
         },
         "ClonesResponse": {
@@ -181,32 +315,10 @@
               "type": "array"
             },
             "links": {
-              "properties": {
-                "first": {
-                  "example": "/api/image-builder/v1/composes?limit=10&offset=0",
-                  "type": "string"
-                },
-                "last": {
-                  "example": "/api/image-builder/v1/composes?limit=10&offset=10",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "first",
-                "last"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/ListResponseLinks"
             },
             "meta": {
-              "properties": {
-                "count": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/ListResponseMeta"
             }
           },
           "required": [
@@ -217,16 +329,25 @@
         },
         "ClonesResponseItem": {
           "properties": {
+            "compose_id": {
+              "description": "UUID of the parent compose of the clone",
+              "format": "uuid",
+              "type": "string"
+            },
             "created_at": {
               "type": "string"
             },
             "id": {
+              "format": "uuid",
               "type": "string"
             },
-            "request": {}
+            "request": {
+              "$ref": "#/components/schemas/CloneRequest"
+            }
           },
           "required": [
             "id",
+            "compose_id",
             "request",
             "created_at"
           ]
@@ -248,12 +369,21 @@
           "type": "object"
         },
         "ComposeRequest": {
+          "additionalProperties": false,
           "properties": {
+            "client_id": {
+              "$ref": "#/components/schemas/ClientId"
+            },
             "customizations": {
               "$ref": "#/components/schemas/Customizations"
             },
             "distribution": {
               "$ref": "#/components/schemas/Distributions"
+            },
+            "image_description": {
+              "example": "MyImageDescription",
+              "maxLength": 250,
+              "type": "string"
             },
             "image_name": {
               "example": "MyImageName",
@@ -280,6 +410,7 @@
         "ComposeResponse": {
           "properties": {
             "id": {
+              "format": "uuid",
               "type": "string"
             }
           },
@@ -291,10 +422,14 @@
           "properties": {
             "image_status": {
               "$ref": "#/components/schemas/ImageStatus"
+            },
+            "request": {
+              "$ref": "#/components/schemas/ComposeRequest"
             }
           },
           "required": [
-            "image_status"
+            "image_status",
+            "request"
           ]
         },
         "ComposeStatusError": {
@@ -321,32 +456,10 @@
               "type": "array"
             },
             "links": {
-              "properties": {
-                "first": {
-                  "example": "/api/image-builder/v1/composes?limit=10&offset=0",
-                  "type": "string"
-                },
-                "last": {
-                  "example": "/api/image-builder/v1/composes?limit=10&offset=10",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "first",
-                "last"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/ListResponseLinks"
             },
             "meta": {
-              "properties": {
-                "count": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/ListResponseMeta"
             }
           },
           "required": [
@@ -357,16 +470,31 @@
         },
         "ComposesResponseItem": {
           "properties": {
+            "blueprint_id": {
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
+            "blueprint_version": {
+              "nullable": true,
+              "type": "integer"
+            },
+            "client_id": {
+              "$ref": "#/components/schemas/ClientId"
+            },
             "created_at": {
               "type": "string"
             },
             "id": {
+              "format": "uuid",
               "type": "string"
             },
             "image_name": {
               "type": "string"
             },
-            "request": {}
+            "request": {
+              "$ref": "#/components/schemas/ComposeRequest"
+            }
           },
           "required": [
             "id",
@@ -374,13 +502,213 @@
             "created_at"
           ]
         },
+        "Container": {
+          "properties": {
+            "name": {
+              "description": "Name to use for the container from the image",
+              "type": "string"
+            },
+            "source": {
+              "description": "Reference to the container to embed",
+              "example": "registry.example.com/image:tag",
+              "type": "string"
+            },
+            "tls_verify": {
+              "description": "Control TLS verifification",
+              "example": true,
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "source"
+          ],
+          "type": "object"
+        },
+        "CreateBlueprintRequest": {
+          "additionalProperties": false,
+          "properties": {
+            "customizations": {
+              "$ref": "#/components/schemas/Customizations"
+            },
+            "description": {
+              "example": "My blueprint description",
+              "maxLength": 250,
+              "type": "string"
+            },
+            "distribution": {
+              "$ref": "#/components/schemas/Distributions"
+            },
+            "image_requests": {
+              "description": "Array of image requests. Having more image requests in a single blueprint is currently not supported.\n",
+              "items": {
+                "$ref": "#/components/schemas/ImageRequest"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "name": {
+              "example": "My Blueprint",
+              "maxLength": 100,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "distribution",
+            "image_requests",
+            "customizations"
+          ],
+          "type": "object"
+        },
+        "CreateBlueprintResponse": {
+          "properties": {
+            "id": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "CustomRepository": {
+          "description": "Repository configuration for custom repositories.\nAt least one of the 'baseurl', 'mirrorlist', 'metalink' properties must\nbe specified. If more of them are specified, the order of precedence is\nthe same as listed above. Id is required.\n",
+          "properties": {
+            "baseurl": {
+              "example": [
+                "https://cdn.redhat.com/content/dist/rhel8/8/x86_64/baseos/os/"
+              ],
+              "items": {
+                "format": "uri",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "check_gpg": {
+              "type": "boolean"
+            },
+            "check_repo_gpg": {
+              "type": "boolean"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "filename": {
+              "type": "string"
+            },
+            "gpgkey": {
+              "description": "GPG key used to sign packages in this repository. Can be a gpg key or a URL",
+              "example": [
+                "-----BEGIN PGP PUBLIC KEY BLOCK-----\n\nmQINBGAcScoBEADLf8YHkezJ6adlMYw7aGGIlJalt8Jj2x/B2K+hIfIuxGtpVj7e\nLRgDU76jaT5pVD5mFMJ3pkeneR/cTmqqQkNyQshX2oQXwEzUSb1CNMCfCGgkX8Q2\nzZkrIcCrF0Q2wrKblaudhU+iVanADsm18YEqsb5AU37dtUrM3QYdWg9R+XiPfV8R\nKBjT03vVBOdMSsY39LaCn6Ip1Ovp8IEo/IeEVY1qmCOPAaK0bJH3ufg4Cueks+TS\nwQWTeCLxuZL6OMXoOPKwvMQfxbg1XD8vuZ0Ktj/cNH2xau0xmsAu9HJpekvOPRxl\nyqtjyZfroVieFypwZgvQwtnnM8/gSEu/JVTrY052mEUT7Ccb74kcHFTFfMklnkG/\n0fU4ARa504H3xj0ktbe3vKcPXoPOuKBVsHSv00UGYAyPeuy+87cU/YEhM7k3SVKj\n6eIZgyiMO0wl1YGDRKculwks9A+ulkg1oTb4s3zmZvP07GoTxW42jaK5WS+NhZee\n860XoVhbc1KpS+jfZojsrEtZ8PbUZ+YvF8RprdWArjHbJk2JpRKAxThxsQAsBhG1\n0Lux2WaMB0g2I5PcMdJ/cqjo08ccrjBXuixWri5iu9MXp8qT/fSzNmsdIgn8/qZK\ni8Qulfu77uqhW/wt2btnitgRsqjhxMujYU4Zb4hktF8hKU/XX742qhL5KwARAQAB\ntDFGZWRvcmEgKDM1KSA8ZmVkb3JhLTM1LXByaW1hcnlAZmVkb3JhcHJvamVjdC5v\ncmc+iQJOBBMBCAA4FiEEeH6mrhFH7uVsQLMM20Y5cZhnxY8FAmAcScoCGw8FCwkI\nBwIGFQoJCAsCBBYCAwECHgECF4AACgkQ20Y5cZhnxY+NYA/7BYpglySAZYHhjyKh\n/+f6zPfVvbH20Eq3kI7OFBN0nLX+BU1muvS+qTuS3WLrB3m3GultpKREJKLtm5ED\n1rGzXAoT1yp9YI8LADdMCCOyjAjsoWU87YUuC+/bnjrTeR2LROCfyPC76W985iOV\nm5S+bsQDw7C2LrldAM4MDuoyZ1SitGaZ4KQLVt+TEa14isYSGCjzo7PY8V3JOk50\ngqWg82N/bm2EzS7T83WEDb1lvj4IlvxgIqKeg11zXYxmrYSZJJCfvzf+lNS6uxgH\njx/J0ylZ2LibGr6GAAyO9UWrAZSwSM0EcjT8wECnxkSDuyqmWwVvNBXuEIV8Oe3Y\nMiU1fJN8sd7DpsFx5M+XdnMnQS+HrjTPKD3mWrlAdnEThdYV8jZkpWhDys3/99eO\nhk0rLny0jNwkauf/iU8Oc6XvMkjLRMJg5U9VKyJuWWtzwXnjMN5WRFBqK4sZomMM\nftbTH1+5ybRW/A3vBbaxRW2t7UzNjczekSZEiaLN9L/HcJCIR1QF8682DdAlEF9d\nk2gQiYSQAaaJ0JJAzHvRkRJLLgK2YQYiHNVy2t3JyFfsram5wSCWOfhPeIyLBTZJ\nvrpNlPbefsT957Tf2BNIugzZrC5VxDSKkZgRh1VGvSIQnCyzkQy6EU2qPpiW59G/\nhPIXZrKocK3KLS9/izJQTRltjMA=\n=PfT7\n-----END PGP PUBLIC KEY BLOCK-----\n"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "id": {
+              "type": "string"
+            },
+            "metalink": {
+              "example": "https://mirrors.fedoraproject.org/metalink?repo=fedora-32&arch=x86_64",
+              "format": "uri",
+              "type": "string"
+            },
+            "mirrorlist": {
+              "example": "http://mirrorlist.centos.org/?release=8-stream&arch=aarch64&repo=BaseOS",
+              "format": "uri",
+              "type": "string"
+            },
+            "module_hotfixes": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "integer"
+            },
+            "ssl_verify": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
+        },
         "Customizations": {
           "properties": {
+            "containers": {
+              "items": {
+                "$ref": "#/components/schemas/Container"
+              },
+              "type": "array"
+            },
+            "custom_repositories": {
+              "items": {
+                "$ref": "#/components/schemas/CustomRepository"
+              },
+              "type": "array"
+            },
+            "directories": {
+              "items": {
+                "$ref": "#/components/schemas/Directory"
+              },
+              "type": "array"
+            },
+            "fdo": {
+              "$ref": "#/components/schemas/FDO"
+            },
+            "files": {
+              "items": {
+                "$ref": "#/components/schemas/File"
+              },
+              "type": "array"
+            },
             "filesystem": {
               "items": {
                 "$ref": "#/components/schemas/Filesystem"
               },
+              "maxItems": 128,
               "type": "array"
+            },
+            "fips": {
+              "$ref": "#/components/schemas/FIPS"
+            },
+            "firewall": {
+              "$ref": "#/components/schemas/FirewallCustomization"
+            },
+            "groups": {
+              "description": "List of groups to create",
+              "items": {
+                "$ref": "#/components/schemas/Group"
+              },
+              "type": "array"
+            },
+            "hostname": {
+              "description": "Configures the hostname",
+              "example": "myhostname",
+              "type": "string"
+            },
+            "ignition": {
+              "$ref": "#/components/schemas/Ignition"
+            },
+            "installation_device": {
+              "description": "Name of the installation device, currently only useful for the edge-simplified-installer type\n",
+              "example": "/dev/sda",
+              "type": "string"
+            },
+            "kernel": {
+              "$ref": "#/components/schemas/Kernel"
+            },
+            "locale": {
+              "$ref": "#/components/schemas/Locale"
+            },
+            "openscap": {
+              "$ref": "#/components/schemas/OpenSCAP"
             },
             "packages": {
               "example": [
@@ -389,7 +717,17 @@
               "items": {
                 "type": "string"
               },
+              "maxItems": 10000,
               "type": "array"
+            },
+            "partitioning_mode": {
+              "description": "Select how the disk image will be partitioned. 'auto-lvm' will use raw unless\nthere are one or more mountpoints in which case it will use LVM. 'lvm' always\nuses LVM, even when there are no extra mountpoints. 'raw' uses raw partitions\neven when there are one or more mountpoints.\n",
+              "enum": [
+                "raw",
+                "lvm",
+                "auto-lvm"
+              ],
+              "type": "string"
             },
             "payload_repositories": {
               "items": {
@@ -397,8 +735,14 @@
               },
               "type": "array"
             },
+            "services": {
+              "$ref": "#/components/schemas/Services"
+            },
             "subscription": {
               "$ref": "#/components/schemas/Subscription"
+            },
+            "timezone": {
+              "$ref": "#/components/schemas/Timezone"
             },
             "users": {
               "description": "list of users that a customer can add, also specifying their respective groups and SSH keys",
@@ -408,6 +752,54 @@
               "type": "array"
             }
           },
+          "type": "object"
+        },
+        "Directory": {
+          "description": "A custom directory to create in the final artifact.\n",
+          "properties": {
+            "ensure_parents": {
+              "default": false,
+              "description": "Ensure that the parent directories exist",
+              "type": "boolean"
+            },
+            "group": {
+              "description": "Group of the directory as a group name or a gid",
+              "example": "root",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "mode": {
+              "description": "Permissions string for the directory in octal format",
+              "example": "0755",
+              "type": "string"
+            },
+            "path": {
+              "description": "Path to the directory",
+              "example": "/etc/mydir",
+              "type": "string"
+            },
+            "user": {
+              "description": "Owner of the directory as a user name or a uid",
+              "example": "root",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "required": [
+            "path"
+          ],
           "type": "object"
         },
         "DistributionItem": {
@@ -427,35 +819,167 @@
           ],
           "type": "object"
         },
+        "DistributionProfileItem": {
+          "enum": [
+            "xccdf_org.ssgproject.content_profile_anssi_bp28_enhanced",
+            "xccdf_org.ssgproject.content_profile_anssi_bp28_high",
+            "xccdf_org.ssgproject.content_profile_anssi_bp28_intermediary",
+            "xccdf_org.ssgproject.content_profile_anssi_bp28_minimal",
+            "xccdf_org.ssgproject.content_profile_cis",
+            "xccdf_org.ssgproject.content_profile_cis_server_l1",
+            "xccdf_org.ssgproject.content_profile_cis_workstation_l1",
+            "xccdf_org.ssgproject.content_profile_cis_workstation_l2",
+            "xccdf_org.ssgproject.content_profile_cui",
+            "xccdf_org.ssgproject.content_profile_e8",
+            "xccdf_org.ssgproject.content_profile_hipaa",
+            "xccdf_org.ssgproject.content_profile_ism_o",
+            "xccdf_org.ssgproject.content_profile_ospp",
+            "xccdf_org.ssgproject.content_profile_pci-dss",
+            "xccdf_org.ssgproject.content_profile_standard",
+            "xccdf_org.ssgproject.content_profile_stig",
+            "xccdf_org.ssgproject.content_profile_stig_gui"
+          ],
+          "type": "string"
+        },
+        "DistributionProfileResponse": {
+          "description": "List of profiles for a given distribution\n",
+          "items": {
+            "$ref": "#/components/schemas/DistributionProfileItem"
+          },
+          "type": "array"
+        },
         "Distributions": {
+          "description": "List of all distributions that image builder supports. A user might not have access to\nrestricted distributions.\n\nRestricted distributions include the RHEL nightlies and the Fedora distributions.\n",
           "enum": [
             "rhel-8",
+            "rhel-8-nightly",
             "rhel-84",
             "rhel-85",
             "rhel-86",
             "rhel-87",
+            "rhel-88",
+            "rhel-89",
             "rhel-9",
+            "rhel-9-nightly",
             "rhel-90",
             "rhel-91",
+            "rhel-92",
+            "rhel-93",
             "centos-8",
             "centos-9",
-            "fedora-35",
-            "fedora-36",
             "fedora-37",
-            "fedora-38"
+            "fedora-38",
+            "fedora-39",
+            "fedora-40",
+            "fedora-41"
           ],
           "type": "string"
         },
         "DistributionsResponse": {
+          "description": "List of distributions this user is allowed to build.\n",
           "items": {
             "$ref": "#/components/schemas/DistributionItem"
           },
           "type": "array"
         },
+        "FDO": {
+          "additionalProperties": false,
+          "description": "FIDO device onboard configuration",
+          "properties": {
+            "diun_pub_key_hash": {
+              "type": "string"
+            },
+            "diun_pub_key_insecure": {
+              "type": "string"
+            },
+            "diun_pub_key_root_certs": {
+              "type": "string"
+            },
+            "manufacturing_server_url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "FIPS": {
+          "additionalProperties": false,
+          "description": "System FIPS mode setup",
+          "properties": {
+            "enabled": {
+              "default": false,
+              "description": "Enables the system FIPS mode",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "File": {
+          "description": "A custom file to create in the final artifact.\n",
+          "properties": {
+            "data": {
+              "description": "Contents of the file as plain text",
+              "type": "string"
+            },
+            "data_encoding": {
+              "default": "plain",
+              "description": "When data is base64-encoded to prevent Akamai content filter false positives",
+              "enum": [
+                "plain",
+                "base64"
+              ],
+              "type": "string"
+            },
+            "ensure_parents": {
+              "default": false,
+              "description": "Ensure that the parent directories exist",
+              "example": true,
+              "type": "boolean"
+            },
+            "group": {
+              "description": "Group of the file as a gid or a group name",
+              "example": "root",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "mode": {
+              "description": "Permissions string for the file in octal format",
+              "example": "0644",
+              "type": "string"
+            },
+            "path": {
+              "description": "Path to the file",
+              "example": "/etc/myfile",
+              "type": "string"
+            },
+            "user": {
+              "description": "Owner of the file as a uid or a user name",
+              "example": "root",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            }
+          },
+          "required": [
+            "path"
+          ],
+          "type": "object"
+        },
         "Filesystem": {
           "properties": {
             "min_size": {
-              "example": 1024,
+              "description": "size of the filesystem in bytes",
+              "example": 2147483648,
               "x-go-type": "uint64"
             },
             "mountpoint": {
@@ -467,6 +991,53 @@
             "mountpoint",
             "min_size"
           ],
+          "type": "object"
+        },
+        "FirewallCustomization": {
+          "additionalProperties": false,
+          "description": "Firewalld configuration",
+          "properties": {
+            "ports": {
+              "description": "List of ports (or port ranges) and protocols to open",
+              "example": [
+                "22:tcp",
+                "80:tcp",
+                "imap:tcp"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "services": {
+              "additionalProperties": false,
+              "description": "Firewalld services to enable or disable",
+              "properties": {
+                "disabled": {
+                  "description": "List of services to disable",
+                  "example": [
+                    "telnet"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "enabled": {
+                  "description": "List of services to enable",
+                  "example": [
+                    "ftp",
+                    "ntp"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
           "type": "object"
         },
         "GCPUploadRequestOptions": {
@@ -486,9 +1057,6 @@
               "uniqueItems": true
             }
           },
-          "required": [
-            "share_with_accounts"
-          ],
           "type": "object"
         },
         "GCPUploadStatus": {
@@ -505,6 +1073,23 @@
           "required": [
             "project_id",
             "image_name"
+          ],
+          "type": "object"
+        },
+        "Group": {
+          "additionalProperties": false,
+          "properties": {
+            "gid": {
+              "description": "Group id of the group to create (optional)",
+              "type": "integer"
+            },
+            "name": {
+              "description": "Name of the group to create",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
           ],
           "type": "object"
         },
@@ -535,7 +1120,46 @@
             "errors"
           ]
         },
+        "Ignition": {
+          "additionalProperties": false,
+          "description": "Ignition configuration",
+          "properties": {
+            "embedded": {
+              "$ref": "#/components/schemas/IgnitionEmbedded"
+            },
+            "firstboot": {
+              "$ref": "#/components/schemas/IgnitionFirstboot"
+            }
+          },
+          "type": "object"
+        },
+        "IgnitionEmbedded": {
+          "additionalProperties": false,
+          "properties": {
+            "config": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "config"
+          ],
+          "type": "object"
+        },
+        "IgnitionFirstboot": {
+          "additionalProperties": false,
+          "properties": {
+            "url": {
+              "description": "Provisioning URL",
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "type": "object"
+        },
         "ImageRequest": {
+          "additionalProperties": false,
           "properties": {
             "architecture": {
               "description": "CPU architecture of the image, x86_64 and aarch64 are currently supported.\n",
@@ -551,6 +1175,11 @@
             "ostree": {
               "$ref": "#/components/schemas/OSTree"
             },
+            "size": {
+              "description": "Size of image, in bytes. When set to 0 the image size is a minimum\ndefined by the image type.\n",
+              "example": 4294967296,
+              "x-go-type": "uint64"
+            },
             "upload_request": {
               "$ref": "#/components/schemas/UploadRequest"
             }
@@ -559,7 +1188,8 @@
             "architecture",
             "image_type",
             "upload_request"
-          ]
+          ],
+          "type": "object"
         },
         "ImageStatus": {
           "properties": {
@@ -595,13 +1225,94 @@
             "gcp",
             "guest-image",
             "image-installer",
+            "oci",
             "vsphere",
+            "vsphere-ova",
+            "wsl",
             "ami",
             "rhel-edge-commit",
             "rhel-edge-installer",
             "vhd"
           ],
           "type": "string"
+        },
+        "Kernel": {
+          "additionalProperties": false,
+          "properties": {
+            "append": {
+              "description": "Appends arguments to the bootloader kernel command line",
+              "example": "nosmt=force",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the kernel to use",
+              "example": "kernel-debug",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "ListResponseLinks": {
+          "properties": {
+            "first": {
+              "type": "string"
+            },
+            "last": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "first",
+            "last"
+          ],
+          "type": "object"
+        },
+        "ListResponseMeta": {
+          "properties": {
+            "count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "count"
+          ],
+          "type": "object"
+        },
+        "Locale": {
+          "additionalProperties": false,
+          "description": "Locale configuration",
+          "properties": {
+            "keyboard": {
+              "description": "Sets the keyboard layout",
+              "example": "us",
+              "type": "string"
+            },
+            "languages": {
+              "description": "List of locales to be installed, the first one becomes primary, subsequent ones are secondary\n",
+              "example": [
+                "en_US.UTF-8"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "OCIUploadRequestOptions": {
+          "type": "object"
+        },
+        "OCIUploadStatus": {
+          "properties": {
+            "url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ],
+          "type": "object"
         },
         "OSTree": {
           "properties": {
@@ -626,6 +1337,27 @@
               "type": "string"
             }
           },
+          "type": "object"
+        },
+        "OpenSCAP": {
+          "properties": {
+            "profile_description": {
+              "description": "The longform policy description",
+              "type": "string"
+            },
+            "profile_id": {
+              "description": "The policy reference ID",
+              "example": "xccdf_org.ssgproject.content_profile_cis",
+              "type": "string"
+            },
+            "profile_name": {
+              "description": "The policy type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "profile_id"
+          ],
           "type": "object"
         },
         "Package": {
@@ -687,32 +1419,10 @@
               "type": "array"
             },
             "links": {
-              "properties": {
-                "first": {
-                  "example": "/api/image-builder/v1/packages?limit=10&offset=0&distribution....",
-                  "type": "string"
-                },
-                "last": {
-                  "example": "/api/image-builder/v1/packages?limit=10&offset=10&distribution....",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "first",
-                "last"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/ListResponseLinks"
             },
             "meta": {
-              "properties": {
-                "count": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/ListResponseMeta"
             }
           },
           "required": [
@@ -743,6 +1453,11 @@
             "check_gpg": {
               "type": "boolean"
             },
+            "check_repo_gpg": {
+              "default": false,
+              "description": "Enables gpg verification of the repository metadata\n",
+              "type": "boolean"
+            },
             "gpgkey": {
               "type": "string"
             },
@@ -759,6 +1474,9 @@
               "format": "uri",
               "type": "string"
             },
+            "module_hotfixes": {
+              "type": "boolean"
+            },
             "rhsm": {
               "type": "boolean"
             }
@@ -766,6 +1484,30 @@
           "required": [
             "rhsm"
           ],
+          "type": "object"
+        },
+        "Services": {
+          "additionalProperties": false,
+          "properties": {
+            "disabled": {
+              "description": "List of services to disable by default",
+              "items": {
+                "example": "firewalld",
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "enabled": {
+              "description": "List of services to enable by default",
+              "items": {
+                "example": "nftables",
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
+            }
+          },
           "type": "object"
         },
         "Subscription": {
@@ -787,6 +1529,12 @@
               "example": 2040324,
               "type": "integer"
             },
+            "rhc": {
+              "default": false,
+              "description": "Optional flag to use rhc to register the system, which also always enables Insights.\n",
+              "example": true,
+              "type": "boolean"
+            },
             "server-url": {
               "example": "subscription.rhsm.redhat.com",
               "type": "string"
@@ -799,6 +1547,29 @@
             "base-url",
             "insights"
           ],
+          "type": "object"
+        },
+        "Timezone": {
+          "additionalProperties": false,
+          "description": "Timezone configuration",
+          "properties": {
+            "ntpservers": {
+              "description": "List of ntp servers",
+              "example": [
+                "0.north-america.pool.ntp.org",
+                "1.north-america.pool.ntp.org"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "timezone": {
+              "description": "Name of the timezone, defaults to UTC",
+              "example": "US/Eastern",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "UploadRequest": {
@@ -816,6 +1587,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/AzureUploadRequestOptions"
+                },
+                {
+                  "$ref": "#/components/schemas/OCIUploadRequestOptions"
                 }
               ]
             },
@@ -844,6 +1618,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/AzureUploadStatus"
+                },
+                {
+                  "$ref": "#/components/schemas/OCIUploadStatus"
                 }
               ]
             },
@@ -871,7 +1648,8 @@
             "aws",
             "gcp",
             "azure",
-            "aws.s3"
+            "aws.s3",
+            "oci.objectstorage"
           ],
           "type": "string"
         },
@@ -894,6 +1672,12 @@
         },
         "Version": {
           "properties": {
+            "build_commit": {
+              "type": "string"
+            },
+            "build_time": {
+              "type": "string"
+            },
             "version": {
               "type": "string"
             }
@@ -917,7 +1701,7 @@
     "paths": {
       "/architectures/{distribution}": {
         "get": {
-          "operationId": "GetArchitectures",
+          "operationId": "getArchitectures",
           "parameters": [
             {
               "description": "distribution for which to look up available architectures",
@@ -926,7 +1710,7 @@
               "name": "distribution",
               "required": true,
               "schema": {
-                "type": "string"
+                "$ref": "#/components/schemas/Distributions"
               }
             }
           ],
@@ -940,15 +1724,29 @@
                 }
               },
               "description": "a list of available architectures and their associated image types"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "user is not allowed to build or query this distribution"
             }
           },
-          "summary": "get the architectures and their image types available for a given distribution"
+          "summary": "get the architectures and their image types available for a given distribution",
+          "tags": [
+            "distribution",
+            "architecture"
+          ]
         }
       },
       "/clones/{id}": {
         "get": {
           "description": "status of a clone",
-          "operationId": "GetCloneStatus",
+          "operationId": "getCloneStatus",
           "parameters": [
             {
               "description": "Id of clone status to get",
@@ -957,6 +1755,7 @@
               "required": true,
               "schema": {
                 "example": "123e4567-e89b-12d3-a456-426655440000",
+                "format": "uuid",
                 "type": "string"
               }
             }
@@ -966,20 +1765,23 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/UploadStatus"
+                    "$ref": "#/components/schemas/CloneStatusResponse"
                   }
                 }
               },
               "description": "clone status"
             }
           },
-          "summary": "get status of a compose clone"
+          "summary": "get status of a compose clone",
+          "tags": [
+            "compose"
+          ]
         }
       },
       "/compose": {
         "post": {
           "description": "compose image",
-          "operationId": "ComposeImage",
+          "operationId": "composeImage",
           "requestBody": {
             "content": {
               "application/json": {
@@ -1011,14 +1813,27 @@
                 }
               },
               "description": "the compose request is malformed"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "user is not allowed to build this distribution"
             }
           },
-          "summary": "compose image"
+          "summary": "compose image",
+          "tags": [
+            "compose"
+          ]
         }
       },
       "/composes": {
         "get": {
-          "operationId": "GetComposes",
+          "operationId": "getComposes",
           "parameters": [
             {
               "description": "max amount of composes, default 100",
@@ -1026,6 +1841,7 @@
               "name": "limit",
               "schema": {
                 "default": 100,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               }
@@ -1038,6 +1854,17 @@
                 "default": 0,
                 "minimum": 0,
                 "type": "integer"
+              }
+            },
+            {
+              "description": "Filter the composes on image type. The filter is optional and can be specified multiple times.\n",
+              "in": "query",
+              "name": "ignoreImageTypes",
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/ImageTypes"
+                },
+                "type": "array"
               }
             }
           ],
@@ -1053,24 +1880,26 @@
               "description": "a list of composes"
             }
           },
-          "summary": "get a collection of previous compose requests for the logged in user"
+          "summary": "get a collection of previous compose requests for the logged in user",
+          "tags": [
+            "compose"
+          ]
         }
       },
       "/composes/{composeId}": {
+        "delete": {
+          "description": "Deletes a compose, the compose will still count towards quota.\n",
+          "operationId": "deleteCompose",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          },
+          "summary": "delete a compose"
+        },
         "get": {
           "description": "status of an image compose",
-          "operationId": "GetComposeStatus",
-          "parameters": [
-            {
-              "description": "Id of compose status to get",
-              "in": "path",
-              "name": "composeId",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
+          "operationId": "getComposeStatus",
           "responses": {
             "200": {
               "content": {
@@ -1083,13 +1912,29 @@
               "description": "compose status"
             }
           },
-          "summary": "get status of an image compose"
-        }
+          "summary": "get status of an image compose",
+          "tags": [
+            "compose"
+          ]
+        },
+        "parameters": [
+          {
+            "description": "Id of compose",
+            "in": "path",
+            "name": "composeId",
+            "required": true,
+            "schema": {
+              "example": "123e4567-e89b-12d3-a456-426655440000",
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ]
       },
       "/composes/{composeId}/clone": {
         "post": {
           "description": "Clones a compose. Only composes with the 'aws' image type currently support cloning.\n",
-          "operationId": "CloneCompose",
+          "operationId": "cloneCompose",
           "parameters": [
             {
               "description": "Id of compose to clone",
@@ -1098,6 +1943,7 @@
               "required": true,
               "schema": {
                 "example": "123e4567-e89b-12d3-a456-426655440000",
+                "format": "uuid",
                 "type": "string"
               }
             }
@@ -1125,13 +1971,16 @@
               "description": "cloning has started"
             }
           },
-          "summary": "clone a compose"
+          "summary": "clone a compose",
+          "tags": [
+            "compose"
+          ]
         }
       },
       "/composes/{composeId}/clones": {
         "get": {
           "description": "Returns a list of all the clones which were started for a compose\n",
-          "operationId": "GetComposeClones",
+          "operationId": "getComposeClones",
           "parameters": [
             {
               "description": "Id of compose to get the clones of",
@@ -1140,21 +1989,23 @@
               "required": true,
               "schema": {
                 "example": "123e4567-e89b-12d3-a456-426655440000",
+                "format": "uuid",
                 "type": "string"
               }
             },
             {
-              "description": "max amount of composes, default 100",
+              "description": "max amount of clones, default 100",
               "in": "query",
               "name": "limit",
               "schema": {
                 "default": 100,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               }
             },
             {
-              "description": "composes page offset, default 0",
+              "description": "clones page offset, default 0",
               "in": "query",
               "name": "offset",
               "schema": {
@@ -1176,13 +2027,16 @@
               "description": "compose clones"
             }
           },
-          "summary": "get clones of a compose"
+          "summary": "get clones of a compose",
+          "tags": [
+            "compose"
+          ]
         }
       },
       "/composes/{composeId}/metadata": {
         "get": {
           "description": "metadata for an image compose",
-          "operationId": "GetComposeMetadata",
+          "operationId": "getComposeMetadata",
           "parameters": [
             {
               "description": "Id of compose metadata to get",
@@ -1190,6 +2044,8 @@
               "name": "composeId",
               "required": true,
               "schema": {
+                "example": "123e4567-e89b-12d3-a456-426655440000",
+                "format": "uuid",
                 "type": "string"
               }
             }
@@ -1206,12 +2062,15 @@
               "description": "compose metadata"
             }
           },
-          "summary": "get metadata of an image compose"
+          "summary": "get metadata of an image compose",
+          "tags": [
+            "compose"
+          ]
         }
       },
       "/distributions": {
         "get": {
-          "operationId": "GetDistributions",
+          "operationId": "getDistributions",
           "responses": {
             "200": {
               "content": {
@@ -1221,29 +2080,457 @@
                   }
                 }
               },
-              "description": "a list of available distributions"
+              "description": "A list of distributions this user has access to. Some distributions are restricted, so\nthis list might not correspond to the Distributions (enum) schema for a given user.\n"
             }
           },
-          "summary": "get the available distributions"
+          "summary": "get the distributions available to this user",
+          "tags": [
+            "distribution"
+          ]
+        }
+      },
+      "/experimental/blueprints": {
+        "get": {
+          "description": "get a collection of blueprints, returns just the latest version of each blueprint",
+          "operationId": "getBlueprints",
+          "parameters": [
+            {
+              "description": "search for blueprints by name or description",
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "max amount of blueprints, default 100",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "default": 100,
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "description": "blueprint page offset, default 0",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "default": 0,
+                "minimum": 0,
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BlueprintsResponse"
+                  }
+                }
+              },
+              "description": "a list of blueprints"
+            }
+          },
+          "summary": "get a collection of blueprints",
+          "tags": [
+            "blueprint"
+          ]
+        },
+        "post": {
+          "description": "create blueprint",
+          "operationId": "createBlueprint",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBlueprintRequest"
+                }
+              }
+            },
+            "description": "details of blueprint",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateBlueprintResponse"
+                  }
+                }
+              },
+              "description": "blueprint was saved"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "blueprint is malformed"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "user is not allowed to create blueprints"
+            }
+          },
+          "summary": "create blueprint",
+          "tags": [
+            "blueprint"
+          ]
+        }
+      },
+      "/experimental/blueprints/{id}": {
+        "delete": {
+          "description": "Deletes all versions of Blueprint, the compose will still count towards quota.\n",
+          "operationId": "deleteBlueprint",
+          "responses": {
+            "204": {
+              "description": "Successfully deleted"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "Blueprint to delete was not found"
+            }
+          },
+          "summary": "delete a blueprint",
+          "tags": [
+            "blueprint"
+          ]
+        },
+        "get": {
+          "description": "get a blueprint detail",
+          "operationId": "getBlueprint",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BlueprintResponse"
+                  }
+                }
+              },
+              "description": "detail of a blueprint"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "blueprint was not found"
+            }
+          },
+          "summary": "get detail of a blueprint",
+          "tags": [
+            "blueprint"
+          ]
+        },
+        "parameters": [
+          {
+            "description": "UUID of a blueprint",
+            "example": "123e4567-e89b-12d3-a456-426655440000",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "put": {
+          "description": "update blueprint",
+          "operationId": "updateBlueprint",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateBlueprintRequest"
+                }
+              }
+            },
+            "description": "details of blueprint",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateBlueprintResponse"
+                  }
+                }
+              },
+              "description": "blueprint was updated"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "blueprint was not found"
+            }
+          },
+          "summary": "update blueprint",
+          "tags": [
+            "blueprint"
+          ]
+        }
+      },
+      "/experimental/blueprints/{id}/compose": {
+        "post": {
+          "description": "create new compose from blueprint",
+          "operationId": "composeBlueprint",
+          "parameters": [
+            {
+              "description": "UUID of a blueprint",
+              "example": "123e4567-e89b-12d3-a456-426655440000",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/ComposeResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "compose was created"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "user is not allowed to compose from blueprints"
+            }
+          },
+          "summary": "create new compose from blueprint",
+          "tags": [
+            "blueprint"
+          ]
+        }
+      },
+      "/experimental/blueprints/{id}/composes": {
+        "get": {
+          "description": "get a collection of composes associated to a blueprint, allows for filtering by version",
+          "operationId": "getBlueprintComposes",
+          "parameters": [
+            {
+              "description": "UUID of a blueprint",
+              "example": "123e4567-e89b-12d3-a456-426655440000",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter by a specific version of the Blueprint we want to fetch composes for.\nPass special value -1 to fetch composes for latest version of the Blueprint.\n",
+              "in": "query",
+              "name": "blueprint_version",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "max amount of composes, default 100",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "default": 100,
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "description": "composes page offset, default 0",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "default": 0,
+                "minimum": 0,
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter the composes on image type. The filter is optional and can be specified multiple times.\n",
+              "in": "query",
+              "name": "ignoreImageTypes",
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/ImageTypes"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ComposesResponse"
+                  }
+                }
+              },
+              "description": "a list of composes"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "blueprint was not found"
+            }
+          },
+          "summary": "get composes associated with a blueprint",
+          "tags": [
+            "blueprint"
+          ]
         }
       },
       "/openapi.json": {
         "get": {
-          "operationId": "GetOpenapiJson",
+          "operationId": "getOpenapiJson",
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              },
               "description": "returns this document"
             }
           },
           "summary": "get the openapi json specification",
           "tags": [
-            "meta"
+            "meta",
+            "noAuth"
           ]
         }
       },
+      "/oscap/{distribution}/profiles": {
+        "get": {
+          "operationId": "getOscapProfiles",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DistributionProfileResponse"
+                  }
+                }
+              },
+              "description": "A list of profiles configurable for this distribution.\n"
+            }
+          },
+          "summary": "get the available profiles for a given distribution. This is a temporary endpoint meant to be removed soon.",
+          "tags": [
+            "oscap"
+          ]
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "distribution",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Distributions"
+            }
+          }
+        ]
+      },
+      "/oscap/{distribution}/{profile}/customizations": {
+        "get": {
+          "operationId": "getOscapCustomizations",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customizations"
+                  }
+                }
+              },
+              "description": "A customizations array updated with the needed elements.\n"
+            }
+          },
+          "summary": "get the customizations for a given distribution and profile. This is a temporary endpoint meant to be removed soon.",
+          "tags": [
+            "oscap"
+          ]
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "distribution",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Distributions"
+            }
+          },
+          {
+            "description": "Name of the profile to retrieve customizations from",
+            "in": "path",
+            "name": "profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DistributionProfileItem"
+            }
+          }
+        ]
+      },
       "/packages": {
         "get": {
-          "operationId": "GetPackages",
+          "operationId": "getPackages",
           "parameters": [
             {
               "description": "distribution to look up packages for",
@@ -1282,6 +2569,7 @@
               "name": "limit",
               "schema": {
                 "default": 100,
+                "maximum": 100,
                 "minimum": 1,
                 "type": "integer"
               }
@@ -1307,13 +2595,26 @@
                 }
               },
               "description": "a list of packages"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "user is not allowed to build or query this distribution"
             }
-          }
+          },
+          "tags": [
+            "package"
+          ]
         }
       },
       "/ready": {
         "get": {
-          "operationId": "GetReadiness",
+          "operationId": "getReadiness",
           "responses": {
             "200": {
               "content": {
@@ -1326,13 +2627,16 @@
               "description": "readiness"
             }
           },
-          "summary": "return the readiness"
+          "summary": "return the readiness",
+          "tags": [
+            "meta"
+          ]
         }
       },
       "/version": {
         "get": {
           "description": "get the service version",
-          "operationId": "GetVersion",
+          "operationId": "getVersion",
           "responses": {
             "200": {
               "content": {
@@ -1345,16 +2649,16 @@
               "description": "a service version"
             }
           },
-          "summary": "get the service version"
+          "summary": "get the service version",
+          "tags": [
+            "meta"
+          ]
         }
       }
     },
     "servers": [
       {
         "url": "/api/image-builder/v1"
-      },
-      {
-        "url": "/api/image-builder/v1.0"
       },
       {
         "url": "/api/image-builder/v1.0"

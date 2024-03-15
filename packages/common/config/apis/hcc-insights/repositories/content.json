@@ -530,7 +530,7 @@
         "api.RepositoryRpm": {
           "properties": {
             "arch": {
-              "description": "The Architecture of the rpm",
+              "description": "The architecture of the rpm",
               "type": "string"
             },
             "checksum": {
@@ -747,6 +747,53 @@
             },
             "uuid": {
               "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "api.SnapshotRpm": {
+          "properties": {
+            "arch": {
+              "description": "The architecture of the rpm",
+              "type": "string"
+            },
+            "epoch": {
+              "description": "The epoch of the rpm",
+              "type": "string"
+            },
+            "name": {
+              "description": "The rpm package name",
+              "type": "string"
+            },
+            "release": {
+              "description": "The release of the rpm",
+              "type": "string"
+            },
+            "summary": {
+              "description": "The summary of the rpm",
+              "type": "string"
+            },
+            "version": {
+              "description": "The version of the  rpm",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "api.SnapshotRpmCollectionResponse": {
+          "properties": {
+            "data": {
+              "description": "List of rpms",
+              "items": {
+                "$ref": "#/components/schemas/api.SnapshotRpm"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/api.Links"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/api.ResponseMetadata"
             }
           },
           "type": "object"
@@ -1862,83 +1909,6 @@
           ]
         }
       },
-      "/repositories/snapshots/for_date/": {
-        "post": {
-          "description": "Get nearest snapshot by date for a list of repositories.",
-          "operationId": "listSnapshotsByDate",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/api.ListSnapshotByDateRequest"
-                }
-              }
-            },
-            "description": "request body",
-            "required": true,
-            "x-originalParamName": "body"
-          },
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "items": {
-                      "$ref": "#/components/schemas/api.ListSnapshotByDateResponse"
-                    },
-                    "type": "array"
-                  }
-                }
-              },
-              "description": "OK"
-            },
-            "400": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Bad Request"
-            },
-            "401": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Unauthorized"
-            },
-            "404": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Not Found"
-            },
-            "500": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Internal Server Error"
-            }
-          },
-          "summary": "Get nearest snapshot by date for a list of repositories.",
-          "tags": [
-            "snapshots"
-          ]
-        }
-      },
       "/repositories/{uuid}": {
         "delete": {
           "description": "This enables deleting a specific repository.",
@@ -2776,87 +2746,6 @@
           ]
         }
       },
-      "/repositories/{uuid}/snapshots/{snapshot_uuid}/config.repo": {
-        "get": {
-          "operationId": "getRepoConfigurationFile",
-          "parameters": [
-            {
-              "description": "Identifier of the repository",
-              "in": "path",
-              "name": "uuid",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Identifier of the snapshot",
-              "in": "path",
-              "name": "snapshot_uuid",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "text/plain": {
-                  "schema": {
-                    "type": "string"
-                  }
-                }
-              },
-              "description": "OK"
-            },
-            "400": {
-              "content": {
-                "text/plain": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Bad Request"
-            },
-            "401": {
-              "content": {
-                "text/plain": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Unauthorized"
-            },
-            "404": {
-              "content": {
-                "text/plain": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Not Found"
-            },
-            "500": {
-              "content": {
-                "text/plain": {
-                  "schema": {
-                    "$ref": "#/components/schemas/errors.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Internal Server Error"
-            }
-          },
-          "summary": "Get configuration file of a repository",
-          "tags": [
-            "repositories"
-          ]
-        }
-      },
       "/repository_gpg_key/{uuid}": {
         "get": {
           "description": "Get the GPG key file for a repository.",
@@ -3320,6 +3209,83 @@
           ]
         }
       },
+      "/snapshots/for_date/": {
+        "post": {
+          "description": "Get nearest snapshot by date for a list of repositories.",
+          "operationId": "listSnapshotsByDate",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.ListSnapshotByDateRequest"
+                }
+              }
+            },
+            "description": "request body",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/api.ListSnapshotByDateResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Get nearest snapshot by date for a list of repositories.",
+          "tags": [
+            "snapshots"
+          ]
+        }
+      },
       "/snapshots/package_groups/names": {
         "post": {
           "description": "This enables users to search for package groups in a given list of snapshots.",
@@ -3493,6 +3459,184 @@
           "tags": [
             "snapshots",
             "rpms"
+          ]
+        }
+      },
+      "/snapshots/{snapshot_uuid}/config.repo": {
+        "get": {
+          "operationId": "getRepoConfigurationFile",
+          "parameters": [
+            {
+              "description": "Identifier of the repository",
+              "in": "path",
+              "name": "uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Identifier of the snapshot",
+              "in": "path",
+              "name": "snapshot_uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Get configuration file of a repository",
+          "tags": [
+            "repositories"
+          ]
+        }
+      },
+      "/snapshots/{uuid}/rpms": {
+        "get": {
+          "description": "List RPMs in a repository snapshot.",
+          "operationId": "listSnapshotRpms",
+          "parameters": [
+            {
+              "description": "Snapshot ID.",
+              "in": "path",
+              "name": "uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Number of items to include in response. Use it to control the number of items, particularly when dealing with large datasets. Default value: `100`.",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Starting point for retrieving a subset of results. Determines how many items to skip from the beginning of the result set. Default value:`0`.",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Term to filter and retrieve items that match the specified search criteria. Search term can include name.",
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.SnapshotRpmCollectionResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "List Snapshot RPMs",
+          "tags": [
+            "snapshots"
           ]
         }
       },
