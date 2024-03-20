@@ -340,46 +340,6 @@
             "last_seen"
           ]
         },
-        "HostReport": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/Host"
-              },
-              "type": "array"
-            },
-            "links": {
-              "$ref": "#/components/schemas/PageLinks"
-            },
-            "meta": {
-              "$ref": "#/components/schemas/HostReport_meta"
-            }
-          }
-        },
-        "HostReport_meta": {
-          "properties": {
-            "count": {
-              "type": "integer"
-            },
-            "product": {
-              "type": "string"
-            },
-            "service_level": {
-              "$ref": "#/components/schemas/ServiceLevelType"
-            },
-            "uom": {
-              "$ref": "#/components/schemas/Uom"
-            },
-            "usage": {
-              "$ref": "#/components/schemas/UsageType"
-            }
-          },
-          "required": [
-            "count",
-            "product"
-          ],
-          "type": "object"
-        },
         "InstanceData": {
           "description": "The representation of a product cluster data",
           "example": {
@@ -725,6 +685,9 @@
               "format": "int32",
               "type": "integer"
             },
+            "metric_id": {
+              "type": "string"
+            },
             "next_event_date": {
               "description": "The most immediate date for a subscription event.",
               "format": "date-time",
@@ -958,7 +921,8 @@
           ]
         },
         "Uom": {
-          "description": "The unit-of-measure for the capacity.",
+          "deprecated": true,
+          "description": "The unit-of-measure for the capacity. Deprecated: use 'metric_id' instead.",
           "enum": [
             "cores",
             "sockets"
@@ -1296,10 +1260,22 @@
               "style": "form"
             },
             {
-              "description": "Include only hosts with a specific unit of measure",
+              "deprecated": true,
+              "description": "Include only hosts with a specific unit of measure. Deprecated: use 'metric_id' instead. ",
               "explode": true,
               "in": "query",
               "name": "uom",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Include only hosts with a specific unit of measure",
+              "explode": true,
+              "in": "query",
+              "name": "metric_id",
               "required": false,
               "schema": {
                 "type": "string"
@@ -1893,13 +1869,25 @@
               "style": "form"
             },
             {
-              "description": "Filter subscriptions to those that contribute to a specific unit of measure",
+              "deprecated": true,
+              "description": "Filter subscriptions to those that contribute to a specific unit of measure. Deprecated: use 'metric_id' instead.",
               "explode": true,
               "in": "query",
               "name": "uom",
               "required": false,
               "schema": {
                 "$ref": "#/components/schemas/Uom"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter subscriptions to those that contribute to a specific unit of measure",
+              "explode": true,
+              "in": "query",
+              "name": "metric_id",
+              "required": false,
+              "schema": {
+                "type": "string"
               },
               "style": "form"
             },
@@ -1935,6 +1923,7 @@
                       {
                         "capacity": 3,
                         "hypervisor_capacity": 3,
+                        "metricId": "Sockets",
                         "next_event_date": "2020-04-01T00:00:00Z",
                         "next_event_type": "Subscription Begin",
                         "product_name": "Red Hat Enterprise Linux Server, Premium (Physical and 4 Virtual Nodes)(L3 Only)",
@@ -1956,12 +1945,12 @@
                           }
                         ],
                         "total_capacity": 6,
-                        "uom": "Sockets",
                         "usage": "Production"
                       },
                       {
                         "capacity": 3,
                         "hypervisor_capacity": 3,
+                        "metricId": "Sockets",
                         "next_event_date": "2020-04-02T00:00:00Z",
                         "next_event_type": "Subscription Begin",
                         "product_name": "Red Hat Enterprise Linux Server",
@@ -1983,12 +1972,12 @@
                           }
                         ],
                         "total_capacity\"": 6,
-                        "uom": "Sockets",
                         "usage": "Production"
                       },
                       {
                         "capacity": 6,
                         "hypervisor_capacity": 6,
+                        "metricId": "Cores",
                         "next_event_date": "2020-04-01T00:00:00Z",
                         "next_event_type": "Subscription End",
                         "product_name": "Red Hat Enterprise Linux Server, Premium",
@@ -2010,7 +1999,6 @@
                           }
                         ],
                         "total_capacity": 12,
-                        "uom": "Cores",
                         "usage": "Production"
                       }
                     ],
