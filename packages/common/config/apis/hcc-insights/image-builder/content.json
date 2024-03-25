@@ -1506,6 +1506,15 @@
               },
               "minItems": 1,
               "type": "array"
+            },
+            "masked": {
+              "description": "List of services to mask by default",
+              "items": {
+                "example": "telnet",
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array"
             }
           },
           "type": "object"

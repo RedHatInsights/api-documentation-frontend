@@ -43,6 +43,13 @@
               "nullable": true,
               "type": "string"
             },
+            "highest_job_id": {
+              "type": "integer"
+            },
+            "highest_job_status": {
+              "readOnly": true,
+              "type": "string"
+            },
             "id": {
               "readOnly": true,
               "type": "integer"
@@ -92,6 +99,8 @@
           },
           "required": [
             "alerts_count",
+            "highest_job_id",
+            "highest_job_status",
             "id",
             "initiated_by",
             "name",
@@ -868,6 +877,24 @@
           "operationId": "executed_task_list",
           "parameters": [
             {
+              "in": "query",
+              "name": "highest_job_status",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "Cancelled",
+                    "Failure",
+                    "Running",
+                    "Success",
+                    "Timeout"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
               "description": "Number of results to return per page.",
               "in": "query",
               "name": "limit",
@@ -892,12 +919,14 @@
                 "default": "start_time",
                 "enum": [
                   "-end_time",
+                  "-highest_job_status",
                   "-name",
                   "-start_time",
                   "-status",
                   "-systems_count",
                   "-title",
                   "end_time",
+                  "highest_job_status",
                   "name",
                   "start_time",
                   "status",
@@ -1037,6 +1066,25 @@
               "required": true,
               "schema": {
                 "type": "integer"
+              }
+            },
+            {
+              "description": "Sort systems by this field",
+              "in": "query",
+              "name": "sort",
+              "schema": {
+                "default": "display_name",
+                "enum": [
+                  "-display_name",
+                  "-last_seen",
+                  "-os_version",
+                  "-status",
+                  "display_name",
+                  "last_seen",
+                  "os_version",
+                  "status"
+                ],
+                "type": "string"
               }
             }
           ],
