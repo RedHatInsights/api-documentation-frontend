@@ -274,7 +274,7 @@
               "in": "query",
               "name": "application",
               "schema": {
-                "example": "subscriptions",
+                "example": "urn:redhat:application:notifications",
                 "type": "string"
               }
             },
@@ -282,7 +282,7 @@
               "in": "query",
               "name": "resource",
               "schema": {
-                "example": "systems",
+                "example": "urn:redhat:application:notifications:export:events",
                 "type": "string"
               }
             },

@@ -3244,7 +3244,7 @@
                           "values": [
                             {
                               "capacity": {
-                                "units": "GB-Hours",
+                                "units": "GiB-Hours",
                                 "value": 17893.948761
                               },
                               "cost": {
@@ -3285,11 +3285,11 @@
                                 }
                               },
                               "limit": {
-                                "units": "GB-Hours",
+                                "units": "GiB-Hours",
                                 "value": 405.835939
                               },
                               "request": {
-                                "units": "GB-Hours",
+                                "units": "GiB-Hours",
                                 "value": 6.158921
                               },
                               "source_uuid": [
@@ -3314,7 +3314,7 @@
                                 }
                               },
                               "usage": {
-                                "units": "GB-Hours",
+                                "units": "GiB-Hours",
                                 "value": 4.62038
                               }
                             }
@@ -3349,7 +3349,7 @@
                         "values": [
                           {
                             "capacity": {
-                              "units": "GB-Mo",
+                              "units": "GiB-Mo",
                               "value": 13732.252982
                             },
                             "cost": {
@@ -3390,7 +3390,7 @@
                               }
                             },
                             "request": {
-                              "units": "GB-Mo",
+                              "units": "GiB-Mo",
                               "value": 14058.333334
                             },
                             "source_uuid": [
@@ -3415,7 +3415,7 @@
                               }
                             },
                             "usage": {
-                              "units": "GB-Mo",
+                              "units": "GiB-Mo",
                               "value": 283.455815
                             }
                           }

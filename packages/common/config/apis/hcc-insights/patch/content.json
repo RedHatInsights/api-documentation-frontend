@@ -351,7 +351,7 @@
           },
           "type": "object"
         },
-        "controllers.AdvisorySystemsResponseV3": {
+        "controllers.AdvisorySystemsResponse": {
           "properties": {
             "data": {
               "items": {
@@ -808,6 +808,14 @@
           },
           "type": "object"
         },
+        "controllers.IDPlain": {
+          "properties": {
+            "id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "controllers.IDSatelliteManaged": {
           "properties": {
             "id": {
@@ -830,8 +838,14 @@
           },
           "type": "object"
         },
-        "controllers.IDsResponse": {
+        "controllers.IDsPlainResponse": {
           "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.IDPlain"
+              },
+              "type": "array"
+            },
             "ids": {
               "items": {
                 "type": "string"
@@ -1064,7 +1078,7 @@
           },
           "type": "object"
         },
-        "controllers.PackageSystemsResponseV3": {
+        "controllers.PackageSystemsResponse": {
           "properties": {
             "data": {
               "items": {
@@ -1230,7 +1244,7 @@
           },
           "type": "object"
         },
-        "controllers.SystemDBLookupV3": {
+        "controllers.SystemDBLookup": {
           "properties": {
             "applicable_other_count": {
               "type": "integer"
@@ -1340,13 +1354,7 @@
         "controllers.SystemDetailResponse": {
           "properties": {
             "data": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/controllers.SystemItem"
-                }
-              ],
-              "description": "use SystemItem not SystemItemV3 to display more info about system",
-              "type": "object"
+              "$ref": "#/components/schemas/controllers.SystemItemExtended"
             }
           },
           "type": "object"
@@ -1365,7 +1373,7 @@
         "controllers.SystemItem": {
           "properties": {
             "attributes": {
-              "$ref": "#/components/schemas/controllers.SystemItemAttributesAll"
+              "$ref": "#/components/schemas/controllers.SystemItemAttributes"
             },
             "id": {
               "type": "string"
@@ -1376,7 +1384,111 @@
           },
           "type": "object"
         },
-        "controllers.SystemItemAttributesAll": {
+        "controllers.SystemItemAttributes": {
+          "properties": {
+            "applicable_other_count": {
+              "type": "integer"
+            },
+            "applicable_rhba_count": {
+              "type": "integer"
+            },
+            "applicable_rhea_count": {
+              "type": "integer"
+            },
+            "applicable_rhsa_count": {
+              "type": "integer"
+            },
+            "baseline_id": {
+              "type": "integer"
+            },
+            "baseline_name": {
+              "type": "string"
+            },
+            "built_pkgcache": {
+              "type": "boolean"
+            },
+            "created": {
+              "type": "string"
+            },
+            "culled_timestamp": {
+              "type": "string"
+            },
+            "display_name": {
+              "type": "string"
+            },
+            "groups": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.SystemGroup"
+              },
+              "type": "array"
+            },
+            "installable_other_count": {
+              "type": "integer"
+            },
+            "installable_rhba_count": {
+              "type": "integer"
+            },
+            "installable_rhea_count": {
+              "type": "integer"
+            },
+            "installable_rhsa_count": {
+              "type": "integer"
+            },
+            "last_evaluation": {
+              "type": "string"
+            },
+            "last_upload": {
+              "type": "string"
+            },
+            "os": {
+              "type": "string"
+            },
+            "other_count": {
+              "type": "integer"
+            },
+            "packages_applicable": {
+              "type": "integer"
+            },
+            "packages_installable": {
+              "type": "integer"
+            },
+            "packages_installed": {
+              "type": "integer"
+            },
+            "rhba_count": {
+              "type": "integer"
+            },
+            "rhea_count": {
+              "type": "integer"
+            },
+            "rhsa_count": {
+              "type": "integer"
+            },
+            "rhsm": {
+              "type": "string"
+            },
+            "satellite_managed": {
+              "type": "boolean"
+            },
+            "stale": {
+              "type": "boolean"
+            },
+            "stale_timestamp": {
+              "type": "string"
+            },
+            "stale_warning_timestamp": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.SystemTag"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.SystemItemAttributesExtended": {
           "properties": {
             "applicable_other_count": {
               "type": "integer"
@@ -1501,114 +1613,10 @@
           },
           "type": "object"
         },
-        "controllers.SystemItemAttributesV3": {
-          "properties": {
-            "applicable_other_count": {
-              "type": "integer"
-            },
-            "applicable_rhba_count": {
-              "type": "integer"
-            },
-            "applicable_rhea_count": {
-              "type": "integer"
-            },
-            "applicable_rhsa_count": {
-              "type": "integer"
-            },
-            "baseline_id": {
-              "type": "integer"
-            },
-            "baseline_name": {
-              "type": "string"
-            },
-            "built_pkgcache": {
-              "type": "boolean"
-            },
-            "created": {
-              "type": "string"
-            },
-            "culled_timestamp": {
-              "type": "string"
-            },
-            "display_name": {
-              "type": "string"
-            },
-            "groups": {
-              "items": {
-                "$ref": "#/components/schemas/controllers.SystemGroup"
-              },
-              "type": "array"
-            },
-            "installable_other_count": {
-              "type": "integer"
-            },
-            "installable_rhba_count": {
-              "type": "integer"
-            },
-            "installable_rhea_count": {
-              "type": "integer"
-            },
-            "installable_rhsa_count": {
-              "type": "integer"
-            },
-            "last_evaluation": {
-              "type": "string"
-            },
-            "last_upload": {
-              "type": "string"
-            },
-            "os": {
-              "type": "string"
-            },
-            "other_count": {
-              "type": "integer"
-            },
-            "packages_applicable": {
-              "type": "integer"
-            },
-            "packages_installable": {
-              "type": "integer"
-            },
-            "packages_installed": {
-              "type": "integer"
-            },
-            "rhba_count": {
-              "type": "integer"
-            },
-            "rhea_count": {
-              "type": "integer"
-            },
-            "rhsa_count": {
-              "type": "integer"
-            },
-            "rhsm": {
-              "type": "string"
-            },
-            "satellite_managed": {
-              "type": "boolean"
-            },
-            "stale": {
-              "type": "boolean"
-            },
-            "stale_timestamp": {
-              "type": "string"
-            },
-            "stale_warning_timestamp": {
-              "type": "string"
-            },
-            "tags": {
-              "items": {
-                "$ref": "#/components/schemas/controllers.SystemTag"
-              },
-              "type": "array"
-            }
-          },
-          "type": "object"
-        },
-        "controllers.SystemItemV3": {
+        "controllers.SystemItemExtended": {
           "properties": {
             "attributes": {
-              "$ref": "#/components/schemas/controllers.SystemItemAttributesV3"
+              "$ref": "#/components/schemas/controllers.SystemItemAttributesExtended"
             },
             "id": {
               "type": "string"
@@ -1795,11 +1803,11 @@
           },
           "type": "object"
         },
-        "controllers.SystemsResponseV3": {
+        "controllers.SystemsResponse": {
           "properties": {
             "data": {
               "items": {
-                "$ref": "#/components/schemas/controllers.SystemItemV3"
+                "$ref": "#/components/schemas/controllers.SystemItem"
               },
               "type": "array"
             },
@@ -2024,7 +2032,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.6.28"
+      "version": "v3.6.44"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2540,7 +2548,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.AdvisorySystemsResponseV3"
+                    "$ref": "#/components/schemas/controllers.AdvisorySystemsResponse"
                   }
                 }
               },
@@ -3828,7 +3836,8 @@
                   "id",
                   "name",
                   "systems_installed",
-                  "systems_updatable"
+                  "systems_installable",
+                  "systems_applicable"
                 ],
                 "type": "string"
               }
@@ -3860,7 +3869,15 @@
             {
               "description": "Filter",
               "in": "query",
-              "name": "filter[systems_updatable]",
+              "name": "filter[systems_installable]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[systems_applicable]",
               "schema": {
                 "type": "string"
               }
@@ -4367,7 +4384,7 @@
                 "application/json": {
                   "schema": {
                     "items": {
-                      "$ref": "#/components/schemas/controllers.SystemDBLookupV3"
+                      "$ref": "#/components/schemas/controllers.SystemDBLookup"
                     },
                     "type": "array"
                   }
@@ -4375,7 +4392,7 @@
                 "text/csv": {
                   "schema": {
                     "items": {
-                      "$ref": "#/components/schemas/controllers.SystemDBLookupV3"
+                      "$ref": "#/components/schemas/controllers.SystemDBLookup"
                     },
                     "type": "array"
                   }
@@ -4920,7 +4937,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.IDsResponse"
+                    "$ref": "#/components/schemas/controllers.IDsPlainResponse"
                   }
                 }
               },
@@ -5409,7 +5426,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.IDsResponse"
+                    "$ref": "#/components/schemas/controllers.IDsPlainResponse"
                   }
                 }
               },
@@ -6587,7 +6604,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.PackageSystemsResponseV3"
+                    "$ref": "#/components/schemas/controllers.PackageSystemsResponse"
                   }
                 }
               },
@@ -7074,7 +7091,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/controllers.SystemsResponseV3"
+                    "$ref": "#/components/schemas/controllers.SystemsResponse"
                   }
                 }
               },
