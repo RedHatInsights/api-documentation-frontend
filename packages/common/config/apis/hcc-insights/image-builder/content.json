@@ -701,6 +701,9 @@
               "example": "/dev/sda",
               "type": "string"
             },
+            "installer": {
+              "$ref": "#/components/schemas/Installer"
+            },
             "kernel": {
               "$ref": "#/components/schemas/Kernel"
             },
@@ -1235,6 +1238,24 @@
             "vhd"
           ],
           "type": "string"
+        },
+        "Installer": {
+          "additionalProperties": false,
+          "description": "Anaconda installer configuration",
+          "properties": {
+            "sudo-nopasswd": {
+              "items": {
+                "description": "Enable passwordless sudo for users or groups (groups must be prefixed by @)\n",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "unattended": {
+              "description": "Create a kickstart file for a fully automated installation\n",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
         },
         "Kernel": {
           "additionalProperties": false,
