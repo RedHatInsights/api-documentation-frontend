@@ -821,6 +821,9 @@
             },
             "subscription_locked": {
               "type": "boolean"
+            },
+            "visible": {
+              "type": "boolean"
             }
           },
           "required": [

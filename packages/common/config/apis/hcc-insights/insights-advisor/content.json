@@ -145,16 +145,13 @@
               "type": "string"
             },
             "rating": {
-              "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
-              "enum": [
-                -1,
-                0,
-                1
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/RatingEnum"
+                }
               ],
               "maximum": 32767,
-              "minimum": -32768,
-              "type": "integer",
-              "x-spec-enum-id": "77fd471e36283637"
+              "minimum": -32768
             },
             "rule": {
               "description": "Rule ID from Insights",
@@ -1235,6 +1232,15 @@
           ],
           "type": "object"
         },
+        "RatingEnum": {
+          "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
+          "enum": [
+            -1,
+            0,
+            1
+          ],
+          "type": "integer"
+        },
         "RenderedReport": {
           "description": "The actual rule fields with the report data for a particular system\nrendered into them, in a flat structure that's easier to use.",
           "properties": {
@@ -1791,16 +1797,13 @@
           "description": "Rule ratings list the rating (-1, 0 or +1) for one or more rules.  The\nrule is listed by its Insights Rule ID.",
           "properties": {
             "rating": {
-              "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
-              "enum": [
-                -1,
-                0,
-                1
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/RatingEnum"
+                }
               ],
               "maximum": 32767,
-              "minimum": -32768,
-              "type": "integer",
-              "x-spec-enum-id": "77fd471e36283637"
+              "minimum": -32768
             },
             "rule": {
               "description": "Rule ID from Insights",
@@ -2290,7 +2293,7 @@
       "/api/insights/v1/account/": {
         "get": {
           "description": "List all accounts by org_id we know about (through the host table).\n\nNo other information about the accounts is provided in this view.",
-          "operationId": "account_list",
+          "operationId": "api_insights_v1_account_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -2329,14 +2332,14 @@
             }
           ],
           "tags": [
-            "account"
+            "api"
           ]
         }
       },
       "/api/insights/v1/account/{org_id}/": {
         "get": {
           "description": "List information relating to other accounts.\n\nThis allows us to collect data that requires the user to specify an\norg_id number, such as number of systems currently registered to that\norg.\n\nparam: org_id: Org ID number of a Red Hat customer.",
-          "operationId": "account_retrieve",
+          "operationId": "api_insights_v1_account_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -2365,14 +2368,14 @@
             }
           ],
           "tags": [
-            "account"
+            "api"
           ]
         }
       },
       "/api/insights/v1/account/{org_id}/hosts/": {
         "get": {
           "description": "List details about the number of hosts in this account by org_id.\n\nAs well as the total number of hosts, we report on the number of hosts\nin various states of staleness:\n  * fresh: hosts that have updated in the last 26 hours\n  * stale: hosts not updated in the last 26 hours - we display the\n    results for these hosts but a warning is shown to say they are\n    not updating\n  * warn: hosts not updated in the last week - these are not shown\n    in any queries\n\nThis may have other aggregate data added in the future.",
-          "operationId": "account_hosts_retrieve",
+          "operationId": "api_insights_v1_account_hosts_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -2401,14 +2404,14 @@
             }
           ],
           "tags": [
-            "account"
+            "api"
           ]
         }
       },
       "/api/insights/v1/ack/": {
         "get": {
           "description": "List acks from this account by org_id where the rule is active\n\nWill return an empty list if this account has no acks.",
-          "operationId": "ack_list",
+          "operationId": "api_insights_v1_ack_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -2447,12 +2450,12 @@
             }
           ],
           "tags": [
-            "ack"
+            "api"
           ]
         },
         "post": {
           "description": "Add an acknowledgement for a rule, by rule ID.\n\nIf there's already an acknowledgement of this rule by this\naccounts org_id, then return that.  Otherwise, a new ack is created.",
-          "operationId": "ack_create",
+          "operationId": "api_insights_v1_ack_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -2491,14 +2494,14 @@
             }
           ],
           "tags": [
-            "ack"
+            "api"
           ]
         }
       },
       "/api/insights/v1/ack/all/": {
         "get": {
           "description": "List acks from all accounts, with org_id.\n\nHas no pagination.",
-          "operationId": "ack_all_list",
+          "operationId": "api_insights_v1_ack_all_list",
           "responses": {
             "200": {
               "content": {
@@ -2520,14 +2523,14 @@
             }
           ],
           "tags": [
-            "ack"
+            "api"
           ]
         }
       },
       "/api/insights/v1/ack/{rule_id}/": {
         "delete": {
           "description": "Delete an acknowledgement for a rule, by its rule ID.\n\nIf the ack existed, it is deleted and a 204 is returned.  Otherwise,\na 404 is returned.",
-          "operationId": "ack_destroy",
+          "operationId": "api_insights_v1_ack_destroy",
           "parameters": [
             {
               "in": "path",
@@ -2557,12 +2560,12 @@
             }
           ],
           "tags": [
-            "ack"
+            "api"
           ]
         },
         "get": {
           "description": "Acks acknowledge (and therefore hide) a rule from view in an account.\n\nThis view handles listing, retrieving, creating and deleting acks.  Acks\nare created and deleted by Insights rule ID, not by their own ack ID.\n\nparam: rule_id: Rule ID defined by Insights ruleset",
-          "operationId": "ack_retrieve",
+          "operationId": "api_insights_v1_ack_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -2592,12 +2595,12 @@
             }
           ],
           "tags": [
-            "ack"
+            "api"
           ]
         },
         "put": {
           "description": "Update an acknowledgement for a rule, by rule ID.\n\nA new justification can be supplied.  The username is taken from the\nauthenticated request.  The updated ack is returned.",
-          "operationId": "ack_update",
+          "operationId": "api_insights_v1_ack_update",
           "parameters": [
             {
               "in": "path",
@@ -2646,14 +2649,14 @@
             }
           ],
           "tags": [
-            "ack"
+            "api"
           ]
         }
       },
       "/api/insights/v1/ackcount/": {
         "get": {
           "description": "Get the ack counts for all active rules\n\nReturn a list of rule_ids and their ack counts",
-          "operationId": "ackcount_list",
+          "operationId": "api_insights_v1_ackcount_list",
           "responses": {
             "200": {
               "content": {
@@ -2675,14 +2678,14 @@
             }
           ],
           "tags": [
-            "ackcount"
+            "api"
           ]
         }
       },
       "/api/insights/v1/ackcount/{rule_id}/": {
         "get": {
           "description": "Get the ack count for the given rule_id\n\nReturns the rule_id and its ack count",
-          "operationId": "ackcount_retrieve",
+          "operationId": "api_insights_v1_ackcount_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -2712,14 +2715,14 @@
             }
           ],
           "tags": [
-            "ackcount"
+            "api"
           ]
         }
       },
       "/api/insights/v1/autosubexclusion/": {
         "get": {
           "description": "Returns all subscription exclusions for accounts\n\nThis returns a list of all subscription exclusions.\nThis contains exclusions and their account and org_id.\nThese are all accounts that are excluded from the autosub\nsubscription path for weekly report subscriptions.",
-          "operationId": "autosubexclusion_list",
+          "operationId": "api_insights_v1_autosubexclusion_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -2758,12 +2761,12 @@
             }
           ],
           "tags": [
-            "autosubexclusion"
+            "api"
           ]
         },
         "post": {
           "description": "Create a new subscription exclusion for an account.\n\nThis creates a new subscription exclusion for an account.\nThis should contain an org_id and account. Only org_id is required.\nAccount is optional.",
-          "operationId": "autosubexclusion_create",
+          "operationId": "api_insights_v1_autosubexclusion_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -2802,14 +2805,14 @@
             }
           ],
           "tags": [
-            "autosubexclusion"
+            "api"
           ]
         }
       },
       "/api/insights/v1/autosubexclusion/{org_id}/": {
         "delete": {
           "description": "Destroy an existing subscription exclusion in the system.\n\nThis will DELETE an existing subscription exclusion\nin the system. Existing subscription exclusions\nare identified and deleted by the \"org_id\" field.",
-          "operationId": "autosubexclusion_destroy",
+          "operationId": "api_insights_v1_autosubexclusion_destroy",
           "parameters": [
             {
               "in": "path",
@@ -2838,12 +2841,12 @@
             }
           ],
           "tags": [
-            "autosubexclusion"
+            "api"
           ]
         },
         "get": {
           "description": "Returns an individual subscription exclusion based on org_id.\n\nThis returns an individual subscription exclusion\nbased on the org_id.",
-          "operationId": "autosubexclusion_retrieve",
+          "operationId": "api_insights_v1_autosubexclusion_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -2872,14 +2875,14 @@
             }
           ],
           "tags": [
-            "autosubexclusion"
+            "api"
           ]
         }
       },
       "/api/insights/v1/export/hits/": {
         "get": {
           "description": "Get each host and all rules currently affecting it.\n\nWe also only present active, non-acked (on an account AND host level)\nrules.  Inventory data may be requested if Advisor has not seen all\nthe hosts. The accepted content type supplied in the request headers\nis used to determine the supplied content type.",
-          "operationId": "export_hits_list",
+          "operationId": "api_insights_v1_export_hits_list",
           "parameters": [
             {
               "description": "Display rules of this category (number)",
@@ -3124,14 +3127,14 @@
             }
           ],
           "tags": [
-            "export"
+            "api"
           ]
         }
       },
       "/api/insights/v1/export/reports/": {
         "get": {
           "description": "List the report details of each rule affecting each system.\n\nSystem and Rule are referred to by ID only, to be correlated with the\nRule and System export data.  It's like the hits output but much\nless repetitive.",
-          "operationId": "export_reports_list",
+          "operationId": "api_insights_v1_export_reports_list",
           "parameters": [
             {
               "description": "Display rules of this category (number)",
@@ -3357,14 +3360,14 @@
             }
           ],
           "tags": [
-            "export"
+            "api"
           ]
         }
       },
       "/api/insights/v1/export/rules/": {
         "get": {
           "description": "List the report details of each rule affecting each system.\n\nSystem and Rule are referred to by ID only, to be correlated with the\nRule and System export data.  It's like the hits output but much\nless repetitive.",
-          "operationId": "export_rules_list",
+          "operationId": "api_insights_v1_export_rules_list",
           "parameters": [
             {
               "description": "Display rules of this category (number)",
@@ -3590,14 +3593,14 @@
             }
           ],
           "tags": [
-            "export"
+            "api"
           ]
         }
       },
       "/api/insights/v1/export/systems/": {
         "get": {
           "description": "List of systems with details and hit counts.\n\nSystems can be sorted and filtered by display name and rule id.",
-          "operationId": "export_systems_list",
+          "operationId": "api_insights_v1_export_systems_list",
           "parameters": [
             {
               "description": "Display systems with this text in their display_name",
@@ -3713,14 +3716,14 @@
             }
           ],
           "tags": [
-            "export"
+            "api"
           ]
         }
       },
       "/api/insights/v1/hostack/": {
         "get": {
           "description": "List host acks from this account for a system where the rule is active.\n\nHostacks are retrieved, edited and deleted by the 'id' field.",
-          "operationId": "hostack_list",
+          "operationId": "api_insights_v1_hostack_list",
           "parameters": [
             {
               "description": "Are there systems which contain these SAP SIDs?",
@@ -3821,12 +3824,12 @@
             }
           ],
           "tags": [
-            "hostack"
+            "api"
           ]
         },
         "post": {
           "description": "Add an acknowledgement for a rule, by rule ID, system, and account.\n\nReturn the new hostack.  If there's already an acknowledgement of\nthis rule by this account for a system, then return that.  This does\nnot take an 'id' number.",
-          "operationId": "hostack_create",
+          "operationId": "api_insights_v1_hostack_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -3865,14 +3868,14 @@
             }
           ],
           "tags": [
-            "hostack"
+            "api"
           ]
         }
       },
       "/api/insights/v1/hostack/{id}/": {
         "delete": {
           "description": "Delete an acknowledgement for a rule, for a system, for an account, by its ID.\n\nTakes the hostack ID (given in the hostack list) as an identifier.",
-          "operationId": "hostack_destroy",
+          "operationId": "api_insights_v1_hostack_destroy",
           "parameters": [
             {
               "description": "A unique integer value identifying this host ack.",
@@ -3902,12 +3905,12 @@
             }
           ],
           "tags": [
-            "hostack"
+            "api"
           ]
         },
         "get": {
           "description": "HostAcks acknowledge (and therefore hide) a rule from view in an account for a specific system.\n\nThis view handles listing, retrieving, creating and deleting hostacks.",
-          "operationId": "hostack_retrieve",
+          "operationId": "api_insights_v1_hostack_retrieve",
           "parameters": [
             {
               "description": "A unique integer value identifying this host ack.",
@@ -3937,12 +3940,12 @@
             }
           ],
           "tags": [
-            "hostack"
+            "api"
           ]
         },
         "put": {
           "description": "Update the justification for this host acknowledgement.\n\nThe justification is taken from the request body.  The created_by\nfield is taken from the username in the x-rh-identity field, and the\nupdated_at field is set to the current time.",
-          "operationId": "hostack_update",
+          "operationId": "api_insights_v1_hostack_update",
           "parameters": [
             {
               "description": "A unique integer value identifying this host ack.",
@@ -3991,14 +3994,14 @@
             }
           ],
           "tags": [
-            "hostack"
+            "api"
           ]
         }
       },
       "/api/insights/v1/kcs/": {
         "get": {
           "description": "Looks for all active rules with KCS solutions\n\nReturns a list of dicts of the C.R.C rule URL and its KCS solution number",
-          "operationId": "kcs_list",
+          "operationId": "api_insights_v1_kcs_list",
           "parameters": [
             {
               "description": "Display the rule urls for the given list of comma separated KCS solution node_ids",
@@ -4031,7 +4034,7 @@
             }
           },
           "tags": [
-            "kcs"
+            "api"
           ]
         }
       },
@@ -4068,14 +4071,14 @@
             }
           },
           "tags": [
-            "kcs"
+            "api"
           ]
         }
       },
       "/api/insights/v1/pathway/": {
         "get": {
           "description": "This returns a list of all Pathways. Will display the same\ninformation as is provided in the retrieve view, but has all Pathways\nlisted.",
-          "operationId": "pathway_list",
+          "operationId": "api_insights_v1_pathway_list",
           "parameters": [
             {
               "description": "Filter rules of this category (number)",
@@ -4247,12 +4250,12 @@
           ],
           "summary": "Return all pathways",
           "tags": [
-            "pathway"
+            "api"
           ]
         },
         "post": {
           "description": "This creates a new Pathway in the system.\nRequired fields are \"name,\" \"description,\"\n\"component,\" \"resolution_risk,\" and \"publish_date.\"\n\"name\" is a slug field and used to identify and\nretrieve Pathways for detailed analysis. The slug\nfor a Pathway is auto-generated by converting the\n\"name\" to lowercase and replacing all spaces with dashes.\n\"resolution_risk\" should be the \"name\" of the\nResolutionRisk to associate with this Pathway,\nnot the risk value.",
-          "operationId": "pathway_create",
+          "operationId": "api_insights_v1_pathway_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -4292,14 +4295,14 @@
           ],
           "summary": "Create a new Pathway in the system",
           "tags": [
-            "pathway"
+            "api"
           ]
         }
       },
       "/api/insights/v1/pathway/{slug}/": {
         "delete": {
           "description": "This will DELETE an existing Pathway in the system.\nExisting pathways are identified and deleted by\nthe \"slug\" field.",
-          "operationId": "pathway_destroy",
+          "operationId": "api_insights_v1_pathway_destroy",
           "parameters": [
             {
               "in": "path",
@@ -4329,12 +4332,12 @@
           ],
           "summary": "Destroy an existing Pathway in the system",
           "tags": [
-            "pathway"
+            "api"
           ]
         },
         "get": {
           "description": "This returns an individual pathway based on slug.\nWill display the same information as is\nprovided in the list view.",
-          "operationId": "pathway_retrieve",
+          "operationId": "api_insights_v1_pathway_retrieve",
           "parameters": [
             {
               "description": "Filter rules of this category (number)",
@@ -4454,12 +4457,12 @@
           ],
           "summary": "Returns an individual Pathway based on slug",
           "tags": [
-            "pathway"
+            "api"
           ]
         },
         "put": {
           "description": "This updates an existing Pathway already\ndefined in the system. All fields that are\nrequired to define a Pathway initially\nmay be updated here as well. Pathways are\nidenfitied and updated by the \"slug\" field.",
-          "operationId": "pathway_update",
+          "operationId": "api_insights_v1_pathway_update",
           "parameters": [
             {
               "in": "path",
@@ -4509,14 +4512,14 @@
           ],
           "summary": "Update an existing Pathway in the system",
           "tags": [
-            "pathway"
+            "api"
           ]
         }
       },
       "/api/insights/v1/pathway/{slug}/reports/": {
         "get": {
           "description": "Each rule is listed once, with the systems currently reporting an\nincidence of that rule in a list.",
-          "operationId": "pathway_reports_retrieve",
+          "operationId": "api_insights_v1_pathway_reports_retrieve",
           "parameters": [
             {
               "description": "Filter rules of this category (number)",
@@ -4628,14 +4631,14 @@
           ],
           "summary": "Get the list of systems for each rule in this pathway",
           "tags": [
-            "pathway"
+            "api"
           ]
         }
       },
       "/api/insights/v1/pathway/{slug}/rules/": {
         "get": {
           "description": "This view will retrieve/list in paginated\nformat, all rules for a specific Pathway.\nThis does not take into account acks\nor host asks. The Specific Pathway\nis requested by its slug",
-          "operationId": "pathway_rules_list",
+          "operationId": "api_insights_v1_pathway_rules_list",
           "parameters": [
             {
               "description": "Filter rules of this category (number)",
@@ -4709,14 +4712,14 @@
           ],
           "summary": "Get all rules in a Pathway",
           "tags": [
-            "pathway"
+            "api"
           ]
         }
       },
       "/api/insights/v1/pathway/{slug}/systems/": {
         "get": {
           "description": "This view will retrieve/list in paginated\nformat, all impacted systems for an account,\nfor a specific Pathway. The specific Pathway\nis requested by its slug.",
-          "operationId": "pathway_systems_list",
+          "operationId": "api_insights_v1_pathway_systems_list",
           "parameters": [
             {
               "description": "Filter rules of this category (number)",
@@ -4870,14 +4873,14 @@
           ],
           "summary": "Get all impacted systems for an account for a specific Pathway",
           "tags": [
-            "pathway"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rating/": {
         "get": {
           "description": "List all rules rated by the current user\n\nOnly the current user's ratings are listed here.",
-          "operationId": "rating_list",
+          "operationId": "api_insights_v1_rating_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -4916,12 +4919,12 @@
             }
           ],
           "tags": [
-            "rating"
+            "api"
           ]
         },
         "post": {
           "description": "Add or update a rating for a rule, by rule ID.\n\nReturn the new rating.  Any previous rating for this rule by this\nuser is amended to the current value.  This does not attempt to delete\na rating by this user of this rule if the rating is zero.",
-          "operationId": "rating_create",
+          "operationId": "api_insights_v1_rating_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -4970,14 +4973,14 @@
             }
           ],
           "tags": [
-            "rating"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rating/all_ratings/": {
         "get": {
           "description": "Show all ratings.\n\nAvailable only to internal users.",
-          "operationId": "rating_all_ratings_list",
+          "operationId": "api_insights_v1_rating_all_ratings_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -5016,14 +5019,14 @@
             }
           ],
           "tags": [
-            "rating"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rating/stats/": {
         "get": {
           "description": "Summarise the ratings for a rule.\n\nThis summarises the statistics for each rule.  Available only to\ninternal users.",
-          "operationId": "rating_stats_list",
+          "operationId": "api_insights_v1_rating_stats_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -5062,14 +5065,14 @@
             }
           ],
           "tags": [
-            "rating"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rating/{rule}/": {
         "get": {
           "description": "Retrieve the ratings for a single rule, by Insights Rule ID",
-          "operationId": "rating_retrieve",
+          "operationId": "api_insights_v1_rating_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -5100,14 +5103,14 @@
           ],
           "summary": "Retrieve the ratings for a single rule",
           "tags": [
-            "rating"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/": {
         "get": {
           "description": "List all active rules for this account.\n\nIf 'acked' is False or not given, then only rules that are not acked\nwill be shown.  If acked is set and 'true' as a string or evaluates\nto a true value, then all rules including those that are acked will\nbe shown.",
-          "operationId": "rule_list",
+          "operationId": "api_insights_v1_rule_list",
           "parameters": [
             {
               "description": "Display rules of this category (number)",
@@ -5446,14 +5449,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/": {
         "get": {
           "description": "Retrieve a single rule and its associated details.\n\nThis includes the account-relevant details such as number of\nimpacted systems and host acknowledgements.",
-          "operationId": "rule_retrieve",
+          "operationId": "api_insights_v1_rule_retrieve",
           "parameters": [
             {
               "description": "List of Inventory host group names",
@@ -5509,14 +5512,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/ack_hosts/": {
         "post": {
           "description": "Add acknowledgements for one or more hosts to this rule.\n\nHost acknowledgements will be added to this rule in this account for\nthe system UUIDs supplied.  The justification supplied will be given\nfor all host acks created.  Any existing host acknowledgements for a\nhost on this rule will be updated.  The count of created hosts\nacknowledgements, and the list of systems now impacted by this rule,\nwill be returned.  Account-wide acks are unaffected.",
-          "operationId": "rule_ack_hosts_create",
+          "operationId": "api_insights_v1_rule_ack_hosts_create",
           "parameters": [
             {
               "in": "path",
@@ -5566,14 +5569,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/justifications/": {
         "get": {
           "description": "List all justifications given for disabling this rule.\n\nThis is an **internal-only** view that allows us to provide feedback\non why rules are disabled by our customers.  It lists the\njustifications given in both account-wide acks and host-specific acks\nof a rule.",
-          "operationId": "rule_justifications_list",
+          "operationId": "api_insights_v1_rule_justifications_list",
           "parameters": [
             {
               "description": "Number of results to return per page.",
@@ -5621,14 +5624,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/stats/": {
         "get": {
           "description": "Display usage and impact statistics for this rule.\n\nFor internal use only.  This allows rule developers to see the number\nof systems and accounts impacted by a rule.",
-          "operationId": "rule_stats_retrieve",
+          "operationId": "api_insights_v1_rule_stats_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -5658,14 +5661,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/systems/": {
         "get": {
           "description": "List all systems affected by this rule.\n\nAll systems owned by the user's account, with a current upload\nreporting the given rule, are listed.  Systems are simply listed by\nInsights Inventory UUID.",
-          "operationId": "rule_systems_retrieve",
+          "operationId": "api_insights_v1_rule_systems_retrieve",
           "parameters": [
             {
               "description": "Is this an Ansible system?",
@@ -5878,14 +5881,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/systems_detail/": {
         "get": {
           "description": "List systems affected by this rule with additional information about each system\n\nAll systems owned by the user's account, with a current upload\nreporting the given rule, are listed in a paginated format.\n\nAdditional information includes hit counts and upload/stale timestamps.",
-          "operationId": "rule_systems_detail_list",
+          "operationId": "api_insights_v1_rule_systems_detail_list",
           "parameters": [
             {
               "description": "Is this an Ansible system?",
@@ -6088,14 +6091,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rule/{rule_id}/unack_hosts/": {
         "post": {
           "description": "Delete acknowledgements for one or more hosts to this rule.\n\nAny host acknowledgements for this rule in this account for the given\nsystem are deleted.  Hosts that do not have an acknowledgement for\nthis rule in this account are ignored.  The count of deleted host\nacknowledgements, and the list of hosts now impacted by this rule,\nwill be returned.  Account-wide acks are unaffected.",
-          "operationId": "rule_unack_hosts_create",
+          "operationId": "api_insights_v1_rule_unack_hosts_create",
           "parameters": [
             {
               "in": "path",
@@ -6145,14 +6148,14 @@
             }
           ],
           "tags": [
-            "rule"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rulecategory/": {
         "get": {
           "description": "Rules are divided into categories, the usual being Availability,\nStability, Security and Performance.\n\nCategories are listed in decreasing order of importance.",
-          "operationId": "rulecategory_list",
+          "operationId": "api_insights_v1_rulecategory_list",
           "responses": {
             "200": {
               "content": {
@@ -6169,14 +6172,14 @@
             }
           },
           "tags": [
-            "rulecategory"
+            "api"
           ]
         }
       },
       "/api/insights/v1/rulecategory/{id}/": {
         "get": {
           "description": "Rules are divided into categories, the usual being Availability,\nStability, Security and Performance.\n\nCategories are listed in decreasing order of importance.",
-          "operationId": "rulecategory_retrieve",
+          "operationId": "api_insights_v1_rulecategory_retrieve",
           "parameters": [
             {
               "description": "A unique integer value identifying this rule category.",
@@ -6201,14 +6204,14 @@
             }
           },
           "tags": [
-            "rulecategory"
+            "api"
           ]
         }
       },
       "/api/insights/v1/settings/": {
         "get": {
           "description": "Describe the settings we have in a Data-Driven Forms way.\n\nThis simply compiles the 'show_satellite_hosts' account-wide setting\ninto a format compatible with Data-Driven Forms.",
-          "operationId": "settings_list",
+          "operationId": "api_insights_v1_settings_list",
           "responses": {
             "200": {
               "content": {
@@ -6230,14 +6233,14 @@
             }
           ],
           "tags": [
-            "settings"
+            "api"
           ]
         }
       },
       "/api/insights/v1/stats/": {
         "get": {
           "description": "Provide a simple list of URLs contained here.\n\nA list of statistics views.",
-          "operationId": "stats_list",
+          "operationId": "api_insights_v1_stats_list",
           "responses": {
             "200": {
               "content": {
@@ -6263,62 +6266,14 @@
             }
           ],
           "tags": [
-            "stats"
+            "api"
           ]
         }
       },
       "/api/insights/v1/stats/overview/": {
         "get": {
           "description": "Show overview statistics for this user\n\nThis gives the number of pathways, and incident, critical and\nimportant recommendations, affecting systems that the user can see.",
-          "operationId": "stats_overview_retrieve",
-          "parameters": [
-            {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
-              "in": "query",
-              "name": "tags",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "List of Inventory host group names",
-              "in": "query",
-              "name": "groups",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Are there systems which contain these SAP SIDs?",
-              "in": "query",
-              "name": "filter[system_profile][sap_sids][contains]",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            }
-          ],
+          "operationId": "api_insights_v1_stats_overview_retrieve",
           "responses": {
             "200": {
               "content": {
@@ -6337,62 +6292,14 @@
             }
           ],
           "tags": [
-            "stats"
+            "api"
           ]
         }
       },
       "/api/insights/v1/stats/reports/": {
         "get": {
           "description": "Show statistics of reports impacting across categories and risks.\n\nOnly current reports are considered.",
-          "operationId": "stats_reports_retrieve",
-          "parameters": [
-            {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
-              "in": "query",
-              "name": "tags",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "List of Inventory host group names",
-              "in": "query",
-              "name": "groups",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Are there systems which contain these SAP SIDs?",
-              "in": "query",
-              "name": "filter[system_profile][sap_sids][contains]",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            }
-          ],
+          "operationId": "api_insights_v1_stats_reports_retrieve",
           "responses": {
             "200": {
               "content": {
@@ -6411,62 +6318,14 @@
             }
           ],
           "tags": [
-            "stats"
+            "api"
           ]
         }
       },
       "/api/insights/v1/stats/rules/": {
         "get": {
           "description": "Show statistics of rule usage across categories and risks.\n\nOnly current reports are considered.",
-          "operationId": "stats_rules_retrieve",
-          "parameters": [
-            {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
-              "in": "query",
-              "name": "tags",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "List of Inventory host group names",
-              "in": "query",
-              "name": "groups",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Are there systems which contain these SAP SIDs?",
-              "in": "query",
-              "name": "filter[system_profile][sap_sids][contains]",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            }
-          ],
+          "operationId": "api_insights_v1_stats_rules_retrieve",
           "responses": {
             "200": {
               "content": {
@@ -6485,62 +6344,14 @@
             }
           ],
           "tags": [
-            "stats"
+            "api"
           ]
         }
       },
       "/api/insights/v1/stats/systems/": {
         "get": {
           "description": "Show statistics of systems being impacted across categories and risks.\n\nOnly current reports are considered.",
-          "operationId": "stats_systems_retrieve",
-          "parameters": [
-            {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
-              "in": "query",
-              "name": "tags",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "List of Inventory host group names",
-              "in": "query",
-              "name": "groups",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Are there systems which contain these SAP SIDs?",
-              "in": "query",
-              "name": "filter[system_profile][sap_sids][contains]",
-              "schema": {
-                "items": {
-                  "format": "regex",
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            }
-          ],
+          "operationId": "api_insights_v1_stats_systems_retrieve",
           "responses": {
             "200": {
               "content": {
@@ -6559,56 +6370,56 @@
             }
           ],
           "tags": [
-            "stats"
+            "api"
           ]
         }
       },
       "/api/insights/v1/status/": {
         "get": {
           "description": "Provide a simple list of URLs contained here.\n\nA list of statistics views.",
-          "operationId": "status_retrieve",
+          "operationId": "api_insights_v1_status_retrieve",
           "responses": {
             "200": {
               "description": "No response body"
             }
           },
           "tags": [
-            "status"
+            "api"
           ]
         }
       },
       "/api/insights/v1/status/live/": {
         "get": {
           "description": "Is the Advisor API live and serving requests?\n\nThis returns a dictionary with properties defining the status of the\ncomponents Advisor relies on.\n\nAt the moment this is the same as the Readiness check (see `/ready/`).\nIn the future it may include other checks if we need to, but the\nproperties of `/ready/` will always be included.",
-          "operationId": "status_live_retrieve",
+          "operationId": "api_insights_v1_status_live_retrieve",
           "responses": {
             "200": {
               "description": "No response body"
             }
           },
           "tags": [
-            "status"
+            "api"
           ]
         }
       },
       "/api/insights/v1/status/ready/": {
         "get": {
           "description": "Is the Advisor API ready to serve requests?\n\nThis returns a dictionary with properties defining the status of the\ncomponents Advisor relies on.\n\n* 'django' should always be True.  If Django isn't ready, you can't\n  get this information :-)\n* 'database' is True when a database access returns successfully with\n  valid information.\n* 'rbac' is True when we can make a request to the RBAC API and get\n  a valid response.\n* 'advisor' is True if all of the above are True.",
-          "operationId": "status_ready_retrieve",
+          "operationId": "api_insights_v1_status_ready_retrieve",
           "responses": {
             "200": {
               "description": "No response body"
             }
           },
           "tags": [
-            "status"
+            "api"
           ]
         }
       },
       "/api/insights/v1/system/": {
         "get": {
           "description": "Returns systems with their hit count and last upload time.\n\nResults can be sorted and systems can be filtered by display name and hits",
-          "operationId": "system_list",
+          "operationId": "api_insights_v1_system_list",
           "parameters": [
             {
               "description": "Display systems with this text in their display_name",
@@ -6853,14 +6664,14 @@
             }
           ],
           "tags": [
-            "system"
+            "api"
           ]
         }
       },
       "/api/insights/v1/system/{uuid}/": {
         "get": {
           "description": "Retrieve the reports for a single system by Insights Inventory UUID",
-          "operationId": "system_retrieve",
+          "operationId": "api_insights_v1_system_retrieve",
           "parameters": [
             {
               "description": "A UUID string identifying this inventory host.",
@@ -6892,14 +6703,14 @@
           ],
           "summary": "Retrieve the reports for a single system",
           "tags": [
-            "system"
+            "api"
           ]
         }
       },
       "/api/insights/v1/system/{uuid}/rendered_reports/": {
         "get": {
           "description": "Returns the list of reports for an Inventory Host ID, with the\nrule templates filled in thanks to node.js and DoT and Markdown.\n\nIf the host ID is not found, return an empty list.",
-          "operationId": "system_rendered_reports_list",
+          "operationId": "api_insights_v1_system_rendered_reports_list",
           "parameters": [
             {
               "description": "Is this an Ansible system?",
@@ -7001,14 +6812,14 @@
             }
           ],
           "tags": [
-            "system"
+            "api"
           ]
         }
       },
       "/api/insights/v1/system/{uuid}/reports/": {
         "get": {
           "description": "Returns the list of latest reports for an Inventory Host ID.\n\nReturns reports that:\n * are in the user's account\n * have an active, not-deleted rule\n * where the rule has not been acked by this account\n\nIf the host ID is not found, return an empty list.",
-          "operationId": "system_reports_list",
+          "operationId": "api_insights_v1_system_reports_list",
           "parameters": [
             {
               "description": "Is this an Ansible system?",
@@ -7122,14 +6933,14 @@
             }
           ],
           "tags": [
-            "system"
+            "api"
           ]
         }
       },
       "/api/insights/v1/systemtype/": {
         "get": {
           "description": "List all system types by role and product code",
-          "operationId": "systemtype_list",
+          "operationId": "api_insights_v1_systemtype_list",
           "responses": {
             "200": {
               "content": {
@@ -7147,14 +6958,14 @@
           },
           "summary": "List all system types",
           "tags": [
-            "systemtype"
+            "api"
           ]
         }
       },
       "/api/insights/v1/systemtype/{id}/": {
         "get": {
           "description": "Retrieve details of a single system type",
-          "operationId": "systemtype_retrieve",
+          "operationId": "api_insights_v1_systemtype_retrieve",
           "parameters": [
             {
               "description": "A unique integer value identifying this system type.",
@@ -7180,14 +6991,14 @@
           },
           "summary": "Retrieve a system type",
           "tags": [
-            "systemtype"
+            "api"
           ]
         }
       },
       "/api/insights/v1/topic/": {
         "get": {
           "description": "List the rule topics and their impacted systems counts.\n\nNormally this only shows enabled topics, but if the 'show_disabled'\nparameter is set to True then this will show disabled topics as\nwell.",
-          "operationId": "topic_list",
+          "operationId": "api_insights_v1_topic_list",
           "parameters": [
             {
               "description": "Are there systems which contain these SAP SIDs?",
@@ -7284,12 +7095,12 @@
             }
           ],
           "tags": [
-            "topic"
+            "api"
           ]
         },
         "post": {
           "description": "Create a new rule topic, along with its association to a rule tag",
-          "operationId": "topic_create",
+          "operationId": "api_insights_v1_topic_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -7329,14 +7140,14 @@
           ],
           "summary": "Create a new rule topic",
           "tags": [
-            "topic"
+            "api"
           ]
         }
       },
       "/api/insights/v1/topic/{slug}/": {
         "delete": {
           "description": "Delete a rule topic.  Rules associated with the tag of this topic will be unaffected",
-          "operationId": "topic_destroy",
+          "operationId": "api_insights_v1_topic_destroy",
           "parameters": [
             {
               "in": "path",
@@ -7360,12 +7171,12 @@
           ],
           "summary": "Delete a rule topic",
           "tags": [
-            "topic"
+            "api"
           ]
         },
         "get": {
           "description": "Retrieve a single topic by slug.\n\nThis also lists the topic's impacted systems count.",
-          "operationId": "topic_retrieve",
+          "operationId": "api_insights_v1_topic_retrieve",
           "parameters": [
             {
               "in": "path",
@@ -7395,12 +7206,12 @@
             }
           ],
           "tags": [
-            "topic"
+            "api"
           ]
         },
         "patch": {
           "description": "Update an existing rule topic.  Only the fields being changed need to be supplied",
-          "operationId": "topic_partial_update",
+          "operationId": "api_insights_v1_topic_partial_update",
           "parameters": [
             {
               "in": "path",
@@ -7450,12 +7261,12 @@
           ],
           "summary": "Partially update a rule topic",
           "tags": [
-            "topic"
+            "api"
           ]
         },
         "put": {
           "description": "Update an existing rule topic.  All fields need to be supplied",
-          "operationId": "topic_update",
+          "operationId": "api_insights_v1_topic_update",
           "parameters": [
             {
               "in": "path",
@@ -7506,14 +7317,14 @@
           ],
           "summary": "Update a rule topic",
           "tags": [
-            "topic"
+            "api"
           ]
         }
       },
       "/api/insights/v1/topic/{slug}/rules_with_tag/": {
         "get": {
           "description": "Lists the available rules that have this tag.\n\nThis shows the rule information for rules with this tag.",
-          "operationId": "topic_rules_with_tag_list",
+          "operationId": "api_insights_v1_topic_rules_with_tag_list",
           "parameters": [
             {
               "in": "path",
@@ -7546,14 +7357,14 @@
             }
           ],
           "tags": [
-            "topic"
+            "api"
           ]
         }
       },
       "/api/insights/v1/topic/{slug}/systems/": {
         "get": {
           "description": "List all systems affected by this rule topic.\n\nSystems are just listed by their UUID.",
-          "operationId": "topic_systems_retrieve",
+          "operationId": "api_insights_v1_topic_systems_retrieve",
           "parameters": [
             {
               "description": "Are there systems which contain these SAP SIDs?",
@@ -7674,14 +7485,14 @@
             }
           ],
           "tags": [
-            "topic"
+            "api"
           ]
         }
       },
       "/api/insights/v1/usage/": {
         "get": {
           "description": "List the unique rule hits for this account over the given time range\n\nThis uses a HashLogLog structure to record number of hits, and this is\ntherefore an approximation.",
-          "operationId": "usage_list",
+          "operationId": "api_insights_v1_usage_list",
           "parameters": [
             {
               "description": "Allow `hydrauser` to view any account",
@@ -7740,14 +7551,14 @@
             }
           ],
           "tags": [
-            "usage"
+            "api"
           ]
         }
       },
       "/api/insights/v1/user-preferences/": {
         "get": {
           "description": "Describe the settings we have in a Data-Driven Forms way.\n\nThis simply compiles the 'show_satellite_hosts' account-wide setting\nand the weekly report 'is_subscribed' user-specific setting into one\nhandy view, with the description metadata necessary to use Data-Driven\nForms to display it.",
-          "operationId": "user_preferences_list",
+          "operationId": "api_insights_v1_user_preferences_list",
           "responses": {
             "200": {
               "content": {
@@ -7769,12 +7580,12 @@
             }
           ],
           "tags": [
-            "user-preferences"
+            "api"
           ]
         },
         "post": {
           "description": "Accept the settings as input, and adjust the actual models accordingly.\n\nThe current account settings will be updated, or one will be created,\nwith the",
-          "operationId": "user_preferences_create",
+          "operationId": "api_insights_v1_user_preferences_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -7813,14 +7624,14 @@
             }
           ],
           "tags": [
-            "user-preferences"
+            "api"
           ]
         }
       },
       "/api/insights/v1/weeklyreportautosubscribe/": {
         "get": {
           "description": "Show the user's current subscription status.\n\nThis shows the presence of a weekly report subscription by the user\nin this account.",
-          "operationId": "weeklyreportautosubscribe_list",
+          "operationId": "api_insights_v1_weeklyreportautosubscribe_list",
           "responses": {
             "200": {
               "content": {
@@ -7842,12 +7653,12 @@
             }
           ],
           "tags": [
-            "weeklyreportautosubscribe"
+            "api"
           ]
         },
         "post": {
           "description": "Set the auto-subscription status of the current user to the supplied\n`is_auto_subscribed` value.\n\nIf 'is_auto_subscribed' is true, an auto-subscription is added if it doesn't\nalready exist.  If it is false, the auto-subscription is removed if it\nexists.\n\nCheck if ENABLE_AUTOSUB enviroment variable is set to allow the method.",
-          "operationId": "weeklyreportautosubscribe_create",
+          "operationId": "api_insights_v1_weeklyreportautosubscribe_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -7886,14 +7697,14 @@
             }
           ],
           "tags": [
-            "weeklyreportautosubscribe"
+            "api"
           ]
         }
       },
       "/api/insights/v1/weeklyreportsubscription/": {
         "get": {
           "description": "Show the user's current subscription status.\n\nThis shows the presence of a weekly report subscription by the user\nin this account.",
-          "operationId": "weeklyreportsubscription_list",
+          "operationId": "api_insights_v1_weeklyreportsubscription_list",
           "responses": {
             "200": {
               "content": {
@@ -7915,12 +7726,12 @@
             }
           ],
           "tags": [
-            "weeklyreportsubscription"
+            "api"
           ]
         },
         "post": {
           "description": "Set the subscription status of the current user to the supplied\n`is_subscribed` value.\n\nIf 'is_subscribed' is true, a subscription is added if it doesn't\nalready exist.  If it is false, the subscription is removed if it\nexists.",
-          "operationId": "weeklyreportsubscription_create",
+          "operationId": "api_insights_v1_weeklyreportsubscription_create",
           "requestBody": {
             "content": {
               "application/json": {
@@ -7959,7 +7770,7 @@
             }
           ],
           "tags": [
-            "weeklyreportsubscription"
+            "api"
           ]
         }
       }
