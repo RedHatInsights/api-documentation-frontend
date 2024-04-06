@@ -273,6 +273,17 @@
           },
           "required": false
         },
+        "PlaybookSystems": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemList"
+              }
+            }
+          },
+          "description": "Array of system inventory identifiers.",
+          "required": true
+        },
         "RemediationInput": {
           "content": {
             "application/json": {
@@ -1537,6 +1548,12 @@
           "format": "uuid",
           "type": "string"
         },
+        "SystemList": {
+          "items": {
+            "$ref": "#/components/schemas/SystemId"
+          },
+          "type": "array"
+        },
         "SystemLog": {
           "description": "Current formatted system log from playbook run system.",
           "type": "string"
@@ -1603,7 +1620,7 @@
       },
       "description": "Insights Remediations Service",
       "title": "Insights Remediations",
-      "version": "1.3.5"
+      "version": "1.4.0"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -2131,6 +2148,46 @@
             }
           },
           "summary": "Get Remediation Playbook",
+          "tags": [
+            "remediations"
+          ]
+        },
+        "post": {
+          "description": "Fetch Ansible Playbook - for use with large list of target systems, RBAC permission {remediations:remediation:read}",
+          "operationId": "bulkGetRemediationPlaybook",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            },
+            {
+              "$ref": "#/components/parameters/SatOrgId"
+            },
+            {
+              "$ref": "#/components/parameters/LocalHost"
+            }
+          ],
+          "requestBody": {
+            "$ref": "#/components/requestBodies/PlaybookSystems"
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "text/vnd.yaml": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          },
+          "summary": "Fetch Remediation Plan Playbook",
           "tags": [
             "remediations"
           ]
