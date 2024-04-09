@@ -555,7 +555,6 @@
           },
           "required": [
             "name",
-            "description",
             "distribution",
             "image_requests",
             "customizations"

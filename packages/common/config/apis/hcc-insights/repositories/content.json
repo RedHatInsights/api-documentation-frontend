@@ -21,7 +21,56 @@
               "type": "array"
             },
             "uuids": {
-              "description": "List of RepositoryConfig UUIDs to search",
+              "description": "List of repository UUIDs to search",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "api.DetectRpmsRequest": {
+          "properties": {
+            "limit": {
+              "description": "Maximum number of records to return for the search",
+              "type": "integer"
+            },
+            "rpm_names": {
+              "description": "List of rpm names to search",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "urls": {
+              "description": "URLs of repositories to search",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "uuids": {
+              "description": "List of repository UUIDs to search",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "api.DetectRpmsResponse": {
+          "properties": {
+            "found": {
+              "description": "List of rpm names found in given repositories",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "missing": {
+              "description": "List of rpm names not found in given repositories",
               "items": {
                 "type": "string"
               },
@@ -213,6 +262,10 @@
               "description": "Error of last attempted introspection",
               "type": "string"
             },
+            "last_introspection_status": {
+              "description": "Status of last introspection",
+              "type": "string"
+            },
             "last_introspection_time": {
               "description": "Timestamp of last attempted introspection",
               "type": "string"
@@ -230,7 +283,7 @@
               "type": "integer"
             },
             "status": {
-              "description": "Introspection status of the repository",
+              "description": "Combined introspection and snapshot status of the repository",
               "type": "string"
             },
             "url": {
@@ -459,12 +512,19 @@
               "description": "Error of last attempted introspection",
               "type": "string"
             },
+            "last_introspection_status": {
+              "description": "Status of last introspection",
+              "type": "string"
+            },
             "last_introspection_time": {
               "description": "Timestamp of last attempted introspection",
               "type": "string"
             },
             "last_snapshot": {
               "$ref": "#/components/schemas/api.SnapshotResponse"
+            },
+            "last_snapshot_task": {
+              "$ref": "#/components/schemas/api.TaskInfoResponse"
             },
             "last_snapshot_task_uuid": {
               "description": "UUID of the last snapshot task",
@@ -512,7 +572,7 @@
               "type": "boolean"
             },
             "status": {
-              "description": "Status of repository introspection (Valid, Invalid, Unavailable, Pending)",
+              "description": "Combined status of last introspection and snapshot of repository (Valid, Invalid, Unavailable, Pending)",
               "type": "string"
             },
             "url": {
@@ -1562,7 +1622,7 @@
               }
             },
             {
-              "description": "A comma separated list of statuses to control api response. Statuses can include `pending`, `valid`, `invalid`.",
+              "description": "A comma separated list of statuses to control api response. Statuses can include `pending`, `valid`, `invalid`, `unavailable`.",
               "in": "query",
               "name": "status",
               "schema": {
@@ -3121,6 +3181,91 @@
           ]
         }
       },
+      "/rpms/presence": {
+        "post": {
+          "description": "This enables users to detect presence of RPMs (Red Hat Package Manager) in a given list of repositories.",
+          "operationId": "detectRpm",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.DetectRpmsRequest"
+                }
+              }
+            },
+            "description": "request body",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.DetectRpmsResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "415": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unsupported Media Type"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Detect RPMs presence",
+          "tags": [
+            "repositories",
+            "rpms"
+          ]
+        }
+      },
       "/snapshots/environments/names": {
         "post": {
           "description": "This enables users to search for environments in a given list of snapshots.",
@@ -3466,15 +3611,6 @@
         "get": {
           "operationId": "getRepoConfigurationFile",
           "parameters": [
-            {
-              "description": "Identifier of the repository",
-              "in": "path",
-              "name": "uuid",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
             {
               "description": "Identifier of the snapshot",
               "in": "path",
