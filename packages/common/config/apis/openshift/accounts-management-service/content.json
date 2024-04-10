@@ -120,6 +120,15 @@
             "type": "boolean"
           }
         },
+        "fetchOrganization": {
+          "description": "If true, includes the organization object on a subscription in the output. Could slow request response time.",
+          "in": "query",
+          "name": "fetchOrganization",
+          "required": false,
+          "schema": {
+            "type": "boolean"
+          }
+        },
         "fetchRelatedResources": {
           "description": "If true, includes the related resources in the output. Could slow request response time.",
           "in": "query",
@@ -3806,6 +3815,9 @@
                 },
                 "managed": {
                   "type": "boolean"
+                },
+                "organization": {
+                  "$ref": "#/components/schemas/Organization"
                 },
                 "organization_id": {
                   "type": "string"
@@ -12202,6 +12214,9 @@
             },
             {
               "$ref": "#/components/parameters/fetchCapabilities"
+            },
+            {
+              "$ref": "#/components/parameters/fetchOrganization"
             },
             {
               "$ref": "#/components/parameters/fields"
