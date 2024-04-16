@@ -1358,9 +1358,7 @@
         },
         "SubscriptionType": {
           "enum": [
-            "INSTANT",
-            "DAILY",
-            "DRAWER"
+            "DAILY"
           ],
           "type": "string"
         },

@@ -1820,6 +1820,299 @@
           },
           "type": "object"
         },
+        "controllers.TemplateItem": {
+          "properties": {
+            "attributes": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.TemplateItemAttributes"
+                }
+              ],
+              "description": "Additional template attributes",
+              "type": "object"
+            },
+            "id": {
+              "description": "Unique template id",
+              "type": "string"
+            },
+            "type": {
+              "description": "Document type name",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplateItemAttributes": {
+          "properties": {
+            "creator": {
+              "type": "string"
+            },
+            "last_edited": {
+              "type": "string"
+            },
+            "name": {
+              "description": "Template name",
+              "type": "string"
+            },
+            "published": {
+              "description": "Created and updated dates",
+              "type": "string"
+            },
+            "systems": {
+              "description": "Count of the systems associated with the template",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplateSystemAttributes": {
+          "properties": {
+            "applicable_other_count": {
+              "type": "integer"
+            },
+            "applicable_rhba_count": {
+              "type": "integer"
+            },
+            "applicable_rhea_count": {
+              "type": "integer"
+            },
+            "applicable_rhsa_count": {
+              "type": "integer"
+            },
+            "display_name": {
+              "type": "string"
+            },
+            "groups": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.SystemGroup"
+              },
+              "type": "array"
+            },
+            "installable_other_count": {
+              "type": "integer"
+            },
+            "installable_rhba_count": {
+              "type": "integer"
+            },
+            "installable_rhea_count": {
+              "type": "integer"
+            },
+            "installable_rhsa_count": {
+              "type": "integer"
+            },
+            "last_upload": {
+              "type": "string"
+            },
+            "os": {
+              "type": "string"
+            },
+            "rhsm": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.SystemTag"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplateSystemItem": {
+          "properties": {
+            "attributes": {
+              "$ref": "#/components/schemas/controllers.TemplateSystemAttributes"
+            },
+            "inventory_id": {
+              "description": "Template system inventory ID (uuid format)",
+              "type": "string"
+            },
+            "type": {
+              "description": "Document type name",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplateSystemsDBLookup": {
+          "properties": {
+            "applicable_other_count": {
+              "type": "integer"
+            },
+            "applicable_rhba_count": {
+              "type": "integer"
+            },
+            "applicable_rhea_count": {
+              "type": "integer"
+            },
+            "applicable_rhsa_count": {
+              "type": "integer"
+            },
+            "display_name": {
+              "type": "string"
+            },
+            "groups": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.SystemGroup"
+              },
+              "type": "array"
+            },
+            "id": {
+              "type": "string"
+            },
+            "installable_other_count": {
+              "type": "integer"
+            },
+            "installable_rhba_count": {
+              "type": "integer"
+            },
+            "installable_rhea_count": {
+              "type": "integer"
+            },
+            "installable_rhsa_count": {
+              "type": "integer"
+            },
+            "last_upload": {
+              "type": "string"
+            },
+            "os": {
+              "type": "string"
+            },
+            "rhsm": {
+              "type": "string"
+            },
+            "tags": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.SystemTag"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplateSystemsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/controllers.TemplateSystemItem"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/controllers.Links"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/controllers.ListMeta"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplateSystemsUpdateRequest": {
+          "properties": {
+            "systems": {
+              "description": "List of inventory IDs to have templates removed",
+              "example": [
+                "system1-uuid",
+                " system2-uuid",
+                " ..."
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplatesMeta": {
+          "properties": {
+            "creators": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "filter": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/controllers.FilterData"
+              },
+              "description": "Used filters",
+              "type": "object"
+            },
+            "has_systems": {
+              "description": "Show whether customer has some registered systems",
+              "type": "boolean"
+            },
+            "limit": {
+              "description": "Used response limit (page size) - pagination",
+              "example": 20,
+              "type": "integer"
+            },
+            "offset": {
+              "description": "Used response offset - pagination",
+              "example": 0,
+              "type": "integer"
+            },
+            "search": {
+              "description": "Used search terms",
+              "example": "kernel",
+              "type": "string"
+            },
+            "sort": {
+              "description": "Used sorting fields",
+              "example": [
+                "name"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "subtotals": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "description": "Some subtotals used by some endpoints",
+              "type": "object"
+            },
+            "total_items": {
+              "description": "Total items count to return",
+              "example": 1000,
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "controllers.TemplatesResponse": {
+          "properties": {
+            "data": {
+              "description": "Template items",
+              "items": {
+                "$ref": "#/components/schemas/controllers.TemplateItem"
+              },
+              "type": "array"
+            },
+            "links": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.Links"
+                }
+              ],
+              "description": "Pagination links",
+              "type": "object"
+            },
+            "meta": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/controllers.TemplatesMeta"
+                }
+              ],
+              "description": "Generic response fields (pagination params, filters etc.)",
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "controllers.UpdateBaselineRequest": {
           "properties": {
             "config": {
@@ -2032,7 +2325,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.6.44"
+      "version": "v3.6.51"
     },
     "openapi": "3.0.1",
     "paths": {

@@ -1244,7 +1244,7 @@
           "properties": {
             "sudo-nopasswd": {
               "items": {
-                "description": "Enable passwordless sudo for users or groups (groups must be prefixed by @)\n",
+                "description": "Enable passwordless sudo for users or groups (groups must be prefixed by %)\n",
                 "type": "string"
               },
               "type": "array"
@@ -2195,16 +2195,6 @@
               },
               "description": "blueprint was saved"
             },
-            "400": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPErrorList"
-                  }
-                }
-              },
-              "description": "blueprint is malformed"
-            },
             "403": {
               "content": {
                 "application/json": {
@@ -2214,6 +2204,16 @@
                 }
               },
               "description": "user is not allowed to create blueprints"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "blueprint is malformed"
             }
           },
           "summary": "create blueprint",
