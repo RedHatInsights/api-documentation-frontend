@@ -1662,6 +1662,18 @@
               "maxLength": 100,
               "type": "string"
             },
+            "conversions": {
+              "description": "Object containing information about 3rd party migration on instances",
+              "properties": {
+                "activity": {
+                  "description": "Whether the conversion activity has been done or not",
+                  "example": true,
+                  "type": "boolean",
+                  "x-indexed": false
+                }
+              },
+              "type": "object"
+            },
             "cores_per_socket": {
               "format": "int32",
               "maximum": 2147483647,
@@ -2694,6 +2706,9 @@
                 }
               },
               "description": "Successfully read the staleness account."
+            },
+            "400": {
+              "description": "Invalid request."
             }
           },
           "security": [
@@ -2733,6 +2748,12 @@
                 }
               },
               "description": "Successfully account staleness updated."
+            },
+            "400": {
+              "description": "Invalid request."
+            },
+            "404": {
+              "description": "Staleness record not found."
             }
           },
           "security": [
@@ -2772,6 +2793,9 @@
                 }
               },
               "description": "Successfully account staleness created."
+            },
+            "400": {
+              "description": "Invalid request."
             }
           },
           "security": [
@@ -2802,6 +2826,9 @@
                 }
               },
               "description": "Successfully read the staleness account."
+            },
+            "400": {
+              "description": "Invalid request."
             }
           },
           "security": [
@@ -2849,6 +2876,9 @@
                 }
               },
               "description": "Successfully read the groups list."
+            },
+            "400": {
+              "description": "Groups not found."
             }
           },
           "security": [
@@ -2885,6 +2915,12 @@
                 }
               },
               "description": "Successfully created new Group."
+            },
+            "400": {
+              "description": "Invalid request."
+            },
+            "403": {
+              "description": "Forbidden - Invalid RBAC permission."
             }
           },
           "security": [
@@ -3037,7 +3073,7 @@
                   }
                 }
               },
-              "description": "Successfully merged group information."
+              "description": "Group information successfully or already previously merged."
             },
             "400": {
               "description": "Invalid request."
@@ -3086,7 +3122,7 @@
                   }
                 }
               },
-              "description": "Successfully associated hosts with group."
+              "description": "Hosts successfully or already previously associated with group."
             },
             "400": {
               "description": "Invalid request."
@@ -3757,6 +3793,9 @@
                 }
               },
               "description": "Successfully read the resource types list."
+            },
+            "400": {
+              "description": "Resource types not found."
             }
           },
           "security": [
@@ -3795,6 +3834,9 @@
                 }
               },
               "description": "Successfully read the resource-types groups list."
+            },
+            "400": {
+              "description": "Groups not found."
             }
           },
           "security": [
