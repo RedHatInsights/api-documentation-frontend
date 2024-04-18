@@ -349,7 +349,8 @@
             "cloud_provider": "aws",
             "display_name": "rhv.example.com",
             "id": "d6214a0b-b344-4778-831c-d53dcacb2da3",
-            "instance_id": "879180f3-76a4-46d5-8fff-7fb32067340b",
+            "instance_id": "i-vvqwfvrcnrzoujhwa",
+            "inventory_id": "879180f3-76a4-46d5-8fff-7fb32067340b",
             "last_seen": "2020-01-01T00:00:00Z",
             "measurements": [
               42,
@@ -379,6 +380,9 @@
               "type": "string"
             },
             "instance_id": {
+              "type": "string"
+            },
+            "inventory_id": {
               "type": "string"
             },
             "last_applied_event_record_date": {
