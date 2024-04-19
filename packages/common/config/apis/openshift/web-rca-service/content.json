@@ -673,6 +673,17 @@
             }
           ]
         },
+        "FollowUpPatchRequest": {
+          "properties": {
+            "archived": {
+              "type": "boolean"
+            },
+            "url": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "Handoff": {
           "allOf": [
             {
@@ -976,10 +987,22 @@
                   "format": "date-time",
                   "type": "string"
                 },
+                "deleted": {
+                  "type": "boolean"
+                },
+                "google_doc_error": {
+                  "type": "string"
+                },
                 "google_doc_link": {
                   "type": "string"
                 },
                 "google_doc_status": {
+                  "type": "string"
+                },
+                "google_pdf_error": {
+                  "type": "string"
+                },
+                "google_pdf_link": {
                   "type": "string"
                 },
                 "updated_at": {
@@ -990,6 +1013,14 @@
               "type": "object"
             }
           ]
+        },
+        "IncidentRetrospectivePatchRequest": {
+          "properties": {
+            "locked": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
         },
         "IncidentTaskRun": {
           "allOf": [
@@ -1180,6 +1211,55 @@
                 "items": {
                   "items": {
                     "$ref": "#/components/schemas/Playbook"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "Report": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "supported_parameters": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "ReportList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Report"
+                      }
+                    ]
                   },
                   "type": "array"
                 }
@@ -2235,6 +2315,64 @@
         }
       },
       "/api/web-rca/v1/incidents/{id}/retrospective": {
+        "delete": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "incident retrospective successfully deleted"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No incident retrospective with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred deleting the incident retrospective"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Delete an incident retrospective"
+        },
         "get": {
           "parameters": [
             {
@@ -2299,6 +2437,92 @@
             }
           ],
           "summary": "Get the incident retrospective for the incident"
+        },
+        "patch": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentRetrospectivePatchRequest"
+                }
+              }
+            },
+            "description": "Incident retrospective patch data",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/IncidentRetrospective"
+                  }
+                }
+              },
+              "description": "Incident retrospective updated successfully"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No incident with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error updating incident retrospective"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Update an incident retrospective"
         },
         "post": {
           "parameters": [
@@ -2375,6 +2599,77 @@
             }
           ],
           "summary": "Start a new incident retrospective"
+        }
+      },
+      "/api/web-rca/v1/incidents/{id}/retrospective/restore": {
+        "post": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentRetrospective"
+                }
+              }
+            },
+            "description": "Event data",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Incident retrospective restored successfully"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No incident retrospective with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred restoring the incident retrospective"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Restore an incident retrospective"
         }
       },
       "/api/web-rca/v1/incidents/{id}/task_runs": {
@@ -2987,59 +3282,6 @@
         }
       },
       "/api/web-rca/v1/incidents/{incident_id}/follow_ups/{id}": {
-        "delete": {
-          "responses": {
-            "204": {
-              "description": "Follow up successfully deleted"
-            },
-            "401": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Auth token is invalid"
-            },
-            "403": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Unauthorized to perform operation"
-            },
-            "404": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "No Notication with specified id exists"
-            },
-            "500": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "An unexpected error occurred deleting the Follow up"
-            }
-          },
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "summary": "Delete a Follow up"
-        },
         "get": {
           "responses": {
             "200": {
@@ -3097,7 +3339,88 @@
           {
             "$ref": "#/components/parameters/incident_id"
           }
-        ]
+        ],
+        "patch": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpPatchRequest"
+                }
+              }
+            },
+            "description": "FollowUp patch data",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FollowUp"
+                  }
+                }
+              },
+              "description": "FollowUp updated successfully"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No FollowUp with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error updating FollowUp"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Update a FollowUp"
+        }
       },
       "/api/web-rca/v1/incidents/{incident_id}/get_ws_auth": {
         "get": {
@@ -3456,6 +3779,66 @@
           },
           "summary": "Returns a list of playbooks"
         }
+      },
+      "/api/web-rca/v1/report": {
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ReportList"
+                  }
+                }
+              },
+              "description": "a JSON array of report types"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return a list of report types"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/size"
+          }
+        ]
       },
       "/api/web-rca/v1/report/{id}": {
         "get": {
