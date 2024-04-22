@@ -1182,6 +1182,10 @@
               "example": 4294967296,
               "x-go-type": "uint64"
             },
+            "snapshot_date": {
+              "description": "Snapshotted content will be used instead of the official repositories of the\ndistribution. The snapshot that was made closest to, but before the specified date will\nbe used. If no snapshots made before the specified date can be found, the snapshot\nclosest to, but after the specified date will be used. If no snapshots can be found at\nall, the request will fail. The format must be YYYY-MM-DD (ISO 8601 extended).\n",
+              "type": "string"
+            },
             "upload_request": {
               "$ref": "#/components/schemas/UploadRequest"
             }
@@ -1460,6 +1464,40 @@
           },
           "required": [
             "readiness"
+          ],
+          "type": "object"
+        },
+        "RecommendPackageRequest": {
+          "properties": {
+            "packages": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "recommendedPackages": {
+              "default": 3,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "packages",
+            "recommendedPackages"
+          ],
+          "type": "object"
+        },
+        "RecommendationsResponse": {
+          "properties": {
+            "packages": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "packages"
           ],
           "type": "object"
         },
@@ -2124,6 +2162,14 @@
           "operationId": "getBlueprints",
           "parameters": [
             {
+              "description": "fetch blueprint with specific name",
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "search for blueprints by name or description",
               "in": "query",
               "name": "search",
@@ -2461,6 +2507,41 @@
           "summary": "get composes associated with a blueprint",
           "tags": [
             "blueprint"
+          ]
+        }
+      },
+      "/experimental/recommendations": {
+        "post": {
+          "description": "Returns a list of recommended packages for given list of packages.",
+          "operationId": "recommendPackage",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendPackageRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/RecommendationsResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "Return the recommended packages."
+            }
+          },
+          "summary": "List recommended packages.",
+          "tags": [
+            "recommendations"
           ]
         }
       },
