@@ -37,8 +37,13 @@ const getServerURL = (server: OpenAPIV3.ServerObject): string => {
 }
 
 const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) => {
-    const defaultUrl = "https://www.example.com"
+    const defaultUrl = "https://www.console.redhat.com"
     let baseUrl = getServerURL(openapi.servers?.[0] || {url: defaultUrl});
+    
+    // check to see if baseurl was loaded with a /, and try to append it to the defaultUrl
+    if(baseUrl.startsWith("/")) {
+        baseUrl = defaultUrl + baseUrl;
+    }
 
     // check that baseUrl is a valid url
     try {
