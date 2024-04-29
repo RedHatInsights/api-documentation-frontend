@@ -18,7 +18,7 @@ apis:
         name: Ansible automation controller API
         description: Define, operate, scale, and delegate automation across your enterprise
         url: https://raw.githubusercontent.com/ansible/aap-docs/2.4/controller-api/_swagger/ansible-controller-api.json
-        serverUrl: https://console.redhat.com
+        serverUrl: https://raw.githubusercontent.com
         apiType: openapi-v3
         icon: ansible
         tags:
@@ -350,7 +350,7 @@ apis:
         name: Account Management Service
         description: Manage user subscriptions and clusters
         url: https://api.openshift.com/api/accounts_mgmt/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -359,7 +359,7 @@ apis:
         name: Assisted-Install Service
         description: Assisted installation
         url: https://api.openshift.com/api/assisted-install/v2/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         useLocalFile: true
         tags:
@@ -369,7 +369,7 @@ apis:
         name: Authorization Service
         description: Enables access control on resources of OCM services
         url: https://api.openshift.com/api/authorizations/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         icon: openshift
         tags:
@@ -379,7 +379,7 @@ apis:
         name: Clusters Management Service
         description: Clusters Management Service API
         url: https://api.openshift.com/api/clusters_mgmt/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -390,7 +390,7 @@ apis:
         name: Connector Management
         description: Connector Management API is a REST API to manage connectors
         url: https://api.openshift.com/api/connector_mgmt/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -399,7 +399,7 @@ apis:
         name: Image Builder Composer
         description: Service to build and install images
         url: https://api.openshift.com/api/image-builder-composer/v2/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -410,7 +410,7 @@ apis:
         name: Image Builder Worker
         description: This is an API for workers to request and handle jobs
         url: https://api.openshift.com/api/image-builder-worker/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -421,7 +421,7 @@ apis:
         name: Kafka Service Fleet Manager Service
         description: Kafka Management API is a REST API to manage Kafka instances
         url: https://api.openshift.com/api/kafkas_mgmt/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -430,7 +430,7 @@ apis:
         name: RHACS Service Fleet Manager
         description: Rest API to manage instances of ACS components
         url: https://api.openshift.com/api/rhacs/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -439,7 +439,7 @@ apis:
         name: Service Logs
         description: Receives and maintains logs from internal sources related to OpenShift clusters
         url: https://api.openshift.com/api/service_logs/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -448,7 +448,7 @@ apis:
         name: Service Registry Management
         description: Service Registry Management API is a REST API for managing Service Registry instances
         url: https://api.openshift.com/api/serviceregistry_mgmt/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -457,7 +457,7 @@ apis:
         name: Status Board Service API
         description: Status Board Service API
         url: https://api.openshift.com/api/status-board/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -468,7 +468,7 @@ apis:
         name: Upgrades Information Service
         description: Upgrades Information Service API
         url: https://api.openshift.com/api/upgrades_info/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -488,7 +488,7 @@ apis:
         name: Web-RCA Service
         description: Web-RCA Service API
         url: https://api.openshift.com/api/web-rca/v1/openapi
-        serverUrl: https://console.redhat.com
+        serverUrl: https://api.openshift.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -500,7 +500,7 @@ apis:
         name: Case Management API
         description: Support Services Case Management API
         url: https://access.redhat.com/management/api/case_management/swagger.json
-        serverUrl: https://console.redhat.com
+        serverUrl: https://access.redhat.com
         useLocalFile: true
         apiType: openapi-v3
         # tags may need to be updated; this API is different for the rest
