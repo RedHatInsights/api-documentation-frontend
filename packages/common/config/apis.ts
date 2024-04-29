@@ -182,7 +182,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "AnsibleIcon",
     apiContentPath:
       "./apis/hcc-insights/ansible-automation-controller/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://raw.githubusercontent.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/ansible-automation-controller/content.json"
@@ -671,7 +671,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Manage user subscriptions and clusters",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/accounts-management-service/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/accounts-management-service/content.json"
@@ -684,7 +684,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Assisted installation",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/assisted-install-service/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/assisted-install-service/content.json"
@@ -697,7 +697,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Enables access control on resources of OCM services",
     icon: "OpenShiftIcon",
     apiContentPath: "./apis/openshift/authorization-service/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/authorization-service/content.json"
@@ -710,7 +710,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Connector Management API is a REST API to manage connectors",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/connector-management/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/connector-management/content.json"
@@ -724,7 +724,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/openshift/kafka-service-fleet-manager-service/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/kafka-service-fleet-manager-service/content.json"
@@ -737,7 +737,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Rest API to manage instances of ACS components",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/rhacs-service-fleet-manager/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/rhacs-service-fleet-manager/content.json"
@@ -751,7 +751,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Receives and maintains logs from internal sources related to OpenShift clusters",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/service-logs/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/service-logs/content.json"
@@ -765,7 +765,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service Registry Management API is a REST API for managing Service Registry instances",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/service-registry-management/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/service-registry-management/content.json"
@@ -779,7 +779,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/openshift/upgrades-information-service/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/upgrades-information-service/content.json"
@@ -810,7 +810,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Web-RCA Service API",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/web-rca-service/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://api.openshift.com",
     getApiContent: () =>
       import(
         "./apis/openshift/web-rca-service/content.json"
@@ -823,7 +823,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Support Services Case Management API",
     icon: "GenericIcon",
     apiContentPath: "./apis/access/case-management/content.json",
-    serverUrl: "https://console.redhat.com",
+    serverUrl: "https://access.redhat.com",
     getApiContent: () =>
       import(
         "./apis/access/case-management/content.json"
