@@ -32,6 +32,7 @@ export type App = {
     apiType: 'openapi-v3' | 'openapi-v2' | 'graphql' | 'unknown';
     icon: 'ansible' | 'edge' | 'insights' | 'openshift' | 'services' | 'subscriptions';
     tags?: Array<Tag['id']>;
+    serverUrl?: string; 
     url?: string;
     useLocalFile?: boolean;
     skip?: boolean;

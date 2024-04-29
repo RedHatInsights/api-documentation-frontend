@@ -7,6 +7,7 @@ apis:
         name: Advisor
         description: The API of the Advisor project in Insights
         url: https://console.redhat.com/api/insights/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -17,6 +18,7 @@ apis:
         name: Ansible automation controller API
         description: Define, operate, scale, and delegate automation across your enterprise
         url: https://raw.githubusercontent.com/ansible/aap-docs/2.4/controller-api/_swagger/ansible-controller-api.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: ansible
         tags:
@@ -26,6 +28,7 @@ apis:
         name: Automation Hub
         description: Fetch, upload, organize, and distribute Ansible Collections
         url: https://console.redhat.com/api/automation-hub/v3/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: ansible
         tags:
@@ -35,6 +38,7 @@ apis:
         name: Compliance
         description: Assess, monitor, and report on the security-policy compliance of RHEL systems
         url: https://console.redhat.com/api/compliance/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -46,6 +50,7 @@ apis:
         name: Cost Management
         description: The API for Project Koku and OpenShift cost management
         url: https://console.redhat.com/api/cost-management/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: openshift
         tags:
@@ -55,6 +60,7 @@ apis:
         name: Drift Backend Service
         description: Service that returns differences between systems
         url: https://console.redhat.com/api/drift/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - ansible
@@ -66,6 +72,7 @@ apis:
         name: Drift Baseline
         description: Service that returns system baselines
         url: https://console.redhat.com/api/system-baseline/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - ansible
@@ -77,6 +84,7 @@ apis:
         name: 'Drift Historical Systems Profile Service '
         description: Service that returns system baselines
         url: https://console.redhat.com/api/historical-system-profiles/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - ansible
@@ -88,6 +96,7 @@ apis:
         name: Export Service
         description: Service to enable users to export data in specific formats (JSON or CSV)
         url: https://console.redhat.com/api/export/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -96,6 +105,7 @@ apis:
         name: Image Builder
         description: Service that relays image build requests
         url: https://console.redhat.com/api/image-builder/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -105,6 +115,7 @@ apis:
         name: Integrations
         description: The API for Integrations
         url: https://console.redhat.com/api/integrations/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - integrations-and-notifications
@@ -112,6 +123,7 @@ apis:
         name: Launch
         description: Use predefined Integrations with cloud providers to Launch Image builder images into hyperscalers
         url: https://console.redhat.com/api/provisioning/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -122,6 +134,7 @@ apis:
         name: Malware Detection
         description: Service that detects potential malware on your RHEL systems
         url: https://console.redhat.com/api/malware-detection/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -132,6 +145,7 @@ apis:
         name: Managed Inventory
         description: REST interface for the Insights Platform Host Inventory application
         url: https://console.redhat.com/api/inventory/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -141,6 +155,7 @@ apis:
       - id: notifications
         name: Notifications
         url: https://console.redhat.com/api/notifications/v1/openapi.json
+        serverUrl: https://console.redhat.com
         description: The API for Notifications
         apiType: openapi-v3
         tags:
@@ -149,6 +164,7 @@ apis:
         name: Operator Gathering Conditions Service
         description: Gathering Conditions Services to Insights Operator
         url: https://console.redhat.com/api/gathering/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - infrastructure
@@ -157,6 +173,7 @@ apis:
         name: Payload Ingress Service
         description: console.redhat.com Payload Ingress Service
         url: https://console.redhat.com/api/ingress/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - insights
@@ -164,6 +181,7 @@ apis:
         name: Insights Advisor for OpenShift V1
         description: Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters
         url: https://console.redhat.com/api/insights-results-aggregator/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - infrastructure
@@ -175,6 +193,7 @@ apis:
         name: Insights Advisor for OpenShift V2
         description: Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters
         url: https://console.redhat.com/api/insights-results-aggregator/v2/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - infrastructure
@@ -186,6 +205,7 @@ apis:
         name: Patch
         description: API of the Patch application on console.redhat.com
         url: https://console.redhat.com/api/patch/v3/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -197,6 +217,7 @@ apis:
         name: Playbook Dispatcher
         description: Service for running Ansible Playbooks on hosts connected via Cloud Connector
         url: https://console.redhat.com/api/playbook-dispatcher/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: ansible
         tags:
@@ -206,6 +227,7 @@ apis:
         name: Policies
         description: The API for Policies
         url: https://console.redhat.com/api/policies/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - ansible
@@ -216,6 +238,7 @@ apis:
         name: Red Hat Connector
         description: Config manager service
         url: https://console.redhat.com/api/config-manager/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - insights
@@ -227,6 +250,7 @@ apis:
         name: Remediations
         description: Insights Remediations Service
         url: https://console.redhat.com/api/remediations/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - automation
@@ -239,6 +263,7 @@ apis:
         name: Resource Optimization
         description: Flask Backend API for Resource Optimization Service
         url: https://console.redhat.com/api/ros/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -250,6 +275,7 @@ apis:
         name: Repositories
         description: Manage sources of content to use within console.redhat.com
         url: https://console.redhat.com/api/content-sources/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
@@ -260,6 +286,7 @@ apis:
         name: RHEL for Edge
         description: RHEL for Edge API
         url: https://console.redhat.com/api/edge/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: edge
         tags:
@@ -269,6 +296,7 @@ apis:
         name: Role-based Access Control
         description: The API for Role Based Access Control
         url: https://console.redhat.com/api/rbac/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - identity-and-access-management
@@ -276,6 +304,7 @@ apis:
         name: Sources
         description: Sources API
         url: https://console.redhat.com/api/sources/v3.1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - identity-and-access-management
@@ -283,6 +312,7 @@ apis:
         name: Subscriptions
         description: REST interface for the rhsm-subscriptions service
         url: https://console.redhat.com/api/rhsm-subscriptions/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: subscriptions
         tags:
@@ -295,6 +325,7 @@ apis:
         name: Tasks
         description: API for managing and issuing Red Hat generated tasks on your infrastructure
         url: https://console.redhat.com/api/tasks/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - automation
@@ -305,6 +336,7 @@ apis:
         name: Vulnerability Management
         description: Vulnerability API
         url: https://console.redhat.com/api/vulnerability/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - observe
@@ -318,6 +350,7 @@ apis:
         name: Account Management Service
         description: Manage user subscriptions and clusters
         url: https://api.openshift.com/api/accounts_mgmt/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -326,6 +359,7 @@ apis:
         name: Assisted-Install Service
         description: Assisted installation
         url: https://api.openshift.com/api/assisted-install/v2/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         useLocalFile: true
         tags:
@@ -335,6 +369,7 @@ apis:
         name: Authorization Service
         description: Enables access control on resources of OCM services
         url: https://api.openshift.com/api/authorizations/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: openshift
         tags:
@@ -344,6 +379,7 @@ apis:
         name: Clusters Management Service
         description: Clusters Management Service API
         url: https://api.openshift.com/api/clusters_mgmt/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -354,6 +390,7 @@ apis:
         name: Connector Management
         description: Connector Management API is a REST API to manage connectors
         url: https://api.openshift.com/api/connector_mgmt/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -362,6 +399,7 @@ apis:
         name: Image Builder Composer
         description: Service to build and install images
         url: https://api.openshift.com/api/image-builder-composer/v2/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -372,6 +410,7 @@ apis:
         name: Image Builder Worker
         description: This is an API for workers to request and handle jobs
         url: https://api.openshift.com/api/image-builder-worker/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -382,6 +421,7 @@ apis:
         name: Kafka Service Fleet Manager Service
         description: Kafka Management API is a REST API to manage Kafka instances
         url: https://api.openshift.com/api/kafkas_mgmt/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -390,6 +430,7 @@ apis:
         name: RHACS Service Fleet Manager
         description: Rest API to manage instances of ACS components
         url: https://api.openshift.com/api/rhacs/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -398,6 +439,7 @@ apis:
         name: Service Logs
         description: Receives and maintains logs from internal sources related to OpenShift clusters
         url: https://api.openshift.com/api/service_logs/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -406,6 +448,7 @@ apis:
         name: Service Registry Management
         description: Service Registry Management API is a REST API for managing Service Registry instances
         url: https://api.openshift.com/api/serviceregistry_mgmt/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -414,6 +457,7 @@ apis:
         name: Status Board Service API
         description: Status Board Service API
         url: https://api.openshift.com/api/status-board/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -424,6 +468,7 @@ apis:
         name: Upgrades Information Service
         description: Upgrades Information Service API
         url: https://api.openshift.com/api/upgrades_info/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -432,6 +477,7 @@ apis:
         name: Vulnerability Dashboard
         description: OCP Vulnerability API
         url: https://console.redhat.com/api/ocp-vulnerability/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - insights
@@ -442,6 +488,7 @@ apis:
         name: Web-RCA Service
         description: Web-RCA Service API
         url: https://api.openshift.com/api/web-rca/v1/openapi
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - openshift
@@ -453,6 +500,7 @@ apis:
         name: Case Management API
         description: Support Services Case Management API
         url: https://access.redhat.com/management/api/case_management/swagger.json
+        serverUrl: https://console.redhat.com
         useLocalFile: true
         apiType: openapi-v3
         # tags may need to be updated; this API is different for the rest

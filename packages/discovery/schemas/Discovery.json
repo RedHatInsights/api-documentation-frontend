@@ -68,6 +68,10 @@
           "type": "string",
           "maxLength": 100
         },
+        "consoleUrl": {
+          "description": "Base URL of the redhat console",
+          "type": "string"
+        },
         "url": {
           "description": "URL to the public API file",
           "type": "string"

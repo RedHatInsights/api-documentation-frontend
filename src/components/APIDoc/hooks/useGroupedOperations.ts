@@ -36,15 +36,19 @@ const getServerURL = (server: OpenAPIV3.ServerObject): string => {
     return serverURL
 }
 
-const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) => {
-    const defaultUrl = "https://www.console.redhat.com"
+const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations, serverUrl: string | undefined) => {
+    const defaultUrl = "https://www.example.com"
     let baseUrl = getServerURL(openapi.servers?.[0] || {url: defaultUrl});
-    
-    // check to see if baseurl was loaded with a /, and try to append it to the defaultUrl
-    if(baseUrl.startsWith("/")) {
-        baseUrl = defaultUrl + baseUrl;
-    }
 
+    //if the serverurl is present, override the baseurl
+    if(serverUrl) {
+        //check to see if the existing baseurl starts with a / and add that to the end of the serverurl
+        if(baseUrl.startsWith("/")) {
+            serverUrl = serverUrl + baseUrl;
+        }
+        baseUrl = serverUrl;
+    }
+    
     // check that baseUrl is a valid url
     try {
         new URL(baseUrl);
@@ -92,7 +96,7 @@ const loadGrouped = (openapi: OpenAPIV3.Document, grouped: GroupedOperations) =>
     grouped.groups = grouped.groups.filter(g => g.operationIds.length > 0);
 }
 
-export const useGroupedOperations = (openapi: OpenAPIV3.Document | undefined, tags: Array<Tag>): BackgroundTaskState<GroupedOperations> => {
+export const useGroupedOperations = (openapi: OpenAPIV3.Document | undefined, tags: Array<Tag>, serverUrl: string | undefined): BackgroundTaskState<GroupedOperations> => {
     return useBackgroundTask(() => {
         const grouped: GroupedOperations = {
             groups: tags.map(t => ({
@@ -104,7 +108,7 @@ export const useGroupedOperations = (openapi: OpenAPIV3.Document | undefined, ta
         };
 
         if (openapi) {
-            loadGrouped(openapi, grouped);
+            loadGrouped(openapi, grouped, serverUrl);
         }
 
         return grouped;

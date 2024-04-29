@@ -163,6 +163,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API of the Advisor project in Insights",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/insights-advisor/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/insights-advisor/content.json"
@@ -181,6 +182,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "AnsibleIcon",
     apiContentPath:
       "./apis/hcc-insights/ansible-automation-controller/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/ansible-automation-controller/content.json"
@@ -193,6 +195,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Fetch, upload, organize, and distribute Ansible Collections",
     icon: "AnsibleIcon",
     apiContentPath: "./apis/hcc-insights/automation-hub/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/automation-hub/content.json"
@@ -206,6 +209,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Assess, monitor, and report on the security-policy compliance of RHEL systems",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/compliance/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/compliance/content.json"
@@ -223,6 +227,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Project Koku and OpenShift cost management",
     icon: "OpenShiftIcon",
     apiContentPath: "./apis/hcc-insights/cost-management/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/cost-management/content.json"
@@ -235,6 +240,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that returns differences between systems",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/drift/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/drift/content.json"
@@ -253,6 +259,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that returns system baselines",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/system-baseline/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/system-baseline/content.json"
@@ -272,6 +279,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/historical-system-profiles/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/historical-system-profiles/content.json"
@@ -291,6 +299,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service to enable users to export data in specific formats (JSON or CSV)",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/export-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/export-service/content.json"
@@ -303,6 +312,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that relays image build requests",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/image-builder/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/image-builder/content.json"
@@ -315,6 +325,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Integrations",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/integrations/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/integrations/content.json"
@@ -328,6 +339,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Use predefined Integrations with cloud providers to Launch Image builder images into hyperscalers",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/launch/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/launch/content.json"
@@ -344,6 +356,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Service that detects potential malware on your RHEL systems",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/malware-detection/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/malware-detection/content.json"
@@ -361,6 +374,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "REST interface for the Insights Platform Host Inventory application",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/inventory/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/inventory/content.json"
@@ -377,6 +391,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Notifications",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/notifications/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/notifications/content.json"
@@ -389,6 +404,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Gathering Conditions Services to Insights Operator",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/gathering/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/gathering/content.json"
@@ -401,6 +417,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "console.redhat.com Payload Ingress Service",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/payload_ingress/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/payload_ingress/content.json"
@@ -415,6 +432,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/insights-results-aggregator_v1/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/insights-results-aggregator_v1/content.json"
@@ -435,6 +453,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/insights-results-aggregator_v2/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/insights-results-aggregator_v2/content.json"
@@ -453,6 +472,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "API of the Patch application on console.redhat.com",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/patch/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/patch/content.json"
@@ -471,6 +491,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service for running Ansible Playbooks on hosts connected via Cloud Connector",
     icon: "AnsibleIcon",
     apiContentPath: "./apis/hcc-insights/playbook-dispatcher/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/playbook-dispatcher/content.json"
@@ -483,6 +504,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Policies",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/policies/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/policies/content.json"
@@ -500,6 +522,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Insights Remediations Service",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/remediations/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/remediations/content.json"
@@ -519,6 +542,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Flask Backend API for Resource Optimization Service",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/ros/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/ros/content.json"
@@ -535,6 +559,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Manage sources of content to use within console.redhat.com",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/repositories/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/repositories/content.json"
@@ -551,6 +576,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "RHEL for Edge API",
     icon: "EdgeIcon",
     apiContentPath: "./apis/hcc-insights/edge/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/edge/content.json"
@@ -563,6 +589,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "The API for Role Based Access Control",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/rbac/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/rbac/content.json"
@@ -575,6 +602,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Sources API",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/sources/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/sources/content.json"
@@ -587,6 +615,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "REST interface for the rhsm-subscriptions service",
     icon: "SubscriptionsIcon",
     apiContentPath: "./apis/hcc-insights/rhsm-subscriptions/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/rhsm-subscriptions/content.json"
@@ -606,6 +635,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "API for managing and issuing Red Hat generated tasks on your infrastructure",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/tasks/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/tasks/content.json"
@@ -623,6 +653,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Vulnerability API",
     icon: "GenericIcon",
     apiContentPath: "./apis/hcc-insights/vulnerability/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/vulnerability/content.json"
@@ -640,6 +671,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Manage user subscriptions and clusters",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/accounts-management-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/accounts-management-service/content.json"
@@ -652,6 +684,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Assisted installation",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/assisted-install-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/assisted-install-service/content.json"
@@ -664,6 +697,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Enables access control on resources of OCM services",
     icon: "OpenShiftIcon",
     apiContentPath: "./apis/openshift/authorization-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/authorization-service/content.json"
@@ -676,6 +710,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Connector Management API is a REST API to manage connectors",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/connector-management/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/connector-management/content.json"
@@ -689,6 +724,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/openshift/kafka-service-fleet-manager-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/kafka-service-fleet-manager-service/content.json"
@@ -701,6 +737,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Rest API to manage instances of ACS components",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/rhacs-service-fleet-manager/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/rhacs-service-fleet-manager/content.json"
@@ -714,6 +751,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Receives and maintains logs from internal sources related to OpenShift clusters",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/service-logs/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/service-logs/content.json"
@@ -727,6 +765,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
       "Service Registry Management API is a REST API for managing Service Registry instances",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/service-registry-management/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/service-registry-management/content.json"
@@ -740,6 +779,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "GenericIcon",
     apiContentPath:
       "./apis/openshift/upgrades-information-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/upgrades-information-service/content.json"
@@ -752,6 +792,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "OCP Vulnerability API",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/ocp-vulnerability/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/ocp-vulnerability/content.json"
@@ -769,6 +810,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Web-RCA Service API",
     icon: "GenericIcon",
     apiContentPath: "./apis/openshift/web-rca-service/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/openshift/web-rca-service/content.json"
@@ -781,6 +823,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "Support Services Case Management API",
     icon: "GenericIcon",
     apiContentPath: "./apis/access/case-management/content.json",
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/access/case-management/content.json"

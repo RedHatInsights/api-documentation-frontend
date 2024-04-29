@@ -26,6 +26,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
         description: '<%= api.app.description %>',
         icon: '<%~ E.includeFile('icon', {icon: api.app.icon}) %>',
         apiContentPath: './apis/<%=api.path.join('/')%>/content.json',
+        serverUrl: <%~ api.app.serverUrl ? `"${api.app.serverUrl}"`: undefined %>,
         getApiContent: () => import('./apis/<%=api.path.join('/')%>/content.json') as unknown as Promise<APIContent>,
         tags: [
             <% api.app.tags.forEach(function(tag){ %>

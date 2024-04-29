@@ -16,6 +16,7 @@ export interface APIConfiguration {
     icon:  keyof typeof APIConfigurationIcons;
     description: string;
     apiContentPath: string;
+    serverUrl: string;
     getApiContent: () => Promise<APIContent>;
     tags: ReadonlyArray<Readonly<APILabel>>;
 }

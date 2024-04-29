@@ -127,7 +127,6 @@ export interface BuildCodeSampleDataParams {
 export const buildCodeSampleData = ({verb, baseUrl, path, params, requestBody, responses, document}: BuildCodeSampleDataParams): RequestFormat => {
   const inferredContentType = inferContentType(requestBody, responses)
 
-  console.log("URL: ", baseUrl+path)
   return ({
     method: verb.toUpperCase(),
     url: baseUrl+path,

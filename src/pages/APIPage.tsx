@@ -57,7 +57,7 @@ export const APIPage: FunctionComponent = () => {
 
     const openapi = 'api' in apiState ? apiState.api?.openapi : undefined;
     const tags = useTags(openapi);
-    const groupedOperations = useGroupedOperations(openapi, tags);
+    const groupedOperations = useGroupedOperations(openapi, tags, selectedApi?.serverUrl);
 
     if (!selectedApi || (!apiState.isLoading && apiState.api === undefined)) {
         navigate('/');
@@ -65,7 +65,6 @@ export const APIPage: FunctionComponent = () => {
     }
 
     const taxonomyData = fromApiLabels(selectedApi.tags);
-
     return <>
         <LanguageProvider>
         <Helmet>
@@ -93,7 +92,7 @@ export const APIPage: FunctionComponent = () => {
             <SidebarContent>
               { (apiState.isLoading || !apiState.api || groupedOperations.loading) ?
                   <Bullseye><Spinner /></Bullseye> :
-                  <ApiDoc apiContent={apiState.api} groupedOperations={groupedOperations.value} /> }
+                  <ApiDoc apiContent={apiState.api} groupedOperations={groupedOperations.value}/> }
             </SidebarContent>
           </Sidebar>
           <BackToTop/>
