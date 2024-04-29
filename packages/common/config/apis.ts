@@ -182,7 +182,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     icon: "AnsibleIcon",
     apiContentPath:
       "./apis/hcc-insights/ansible-automation-controller/content.json",
-    serverUrl: undefined,
+    serverUrl: "none",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/ansible-automation-controller/content.json"
