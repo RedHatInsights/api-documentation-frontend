@@ -38,17 +38,16 @@
             "alerts_count": {
               "type": "integer"
             },
+            "completed_jobs_count": {
+              "type": "integer"
+            },
             "end_time": {
               "format": "date-time",
               "nullable": true,
               "type": "string"
             },
-            "highest_job_id": {
+            "failure_jobs_count": {
               "type": "integer"
-            },
-            "highest_job_status": {
-              "readOnly": true,
-              "type": "string"
             },
             "id": {
               "readOnly": true,
@@ -62,6 +61,9 @@
             "name": {
               "maxLength": 200,
               "type": "string"
+            },
+            "running_jobs_count": {
+              "type": "integer"
             },
             "start_time": {
               "format": "date-time",
@@ -95,15 +97,19 @@
               "format": "uri",
               "readOnly": true,
               "type": "string"
+            },
+            "timeout_jobs_count": {
+              "type": "integer"
             }
           },
           "required": [
             "alerts_count",
-            "highest_job_id",
-            "highest_job_status",
+            "completed_jobs_count",
+            "failure_jobs_count",
             "id",
             "initiated_by",
             "name",
+            "running_jobs_count",
             "start_time",
             "status",
             "systems_count",
@@ -112,7 +118,8 @@
             "task_slug",
             "task_title",
             "task_url",
-            "this_url"
+            "this_url",
+            "timeout_jobs_count"
           ],
           "type": "object"
         },
@@ -313,6 +320,11 @@
               "type": "string"
             },
             "results": {},
+            "rhc_client_id": {
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
             "run_id": {
               "format": "uuid",
               "type": "string"
@@ -877,24 +889,6 @@
           "operationId": "executed_task_list",
           "parameters": [
             {
-              "in": "query",
-              "name": "highest_job_status",
-              "schema": {
-                "items": {
-                  "enum": [
-                    "Cancelled",
-                    "Failure",
-                    "Running",
-                    "Success",
-                    "Timeout"
-                  ],
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
               "description": "Number of results to return per page.",
               "in": "query",
               "name": "limit",
@@ -919,14 +913,12 @@
                 "default": "start_time",
                 "enum": [
                   "-end_time",
-                  "-highest_job_status",
                   "-name",
                   "-start_time",
                   "-status",
                   "-systems_count",
                   "-title",
                   "end_time",
-                  "highest_job_status",
                   "name",
                   "start_time",
                   "status",
@@ -944,6 +936,8 @@
                   "enum": [
                     "Cancelled",
                     "Completed",
+                    "Completed With Errors",
+                    "Failure",
                     "Running"
                   ],
                   "type": "string"

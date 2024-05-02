@@ -779,6 +779,9 @@
                   "nullable": true,
                   "type": "boolean"
                 },
+                "jira_epic_link": {
+                  "type": "string"
+                },
                 "metadata": {
                   "nullable": true,
                   "type": "object"
@@ -924,6 +927,9 @@
             },
             "invalid": {
               "type": "boolean"
+            },
+            "jira_epic_link": {
+              "type": "string"
             },
             "on_call_person": {
               "$ref": "#/components/schemas/ObjectReference"

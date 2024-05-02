@@ -795,54 +795,6 @@
           },
           "type": "object"
         },
-        "PaginatedRuleList": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/Rule"
-              },
-              "type": "array"
-            },
-            "links": {
-              "properties": {
-                "first": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "last": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "next": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "previous": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "meta": {
-              "properties": {
-                "count": {
-                  "example": 169,
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
         "PaginatedRuleRatingList": {
           "properties": {
             "data": {
@@ -1998,6 +1950,10 @@
               "maxLength": 200,
               "type": "string"
             },
+            "group_name": {
+              "readOnly": true,
+              "type": "string"
+            },
             "hits": {
               "readOnly": true,
               "type": "integer"
@@ -2044,6 +2000,7 @@
             "all_pathway_hits",
             "critical_hits",
             "display_name",
+            "group_name",
             "hits",
             "important_hits",
             "incident_hits",
@@ -4695,7 +4652,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/PaginatedRuleList"
+                    "$ref": "#/components/schemas/PaginatedRuleForAccountList"
                   }
                 }
               },
