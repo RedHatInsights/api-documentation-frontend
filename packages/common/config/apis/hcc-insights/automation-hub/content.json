@@ -6465,7 +6465,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2024-04-03",
+              "default": "2024-04-15",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
