@@ -141,7 +141,7 @@
             "rated_by": {
               "default": "",
               "description": "The username that rated this rule",
-              "maxLength": 32,
+              "maxLength": 255,
               "type": "string"
             },
             "rating": {

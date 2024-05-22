@@ -398,7 +398,8 @@
                   "schema": {
                     "$ref": "#/components/schemas/ComparisonReport"
                   }
-                }
+                },
+                "text/csv": {}
               },
               "description": "a comparison report for the given system IDs"
             },
@@ -441,7 +442,8 @@
                   "schema": {
                     "$ref": "#/components/schemas/ComparisonReport"
                   }
-                }
+                },
+                "text/csv": {}
               },
               "description": "a comparison report for the given system IDs"
             },
