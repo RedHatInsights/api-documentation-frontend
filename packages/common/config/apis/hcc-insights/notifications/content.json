@@ -212,7 +212,7 @@
           },
           "type": "object"
         },
-        "BasicAuthentication": {
+        "BasicAuthenticationDTO": {
           "properties": {
             "password": {
               "type": "string"
@@ -376,19 +376,12 @@
           },
           "type": "object"
         },
-        "CamelProperties": {
+        "CamelPropertiesDTO": {
           "properties": {
-            "basic_authentication": {
-              "$ref": "#/components/schemas/BasicAuthentication"
+            "basicAuthentication": {
+              "$ref": "#/components/schemas/BasicAuthenticationDTO"
             },
-            "bearer_authentication": {
-              "type": "string"
-            },
-            "bearer_authentication_sources_id": {
-              "format": "int64",
-              "type": "integer"
-            },
-            "disable_ssl_verification": {
+            "disableSslVerification": {
               "type": "boolean"
             },
             "extras": {
@@ -397,7 +390,7 @@
               },
               "type": "object"
             },
-            "secret_token": {
+            "secretToken": {
               "maxLength": 255,
               "type": "string"
             },
@@ -406,8 +399,8 @@
             }
           },
           "required": [
-            "url",
-            "disable_ssl_verification"
+            "disableSslVerification",
+            "url"
           ],
           "type": "object"
         },
@@ -569,36 +562,14 @@
               "type": "boolean"
             },
             "id": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/UUID"
-                }
-              ],
-              "readOnly": true,
-              "type": "string"
+              "$ref": "#/components/schemas/UUID"
             },
             "name": {
               "maxLength": 255,
               "type": "string"
             },
             "properties": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/EndpointProperties"
-                }
-              ],
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/WebhookProperties"
-                },
-                {
-                  "$ref": "#/components/schemas/SystemSubscriptionProperties"
-                },
-                {
-                  "$ref": "#/components/schemas/CamelProperties"
-                }
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/EndpointProperties"
             },
             "server_errors": {
               "format": "int32",
@@ -626,6 +597,86 @@
           },
           "required": [
             "name",
+            "description"
+          ],
+          "type": "object"
+        },
+        "EndpointDTO": {
+          "properties": {
+            "created": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enabled": {
+              "type": "boolean"
+            },
+            "id": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/UUID"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 255,
+              "type": "string"
+            },
+            "properties": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/EndpointPropertiesDTO"
+                }
+              ],
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CamelPropertiesDTO"
+                },
+                {
+                  "$ref": "#/components/schemas/SystemSubscriptionPropertiesDTO"
+                },
+                {
+                  "$ref": "#/components/schemas/WebhookPropertiesDTO"
+                }
+              ],
+              "type": "object"
+            },
+            "server_errors": {
+              "format": "int32",
+              "minimum": 0,
+              "type": "integer"
+            },
+            "status": {
+              "$ref": "#/components/schemas/EndpointStatusDTO"
+            },
+            "sub_type": {
+              "maxLength": 20,
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/components/schemas/EndpointTypeDTO"
+            },
+            "updated": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/LocalDateTime"
+                }
+              ],
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
             "description",
             "type"
           ],
@@ -635,7 +686,7 @@
           "properties": {
             "data": {
               "items": {
-                "$ref": "#/components/schemas/Endpoint"
+                "$ref": "#/components/schemas/EndpointDTO"
               },
               "type": "array"
             },
@@ -659,6 +710,9 @@
         "EndpointProperties": {
           "type": "object"
         },
+        "EndpointPropertiesDTO": {
+          "type": "object"
+        },
         "EndpointStatus": {
           "enum": [
             "READY",
@@ -667,6 +721,17 @@
             "PROVISIONING",
             "DELETING",
             "FAILED"
+          ],
+          "type": "string"
+        },
+        "EndpointStatusDTO": {
+          "enum": [
+            "DELETING",
+            "FAILED",
+            "NEW",
+            "PROVISIONING",
+            "READY",
+            "UNKNOWN"
           ],
           "type": "string"
         },
@@ -684,11 +749,21 @@
         },
         "EndpointType": {
           "enum": [
-            "webhook",
-            "email_subscription",
-            "camel",
             "ansible",
-            "drawer"
+            "camel",
+            "drawer",
+            "email_subscription",
+            "webhook"
+          ],
+          "type": "string"
+        },
+        "EndpointTypeDTO": {
+          "enum": [
+            "ansible",
+            "camel",
+            "drawer",
+            "email_subscription",
+            "webhook"
           ],
           "type": "string"
         },
@@ -1364,22 +1439,18 @@
           ],
           "type": "string"
         },
-        "SystemSubscriptionProperties": {
+        "SystemSubscriptionPropertiesDTO": {
           "properties": {
-            "group_id": {
+            "groupId": {
               "$ref": "#/components/schemas/UUID"
             },
-            "ignore_preferences": {
+            "ignorePreferences": {
               "type": "boolean"
             },
-            "only_admins": {
+            "onlyAdmins": {
               "type": "boolean"
             }
           },
-          "required": [
-            "only_admins",
-            "ignore_preferences"
-          ],
           "type": "object"
         },
         "Template": {
@@ -1526,21 +1597,21 @@
           ],
           "type": "object"
         },
-        "WebhookProperties": {
+        "WebhookPropertiesDTO": {
           "properties": {
-            "basic_authentication": {
-              "$ref": "#/components/schemas/BasicAuthentication"
+            "basicAuthentication": {
+              "$ref": "#/components/schemas/BasicAuthenticationDTO"
             },
-            "bearer_authentication": {
+            "bearerAuthentication": {
               "type": "string"
             },
-            "disable_ssl_verification": {
+            "disableSslVerification": {
               "type": "boolean"
             },
             "method": {
               "$ref": "#/components/schemas/HttpType"
             },
-            "secret_token": {
+            "secretToken": {
               "maxLength": 255,
               "type": "string"
             },
@@ -1549,9 +1620,9 @@
             }
           },
           "required": [
-            "url",
+            "disableSslVerification",
             "method",
-            "disable_ssl_verification"
+            "url"
           ],
           "type": "object"
         },
