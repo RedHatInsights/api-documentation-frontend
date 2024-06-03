@@ -73,9 +73,9 @@
           "name": "scope",
           "required": false,
           "schema": {
-            "default": "account",
+            "default": "org_id",
             "enum": [
-              "account",
+              "org_id",
               "principal"
             ],
             "type": "string"
@@ -323,6 +323,7 @@
           },
           "required": [
             "target_account",
+            "target_org",
             "start_date",
             "end_date",
             "roles"
