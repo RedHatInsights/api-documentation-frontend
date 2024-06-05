@@ -1103,6 +1103,9 @@
                 "generic_name": {
                   "type": "string"
                 },
+                "hcp_only": {
+                  "type": "boolean"
+                },
                 "memory": {
                   "format": "int64",
                   "type": "integer"
