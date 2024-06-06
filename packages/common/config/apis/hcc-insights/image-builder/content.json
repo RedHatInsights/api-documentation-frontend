@@ -871,6 +871,7 @@
             "rhel-94",
             "centos-8",
             "centos-9",
+            "centos-10",
             "fedora-37",
             "fedora-38",
             "fedora-39",
@@ -2381,7 +2382,7 @@
       },
       "/experimental/blueprints/{id}/compose": {
         "post": {
-          "description": "create new compose from blueprint",
+          "description": "create new compose from blueprint, optionally specifying the target image types to build",
           "operationId": "composeBlueprint",
           "parameters": [
             {
@@ -2396,6 +2397,28 @@
               }
             }
           ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "image_types": {
+                      "example": [
+                        "azure",
+                        "aws"
+                      ],
+                      "items": {
+                        "$ref": "#/components/schemas/ImageTypes"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "list of target image types that the user wants to build for this compose"
+          },
           "responses": {
             "201": {
               "content": {
