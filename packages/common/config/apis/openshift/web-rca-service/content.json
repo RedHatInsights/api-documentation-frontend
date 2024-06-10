@@ -751,6 +751,9 @@
                 "description": {
                   "type": "string"
                 },
+                "executive_summary": {
+                  "type": "string"
+                },
                 "external_coordination": {
                   "items": {
                     "type": "string"
@@ -780,6 +783,10 @@
                   "type": "boolean"
                 },
                 "jira_epic_link": {
+                  "type": "string"
+                },
+                "last_opened_at": {
+                  "format": "date-time",
                   "type": "string"
                 },
                 "metadata": {
@@ -874,6 +881,35 @@
             }
           ]
         },
+        "IncidentDebrief": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "google_doc_error": {
+                  "type": "string"
+                },
+                "google_doc_link": {
+                  "type": "string"
+                },
+                "google_doc_status": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "IncidentList": {
           "allOf": [
             {
@@ -902,6 +938,9 @@
               "type": "string"
             },
             "description": {
+              "type": "string"
+            },
+            "executive_summary": {
               "type": "string"
             },
             "external_coordination": {
@@ -1052,6 +1091,9 @@
                 "result": {
                   "nullable": true,
                   "type": "object"
+                },
+                "status": {
+                  "type": "string"
                 },
                 "updated_at": {
                   "format": "date-time",
@@ -1928,6 +1970,207 @@
             }
           ],
           "summary": "Update an Incident"
+        }
+      },
+      "/api/web-rca/v1/incidents/{id}/debrief": {
+        "delete": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "incident debrief successfully deleted"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No incident debrief with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred deleting the incident debrief"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Delete an incident debrief"
+        },
+        "get": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/IncidentDebrief"
+                  }
+                }
+              },
+              "description": "Incident debrief object"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No Incident with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get the incident debrief for the incident"
+        },
+        "post": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/id"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentDebrief"
+                }
+              }
+            },
+            "description": "Event data",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/IncidentDebrief"
+                  }
+                }
+              },
+              "description": "Created"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred creating the incident debrief"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Start a new incident debrief"
         }
       },
       "/api/web-rca/v1/incidents/{id}/events": {
