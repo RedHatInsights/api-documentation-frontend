@@ -943,11 +943,19 @@
             },
             "required": {
               "type": "boolean"
+            },
+            "values": {
+              "items": {
+                "maxLength": 250,
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           "required": [
             "description",
-            "key"
+            "key",
+            "values"
           ],
           "type": "object"
         }
