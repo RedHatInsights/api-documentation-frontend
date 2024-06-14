@@ -2284,6 +2284,30 @@
               ],
               "type": "object"
             },
+            "third_party_services": {
+              "description": "Object containing information about system facts of third party services",
+              "properties": {
+                "crowdstrike": {
+                  "description": "Object containing information about CrowdStrike system facts",
+                  "properties": {
+                    "falcon_aid": {
+                      "description": "CrowdStrike Falcon Agent ID",
+                      "example": "44e3b7d20b434a2bb2815d9808fa3a8b",
+                      "maxLength": 32,
+                      "type": "string"
+                    },
+                    "falcon_backend": {
+                      "description": "CrowdStrike Falcon Sensor backend",
+                      "example": "auto, kernel, bpf",
+                      "maxLength": 32,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "threads_per_core": {
               "description": "Number of CPU threads per CPU core. Typical values: 1, 2, 4",
               "example": 2,
