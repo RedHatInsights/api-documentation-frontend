@@ -109,7 +109,7 @@
           "x-validator": "sparseFields"
         },
         "filter_param": {
-          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"sap_system\": {\"eq\": \"true\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][sap_system][eq]=true\" <br /><br /> Hosts with host_type \"edge\" are filtered out by default. <br /><br /> To get \"edge\" hosts, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\"",
+          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\"",
           "example": {},
           "explode": true,
           "in": "query",
@@ -590,7 +590,7 @@
             "account": {
               "$ref": "#/components/schemas/AccountNumber"
             },
-            "created": {
+            "created_on": {
               "format": "date-time",
               "type": "string"
             },
@@ -611,7 +611,7 @@
             "id": {
               "$ref": "#/components/schemas/NonStrictUUID"
             },
-            "modified": {
+            "modified_on": {
               "format": "date-time",
               "type": "string"
             },
@@ -628,8 +628,8 @@
             "group_id",
             "filter",
             "enabled",
-            "created",
-            "modified"
+            "created_on",
+            "modified_on"
           ],
           "title": "Assignment Rule response",
           "type": "object"
@@ -873,15 +873,19 @@
           "description": "A durable and reliable platform-wide group identifier. Applications should use this identifier to reference groups."
         },
         "GroupIn": {
-          "description": "Data of a single group belonging to an account.",
-          "properties": {
-            "host_ids": {
-              "$ref": "#/components/schemas/HostIds"
-            },
-            "name": {
-              "$ref": "#/components/schemas/GroupName"
+          "allOf": [
+            {
+              "properties": {
+                "host_ids": {
+                  "$ref": "#/components/schemas/HostIds"
+                },
+                "name": {
+                  "$ref": "#/components/schemas/GroupName"
+                }
+              }
             }
-          },
+          ],
+          "description": "Data of a single group belonging to an account.",
           "title": "Group In",
           "type": "object"
         },
@@ -1223,16 +1227,24 @@
               "type": "boolean"
             },
             "culled_timestamp": {
-              "$ref": "#/components/schemas/TimeStamp"
+              "example": "2020-02-17T08:07:03.354307+00:00",
+              "format": "date-time",
+              "type": "string"
             },
             "last_check_in": {
-              "$ref": "#/components/schemas/TimeStamp"
+              "example": "2020-02-10T08:07:03.354307+00:00",
+              "format": "date-time",
+              "type": "string"
             },
             "stale_timestamp": {
-              "$ref": "#/components/schemas/TimeStamp"
+              "example": "2020-02-17T08:07:03.354307+00:00",
+              "format": "date-time",
+              "type": "string"
             },
             "stale_warning_timestamp": {
-              "$ref": "#/components/schemas/TimeStamp"
+              "example": "2020-02-17T08:07:03.354307+00:00",
+              "format": "date-time",
+              "type": "string"
             }
           },
           "type": "object"
@@ -1387,81 +1399,80 @@
           ]
         },
         "StalenessIn": {
-          "description": "Data of a single account staleness.",
-          "properties": {
-            "conventional_time_to_delete": {
-              "$ref": "#/components/schemas/StalenessTimeout"
-            },
-            "conventional_time_to_stale": {
-              "$ref": "#/components/schemas/StalenessTimeout"
-            },
-            "conventional_time_to_stale_warning": {
-              "$ref": "#/components/schemas/StalenessTimeout"
-            },
-            "immutable_time_to_delete": {
-              "$ref": "#/components/schemas/StalenessTimeout"
-            },
-            "immutable_time_to_stale": {
-              "$ref": "#/components/schemas/StalenessTimeout"
-            },
-            "immutable_time_to_stale_warning": {
-              "$ref": "#/components/schemas/StalenessTimeout"
+          "anyOf": [
+            {
+              "properties": {
+                "conventional_time_to_delete": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "conventional_time_to_stale": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "conventional_time_to_stale_warning": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "immutable_time_to_delete": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "immutable_time_to_stale": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "immutable_time_to_stale_warning": {
+                  "minimum": 1,
+                  "type": "integer"
+                }
+              }
             }
-          },
+          ],
+          "description": "Data of a single account staleness.",
           "title": "Account Staleness In",
           "type": "object"
         },
         "StalenessOutput": {
-          "allOf": [
-            {
-              "$ref": "#/components/schemas/StalenessIn"
-            },
-            {
-              "required": [
-                "conventional_time_to_stale",
-                "conventional_time_to_stale_warning",
-                "conventional_time_to_delete",
-                "immutable_time_to_stale",
-                "immutable_time_to_stale_warning",
-                "immutable_time_to_delete"
-              ]
-            },
-            {
-              "properties": {
-                "created": {
-                  "description": "A timestamp when the entry was created.",
-                  "format": "date-time",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "id": {
-                  "$ref": "#/components/schemas/StalenessId"
-                },
-                "org_id": {
-                  "$ref": "#/components/schemas/OrgId"
-                },
-                "updated": {
-                  "description": "A timestamp when the entry was last updated.",
-                  "format": "date-time",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "org_id",
-                "created",
-                "updated"
-              ]
-            }
-          ],
           "description": "Data of a account staleness.",
+          "properties": {
+            "conventional_time_to_delete": {
+              "type": "integer"
+            },
+            "conventional_time_to_stale": {
+              "type": "integer"
+            },
+            "conventional_time_to_stale_warning": {
+              "type": "integer"
+            },
+            "created_at": {
+              "description": "A timestamp when the entry was created.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/StalenessId"
+            },
+            "immutable_time_to_delete": {
+              "type": "integer"
+            },
+            "immutable_time_to_stale": {
+              "type": "integer"
+            },
+            "immutable_time_to_stale_warning": {
+              "type": "integer"
+            },
+            "org_id": {
+              "$ref": "#/components/schemas/OrgId"
+            },
+            "updated_at": {
+              "description": "A timestamp when the entry was last updated.",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
           "title": "Account Staleness Out",
           "type": "object"
-        },
-        "StalenessTimeout": {
-          "minimum": 1,
-          "type": "integer"
         },
         "StructuredTag": {
           "properties": {
@@ -1486,10 +1497,8 @@
           "type": "string"
         },
         "SystemDefaultId": {
-          "enum": [
-            "system_default"
-          ],
           "example": "system_default",
+          "pattern": "system_default",
           "type": "string"
         },
         "SystemProfile": {
@@ -2284,30 +2293,6 @@
               ],
               "type": "object"
             },
-            "third_party_services": {
-              "description": "Object containing information about system facts of third party services",
-              "properties": {
-                "crowdstrike": {
-                  "description": "Object containing information about CrowdStrike system facts",
-                  "properties": {
-                    "falcon_aid": {
-                      "description": "CrowdStrike Falcon Agent ID",
-                      "example": "44e3b7d20b434a2bb2815d9808fa3a8b",
-                      "maxLength": 32,
-                      "type": "string"
-                    },
-                    "falcon_backend": {
-                      "description": "CrowdStrike Falcon Sensor backend",
-                      "example": "auto, kernel, bpf",
-                      "maxLength": 32,
-                      "type": "string"
-                    }
-                  },
-                  "type": "object"
-                }
-              },
-              "type": "object"
-            },
             "threads_per_core": {
               "description": "Number of CPU threads per CPU core. Typical values: 1, 2, 4",
               "example": 2,
@@ -2663,11 +2648,6 @@
               "type": "object"
             }
           ]
-        },
-        "TimeStamp": {
-          "example": "2020-02-10T08:07:03.354307+00:00",
-          "format": "date-time",
-          "type": "string"
         },
         "Total": {
           "description": "Total number of items",
