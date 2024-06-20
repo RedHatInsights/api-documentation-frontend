@@ -2171,7 +2171,7 @@
       },
       "/notifications/eventTypes": {
         "get": {
-          "description": "Lists all event types. You can filter the returned list by bundle or application name.",
+          "description": "Lists all event types. You can filter the returned list by bundle, application name, or unmuted types.",
           "operationId": "NotificationResource$V1_getEventTypes",
           "parameters": [
             {
@@ -2199,6 +2199,13 @@
               "name": "eventTypeName",
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "excludeMutedTypes",
+              "schema": {
+                "type": "boolean"
               }
             },
             {
