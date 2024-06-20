@@ -222,6 +222,10 @@
               "readOnly": true,
               "type": "boolean"
             },
+            "title": {
+              "readOnly": true,
+              "type": "string"
+            },
             "value": {
               "type": "string"
             }
@@ -232,6 +236,7 @@
             "id",
             "key",
             "required",
+            "title",
             "value"
           ],
           "type": "object"
@@ -944,6 +949,10 @@
             "required": {
               "type": "boolean"
             },
+            "title": {
+              "maxLength": 250,
+              "type": "string"
+            },
             "values": {
               "items": {
                 "maxLength": 250,
@@ -955,6 +964,7 @@
           "required": [
             "description",
             "key",
+            "title",
             "values"
           ],
           "type": "object"
