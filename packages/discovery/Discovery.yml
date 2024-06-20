@@ -56,6 +56,7 @@ apis:
         tags:
           - spend-management
           - insights
+        useLocalFile: true
       - id: drift
         name: Drift Backend Service
         description: Service that returns differences between systems
