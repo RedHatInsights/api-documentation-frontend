@@ -228,6 +228,10 @@
             },
             "value": {
               "type": "string"
+            },
+            "values": {
+              "readOnly": true,
+              "type": "string"
             }
           },
           "required": [
@@ -237,7 +241,8 @@
             "key",
             "required",
             "title",
-            "value"
+            "value",
+            "values"
           ],
           "type": "object"
         },

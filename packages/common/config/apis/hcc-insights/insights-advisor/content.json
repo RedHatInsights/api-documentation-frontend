@@ -17,7 +17,7 @@
             },
             "justification": {
               "description": "The reason the rule was acked",
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             },
             "rule": {
@@ -56,7 +56,7 @@
           "properties": {
             "justification": {
               "default": "",
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             },
             "rule_id": {
@@ -73,7 +73,7 @@
           "properties": {
             "justification": {
               "description": "The reason the rule was acked",
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             }
           },
@@ -96,7 +96,7 @@
             },
             "justification": {
               "description": "The reason the rule was acked",
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             },
             "org_id": {
@@ -287,7 +287,7 @@
               "type": "integer"
             },
             "justification": {
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             },
             "rule": {
@@ -319,7 +319,7 @@
           "description": "Ignore reports of this rule on this system for this account.\n\nUse this when creating a new HostAck.",
           "properties": {
             "justification": {
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             },
             "rule": {
@@ -345,7 +345,7 @@
               "type": "integer"
             },
             "justification": {
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             }
           },
@@ -412,7 +412,7 @@
           "description": "Add acks to multiple hosts for a single rule.",
           "properties": {
             "justification": {
-              "maxLength": 140,
+              "maxLength": 255,
               "type": "string"
             },
             "systems": {

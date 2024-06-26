@@ -71,7 +71,7 @@
       "title": "OpenShift Cincinnati Policy-Engine",
       "version": "0.0.0"
     },
-    "openapi": "3.0.2",
+    "openapi": "3.0.3",
     "paths": {
       "/api/upgrades_info/graph": {
         "get": {
@@ -144,7 +144,7 @@
       },
       "/api/upgrades_info/v1/graph": {
         "get": {
-          "operationId": "getGraph",
+          "operationId": "getV1Graph",
           "responses": {
             "200": {
               "content": {
