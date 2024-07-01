@@ -1823,10 +1823,10 @@
                   "schema": {
                     "anyOf": [
                       {
-                        "$ref": "#/components/schemas/RemediationNameList"
+                        "$ref": "#/components/schemas/RemediationList"
                       },
                       {
-                        "$ref": "#/components/schemas/RemediationList"
+                        "$ref": "#/components/schemas/RemediationNameList"
                       }
                     ]
                   }

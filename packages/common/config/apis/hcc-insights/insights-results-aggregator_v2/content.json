@@ -1736,6 +1736,11 @@
                             "objects": {
                               "items": {
                                 "properties": {
+                                  "display_name": {
+                                    "description": "A human-readable name for the cluster",
+                                    "example": "Production cluster 1",
+                                    "type": "string"
+                                  },
                                   "kind": {
                                     "description": "The kind/category of the object.",
                                     "type": "string"

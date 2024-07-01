@@ -218,6 +218,10 @@
             "key": {
               "type": "string"
             },
+            "multi_valued": {
+              "readOnly": true,
+              "type": "boolean"
+            },
             "required": {
               "readOnly": true,
               "type": "boolean"
@@ -239,6 +243,7 @@
             "description",
             "id",
             "key",
+            "multi_valued",
             "required",
             "title",
             "value",
@@ -950,6 +955,9 @@
             "key": {
               "maxLength": 40,
               "type": "string"
+            },
+            "multi_valued": {
+              "type": "boolean"
             },
             "required": {
               "type": "boolean"

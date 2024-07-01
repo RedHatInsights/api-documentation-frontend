@@ -616,7 +616,7 @@
               "type": "string"
             },
             "mirrorlist": {
-              "example": "http://mirrorlist.centos.org/?release=8-stream&arch=aarch64&repo=BaseOS",
+              "example": "http://mirrorlist.centos.org/?release=9-stream&arch=aarch64&repo=BaseOS",
               "format": "uri",
               "type": "string"
             },
@@ -869,7 +869,6 @@
             "rhel-92",
             "rhel-93",
             "rhel-94",
-            "centos-8",
             "centos-9",
             "centos-10",
             "fedora-37",
@@ -1531,7 +1530,7 @@
               "type": "string"
             },
             "mirrorlist": {
-              "example": "http://mirrorlist.centos.org/?release=8-stream&arch=aarch64&repo=BaseOS",
+              "example": "http://mirrorlist.centos.org/?release=9-stream&arch=aarch64&repo=BaseOS",
               "format": "uri",
               "type": "string"
             },
