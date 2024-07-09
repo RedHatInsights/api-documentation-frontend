@@ -8,6 +8,7 @@
           "name": "baseline_id",
           "required": true,
           "schema": {
+            "format": "uuid",
             "type": "string"
           }
         },
@@ -17,6 +18,7 @@
           "required": true,
           "schema": {
             "items": {
+              "format": "uuid",
               "type": "string"
             },
             "type": "array"
@@ -28,6 +30,7 @@
           "required": true,
           "schema": {
             "items": {
+              "format": "uuid",
               "type": "string"
             },
             "type": "array"
@@ -236,6 +239,7 @@
           "properties": {
             "baseline_ids": {
               "items": {
+                "format": "uuid",
                 "maxLength": 36,
                 "minLength": 32,
                 "type": "string"
@@ -261,9 +265,11 @@
               "$ref": "#/components/schemas/DisplayName"
             },
             "hsp_uuid": {
+              "format": "uuid",
               "type": "string"
             },
             "inventory_uuid": {
+              "format": "uuid",
               "type": "string"
             }
           },
@@ -461,12 +467,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BaselineIn",
-                  "x-body-name": "system_baseline_in"
+                  "$ref": "#/components/schemas/BaselineIn"
                 }
               }
             },
-            "required": true
+            "required": true,
+            "x-body-name": "system_baseline_in"
           },
           "responses": {
             "200": {
@@ -634,12 +640,12 @@
                     "display_name",
                     "facts_patch"
                   ],
-                  "type": "object",
-                  "x-body-name": "system_baseline_patch"
+                  "type": "object"
                 }
               }
             },
-            "required": true
+            "required": true,
+            "x-body-name": "system_baseline_patch"
           },
           "responses": {
             "200": {

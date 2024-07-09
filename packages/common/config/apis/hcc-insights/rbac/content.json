@@ -1342,6 +1342,28 @@
             }
           }
         },
+        "RolePut": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/RolePatch"
+            },
+            {
+              "properties": {
+                "access": {
+                  "description": "List of access permissions. This array can be empty.",
+                  "items": {
+                    "$ref": "#/components/schemas/Access"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "access"
+              ],
+              "type": "object"
+            }
+          ]
+        },
         "RoleWithAccess": {
           "allOf": [
             {
@@ -4224,7 +4246,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoleWithAccess"
+                  "$ref": "#/components/schemas/RolePut"
                 }
               }
             },

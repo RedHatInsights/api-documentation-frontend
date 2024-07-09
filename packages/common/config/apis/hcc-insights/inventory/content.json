@@ -2301,6 +2301,12 @@
                       "example": "auto, kernel, bpf",
                       "maxLength": 32,
                       "type": "string"
+                    },
+                    "falcon_version": {
+                      "description": "CrowdStrike running Falcon Sensor version",
+                      "example": "7.14.16703.0, 6.33.13003.0",
+                      "maxLength": 32,
+                      "type": "string"
                     }
                   },
                   "type": "object"
