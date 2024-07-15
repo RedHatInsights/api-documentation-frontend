@@ -35,9 +35,6 @@
         },
         "ExecutedTask": {
           "properties": {
-            "alerts_count": {
-              "type": "integer"
-            },
             "completed_jobs_count": {
               "type": "integer"
             },
@@ -103,7 +100,6 @@
             }
           },
           "required": [
-            "alerts_count",
             "completed_jobs_count",
             "failure_jobs_count",
             "id",
@@ -234,8 +230,9 @@
               "type": "string"
             },
             "values": {
+              "items": {},
               "readOnly": true,
-              "type": "string"
+              "type": "array"
             }
           },
           "required": [
@@ -961,7 +958,7 @@
               "type": "string"
             },
             "key": {
-              "maxLength": 40,
+              "maxLength": 100,
               "type": "string"
             },
             "multi_valued": {
