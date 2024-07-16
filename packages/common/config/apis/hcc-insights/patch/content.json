@@ -274,6 +274,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "template_id": {
+              "type": "integer"
+            },
+            "template_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -347,6 +353,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "template_id": {
+              "type": "integer"
+            },
+            "template_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1069,6 +1081,12 @@
               },
               "type": "array"
             },
+            "template_id": {
+              "type": "integer"
+            },
+            "template_name": {
+              "type": "string"
+            },
             "updatable": {
               "type": "boolean"
             },
@@ -1347,6 +1365,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "template_id": {
+              "type": "integer"
+            },
+            "template_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1484,6 +1508,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "template_id": {
+              "type": "integer"
+            },
+            "template_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1606,6 +1636,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "template_id": {
+              "type": "integer"
+            },
+            "template_name": {
+              "type": "string"
             },
             "third_party": {
               "type": "boolean"
@@ -2325,7 +2361,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.6.76"
+      "version": "v3.6.88"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2335,7 +2371,7 @@
           "operationId": "listAdvisories",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -2649,7 +2685,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -2892,7 +2928,7 @@
           "operationId": "listBaseline",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -3350,7 +3386,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -3544,7 +3580,7 @@
       },
       "/export/advisories": {
         "get": {
-          "description": "Export applicable advisories for all my systems",
+          "description": "Export applicable advisories for all my systems. Export endpoints are not paginated.",
           "operationId": "exportAdvisories",
           "parameters": [
             {
@@ -3683,7 +3719,7 @@
       },
       "/export/advisories/{advisory_id}/systems": {
         "get": {
-          "description": "Export systems for my account",
+          "description": "Export systems for my account. Export endpoints are not paginated.",
           "operationId": "exportAdvisorySystems",
           "parameters": [
             {
@@ -3908,7 +3944,7 @@
       },
       "/export/baselines/{baseline_id}/systems": {
         "get": {
-          "description": "Export systems applicable to a baseline",
+          "description": "Export systems applicable to a baseline. Export endpoints are not paginated.",
           "operationId": "exportBaselineSystems",
           "parameters": [
             {
@@ -4117,7 +4153,7 @@
       },
       "/export/packages": {
         "get": {
-          "description": "Show me all installed packages across my systems",
+          "description": "Show me all installed packages across my systems. Export endpoints are not paginated.",
           "operationId": "exportPackages",
           "parameters": [
             {
@@ -4247,7 +4283,7 @@
       },
       "/export/packages/{package_name}/systems": {
         "get": {
-          "description": "Show me all my systems which have a package installed",
+          "description": "Show me all my systems which have a package installed. Export endpoints are not paginated.",
           "operationId": "exportPackageSystems",
           "parameters": [
             {
@@ -4404,7 +4440,7 @@
       },
       "/export/systems": {
         "get": {
-          "description": "Export systems for my account",
+          "description": "Export systems for my account. Export endpoints are not paginated.",
           "operationId": "exportSystems",
           "parameters": [
             {
@@ -4734,7 +4770,7 @@
       },
       "/export/systems/{inventory_id}/advisories": {
         "get": {
-          "description": "Export applicable advisories for all my systems",
+          "description": "Export applicable advisories for all my systems. Export endpoints are not paginated.",
           "operationId": "exportSystemAdvisories",
           "parameters": [
             {
@@ -4904,7 +4940,7 @@
       },
       "/export/systems/{inventory_id}/packages": {
         "get": {
-          "description": "Show me details about a system packages by given inventory id",
+          "description": "Show me details about a system packages by given inventory id. Export endpoints are not paginated.",
           "operationId": "exportSystemPackages",
           "parameters": [
             {
@@ -5034,7 +5070,7 @@
           "operationId": "listAdvisoriesIds",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -5290,7 +5326,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -5639,7 +5675,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -5770,7 +5806,7 @@
           "operationId": "packageSystemsIds",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -5938,7 +5974,7 @@
           "operationId": "listSystemsIds",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -6342,7 +6378,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -6493,7 +6529,7 @@
           "operationId": "listPackages",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -6772,7 +6808,7 @@
           "operationId": "packageSystems",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -6948,7 +6984,7 @@
           "operationId": "packageVersions",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -7029,7 +7065,7 @@
           "operationId": "listSystems",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -7555,7 +7591,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -7715,7 +7751,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -7985,7 +8021,7 @@
               }
             },
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -8047,7 +8083,7 @@
           "operationId": "viewAdvisoriesSystems",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
@@ -8200,7 +8236,7 @@
           "operationId": "viewSystemsAdvisories",
           "parameters": [
             {
-              "description": "Limit for paging, set -1 to return all",
+              "description": "Limit for paging",
               "in": "query",
               "name": "limit",
               "schema": {
