@@ -531,19 +531,6 @@
           ],
           "type": "object"
         },
-        "DuplicateNameMigrationReport": {
-          "properties": {
-            "updatedBehaviorGroups": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "updatedIntegrations": {
-              "format": "int32",
-              "type": "integer"
-            }
-          },
-          "type": "object"
-        },
         "Endpoint": {
           "properties": {
             "created": {
