@@ -175,6 +175,32 @@
           ],
           "type": "object"
         },
+        "BlueprintExportResponse": {
+          "properties": {
+            "customizations": {
+              "$ref": "#/components/schemas/Customizations"
+            },
+            "description": {
+              "type": "string"
+            },
+            "distribution": {
+              "$ref": "#/components/schemas/Distributions"
+            },
+            "metadata": {
+              "$ref": "#/components/schemas/BlueprintMetadata"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description",
+            "distribution",
+            "customizations",
+            "metadata"
+          ]
+        },
         "BlueprintItem": {
           "properties": {
             "description": {
@@ -200,6 +226,22 @@
             "name",
             "description",
             "last_modified_at"
+          ]
+        },
+        "BlueprintMetadata": {
+          "properties": {
+            "exported_at": {
+              "type": "string"
+            },
+            "parent_id": {
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "parent_id",
+            "exported_at"
           ]
         },
         "BlueprintResponse": {
@@ -547,6 +589,9 @@
               "type": "array",
               "uniqueItems": true
             },
+            "metadata": {
+              "$ref": "#/components/schemas/BlueprintMetadata"
+            },
             "name": {
               "example": "My Blueprint",
               "maxLength": 100,
@@ -869,6 +914,7 @@
             "rhel-92",
             "rhel-93",
             "rhel-94",
+            "rhel-10-nightly",
             "centos-9",
             "centos-10",
             "fedora-37",
@@ -2187,6 +2233,51 @@
             "blueprint"
           ]
         }
+      },
+      "/blueprints/{id}/export": {
+        "get": {
+          "description": "export a blueprint",
+          "operationId": "exportBlueprint",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BlueprintExportResponse"
+                  }
+                }
+              },
+              "description": "detail of a blueprint"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "blueprint was not found"
+            }
+          },
+          "summary": "export a blueprint",
+          "tags": [
+            "blueprint"
+          ]
+        },
+        "parameters": [
+          {
+            "description": "UUID of a blueprint",
+            "example": "123e4567-e89b-12d3-a456-426655440000",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ]
       },
       "/clones/{id}": {
         "get": {
