@@ -142,15 +142,6 @@ const findConditionKey = (value: OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObj
 }
 
 const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.ArraySchemaObject | OpenAPIV3.NonArraySchemaObject>, document: OpenAPIV3.Document) => {
-  if (schema.type && !schema.properties) {
-    return [{ name: <PropertyView
-          propSchema={schema}
-          propName={schema.deRefData ? schema.deRefData.name : ""}
-          propertyType={<SchemaType schema={schema} document={document}/>}
-          required={false}/>
-    }] as TreeViewDataItem[]
-  }
-
   const conditionalSchema = findConditionKey(schema)
   if (conditionalSchema) {
     const {schemaKey, schemaVal} = conditionalSchema
@@ -158,7 +149,16 @@ const getTreeViewData = (schemaName: string, schema: DeRefResponse<OpenAPIV3.Arr
   }
 
   if (!schema.properties) {
-    return [{name: "schema undefined"}] as TreeViewDataItem[]
+    return [{ 
+      name: schema.type ? (
+        <PropertyView 
+          propSchema={schema}
+          propName={schema.deRefData?.name ?? ""}
+          propertyType={<SchemaType schema={schema} document={document}/>}
+          required={false}
+        />
+      ) : "schema undefined"
+    }] as TreeViewDataItem[]
   }
 
   const schemaKeyValArray = Object.entries(schema.properties)
