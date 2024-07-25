@@ -275,10 +275,10 @@
               },
               "type": "array"
             },
-            "template_id": {
-              "type": "integer"
-            },
             "template_name": {
+              "type": "string"
+            },
+            "template_uuid": {
               "type": "string"
             }
           },
@@ -354,10 +354,10 @@
               },
               "type": "array"
             },
-            "template_id": {
-              "type": "integer"
-            },
             "template_name": {
+              "type": "string"
+            },
+            "template_uuid": {
               "type": "string"
             }
           },
@@ -1081,10 +1081,10 @@
               },
               "type": "array"
             },
-            "template_id": {
-              "type": "integer"
-            },
             "template_name": {
+              "type": "string"
+            },
+            "template_uuid": {
               "type": "string"
             },
             "updatable": {
@@ -1276,6 +1276,9 @@
             "applicable_rhsa_count": {
               "type": "integer"
             },
+            "arch": {
+              "type": "string"
+            },
             "baseline_id": {
               "type": "integer"
             },
@@ -1366,10 +1369,10 @@
               },
               "type": "array"
             },
-            "template_id": {
-              "type": "integer"
-            },
             "template_name": {
+              "type": "string"
+            },
+            "template_uuid": {
               "type": "string"
             }
           },
@@ -1422,6 +1425,9 @@
             "applicable_rhsa_count": {
               "type": "integer"
             },
+            "arch": {
+              "type": "string"
+            },
             "baseline_id": {
               "type": "integer"
             },
@@ -1509,10 +1515,10 @@
               },
               "type": "array"
             },
-            "template_id": {
-              "type": "integer"
-            },
             "template_name": {
+              "type": "string"
+            },
+            "template_uuid": {
               "type": "string"
             }
           },
@@ -1531,6 +1537,9 @@
             },
             "applicable_rhsa_count": {
               "type": "integer"
+            },
+            "arch": {
+              "type": "string"
             },
             "baseline_id": {
               "type": "integer"
@@ -1637,10 +1646,10 @@
               },
               "type": "array"
             },
-            "template_id": {
-              "type": "integer"
-            },
             "template_name": {
+              "type": "string"
+            },
+            "template_uuid": {
               "type": "string"
             },
             "third_party": {
@@ -2361,7 +2370,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.6.88"
+      "version": "v3.6.94"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -4686,9 +4695,41 @@
               }
             },
             {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[arch]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "Filter OS version",
               "in": "query",
               "name": "filter[os]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS name",
+              "in": "query",
+              "name": "filter[osname]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS major version",
+              "in": "query",
+              "name": "filter[osmajor]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS minor version",
+              "in": "query",
+              "name": "filter[osminor]",
               "schema": {
                 "type": "string"
               }
@@ -6228,6 +6269,30 @@
               }
             },
             {
+              "description": "Filter OS name",
+              "in": "query",
+              "name": "filter[osname]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS major version",
+              "in": "query",
+              "name": "filter[osmajor]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS minor version",
+              "in": "query",
+              "name": "filter[osminor]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "Filter",
               "in": "query",
               "name": "filter[satellite_managed]",
@@ -6239,6 +6304,14 @@
               "description": "Filter",
               "in": "query",
               "name": "filter[built_pkgcache]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[arch]",
               "schema": {
                 "type": "string"
               }
@@ -7328,9 +7401,41 @@
               }
             },
             {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[arch]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "Filter OS version",
               "in": "query",
               "name": "filter[os]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS name",
+              "in": "query",
+              "name": "filter[osname]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS major version",
+              "in": "query",
+              "name": "filter[osmajor]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS minor version",
+              "in": "query",
+              "name": "filter[osminor]",
               "schema": {
                 "type": "string"
               }
