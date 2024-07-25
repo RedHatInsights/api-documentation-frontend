@@ -463,6 +463,11 @@
               "description": "Name of the remote yum repository",
               "type": "string"
             },
+            "origin": {
+              "description": "Origin of the repository",
+              "readOnly": true,
+              "type": "string"
+            },
             "snapshot": {
               "description": "Enable snapshotting and hosting of this repository",
               "type": "boolean"
@@ -643,6 +648,51 @@
             },
             "meta": {
               "$ref": "#/components/schemas/api.ResponseMetadata"
+            }
+          },
+          "type": "object"
+        },
+        "api.RepositoryUpdateRequest": {
+          "properties": {
+            "distribution_arch": {
+              "description": "Architecture to restrict client usage to",
+              "example": "x86_64",
+              "type": "string"
+            },
+            "distribution_versions": {
+              "description": "Versions to restrict client usage to",
+              "example": [
+                "7",
+                "8"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "gpg_key": {
+              "description": "GPG key for repository",
+              "type": "string"
+            },
+            "metadata_verification": {
+              "description": "Verify packages",
+              "type": "boolean"
+            },
+            "module_hotfixes": {
+              "description": "Disable modularity filtering on this repository",
+              "type": "boolean"
+            },
+            "name": {
+              "description": "Name of the remote yum repository",
+              "type": "string"
+            },
+            "snapshot": {
+              "description": "Enable snapshotting and hosting of this repository",
+              "type": "boolean"
+            },
+            "url": {
+              "description": "URL of the remote yum repository",
+              "type": "string"
             }
           },
           "type": "object"
@@ -1070,6 +1120,10 @@
               },
               "type": "array"
             },
+            "use_latest": {
+              "description": "Use latest snapshot for all repositories in the template",
+              "type": "boolean"
+            },
             "version": {
               "description": "Version of the template",
               "type": "string"
@@ -1126,6 +1180,10 @@
               "description": "Datetime template was last updated",
               "type": "string"
             },
+            "use_latest": {
+              "description": "Use latest snapshot for all repositories in the template",
+              "type": "boolean"
+            },
             "uuid": {
               "readOnly": true,
               "type": "string"
@@ -1157,6 +1215,10 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "use_latest": {
+              "description": "Use latest snapshot for all repositories in the template",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -1734,7 +1796,7 @@
               }
             },
             {
-              "description": "A comma separated list of statuses to control api response. Statuses can include `pending`, `valid`, `invalid`, `unavailable`.",
+              "description": "A comma separated list of statuses to control api response. Statuses can include `Pending`, `Valid`, `Invalid`, `Unavailable`.",
               "in": "query",
               "name": "status",
               "schema": {
@@ -2235,7 +2297,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/api.RepositoryRequest"
+                  "$ref": "#/components/schemas/api.RepositoryUpdateRequest"
                 }
               }
             },
@@ -2536,8 +2598,15 @@
             "x-originalParamName": "body"
           },
           "responses": {
-            "204": {
-              "description": "Introspection was successfully queued"
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.TaskInfoResponse"
+                  }
+                }
+              },
+              "description": "OK"
             },
             "400": {
               "content": {
@@ -2802,8 +2871,15 @@
             }
           ],
           "responses": {
-            "204": {
-              "description": "Snapshot was successfully queued"
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.TaskInfoResponse"
+                  }
+                }
+              },
+              "description": "OK"
             },
             "400": {
               "content": {
