@@ -5,7 +5,7 @@
       "contact": {},
       "description": "Gathering Conditions Services to Insights Operator.",
       "title": "Insights Operator Gathering Conditions Service",
-      "version": "0.1"
+      "version": "0.2"
     },
     "openapi": "3.0.0",
     "paths": {
@@ -282,6 +282,110 @@
           },
           "summary": "Returns the OpenAPI specification JSON."
         }
+      },
+      "/v2/{ocpVersion}/gathering_rules": {
+        "description": "This endpoint returns the specific configuration used by Insights Operator based on version of the cluster where the operator runs.",
+        "get": {
+          "parameters": [
+            {
+              "description": "Version of the OCP cluster",
+              "example": "1.0.0",
+              "in": "path",
+              "name": "ocpVersion",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "conditional_gathering_rules": {
+                        "items": {
+                          "properties": {
+                            "conditions": {
+                              "items": {
+                                "properties": {
+                                  "alert": {
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "alert",
+                                  "type"
+                                ],
+                                "type": "object"
+                              },
+                              "type": "array"
+                            },
+                            "gathering_functions": {
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "conditions",
+                            "gathering_functions"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "container_logs": {
+                        "items": {
+                          "properties": {
+                            "messages": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "type": "array"
+                            },
+                            "namespace": {
+                              "type": "string"
+                            },
+                            "pod_name_regex": {
+                              "type": "string"
+                            },
+                            "previous": {
+                              "type": "boolean"
+                            }
+                          },
+                          "required": [
+                            "namespace",
+                            "pod_name_regex",
+                            "messages"
+                          ],
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "version": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": ""
+            }
+          }
+        },
+        "summary": "Return remote configuration base on OCP version"
       }
     }
   }
