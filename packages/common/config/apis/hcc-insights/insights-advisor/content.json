@@ -5701,6 +5701,7 @@
               "schema": {
                 "items": {
                   "enum": [
+                    "10.0",
                     "6.0",
                     "6.1",
                     "6.10",
@@ -5739,7 +5740,8 @@
                     "9.2",
                     "9.3",
                     "9.4",
-                    "9.5"
+                    "9.5",
+                    "9.6"
                   ],
                   "type": "string"
                 },
@@ -5929,6 +5931,7 @@
               "schema": {
                 "items": {
                   "enum": [
+                    "10.0",
                     "6.0",
                     "6.1",
                     "6.10",
@@ -5967,7 +5970,8 @@
                     "9.2",
                     "9.3",
                     "9.4",
-                    "9.5"
+                    "9.5",
+                    "9.6"
                   ],
                   "type": "string"
                 },
@@ -6629,6 +6633,14 @@
               "style": "form"
             },
             {
+              "description": "Display systems which has at least one disabled recommendation",
+              "in": "query",
+              "name": "has_disabled_recommendation",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
               "description": "Display systems with hits of the given total_risk value (1..4), or 0 to display all systems",
               "in": "query",
               "name": "hits",
@@ -6690,6 +6702,7 @@
               "schema": {
                 "items": {
                   "enum": [
+                    "10.0",
                     "6.0",
                     "6.1",
                     "6.10",
@@ -6728,7 +6741,8 @@
                     "9.2",
                     "9.3",
                     "9.4",
-                    "9.5"
+                    "9.5",
+                    "9.6"
                   ],
                   "type": "string"
                 },

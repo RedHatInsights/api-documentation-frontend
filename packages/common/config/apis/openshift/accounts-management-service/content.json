@@ -3074,6 +3074,9 @@
                 "marketplace-gcp"
               ],
               "type": "string"
+            },
+            "scope": {
+              "type": "string"
             }
           },
           "type": "object"
