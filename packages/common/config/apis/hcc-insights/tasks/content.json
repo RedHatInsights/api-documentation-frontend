@@ -211,6 +211,10 @@
               "readOnly": true,
               "type": "integer"
             },
+            "index": {
+              "readOnly": true,
+              "type": "integer"
+            },
             "key": {
               "type": "string"
             },
@@ -239,6 +243,7 @@
             "default",
             "description",
             "id",
+            "index",
             "key",
             "multi_valued",
             "required",
@@ -957,6 +962,11 @@
             "description": {
               "type": "string"
             },
+            "index": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
             "key": {
               "maxLength": 100,
               "type": "string"
@@ -1395,6 +1405,7 @@
               "schema": {
                 "items": {
                   "enum": [
+                    "10.0",
                     "6.0",
                     "6.1",
                     "6.10",
@@ -1433,7 +1444,8 @@
                     "9.2",
                     "9.3",
                     "9.4",
-                    "9.5"
+                    "9.5",
+                    "9.6"
                   ],
                   "type": "string"
                 },
@@ -1855,6 +1867,7 @@
               "schema": {
                 "items": {
                   "enum": [
+                    "10.0",
                     "6.0",
                     "6.1",
                     "6.10",
@@ -1893,7 +1906,8 @@
                     "9.2",
                     "9.3",
                     "9.4",
-                    "9.5"
+                    "9.5",
+                    "9.6"
                   ],
                   "type": "string"
                 },
@@ -2237,6 +2251,7 @@
               "schema": {
                 "items": {
                   "enum": [
+                    "10.0",
                     "6.0",
                     "6.1",
                     "6.10",
@@ -2275,7 +2290,8 @@
                     "9.2",
                     "9.3",
                     "9.4",
-                    "9.5"
+                    "9.5",
+                    "9.6"
                   ],
                   "type": "string"
                 },

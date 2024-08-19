@@ -1203,6 +1203,7 @@
                 "OSD",
                 "OSDTrial",
                 "MOA",
+                "MOA-HostedControlPlane",
                 "RHMI",
                 "RHOSAK",
                 "RHOSAKTrial",
@@ -1213,7 +1214,8 @@
                 "RHACS",
                 "RHACSTrial",
                 "ARO",
-                "RHOIC"
+                "RHOIC",
+                "OCP-AssistedInstall"
               ],
               "type": "string"
             },
@@ -1403,6 +1405,9 @@
                     "Rescinded",
                     "Completed"
                   ],
+                  "type": "string"
+                },
+                "status_description": {
                   "type": "string"
                 },
                 "updated_at": {
@@ -3074,6 +3079,9 @@
                 "marketplace-gcp"
               ],
               "type": "string"
+            },
+            "scope": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -3864,6 +3872,14 @@
                   "type": "integer"
                 },
                 "status": {
+                  "enum": [
+                    "Active",
+                    "Archived",
+                    "Deprovisioned",
+                    "Disconnected",
+                    "Reserved",
+                    "Stale"
+                  ],
                   "type": "string"
                 },
                 "support_level": {
