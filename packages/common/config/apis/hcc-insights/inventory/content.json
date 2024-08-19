@@ -548,7 +548,8 @@
           "title": "Host data"
         },
         "AssignmentRuleId": {
-          "$ref": "#/components/schemas/NonStrictUUID"
+          "$ref": "#/components/schemas/NonStrictUUID",
+          "description": "A durable and reliable platform-wide assignment-rule identifier. Applications should use this identifier to reference assignment-rules."
         },
         "AssignmentRuleIn": {
           "description": "Data for a single Assignment Rule",
@@ -868,7 +869,8 @@
           "type": "string"
         },
         "GroupId": {
-          "$ref": "#/components/schemas/NonStrictUUID"
+          "$ref": "#/components/schemas/NonStrictUUID",
+          "description": "A durable and reliable platform-wide group identifier. Applications should use this identifier to reference groups."
         },
         "GroupIn": {
           "description": "Data of a single group belonging to an account.",
@@ -966,7 +968,8 @@
           "type": "integer"
         },
         "HostId": {
-          "$ref": "#/components/schemas/NonStrictUUID"
+          "$ref": "#/components/schemas/NonStrictUUID",
+          "description": "A durable and reliable platform-wide group identifier. Applications should use this identifier to reference hosts."
         },
         "HostIds": {
           "description": "A comma-separated list of host IDs that belong to the group.",
@@ -2388,7 +2391,13 @@
               "type": "string"
             },
             "options": {
-              "$ref": "#/components/schemas/SystemProfileNestedObject"
+              "$ref": "#/components/schemas/SystemProfileNestedObject",
+              "description": "Mount options for nested object",
+              "example": {
+                "ro": true,
+                "uid": "0"
+              },
+              "x-indexed": false
             },
             "type": {
               "description": "The mount type",
@@ -2881,139 +2890,6 @@
           "summary": "Read the entire list of account staleness",
           "tags": [
             "accounts_staleness"
-          ]
-        }
-      },
-      "/assignment-rules": {
-        "get": {
-          "description": "Read the entire list of all assignment-rules available to the account. [Not Implemented] Required permissions: inventory:groups:read",
-          "operationId": "api.assignment_rule.get_assignment_rules_list",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/assignmentRuleName"
-            },
-            {
-              "$ref": "#/components/parameters/perPageParam"
-            },
-            {
-              "$ref": "#/components/parameters/pageParam"
-            },
-            {
-              "$ref": "#/components/parameters/assignmentRuleOrderByParam"
-            },
-            {
-              "$ref": "#/components/parameters/assignmentRuleOrderHowParam"
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput"
-                  }
-                }
-              },
-              "description": "Successfully read the assignment-rules list."
-            }
-          },
-          "security": [
-            {
-              "ApiKeyAuth": []
-            }
-          ],
-          "summary": "Read the entire list of assignment-rules [Not Implemented]",
-          "tags": [
-            "groups"
-          ]
-        },
-        "post": {
-          "description": "Create Assignment Rule object using post request <br /><br /> Required permissions: inventory:groups:write",
-          "operationId": "api.assignment_rule.create_assignment_rule",
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AssignmentRuleIn"
-                }
-              }
-            },
-            "description": "Data required to create Assignment Rule object",
-            "required": true
-          },
-          "responses": {
-            "201": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AssignmentRuleOut"
-                  }
-                }
-              },
-              "description": "Assignment Rule created"
-            }
-          },
-          "security": [
-            {
-              "ApiKeyAuth": []
-            },
-            {
-              "BearerAuth": []
-            }
-          ],
-          "summary": "Create Assignment Rule object",
-          "tags": [
-            "groups"
-          ]
-        }
-      },
-      "/assignment-rules/{assignment_rule_id_list}": {
-        "get": {
-          "description": "Find one or more assignment rules by their IDs. <br /><br /> Required permissions: inventory:groups:read",
-          "operationId": "api.assignment_rule.get_assignment_rules_by_id",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/assignmentRuleIdList"
-            },
-            {
-              "$ref": "#/components/parameters/perPageParam"
-            },
-            {
-              "$ref": "#/components/parameters/pageParam"
-            },
-            {
-              "$ref": "#/components/parameters/assignmentRuleOrderByParam"
-            },
-            {
-              "$ref": "#/components/parameters/assignmentRuleOrderHowParam"
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AssignmentRuleQueryOutput"
-                  }
-                }
-              },
-              "description": "Successfully searched for assignment rules."
-            },
-            "400": {
-              "description": "Invalid request."
-            },
-            "404": {
-              "description": "Assignment rules not found."
-            }
-          },
-          "security": [
-            {
-              "ApiKeyAuth": []
-            }
-          ],
-          "summary": "Find assignment rules by their IDs",
-          "tags": [
-            "groups"
           ]
         }
       },
@@ -4334,11 +4210,6 @@
           ]
         }
       }
-    },
-    "servers": [
-      {
-        "url": "/api/inventory/v1"
-      }
-    ]
+    }
   }
 }
