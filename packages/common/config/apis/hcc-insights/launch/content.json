@@ -635,6 +635,7 @@
             },
             "pubkey_id": {
               "format": "int64",
+              "nullable": true,
               "type": "integer"
             },
             "region": {
@@ -653,6 +654,7 @@
         "v1.AccountIDTypeResponse": {
           "properties": {
             "aws": {
+              "nullable": true,
               "properties": {
                 "account_id": {
                   "type": "string"
@@ -759,6 +761,7 @@
             },
             "pubkey_id": {
               "format": "int64",
+              "nullable": true,
               "type": "integer"
             },
             "reservation_id": {
@@ -862,6 +865,7 @@
             },
             "pubkey_id": {
               "format": "int64",
+              "nullable": true,
               "type": "integer"
             },
             "reservation_id": {
@@ -928,6 +932,7 @@
               "type": "string"
             },
             "azure": {
+              "nullable": true,
               "properties": {
                 "gen_v1": {
                   "type": "boolean"
@@ -978,6 +983,7 @@
           "properties": {
             "data": {
               "items": {
+                "nullable": true,
                 "properties": {
                   "created_at": {
                     "format": "date-time",
@@ -1050,11 +1056,13 @@
           "properties": {
             "data": {
               "items": {
+                "nullable": true,
                 "properties": {
                   "architecture": {
                     "type": "string"
                   },
                   "azure": {
+                    "nullable": true,
                     "properties": {
                       "gen_v1": {
                         "type": "boolean"
@@ -1099,6 +1107,7 @@
           "properties": {
             "data": {
               "items": {
+                "nullable": true,
                 "properties": {
                   "id": {
                     "type": "string"
@@ -1137,6 +1146,7 @@
           "properties": {
             "data": {
               "items": {
+                "nullable": true,
                 "properties": {
                   "body": {
                     "type": "string"
@@ -1188,6 +1198,7 @@
           "properties": {
             "data": {
               "items": {
+                "nullable": true,
                 "properties": {
                   "id": {
                     "type": "string"
