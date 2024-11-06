@@ -1533,6 +1533,51 @@
           "summary": "Delete a behavior group from an event type"
         }
       },
+      "/notifications/eventTypes/{eventTypeId}/endpoints": {
+        "put": {
+          "description": "Updates the list of endpoints associated with an event type.",
+          "operationId": "NotificationResource$V1_updateEventTypeEndpoints",
+          "parameters": [
+            {
+              "description": "UUID of the eventType to associate with the endpoint(s)",
+              "in": "path",
+              "name": "eventTypeId",
+              "required": true,
+              "schema": {
+                "$ref": "#/components/schemas/UUID"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "format": "uuid",
+                    "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "OK"
+            }
+          },
+          "summary": "Update the list of endpoints for an event type"
+        }
+      },
       "/notifications/eventTypes/{eventTypeUuid}/behaviorGroups/{behaviorGroupUuid}": {
         "put": {
           "operationId": "NotificationResource$V1_appendBehaviorGroupToEventType",
