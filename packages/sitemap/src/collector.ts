@@ -29,9 +29,10 @@ const getDocuments = (config: ReadonlyArray<Readonly<APIConfiguration>>, baseurl
             if (paths) {
                 const pathSummaries = Object.entries(paths)
                 .map(([path, pathObject]) => {
-                    return Object.entries(pathObject)
+                    return Object.entries(pathObject!)
                     .map(([method, methodInfo]) => {
-                        return methodInfo.summary
+                        // TODO: Fis the type definition
+                        return (methodInfo as any).summary
                     })
                 })
                 return pathSummaries.flatMap(summaryArray => summaryArray.filter(summary => summary !== undefined))

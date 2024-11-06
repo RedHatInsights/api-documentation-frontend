@@ -36,3 +36,8 @@ public/canonical.json
 
 # rollup
 .rollup.cache
+# next
+.next
+next-env.d.ts
+out
+
