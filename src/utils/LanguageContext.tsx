@@ -2,7 +2,6 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 import { SnippetInfoItem, SnippetItemsArray } from '../hooks/useSnippets';
 
-
 type LanguageContextType = {
   language: SnippetInfoItem;
   handleChangeLanguage: (newLanguage: SnippetInfoItem) => void;
@@ -24,11 +23,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     setLanguage(newLanguage);
   }
 
-  return (
-    <LanguageContext.Provider value={{ language, handleChangeLanguage }}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={{ language, handleChangeLanguage }}>{children}</LanguageContext.Provider>;
 };
 
 export const useLanguage = () => {

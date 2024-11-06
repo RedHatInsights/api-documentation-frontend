@@ -264,12 +264,14 @@ const writeTsTemplates = (foundApis: Array<BuildApi>, tags: Array<Tag>, options:
         {
             parser: 'typescript'
         }
-    );
+    ).then((formatted) => {
+        writeFileSync(
+            path.resolve(options.outputDir, 'apis.ts'),
+            formatted
+        );
 
-    writeFileSync(
-        path.resolve(options.outputDir, 'apis.ts'),
-        prettyResult
-    );
+    });
+
 }
 
 const fetchDocumentationContents = (buildApis: ReadonlyArray<BuildApi>, options: Options) => {
