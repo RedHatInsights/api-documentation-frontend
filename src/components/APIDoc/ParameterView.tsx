@@ -1,8 +1,7 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import { Flex, FlexItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
-import { Tbody, Td, Thead, Tr } from '@patternfly/react-table';
-import { Table } from '@patternfly/react-table/deprecated';
+import { Table, Tbody, Td, Thead, Tr } from '@patternfly/react-table';
 import { SchemaType } from './SchemaType';
 
 interface ParameterViewProps {

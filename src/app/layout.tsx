@@ -81,22 +81,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <head suppressHydrationWarning={true}>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon2023-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon2023-16x16.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
-        <script dangerouslySetInnerHTML={{ __html: headerPatch }}></script>
-        <script dangerouslySetInnerHTML={{ __html: analyticsInclude }}></script>
-        <script dangerouslySetInnerHTML={{ __html: pendoInclude }}></script>
+        <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: headerPatch }}></script>
+        <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: analyticsInclude }}></script>
+        <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: pendoInclude }}></script>
       </head>
       <body>
         <div className="rhd-m-max-width-xl">
           <div
+            suppressHydrationWarning={true}
             dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-universal-nav-header/rh-universal-nav-header.html" -->' }}
           ></div>
           {children}
-          <div dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-unified-footer/rh-unified-footer.html" -->' }}></div>
+          <div
+            suppressHydrationWarning={true}
+            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-unified-footer/rh-unified-footer.html" -->' }}
+          ></div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"></script>
           <link rel="stylesheet" href="/modules/contrib/red_hat_shared_libs/dist/@cpelements/pfe-navigation/dist/pfe-navigation--lightdom.css" />
