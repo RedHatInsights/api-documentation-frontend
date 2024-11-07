@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react';
 import { Flex, FlexItem } from '@patternfly/react-core';
-import { Thead, Tr, Th, Tbody } from '@patternfly/react-table';
-import { Table } from '@patternfly/react-table/deprecated';
+import { Table, Thead, Tr, Th, Tbody } from '@patternfly/react-table';
 import { APIConfiguration } from '@apidocs/common';
 import { NoMatchFound } from '../components/NoMatchFound/NoMatchFound';
 import { ListView } from './ListView';

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import { deRef } from '../../utils/Openapi';
 import { buildCodeSampleData, BuildCodeSampleDataParams } from '../../utils/Snippets';
-import { Grid, GridItem, Text, TextContent, TextVariants, AccordionItem, AccordionToggle, AccordionContent, Label } from '@patternfly/react-core';
+import { Grid, GridItem, TextContent, AccordionItem, AccordionToggle, AccordionContent, Label } from '@patternfly/react-core';
 import ReactMarkdown from 'react-markdown';
 
 import { ParameterView } from './ParameterView';
@@ -81,13 +81,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({ verb, baseU
   return (
     <Grid className="pf-v5-u-mt-sm" hasGutter>
       <GridItem md={12}>
-        <TextContent>
-          {operation.description && (
-            <Text component={TextVariants.p}>
-              <ReactMarkdown>{operation.description}</ReactMarkdown>
-            </Text>
-          )}
-        </TextContent>
+        <TextContent>{operation.description && <ReactMarkdown>{operation.description}</ReactMarkdown>}</TextContent>
       </GridItem>
       <GridItem md={12} xl={7}>
         <Grid hasGutter>
