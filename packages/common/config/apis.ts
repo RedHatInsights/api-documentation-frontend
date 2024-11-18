@@ -250,64 +250,6 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["spend-management"], apiLabelsMap["insights"]],
   },
   {
-    id: "drift",
-    displayName: "Drift Backend Service",
-    description: "Service that returns differences between systems",
-    icon: "GenericIcon",
-    apiContentPath: "./apis/hcc-insights/drift/content.json",
-    serverUrl: "https://console.redhat.com",
-    getApiContent: () =>
-      import(
-        "./apis/hcc-insights/drift/content.json"
-      ) as unknown as Promise<APIContent>,
-    tags: [
-      apiLabelsMap["ansible"],
-      apiLabelsMap["rhel"],
-      apiLabelsMap["observe"],
-      apiLabelsMap["openshift"],
-      apiLabelsMap["insights"],
-    ],
-  },
-  {
-    id: "system-baseline",
-    displayName: "Drift Baseline",
-    description: "Service that returns system baselines",
-    icon: "GenericIcon",
-    apiContentPath: "./apis/hcc-insights/system-baseline/content.json",
-    serverUrl: "https://console.redhat.com",
-    getApiContent: () =>
-      import(
-        "./apis/hcc-insights/system-baseline/content.json"
-      ) as unknown as Promise<APIContent>,
-    tags: [
-      apiLabelsMap["ansible"],
-      apiLabelsMap["rhel"],
-      apiLabelsMap["observe"],
-      apiLabelsMap["openshift"],
-      apiLabelsMap["insights"],
-    ],
-  },
-  {
-    id: "historical-system-profiles",
-    displayName: "Drift Historical Systems Profile Service ",
-    description: "Service that returns system baselines",
-    icon: "GenericIcon",
-    apiContentPath:
-      "./apis/hcc-insights/historical-system-profiles/content.json",
-    serverUrl: "https://console.redhat.com",
-    getApiContent: () =>
-      import(
-        "./apis/hcc-insights/historical-system-profiles/content.json"
-      ) as unknown as Promise<APIContent>,
-    tags: [
-      apiLabelsMap["ansible"],
-      apiLabelsMap["rhel"],
-      apiLabelsMap["observe"],
-      apiLabelsMap["openshift"],
-      apiLabelsMap["insights"],
-    ],
-  },
-  {
     id: "export-service",
     displayName: "Export Service",
     description:
