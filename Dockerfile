@@ -4,10 +4,10 @@ USER root
 
 WORKDIR /usr/share/builder
 
-COPY package.json package-lock.json tsconfig.json next.config.ts .eslintrc.json ./
+COPY package.json package-lock.json tsconfig.json next.config.ts .eslintrc.json prettier.config.js proxy.mjs ./
 COPY src ./src
 COPY public ./public
-COPY packages/common ./packages/common
+COPY packages ./packages
 
 RUN npm i
 RUN npm run build
