@@ -4,6 +4,7 @@ import {
   Button,
   Flex,
   Form,
+  Icon,
   Page,
   PageSection,
   PageSectionVariants,
@@ -22,6 +23,7 @@ import {apiConfigurations, apiLabels} from "@apidocs/common";
 import { SearchInput } from '@patternfly/react-core';
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
+import ExternalLinkAltIcon from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
 import {Helmet} from 'react-helmet-async';
 
 
@@ -130,32 +132,32 @@ export const LandingPage: FunctionComponent = () => {
           <PageSection variant={PageSectionVariants.light} className="pf-u-p-md">
             <Flex direction={{ default: "rowReverse" }}>
               <Split className="apid-split-l-pagination">
-                <SplitItem className="pf-u-pb-md pf-u-pt-md-on-md pf-u-pl-sm-on-md" isFilled>
-                  <ActionList>
-                    <ActionListItem>
-                      <Button component="a" target="_blank" href="https://console.redhat.com/docs/api" variant="secondary" className="apid-legacy-button">
-                        Use the legacy API documentation site
-                      </Button>
-                    </ActionListItem>
-                    <ActionListItem>
-                      <Popover
-                          aria-label="Connect to APIs using Red Hat service accounts"
-                          position="bottom"
-                          bodyContent={<>
-                            <b>Important:</b> Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs.
-                            The Red Hat Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control
-                            over access permissions and enhance security.
-                            Token-based authentication is recommended.
-                            More information about transitioning from basic authentication to token-based authentication via service accounts is described
-                            on the <a href="https://access.redhat.com/articles/7036194">Red Hat Customer Portal</a>.
-                          </>}
-                      >
-                        <Button component="a" target="_blank" variant="secondary" className="apid-legacy-button">
-                          Connect to APIs using Red Hat service accounts
-                        </Button>
-                      </Popover>
-                    </ActionListItem>
-                  </ActionList>
+                <SplitItem className="pf-u-pb-md pf-u-pt-md-on-md pf-u-pl-sm-on-md pf-v5-u-text-wrap" isFilled>
+                  <Button className="pf-u-mr-sm pf-u-mb-sm" component="a" target="_blank" href="https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet" variant="secondary" isSmall>
+                    API Cheat Sheet
+                  </Button>
+                  <Button className="pf-u-mr-sm pf-u-mb-sm" component="a" target="_blank" href="https://console.redhat.com/docs/api" variant="secondary" isSmall>
+                    Legacy API documentation
+                    <Icon size="sm" className="pf-u-ml-xs"  isInline>
+                      <ExternalLinkAltIcon />
+                    </Icon>
+                  </Button>
+                  <Popover
+                      aria-label="Connect to APIs using Red Hat service accounts"
+                      position="bottom"
+                      bodyContent={<>
+                        <b>Important:</b> Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs.
+                        The Red Hat Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control
+                        over access permissions and enhance security.
+                        Token-based authentication is recommended.
+                        More information about transitioning from basic authentication to token-based authentication via service accounts is described
+                        on the <a href="https://access.redhat.com/articles/7036194">Red Hat Customer Portal</a>.
+                      </>}
+                  >
+                    <Button component="a" target="_blank" variant="secondary" isSmall>
+                      Connect to APIs using Red Hat service accounts
+                    </Button>
+                  </Popover>
                 </SplitItem>
                 <SplitItem>
                   <Pagination
