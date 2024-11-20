@@ -2239,8 +2239,8 @@
       }
     },
     "info": {
-      "description": "The API for managing and issuing Red Hat generated tasks on your infrastructure",
-      "title": "Insights Tasks API",
+      "description": "The API of the Advisor project in Insights",
+      "title": "Insights Advisor API",
       "version": "1.0.0"
     },
     "openapi": "3.0.3",
