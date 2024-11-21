@@ -20,6 +20,9 @@
               "type": "array"
             }
           },
+          "required": [
+            "uploads"
+          ],
           "type": "object"
         },
         "api.Artifact": {
@@ -37,6 +40,13 @@
         },
         "api.ContentUnitSearchRequest": {
           "properties": {
+            "exact_names": {
+              "description": "List of names to search using an exact match",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
             "limit": {
               "description": "Maximum number of records to return for the search",
               "type": "integer"
@@ -69,6 +79,9 @@
               "type": "integer"
             }
           },
+          "required": [
+            "size"
+          ],
           "type": "object"
         },
         "api.DetectRpmsRequest": {
@@ -146,6 +159,9 @@
               "type": "string"
             }
           },
+          "required": [
+            "url"
+          ],
           "type": "object"
         },
         "api.FetchGPGKeyResponse": {
@@ -209,6 +225,10 @@
               "type": "array"
             }
           },
+          "required": [
+            "date",
+            "repository_uuids"
+          ],
           "type": "object"
         },
         "api.ListSnapshotByDateResponse": {
@@ -406,6 +426,9 @@
               "type": "array"
             }
           },
+          "required": [
+            "repository_uuids"
+          ],
           "type": "object"
         },
         "api.RepositoryExportResponse": {
@@ -708,6 +731,9 @@
               "type": "string"
             }
           },
+          "required": [
+            "name"
+          ],
           "type": "object"
         },
         "api.RepositoryResponse": {
@@ -1390,6 +1416,12 @@
               "type": "string"
             }
           },
+          "required": [
+            "arch",
+            "name",
+            "repository_uuids",
+            "version"
+          ],
           "type": "object"
         },
         "api.TemplateResponse": {
@@ -1509,6 +1541,9 @@
               "type": "array"
             }
           },
+          "required": [
+            "uuids"
+          ],
           "type": "object"
         },
         "api.Upload": {
@@ -2814,6 +2849,159 @@
           "summary": "Upload a file chunk",
           "tags": [
             "repositories"
+          ]
+        }
+      },
+      "/repositories/{repo_uuid}/snapshots/bulk_delete/": {
+        "post": {
+          "description": "This enables deleting specified snapshots from a repository.",
+          "operationId": "bulkDeleteSnapshots",
+          "parameters": [
+            {
+              "description": "Repository UUID.",
+              "in": "path",
+              "name": "repo_uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.UUIDListRequest"
+                }
+              }
+            },
+            "description": "Identifiers of the snapshots",
+            "required": true,
+            "x-originalParamName": "body"
+          },
+          "responses": {
+            "204": {
+              "description": "Snapshots were successfully deleted"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Bulk delete a snapshots",
+          "tags": [
+            "snapshots"
+          ]
+        }
+      },
+      "/repositories/{repo_uuid}/snapshots/{snapshot_uuid}": {
+        "delete": {
+          "description": "This enables deleting a specific snapshot.",
+          "operationId": "deleteSnapshot",
+          "parameters": [
+            {
+              "description": "Repository UUID.",
+              "in": "path",
+              "name": "repo_uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Snapshot UUID.",
+              "in": "path",
+              "name": "snapshot_uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Snapshot was successfully deleted"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Delete a snapshot",
+          "tags": [
+            "snapshots"
           ]
         }
       },
@@ -4200,6 +4388,7 @@
       },
       "/rpms/presence": {
         "post": {
+          "deprecated": true,
           "description": "This enables users to detect presence of RPMs (Red Hat Package Manager) in a given list of repositories.",
           "operationId": "detectRpm",
           "requestBody": {
@@ -5149,6 +5338,14 @@
               "description": "Filter templates by associated repositories using a comma separated list of repository UUIDs",
               "in": "query",
               "name": "repository_uuids",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter templates by associated snapshots using a comma separated list of snapshot UUIDs",
+              "in": "query",
+              "name": "snapshot_uuids",
               "schema": {
                 "type": "string"
               }
