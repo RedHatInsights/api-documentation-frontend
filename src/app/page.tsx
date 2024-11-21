@@ -132,7 +132,7 @@ export default function Home() {
               <Split className="apid-split-l-pagination">
                 <SplitItem className="pf-v5-u-pb-md pf-v5-u-pt-md-on-md pf-v5-u-pl-sm-on-md" isFilled>
                   <Button
-                    className="pf-u-mr-sm pf-u-mb-sm"
+                    className="pf-v5-u-mr-sm pf-v5-u-mb-sm"
                     component="a"
                     target="_blank"
                     href="https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet"
@@ -142,7 +142,7 @@ export default function Home() {
                     API Cheat Sheet
                   </Button>
                   <Button
-                    className="pf-u-mr-sm pf-u-mb-sm"
+                    className="pf-v5-u-mr-sm pf-v5-u-mb-sm"
                     component="a"
                     target="_blank"
                     href="https://console.redhat.com/docs/api"
@@ -150,7 +150,7 @@ export default function Home() {
                     size="sm"
                   >
                     Legacy API documentation
-                    <Icon size="sm" className="pf-u-ml-xs" isInline>
+                    <Icon size="sm" className="pf-v5-u-ml-xs" isInline>
                       <ExternalLinkAltIcon />
                     </Icon>
                   </Button>
