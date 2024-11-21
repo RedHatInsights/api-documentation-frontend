@@ -131,28 +131,43 @@ export default function Home() {
             <Flex direction={{ default: 'rowReverse' }}>
               <Split className="apid-split-l-pagination">
                 <SplitItem className="pf-v5-u-pb-md pf-v5-u-pt-md-on-md pf-v5-u-pl-sm-on-md" isFilled>
-                <Button className="pf-u-mr-sm pf-u-mb-sm" component="a" target="_blank" href="https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet" variant="secondary" isSmall>
+                  <Button
+                    className="pf-u-mr-sm pf-u-mb-sm"
+                    component="a"
+                    target="_blank"
+                    href="https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet"
+                    variant="secondary"
+                    size="sm"
+                  >
                     API Cheat Sheet
                   </Button>
-                  <Button className="pf-u-mr-sm pf-u-mb-sm" component="a" target="_blank" href="https://console.redhat.com/docs/api" variant="secondary" isSmall>
+                  <Button
+                    className="pf-u-mr-sm pf-u-mb-sm"
+                    component="a"
+                    target="_blank"
+                    href="https://console.redhat.com/docs/api"
+                    variant="secondary"
+                    size="sm"
+                  >
                     Legacy API documentation
-                    <Icon size="sm" className="pf-u-ml-xs"  isInline>
+                    <Icon size="sm" className="pf-u-ml-xs" isInline>
                       <ExternalLinkAltIcon />
                     </Icon>
                   </Button>
                   <Popover
-                      aria-label="Connect to APIs using Red Hat service accounts"
-                      position="bottom"
-                      bodyContent={<>
-                        <b>Important:</b> Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services' APIs.
-                        The Red Hat Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control
-                        over access permissions and enhance security.
-                        Token-based authentication is recommended.
-                        More information about transitioning from basic authentication to token-based authentication via service accounts is described
-                        on the <a href="https://access.redhat.com/articles/7036194">Red Hat Customer Portal</a>.
-                      </>}
+                    aria-label="Connect to APIs using Red Hat service accounts"
+                    position="bottom"
+                    bodyContent={
+                      <>
+                        <b>Important:</b> Starting Dec 2024, Red Hat will discontinue support for basic authorization to connect to services APIs. The
+                        Red Hat Hybrid Cloud Console is integrating service accounts with User Access functionality to provide granular control over
+                        access permissions and enhance security. Token-based authentication is recommended. More information about transitioning from
+                        basic authentication to token-based authentication via service accounts is described on the{' '}
+                        <a href="https://access.redhat.com/articles/7036194">Red Hat Customer Portal</a>.
+                      </>
+                    }
                   >
-                    <Button component="a" target="_blank" variant="secondary" isSmall>
+                    <Button component="a" target="_blank" variant="secondary" size="sm">
                       Connect to APIs using Red Hat service accounts
                     </Button>
                   </Popover>

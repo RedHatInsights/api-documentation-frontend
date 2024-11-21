@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "build": "next build",
+    "prettier": "prettier --write \"**/*.tsx\"",
     "dev": "concurrently \"node proxy.mjs\"  \"DEV=true next dev\"",
     "lint": "eslint --ext .js,.ts,.tsx ./src",
     "start": "next start",
