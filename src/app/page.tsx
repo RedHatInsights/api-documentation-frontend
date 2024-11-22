@@ -129,14 +129,14 @@ export default function Home() {
 
           <PageSection variant={PageSectionVariants.light} className="pf-v5-u-p-md">
             <Flex direction={{ default: 'rowReverse' }}>
-              <Split className="apid-split-l-pagination">
-                <SplitItem className="pf-v5-u-pb-md pf-v5-u-pt-md-on-md pf-v5-u-pl-sm-on-md" isFilled>
+              <Split className="apid-split-l-pagination pf-v5-u-align-items-center-on-xl">
+                <SplitItem className="pf-v5-u-pb-md pf-v5-u-pt-md-on-md pf-v5-u-pl-sm-on-md">
                   <Button
                     className="pf-v5-u-mr-sm pf-v5-u-mb-sm"
                     component="a"
                     target="_blank"
                     href="https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet"
-                    variant="secondary"
+                    variant="primary"
                     size="sm"
                   >
                     API Cheat Sheet

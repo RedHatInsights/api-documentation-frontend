@@ -47,16 +47,25 @@
     min-height: 500px;
   }
 
-  .pf-v5-c-card__body {
-    display: flex;
-    flex-direction: column;
-    .apid-tags__main {
-      margin-top: auto;
-      padding-top: var(--pf-v5-global--spacer--sm);
+  .pf-v5-c-card {
+    --pf-v5-c-card--m-selectable-raised--hover--before--BackgroundColor: none; 
+    &__header {
+      background: var(--pf-v5-global--BackgroundColor--150);
     }
     svg {
-      width: 38px;
-      height: 38px;
+      width: 28px;
+    }
+    &__body {
+      display: flex;
+      flex-direction: column;
+      .apid-tags__main {
+        margin-top: auto;
+        padding-top: var(--pf-v5-global--spacer--sm);
+      }
+      svg {
+        width: 38px;
+        height: 38px;
+      }
     }
   }
 }
