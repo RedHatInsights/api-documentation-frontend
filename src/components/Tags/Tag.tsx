@@ -21,5 +21,5 @@ const colorForLabelType = (type: APILabel['type']): LabelProps['color'] => {
 };
 
 export const Tag: FunctionComponent<TagProps> = ({ value }) => {
-  return <Label color={colorForLabelType(value.type)}>{value.name}</Label>;
+  return <Label color={colorForLabelType(value.type)} isCompact>{value.name}</Label>;
 };
