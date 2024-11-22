@@ -39,13 +39,11 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({ apiId, d
               <TitleIcon />
             </SplitItem>
             <SplitItem>
-              <CardTitle className="pf-v5-u-pl-sm pf-v5-u-pt-sm pf-v5-u-align-self-flex-start">
-                {displayName}
-              </CardTitle>
+              <CardTitle className="pf-v5-u-pl-sm pf-v5-u-pt-sm pf-v5-u-align-self-flex-start">{displayName}</CardTitle>
             </SplitItem>
           </Split>
-        </CardHeader> 
-        <Divider />  
+        </CardHeader>
+        <Divider />
         <CardBody className="pf-v5-u-p-md">
           <TextContent>
             <Text component={TextVariants.small}>{description}</Text>
