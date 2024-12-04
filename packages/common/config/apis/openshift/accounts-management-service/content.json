@@ -1669,6 +1669,76 @@
             }
           ]
         },
+        "EntitlementCertificate": {
+          "properties": {
+            "cert": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "key": {
+              "type": "string"
+            },
+            "metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "organization_id": {
+              "type": "string"
+            },
+            "serial": {
+              "$ref": "#/components/schemas/CertificateSerial"
+            }
+          },
+          "required": [
+            "id",
+            "organization_id",
+            "metadata",
+            "key",
+            "cert",
+            "serial"
+          ],
+          "type": "object"
+        },
+        "EntitlementCertificatesRequest": {
+          "properties": {
+            "arch": {
+              "example": [
+                "x86",
+                "x86_64",
+                "ppc"
+              ],
+              "items": {
+                "enum": [
+                  "x86",
+                  "x86_64",
+                  "ppc",
+                  "ppc64",
+                  "ppc64le",
+                  "s390",
+                  "s390x",
+                  "ia64",
+                  "aarch64"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": {
+              "enum": [
+                "sca"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "type": "object"
+        },
         "EphemeralResourceQuota": {
           "properties": {
             "availability_zone_type": {
@@ -7550,6 +7620,95 @@
             "$ref": "#/components/parameters/id"
           }
         ]
+      },
+      "/api/accounts_mgmt/v1/entitlement_certificates": {
+        "post": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntitlementCertificatesRequest"
+                }
+              }
+            },
+            "description": "# The payload depends on the type of the requested certificates\n  The examples for supported types:\n* {\"type\": \"sca\", \"arch\": [\"x86\",\"x86_64\",\"ppc\"]}\n",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/EntitlementCertificate"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "The certificates associated with the organization"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "The certificate is not avaialbe for the organization"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            },
+            {
+              "AccessToken": []
+            }
+          ],
+          "summary": "Fetch all certificates of a particular type based on the architectures"
+        }
       },
       "/api/accounts_mgmt/v1/errors": {
         "get": {

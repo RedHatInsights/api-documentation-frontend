@@ -241,6 +241,10 @@
             "exported_at": {
               "type": "string"
             },
+            "is_on_prem": {
+              "default": false,
+              "type": "boolean"
+            },
             "parent_id": {
               "format": "uuid",
               "nullable": true,
@@ -249,7 +253,8 @@
           },
           "required": [
             "parent_id",
-            "exported_at"
+            "exported_at",
+            "is_on_prem"
           ]
         },
         "BlueprintResponse": {
@@ -927,6 +932,7 @@
             "rhel-92",
             "rhel-93",
             "rhel-94",
+            "rhel-95",
             "rhel-10-nightly",
             "rhel-10-beta",
             "centos-9",
@@ -1809,6 +1815,16 @@
         "User": {
           "description": "At least one of password, ssh_key must be set, validator takes care of it.\nOn update empty string can be used to remove password or ssh_key,\nbut at least one of them still must be present.\n",
           "properties": {
+            "groups": {
+              "description": "List of groups to add the user to. The 'wheel' group should be added explicitly, as the\ndefault value is empty.\n",
+              "example": [
+                "wheel"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
             "name": {
               "example": "user1",
               "type": "string"

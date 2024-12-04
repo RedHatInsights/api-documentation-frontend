@@ -1459,6 +1459,23 @@
           ],
           "type": "object"
         },
+        "ContentTypeEnum": {
+          "description": "* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+          "enum": [
+            "galaxy.ansiblerepository",
+            "galaxy.collection",
+            "galaxy.collectionimport",
+            "galaxy.collectionremote",
+            "galaxy.containernamespace",
+            "galaxy.containerregistryremote",
+            "galaxy.containerrepository",
+            "galaxy.namespace",
+            "galaxy.task",
+            "shared.organization",
+            "shared.team"
+          ],
+          "type": "string"
+        },
         "Copy": {
           "description": "A serializer for Content Copy API.",
           "properties": {
@@ -1888,116 +1905,6 @@
           "required": [
             "name",
             "path"
-          ],
-          "type": "object"
-        },
-        "GalaxyCollection": {
-          "description": "A serializer for a Collection.",
-          "properties": {
-            "created": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "id": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "modified": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "name": {
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": [
-            "created",
-            "id",
-            "modified",
-            "name"
-          ],
-          "type": "object"
-        },
-        "GalaxyCollectionResponse": {
-          "description": "A serializer for a Collection.",
-          "properties": {
-            "created": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "href": {
-              "description": "Get href.",
-              "readOnly": true,
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "latest_version": {
-              "description": "Get latest version.",
-              "readOnly": true,
-              "type": "object"
-            },
-            "modified": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "namespace": {
-              "description": "Create a namespace dict.",
-              "readOnly": true,
-              "type": "object"
-            },
-            "versions_url": {
-              "description": "Get versions_url.",
-              "readOnly": true,
-              "type": "string"
-            }
-          },
-          "required": [
-            "created",
-            "id",
-            "modified",
-            "name"
-          ],
-          "type": "object"
-        },
-        "GalaxyCollectionVersionResponse": {
-          "description": "A serializer for a CollectionVersion.",
-          "properties": {
-            "artifact": {
-              "description": "Create an artifact dict.",
-              "readOnly": true,
-              "type": "object"
-            },
-            "collection": {
-              "description": "Create a collection dict.",
-              "readOnly": true,
-              "type": "object"
-            },
-            "href": {
-              "description": "Get href.",
-              "readOnly": true,
-              "type": "string"
-            },
-            "metadata": {
-              "$ref": "#/components/schemas/CollectionMetadataResponse"
-            },
-            "namespace": {
-              "description": "Create a namespace dict.",
-              "readOnly": true,
-              "type": "object"
-            },
-            "version": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "metadata",
-            "version"
           ],
           "type": "object"
         },
@@ -2949,6 +2856,41 @@
           ],
           "type": "object"
         },
+        "Organization": {
+          "properties": {
+            "name": {
+              "description": "The name of this resource",
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "OrganizationResponse": {
+          "properties": {
+            "id": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of this resource",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "resource": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
         "OrphansCleanup": {
           "properties": {
             "content_hrefs": {
@@ -3408,68 +3350,6 @@
           ],
           "type": "object"
         },
-        "PaginatedGalaxyCollectionResponseList": {
-          "properties": {
-            "count": {
-              "example": 123,
-              "type": "integer"
-            },
-            "next": {
-              "example": "http://api.example.org/accounts/?page=4",
-              "format": "uri",
-              "nullable": true,
-              "type": "string"
-            },
-            "previous": {
-              "example": "http://api.example.org/accounts/?page=2",
-              "format": "uri",
-              "nullable": true,
-              "type": "string"
-            },
-            "results": {
-              "items": {
-                "$ref": "#/components/schemas/GalaxyCollectionResponse"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "count",
-            "results"
-          ],
-          "type": "object"
-        },
-        "PaginatedGalaxyCollectionVersionResponseList": {
-          "properties": {
-            "count": {
-              "example": 123,
-              "type": "integer"
-            },
-            "next": {
-              "example": "http://api.example.org/accounts/?page=4",
-              "format": "uri",
-              "nullable": true,
-              "type": "string"
-            },
-            "previous": {
-              "example": "http://api.example.org/accounts/?page=2",
-              "format": "uri",
-              "nullable": true,
-              "type": "string"
-            },
-            "results": {
-              "items": {
-                "$ref": "#/components/schemas/GalaxyCollectionVersionResponse"
-              },
-              "type": "array"
-            }
-          },
-          "required": [
-            "count",
-            "results"
-          ],
-          "type": "object"
-        },
         "PaginatedGalaxyRoleResponseList": {
           "properties": {
             "count": {
@@ -3861,6 +3741,37 @@
           },
           "type": "object"
         },
+        "PaginatedOrganizationResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?page=4",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?page=2",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/OrganizationResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
         "PaginatedPublicationResponseList": {
           "properties": {
             "count": {
@@ -4171,6 +4082,37 @@
           ],
           "type": "object"
         },
+        "PaginatedRoleDefinitionResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?page=4",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?page=2",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/RoleDefinitionResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
         "PaginatedRoleResponseList": {
           "properties": {
             "count": {
@@ -4192,6 +4134,68 @@
             "results": {
               "items": {
                 "$ref": "#/components/schemas/RoleResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
+        "PaginatedRoleTeamAssignmentResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?page=4",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?page=2",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/RoleTeamAssignmentResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
+        "PaginatedRoleUserAssignmentResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?page=4",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?page=2",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/RoleUserAssignmentResponse"
               },
               "type": "array"
             }
@@ -4490,6 +4494,37 @@
           },
           "type": "object"
         },
+        "PaginatedTeamResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?page=4",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?page=2",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/TeamResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
         "PaginatedUploadResponseList": {
           "properties": {
             "count": {
@@ -4542,6 +4577,37 @@
             "results": {
               "items": {
                 "$ref": "#/components/schemas/UpstreamPulpResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
+        "PaginatedUserDetailResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?page=4",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?page=2",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/UserDetailResponse"
               },
               "type": "array"
             }
@@ -4645,6 +4711,37 @@
             "results": {
               "items": {
                 "$ref": "#/components/schemas/WorkerResponse"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "count",
+            "results"
+          ],
+          "type": "object"
+        },
+        "Paginatedansible.AnsibleCollectionDeprecatedResponseList": {
+          "properties": {
+            "count": {
+              "example": 123,
+              "type": "integer"
+            },
+            "next": {
+              "example": "http://api.example.org/accounts/?offset=400&limit=100",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "example": "http://api.example.org/accounts/?offset=200&limit=100",
+              "format": "uri",
+              "nullable": true,
+              "type": "string"
+            },
+            "results": {
+              "items": {
+                "$ref": "#/components/schemas/ansible.AnsibleCollectionDeprecatedResponse"
               },
               "type": "array"
             }
@@ -5786,10 +5883,8 @@
           "type": "object"
         },
         "PatchedGroup": {
-          "description": "Serializer for Group.",
           "properties": {
             "name": {
-              "description": "Name",
               "maxLength": 150,
               "minLength": 1,
               "type": "string"
@@ -5871,6 +5966,17 @@
           },
           "type": "object"
         },
+        "PatchedOrganization": {
+          "properties": {
+            "name": {
+              "description": "The name of this resource",
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "PatchedPulpExporter": {
           "description": "Serializer for pulp exporters.",
           "properties": {
@@ -5942,6 +6048,10 @@
               "format": "uuid",
               "type": "string"
             },
+            "is_partially_migrated": {
+              "description": "This gets set to True when a resource has been copied into the resource server, but the service_id hasn't been updated yet.",
+              "type": "boolean"
+            },
             "resource_data": {
               "type": "object"
             },
@@ -5950,6 +6060,7 @@
               "type": "string"
             },
             "service_id": {
+              "description": "ID of the service responsible for managing this resource.",
               "format": "uuid",
               "type": "string"
             }
@@ -5974,6 +6085,33 @@
               "description": "List of permissions defining the role.",
               "items": {
                 "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "PatchedRoleDefinition": {
+          "properties": {
+            "content_type": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ContentTypeEnum"
+                }
+              ],
+              "description": "The type of resource this applies to\n\n* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+              "nullable": true
+            },
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "permissions": {
+              "items": {
+                "$ref": "#/components/schemas/PermissionsEnum"
               },
               "type": "array"
             }
@@ -6024,6 +6162,17 @@
           "properties": {
             "state": {
               "description": "The desired state of the task. Only 'canceled' is accepted.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "PatchedTeam": {
+          "properties": {
+            "name": {
+              "description": "The name of this resource",
+              "maxLength": 512,
               "minLength": 1,
               "type": "string"
             }
@@ -6132,6 +6281,65 @@
               "maxLength": 128,
               "type": "string",
               "writeOnly": true
+            },
+            "username": {
+              "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+              "maxLength": 150,
+              "minLength": 1,
+              "pattern": "^[\\w.@+-]+$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "PatchedUserCreateUpdateDelete": {
+          "properties": {
+            "email": {
+              "format": "email",
+              "maxLength": 254,
+              "title": "Email address",
+              "type": "string"
+            },
+            "first_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "groups": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "is_superuser": {
+              "description": "Designates that this user has all permissions without explicitly assigning them.",
+              "title": "Superuser status",
+              "type": "boolean"
+            },
+            "last_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "organizations": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "password": {
+              "maxLength": 128,
+              "minLength": 1,
+              "nullable": true,
+              "type": "string",
+              "writeOnly": true
+            },
+            "teams": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
             },
             "username": {
               "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
@@ -7513,6 +7721,82 @@
           },
           "type": "object"
         },
+        "PermissionsEnum": {
+          "description": "* `galaxy.add_ansiblerepository` - galaxy.add_ansiblerepository\n* `galaxy.add_collection` - galaxy.add_collection\n* `galaxy.add_collectionimport` - galaxy.add_collectionimport\n* `galaxy.add_collectionremote` - galaxy.add_collectionremote\n* `galaxy.add_containernamespace` - galaxy.add_containernamespace\n* `galaxy.add_containerregistryremote` - galaxy.add_containerregistryremote\n* `galaxy.add_containerrepository` - galaxy.add_containerrepository\n* `galaxy.add_namespace` - galaxy.add_namespace\n* `galaxy.add_task` - galaxy.add_task\n* `galaxy.build_image_containerrepository` - galaxy.build_image_containerrepository\n* `galaxy.change_ansiblerepository` - galaxy.change_ansiblerepository\n* `galaxy.change_collection` - galaxy.change_collection\n* `galaxy.change_collectionimport` - galaxy.change_collectionimport\n* `galaxy.change_collectionremote` - galaxy.change_collectionremote\n* `galaxy.change_containernamespace` - galaxy.change_containernamespace\n* `galaxy.change_containerregistryremote` - galaxy.change_containerregistryremote\n* `galaxy.change_containerrepository` - galaxy.change_containerrepository\n* `galaxy.change_namespace` - galaxy.change_namespace\n* `galaxy.change_task` - galaxy.change_task\n* `galaxy.delete_ansiblerepository` - galaxy.delete_ansiblerepository\n* `galaxy.delete_collection` - galaxy.delete_collection\n* `galaxy.delete_collectionimport` - galaxy.delete_collectionimport\n* `galaxy.delete_collectionremote` - galaxy.delete_collectionremote\n* `galaxy.delete_containernamespace` - galaxy.delete_containernamespace\n* `galaxy.delete_containerregistryremote` - galaxy.delete_containerregistryremote\n* `galaxy.delete_containerrepository` - galaxy.delete_containerrepository\n* `galaxy.delete_containerrepository_versions` - galaxy.delete_containerrepository_versions\n* `galaxy.delete_namespace` - galaxy.delete_namespace\n* `galaxy.delete_task` - galaxy.delete_task\n* `galaxy.manage_roles_ansiblerepository` - galaxy.manage_roles_ansiblerepository\n* `galaxy.manage_roles_collectionremote` - galaxy.manage_roles_collectionremote\n* `galaxy.manage_roles_containernamespace` - galaxy.manage_roles_containernamespace\n* `galaxy.manage_roles_containerrepository` - galaxy.manage_roles_containerrepository\n* `galaxy.manage_roles_task` - galaxy.manage_roles_task\n* `galaxy.modify_ansible_repo_content` - galaxy.modify_ansible_repo_content\n* `galaxy.modify_content_containerrepository` - galaxy.modify_content_containerrepository\n* `galaxy.namespace_add_containerdistribution` - galaxy.namespace_add_containerdistribution\n* `galaxy.namespace_change_containerdistribution` - galaxy.namespace_change_containerdistribution\n* `galaxy.namespace_change_containerpushrepository` - galaxy.namespace_change_containerpushrepository\n* `galaxy.namespace_delete_containerdistribution` - galaxy.namespace_delete_containerdistribution\n* `galaxy.namespace_modify_content_containerpushrepository` - galaxy.namespace_modify_content_containerpushrepository\n* `galaxy.namespace_pull_containerdistribution` - galaxy.namespace_pull_containerdistribution\n* `galaxy.namespace_push_containerdistribution` - galaxy.namespace_push_containerdistribution\n* `galaxy.namespace_view_containerdistribution` - galaxy.namespace_view_containerdistribution\n* `galaxy.namespace_view_containerpushrepository` - galaxy.namespace_view_containerpushrepository\n* `galaxy.rebuild_metadata_ansiblerepository` - galaxy.rebuild_metadata_ansiblerepository\n* `galaxy.repair_ansiblerepository` - galaxy.repair_ansiblerepository\n* `galaxy.sign_ansiblerepository` - galaxy.sign_ansiblerepository\n* `galaxy.sync_ansiblerepository` - galaxy.sync_ansiblerepository\n* `galaxy.sync_containerrepository` - galaxy.sync_containerrepository\n* `galaxy.upload_to_namespace` - galaxy.upload_to_namespace\n* `galaxy.view_ansiblerepository` - galaxy.view_ansiblerepository\n* `galaxy.view_collection` - galaxy.view_collection\n* `galaxy.view_collectionimport` - galaxy.view_collectionimport\n* `galaxy.view_collectionremote` - galaxy.view_collectionremote\n* `galaxy.view_containernamespace` - galaxy.view_containernamespace\n* `galaxy.view_containerregistryremote` - galaxy.view_containerregistryremote\n* `galaxy.view_containerrepository` - galaxy.view_containerrepository\n* `galaxy.view_namespace` - galaxy.view_namespace\n* `galaxy.view_task` - galaxy.view_task\n* `shared.add_organization` - shared.add_organization\n* `shared.add_team` - shared.add_team\n* `shared.change_organization` - shared.change_organization\n* `shared.change_team` - shared.change_team\n* `shared.delete_organization` - shared.delete_organization\n* `shared.delete_team` - shared.delete_team\n* `shared.member_organization` - shared.member_organization\n* `shared.member_team` - shared.member_team\n* `shared.view_organization` - shared.view_organization\n* `shared.view_team` - shared.view_team",
+          "enum": [
+            "galaxy.add_ansiblerepository",
+            "galaxy.add_collection",
+            "galaxy.add_collectionimport",
+            "galaxy.add_collectionremote",
+            "galaxy.add_containernamespace",
+            "galaxy.add_containerregistryremote",
+            "galaxy.add_containerrepository",
+            "galaxy.add_namespace",
+            "galaxy.add_task",
+            "galaxy.build_image_containerrepository",
+            "galaxy.change_ansiblerepository",
+            "galaxy.change_collection",
+            "galaxy.change_collectionimport",
+            "galaxy.change_collectionremote",
+            "galaxy.change_containernamespace",
+            "galaxy.change_containerregistryremote",
+            "galaxy.change_containerrepository",
+            "galaxy.change_namespace",
+            "galaxy.change_task",
+            "galaxy.delete_ansiblerepository",
+            "galaxy.delete_collection",
+            "galaxy.delete_collectionimport",
+            "galaxy.delete_collectionremote",
+            "galaxy.delete_containernamespace",
+            "galaxy.delete_containerregistryremote",
+            "galaxy.delete_containerrepository",
+            "galaxy.delete_containerrepository_versions",
+            "galaxy.delete_namespace",
+            "galaxy.delete_task",
+            "galaxy.manage_roles_ansiblerepository",
+            "galaxy.manage_roles_collectionremote",
+            "galaxy.manage_roles_containernamespace",
+            "galaxy.manage_roles_containerrepository",
+            "galaxy.manage_roles_task",
+            "galaxy.modify_ansible_repo_content",
+            "galaxy.modify_content_containerrepository",
+            "galaxy.namespace_add_containerdistribution",
+            "galaxy.namespace_change_containerdistribution",
+            "galaxy.namespace_change_containerpushrepository",
+            "galaxy.namespace_delete_containerdistribution",
+            "galaxy.namespace_modify_content_containerpushrepository",
+            "galaxy.namespace_pull_containerdistribution",
+            "galaxy.namespace_push_containerdistribution",
+            "galaxy.namespace_view_containerdistribution",
+            "galaxy.namespace_view_containerpushrepository",
+            "galaxy.rebuild_metadata_ansiblerepository",
+            "galaxy.repair_ansiblerepository",
+            "galaxy.sign_ansiblerepository",
+            "galaxy.sync_ansiblerepository",
+            "galaxy.sync_containerrepository",
+            "galaxy.upload_to_namespace",
+            "galaxy.view_ansiblerepository",
+            "galaxy.view_collection",
+            "galaxy.view_collectionimport",
+            "galaxy.view_collectionremote",
+            "galaxy.view_containernamespace",
+            "galaxy.view_containerregistryremote",
+            "galaxy.view_containerrepository",
+            "galaxy.view_namespace",
+            "galaxy.view_task",
+            "shared.add_organization",
+            "shared.add_team",
+            "shared.change_organization",
+            "shared.change_team",
+            "shared.delete_organization",
+            "shared.delete_team",
+            "shared.member_organization",
+            "shared.member_team",
+            "shared.view_organization",
+            "shared.view_team"
+          ],
+          "type": "string"
+        },
         "Policy762Enum": {
           "description": "* `immediate` - When syncing, download all metadata and content now.\n* `on_demand` - When syncing, download metadata, but do not download content now. Instead, download content as clients request it, and save it in Pulp to be served for future client requests.\n* `streamed` - When syncing, download metadata, but do not download content now. Instead,download content as clients request it, but never save it in Pulp. This causes future requests for that same content to have to be downloaded again.",
           "enum": [
@@ -7936,7 +8220,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2024-10-21",
+              "default": "2024-11-02",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
@@ -8469,6 +8753,10 @@
               "format": "uuid",
               "type": "string"
             },
+            "is_partially_migrated": {
+              "description": "This gets set to True when a resource has been copied into the resource server, but the service_id hasn't been updated yet.",
+              "type": "boolean"
+            },
             "resource_data": {
               "type": "object"
             },
@@ -8477,6 +8765,7 @@
               "type": "string"
             },
             "service_id": {
+              "description": "ID of the service responsible for managing this resource.",
               "format": "uuid",
               "type": "string"
             }
@@ -8496,6 +8785,10 @@
               "readOnly": true,
               "type": "boolean"
             },
+            "is_partially_migrated": {
+              "description": "This gets set to True when a resource has been copied into the resource server, but the service_id hasn't been updated yet.",
+              "type": "boolean"
+            },
             "name": {
               "nullable": true,
               "readOnly": true,
@@ -8509,6 +8802,7 @@
               "type": "string"
             },
             "service_id": {
+              "description": "ID of the service responsible for managing this resource.",
               "format": "uuid",
               "type": "string"
             },
@@ -8521,12 +8815,20 @@
         },
         "ResourceResponse": {
           "properties": {
+            "additional_data": {
+              "readOnly": true,
+              "type": "string"
+            },
             "ansible_id": {
               "format": "uuid",
               "type": "string"
             },
             "has_serializer": {
               "readOnly": true,
+              "type": "boolean"
+            },
+            "is_partially_migrated": {
+              "description": "This gets set to True when a resource has been copied into the resource server, but the service_id hasn't been updated yet.",
               "type": "boolean"
             },
             "name": {
@@ -8545,6 +8847,7 @@
               "type": "string"
             },
             "service_id": {
+              "description": "ID of the service responsible for managing this resource.",
               "format": "uuid",
               "type": "string"
             },
@@ -8615,6 +8918,237 @@
           ],
           "type": "object"
         },
+        "RoleDefinition": {
+          "properties": {
+            "content_type": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ContentTypeEnum"
+                }
+              ],
+              "description": "The type of resource this applies to\n\n* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+              "nullable": true
+            },
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "permissions": {
+              "items": {
+                "$ref": "#/components/schemas/PermissionsEnum"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "permissions"
+          ],
+          "type": "object"
+        },
+        "RoleDefinitionDetail": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "permissions": {
+              "items": {
+                "$ref": "#/components/schemas/PermissionsEnum"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "permissions"
+          ],
+          "type": "object"
+        },
+        "RoleDefinitionDetailResponse": {
+          "properties": {
+            "content_type": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ContentTypeEnum"
+                }
+              ],
+              "description": "The type of resource this applies to\n\n* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+              "readOnly": true
+            },
+            "created": {
+              "description": "The date/time this resource was created",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "created_by": {
+              "description": "The user who created this resource",
+              "format": "int64",
+              "nullable": true,
+              "readOnly": true,
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "managed": {
+              "readOnly": true,
+              "type": "boolean"
+            },
+            "modified": {
+              "description": "The date/time this resource was created",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "modified_by": {
+              "description": "The user who last modified this resource",
+              "format": "int64",
+              "nullable": true,
+              "readOnly": true,
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "permissions": {
+              "items": {
+                "$ref": "#/components/schemas/PermissionsEnum"
+              },
+              "type": "array"
+            },
+            "related": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "summary_fields": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "permissions"
+          ],
+          "type": "object"
+        },
+        "RoleDefinitionResponse": {
+          "properties": {
+            "content_type": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ContentTypeEnum"
+                }
+              ],
+              "description": "The type of resource this applies to\n\n* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+              "nullable": true
+            },
+            "created": {
+              "description": "The date/time this resource was created",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "created_by": {
+              "description": "The user who created this resource",
+              "format": "int64",
+              "nullable": true,
+              "readOnly": true,
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "managed": {
+              "readOnly": true,
+              "type": "boolean"
+            },
+            "modified": {
+              "description": "The date/time this resource was created",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "modified_by": {
+              "description": "The user who last modified this resource",
+              "format": "int64",
+              "nullable": true,
+              "readOnly": true,
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "permissions": {
+              "items": {
+                "$ref": "#/components/schemas/PermissionsEnum"
+              },
+              "type": "array"
+            },
+            "related": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "summary_fields": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "permissions"
+          ],
+          "type": "object"
+        },
+        "RoleMetadataResponse": {
+          "properties": {
+            "allowed_permissions": {
+              "description": "List of permissions allowed for a role definition, given its content type.",
+              "type": "object"
+            }
+          },
+          "required": [
+            "allowed_permissions"
+          ],
+          "type": "object"
+        },
         "RoleResponse": {
           "description": "Serializer for Role.",
           "properties": {
@@ -8660,6 +9194,230 @@
           "required": [
             "name",
             "permissions"
+          ],
+          "type": "object"
+        },
+        "RoleTeamAssignment": {
+          "properties": {
+            "object_ansible_id": {
+              "description": "Resource id of the object this role applies to. Alternative to the object_id field.",
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
+            "object_id": {
+              "description": "Primary key of the object this assignment applies to, null value indicates system-wide assignment",
+              "nullable": true,
+              "type": "string"
+            },
+            "role_definition": {
+              "description": "The role definition which defines permissions conveyed by this assignment",
+              "format": "int64",
+              "type": "integer"
+            },
+            "team": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "team_ansible_id": {
+              "description": "Resource id of the team who will receive permissions from this assignment. Alternative to team field.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "role_definition"
+          ],
+          "type": "object"
+        },
+        "RoleTeamAssignmentResponse": {
+          "properties": {
+            "content_type": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ContentTypeEnum"
+                }
+              ],
+              "description": "The type of resource this applies to\n\n* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+              "readOnly": true
+            },
+            "created": {
+              "description": "The date/time this resource was created",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "created_by": {
+              "description": "The user who created this resource",
+              "format": "int64",
+              "nullable": true,
+              "readOnly": true,
+              "type": "integer"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "object_ansible_id": {
+              "description": "Resource id of the object this role applies to. Alternative to the object_id field.",
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
+            "object_id": {
+              "description": "Primary key of the object this assignment applies to, null value indicates system-wide assignment",
+              "nullable": true,
+              "type": "string"
+            },
+            "related": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "role_definition": {
+              "description": "The role definition which defines permissions conveyed by this assignment",
+              "format": "int64",
+              "type": "integer"
+            },
+            "summary_fields": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "team": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "team_ansible_id": {
+              "description": "Resource id of the team who will receive permissions from this assignment. Alternative to team field.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "role_definition"
+          ],
+          "type": "object"
+        },
+        "RoleUserAssignment": {
+          "properties": {
+            "object_ansible_id": {
+              "description": "Resource id of the object this role applies to. Alternative to the object_id field.",
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
+            "object_id": {
+              "description": "Primary key of the object this assignment applies to, null value indicates system-wide assignment",
+              "nullable": true,
+              "type": "string"
+            },
+            "role_definition": {
+              "description": "The role definition which defines permissions conveyed by this assignment",
+              "format": "int64",
+              "type": "integer"
+            },
+            "user": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "user_ansible_id": {
+              "description": "Resource id of the user who will receive permissions from this assignment. Alternative to user field.",
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "role_definition"
+          ],
+          "type": "object"
+        },
+        "RoleUserAssignmentResponse": {
+          "properties": {
+            "content_type": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ContentTypeEnum"
+                }
+              ],
+              "description": "The type of resource this applies to\n\n* `galaxy.ansiblerepository` - Ansible Repository\n* `galaxy.collection` - Collection\n* `galaxy.collectionimport` - Collection Import\n* `galaxy.collectionremote` - Collection Remote\n* `galaxy.containernamespace` - Container Namespace\n* `galaxy.containerregistryremote` - Container Registry Remote\n* `galaxy.containerrepository` - Container Repository\n* `galaxy.namespace` - Namespace\n* `galaxy.task` - Task\n* `shared.organization` - Organization\n* `shared.team` - Team",
+              "readOnly": true
+            },
+            "created": {
+              "description": "The date/time this resource was created",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "created_by": {
+              "description": "The user who created this resource",
+              "format": "int64",
+              "nullable": true,
+              "readOnly": true,
+              "type": "integer"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "object_ansible_id": {
+              "description": "Resource id of the object this role applies to. Alternative to the object_id field.",
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
+            "object_id": {
+              "description": "Primary key of the object this assignment applies to, null value indicates system-wide assignment",
+              "nullable": true,
+              "type": "string"
+            },
+            "related": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "role_definition": {
+              "description": "The role definition which defines permissions conveyed by this assignment",
+              "format": "int64",
+              "type": "integer"
+            },
+            "summary_fields": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "readOnly": true,
+              "type": "object"
+            },
+            "url": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "user": {
+              "format": "int64",
+              "type": "integer"
+            },
+            "user_ansible_id": {
+              "description": "Resource id of the user who will receive permissions from this assignment. Alternative to user field.",
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "role_definition"
           ],
           "type": "object"
         },
@@ -9385,6 +10143,50 @@
           ],
           "type": "object"
         },
+        "Team": {
+          "properties": {
+            "name": {
+              "description": "The name of this resource",
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
+        "TeamResponse": {
+          "properties": {
+            "group": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "name": {
+              "description": "The name of this resource",
+              "maxLength": 512,
+              "type": "string"
+            },
+            "organization": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "resource": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
         "UnTagImage": {
           "description": "A serializer for parsing and validating data associated with a manifest untagging.",
           "properties": {
@@ -9882,6 +10684,194 @@
           ],
           "type": "object"
         },
+        "UserCreateUpdateDelete": {
+          "properties": {
+            "email": {
+              "format": "email",
+              "maxLength": 254,
+              "title": "Email address",
+              "type": "string"
+            },
+            "first_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "groups": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "is_superuser": {
+              "description": "Designates that this user has all permissions without explicitly assigning them.",
+              "title": "Superuser status",
+              "type": "boolean"
+            },
+            "last_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "organizations": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "password": {
+              "maxLength": 128,
+              "minLength": 1,
+              "nullable": true,
+              "type": "string",
+              "writeOnly": true
+            },
+            "teams": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "username": {
+              "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+              "maxLength": 150,
+              "minLength": 1,
+              "pattern": "^[\\w.@+-]+$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "username"
+          ],
+          "type": "object"
+        },
+        "UserCreateUpdateDeleteResponse": {
+          "properties": {
+            "date_joined": {
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "email": {
+              "format": "email",
+              "maxLength": 254,
+              "title": "Email address",
+              "type": "string"
+            },
+            "first_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "groups": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "is_superuser": {
+              "description": "Designates that this user has all permissions without explicitly assigning them.",
+              "title": "Superuser status",
+              "type": "boolean"
+            },
+            "last_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "organizations": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "resource": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "teams": {
+              "default": [],
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "username": {
+              "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+              "maxLength": 150,
+              "pattern": "^[\\w.@+-]+$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "username"
+          ],
+          "type": "object"
+        },
+        "UserDetailResponse": {
+          "properties": {
+            "date_joined": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "email": {
+              "format": "email",
+              "maxLength": 254,
+              "title": "Email address",
+              "type": "string"
+            },
+            "first_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "groups": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "id": {
+              "format": "int64",
+              "readOnly": true,
+              "type": "integer"
+            },
+            "is_superuser": {
+              "description": "Designates that this user has all permissions without explicitly assigning them.",
+              "title": "Superuser status",
+              "type": "boolean"
+            },
+            "last_name": {
+              "maxLength": 150,
+              "type": "string"
+            },
+            "organizations": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "resource": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "teams": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "username": {
+              "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+              "maxLength": 150,
+              "pattern": "^[\\w.@+-]+$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "username"
+          ],
+          "type": "object"
+        },
         "UserGroup": {
           "description": "Serializer for Groups that belong to an User.",
           "properties": {
@@ -10129,6 +11119,67 @@
               "type": "object"
             }
           },
+          "type": "object"
+        },
+        "ansible.AnsibleCollectionDeprecated": {
+          "description": "A serializer for Ansible Collection Deprecations.",
+          "properties": {
+            "name": {
+              "description": "The name of the Collection.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace of the Collection.",
+              "minLength": 1,
+              "type": "string"
+            },
+            "repository": {
+              "description": "A URI of a repository the new content unit should be associated with.",
+              "format": "uri",
+              "type": "string",
+              "writeOnly": true
+            }
+          },
+          "required": [
+            "name",
+            "namespace"
+          ],
+          "type": "object"
+        },
+        "ansible.AnsibleCollectionDeprecatedResponse": {
+          "description": "A serializer for Ansible Collection Deprecations.",
+          "properties": {
+            "name": {
+              "description": "The name of the Collection.",
+              "type": "string"
+            },
+            "namespace": {
+              "description": "The namespace of the Collection.",
+              "type": "string"
+            },
+            "pulp_created": {
+              "description": "Timestamp of creation.",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "pulp_href": {
+              "format": "uri",
+              "readOnly": true,
+              "type": "string"
+            },
+            "pulp_last_updated": {
+              "description": "Timestamp of the last time this resource was updated. Note: for immutable resources - like content, repository versions, and publication - pulp_created and pulp_last_updated dates will be the same.",
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "namespace"
+          ],
           "type": "object"
         },
         "ansible.AnsibleDistribution": {
@@ -10480,26 +11531,6 @@
           },
           "required": [
             "name"
-          ],
-          "type": "object"
-        },
-        "ansible.Collection": {
-          "description": "A serializer for Ansible Collections.",
-          "properties": {
-            "name": {
-              "description": "The name of the Collection.",
-              "minLength": 1,
-              "type": "string"
-            },
-            "namespace": {
-              "description": "The namespace of the Collection.",
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "namespace"
           ],
           "type": "object"
         },
@@ -14280,12 +15311,12 @@
         "url": "https://pulp.plan.io/attachments/download/517478/pulp_logo_word_rectangle.svg"
       },
       "x-pulp-app-versions": {
-        "ansible": "0.21.6",
-        "certguard": "3.49.11",
+        "ansible": "0.22.2",
+        "certguard": "3.49.24",
         "container": "2.19.3",
-        "core": "3.49.11",
-        "file": "3.49.11",
-        "galaxy": "4.10.0dev"
+        "core": "3.49.24",
+        "file": "3.49.24",
+        "galaxy": "4.11.0dev"
       },
       "x-pulp-domain-enabled": false
     },
@@ -18481,6 +19512,2199 @@
           ]
         }
       },
+      "/api/automation-hub/_ui/v2/groups/": {
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_groups_list",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedGroupResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List groups",
+          "tags": [
+            "Api: _Ui V2 Groups"
+          ]
+        },
+        "post": {
+          "operationId": "api_automation_hub__ui_v2_groups_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GroupResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Create a group",
+          "tags": [
+            "Api: _Ui V2 Groups"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/groups/{id}/": {
+        "delete": {
+          "operationId": "api_automation_hub__ui_v2_groups_delete",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this group.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "summary": "Delete a group",
+          "tags": [
+            "Api: _Ui V2 Groups"
+          ]
+        },
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_groups_read",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this group.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GroupResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect a group",
+          "tags": [
+            "Api: _Ui V2 Groups"
+          ]
+        },
+        "patch": {
+          "operationId": "api_automation_hub__ui_v2_groups_partial_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this group.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedGroup"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedGroup"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedGroup"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GroupResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a group",
+          "tags": [
+            "Api: _Ui V2 Groups"
+          ]
+        },
+        "put": {
+          "operationId": "api_automation_hub__ui_v2_groups_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this group.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Group"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GroupResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a group",
+          "tags": [
+            "Api: _Ui V2 Groups"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/me/": {
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_me_read",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserDetailResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Me"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/organizations/": {
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_organizations_list",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "resource__ansible_id",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedOrganizationResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List organizations",
+          "tags": [
+            "Api: _Ui V2 Organizations"
+          ]
+        },
+        "post": {
+          "operationId": "api_automation_hub__ui_v2_organizations_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OrganizationResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Create an organization",
+          "tags": [
+            "Api: _Ui V2 Organizations"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/organizations/{id}/": {
+        "delete": {
+          "operationId": "api_automation_hub__ui_v2_organizations_delete",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this organization.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "summary": "Delete an organization",
+          "tags": [
+            "Api: _Ui V2 Organizations"
+          ]
+        },
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_organizations_read",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this organization.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OrganizationResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect an organization",
+          "tags": [
+            "Api: _Ui V2 Organizations"
+          ]
+        },
+        "patch": {
+          "operationId": "api_automation_hub__ui_v2_organizations_partial_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this organization.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedOrganization"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedOrganization"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedOrganization"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OrganizationResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update an organization",
+          "tags": [
+            "Api: _Ui V2 Organizations"
+          ]
+        },
+        "put": {
+          "operationId": "api_automation_hub__ui_v2_organizations_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this organization.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OrganizationResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update an organization",
+          "tags": [
+            "Api: _Ui V2 Organizations"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_definitions/": {
+        "get": {
+          "description": "Role Definitions (roles) contain a list of permissions and can be used to\nassign those permissions to a user or team through the respective\nassignment endpoints.\n\nCustom roles can be created, modified, and deleted through this endpoint.\nSystem-managed roles are shown here, which cannot be edited or deleted,\nbut can be assigned to users.",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_list",
+          "parameters": [
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A search term.",
+              "in": "query",
+              "name": "search",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedRoleDefinitionResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List role_definition",
+          "tags": [
+            "Api: _Ui V2 Role_Definitions"
+          ]
+        },
+        "post": {
+          "description": "Role Definitions (roles) contain a list of permissions and can be used to\nassign those permissions to a user or team through the respective\nassignment endpoints.\n\nCustom roles can be created, modified, and deleted through this endpoint.\nSystem-managed roles are shown here, which cannot be edited or deleted,\nbut can be assigned to users.",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDefinition"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDefinition"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDefinition"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleDefinitionResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Create a role definition",
+          "tags": [
+            "Api: _Ui V2 Role_Definitions"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_definitions/{id}/": {
+        "delete": {
+          "description": "Role Definitions (roles) contain a list of permissions and can be used to\nassign those permissions to a user or team through the respective\nassignment endpoints.\n\nCustom roles can be created, modified, and deleted through this endpoint.\nSystem-managed roles are shown here, which cannot be edited or deleted,\nbut can be assigned to users.",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_delete",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this role definition.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "summary": "Delete a role definition",
+          "tags": [
+            "Api: _Ui V2 Role_Definitions"
+          ]
+        },
+        "get": {
+          "description": "Role Definitions (roles) contain a list of permissions and can be used to\nassign those permissions to a user or team through the respective\nassignment endpoints.\n\nCustom roles can be created, modified, and deleted through this endpoint.\nSystem-managed roles are shown here, which cannot be edited or deleted,\nbut can be assigned to users.",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_read",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this role definition.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleDefinitionResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect a role definition",
+          "tags": [
+            "Api: _Ui V2 Role_Definitions"
+          ]
+        },
+        "patch": {
+          "description": "Role Definitions (roles) contain a list of permissions and can be used to\nassign those permissions to a user or team through the respective\nassignment endpoints.\n\nCustom roles can be created, modified, and deleted through this endpoint.\nSystem-managed roles are shown here, which cannot be edited or deleted,\nbut can be assigned to users.",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_partial_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this role definition.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedRoleDefinition"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedRoleDefinition"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedRoleDefinition"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleDefinitionResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a role definition",
+          "tags": [
+            "Api: _Ui V2 Role_Definitions"
+          ]
+        },
+        "put": {
+          "description": "Role Definitions (roles) contain a list of permissions and can be used to\nassign those permissions to a user or team through the respective\nassignment endpoints.\n\nCustom roles can be created, modified, and deleted through this endpoint.\nSystem-managed roles are shown here, which cannot be edited or deleted,\nbut can be assigned to users.",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this role definition.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDefinitionDetail"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDefinitionDetail"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleDefinitionDetail"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleDefinitionDetailResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a role definition",
+          "tags": [
+            "Api: _Ui V2 Role_Definitions"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_definitions/{id}/team_assignments/": {
+        "get": {
+          "description": "Manage Role Team Assignment objects in the 'team_assignments' relationship of this particular Role Definition.\n\nStarting from the detail URL:\n\nGET /:id/team_assignments/ to show role team assignments currently in the relationship",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_team_assignments_list",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "pattern": "^[0-9]+$",
+                "type": "string"
+              }
+            },
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A search term.",
+              "in": "query",
+              "name": "search",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedRoleTeamAssignmentResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Definitions Team_Assignments"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_definitions/{id}/user_assignments/": {
+        "get": {
+          "description": "Manage Role User Assignment objects in the 'user_assignments' relationship of this particular Role Definition.\n\nStarting from the detail URL:\n\nGET /:id/user_assignments/ to show role user assignments currently in the relationship",
+          "operationId": "api_automation_hub__ui_v2_role_definitions_user_assignments_list",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "pattern": "^[0-9]+$",
+                "type": "string"
+              }
+            },
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A search term.",
+              "in": "query",
+              "name": "search",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedRoleUserAssignmentResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Definitions User_Assignments"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_metadata/": {
+        "get": {
+          "description": "General data about models and permissions tracked by django-ansible-base RBAC\n\nInformation from this endpoint should be static given a server version.\nThis reflects model definitions, registrations with the permission registry,\nand enablement of RBAC features in settings.\n\nallowed_permissions: Valid permissions for a role of a given content_type",
+          "operationId": "api_automation_hub__ui_v2_role_metadata_get",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleMetadataResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Metadata"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_team_assignments/": {
+        "get": {
+          "description": "Use this endpoint to give a team permission to a resource or an organization.\nThe needed data is the team, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_team_assignments_list",
+          "parameters": [
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A search term.",
+              "in": "query",
+              "name": "search",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedRoleTeamAssignmentResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Team_Assignments"
+          ]
+        },
+        "post": {
+          "description": "Use this endpoint to give a team permission to a resource or an organization.\nThe needed data is the team, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_team_assignments_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleTeamAssignment"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleTeamAssignment"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleTeamAssignment"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleTeamAssignmentResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Team_Assignments"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_team_assignments/{id}/": {
+        "delete": {
+          "description": "Use this endpoint to give a team permission to a resource or an organization.\nThe needed data is the team, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_team_assignments_delete",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Team_Assignments"
+          ]
+        },
+        "get": {
+          "description": "Use this endpoint to give a team permission to a resource or an organization.\nThe needed data is the team, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_team_assignments_read",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleTeamAssignmentResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_Team_Assignments"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_user_assignments/": {
+        "get": {
+          "description": "Use this endpoint to give a user permission to a resource or an organization.\nThe needed data is the user, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_user_assignments_list",
+          "parameters": [
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A search term.",
+              "in": "query",
+              "name": "search",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedRoleUserAssignmentResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_User_Assignments"
+          ]
+        },
+        "post": {
+          "description": "Use this endpoint to give a user permission to a resource or an organization.\nThe needed data is the user, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_user_assignments_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleUserAssignment"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleUserAssignment"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoleUserAssignment"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleUserAssignmentResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_User_Assignments"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/role_user_assignments/{id}/": {
+        "delete": {
+          "description": "Use this endpoint to give a user permission to a resource or an organization.\nThe needed data is the user, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_user_assignments_delete",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_User_Assignments"
+          ]
+        },
+        "get": {
+          "description": "Use this endpoint to give a user permission to a resource or an organization.\nThe needed data is the user, the role definition, and the object id.\nThe object must be of the type specified in the role definition.\nThe type given in the role definition and the provided object_id are used\nto look up the resource.\n\nAfter creation, the assignment cannot be edited, but can be deleted to\nremove those permissions.",
+          "operationId": "api_automation_hub__ui_v2_role_user_assignments_read",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RoleUserAssignmentResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "tags": [
+            "Api: _Ui V2 Role_User_Assignments"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/teams/": {
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_teams_list",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "name__icontains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "resource__ansible_id",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedTeamResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List teams",
+          "tags": [
+            "Api: _Ui V2 Teams"
+          ]
+        },
+        "post": {
+          "operationId": "api_automation_hub__ui_v2_teams_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Create a team",
+          "tags": [
+            "Api: _Ui V2 Teams"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/teams/{id}/": {
+        "delete": {
+          "operationId": "api_automation_hub__ui_v2_teams_delete",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this team.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "summary": "Delete a team",
+          "tags": [
+            "Api: _Ui V2 Teams"
+          ]
+        },
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_teams_read",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this team.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect a team",
+          "tags": [
+            "Api: _Ui V2 Teams"
+          ]
+        },
+        "patch": {
+          "operationId": "api_automation_hub__ui_v2_teams_partial_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this team.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedTeam"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedTeam"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedTeam"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a team",
+          "tags": [
+            "Api: _Ui V2 Teams"
+          ]
+        },
+        "put": {
+          "operationId": "api_automation_hub__ui_v2_teams_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this team.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update a team",
+          "tags": [
+            "Api: _Ui V2 Teams"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/users/": {
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_users_list",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "date_joined",
+              "schema": {
+                "format": "date-time",
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "email",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "email__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "email__startswith",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "first_name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "first_name__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "first_name__startswith",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "is_superuser",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "in": "query",
+              "name": "last_name",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "last_name__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "last_name__startswith",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A page number within the paginated result set.",
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "page_size",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "resource__ansible_id",
+              "schema": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            {
+              "description": "Ordering\n\n* `username` - Username\n* `-username` - Username (descending)\n* `email` - Email\n* `-email` - Email (descending)\n* `first_name` - First name\n* `-first_name` - First name (descending)\n* `last_name` - Last name\n* `-last_name` - Last name (descending)\n* `date_joined` - Date joined\n* `-date_joined` - Date joined (descending)",
+              "explode": false,
+              "in": "query",
+              "name": "sort",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "-date_joined",
+                    "-email",
+                    "-first_name",
+                    "-last_name",
+                    "-username",
+                    "date_joined",
+                    "email",
+                    "first_name",
+                    "last_name",
+                    "username"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "in": "query",
+              "name": "username",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "username__contains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "username__icontains",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "username__startswith",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedUserDetailResponseList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "List users",
+          "tags": [
+            "Api: _Ui V2 Users"
+          ]
+        },
+        "post": {
+          "operationId": "api_automation_hub__ui_v2_users_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateUpdateDelete"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateUpdateDelete"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateUpdateDelete"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserCreateUpdateDeleteResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Create an user",
+          "tags": [
+            "Api: _Ui V2 Users"
+          ]
+        }
+      },
+      "/api/automation-hub/_ui/v2/users/{id}/": {
+        "delete": {
+          "operationId": "api_automation_hub__ui_v2_users_delete",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this user.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No response body"
+            }
+          },
+          "summary": "Delete an user",
+          "tags": [
+            "Api: _Ui V2 Users"
+          ]
+        },
+        "get": {
+          "operationId": "api_automation_hub__ui_v2_users_read",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this user.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            },
+            {
+              "description": "A list of fields to include in the response.",
+              "in": "query",
+              "name": "fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "A list of fields to exclude from the response.",
+              "in": "query",
+              "name": "exclude_fields",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserDetailResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Inspect an user",
+          "tags": [
+            "Api: _Ui V2 Users"
+          ]
+        },
+        "patch": {
+          "operationId": "api_automation_hub__ui_v2_users_partial_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this user.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedUserCreateUpdateDelete"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedUserCreateUpdateDelete"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatchedUserCreateUpdateDelete"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserCreateUpdateDeleteResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update an user",
+          "tags": [
+            "Api: _Ui V2 Users"
+          ]
+        },
+        "put": {
+          "operationId": "api_automation_hub__ui_v2_users_update",
+          "parameters": [
+            {
+              "description": "A unique integer value identifying this user.",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "format": "int64",
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateUpdateDelete"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateUpdateDelete"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCreateUpdateDelete"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UserCreateUpdateDeleteResponse"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "summary": "Update an user",
+          "tags": [
+            "Api: _Ui V2 Users"
+          ]
+        }
+      },
       "/api/automation-hub/api/": {
         "get": {
           "operationId": "api_automation_hub_api_read",
@@ -22504,6 +25728,7 @@
               "description": ""
             }
           },
+          "summary": "List cross repository collection version indexs",
           "tags": [
             "Api: Content V3 Plugin Ansible Search Collection-Versions"
           ]
@@ -25413,7 +28638,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Paginatedansible.CollectionResponseList"
+                    "$ref": "#/components/schemas/Paginatedansible.AnsibleCollectionDeprecatedResponseList"
                   }
                 }
               },
@@ -25426,34 +28651,34 @@
           ]
         },
         "post": {
-          "description": "ViewSet for AnsibleCollectionDeprecated.",
+          "description": "Trigger an asynchronous task to create content,optionally create new repository version.",
           "operationId": "content_ansible_collection_deprecations_create",
           "requestBody": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ansible.Collection"
+                  "$ref": "#/components/schemas/ansible.AnsibleCollectionDeprecated"
                 }
               },
               "application/x-www-form-urlencoded": {
                 "schema": {
-                  "$ref": "#/components/schemas/ansible.Collection"
+                  "$ref": "#/components/schemas/ansible.AnsibleCollectionDeprecated"
                 }
               },
               "multipart/form-data": {
                 "schema": {
-                  "$ref": "#/components/schemas/ansible.Collection"
+                  "$ref": "#/components/schemas/ansible.AnsibleCollectionDeprecated"
                 }
               }
             },
             "required": true
           },
           "responses": {
-            "201": {
+            "202": {
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ansible.CollectionResponse"
+                    "$ref": "#/components/schemas/AsyncOperationResponse"
                   }
                 }
               },
@@ -25509,7 +28734,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/ansible.CollectionResponse"
+                    "$ref": "#/components/schemas/ansible.AnsibleCollectionDeprecatedResponse"
                   }
                 }
               },
@@ -58890,6 +62115,7 @@
       },
       "/api/automation-hub/service-index/metadata/": {
         "get": {
+          "description": "A view to define the base properties for the views in\nansible_base.rbac. Set ANSIBLE_BASE_CUSTOM_VIEW_PARENT\nto this class in settings so that the rbac endpoints\nfollow the defined pagination and permission classes.",
           "operationId": "api_automation_hub_service_index_metadata_get",
           "responses": {
             "200": {
@@ -59341,60 +62567,6 @@
           ]
         }
       },
-      "/api/automation-hub/service-index/resources/{ansible_id}/additional_data/": {
-        "get": {
-          "description": "Index of all the resources in the system.",
-          "operationId": "api_automation_hub_service_index_resources_additional_data_additional_data",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "ansible_id",
-              "required": true,
-              "schema": {
-                "format": "uuid",
-                "type": "string"
-              }
-            },
-            {
-              "description": "A list of fields to include in the response.",
-              "in": "query",
-              "name": "fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            {
-              "description": "A list of fields to exclude from the response.",
-              "in": "query",
-              "name": "exclude_fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ResourceResponse"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "tags": [
-            "Api: Service-Index Resources Additional_Data"
-          ]
-        }
-      },
       "/api/automation-hub/service-index/validate-local-account/": {
         "post": {
           "description": "Validate a user's username and password.",
@@ -59404,6 +62576,9 @@
               "description": "No response body"
             }
           },
+          "security": [
+            {}
+          ],
           "tags": [
             "Api: Service-Index Validate-Local-Account"
           ]
@@ -63024,6 +66199,7 @@
               "description": ""
             }
           },
+          "summary": "List cross repository collection version indexs",
           "tags": [
             "Api: V3 Plugin Ansible Search Collection-Versions"
           ]
@@ -67202,6 +70378,7 @@
               "description": ""
             }
           },
+          "summary": "List cross repository collection version indexs",
           "tags": [
             "Pulp_Ansible: Default Api V3 Plugin Ansible Search Collection-Versions"
           ]
@@ -67439,407 +70616,6 @@
           },
           "tags": [
             "Pulp_Ansible: Api V1 Roles Versions"
-          ]
-        }
-      },
-      "/pulp_ansible/galaxy/{path}/api/v2/collection-imports/{task}/": {
-        "get": {
-          "description": "Returns a CollectionImport object.",
-          "operationId": "pulp_ansible_galaxy_api_v2_collection_imports_read",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter messages since a given timestamp",
-              "in": "query",
-              "name": "since",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "A unique value identifying this collection import.",
-              "in": "path",
-              "name": "task",
-              "required": true,
-              "schema": {
-                "format": "uuid",
-                "type": "string"
-              }
-            },
-            {
-              "description": "A list of fields to include in the response.",
-              "in": "query",
-              "name": "fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            {
-              "description": "A list of fields to exclude from the response.",
-              "in": "query",
-              "name": "exclude_fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/CollectionImportDetailResponse"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "summary": "Inspect a collection import",
-          "tags": [
-            "Pulp_Ansible: Api V2 Collection-Imports"
-          ]
-        }
-      },
-      "/pulp_ansible/galaxy/{path}/api/v2/collections/": {
-        "get": {
-          "description": "View for Collection models.",
-          "operationId": "_pulp_ansible_galaxy_{path}_api_v2_collections_pulp_ansible_galaxy_api_v2_collections_get",
-          "parameters": [
-            {
-              "description": "A page number within the paginated result set.",
-              "in": "query",
-              "name": "page",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "in": "path",
-              "name": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "A list of fields to include in the response.",
-              "in": "query",
-              "name": "fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            {
-              "description": "A list of fields to exclude from the response.",
-              "in": "query",
-              "name": "exclude_fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/PaginatedGalaxyCollectionResponseList"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "tags": [
-            "Pulp_Ansible: Api V2 Collections"
-          ]
-        },
-        "post": {
-          "deprecated": true,
-          "description": "Queues a task that creates a new Collection from an uploaded artifact.",
-          "operationId": "pulp_ansible_galaxy_api_v2_collections_post",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GalaxyCollection"
-                }
-              },
-              "application/x-www-form-urlencoded": {
-                "schema": {
-                  "$ref": "#/components/schemas/GalaxyCollection"
-                }
-              },
-              "multipart/form-data": {
-                "schema": {
-                  "$ref": "#/components/schemas/GalaxyCollection"
-                }
-              }
-            },
-            "required": true
-          },
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/GalaxyCollectionResponse"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "tags": [
-            "Pulp_Ansible: Api V2 Collections"
-          ]
-        }
-      },
-      "/pulp_ansible/galaxy/{path}/api/v2/collections/{namespace}/{name}/": {
-        "get": {
-          "description": "Get the detail view of a Collection.",
-          "operationId": "_pulp_ansible_galaxy_{path}_api_v2_collections_{namespace}_{name}_pulp_ansible_galaxy_api_v2_collections_get",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "name",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "namespace",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "A list of fields to include in the response.",
-              "in": "query",
-              "name": "fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            {
-              "description": "A list of fields to exclude from the response.",
-              "in": "query",
-              "name": "exclude_fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/GalaxyCollectionResponse"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "tags": [
-            "Pulp_Ansible: Api V2 Collections"
-          ]
-        }
-      },
-      "/pulp_ansible/galaxy/{path}/api/v2/collections/{namespace}/{name}/versions/": {
-        "get": {
-          "description": "APIView for Collections by namespace/name.",
-          "operationId": "api_v2_collection_versions_list",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "name",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "namespace",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "A page number within the paginated result set.",
-              "in": "query",
-              "name": "page",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "in": "path",
-              "name": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "A list of fields to include in the response.",
-              "in": "query",
-              "name": "fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            {
-              "description": "A list of fields to exclude from the response.",
-              "in": "query",
-              "name": "exclude_fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/PaginatedGalaxyCollectionVersionResponseList"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "tags": [
-            "Pulp_Ansible: Api V2 Collections Versions"
-          ]
-        }
-      },
-      "/pulp_ansible/galaxy/{path}/api/v2/collections/{namespace}/{name}/versions/{version}/": {
-        "get": {
-          "description": "Return a response to the \"GET\" action.",
-          "operationId": "pulp_ansible_galaxy_api_v2_collections_versions_get",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "name",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "namespace",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "path",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "in": "path",
-              "name": "version",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "A list of fields to include in the response.",
-              "in": "query",
-              "name": "fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            },
-            {
-              "description": "A list of fields to exclude from the response.",
-              "in": "query",
-              "name": "exclude_fields",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "No response body"
-            }
-          },
-          "tags": [
-            "Pulp_Ansible: Api V2 Collections Versions"
           ]
         }
       },
@@ -71693,6 +74469,7 @@
               "description": ""
             }
           },
+          "summary": "List cross repository collection version indexs",
           "tags": [
             "Pulp_Ansible: Api V3 Plugin Ansible Search Collection-Versions"
           ]
