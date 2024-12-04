@@ -103,11 +103,7 @@
         "Endpoint": {
           "properties": {
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -141,11 +137,7 @@
               "type": "string"
             },
             "properties": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/EndpointProperties"
-                }
-              ],
+              "$ref": "#/components/schemas/EndpointProperties",
               "oneOf": [
                 {
                   "$ref": "#/components/schemas/CamelProperties"
@@ -178,11 +170,7 @@
               "$ref": "#/components/schemas/EndpointType"
             },
             "updated": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             }
@@ -291,7 +279,9 @@
           "type": "string"
         },
         "LocalDateTime": {
-          "example": "2022-03-10T12:15:50",
+          "examples": [
+            "2022-03-10T12:15:50"
+          ],
           "format": "date-time",
           "type": "string"
         },
@@ -310,11 +300,7 @@
         "NotificationHistory": {
           "properties": {
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -453,7 +439,7 @@
       "title": "Integrations",
       "version": "v1.0"
     },
-    "openapi": "3.0.3",
+    "openapi": "3.1.0",
     "paths": {
       "/endpoints": {
         "get": {
@@ -751,7 +737,8 @@
                   "uniqueItems": true
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "204": {
@@ -917,7 +904,6 @@
       },
       "/endpoints/{id}/history": {
         "get": {
-          "description": "Get Endpoint History",
           "operationId": "EndpointResource$V1_getEndpointHistory",
           "parameters": [
             {
@@ -996,6 +982,7 @@
               "description": "OK"
             }
           },
+          "summary": "Get Endpoint History",
           "tags": [
             "V 1"
           ]
@@ -1060,7 +1047,8 @@
                   "$ref": "#/components/schemas/EndpointTestRequest"
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "204": {

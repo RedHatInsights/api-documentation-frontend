@@ -9,11 +9,7 @@
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -21,11 +17,7 @@
               "type": "string"
             },
             "id": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/UUID"
-                }
-              ],
+              "$ref": "#/components/schemas/UUID",
               "readOnly": true,
               "type": "string"
             },
@@ -35,11 +27,7 @@
               "type": "string"
             },
             "updated": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             }
@@ -73,11 +61,7 @@
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -90,20 +74,12 @@
               "type": "string"
             },
             "id": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/UUID"
-                }
-              ],
+              "$ref": "#/components/schemas/UUID",
               "readOnly": true,
               "type": "string"
             },
             "updated": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             }
@@ -117,11 +93,7 @@
         "BehaviorGroupAction": {
           "properties": {
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -152,11 +124,7 @@
         "Bundle": {
           "properties": {
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -164,11 +132,7 @@
               "type": "string"
             },
             "id": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/UUID"
-                }
-              ],
+              "$ref": "#/components/schemas/UUID",
               "readOnly": true,
               "type": "string"
             },
@@ -178,11 +142,7 @@
               "type": "string"
             },
             "updated": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             }
@@ -306,11 +266,7 @@
         "Endpoint": {
           "properties": {
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -345,11 +301,7 @@
               "$ref": "#/components/schemas/EndpointType"
             },
             "updated": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             }
@@ -484,11 +436,7 @@
               "type": "string"
             },
             "id": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/UUID"
-                }
-              ],
+              "$ref": "#/components/schemas/UUID",
               "readOnly": true,
               "type": "string"
             },
@@ -520,11 +468,7 @@
         "EventTypeBehavior": {
           "properties": {
             "created": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/LocalDateTime"
-                }
-              ],
+              "$ref": "#/components/schemas/LocalDateTime",
               "readOnly": true,
               "type": "string"
             },
@@ -578,17 +522,23 @@
           "type": "object"
         },
         "LocalDate": {
-          "example": "2022-03-10",
+          "examples": [
+            "2022-03-10"
+          ],
           "format": "date",
           "type": "string"
         },
         "LocalDateTime": {
-          "example": "2022-03-10T12:15:50",
+          "examples": [
+            "2022-03-10T12:15:50"
+          ],
           "format": "date-time",
           "type": "string"
         },
         "LocalTime": {
-          "example": "13:45:30.123456789",
+          "examples": [
+            "13:45:30.123456789"
+          ],
           "externalDocs": {
             "description": "As defined by 'partial-time' in RFC3339",
             "url": "https://www.rfc-editor.org/rfc/rfc3339.html#section-5.6"
@@ -745,7 +695,7 @@
       "title": "Notifications",
       "version": "v1.0"
     },
-    "openapi": "3.0.3",
+    "openapi": "3.1.0",
     "paths": {
       "/notifications/behaviorGroups": {
         "post": {
@@ -845,7 +795,8 @@
                   "type": "array"
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "200": {
@@ -1231,7 +1182,8 @@
                   "$ref": "#/components/schemas/UpdateNotificationDrawerStatus"
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "200": {
@@ -1486,7 +1438,8 @@
                   "uniqueItems": true
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "200": {
@@ -1561,7 +1514,8 @@
                   "uniqueItems": true
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "200": {
@@ -1863,7 +1817,8 @@
                   "$ref": "#/components/schemas/LocalTime"
                 }
               }
-            }
+            },
+            "required": true
           },
           "responses": {
             "204": {

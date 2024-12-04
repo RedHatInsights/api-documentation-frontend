@@ -34,10 +34,22 @@ apis:
         tags:
           - ansible
           - automation
-      - id: compliance
-        name: Compliance
+      - id: compliance_v1
+        name: Compliance V1
         description: Assess, monitor, and report on the security-policy compliance of RHEL systems
         url: https://console.redhat.com/api/compliance/v1/openapi.json
+        serverUrl: https://console.redhat.com
+        apiType: openapi-v3
+        icon: insights
+        tags:
+          - insights
+          - observe
+          - rhel
+          - security
+      - id: compliance_v2
+        name: Compliance V2
+        description: Assess, monitor, and report on the security-policy compliance of RHEL systems
+        url: https://console.redhat.com/api/compliance/v2/openapi.json
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights

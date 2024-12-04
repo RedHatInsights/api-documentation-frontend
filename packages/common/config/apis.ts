@@ -203,16 +203,35 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
   },
   {
-    id: "compliance",
-    displayName: "Compliance",
+    id: "compliance_v1",
+    displayName: "Compliance V1",
     description:
       "Assess, monitor, and report on the security-policy compliance of RHEL systems",
     icon: "InsightsIcon",
-    apiContentPath: "./apis/hcc-insights/compliance/content.json",
+    apiContentPath: "./apis/hcc-insights/compliance_v1/content.json",
     serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
-        "./apis/hcc-insights/compliance/content.json"
+        "./apis/hcc-insights/compliance_v1/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["insights"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["security"],
+    ],
+  },
+  {
+    id: "compliance_v2",
+    displayName: "Compliance V2",
+    description:
+      "Assess, monitor, and report on the security-policy compliance of RHEL systems",
+    icon: "InsightsIcon",
+    apiContentPath: "./apis/hcc-insights/compliance_v2/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/compliance_v2/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [
       apiLabelsMap["insights"],
