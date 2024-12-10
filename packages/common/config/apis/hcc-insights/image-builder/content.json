@@ -129,6 +129,15 @@
         },
         "AzureUploadRequestOptions": {
           "properties": {
+            "hyper_v_generation": {
+              "default": "V1",
+              "description": "Choose the VM Image HyperV generation, different features on Azure are available\ndepending on the HyperV generation.\n",
+              "enum": [
+                "V1",
+                "V2"
+              ],
+              "type": "string"
+            },
             "image_name": {
               "description": "Name of the created image.\nMust begin with a letter or number, end with a letter, number or underscore, and may contain only letters, numbers, underscores, periods, or hyphens.\nThe total length is limited to 60 characters.\n",
               "example": "LinuxImage",
