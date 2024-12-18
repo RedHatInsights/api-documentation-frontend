@@ -1485,6 +1485,14 @@
               "description": "Environment ID used by subscription-manager and candlepin",
               "type": "string"
             },
+            "snapshots": {
+              "description": "The list of snapshots in use by the template",
+              "items": {
+                "$ref": "#/components/schemas/api.SnapshotResponse"
+              },
+              "readOnly": true,
+              "type": "array"
+            },
             "updated_at": {
               "description": "Datetime template was last updated",
               "type": "string"
@@ -5502,6 +5510,78 @@
             }
           },
           "summary": "Create Template",
+          "tags": [
+            "templates"
+          ]
+        }
+      },
+      "/templates/{template_uuid}/config.repo": {
+        "get": {
+          "operationId": "getTemplateRepoConfigurationFile",
+          "parameters": [
+            {
+              "description": "Identifier of the template",
+              "in": "path",
+              "name": "template_uuid",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "404": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Get configuration file for all repositories in a template",
           "tags": [
             "templates"
           ]
