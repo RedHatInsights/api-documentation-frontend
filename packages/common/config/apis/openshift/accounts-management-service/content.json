@@ -1236,9 +1236,6 @@
             },
             "scope": {
               "type": "string"
-            },
-            "xcm_id": {
-              "type": "string"
             }
           },
           "required": [
@@ -4148,9 +4145,6 @@
                     "Disaster Recovery",
                     "Academic"
                   ],
-                  "type": "string"
-                },
-                "xcm_id": {
                   "type": "string"
                 }
               },
