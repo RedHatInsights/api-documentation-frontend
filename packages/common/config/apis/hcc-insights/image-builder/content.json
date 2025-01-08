@@ -208,6 +208,10 @@
             },
             "name": {
               "type": "string"
+            },
+            "snapshot_date": {
+              "description": "Importing the snapshot date will not yet be supported. It is exported for informative reasons.\nThe format is YYYY-MM-DD.\n",
+              "type": "string"
             }
           },
           "required": [
