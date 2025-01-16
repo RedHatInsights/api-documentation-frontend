@@ -134,6 +134,7 @@
             },
             "lastTriggered": {
               "format": "int64",
+              "readOnly": true,
               "type": "integer"
             },
             "mtime": {
@@ -170,13 +171,6 @@
             }
           },
           "type": "object"
-        }
-      },
-      "securitySchemes": {
-        "SecurityScheme": {
-          "description": "Authentication",
-          "scheme": "basic",
-          "type": "http"
         }
       }
     },
