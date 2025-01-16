@@ -1624,6 +1624,10 @@
             "gpgkey": {
               "type": "string"
             },
+            "id": {
+              "description": "An ID referring to a repository defined in content sources can be used instead of\n'baseurl', 'mirrorlist' or 'metalink'.\n",
+              "type": "string"
+            },
             "ignore_ssl": {
               "type": "boolean"
             },
