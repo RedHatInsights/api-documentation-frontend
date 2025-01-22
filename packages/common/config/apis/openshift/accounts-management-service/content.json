@@ -1042,6 +1042,7 @@
               "type": "string"
             },
             "type": {
+              "deprecated": true,
               "enum": [
                 "sca"
               ],
@@ -1049,7 +1050,7 @@
             }
           },
           "required": [
-            "type"
+            "arch"
           ],
           "type": "object"
         },
@@ -1666,37 +1667,26 @@
             }
           ]
         },
-        "EntitlementCertificate": {
+        "EntitlementCertificatesList": {
           "properties": {
-            "cert": {
-              "type": "string"
-            },
-            "id": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "metadata": {
-              "additionalProperties": {
-                "type": "string"
+            "items": {
+              "items": {
+                "$ref": "#/components/schemas/Certificate"
               },
-              "type": "object"
+              "type": "array"
             },
-            "organization_id": {
+            "kind": {
+              "example": "EntitlementCertificatesList",
               "type": "string"
             },
-            "serial": {
-              "$ref": "#/components/schemas/CertificateSerial"
+            "total": {
+              "type": "integer"
             }
           },
           "required": [
-            "id",
-            "organization_id",
-            "metadata",
-            "key",
-            "cert",
-            "serial"
+            "kind",
+            "total",
+            "items"
           ],
           "type": "object"
         },
@@ -1725,6 +1715,7 @@
               "type": "array"
             },
             "type": {
+              "deprecated": true,
               "enum": [
                 "sca"
               ],
@@ -1732,7 +1723,7 @@
             }
           },
           "required": [
-            "type"
+            "arch"
           ],
           "type": "object"
         },
@@ -5932,7 +5923,7 @@
                 }
               }
             },
-            "description": "# The payload depends on the type of the requested certificate\nThe examples for supported types:\n* {\"type\": \"sca\", \"arch\": \"x86_64\"}\n",
+            "description": "# The payload depends on sca as the requested certificates.\n  The `type` field is now deprecated and will now be defaulted to `sca` type.\n* {\"arch\": \"x86_64\"}\n",
             "required": true
           },
           "responses": {
@@ -7625,7 +7616,7 @@
                 }
               }
             },
-            "description": "# The payload depends on the type of the requested certificates\n  The examples for supported types:\n* {\"type\": \"sca\", \"arch\": [\"x86\",\"x86_64\",\"ppc\"]}\n",
+            "description": "# The payload depends on sca as the requested certificates.\n  The `type` field is now deprecated and will now be defaulted to `sca` type.\n* {\"arch\": [\"x86\",\"x86_64\",\"ppc\"]}\n",
             "required": true
           },
           "responses": {
@@ -7633,10 +7624,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "items": {
-                      "$ref": "#/components/schemas/EntitlementCertificate"
-                    },
-                    "type": "array"
+                    "$ref": "#/components/schemas/EntitlementCertificatesList"
                   }
                 }
               },
@@ -7701,7 +7689,7 @@
               "AccessToken": []
             }
           ],
-          "summary": "Fetch all certificates of a particular type based on the architectures"
+          "summary": "Fetch all certificates of a sca type based on the architectures"
         }
       },
       "/api/accounts_mgmt/v1/errors": {
