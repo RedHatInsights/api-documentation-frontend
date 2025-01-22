@@ -369,7 +369,6 @@
           },
           "required": [
             "connection_type",
-            "display_name",
             "executed_task",
             "executed_task_link",
             "has_stdout",
@@ -488,7 +487,6 @@
             }
           },
           "required": [
-            "display_name",
             "has_stdout",
             "id",
             "log_link",
@@ -1009,7 +1007,7 @@
     "info": {
       "description": "The API for managing and issuing Red Hat generated tasks on your infrastructure",
       "title": "Insights Tasks API",
-      "version": "1.0.0"
+      "version": "1.0.1"
     },
     "openapi": "3.0.3",
     "paths": {
