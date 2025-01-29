@@ -2370,7 +2370,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.7.55"
+      "version": "v3.7.77"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -8760,6 +8760,64 @@
           "x-codegen-request-body-name": "body"
         }
       },
+      "/templates/{template_id}/subscribed-systems": {
+        "patch": {
+          "description": "Add a system authenticated by  its client identity certificate to a template",
+          "operationId": "addTemplateSubscribedSystem",
+          "parameters": [
+            {
+              "description": "Template ID",
+              "in": "path",
+              "name": "template_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/utils.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/utils.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/utils.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "security": [
+            {
+              "RhIdentity": []
+            }
+          ],
+          "summary": "Add a system to a template"
+        }
+      },
       "/templates/{template_id}/systems": {
         "get": {
           "description": "Show me all systems applicable to a template",
@@ -8966,7 +9024,7 @@
           ],
           "summary": "Show me all systems belonging to a template"
         },
-        "put": {
+        "patch": {
           "description": "Add systems to a template",
           "operationId": "updateTemplateSystems",
           "parameters": [
