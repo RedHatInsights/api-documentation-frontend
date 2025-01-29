@@ -250,6 +250,15 @@
             "type": "string"
           }
         },
+        "query_incident_id": {
+          "description": "The id of an Incident",
+          "in": "query",
+          "name": "incident_id",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
         "responsible_manager_id": {
           "description": "the manager responsible for an Incident",
           "in": "query",
@@ -828,7 +837,7 @@
                 "slack_channel_id": {
                   "type": "string"
                 },
-                "slack_team_id": {
+                "slack_workspace_id": {
                   "type": "string"
                 },
                 "status": {
@@ -1233,7 +1242,7 @@
                   "format": "date-time",
                   "type": "string"
                 },
-                "incident_subscription": {
+                "incident": {
                   "$ref": "#/components/schemas/ObjectReference"
                 },
                 "notify_by": {
@@ -1242,20 +1251,17 @@
                 "notify_on": {
                   "type": "string"
                 },
-                "product_subscription": {
+                "product": {
                   "$ref": "#/components/schemas/ObjectReference"
                 },
-                "subscription": {
-                  "$ref": "#/components/schemas/ObjectReference"
-                },
-                "team_subscription": {
+                "team": {
                   "$ref": "#/components/schemas/ObjectReference"
                 },
                 "updated_at": {
                   "format": "date-time",
                   "type": "string"
                 },
-                "user_subscription": {
+                "user": {
                   "$ref": "#/components/schemas/ObjectReference"
                 }
               },
@@ -1287,7 +1293,7 @@
         },
         "NotificationSubscriptionPatchRequest": {
           "properties": {
-            "incident_subscription": {
+            "incident": {
               "$ref": "#/components/schemas/ObjectReference"
             },
             "notify_by": {
@@ -1296,16 +1302,16 @@
             "notify_on": {
               "type": "string"
             },
-            "product_subscription": {
+            "product": {
               "$ref": "#/components/schemas/ObjectReference"
             },
             "subscription": {
               "$ref": "#/components/schemas/ObjectReference"
             },
-            "team_subscription": {
+            "team": {
               "$ref": "#/components/schemas/ObjectReference"
             },
-            "user_subscription": {
+            "user": {
               "$ref": "#/components/schemas/ObjectReference"
             }
           },
@@ -1445,10 +1451,10 @@
                 "slack_id": {
                   "type": "string"
                 },
-                "team_id": {
+                "workspace_id": {
                   "type": "string"
                 },
-                "team_name": {
+                "workspace_name": {
                   "type": "string"
                 }
               },
@@ -1512,6 +1518,9 @@
                     "type": "string"
                   },
                   "type": "array"
+                },
+                "slack_team_handle": {
+                  "type": "string"
                 },
                 "slack_team_id": {
                   "type": "string"
@@ -1629,6 +1638,9 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "slack_team_handle": {
+              "type": "string"
             },
             "slack_team_id": {
               "type": "string"
@@ -2678,69 +2690,6 @@
             }
           ],
           "summary": "Get FollowUps in given Incident by Incident id"
-        }
-      },
-      "/api/web-rca/v1/incidents/{id}/notifications": {
-        "get": {
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/id"
-            },
-            {
-              "$ref": "#/components/parameters/page"
-            },
-            {
-              "$ref": "#/components/parameters/size"
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/NotificationList"
-                  }
-                }
-              },
-              "description": "A JSON array of Notification objects"
-            },
-            "401": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Auth token is invalid"
-            },
-            "403": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Unauthorized to perform operation"
-            },
-            "500": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Unexpected error occurred"
-            }
-          },
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "summary": "Get Notifications in given Incident by Incident id"
         }
       },
       "/api/web-rca/v1/incidents/{id}/retrospective": {
@@ -3908,66 +3857,6 @@
           }
         ]
       },
-      "/api/web-rca/v1/incidents/{incident_id}/notifications/{id}": {
-        "get": {
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Notification"
-                  }
-                }
-              },
-              "description": "A JSON array of Notification objects"
-            },
-            "401": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Auth token is invalid"
-            },
-            "403": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Unauthorized to perform operation"
-            },
-            "500": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Error"
-                  }
-                }
-              },
-              "description": "Unexpected error occurred"
-            }
-          },
-          "security": [
-            {
-              "Bearer": []
-            }
-          ],
-          "summary": "Return an Notification by Incident id and Notification id"
-        },
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/id"
-          },
-          {
-            "$ref": "#/components/parameters/incident_id"
-          }
-        ]
-      },
       "/api/web-rca/v1/incidents/{incident_id}/task_runs/{id}": {
         "get": {
           "responses": {
@@ -4028,6 +3917,24 @@
           }
         ]
       },
+      "/api/web-rca/v1/metrics": {
+        "get": {
+          "description": "Exposes application metrics for monitoring.",
+          "responses": {
+            "200": {
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Metrics data in plain text format."
+            }
+          },
+          "summary": "Metrics"
+        }
+      },
       "/api/web-rca/v1/notification_subscriptions": {
         "get": {
           "parameters": [
@@ -4036,6 +3943,9 @@
             },
             {
               "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/order_by"
             }
           ],
           "responses": {
@@ -4139,6 +4049,16 @@
                 }
               },
               "description": "Unauthorized to perform operation"
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Notification Subscription already exists"
             },
             "500": {
               "content": {
@@ -4349,6 +4269,126 @@
           ],
           "summary": "Update a Notification Subscription"
         }
+      },
+      "/api/web-rca/v1/notifications": {
+        "get": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/query_incident_id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/NotificationList"
+                  }
+                }
+              },
+              "description": "A JSON array of Notification objects"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get Notifications"
+        }
+      },
+      "/api/web-rca/v1/notifications/{id}": {
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              },
+              "description": "A JSON array of Notification objects"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return an Notification by Incident id and Notification id"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ]
       },
       "/api/web-rca/v1/playbooks": {
         "get": {
