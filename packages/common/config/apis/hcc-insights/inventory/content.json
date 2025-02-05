@@ -3180,7 +3180,7 @@
       },
       "/groups/{group_id}": {
         "patch": {
-          "description": "Merge group information. <br /><br /> Required permissions: inventory:groups:write",
+          "description": "Update group information, removing any existing host associations from the group. <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.group.patch_group_by_id",
           "parameters": [
             {
@@ -3195,7 +3195,7 @@
                 }
               }
             },
-            "description": "A dictionary with new information to merge with the original group.",
+            "description": "A dictionary with new information with which to update the original group.",
             "required": true
           },
           "responses": {
@@ -3207,7 +3207,7 @@
                   }
                 }
               },
-              "description": "Group information successfully or already previously merged."
+              "description": "Group information successfully updated."
             },
             "400": {
               "description": "Invalid request."
@@ -3221,7 +3221,7 @@
               "ApiKeyAuth": []
             }
           ],
-          "summary": "Merge group information",
+          "summary": "Update group information",
           "tags": [
             "groups"
           ]
