@@ -1,4 +1,6 @@
+'use client';
 import './App.scss';
+import { useState, useEffect } from 'react';
 
 const headerPatch = `
 (() => {
@@ -80,6 +82,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [header, setHeader] = useState<string | undefined>();
+  const [footer, setFooter] = useState<string | undefined>();
+  useEffect(() => {
+    const fetchPartials = async () => {
+      const headerResponse = await fetch(`/api/chrome/rh-universal-nav-header`);
+      const footerResponse = await fetch(`/api/chrome/rh-unified-footer`);
+      setHeader(await headerResponse.text());
+      setFooter(await footerResponse.text());
+    };
+    fetchPartials();
+  }, []);
   return (
     <html lang="en">
       <head suppressHydrationWarning={true}>
@@ -90,19 +103,20 @@ export default function RootLayout({
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: headerPatch }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: analyticsInclude }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: pendoInclude }}></script>
+        <script type="module" src="/modules/contrib/red_hat_shared_libs/dist/rhds-elements/modules/rh-footer/rh-footer.js?v=2.1.1"></script>
       </head>
       <body>
         <div className="rhd-m-max-width-xl">
           <div
             suppressHydrationWarning={true}
-            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/remote_stage/api/chrome/rh-universal-nav-header" -->' }}
+            dangerouslySetInnerHTML={{ __html: header || '<!--#include virtual="/remote/api/chrome/rh-universal-nav-header" -->' }}
           ></div>
-          <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: '<!--#set var="pageTitle" value="My Page" -->' }}></div>
-          <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: 'Welcome to <!--#echo var="pageTitle" -->' }}></div>
           {children}
           <div
             suppressHydrationWarning={true}
-            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/remote_stage/api/chrome/rh-unified-footer/rh-unified-footer.html" -->' }}
+            dangerouslySetInnerHTML={{
+              __html: footer || '<!--#include virtual="/remote/api/chrome/rh-unified-footer/rh-unified-footer.html" -->',
+            }}
           ></div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"></script>
