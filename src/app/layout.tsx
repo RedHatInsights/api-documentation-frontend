@@ -23,7 +23,6 @@ const headerPatch = `
 })();`;
 
 const analyticsInclude = `
-    <script>
       (function (env) {
         let scriptSrc;
         switch (env) {
@@ -52,7 +51,6 @@ const analyticsInclude = `
           }\`;
         document.addEventListener("DOMContentLoaded", () => document.body.appendChild(dpalFooter));
       }("${process.env.REACT_APP_ENV}"));
-    </script>
 `;
 const pendoInclude = `
       if ("${process.env.REACT_APP_PENDO_ENABLED}" === "true") {
