@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "next build",
+    "build": "REACT_APP_ENV=production REACT_APP_PENDO_ENABLED=true REACT_APP_PENDO_API_KEY=4c10d138-7686-497b-5938-3a40b35ac4aa next build",
     "prettier": "prettier --write \"**/*.tsx\"",
     "dev": "concurrently \"node proxy.mjs\"  \"DEV=true next dev\"",
     "lint": "eslint --ext .js,.ts,.tsx ./src",

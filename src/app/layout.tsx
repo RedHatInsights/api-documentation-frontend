@@ -23,7 +23,8 @@ const headerPatch = `
 })();`;
 
 const analyticsInclude = `
-      (function (env) {
+      (function () {
+        let env = location.origin === "https://developers.redhat.com" ? 'production' : 'staging'
         let scriptSrc;
         switch (env) {
           case "production":
@@ -31,6 +32,7 @@ const analyticsInclude = `
             break;
           case "staging":
             scriptSrc = "https://www.redhat.com/ma/dpal-staging.js";
+            console.log("Stagin env enabled");
             break;
           default:
             // If the environment isn't production or staging, don't add the scripts
@@ -50,10 +52,10 @@ const analyticsInclude = `
             _satellite.pageBottom();
           }\`;
         document.addEventListener("DOMContentLoaded", () => document.body.appendChild(dpalFooter));
-      }("${process.env.REACT_APP_ENV}"));
+      }());
 `;
 const pendoInclude = `
-      if ("${process.env.REACT_APP_PENDO_ENABLED}" === "true") {
+      if (location.origin === "https://developers.redhat.com" === true) {
         (function(apiKey){
           (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
 
@@ -70,7 +72,8 @@ const pendoInclude = `
               },
             });
         })("${process.env.REACT_APP_PENDO_API_KEY}");
-      }`;
+      }
+`;
 
 export default function RootLayout({
   children,
