@@ -97,6 +97,8 @@ export default function RootLayout({
             suppressHydrationWarning={true}
             dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-universal-nav-header/rh-universal-nav-header.html" -->' }}
           ></div>
+          <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: '<!--#set var="pageTitle" value="My Page" -->' }}></div>
+          <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: '<!--#echo var="pageTitle -->' }}></div>
           {children}
           <div
             suppressHydrationWarning={true}
