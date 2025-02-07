@@ -85,13 +85,16 @@ export default function RootLayout({
   const [header, setHeader] = useState<string | undefined>();
   const [footer, setFooter] = useState<string | undefined>();
   useEffect(() => {
-    const fetchPartials = async () => {
+    const fetchHeader = async () => {
       const headerResponse = await fetch(`/api/chrome/rh-universal-nav-header`);
-      const footerResponse = await fetch(`/api/chrome/rh-unified-footer`);
       setHeader(await headerResponse.text());
+    };
+    const fethFooter = async () => {
+      const footerResponse = await fetch(`/api/chrome/rh-unified-footer`);
       setFooter(await footerResponse.text());
     };
-    fetchPartials();
+    fetchHeader();
+    fethFooter();
   }, []);
   return (
     <html lang="en">
