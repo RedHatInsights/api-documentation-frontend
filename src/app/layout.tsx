@@ -95,14 +95,14 @@ export default function RootLayout({
         <div className="rhd-m-max-width-xl">
           <div
             suppressHydrationWarning={true}
-            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-universal-nav-header/rh-universal-nav-header.html" -->' }}
+            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/remote_stage/api/chrome/rh-universal-nav-header" -->' }}
           ></div>
           <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: '<!--#set var="pageTitle" value="My Page" -->' }}></div>
           <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: 'Welcome to <!--#echo var="pageTitle" -->' }}></div>
           {children}
           <div
             suppressHydrationWarning={true}
-            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-unified-footer/rh-unified-footer.html" -->' }}
+            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/remote_stage/api/chrome/rh-unified-footer/rh-unified-footer.html" -->' }}
           ></div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"></script>
