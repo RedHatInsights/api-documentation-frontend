@@ -1,4 +1,6 @@
+'use client';
 import './App.scss';
+import { useState, useEffect } from 'react';
 
 const headerPatch = `
 (() => {
@@ -23,8 +25,8 @@ const headerPatch = `
 })();`;
 
 const analyticsInclude = `
-    <script>
-      (function (env) {
+      (function () {
+        let env = location.origin === "https://developers.redhat.com" ? 'production' : 'staging'
         let scriptSrc;
         switch (env) {
           case "production":
@@ -32,6 +34,7 @@ const analyticsInclude = `
             break;
           case "staging":
             scriptSrc = "https://www.redhat.com/ma/dpal-staging.js";
+            console.log("Stagin env enabled");
             break;
           default:
             // If the environment isn't production or staging, don't add the scripts
@@ -51,11 +54,10 @@ const analyticsInclude = `
             _satellite.pageBottom();
           }\`;
         document.addEventListener("DOMContentLoaded", () => document.body.appendChild(dpalFooter));
-      }("${process.env.REACT_APP_ENV}"));
-    </script>
+      }());
 `;
 const pendoInclude = `
-      if ("${process.env.REACT_APP_PENDO_ENABLED}" === "true") {
+      if (location.origin === "https://developers.redhat.com" === true) {
         (function(apiKey){
           (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=o._q||[];
 
@@ -72,13 +74,28 @@ const pendoInclude = `
               },
             });
         })("${process.env.REACT_APP_PENDO_API_KEY}");
-      }`;
+      }
+`;
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [header, setHeader] = useState<string | undefined>();
+  const [footer, setFooter] = useState<string | undefined>();
+  useEffect(() => {
+    const fetchHeader = async () => {
+      const headerResponse = await fetch(`/api/chrome/rh-universal-nav-header`);
+      setHeader(await headerResponse.text());
+    };
+    const fethFooter = async () => {
+      const footerResponse = await fetch(`/api/chrome/rh-unified-footer`);
+      setFooter(await footerResponse.text());
+    };
+    fetchHeader();
+    fethFooter();
+  }, []);
   return (
     <html lang="en">
       <head suppressHydrationWarning={true}>
@@ -89,17 +106,20 @@ export default function RootLayout({
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: headerPatch }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: analyticsInclude }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: pendoInclude }}></script>
+        <script type="module" src="/modules/contrib/red_hat_shared_libs/dist/rhds-elements/modules/rh-footer/rh-footer.js?v=2.1.1"></script>
       </head>
       <body>
         <div className="rhd-m-max-width-xl">
           <div
             suppressHydrationWarning={true}
-            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-universal-nav-header/rh-universal-nav-header.html" -->' }}
+            dangerouslySetInnerHTML={{ __html: header || '<!--#include virtual="/remote/api/chrome/rh-universal-nav-header" -->' }}
           ></div>
           {children}
           <div
             suppressHydrationWarning={true}
-            dangerouslySetInnerHTML={{ __html: '<!--#include virtual="/.include/chrome/rh-unified-footer/rh-unified-footer.html" -->' }}
+            dangerouslySetInnerHTML={{
+              __html: footer || '<!--#include virtual="/remote/api/chrome/rh-unified-footer/rh-unified-footer.html" -->',
+            }}
           ></div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"></script>

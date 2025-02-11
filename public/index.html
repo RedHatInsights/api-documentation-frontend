@@ -32,7 +32,8 @@
       })();
     </script>
     <script>
-      (function (env) {
+      (function () {
+        let env = location.origin === "https://developers.redhat.com" ? 'production' : 'staging'
         let scriptSrc;
         switch (env) {
           case "production":
@@ -59,7 +60,7 @@
             _satellite.pageBottom();
           }`;
         document.addEventListener("DOMContentLoaded", () => document.body.appendChild(dpalFooter));
-      }("%REACT_APP_ENV%"));
+      }());
     </script>
     <script>
       if ("%REACT_APP_PENDO_ENABLED%" === "true") {
@@ -87,9 +88,9 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class=“rhd-m-max-width-xl”>
-      <!--#include virtual="/.include/chrome/rh-universal-nav-header/rh-universal-nav-header.html" -->
+      <!--#include virtual="/remote/api/chrome/rh-universal-nav-header" -->
       <div id="root"></div>
-      <!--#include virtual="/.include/chrome/rh-unified-footer/rh-unified-footer.html" -->
+      <!--#include virtual="/remote/api/chrome/rh-unified-footer" -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"></script>
       <link rel="stylesheet" href="/modules/contrib/red_hat_shared_libs/dist/@cpelements/pfe-navigation/dist/pfe-navigation--lightdom.css" />
