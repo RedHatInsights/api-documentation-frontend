@@ -18,7 +18,7 @@
             },
             "parameters": {
               "items": {
-                "$ref": "#/components/schemas/ExecutedTaskParameter"
+                "$ref": "#/components/schemas/ExecuteTaskParameter"
               },
               "type": "array"
             },
@@ -33,7 +33,24 @@
           ],
           "type": "object"
         },
+        "ExecuteTaskParameter": {
+          "description": "The parameter key and value to be used when executing a task.",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "key",
+            "value"
+          ],
+          "type": "object"
+        },
         "ExecutedTask": {
+          "description": "An executed task in a list, with less detail than the single view.",
           "properties": {
             "completed_jobs_count": {
               "type": "integer"
@@ -120,6 +137,7 @@
           "type": "object"
         },
         "ExecutedTaskOne": {
+          "description": "A single executed task, as well as the task details, parameters and jobs.",
           "properties": {
             "end_time": {
               "format": "date-time",
@@ -198,6 +216,7 @@
           "type": "object"
         },
         "ExecutedTaskParameter": {
+          "description": "The parameter's key and value as well as the display options.",
           "properties": {
             "default": {
               "readOnly": true,
