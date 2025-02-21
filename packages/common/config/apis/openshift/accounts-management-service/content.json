@@ -3714,7 +3714,11 @@
                 "ClusterSelfManagedLabel",
                 "ClusterSelfManagedStatus",
                 "ClusterKubeletConfig",
-                "ClusterBreakGlassCredential"
+                "ClusterBreakGlassCredential",
+                "AccessRequestDecision",
+                "Idp",
+                "ClusterAutoscaler",
+                "MachinePool"
               ],
               "type": "string"
             },
