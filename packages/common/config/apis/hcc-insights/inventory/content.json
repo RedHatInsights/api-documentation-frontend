@@ -2319,9 +2319,10 @@
               "enum": [
                 "dnf",
                 "rpm-ostree",
-                "yum"
+                "yum",
+                "bootc"
               ],
-              "example": "dnf, rpm-ostree, yum",
+              "example": "dnf, rpm-ostree, yum, bootc",
               "maxLength": 10,
               "type": "string"
             },

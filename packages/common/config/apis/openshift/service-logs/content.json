@@ -171,9 +171,11 @@
             {
               "properties": {
                 "cluster_id": {
+                  "description": "Internal Id of a cluster, required unless cluster_uuid is provided",
                   "type": "string"
                 },
                 "cluster_uuid": {
+                  "description": "External id of a cluster, required unless cluster_id is provided",
                   "type": "string"
                 },
                 "created_at": {
@@ -240,8 +242,6 @@
                     "Debug",
                     "Info",
                     "Warning",
-                    "Error",
-                    "Fatal",
                     "Major",
                     "Critical"
                   ],
@@ -262,7 +262,10 @@
                 }
               },
               "required": [
-                "severity"
+                "severity",
+                "log_type",
+                "service_name",
+                "summary"
               ],
               "type": "object"
             }
