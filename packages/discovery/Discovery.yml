@@ -333,6 +333,16 @@ apis:
           - security
           - rhel
           - insights
+      - id: ansible-lightspeed
+        name: Red Hat Ansible Lightspeed
+        description: The API for Red Hat Ansible Lightspeed
+        url: https://raw.githubusercontent.com/ansible/ansible-ai-connect-service/refs/heads/main/tools/openapi-schema/ansible-ai-connect-service.json
+        serverUrl: none
+        apiType: openapi-v3
+        icon: ansible
+        tags:
+          - ansible
+          - automation
   - id: openshift
     name: Openshift
     apps:
