@@ -646,6 +646,19 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "ansible-lightspeed",
+    displayName: "Red Hat Ansible Lightspeed",
+    description: "The API for Red Hat Ansible Lightspeed",
+    icon: "AnsibleIcon",
+    apiContentPath: "./apis/hcc-insights/ansible-lightspeed/content.json",
+    serverUrl: "none",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/ansible-lightspeed/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
+  },
+  {
     id: "accounts-management-service",
     displayName: "Account Management Service",
     description: "Manage user subscriptions and clusters",
