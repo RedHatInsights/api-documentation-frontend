@@ -13,11 +13,52 @@ export const SecurityScheme: React.FunctionComponent<SecuritySchemesProps> = (pr
     case 'http':
       return <SecuritySchemeHttp {...props.securityScheme} />;
     case 'oauth2':
+      return <SecuritySchemeOauth {...props.securityScheme} />;
     case 'openIdConnect':
-      throw new Error('Unimplemented scheme');
+      return <SecuritySchemeOpenId {...props.securityScheme} />;
     default:
       throw new Error(`Unknown security scheme found: ${JSON.stringify(props.securityScheme)}`);
   }
+};
+
+const SecuritySchemeOpenId: React.FunctionComponent<OpenAPIV3.OpenIdSecurityScheme> = (openid) => {
+  return (
+    <>
+      <span>OpenId Authentication, connect url: {openid.openIdConnectUrl}</span>
+      <br />
+      {openid.description && (
+        <span>
+          <ReactMarkdown>{openid.description}</ReactMarkdown>
+        </span>
+      )}
+    </>
+  );
+};
+
+const SecuritySchemeOauth: React.FunctionComponent<OpenAPIV3.OAuth2SecurityScheme> = (oauth) => {
+  return (
+    <>
+      <span>OAuth2</span>
+      {oauth.flows && Object.keys(oauth.flows).length > 0 && (
+        <>
+          <span>Supported flows</span>
+          <br />
+          <ul>
+            {oauth.flows.authorizationCode && <li>Authorization code</li>}
+            {oauth.flows.clientCredentials && <li>Client credentials</li>}
+            {oauth.flows.implicit && <li>Implicit</li>}
+            {oauth.flows.password && <li>Password</li>}
+          </ul>
+        </>
+      )}
+      <br />
+      {oauth.description && (
+        <span>
+          <ReactMarkdown>{oauth.description}</ReactMarkdown>
+        </span>
+      )}
+    </>
+  );
 };
 
 const SecuritySchemeHttp: React.FunctionComponent<OpenAPIV3.HttpSecurityScheme> = (http) => {
