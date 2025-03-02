@@ -1608,6 +1608,83 @@
           ]
         }
       },
+      "/api/v1/health/": {
+        "get": {
+          "description": "Service Liveness Probe View",
+          "operationId": "health_retrieve",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          },
+          "security": [
+            {
+              "cookieAuth": []
+            },
+            {}
+          ],
+          "summary": "Liveness probe",
+          "tags": [
+            "health"
+          ]
+        }
+      },
+      "/api/v1/health/status/": {
+        "get": {
+          "description": "Service Health Check",
+          "operationId": "health_status_retrieve",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "ExampleOutput": {
+                      "summary": "Example output",
+                      "value": {
+                        "dependencies": [
+                          {
+                            "name": "db",
+                            "status": "ok",
+                            "time_taken": 233.538
+                          },
+                          {
+                            "name": "model-server",
+                            "status": "ok",
+                            "time_taken": 0.001
+                          }
+                        ],
+                        "deployed_region": "dev",
+                        "git_commit": "b987bc43b90f8aca2deaf3bda85596f4b95a10a0",
+                        "status": "ok",
+                        "timestamp": "2023-03-13T17:25:17.240683",
+                        "version": "latest 0.1.202303131417"
+                      }
+                    }
+                  },
+                  "schema": {
+                    "additionalProperties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": ""
+            },
+            "500": {
+              "description": "One or more backend services are unavailable."
+            }
+          },
+          "security": [
+            {
+              "cookieAuth": []
+            },
+            {}
+          ],
+          "summary": "Health check with backend server status",
+          "tags": [
+            "health"
+          ]
+        }
+      },
       "/api/v1/me/": {
         "get": {
           "operationId": "me_retrieve",
