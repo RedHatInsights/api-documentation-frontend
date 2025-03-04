@@ -886,6 +886,42 @@
           ],
           "type": "object"
         },
+        "StreamingChatRequest": {
+          "properties": {
+            "conversation_id": {
+              "description": "A UUID that identifies the particular conversation is being requested for.",
+              "format": "uuid",
+              "type": "string"
+            },
+            "media_type": {
+              "description": "A media type to be used in the output from LLM.",
+              "type": "string"
+            },
+            "model": {
+              "description": "A model to be used on LLM.",
+              "title": "Model name",
+              "type": "string"
+            },
+            "provider": {
+              "description": "A name that identifies a LLM provider.",
+              "title": "Provider name",
+              "type": "string"
+            },
+            "query": {
+              "description": "A query string to be sent to LLM.",
+              "title": "Query string",
+              "type": "string"
+            },
+            "system_prompt": {
+              "description": "An optional non-default system prompt to be used on LLM (debug mode only).",
+              "type": "string"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "type": "object"
+        },
         "SuggestionQualityFeedback": {
           "properties": {
             "additionalComment": {
@@ -1605,6 +1641,154 @@
           "summary": "Inline code suggestions",
           "tags": [
             "ai"
+          ]
+        }
+      },
+      "/api/v1/ai/streaming_chat/": {
+        "post": {
+          "description": "Send a message to the backend chatbot service and get a streaming reply.",
+          "operationId": "ai_streaming_chat_create",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingChatRequest"
+                }
+              },
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingChatRequest"
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingChatRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ChatResponse"
+                  }
+                }
+              },
+              "description": ""
+            },
+            "400": {
+              "description": "Bad request"
+            },
+            "403": {
+              "description": "Forbidden"
+            },
+            "413": {
+              "description": "Prompt too long"
+            },
+            "422": {
+              "description": "Validation failed"
+            },
+            "500": {
+              "description": "Internal server error"
+            },
+            "503": {
+              "description": "Service unavailable"
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "read",
+                "write"
+              ]
+            },
+            {
+              "cookieAuth": []
+            }
+          ],
+          "summary": "Streaming chat request",
+          "tags": [
+            "ai"
+          ]
+        }
+      },
+      "/api/v1/health/": {
+        "get": {
+          "description": "Service Liveness Probe View",
+          "operationId": "health_retrieve",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          },
+          "security": [
+            {
+              "cookieAuth": []
+            },
+            {}
+          ],
+          "summary": "Liveness probe",
+          "tags": [
+            "health"
+          ]
+        }
+      },
+      "/api/v1/health/status/": {
+        "get": {
+          "description": "Service Health Check",
+          "operationId": "health_status_retrieve",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "ExampleOutput": {
+                      "summary": "Example output",
+                      "value": {
+                        "dependencies": [
+                          {
+                            "name": "db",
+                            "status": "ok",
+                            "time_taken": 233.538
+                          },
+                          {
+                            "name": "model-server",
+                            "status": "ok",
+                            "time_taken": 0.001
+                          }
+                        ],
+                        "deployed_region": "dev",
+                        "git_commit": "b987bc43b90f8aca2deaf3bda85596f4b95a10a0",
+                        "status": "ok",
+                        "timestamp": "2023-03-13T17:25:17.240683",
+                        "version": "latest 0.1.202303131417"
+                      }
+                    }
+                  },
+                  "schema": {
+                    "additionalProperties": {},
+                    "type": "object"
+                  }
+                }
+              },
+              "description": ""
+            },
+            "500": {
+              "description": "One or more backend services are unavailable."
+            }
+          },
+          "security": [
+            {
+              "cookieAuth": []
+            },
+            {}
+          ],
+          "summary": "Health check with backend server status",
+          "tags": [
+            "health"
           ]
         }
       },
