@@ -36,9 +36,6 @@
           },
           "type": "object"
         },
-        "CreateImage": {
-          "type": "object"
-        },
         "CustomPackages": {
           "properties": {
             "name": {
@@ -641,6 +638,9 @@
               "type": "string"
             }
           },
+          "type": "object"
+        },
+        "models.CreateImageAPI": {
           "type": "object"
         },
         "models.Device": {
@@ -1894,13 +1894,27 @@
               "type": "integer"
             },
             "RepoStatus": {
+              "description": "AWS repo upload status",
               "type": "string"
             },
             "RepoURL": {
+              "description": "AWS repo URL",
               "type": "string"
             },
             "UpdatedAt": {
               "$ref": "#/components/schemas/models.EdgeAPITime"
+            },
+            "pulp_repo_id": {
+              "description": "Pulp Repo ID (used for updates)",
+              "type": "string"
+            },
+            "pulp_repo_status": {
+              "description": "Status of Pulp repo import",
+              "type": "string"
+            },
+            "pulp_repo_url": {
+              "description": "Distribution URL returned from Pulp",
+              "type": "string"
             }
           },
           "type": "object"
@@ -3922,7 +3936,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateImage"
+                  "$ref": "#/components/schemas/models.CreateImageAPI"
                 }
               }
             },
@@ -3976,7 +3990,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateImage"
+                  "$ref": "#/components/schemas/models.CreateImageAPI"
                 }
               }
             },
@@ -4198,7 +4212,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateImage"
+                  "$ref": "#/components/schemas/models.CreateImageAPI"
                 }
               }
             },
@@ -4263,7 +4277,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateImage"
+                  "$ref": "#/components/schemas/models.CreateImageAPI"
                 }
               }
             },
@@ -4434,7 +4448,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateImage"
+                  "$ref": "#/components/schemas/models.CreateImageAPI"
                 }
               }
             },
@@ -4542,7 +4556,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CreateImage"
+                  "$ref": "#/components/schemas/models.CreateImageAPI"
                 }
               }
             },

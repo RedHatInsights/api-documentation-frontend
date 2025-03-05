@@ -3,62 +3,6 @@
   "openapi": {
     "components": {
       "parameters": {
-        "assignmentRuleId": {
-          "description": "assignment-rule ID.",
-          "in": "path",
-          "name": "assignment_rule_id",
-          "required": true,
-          "schema": {
-            "$ref": "#/components/schemas/NonStrictUUID"
-          }
-        },
-        "assignmentRuleIdList": {
-          "description": "A comma-separated list of assignment-rule IDs.",
-          "in": "path",
-          "name": "assignment_rule_id_list",
-          "required": true,
-          "schema": {
-            "items": {
-              "$ref": "#/components/schemas/NonStrictUUID"
-            },
-            "type": "array"
-          }
-        },
-        "assignmentRuleName": {
-          "description": "Filter by assignment-rule name",
-          "in": "query",
-          "name": "name",
-          "required": false,
-          "schema": {
-            "type": "string"
-          }
-        },
-        "assignmentRuleOrderByParam": {
-          "description": "Ordering field name",
-          "in": "query",
-          "name": "order_by",
-          "required": false,
-          "schema": {
-            "enum": [
-              "name",
-              "group_id"
-            ],
-            "type": "string"
-          }
-        },
-        "assignmentRuleOrderHowParam": {
-          "description": "Direction of the ordering; defaults to ASC for name, and to DESC for host_ids",
-          "in": "query",
-          "name": "order_how",
-          "required": false,
-          "schema": {
-            "enum": [
-              "ASC",
-              "DESC"
-            ],
-            "type": "string"
-          }
-        },
         "branchId": {
           "description": "Filter by branch_id",
           "in": "query",
@@ -186,16 +130,12 @@
           }
         },
         "groupOrderHowParam": {
-          "description": "Direction of the ordering; defaults to ASC for name, and to DESC for host_count",
+          "description": "Direction of the ordering (case-insensitive); defaults to ASC for name, and to DESC for host_count",
           "in": "query",
           "name": "order_how",
           "required": false,
           "schema": {
-            "enum": [
-              "ASC",
-              "DESC"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/OrderHow"
           }
         },
         "hostId": {
@@ -235,16 +175,12 @@
           }
         },
         "hostOrderHowParam": {
-          "description": "Direction of the ordering; defaults to ASC for display_name, and to DESC for updated and operating_system",
+          "description": "Direction of the ordering (case-insensitive); defaults to ASC for display_name, and to DESC for updated and operating_system",
           "in": "query",
           "name": "order_how",
           "required": false,
           "schema": {
-            "enum": [
-              "ASC",
-              "DESC"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/OrderHow"
           }
         },
         "hostnameOrId": {
@@ -404,7 +340,7 @@
             "type": "array"
           }
         },
-        "tagsOrderBy": {
+        "tagsOrderByParam": {
           "description": "Ordering field name",
           "in": "query",
           "name": "order_by",
@@ -418,18 +354,13 @@
             "type": "string"
           }
         },
-        "tagsOrderHow": {
-          "description": "Direction of the ordering. Default to ASC",
+        "tagsOrderHowParam": {
+          "description": "Direction of the ordering (case-insensitive). Valid values are ASC (default) and DESC.",
           "in": "query",
           "name": "order_how",
           "required": false,
           "schema": {
-            "default": "ASC",
-            "enum": [
-              "ASC",
-              "DESC"
-            ],
-            "type": "string"
+            "$ref": "#/components/schemas/OrderHow"
           }
         },
         "tagsParam": {
@@ -546,118 +477,6 @@
             "total": 3
           },
           "title": "Host data"
-        },
-        "AssignmentRuleId": {
-          "$ref": "#/components/schemas/NonStrictUUID",
-          "description": "A durable and reliable platform-wide assignment-rule identifier. Applications should use this identifier to reference assignment-rules."
-        },
-        "AssignmentRuleIn": {
-          "description": "Data for a single Assignment Rule",
-          "properties": {
-            "description": {
-              "maxLength": 255,
-              "minLength": 1,
-              "nullable": true,
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "filter": {
-              "type": "object"
-            },
-            "group_id": {
-              "$ref": "#/components/schemas/GroupId"
-            },
-            "name": {
-              "maxLength": 255,
-              "minLength": 1,
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "group_id",
-            "filter",
-            "enabled"
-          ],
-          "title": "Assignment Rule In",
-          "type": "object"
-        },
-        "AssignmentRuleOut": {
-          "description": "Data for a single Assignment Rule response",
-          "properties": {
-            "account": {
-              "$ref": "#/components/schemas/AccountNumber"
-            },
-            "created": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "description": {
-              "minLength": 1,
-              "nullable": true,
-              "type": "string"
-            },
-            "enabled": {
-              "type": "boolean"
-            },
-            "filter": {
-              "type": "object"
-            },
-            "group_id": {
-              "$ref": "#/components/schemas/GroupId"
-            },
-            "id": {
-              "$ref": "#/components/schemas/NonStrictUUID"
-            },
-            "modified": {
-              "format": "date-time",
-              "type": "string"
-            },
-            "name": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "org_id": {
-              "$ref": "#/components/schemas/OrgId"
-            }
-          },
-          "required": [
-            "name",
-            "group_id",
-            "filter",
-            "enabled",
-            "created",
-            "modified"
-          ],
-          "title": "Assignment Rule response",
-          "type": "object"
-        },
-        "AssignmentRuleQueryOutput": {
-          "allOf": [
-            {
-              "$ref": "#/components/schemas/PaginationOut"
-            },
-            {
-              "properties": {
-                "results": {
-                  "description": "Actual assignment-rule search query result entries.",
-                  "items": {
-                    "$ref": "#/components/schemas/AssignmentRuleOut"
-                  },
-                  "type": "array"
-                }
-              },
-              "required": [
-                "results"
-              ],
-              "type": "object"
-            }
-          ],
-          "description": "A paginated assignment-rule search query result with assignment-rule entries and their Inventory metadata.",
-          "title": "An Inventory Assignment Rules query result",
-          "type": "object"
         },
         "BiosUuid": {
           "description": "A UUID of the host machine BIOS.  This field is considered to be a canonical fact.",
@@ -1175,6 +994,10 @@
           "example": "bA6deCFc19564430AB814bf8F70E8cEf",
           "format": "uuid",
           "pattern": "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$",
+          "type": "string"
+        },
+        "OrderHow": {
+          "pattern": "^([Aa][Ss][Cc])|([Dd][Ee][Ss][Cc])$",
           "type": "string"
         },
         "OrgId": {
@@ -2424,6 +2247,206 @@
               "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
               "type": "string"
             },
+            "workloads": {
+              "description": "Object containing information about system workloads",
+              "properties": {
+                "ansible": {
+                  "description": "Object containing data specific to Ansible Automation Platform",
+                  "properties": {
+                    "catalog_worker_version": {
+                      "description": "The catalog-worker version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
+                    "controller_version": {
+                      "description": "The ansible-tower or automation-controller version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
+                    "hub_version": {
+                      "description": "The automation-hub version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
+                    "sso_version": {
+                      "description": "The SSO version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    }
+                  },
+                  "type": "object"
+                },
+                "crowdstrike": {
+                  "description": "Object containing information about CrowdStrike system facts",
+                  "properties": {
+                    "falcon_aid": {
+                      "description": "CrowdStrike Falcon Agent ID",
+                      "example": "44e3b7d20b434a2bb2815d9808fa3a8b",
+                      "maxLength": 32,
+                      "type": "string"
+                    },
+                    "falcon_backend": {
+                      "description": "CrowdStrike Falcon Sensor backend",
+                      "example": "auto, kernel, bpf",
+                      "maxLength": 32,
+                      "type": "string"
+                    },
+                    "falcon_version": {
+                      "description": "CrowdStrike running Falcon Sensor version",
+                      "example": "7.14.16703.0, 6.33.13003.0",
+                      "maxLength": 32,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "ibm_db2": {
+                  "description": "Object containing data specific to the IBM DB2 workload",
+                  "properties": {
+                    "is_running": {
+                      "description": "Indicates if IBM DB2 is running on the system",
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "intersystems": {
+                  "description": "Object containing data specific to InterSystems workload",
+                  "properties": {
+                    "is_intersystems": {
+                      "description": "Indicates if InterSystems is installed on the system",
+                      "type": "boolean"
+                    },
+                    "running_instances": {
+                      "items": {
+                        "$ref": "#/components/schemas/SystemProfile/properties/intersystems/properties/running_instances/items"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "mssql": {
+                  "description": "Object containing data specific to the MS SQL workload",
+                  "properties": {
+                    "version": {
+                      "description": "MSSQL version number",
+                      "example": "15.2.0, 12.5.3, 10.1.0",
+                      "maxLength": 30,
+                      "type": "string",
+                      "x-wildcard": true
+                    }
+                  },
+                  "type": "object"
+                },
+                "oracle_db": {
+                  "description": "Object containing data specific to the Oracle DB workload",
+                  "properties": {
+                    "is_running": {
+                      "description": "Indicates if Oracle DB is running on the system",
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                },
+                "rhel_ai": {
+                  "description": "Object containing information about RHEL AI",
+                  "properties": {
+                    "amd_gpu_models": {
+                      "description": "Model name of AMD GPUs",
+                      "items": {
+                        "description": "The AMD GPU model",
+                        "example": "Advanced Micro Devices, Inc. [AMD/ATI] Device 0c34, Advanced Micro Devices, Inc. [AMD/ATI] Radeon PRO V320",
+                        "maxLength": 128,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "intel_gaudi_hpu_models": {
+                      "description": "Model name of Intel Gaudi HPUs",
+                      "items": {
+                        "description": "The Intel Gaudi HPU model",
+                        "example": "Habana Labs Ltd. Device 1020, Habana Labs Ltd. HL-2000 AI Training Accelerator [Gaudi]",
+                        "maxLength": 128,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "nvidia_gpu_models": {
+                      "description": "Model name of Nvidia GPUs in the GPU index order",
+                      "items": {
+                        "description": "The Nvidia GPU model",
+                        "example": "Tesla V100-PCIE-16GB",
+                        "maxLength": 128,
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "rhel_ai_version_id": {
+                      "description": "RHEL AI VERSION ID",
+                      "example": "v1.1.3",
+                      "maxLength": 16,
+                      "type": "string"
+                    },
+                    "variant": {
+                      "description": "RHEL AI VARIANT",
+                      "example": "RHEL AI",
+                      "maxLength": 7,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "sap": {
+                  "description": "Object containing data specific to the SAP workload",
+                  "properties": {
+                    "instance_number": {
+                      "description": "The instance number of the SAP HANA system (a two-digit number between 00 and 99)",
+                      "example": "03, 05, 99",
+                      "maxLength": 2,
+                      "pattern": "^[0-9]{2}$",
+                      "type": "string"
+                    },
+                    "sap_system": {
+                      "description": "Indicates if SAP is installed on the system",
+                      "type": "boolean"
+                    },
+                    "sids": {
+                      "items": {
+                        "description": "The SAP system ID (SID)",
+                        "example": "H2O, ABC, XYZ",
+                        "maxLength": 3,
+                        "pattern": "^[A-Z][A-Z0-9]{2}$",
+                        "type": "string"
+                      },
+                      "type": "array",
+                      "uniqueItems": true
+                    },
+                    "version": {
+                      "description": "The version of the SAP HANA lifecycle management program",
+                      "example": "1.00.122.04.1478575636, 2.00.122.04.1478575636, 3.00.122.04.1478575636",
+                      "maxLength": 22,
+                      "pattern": "^[0-9]\\.[0-9]{2}\\.[0-9]{3}\\.[0-9]{2}\\.[0-9]{10}$",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
             "yum_repos": {
               "items": {
                 "$ref": "#/components/schemas/SystemProfileYumRepo"
@@ -2765,19 +2788,6 @@
         "Total": {
           "description": "Total number of items",
           "type": "integer"
-        },
-        "UnleashToggleOut": {
-          "properties": {
-            "flag_value": {
-              "description": "The value of the feature flag toggle",
-              "type": "boolean"
-            },
-            "using_fallback_value": {
-              "description": "Whether the fallback value was used, if the Unleash server could not be accessed",
-              "type": "boolean"
-            }
-          },
-          "title": "Unleash Toggle Out"
         }
       },
       "securitySchemes": {
@@ -4258,10 +4268,10 @@
               "$ref": "#/components/parameters/tagsParam"
             },
             {
-              "$ref": "#/components/parameters/tagsOrderBy"
+              "$ref": "#/components/parameters/tagsOrderByParam"
             },
             {
-              "$ref": "#/components/parameters/tagsOrderHow"
+              "$ref": "#/components/parameters/tagsOrderHowParam"
             },
             {
               "$ref": "#/components/parameters/perPageParam"
