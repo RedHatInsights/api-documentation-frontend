@@ -345,6 +345,13 @@
               "title": "Ansible vscode/vscodium extension version",
               "type": "string"
             },
+            "explanationId": {
+              "default": "",
+              "description": "A UUID that identifies the explanation.",
+              "format": "uuid",
+              "title": "Explanation ID",
+              "type": "string"
+            },
             "files": {
               "description": "A list of role files to be explained.",
               "items": {
