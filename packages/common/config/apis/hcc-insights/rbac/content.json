@@ -171,6 +171,63 @@
             }
           }
         },
+        "AllPrincipalsPagination": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ListPagination"
+            },
+            {
+              "properties": {
+                "data": {
+                  "oneOf": [
+                    {
+                      "required": [
+                        "serviceAccounts"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "users"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "serviceAccounts",
+                        "users"
+                      ]
+                    }
+                  ],
+                  "properties": {
+                    "serviceAccounts": {
+                      "items": {
+                        "$ref": "#/components/schemas/ServiceAccount"
+                      },
+                      "type": "array"
+                    },
+                    "users": {
+                      "items": {
+                        "oneOf": [
+                          {
+                            "$ref": "#/components/schemas/Principal"
+                          },
+                          {
+                            "$ref": "#/components/schemas/PrincipalMinimal"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
         "CrossAccountRequest": {
           "properties": {
             "created": {
@@ -3498,7 +3555,8 @@
               "schema": {
                 "enum": [
                   "service-account",
-                  "user"
+                  "user",
+                  "all"
                 ],
                 "type": "string"
               }
@@ -3515,6 +3573,9 @@
                       },
                       {
                         "$ref": "#/components/schemas/ServiceAccountPagination"
+                      },
+                      {
+                        "$ref": "#/components/schemas/AllPrincipalsPagination"
                       }
                     ]
                   }

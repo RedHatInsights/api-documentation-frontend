@@ -293,6 +293,10 @@
               "format": "uuid",
               "type": "string"
             },
+            "last_check_in": {
+              "format": "date-time",
+              "type": "string"
+            },
             "os_version": {
               "type": "string"
             },
@@ -323,6 +327,7 @@
             "display_name",
             "groups",
             "id",
+            "last_check_in",
             "os_version",
             "stale_timestamp",
             "stale_warning_timestamp",
@@ -924,6 +929,10 @@
               "format": "uuid",
               "type": "string"
             },
+            "last_check_in": {
+              "format": "date-time",
+              "type": "string"
+            },
             "os_version": {
               "type": "string"
             },
@@ -960,6 +969,7 @@
             "display_name",
             "groups",
             "id",
+            "last_check_in",
             "os_version",
             "requirements",
             "stale_timestamp",
@@ -1942,12 +1952,14 @@
                 "enum": [
                   "-display_name",
                   "-group_name",
+                  "-last_check_in",
                   "-last_seen",
                   "-os",
                   "-os_name",
                   "-os_version",
                   "display_name",
                   "group_name",
+                  "last_check_in",
                   "last_seen",
                   "os",
                   "os_name",
@@ -2335,12 +2347,14 @@
                 "enum": [
                   "-display_name",
                   "-group_name",
+                  "-last_check_in",
                   "-last_seen",
                   "-os",
                   "-os_name",
                   "-os_version",
                   "display_name",
                   "group_name",
+                  "last_check_in",
                   "last_seen",
                   "os",
                   "os_name",
