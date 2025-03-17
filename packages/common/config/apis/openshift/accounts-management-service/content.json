@@ -1395,6 +1395,12 @@
                 "recipient": {
                   "type": "string"
                 },
+                "recipient_ebs_account_id": {
+                  "type": "string"
+                },
+                "recipient_external_org_id": {
+                  "type": "string"
+                },
                 "secret": {
                   "type": "string"
                 },
@@ -1455,6 +1461,12 @@
               "type": "string"
             },
             "recipient": {
+              "type": "string"
+            },
+            "recipient_ebs_account_id": {
+              "type": "string"
+            },
+            "recipient_external_org_id": {
               "type": "string"
             }
           },

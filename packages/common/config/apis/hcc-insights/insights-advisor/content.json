@@ -1115,7 +1115,6 @@
             },
             "recommendation_level": {
               "format": "double",
-              "readOnly": true,
               "type": "number"
             },
             "resolution_risk": {
@@ -2174,18 +2173,6 @@
           ],
           "type": "object"
         },
-        "Usage": {
-          "description": "An approximation of the number of unique hits per day.",
-          "properties": {
-            "unique_hits": {
-              "type": "integer"
-            }
-          },
-          "required": [
-            "unique_hits"
-          ],
-          "type": "object"
-        },
         "WeeklyReportSubscription": {
           "properties": {
             "is_subscribed": {
@@ -2333,7 +2320,7 @@
       },
       "/api/insights/v1/ack/": {
         "get": {
-          "description": "List acks from this account by org_id where the rule is active\n\nWill return an empty list if this account has no acks.",
+          "description": "Acks acknowledge (and therefore hide) a rule from view in an account.\n\nThis view handles listing, retrieving, creating and deleting acks.  Acks\nare created and deleted by Insights rule ID, not by their own ack ID.\n\nparam: rule_id: Rule ID defined by Insights ruleset",
           "operationId": "ack_list",
           "parameters": [
             {
@@ -7509,72 +7496,6 @@
           ],
           "tags": [
             "topic"
-          ]
-        }
-      },
-      "/api/insights/v1/usage/": {
-        "get": {
-          "description": "List the unique rule hits for this account over the given time range\n\nThis uses a HashLogLog structure to record number of hits, and this is\ntherefore an approximation.",
-          "operationId": "usage_list",
-          "parameters": [
-            {
-              "description": "Allow `hydrauser` to view any account",
-              "in": "query",
-              "name": "account",
-              "schema": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "style": "form"
-            },
-            {
-              "description": "End date for statistics range",
-              "in": "query",
-              "name": "end",
-              "schema": {
-                "format": "date",
-                "type": "string"
-              }
-            },
-            {
-              "description": "Allow `hydrauser` to view any org_id",
-              "in": "query",
-              "name": "org_id",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Start date for statistics range",
-              "in": "query",
-              "name": "start",
-              "schema": {
-                "format": "date",
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/Usage"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "usage"
           ]
         }
       },
