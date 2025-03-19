@@ -328,6 +328,24 @@
             "data"
           ]
         },
+        "CACertsCustomization": {
+          "additionalProperties": false,
+          "properties": {
+            "pem_certs": {
+              "example": [
+                "---BEGIN CERTIFICATE---\\nMIIC0DCCAbigAwIBAgIUI...\\n---END CERTIFICATE---"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "pem_certs"
+          ],
+          "type": "object"
+        },
         "ClientId": {
           "default": "api",
           "enum": [
@@ -711,6 +729,9 @@
         },
         "Customizations": {
           "properties": {
+            "cacerts": {
+              "$ref": "#/components/schemas/CACertsCustomization"
+            },
             "containers": {
               "items": {
                 "$ref": "#/components/schemas/Container"
