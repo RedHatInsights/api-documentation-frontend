@@ -228,6 +228,50 @@
             }
           ]
         },
+        "AuditLog": {
+          "properties": {
+            "action": {
+              "example": "add",
+              "type": "string"
+            },
+            "created": {
+              "type": "string"
+            },
+            "description": {
+              "example": "user abc added to group: 1234",
+              "type": "string"
+            },
+            "principal_username": {
+              "example": "user123",
+              "type": "string"
+            },
+            "resource_type": {
+              "example": "group",
+              "type": "string"
+            }
+          }
+        },
+        "AuditLogPagination": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ListPagination"
+            },
+            {
+              "properties": {
+                "data": {
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLog"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "data"
+              ],
+              "type": "object"
+            }
+          ]
+        },
         "CrossAccountRequest": {
           "properties": {
             "created": {
@@ -1709,6 +1753,57 @@
           "summary": "Get the permitted access for a principal in the tenant (defaults to principal from the identity header)",
           "tags": [
             "Access"
+          ]
+        }
+      },
+      "/auditlogs/": {
+        "get": {
+          "description": "A list of all of the Admin User's actions logged in Audit Logs",
+          "operationId": "getAuditlogs",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/QueryLimit"
+            },
+            {
+              "$ref": "#/components/parameters/QueryOffset"
+            },
+            {
+              "description": "Parameter for ordering resource by database id so that latest actions appear first",
+              "in": "query",
+              "name": "order_by",
+              "required": false,
+              "schema": {
+                "enum": [
+                  "id"
+                ],
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AuditLogPagination"
+                  }
+                }
+              },
+              "description": "User actions have been successfully added to audit logs"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "tags": [
+            "Audit Logs"
           ]
         }
       },
@@ -4246,6 +4341,10 @@
       {
         "description": "Operations about cross account requests",
         "name": "CrossAccountRequest"
+      },
+      {
+        "description": "Operations about audit logs requests",
+        "name": "Audit Logs"
       }
     ]
   }
