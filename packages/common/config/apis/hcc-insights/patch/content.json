@@ -2370,7 +2370,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.7.107"
+      "version": "v3.7.117"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2384,6 +2384,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -2457,6 +2459,14 @@
               "in": "query",
               "name": "filter[advisory_type_name]",
               "schema": {
+                "enum": [
+                  "unknown",
+                  "unspecified",
+                  "other",
+                  "enhancement",
+                  "bugfix",
+                  "security"
+                ],
                 "type": "string"
               }
             },
@@ -2465,7 +2475,9 @@
               "in": "query",
               "name": "filter[severity]",
               "schema": {
-                "type": "string"
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer"
               }
             },
             {
@@ -2473,7 +2485,7 @@
               "in": "query",
               "name": "filter[installable_systems]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -2481,7 +2493,7 @@
               "in": "query",
               "name": "filter[applicable_systems]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -2515,7 +2527,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -2698,6 +2710,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -2790,7 +2804,7 @@
               "in": "query",
               "name": "filter[satellite_managed]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -2798,7 +2812,7 @@
               "in": "query",
               "name": "filter[built_pkgcache]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -2832,7 +2846,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -2941,6 +2955,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -3399,6 +3415,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -3488,7 +3506,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -3635,16 +3653,16 @@
             {
               "description": "Filter",
               "in": "query",
-              "name": "filter[advisory_type]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter",
-              "in": "query",
               "name": "filter[advisory_type_name]",
               "schema": {
+                "enum": [
+                  "unknown",
+                  "unspecified",
+                  "other",
+                  "enhancement",
+                  "bugfix",
+                  "security"
+                ],
                 "type": "string"
               }
             },
@@ -3653,7 +3671,9 @@
               "in": "query",
               "name": "filter[severity]",
               "schema": {
-                "type": "string"
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer"
               }
             },
             {
@@ -3661,7 +3681,7 @@
               "in": "query",
               "name": "filter[applicable_systems]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             }
           ],
@@ -3790,7 +3810,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -4020,7 +4040,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -4322,7 +4342,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -4497,7 +4517,7 @@
               "in": "query",
               "name": "filter[rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4505,7 +4525,7 @@
               "in": "query",
               "name": "filter[rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4513,7 +4533,7 @@
               "in": "query",
               "name": "filter[rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4521,7 +4541,7 @@
               "in": "query",
               "name": "filter[other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4529,7 +4549,7 @@
               "in": "query",
               "name": "filter[installable_rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4537,7 +4557,7 @@
               "in": "query",
               "name": "filter[installable_rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4545,7 +4565,7 @@
               "in": "query",
               "name": "filter[installable_rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4553,7 +4573,7 @@
               "in": "query",
               "name": "filter[installable_other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4561,7 +4581,7 @@
               "in": "query",
               "name": "filter[applicable_rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4569,7 +4589,7 @@
               "in": "query",
               "name": "filter[applicable_rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4577,7 +4597,7 @@
               "in": "query",
               "name": "filter[applicable_rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4585,7 +4605,7 @@
               "in": "query",
               "name": "filter[applicable_other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4593,7 +4613,7 @@
               "in": "query",
               "name": "filter[stale]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -4601,7 +4621,7 @@
               "in": "query",
               "name": "filter[packages_installed]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4609,7 +4629,7 @@
               "in": "query",
               "name": "filter[packages_installable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4617,7 +4637,7 @@
               "in": "query",
               "name": "filter[packages_applicable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -4638,7 +4658,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -4882,16 +4902,16 @@
             {
               "description": "Filter",
               "in": "query",
-              "name": "filter[advisory_type]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter",
-              "in": "query",
               "name": "filter[advisory_type_name]",
               "schema": {
+                "enum": [
+                  "unknown",
+                  "unspecified",
+                  "other",
+                  "enhancement",
+                  "bugfix",
+                  "security"
+                ],
                 "type": "string"
               }
             },
@@ -4900,7 +4920,9 @@
               "in": "query",
               "name": "filter[severity]",
               "schema": {
-                "type": "string"
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer"
               }
             }
           ],
@@ -5190,7 +5212,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -5340,6 +5362,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -5410,16 +5434,16 @@
             {
               "description": "Filter",
               "in": "query",
-              "name": "filter[advisory_type]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter",
-              "in": "query",
               "name": "filter[advisory_type_name]",
               "schema": {
+                "enum": [
+                  "unknown",
+                  "unspecified",
+                  "other",
+                  "enhancement",
+                  "bugfix",
+                  "security"
+                ],
                 "type": "string"
               }
             },
@@ -5428,7 +5452,9 @@
               "in": "query",
               "name": "filter[severity]",
               "schema": {
-                "type": "string"
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer"
               }
             },
             {
@@ -5436,7 +5462,7 @@
               "in": "query",
               "name": "filter[installable_systems]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -5444,7 +5470,7 @@
               "in": "query",
               "name": "filter[applicable_systems]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -5478,7 +5504,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -5596,6 +5622,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -5681,7 +5709,7 @@
               "in": "query",
               "name": "filter[rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -5689,7 +5717,7 @@
               "in": "query",
               "name": "filter[rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -5697,7 +5725,7 @@
               "in": "query",
               "name": "filter[rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -5705,7 +5733,7 @@
               "in": "query",
               "name": "filter[other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -5713,7 +5741,7 @@
               "in": "query",
               "name": "filter[satellite_managed]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -5721,7 +5749,7 @@
               "in": "query",
               "name": "filter[stale]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -5793,7 +5821,7 @@
               "in": "query",
               "name": "filter[built_pkgcache]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -5827,7 +5855,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -5945,6 +5973,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -6076,6 +6106,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -6127,7 +6159,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -6244,6 +6276,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -6322,7 +6356,7 @@
               "in": "query",
               "name": "filter[rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6330,7 +6364,7 @@
               "in": "query",
               "name": "filter[rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6338,7 +6372,7 @@
               "in": "query",
               "name": "filter[rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6346,7 +6380,7 @@
               "in": "query",
               "name": "filter[other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6354,7 +6388,7 @@
               "in": "query",
               "name": "filter[installable_rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6362,7 +6396,7 @@
               "in": "query",
               "name": "filter[installable_rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6370,7 +6404,7 @@
               "in": "query",
               "name": "filter[installable_rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6378,7 +6412,7 @@
               "in": "query",
               "name": "filter[installable_other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6386,7 +6420,7 @@
               "in": "query",
               "name": "filter[applicable_rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6394,7 +6428,7 @@
               "in": "query",
               "name": "filter[applicable_rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6402,7 +6436,7 @@
               "in": "query",
               "name": "filter[applicable_rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6410,7 +6444,7 @@
               "in": "query",
               "name": "filter[applicable_other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6418,7 +6452,7 @@
               "in": "query",
               "name": "filter[stale]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -6426,7 +6460,7 @@
               "in": "query",
               "name": "filter[packages_installed]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6434,7 +6468,7 @@
               "in": "query",
               "name": "filter[packages_installable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6442,7 +6476,7 @@
               "in": "query",
               "name": "filter[packages_applicable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -6538,7 +6572,7 @@
               "in": "query",
               "name": "filter[satellite_managed]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -6546,7 +6580,7 @@
               "in": "query",
               "name": "filter[built_pkgcache]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -6588,7 +6622,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -6696,6 +6730,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -6765,16 +6801,16 @@
             {
               "description": "Filter",
               "in": "query",
-              "name": "filter[advisory_type]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter",
-              "in": "query",
               "name": "filter[advisory_type_name]",
               "schema": {
+                "enum": [
+                  "unknown",
+                  "unspecified",
+                  "other",
+                  "enhancement",
+                  "bugfix",
+                  "security"
+                ],
                 "type": "string"
               }
             },
@@ -6783,7 +6819,9 @@
               "in": "query",
               "name": "filter[severity]",
               "schema": {
-                "type": "string"
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer"
               }
             }
           ],
@@ -6856,6 +6894,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -6987,6 +7027,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -7034,7 +7076,7 @@
               "in": "query",
               "name": "filter[systems_installed]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7042,7 +7084,7 @@
               "in": "query",
               "name": "filter[systems_installable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7050,7 +7092,7 @@
               "in": "query",
               "name": "filter[systems_applicable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7092,7 +7134,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -7266,6 +7308,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -7317,7 +7361,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -7442,6 +7486,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -7523,6 +7569,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -7602,7 +7650,7 @@
               "in": "query",
               "name": "filter[rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7610,7 +7658,7 @@
               "in": "query",
               "name": "filter[rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7618,7 +7666,7 @@
               "in": "query",
               "name": "filter[rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7626,7 +7674,7 @@
               "in": "query",
               "name": "filter[other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7634,7 +7682,7 @@
               "in": "query",
               "name": "filter[installable_rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7642,7 +7690,7 @@
               "in": "query",
               "name": "filter[installable_rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7650,7 +7698,7 @@
               "in": "query",
               "name": "filter[installable_rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7658,7 +7706,7 @@
               "in": "query",
               "name": "filter[installable_other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7666,7 +7714,7 @@
               "in": "query",
               "name": "filter[applicable_rhsa_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7674,7 +7722,7 @@
               "in": "query",
               "name": "filter[applicable_rhba_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7682,7 +7730,7 @@
               "in": "query",
               "name": "filter[applicable_rhea_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7690,7 +7738,7 @@
               "in": "query",
               "name": "filter[applicable_other_count]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7698,7 +7746,7 @@
               "in": "query",
               "name": "filter[stale]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -7706,7 +7754,7 @@
               "in": "query",
               "name": "filter[packages_installed]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7714,7 +7762,7 @@
               "in": "query",
               "name": "filter[packages_installable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7722,7 +7770,7 @@
               "in": "query",
               "name": "filter[packages_applicable]",
               "schema": {
-                "type": "string"
+                "type": "integer"
               }
             },
             {
@@ -7786,7 +7834,7 @@
               "in": "query",
               "name": "filter[satellite_managed]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -7794,7 +7842,7 @@
               "in": "query",
               "name": "filter[built_pkgcache]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -7868,7 +7916,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -8097,6 +8145,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -8166,16 +8216,16 @@
             {
               "description": "Filter",
               "in": "query",
-              "name": "filter[advisory_type]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter",
-              "in": "query",
               "name": "filter[advisory_type_name]",
               "schema": {
+                "enum": [
+                  "unknown",
+                  "unspecified",
+                  "other",
+                  "enhancement",
+                  "bugfix",
+                  "security"
+                ],
                 "type": "string"
               }
             },
@@ -8184,7 +8234,9 @@
               "in": "query",
               "name": "filter[severity]",
               "schema": {
-                "type": "string"
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer"
               }
             }
           ],
@@ -8257,6 +8309,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -8589,6 +8643,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -8837,6 +8893,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -8926,7 +8984,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -9103,6 +9161,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -9145,7 +9205,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
@@ -9256,6 +9316,8 @@
               "in": "query",
               "name": "limit",
               "schema": {
+                "maximum": 100,
+                "minimum": 1,
                 "type": "integer"
               }
             },
@@ -9298,7 +9360,7 @@
               "in": "query",
               "name": "filter[system_profile][sap_system]",
               "schema": {
-                "type": "string"
+                "type": "boolean"
               }
             },
             {
