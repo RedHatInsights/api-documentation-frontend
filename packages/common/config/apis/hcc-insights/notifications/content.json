@@ -1202,6 +1202,9 @@
                 }
               },
               "description": "OK"
+            },
+            "400": {
+              "description": "Bad Request"
             }
           },
           "summary": "Update drawer notifications status.",

@@ -69,8 +69,6 @@
                 "nullable": true,
                 "properties": {
                   "id": {
-                    "format": "uuid",
-                    "nullable": true,
                     "type": "string"
                   },
                   "labels": {
@@ -143,8 +141,6 @@
                 "$ref": "#/components/schemas/RunLabelsNullable"
               },
               "recipient": {
-                "format": "uuid",
-                "nullable": true,
                 "type": "string"
               },
               "service": {
@@ -163,6 +159,7 @@
           "in": "query",
           "name": "sort_by",
           "schema": {
+            "default": "created_at:desc",
             "enum": [
               "created_at",
               "created_at:asc",
@@ -219,7 +216,6 @@
           "type": "object"
         },
         "InventoryIdNullable": {
-          "format": "uuid",
           "nullable": true,
           "type": "string"
         },
