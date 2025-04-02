@@ -751,6 +751,13 @@
               },
               "type": "array"
             },
+            "enabled_modules": {
+              "description": "List of dnf modules to enable, so that packages can be installed from them.\n",
+              "items": {
+                "$ref": "#/components/schemas/Module"
+              },
+              "type": "array"
+            },
             "fdo": {
               "$ref": "#/components/schemas/FDO"
             },
@@ -1428,6 +1435,26 @@
               "type": "array"
             }
           },
+          "type": "object"
+        },
+        "Module": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "description": "Name of the module to enable.\n",
+              "example": "nodejs",
+              "type": "string"
+            },
+            "stream": {
+              "description": "Stream to enable.\n",
+              "example": "22",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "stream"
+          ],
           "type": "object"
         },
         "OCIUploadRequestOptions": {
