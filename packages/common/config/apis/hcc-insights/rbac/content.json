@@ -1193,17 +1193,13 @@
                 {
                   "example": [
                     "value1",
+                    null,
                     "value2"
                   ],
                   "items": {
-                    "oneOf": [
-                      {
-                        "example": "value1",
-                        "type": "string"
-                      }
-                    ]
+                    "nullable": true,
+                    "type": "string"
                   },
-                  "nullable": true,
                   "type": "array"
                 }
               ]
@@ -3618,13 +3614,18 @@
               }
             },
             {
-              "description": "Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username",
+              "description": "Parameter for ordering principals by value. For inverse ordering, supply '-' before the param value, such as: ?order_by=-username. All options work for type of service-account principal, only username works for a user based principal.",
               "in": "query",
               "name": "order_by",
               "required": false,
               "schema": {
                 "enum": [
-                  "username"
+                  "username",
+                  "name",
+                  "owner",
+                  "description",
+                  "clientId",
+                  "time_created"
                 ],
                 "type": "string"
               }
@@ -3653,6 +3654,33 @@
                   "user",
                   "all"
                 ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Parameter for filtering principals of type 'service-account' by exact name such as: ?type=service-account&name=userA.",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Parameter for filtering principals of type 'service-account' by exact owner such as: ?type=service-account&owner=ownerA.",
+              "in": "query",
+              "name": "owner",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Parameter for filtering principals of type 'service-account' by partial description such as: ?type=service-account&description=desc.",
+              "in": "query",
+              "name": "description",
+              "required": false,
+              "schema": {
                 "type": "string"
               }
             }
