@@ -270,14 +270,6 @@
           ],
           "type": "object"
         },
-        "HttpType": {
-          "enum": [
-            "GET",
-            "POST",
-            "PUT"
-          ],
-          "type": "string"
-        },
         "LocalDateTime": {
           "examples": [
             "2022-03-10T12:15:50"
@@ -415,7 +407,7 @@
               "type": "boolean"
             },
             "method": {
-              "$ref": "#/components/schemas/HttpType"
+              "type": "string"
             },
             "secretToken": {
               "maxLength": 255,
