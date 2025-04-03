@@ -169,7 +169,8 @@
               "display_name",
               "group_name",
               "updated",
-              "operating_system"
+              "operating_system",
+              "last_check_in"
             ],
             "type": "string"
           }
@@ -858,6 +859,10 @@
                 "id": {
                   "description": "A durable and reliable platform-wide host identifier. Applications should use this identifier to reference hosts.",
                   "example": "3f01b55457674041b75e41829bcee1dc",
+                  "type": "string"
+                },
+                "last_check_in": {
+                  "format": "date-time",
                   "type": "string"
                 },
                 "org_id": {
