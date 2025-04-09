@@ -249,6 +249,37 @@
             "last_modified_at"
           ]
         },
+        "BlueprintLint": {
+          "description": "Linting errors in the current blueprint, these might need to be resolved before the\nblueprint can be used to build images again.\n",
+          "properties": {
+            "errors": {
+              "items": {
+                "$ref": "#/components/schemas/BlueprintLintItem"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "errors"
+          ]
+        },
+        "BlueprintLintItem": {
+          "properties": {
+            "description": {
+              "example": "package a required by policy is not present",
+              "type": "string"
+            },
+            "name": {
+              "example": "Compliance",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "description"
+          ],
+          "type": "object"
+        },
         "BlueprintMetadata": {
           "properties": {
             "exported_at": {
@@ -294,6 +325,9 @@
               "type": "array",
               "uniqueItems": true
             },
+            "lint": {
+              "$ref": "#/components/schemas/BlueprintLint"
+            },
             "name": {
               "type": "string"
             }
@@ -302,6 +336,7 @@
             "id",
             "name",
             "description",
+            "lint",
             "distribution",
             "image_requests",
             "customizations"
@@ -2762,6 +2797,33 @@
           "tags": [
             "distribution"
           ]
+        }
+      },
+      "/experimental/blueprints/{id}/fixup": {
+        "parameters": [
+          {
+            "description": "UUID of a blueprint",
+            "example": "123e4567-e89b-12d3-a456-426655440000",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "post": {
+          "description": "Apply fixes which should fix any lint errors in the blueprint.\n",
+          "responses": {
+            "200": {
+              "description": "successful update"
+            },
+            "404": {
+              "description": "blueprint was not found"
+            }
+          },
+          "summary": "Apply linter fixes to blueprint"
         }
       },
       "/experimental/recommendations": {
