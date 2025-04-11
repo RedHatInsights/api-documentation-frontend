@@ -230,7 +230,8 @@
                     "Cluster Add-ons",
                     "Customer Support",
                     "Cluster Networking",
-                    "General Notification"
+                    "General Notification",
+                    "cluster-transfer-recipient"
                   ],
                   "type": "string"
                 },

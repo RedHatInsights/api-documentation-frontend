@@ -1319,6 +1319,10 @@
               ],
               "type": "string"
             },
+            "content_template": {
+              "description": "ID of the content template. A content template and snapshot date cannot both be specified.\nIf a content template is specified, the snapshot date used will be the one from the content template.\n",
+              "type": "string"
+            },
             "image_type": {
               "$ref": "#/components/schemas/ImageTypes"
             },
@@ -1928,6 +1932,10 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "hasPassword": {
+              "description": "Indicates whether the user has a password set.\n",
+              "type": "boolean"
             },
             "name": {
               "example": "user1",
