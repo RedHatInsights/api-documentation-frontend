@@ -14,6 +14,24 @@
           }
         }
       },
+      "responses": {
+        "unauthorized": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "status": {
+                    "example": "Account does not have the required permissions",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "description": "The requester is unauthorized. If using a service account, you may not belong to the right group with the right role. Please make sure you configured your user access on the console."
+        }
+      },
       "schemas": {
         "alert": {
           "properties": {
@@ -721,6 +739,9 @@
                 }
               },
               "description": "List of acked rules"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Lists acks from this account where the rule is active",
@@ -770,6 +791,9 @@
                 }
               },
               "description": "Rule has been acked (disabled)"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Acknowledges/hide the rule for given account",
@@ -797,6 +821,9 @@
           "responses": {
             "204": {
               "description": "Rule ack has been deleted"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Rule has not been acked (disabled) previously"
@@ -832,6 +859,9 @@
                 }
               },
               "description": "Rule ack has been found, the metadata is returned in response body"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Rule has not been acked (disabled) previously"
@@ -883,6 +913,9 @@
                 }
               },
               "description": "Rule ack has been found and updated, the metadata is returned in response body"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Rule has not been acked (disabled) previously"
@@ -952,6 +985,9 @@
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Cluster info was not returned from AMS API for given organization."
             }
@@ -999,6 +1035,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Cluster report is not available, probably not connected cluster."
@@ -1066,6 +1105,9 @@
             "400": {
               "description": "Invalid request or invalid cluster ID"
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Cluster or request ID not found"
             }
@@ -1126,6 +1168,9 @@
             "400": {
               "description": "Invalid request or invalid cluster ID"
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Request ID or cluster ID not found"
             }
@@ -1177,6 +1222,9 @@
             },
             "400": {
               "description": "Invalid request (e.g cluster ID with unexpected format)"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Cluster not found"
@@ -1241,6 +1289,9 @@
             "400": {
               "description": "Invalid request (e.g cluster ID with unexpected format) or payload (empty body or not a list of strings)"
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Cluster ID not found or no requests found in storage for provided IDs"
             }
@@ -1303,6 +1354,9 @@
             "204": {
               "description": "Status NoContent: happens when the cluster is managed. The upgrade risks prediction is not available for this kind of clusters."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Status NotFound: happens when the cluster cannot be found in the Observatorium data"
             },
@@ -1329,6 +1383,9 @@
                 }
               },
               "description": "If a cluster has 0 total_hit_count and empty last_checked_at timestamp, we have no Insights data for that archive. If total_hit_count = 0 and the timestamp is valid, there are no rule hits for the cluster."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "503": {
               "content": {
@@ -1503,6 +1560,9 @@
                 }
               },
               "description": "A JSON object with the content."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Get all static content",
@@ -1551,6 +1611,9 @@
                 }
               },
               "description": "A JSON array of groups."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "503": {
               "content": {
@@ -1694,6 +1757,9 @@
             },
             "400": {
               "description": "Invalid request or invalid cluster ID"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Cluster was not found in the AMS API."
@@ -1852,6 +1918,9 @@
             "400": {
               "description": "Invalid request or invalid cluster ID"
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Data for cluster and namespace were not found in the storage."
             }
@@ -1945,6 +2014,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some rule identifier doesn't exist"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Send the new rating for a given rule",
@@ -1977,6 +2049,9 @@
                 }
               },
               "description": "Returns a list recommendations and the number of clusters they're currently impacting. Default behaviour is to return only the rules that affect atleast one cluster. This can be changed by passing impacting parameter"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns a list recommendations and the number of clusters they're currently impacting.",
@@ -2129,6 +2204,9 @@
                 }
               },
               "description": "A JSON object with the content."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "content": {
@@ -2286,6 +2364,9 @@
               },
               "description": "A JSON object with the content."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "content": {
                 "application/json": {
@@ -2434,6 +2515,9 @@
             "400": {
               "description": "Request body could not be parsed, so the query is not processed"
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Resource not found, usually caused when some rule selector, organization or user doesn't exist"
             },
@@ -2496,6 +2580,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns the prediction based on latest stats for the given list of clusters.",

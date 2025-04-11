@@ -60,6 +60,22 @@
           },
           "description": "Status ok"
         },
+        "unauthorized": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "status": {
+                    "example": "Account does not have the required permissions",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "description": "The requester is unauthorized. If using a service account, you may not belong to the right group with the right role. Please make sure you configured your user access on the console."
+        },
         "unavailable": {
           "content": {
             "text/plain": {}
@@ -537,6 +553,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns the latest reports for the given list of clusters.",
@@ -613,6 +632,9 @@
               },
               "description": "Latest available report for the given organization and cluster combination. Returns rules and their descriptions that were hit by the cluster. Disabled rules are ommitted by default unless the get_disabled query param is provided."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Resource not found, usually caused when the cluster ID is not registered and request come from Insights Operator."
             }
@@ -671,6 +693,9 @@
                 }
               },
               "description": "Metainformation about the latest available report for the given organization and cluster combination."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns metainformations about the latest report for the given cluster.",
@@ -720,6 +745,9 @@
                 }
               },
               "description": "Latest available rule report for the given organization, cluster combination and rule ID. Returns rule and it description that were hit by the cluster."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns the latest single rule report for a cluster that contains information and content.",
@@ -749,6 +777,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Resource not found, usually caused when the rule ID and error key combination doesn't exist in the content service"
@@ -815,6 +846,9 @@
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Resource not found, usually caused when the rule ID and error key combination doesn't exist in the content service"
             }
@@ -847,6 +881,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Resource not found, usually caused when the rule ID and error key combination doesn't exist in the content service"
@@ -881,6 +918,9 @@
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Resource not found, usually caused when the rule ID and error key combination doesn't exist in the content service"
             }
@@ -914,6 +954,9 @@
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
             },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
+            },
             "404": {
               "description": "Resource not found, usually caused when the rule ID and error key combination doesn't exist in the content service"
             }
@@ -946,6 +989,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "description": "Resource not found, usually caused when the rule ID and error key combination doesn't exist in the content service"
@@ -990,6 +1036,9 @@
             },
             "400": {
               "description": "Invalid request, usually caused when some cluster belongs to different organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns the latest reports for the given list of clusters.",
@@ -1024,6 +1073,9 @@
                 }
               },
               "description": "A JSON object with the content."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Get all static content",
@@ -1072,6 +1124,9 @@
                 }
               },
               "description": "A JSON array of groups."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "503": {
               "content": {
@@ -1205,6 +1260,9 @@
                 }
               },
               "description": "Summary of results by cluster"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Retrieve an overview of rule hits affecting all clusters in an organization. Organization ID is retrieved from the auth token.",
@@ -1245,6 +1303,9 @@
                 }
               },
               "description": "Status ok"
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "DEPRACATED: Use GET instead. Retrieve an overview of rule hits affecting all clusters in an organization. Organization ID is retrieved from the auth token.",
@@ -1292,6 +1353,9 @@
                 }
               },
               "description": "A JSON array of clusters that belong to the specified organization."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns a list of clusters associated with the specified organization ID.",
@@ -1326,6 +1390,9 @@
                 }
               },
               "description": "A JSON array of all the rule IDs."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             }
           },
           "summary": "Returns the rule IDs of all the rules.",
@@ -1362,6 +1429,9 @@
                 }
               },
               "description": "A JSON object with the content."
+            },
+            "403": {
+              "$ref": "#/components/responses/unauthorized"
             },
             "404": {
               "content": {

@@ -2370,7 +2370,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.7.122"
+      "version": "v3.7.134"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2947,6 +2947,7 @@
       },
       "/baselines": {
         "get": {
+          "deprecated": true,
           "description": "Show me all baselines for all my systems",
           "operationId": "listBaseline",
           "parameters": [
@@ -3070,6 +3071,7 @@
           "summary": "Show me all baselines for all my systems"
         },
         "put": {
+          "deprecated": true,
           "description": "Create a baseline for my set of systems. System cannot be satellite managed.",
           "operationId": "createBaseline",
           "requestBody": {
@@ -3136,6 +3138,7 @@
       },
       "/baselines/systems/remove": {
         "post": {
+          "deprecated": true,
           "description": "Remove systems from baseline",
           "operationId": "removeBaselineSystems",
           "requestBody": {
@@ -3195,6 +3198,7 @@
       },
       "/baselines/{baseline_id}": {
         "delete": {
+          "deprecated": true,
           "description": "Delete a baseline",
           "operationId": "baselineDelete",
           "parameters": [
@@ -3258,6 +3262,7 @@
           "summary": "Delete a baseline"
         },
         "get": {
+          "deprecated": true,
           "description": "Show baseline detail by given baseline ID",
           "operationId": "detailBaseline",
           "parameters": [
@@ -3321,6 +3326,7 @@
           "summary": "Show baseline detail by given baseline ID"
         },
         "put": {
+          "deprecated": true,
           "description": "Update a baseline for my set of systems. System cannot be satellite managed.",
           "operationId": "updateBaseline",
           "parameters": [
@@ -3398,6 +3404,7 @@
       },
       "/baselines/{baseline_id}/systems": {
         "get": {
+          "deprecated": true,
           "description": "Show me all systems applicable to a baseline",
           "operationId": "listBaselineSystems",
           "parameters": [
