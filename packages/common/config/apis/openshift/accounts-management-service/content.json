@@ -2146,6 +2146,32 @@
               "description": "The `internal_only` parameter is used for validation. Specifically to check if there is a discrepancy between the email address and the log type.",
               "type": "boolean"
             },
+            "log_type": {
+              "description": "The type of log for which the returned contacts will be used to send a notification. When informed it might influence the returned contacts.",
+              "enum": [
+                "clustercreate-high-level",
+                "clustercreate-details",
+                "clusterremove-high-level",
+                "clusterremove-details",
+                "cluster-state-updates",
+                "Cluster Subscription",
+                "Cluster Lifecycle",
+                "Cluster Updates",
+                "Cluster Ownership",
+                "Cluster Access",
+                "Cluster Scaling",
+                "Capacity Management",
+                "Capacity management",
+                "Cluster Configuration",
+                "Cluster Security",
+                "Cluster Add-ons",
+                "Customer Support",
+                "Cluster Networking",
+                "General Notification",
+                "cluster-transfer-recipient"
+              ],
+              "type": "string"
+            },
             "org_id": {
               "type": "string"
             },
