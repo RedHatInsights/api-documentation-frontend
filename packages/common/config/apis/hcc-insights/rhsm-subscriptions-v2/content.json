@@ -137,6 +137,10 @@
         },
         "SkuCapacity": {
           "properties": {
+            "billing_account_id": {
+              "description": "The billing account ID.",
+              "type": "string"
+            },
             "billing_provider": {
               "$ref": "#/components/schemas/BillingProviderType"
             },
