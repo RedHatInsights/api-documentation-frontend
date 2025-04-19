@@ -102,6 +102,15 @@
             "type": "boolean"
           }
         },
+        "fetchClusterTransfers": {
+          "description": "If true, returns either an empty result set or a valid ClusterTransfer list on a subscription in the output. Could slow request response time.",
+          "in": "query",
+          "name": "fetchClusterTransfers",
+          "required": false,
+          "schema": {
+            "type": "boolean"
+          }
+        },
         "fetchCpuAndSocket": {
           "description": "If true, fetches, from the clusters service, the total numbers of CPU's and sockets under an obligation, and includes in the output. Could slow request response time.",
           "in": "query",
@@ -3981,6 +3990,12 @@
                 "capabilities": {
                   "items": {
                     "$ref": "#/components/schemas/Capability"
+                  },
+                  "type": "array"
+                },
+                "cluster_transfers": {
+                  "items": {
+                    "$ref": "#/components/schemas/ClusterTransfer"
                   },
                   "type": "array"
                 },
@@ -12914,6 +12929,9 @@
             },
             {
               "$ref": "#/components/parameters/fetchCapabilities"
+            },
+            {
+              "$ref": "#/components/parameters/fetchClusterTransfers"
             },
             {
               "$ref": "#/components/parameters/fetchCpuAndSocket"
