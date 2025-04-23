@@ -48,6 +48,33 @@
         "BillingAccountId": {
           "type": "string"
         },
+        "BillingAccountIdInfo": {
+          "properties": {
+            "billing_account_id": {
+              "type": "string"
+            },
+            "billing_provider": {
+              "type": "string"
+            },
+            "org_id": {
+              "type": "string"
+            },
+            "product_tag": {
+              "type": "string"
+            }
+          }
+        },
+        "BillingAccountIdResponse": {
+          "properties": {
+            "ids": {
+              "items": {
+                "$ref": "#/components/schemas/BillingAccountIdInfo"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "BillingCategory": {
           "enum": [
             "prepaid",
@@ -149,6 +176,9 @@
         },
         "CapacityReportByMetricId_meta": {
           "properties": {
+            "billing_account_id": {
+              "type": "string"
+            },
             "category": {
               "$ref": "#/components/schemas/ReportCategory"
             },
@@ -1025,6 +1055,17 @@
               "style": "form"
             },
             {
+              "description": "The billing account ID for the product we wish to query",
+              "explode": true,
+              "in": "query",
+              "name": "billing_account_id",
+              "required": false,
+              "schema": {
+                "$ref": "#/components/schemas/BillingAccountId"
+              },
+              "style": "form"
+            },
+            {
               "description": "The level of granularity to return.",
               "explode": true,
               "in": "query",
@@ -1161,6 +1202,68 @@
           "summary": "Fetch a capacity report for an account and product.",
           "tags": [
             "capacity"
+          ]
+        }
+      },
+      "/v1/instances/billing_account_ids": {
+        "description": "Fetch billing account IDs by Org",
+        "get": {
+          "operationId": "fetchBillingAccountIdsForOrg",
+          "parameters": [
+            {
+              "explode": true,
+              "in": "query",
+              "name": "org_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "style": "form"
+            },
+            {
+              "explode": true,
+              "in": "query",
+              "name": "product_tag",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "style": "form"
+            },
+            {
+              "explode": true,
+              "in": "query",
+              "name": "billing_provider",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "style": "form"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BillingAccountIdResponse"
+                  }
+                }
+              },
+              "description": "List of billing account ids by org"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "403": {
+              "$ref": "#/components/responses/Forbidden"
+            },
+            "500": {
+              "$ref": "#/components/responses/InternalServerError"
+            }
+          },
+          "tags": [
+            "instances"
           ]
         }
       },
@@ -1597,6 +1700,74 @@
           "summary": "Create/Update an account's opt-in configuration. Org ID are defined by the identity header.",
           "tags": [
             "opt-in"
+          ]
+        }
+      },
+      "/v1/subscriptions/billing_account_ids": {
+        "description": "Fetch billing account IDs by Org",
+        "get": {
+          "operationId": "fetchSubscriptionBillingAccountIdsForOrg",
+          "parameters": [
+            {
+              "explode": true,
+              "in": "query",
+              "name": "org_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "style": "form"
+            },
+            {
+              "explode": true,
+              "in": "query",
+              "name": "product_tag",
+              "required": false,
+              "schema": {
+                "type": "string"
+              },
+              "style": "form"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": {
+                    "ids": [
+                      {
+                        "billing_account_id": "151968c3-cf37-47f4-bd76-affbdfb91245",
+                        "billing_provider": "aws",
+                        "org_id": "123",
+                        "product_tag": "rosa"
+                      },
+                      {
+                        "billing_account_id": "2cfa4d67-58c9-48c1-9673-bc539b4ea51a",
+                        "billing_provider": "azure",
+                        "org_id": "124",
+                        "product_tag": "rhods"
+                      }
+                    ]
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/BillingAccountIdResponse"
+                  }
+                }
+              },
+              "description": "List of billing account ids by org"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "403": {
+              "$ref": "#/components/responses/Forbidden"
+            },
+            "500": {
+              "$ref": "#/components/responses/InternalServerError"
+            }
+          },
+          "tags": [
+            "contracts"
           ]
         }
       },

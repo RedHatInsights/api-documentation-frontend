@@ -58,6 +58,15 @@
             "type": "boolean"
           }
         },
+        "InsightsId": {
+          "description": "System Insights identifier (uuid)\n\n`insights_id` as returned from `/api/inventory/v1/hosts/{system_id}`\n",
+          "in": "path",
+          "name": "system",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/InsightsId"
+          }
+        },
         "IssueId": {
           "description": "Issue identifier (e.g. `advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074`)",
           "in": "path",
@@ -152,13 +161,65 @@
           }
         },
         "RemediationFilter": {
-          "description": "Remediation name filter. If specified only remediations whose name matches the given string will be returned.",
+          "description": "For filtering by various criteria.\n\nThere are two styles of filter: legacy and new.\n\nLegacy filtering allows for filtering by remediation plan name and is of the form: `?filter=plan name`.\nIf specified, only remediations whose name matches the given string will be returned.\n\nNew style filters allow for filtering by various criteria and are of the form: `?filter[<field>]=<value>`.\n\nAvailable filter fields:\n- name: plan names matching string, `?filter[name]=my plan name`\n- created_after: created on or after date-time, `filter[created_after]=2025-03-31T08:19:36.641Z`\n- updated_after: modified on or after date-time, `filter[updated_after]=2025-03-31T08:19:36.641Z`\n- last_run_after: executed on or after date-time or 'never', `filter[last_run_after]=never` \n- status: status matching one of [running, success, failure], `filter[status]=failure`\n",
+          "explode": true,
           "in": "query",
           "name": "filter",
           "required": false,
           "schema": {
-            "type": "string"
-          }
+            "anyOf": [
+              {
+                "description": "(legacy) Filter by plan name (allows partial match)",
+                "type": "string"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "created_after": {
+                    "description": "Filter remediations created on or after this timestamp (ISO 8601 format)",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "last_run_after": {
+                    "oneOf": [
+                      {
+                        "description": "Filter remediations with last run on or after this timestamp (ISO 8601 format)",
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      {
+                        "description": "Filter remediations that have never run",
+                        "enum": [
+                          "never"
+                        ],
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "name": {
+                    "description": "Filter by plan name (allows partial match)",
+                    "type": "string"
+                  },
+                  "status": {
+                    "enum": [
+                      "running",
+                      "success",
+                      "failure"
+                    ],
+                    "type": "string"
+                  },
+                  "updated_after": {
+                    "description": "Filter remediations updated on or after this timestamp (ISO 8601 format)",
+                    "format": "date-time",
+                    "type": "string"
+                  }
+                },
+                "type": "object",
+                "x-remediations-strict": false
+              }
+            ]
+          },
+          "style": "deepObject"
         },
         "RemediationId": {
           "description": "Remediation identifier",
@@ -179,7 +240,7 @@
           }
         },
         "RemediationSort": {
-          "description": "Sort order",
+          "description": "Sort order. Use `-` before a field name for descending order (e.g., `?-system_count`).",
           "in": "query",
           "name": "sort",
           "required": false,
@@ -188,12 +249,18 @@
             "enum": [
               "updated_at",
               "-updated_at",
+              "created_at",
+              "-created_at",
+              "last_run_at",
+              "-last_run_at",
               "name",
               "-name",
               "system_count",
               "-system_count",
               "issue_count",
-              "-issue_count"
+              "-issue_count",
+              "status",
+              "-status"
             ],
             "type": "string"
           }
@@ -261,6 +328,16 @@
         }
       },
       "requestBodies": {
+        "IssuesList": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IssuesList"
+              }
+            }
+          },
+          "required": true
+        },
         "PlaybookRunsInput": {
           "content": {
             "application/json": {
@@ -301,6 +378,16 @@
             }
           },
           "required": true
+        },
+        "SystemsList": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SystemsList"
+              }
+            }
+          },
+          "required": true
         }
       },
       "responses": {
@@ -313,6 +400,9 @@
             }
           },
           "description": "Bad Request"
+        },
+        "BulkDeleted": {
+          "description": "Entities were deleted"
         },
         "Deleted": {
           "description": "Entity was deleted"
@@ -467,6 +557,27 @@
           "example": "advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074",
           "pattern": "^(advisor|vulnerabilities|ssg|test|patch-advisory|patch-package):[\\w\\d_|:\\.+-]+$",
           "type": "string"
+        },
+        "IssuesList": {
+          "additionalProperties": false,
+          "properties": {
+            "issue_ids": {
+              "example": [
+                "advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074",
+                "vulnerabilities:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074"
+              ],
+              "items": {
+                "$ref": "#/components/schemas/IssueId"
+              },
+              "maxItems": 100,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "issue_ids"
+          ],
+          "type": "object"
         },
         "Meta": {
           "additionalProperties": false,
@@ -1666,6 +1777,28 @@
           ],
           "type": "object"
         },
+        "SystemsList": {
+          "additionalProperties": false,
+          "properties": {
+            "system_ids": {
+              "example": [
+                "a8799a02-8be9-11e8-9eb6-529269fb1459",
+                "e96a2346-8e37-441d-963a-c2eed3ee856a",
+                "301653a2-4b5f-411c-8cb5-a74a96e2f344"
+              ],
+              "items": {
+                "$ref": "#/components/schemas/SystemId"
+              },
+              "maxItems": 100,
+              "minItems": 1,
+              "type": "array"
+            }
+          },
+          "required": [
+            "system_ids"
+          ],
+          "type": "object"
+        },
         "UserOut": {
           "additionalProperties": false,
           "properties": {
@@ -1705,7 +1838,7 @@
           "operationId": "getDiagnosis",
           "parameters": [
             {
-              "$ref": "#/components/parameters/SystemId"
+              "$ref": "#/components/parameters/InsightsId"
             },
             {
               "$ref": "#/components/parameters/RemediationIdQuery"
@@ -2050,6 +2183,29 @@
           ]
         }
       },
+      "/remediations/{id}/issues": {
+        "delete": {
+          "description": "Removes the given list of issues from the specified remediation plan.  Requests containing missing remediation plan ID are rejected.  Duplicate or missing issue IDs are ignored.",
+          "operationId": "deleteRemediationIssues",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            }
+          ],
+          "requestBody": {
+            "$ref": "#/components/requestBodies/IssuesList"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/MultipleDelete"
+            }
+          },
+          "summary": "Bulk Remove Remediation Plan Issues",
+          "tags": [
+            "remediations"
+          ]
+        }
+      },
       "/remediations/{id}/issues/{issue}": {
         "delete": {
           "description": "Removes the given Issue from the Remediation, RBAC permission {remediations:remediation:write}",
@@ -2073,7 +2229,7 @@
               "$ref": "#/components/responses/NotFound"
             }
           },
-          "summary": "Remove Remediation Issue",
+          "summary": "Remove Remediation Plan Issue",
           "tags": [
             "remediations"
           ]
@@ -2521,6 +2677,29 @@
             }
           },
           "summary": "Get details and updated log of system being executed on in specific playbook run",
+          "tags": [
+            "remediations"
+          ]
+        }
+      },
+      "/remediations/{id}/systems": {
+        "delete": {
+          "description": "Removes the given list of systems from the specified remediation plan.  Request is rejected if indicated remediation plan is not found.  Duplicate or missing system IDs are ignored.",
+          "operationId": "deleteRemediationSystems",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            }
+          ],
+          "requestBody": {
+            "$ref": "#/components/requestBodies/SystemsList"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/MultipleDelete"
+            }
+          },
+          "summary": "Bulk Remove Remediation Plan Systems",
           "tags": [
             "remediations"
           ]
