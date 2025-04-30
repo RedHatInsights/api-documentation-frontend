@@ -29,8 +29,6 @@ spec:
     value: 5d
   - name: dockerfile
     value: ./Dockerfile
-  pipelineRef:
-    name: docker-build
   taskRunTemplate: {}
   workspaces:
   - name: git-auth
