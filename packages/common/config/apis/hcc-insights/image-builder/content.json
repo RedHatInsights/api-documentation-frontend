@@ -2959,6 +2959,47 @@
           }
         ]
       },
+      "/oscap/{policy}/{distribution}/policy_customizations": {
+        "get": {
+          "operationId": "getOscapCustomizationsForPolicy",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Customizations"
+                  }
+                }
+              },
+              "description": "A customizations array updated with the needed elements.\n"
+            }
+          },
+          "summary": "get the customizations for a compliance policy",
+          "tags": [
+            "oscap"
+          ]
+        },
+        "parameters": [
+          {
+            "example": "123e4567-e89b-12d3-a456-426655440000",
+            "in": "path",
+            "name": "policy",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "distribution",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Distributions"
+            }
+          }
+        ]
+      },
       "/packages": {
         "get": {
           "operationId": "getPackages",
