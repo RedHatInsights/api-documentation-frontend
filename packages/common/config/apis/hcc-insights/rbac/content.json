@@ -2824,7 +2824,8 @@
               "schema": {
                 "enum": [
                   "service-account",
-                  "user"
+                  "user",
+                  "all"
                 ],
                 "type": "string"
               }
@@ -2871,6 +2872,9 @@
                       },
                       {
                         "$ref": "#/components/schemas/ServiceAccountInGroupResponse"
+                      },
+                      {
+                        "$ref": "#/components/schemas/AllPrincipalsPagination"
                       }
                     ]
                   }
