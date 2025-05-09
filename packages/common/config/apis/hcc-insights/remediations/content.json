@@ -3,6 +3,14 @@
   "openapi": {
     "components": {
       "examples": {
+        "RemediationIssueLinks": {
+          "value": {
+            "first": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=0",
+            "last": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=50",
+            "next": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=50",
+            "previous": null
+          }
+        },
         "RemediationLinks": {
           "value": {
             "first": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=0",
@@ -32,22 +40,6 @@
             "$ref": "#/components/schemas/ExecutorId"
           }
         },
-        "Fields": {
-          "description": "Include specified items\n- name: list all remediation plan names in organization (cannot be combined with other fields)\n- playbook_runs: include playbook run data in the response\n",
-          "in": "query",
-          "name": "fields[data]",
-          "required": false,
-          "schema": {
-            "items": {
-              "enum": [
-                "name",
-                "playbook_runs"
-              ],
-              "type": "string"
-            },
-            "type": "array"
-          }
-        },
         "HideArchived": {
           "description": "Hide archived playbooks",
           "in": "query",
@@ -67,6 +59,26 @@
             "$ref": "#/components/schemas/InsightsId"
           }
         },
+        "IssueFilter": {
+          "description": "For filtering by various criteria.\n\nAvailable filter fields:\n- id: issue ids matching string, `?filter[id]=CVE`\n",
+          "explode": true,
+          "in": "query",
+          "name": "filter",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "description": "Filter by issue id (allows partial match)",
+                "example": "CVE",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "x-remediations-strict": false
+          },
+          "style": "deepObject"
+        },
         "IssueId": {
           "description": "Issue identifier (e.g. `advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074`)",
           "in": "path",
@@ -74,6 +86,20 @@
           "required": true,
           "schema": {
             "$ref": "#/components/schemas/IssueId"
+          }
+        },
+        "IssueSort": {
+          "description": "Sort order. Use `-` before a field name for descending order (e.g., `?-id`).",
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "default": "id",
+            "enum": [
+              "id",
+              "-id"
+            ],
+            "type": "string"
           }
         },
         "IssueSystemsSort": {
@@ -98,6 +124,18 @@
           "schema": {
             "default": 50,
             "maximum": 200,
+            "minimum": 1,
+            "type": "number"
+          }
+        },
+        "Limit50": {
+          "description": "Maximum number of results to return",
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "default": 10,
+            "maximum": 50,
             "minimum": 1,
             "type": "number"
           }
@@ -160,6 +198,22 @@
             "type": "string"
           }
         },
+        "RemediationFields": {
+          "description": "Include specified items\n- name: list all remediation plan names in organization (cannot be combined with other fields)\n- playbook_runs: include playbook run data in the response\n",
+          "in": "query",
+          "name": "fields[data]",
+          "required": false,
+          "schema": {
+            "items": {
+              "enum": [
+                "name",
+                "playbook_runs"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
         "RemediationFilter": {
           "description": "For filtering by various criteria.\n\nThere are two styles of filter: legacy and new.\n\nLegacy filtering allows for filtering by remediation plan name and is of the form: `?filter=plan name`.\nIf specified, only remediations whose name matches the given string will be returned.\n\nNew style filters allow for filtering by various criteria and are of the form: `?filter[<field>]=<value>`.\n\nAvailable filter fields:\n- name: plan names matching string, `?filter[name]=my plan name`\n- created_after: created on or after date-time, `filter[created_after]=2025-03-31T08:19:36.641Z`\n- updated_after: modified on or after date-time, `filter[updated_after]=2025-03-31T08:19:36.641Z`\n- last_run_after: executed on or after date-time or 'never', `filter[last_run_after]=never` \n- status: status matching one of [running, success, failure], `filter[status]=failure`\n",
           "explode": true,
@@ -220,6 +274,20 @@
             ]
           },
           "style": "deepObject"
+        },
+        "RemediationFormat": {
+          "description": "Optional format for returned data.  `'summary'` format returns counts instead of issue and system details, e.g.:\n```\n{\n  \"id\": \"9197ba55-0abc-4028-9bbe-269e530f8bd5\",\n  \"name\": \"Fix Critical CVEs\",\n  \"archived\": true,\n  \"auto_reboot\": true,\n  \"created_at\": \"2018-12-05T08:19:36.641Z\",\n  \"created_by\": {\n    \"username\": \"jharting@redhat.com\",\n    \"first_name\": \"Jozef\",\n    \"last_name\": \"Hartinger\"\n  },\n  \"updated_at\": \"2018-12-05T08:19:36.641Z\",\n  \"updated_by\": {\n    \"username\": \"jharting@redhat.com\",\n    \"first_name\": \"Jozef\",\n    \"last_name\": \"Hartinger\"\n  },\n  \"issue_count\": 5,\n  \"system_count\": 12\n}\n```\n",
+          "in": "query",
+          "name": "format",
+          "required": false,
+          "schema": {
+            "default": "detail",
+            "enum": [
+              "detail",
+              "summary"
+            ],
+            "type": "string"
+          }
         },
         "RemediationId": {
           "description": "Remediation identifier",
@@ -553,10 +621,47 @@
           "format": "uuid",
           "type": "string"
         },
+        "IssueCount": {
+          "example": 27,
+          "type": "integer"
+        },
         "IssueId": {
           "example": "advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074",
           "pattern": "^(advisor|vulnerabilities|ssg|test|patch-advisory|patch-package):[\\w\\d_|:\\.+-]+$",
           "type": "string"
+        },
+        "IssueListLinks": {
+          "additionalProperties": false,
+          "example": {
+            "$ref": "#/components/examples/RemediationIssueLinks"
+          },
+          "properties": {
+            "first": {
+              "description": "relative link to the first page of the query results",
+              "type": "string"
+            },
+            "last": {
+              "description": "relative link to the last page of the query results",
+              "type": "string"
+            },
+            "next": {
+              "description": "relative link to the next page of the query results (or null if this is the last page)",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "description": "relative link to the previous page of the query results (or null if this is the first page)",
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "first",
+            "last",
+            "next",
+            "previous"
+          ],
+          "type": "object"
         },
         "IssuesList": {
           "additionalProperties": false,
@@ -576,6 +681,39 @@
           },
           "required": [
             "issue_ids"
+          ],
+          "type": "object"
+        },
+        "Links": {
+          "additionalProperties": false,
+          "example": {
+            "$ref": "#/components/examples/RemediationLinks"
+          },
+          "properties": {
+            "first": {
+              "description": "relative link to the first page of the query results",
+              "type": "string"
+            },
+            "last": {
+              "description": "relative link to the last page of the query results",
+              "type": "string"
+            },
+            "next": {
+              "description": "relative link to the next page of the query results (or null if this is the last page)",
+              "nullable": true,
+              "type": "string"
+            },
+            "previous": {
+              "description": "relative link to the previous page of the query results (or null if this is the first page)",
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "first",
+            "last",
+            "next",
+            "previous"
           ],
           "type": "object"
         },
@@ -1141,6 +1279,9 @@
             "id": {
               "$ref": "#/components/schemas/RemediationId"
             },
+            "issue_count": {
+              "$ref": "#/components/schemas/IssueCount"
+            },
             "issues": {
               "items": {
                 "$ref": "#/components/schemas/RemediationIssue"
@@ -1156,6 +1297,9 @@
             "resolved_count": {
               "$ref": "#/components/schemas/ResolvedCount"
             },
+            "system_count": {
+              "$ref": "#/components/schemas/SystemCount"
+            },
             "updated_at": {
               "$ref": "#/components/schemas/DateTime"
             },
@@ -1166,14 +1310,11 @@
           "required": [
             "id",
             "name",
-            "needs_reboot",
             "auto_reboot",
             "created_by",
             "created_at",
             "updated_by",
             "updated_at",
-            "resolved_count",
-            "issues",
             "archived"
           ],
           "type": "object"
@@ -1314,6 +1455,81 @@
           ],
           "type": "object"
         },
+        "RemediationIssueList": {
+          "additionalProperties": false,
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/RemediationIssueSummary"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/IssueListLinks"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "data",
+            "meta",
+            "links"
+          ],
+          "type": "object"
+        },
+        "RemediationIssueSummary": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/ResolutionType"
+            },
+            "resolution": {
+              "additionalProperties": false,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "$ref": "#/components/schemas/ResolutionType"
+                },
+                "needs_reboot": {
+                  "$ref": "#/components/schemas/ResolutionNeedsReboot"
+                },
+                "resolution_risk": {
+                  "$ref": "#/components/schemas/ResolutionRisk"
+                }
+              },
+              "required": [
+                "id",
+                "description",
+                "resolution_risk",
+                "needs_reboot"
+              ],
+              "type": "object"
+            },
+            "resolutions_available": {
+              "description": "The total number of available resolutions for this issue",
+              "example": 1,
+              "type": "number"
+            },
+            "system_count": {
+              "description": "The number of systems associated with this plan issue",
+              "example": 17,
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "description",
+            "resolution",
+            "system_count"
+          ],
+          "type": "object"
+        },
         "RemediationIssueSystemList": {
           "additionalProperties": false,
           "properties": {
@@ -1343,37 +1559,7 @@
               "type": "array"
             },
             "links": {
-              "additionalProperties": false,
-              "example": {
-                "$ref": "#/components/examples/RemediationLinks"
-              },
-              "properties": {
-                "first": {
-                  "description": "relative link to the first page of the query results",
-                  "type": "string"
-                },
-                "last": {
-                  "description": "relative link to the last page of the query results",
-                  "type": "string"
-                },
-                "next": {
-                  "description": "relative link to the next page of the query results (or null if this is the last page)",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "previous": {
-                  "description": "relative link to the previous page of the query results (or null if this is the first page)",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "required": [
-                "first",
-                "last",
-                "next",
-                "previous"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/Links"
             },
             "meta": {
               "$ref": "#/components/schemas/Meta"
@@ -1460,37 +1646,7 @@
               "type": "array"
             },
             "links": {
-              "additionalProperties": false,
-              "example": {
-                "$ref": "#/components/examples/RemediationLinks"
-              },
-              "properties": {
-                "first": {
-                  "description": "relative link to the first page of the query results",
-                  "type": "string"
-                },
-                "last": {
-                  "description": "relative link to the last page of the query results",
-                  "type": "string"
-                },
-                "next": {
-                  "description": "relative link to the next page of the query results (or null if this is the last page)",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "previous": {
-                  "description": "relative link to the previous page of the query results (or null if this is the first page)",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "required": [
-                "first",
-                "last",
-                "next",
-                "previous"
-              ],
-              "type": "object"
+              "$ref": "#/components/schemas/Links"
             },
             "meta": {
               "$ref": "#/components/schemas/Meta"
@@ -1729,6 +1885,10 @@
           "example": 27,
           "type": "integer"
         },
+        "SystemCount": {
+          "example": 78,
+          "type": "integer"
+        },
         "SystemId": {
           "example": "a8799a02-8be9-11e8-9eb6-529269fb1459",
           "format": "uuid",
@@ -1946,7 +2106,7 @@
               "$ref": "#/components/parameters/HideArchived"
             },
             {
-              "$ref": "#/components/parameters/Fields"
+              "$ref": "#/components/parameters/RemediationFields"
             }
           ],
           "responses": {
@@ -2068,6 +2228,9 @@
           "parameters": [
             {
               "$ref": "#/components/parameters/RemediationId"
+            },
+            {
+              "$ref": "#/components/parameters/RemediationFormat"
             }
           ],
           "responses": {
@@ -2204,6 +2367,46 @@
           "tags": [
             "remediations"
           ]
+        },
+        "get": {
+          "description": "Get a paginated list of issues for a given remediation plan, RBAC permission {remediations:remediation:read}",
+          "operationId": "getRemediationIssues",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            },
+            {
+              "$ref": "#/components/parameters/Limit50"
+            },
+            {
+              "$ref": "#/components/parameters/Offset"
+            },
+            {
+              "$ref": "#/components/parameters/IssueFilter"
+            },
+            {
+              "$ref": "#/components/parameters/IssueSort"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RemediationIssueList"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          },
+          "summary": "Get Remediation Plan Issues",
+          "tags": [
+            "remediations"
+          ]
         }
       },
       "/remediations/{id}/issues/{issue}": {
@@ -2311,7 +2514,7 @@
               "$ref": "#/components/responses/NotFound"
             }
           },
-          "summary": "Get Remediation Issue Systems",
+          "summary": "Get Remediation Plan Issue Systems",
           "tags": [
             "remediations"
           ]

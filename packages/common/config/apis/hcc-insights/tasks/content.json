@@ -308,6 +308,7 @@
               "format": "date-time",
               "type": "string"
             },
+            "system_profile": {},
             "tags": {
               "items": {
                 "additionalProperties": {},
@@ -331,6 +332,7 @@
             "os_version",
             "stale_timestamp",
             "stale_warning_timestamp",
+            "system_profile",
             "tags",
             "updated"
           ],
@@ -950,6 +952,7 @@
               "format": "date-time",
               "type": "string"
             },
+            "system_profile": {},
             "tags": {
               "items": {
                 "additionalProperties": {},
@@ -974,6 +977,7 @@
             "requirements",
             "stale_timestamp",
             "stale_warning_timestamp",
+            "system_profile",
             "tags",
             "updated"
           ],

@@ -1805,6 +1805,27 @@
           ]
         }
       },
+      "/api/v1/health/status/chatbot/": {
+        "get": {
+          "description": "Chatbot health check",
+          "operationId": "health_status_chatbot_retrieve",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          },
+          "security": [
+            {
+              "cookieAuth": []
+            },
+            {}
+          ],
+          "summary": "Chatbot health check",
+          "tags": [
+            "health"
+          ]
+        }
+      },
       "/api/v1/me/": {
         "get": {
           "operationId": "me_retrieve",

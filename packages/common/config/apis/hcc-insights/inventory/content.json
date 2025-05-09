@@ -731,6 +731,10 @@
             "org_id": {
               "$ref": "#/components/schemas/OrgId"
             },
+            "ungrouped": {
+              "description": "Whether the group is the \"ungrouped hosts\" group",
+              "type": "boolean"
+            },
             "updated": {
               "description": "A timestamp when the entry was last updated.",
               "format": "date-time",

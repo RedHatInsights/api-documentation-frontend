@@ -89,15 +89,6 @@
             "type": "string"
           }
         },
-        "incident_commander_id": {
-          "description": "Comma separated list of incident commander ids",
-          "in": "query",
-          "name": "incident_commander_id",
-          "required": false,
-          "schema": {
-            "type": "string"
-          }
-        },
         "incident_id": {
           "description": "The id of an Incident",
           "in": "path",
@@ -111,6 +102,15 @@
           "description": "Keyword for case insensitive search of the incident id or the incident summary.",
           "in": "query",
           "name": "incident_name",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        "incident_owner_id": {
+          "description": "Comma separated list of incident owner ids",
+          "in": "query",
+          "name": "incident_owner_id",
           "required": false,
           "schema": {
             "type": "string"
@@ -162,15 +162,6 @@
           "required": false,
           "schema": {
             "format": "date-time",
-            "type": "string"
-          }
-        },
-        "on_call_id": {
-          "description": "the on-call person of an Incident",
-          "in": "query",
-          "name": "on_call_id",
-          "required": false,
-          "schema": {
             "type": "string"
           }
         },
@@ -254,15 +245,6 @@
           "description": "The id of an Incident",
           "in": "query",
           "name": "incident_id",
-          "required": false,
-          "schema": {
-            "type": "string"
-          }
-        },
-        "responsible_manager_id": {
-          "description": "the manager responsible for an Incident",
-          "in": "query",
-          "name": "responsible_manager_id",
           "required": false,
           "schema": {
             "type": "string"
@@ -725,6 +707,13 @@
             },
             {
               "properties": {
+                "ai_summary": {
+                  "type": "string"
+                },
+                "ai_summary_updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
                 "ansible_playbook": {
                   "type": "string"
                 },
@@ -756,9 +745,6 @@
                   },
                   "type": "array"
                 },
-                "incident_commander": {
-                  "$ref": "#/components/schemas/User"
-                },
                 "incident_id": {
                   "type": "string"
                 },
@@ -783,9 +769,6 @@
                   "nullable": true,
                   "type": "object"
                 },
-                "on_call_person": {
-                  "$ref": "#/components/schemas/User"
-                },
                 "participants": {
                   "items": {
                     "$ref": "#/components/schemas/User"
@@ -805,9 +788,6 @@
                 "product_engineering_lead": {
                   "$ref": "#/components/schemas/User"
                 },
-                "product_manager": {
-                  "$ref": "#/components/schemas/User"
-                },
                 "product_owner": {
                   "$ref": "#/components/schemas/User"
                 },
@@ -824,9 +804,6 @@
                 "resolved_at": {
                   "format": "date-time",
                   "type": "string"
-                },
-                "responsible_manager": {
-                  "$ref": "#/components/schemas/User"
                 },
                 "scribe": {
                   "$ref": "#/components/schemas/User"
@@ -930,6 +907,9 @@
         },
         "IncidentPatchRequest": {
           "properties": {
+            "ai_summary": {
+              "type": "string"
+            },
             "bad_rollout_commit": {
               "type": "string"
             },
@@ -951,9 +931,6 @@
               },
               "type": "array"
             },
-            "incident_commander": {
-              "$ref": "#/components/schemas/ObjectReference"
-            },
             "incident_owner": {
               "$ref": "#/components/schemas/ObjectReference"
             },
@@ -965,9 +942,6 @@
             },
             "jira_epic_link": {
               "type": "string"
-            },
-            "on_call_person": {
-              "$ref": "#/components/schemas/ObjectReference"
             },
             "post_mortem_review": {
               "type": "string"
@@ -981,9 +955,6 @@
             "product_engineering_lead": {
               "$ref": "#/components/schemas/ObjectReference"
             },
-            "product_manager": {
-              "$ref": "#/components/schemas/ObjectReference"
-            },
             "product_owner": {
               "$ref": "#/components/schemas/ObjectReference"
             },
@@ -992,9 +963,6 @@
                 "type": "string"
               },
               "type": "array"
-            },
-            "responsible_manager": {
-              "$ref": "#/components/schemas/ObjectReference"
             },
             "scribe": {
               "$ref": "#/components/schemas/ObjectReference"
@@ -1878,16 +1846,10 @@
               "$ref": "#/components/parameters/creator_id"
             },
             {
-              "$ref": "#/components/parameters/incident_commander_id"
+              "$ref": "#/components/parameters/incident_owner_id"
             },
             {
               "$ref": "#/components/parameters/product_id"
-            },
-            {
-              "$ref": "#/components/parameters/on_call_id"
-            },
-            {
-              "$ref": "#/components/parameters/responsible_manager_id"
             },
             {
               "$ref": "#/components/parameters/participant_id"
