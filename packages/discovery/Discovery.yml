@@ -343,6 +343,15 @@ apis:
         tags:
           - ansible
           - automation
+      - id: roadmap
+        name: Insights for RHEL Planning
+        description: API for RHEL product lifecycle data
+        url: https://console.redhat.com/api/roadmap/v1/openapi.json
+        apiType: openapi-v3
+        icon: insights
+        tags:
+          - insights
+          - rhel
   - id: openshift
     name: Openshift
     apps:
