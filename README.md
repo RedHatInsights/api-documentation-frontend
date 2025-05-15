@@ -23,7 +23,7 @@ Other packages includes:
 New APIs can be added on the [discovery file](./packages/discovery/Discovery.yml). The file follows a
 [json schema](./packages/discovery/schemas/Discovery.json).
 
-The top element of this file is the `api` property. This contains groups of applications.
+The top element of this file is the `apis` property. This contains groups of applications.
 This group is only used for organizing the applications, and has no impact on the way the applications are displayed.
 
 The other top element is `tags` and contains the possible tags, each tag has a display name, a type and
@@ -56,7 +56,7 @@ apis:
 
 ### Adding a new Group
 
-To add a new group, just add an entry to `api` array e.g.
+To add a new group, just add an entry to `apis` array e.g.
 
 ```yaml
 apis:
