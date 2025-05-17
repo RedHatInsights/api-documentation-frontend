@@ -6772,6 +6772,16 @@
             "204": {
               "description": "ClusterTransfer does not exist for a specific cluster"
             },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Request is invalid"
+            },
             "401": {
               "content": {
                 "application/json": {
