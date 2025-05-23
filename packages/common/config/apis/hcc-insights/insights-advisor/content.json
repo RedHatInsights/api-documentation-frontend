@@ -445,20 +445,6 @@
           ],
           "type": "object"
         },
-        "OrgId": {
-          "description": "A specific org id for a Red Hat customer.",
-          "properties": {
-            "org_id": {
-              "maxLength": 10,
-              "minLength": 6,
-              "type": "string"
-            }
-          },
-          "required": [
-            "org_id"
-          ],
-          "type": "object"
-        },
         "PaginatedAckList": {
           "properties": {
             "data": {
@@ -608,54 +594,6 @@
             "data": {
               "items": {
                 "$ref": "#/components/schemas/JustificationCount"
-              },
-              "type": "array"
-            },
-            "links": {
-              "properties": {
-                "first": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "last": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "next": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                },
-                "previous": {
-                  "format": "uri",
-                  "nullable": true,
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "meta": {
-              "properties": {
-                "count": {
-                  "example": 169,
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "count"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "PaginatedOrgIdList": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/OrgId"
               },
               "type": "array"
             },
@@ -2165,130 +2103,12 @@
       }
     },
     "info": {
-      "description": "The API for managing and issuing Red Hat generated tasks on your infrastructure",
-      "title": "Insights Tasks API",
+      "description": "The API of the Advisor project in Insights",
+      "title": "Insights Advisor API",
       "version": "1.0.1"
     },
     "openapi": "3.0.3",
     "paths": {
-      "/api/insights/v1/account/": {
-        "get": {
-          "description": "List all accounts by org_id we know about (through the host table).\n\nNo other information about the accounts is provided in this view.",
-          "operationId": "account_list",
-          "parameters": [
-            {
-              "description": "Number of results to return per page.",
-              "in": "query",
-              "name": "limit",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            },
-            {
-              "description": "The initial index from which to return the results.",
-              "in": "query",
-              "name": "offset",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/PaginatedOrgIdList"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "account"
-          ]
-        }
-      },
-      "/api/insights/v1/account/{org_id}/": {
-        "get": {
-          "description": "List information relating to other accounts.\n\nThis allows us to collect data that requires the user to specify an\norg_id number, such as number of systems currently registered to that\norg.\n\nparam: org_id: Org ID number of a Red Hat customer.",
-          "operationId": "account_retrieve",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "org_id",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/OrgId"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "account"
-          ]
-        }
-      },
-      "/api/insights/v1/account/{org_id}/hosts/": {
-        "get": {
-          "description": "List details about the number of hosts in this account by org_id.\n\nAs well as the total number of hosts, we report on the number of hosts\nin various states of staleness:\n  * fresh: hosts that have updated in the last 26 hours\n  * stale: hosts not updated in the last 26 hours - we display the\n    results for these hosts but a warning is shown to say they are\n    not updating\n  * warn: hosts not updated in the last week - these are not shown\n    in any queries\n\nThis may have other aggregate data added in the future.",
-          "operationId": "account_hosts_retrieve",
-          "parameters": [
-            {
-              "in": "path",
-              "name": "org_id",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/OrgId"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "account"
-          ]
-        }
-      },
       "/api/insights/v1/ack/": {
         "get": {
           "description": "Acks acknowledge (and therefore hide) a rule from view in an account.\n\nThis view handles listing, retrieving, creating and deleting acks.  Acks\nare created and deleted by Insights rule ID, not by their own ack ID.\n\nparam: rule_id: Rule ID defined by Insights ruleset",
