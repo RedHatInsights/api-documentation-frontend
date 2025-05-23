@@ -761,6 +761,10 @@
                 "jira_epic_link": {
                   "type": "string"
                 },
+                "last_changed_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
                 "last_opened_at": {
                   "format": "date-time",
                   "type": "string"

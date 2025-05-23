@@ -1,0 +1,1833 @@
+{
+  "extras": {},
+  "openapi": {
+    "components": {
+      "schemas": {
+        "AppStreamEntity": {
+          "description": "An application stream module or package.",
+          "properties": {
+            "application_stream_name": {
+              "title": "Application Stream Name",
+              "type": "string"
+            },
+            "display_name": {
+              "default": "",
+              "title": "Display Name",
+              "type": "string"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "impl": {
+              "$ref": "#/components/schemas/AppStreamImplementation"
+            },
+            "initial_product_version": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Initial Product Version"
+            },
+            "lifecycle": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lifecycle"
+            },
+            "name": {
+              "minLength": 1,
+              "title": "Name",
+              "type": "string"
+            },
+            "os_major": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Os Major"
+            },
+            "os_minor": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Os Minor"
+            },
+            "rolling": {
+              "default": false,
+              "title": "Rolling",
+              "type": "boolean"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "stream": {
+              "title": "Stream",
+              "type": "string"
+            },
+            "support_status": {
+              "$ref": "#/components/schemas/SupportStatus",
+              "default": "Unknown"
+            }
+          },
+          "required": [
+            "name",
+            "application_stream_name",
+            "stream",
+            "impl"
+          ],
+          "title": "AppStreamEntity",
+          "type": "object"
+        },
+        "AppStreamImplementation": {
+          "enum": [
+            "scl",
+            "package",
+            "dnf_module"
+          ],
+          "title": "AppStreamImplementation",
+          "type": "string"
+        },
+        "AppStreamsNamesResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Data",
+              "type": "array"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "meta",
+            "data"
+          ],
+          "title": "AppStreamsNamesResponse",
+          "type": "object"
+        },
+        "AppStreamsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/AppStreamEntity"
+              },
+              "title": "Data",
+              "type": "array"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "meta",
+            "data"
+          ],
+          "title": "AppStreamsResponse",
+          "type": "object"
+        },
+        "Architecture": {
+          "enum": [
+            "arch64",
+            "x86_64",
+            "s390x",
+            "ppc64le",
+            ""
+          ],
+          "title": "Architecture",
+          "type": "string"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "title": "Detail",
+              "type": "array"
+            }
+          },
+          "title": "HTTPValidationError",
+          "type": "object"
+        },
+        "LifecycleResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/RHELLifecycle"
+              },
+              "title": "Data",
+              "type": "array"
+            }
+          },
+          "required": [
+            "data"
+          ],
+          "title": "LifecycleResponse",
+          "type": "object"
+        },
+        "LifecycleType": {
+          "enum": [
+            "mainline",
+            "EUS",
+            "ELS",
+            "E4S"
+          ],
+          "title": "LifecycleType",
+          "type": "string"
+        },
+        "Meta": {
+          "properties": {
+            "count": {
+              "title": "Count",
+              "type": "integer"
+            },
+            "total": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Total"
+            }
+          },
+          "required": [
+            "count"
+          ],
+          "title": "Meta",
+          "type": "object"
+        },
+        "RHELLifecycle": {
+          "additionalProperties": false,
+          "properties": {
+            "display_name": {
+              "default": "",
+              "title": "Display Name",
+              "type": "string"
+            },
+            "end_date": {
+              "format": "date",
+              "title": "End Date",
+              "type": "string"
+            },
+            "end_date_e4s": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date E4S"
+            },
+            "end_date_els": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date Els"
+            },
+            "end_date_eus": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date Eus"
+            },
+            "major": {
+              "title": "Major",
+              "type": "integer"
+            },
+            "minor": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Minor"
+            },
+            "name": {
+              "default": "RHEL",
+              "title": "Name",
+              "type": "string"
+            },
+            "start_date": {
+              "format": "date",
+              "title": "Start Date",
+              "type": "string"
+            },
+            "support_status": {
+              "$ref": "#/components/schemas/SupportStatus",
+              "default": "Unknown"
+            }
+          },
+          "required": [
+            "start_date",
+            "end_date",
+            "major"
+          ],
+          "title": "RHELLifecycle",
+          "type": "object"
+        },
+        "RelevantAppStream": {
+          "description": "App stream module or package with calculated support status.",
+          "properties": {
+            "application_stream_name": {
+              "title": "Application Stream Name",
+              "type": "string"
+            },
+            "count": {
+              "title": "Count",
+              "type": "integer"
+            },
+            "display_name": {
+              "title": "Display Name",
+              "type": "string"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "impl": {
+              "$ref": "#/components/schemas/AppStreamImplementation"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "os_major": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Os Major"
+            },
+            "os_minor": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Os Minor"
+            },
+            "related": {
+              "default": false,
+              "title": "Related",
+              "type": "boolean"
+            },
+            "rolling": {
+              "default": false,
+              "title": "Rolling",
+              "type": "boolean"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "support_status": {
+              "$ref": "#/components/schemas/SupportStatus",
+              "default": "Unknown"
+            },
+            "systems": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "title": "Systems",
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "application_stream_name",
+            "display_name",
+            "os_major",
+            "count",
+            "impl",
+            "systems"
+          ],
+          "title": "RelevantAppStream",
+          "type": "object"
+        },
+        "RelevantAppStreamsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/RelevantAppStream"
+              },
+              "title": "Data",
+              "type": "array"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "meta",
+            "data"
+          ],
+          "title": "RelevantAppStreamsResponse",
+          "type": "object"
+        },
+        "RelevantSystemsResponse": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/System"
+              },
+              "title": "Data",
+              "type": "array"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "meta",
+            "data"
+          ],
+          "title": "RelevantSystemsResponse",
+          "type": "object"
+        },
+        "SupportStatus": {
+          "enum": [
+            "Supported",
+            "Support ends within 6 months",
+            "Retired",
+            "Not installed",
+            "Upcoming release",
+            "Unknown"
+          ],
+          "title": "SupportStatus",
+          "type": "string"
+        },
+        "System": {
+          "additionalProperties": false,
+          "properties": {
+            "count": {
+              "default": 0,
+              "title": "Count",
+              "type": "integer"
+            },
+            "display_name": {
+              "default": "",
+              "title": "Display Name",
+              "type": "string"
+            },
+            "end_date": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "const": "Unknown",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "End Date"
+            },
+            "lifecycle_type": {
+              "$ref": "#/components/schemas/LifecycleType"
+            },
+            "major": {
+              "title": "Major",
+              "type": "integer"
+            },
+            "minor": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Minor"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "related": {
+              "default": false,
+              "title": "Related",
+              "type": "boolean"
+            },
+            "start_date": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "const": "Unknown",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Start Date"
+            },
+            "support_status": {
+              "$ref": "#/components/schemas/SupportStatus",
+              "default": "Unknown"
+            },
+            "systems": {
+              "default": [],
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "title": "Systems",
+              "type": "array"
+            }
+          },
+          "required": [
+            "name",
+            "start_date",
+            "end_date",
+            "major",
+            "lifecycle_type"
+          ],
+          "title": "System",
+          "type": "object"
+        },
+        "UpcomingInput": {
+          "properties": {
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date"
+            },
+            "details": {
+              "$ref": "#/components/schemas/UpcomingInputDetails"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "package": {
+              "title": "Package",
+              "type": "string"
+            },
+            "release": {
+              "title": "Release",
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/components/schemas/UpcomingType"
+            }
+          },
+          "required": [
+            "name",
+            "type",
+            "package",
+            "release",
+            "date",
+            "details"
+          ],
+          "title": "UpcomingInput",
+          "type": "object"
+        },
+        "UpcomingInputDetails": {
+          "properties": {
+            "architecture": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Architecture"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "dateAdded": {
+              "format": "date",
+              "title": "Dateadded",
+              "type": "string"
+            },
+            "detailFormat": {
+              "title": "Detailformat",
+              "type": "integer"
+            },
+            "lastModified": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lastmodified"
+            },
+            "summary": {
+              "title": "Summary",
+              "type": "string"
+            },
+            "trainingTicket": {
+              "title": "Trainingticket",
+              "type": "string"
+            }
+          },
+          "required": [
+            "architecture",
+            "detailFormat",
+            "summary",
+            "trainingTicket",
+            "lastModified"
+          ],
+          "title": "UpcomingInputDetails",
+          "type": "object"
+        },
+        "UpcomingOutput": {
+          "properties": {
+            "date": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date"
+            },
+            "details": {
+              "$ref": "#/components/schemas/UpcomingOutputDetails"
+            },
+            "name": {
+              "title": "Name",
+              "type": "string"
+            },
+            "package": {
+              "title": "Package",
+              "type": "string"
+            },
+            "release": {
+              "title": "Release",
+              "type": "string"
+            },
+            "type": {
+              "$ref": "#/components/schemas/UpcomingType"
+            }
+          },
+          "required": [
+            "name",
+            "type",
+            "package",
+            "release",
+            "date",
+            "details"
+          ],
+          "title": "UpcomingOutput",
+          "type": "object"
+        },
+        "UpcomingOutputDetails": {
+          "properties": {
+            "architecture": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Architecture"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "dateAdded": {
+              "format": "date",
+              "title": "Dateadded",
+              "type": "string"
+            },
+            "detailFormat": {
+              "title": "Detailformat",
+              "type": "integer"
+            },
+            "lastModified": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lastmodified"
+            },
+            "potentiallyAffectedSystems": {
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "title": "Potentiallyaffectedsystems",
+              "type": "array"
+            },
+            "potentiallyAffectedSystemsCount": {
+              "title": "Potentiallyaffectedsystemscount",
+              "type": "integer"
+            },
+            "summary": {
+              "title": "Summary",
+              "type": "string"
+            },
+            "trainingTicket": {
+              "title": "Trainingticket",
+              "type": "string"
+            }
+          },
+          "required": [
+            "architecture",
+            "detailFormat",
+            "summary",
+            "trainingTicket",
+            "lastModified",
+            "potentiallyAffectedSystemsCount",
+            "potentiallyAffectedSystems"
+          ],
+          "title": "UpcomingOutputDetails",
+          "type": "object"
+        },
+        "UpcomingType": {
+          "enum": [
+            "addition",
+            "change",
+            "deprecation",
+            "enhancement"
+          ],
+          "title": "UpcomingType",
+          "type": "string"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "title": "Location",
+              "type": "array"
+            },
+            "msg": {
+              "title": "Message",
+              "type": "string"
+            },
+            "type": {
+              "title": "Error Type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError",
+          "type": "object"
+        },
+        "WrappedUpcomingInput": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/UpcomingInput"
+              },
+              "title": "Data",
+              "type": "array"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "meta",
+            "data"
+          ],
+          "title": "WrappedUpcomingInput",
+          "type": "object"
+        },
+        "WrappedUpcomingOutput": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/UpcomingOutput"
+              },
+              "title": "Data",
+              "type": "array"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "meta",
+            "data"
+          ],
+          "title": "WrappedUpcomingOutput",
+          "type": "object"
+        }
+      }
+    },
+    "info": {
+      "summary": "Major RHEL roadmap items as well as lifecycle data for RHEL and app streams.",
+      "title": "Insights for RHEL Planning",
+      "version": "0.1.0"
+    },
+    "openapi": "3.1.0",
+    "paths": {
+      "/api/roadmap/v1/lifecycle/app-streams": {
+        "get": {
+          "operationId": "get_app_streams_api_roadmap_v1_lifecycle_app_streams_get",
+          "parameters": [
+            {
+              "description": "Module or package name",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Module or package name",
+                "title": "Name"
+              }
+            },
+            {
+              "in": "query",
+              "name": "kind",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamImplementation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Kind"
+              }
+            },
+            {
+              "description": "App Stream name",
+              "in": "query",
+              "name": "application_stream_name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream name",
+                "title": "Application Stream Name"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AppStreamsResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "Lifecycle dates for app stream modules and packages",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/app-streams/{major_version}": {
+        "get": {
+          "operationId": "get_major_version_api_roadmap_v1_lifecycle_app_streams__major_version__get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major_version",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major Version"
+              }
+            },
+            {
+              "description": "Module or package name",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Module or package name",
+                "title": "Name"
+              }
+            },
+            {
+              "in": "query",
+              "name": "kind",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamImplementation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Kind"
+              }
+            },
+            {
+              "description": "App Stream name",
+              "in": "query",
+              "name": "application_stream_name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream name",
+                "title": "Application Stream Name"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AppStreamsResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "App stream modules and packages for a specific RHEL version",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/app-streams/{major_version}/packages": {
+        "get": {
+          "operationId": "get_app_stream_item_names_api_roadmap_v1_lifecycle_app_streams__major_version__packages_get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major_version",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major Version"
+              }
+            },
+            {
+              "description": "Module or package name",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Module or package name",
+                "title": "Name"
+              }
+            },
+            {
+              "in": "query",
+              "name": "kind",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamImplementation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Kind"
+              }
+            },
+            {
+              "description": "App Stream name",
+              "in": "query",
+              "name": "application_stream_name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream name",
+                "title": "Application Stream Name"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AppStreamsNamesResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "List package names for a specific RHEL version",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/app-streams/{major_version}/streams": {
+        "get": {
+          "operationId": "get_app_stream_names_api_roadmap_v1_lifecycle_app_streams__major_version__streams_get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major_version",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major Version"
+              }
+            },
+            {
+              "description": "Module or package name",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Module or package name",
+                "title": "Name"
+              }
+            },
+            {
+              "in": "query",
+              "name": "kind",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamImplementation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Kind"
+              }
+            },
+            {
+              "description": "App Stream name",
+              "in": "query",
+              "name": "application_stream_name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream name",
+                "title": "Application Stream Name"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AppStreamsNamesResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "List app stream names for a specific RHEL version",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/rhel": {
+        "get": {
+          "description": "Note: When the minor version is null, that represents the lifecycle dates for the\nentire major version.",
+          "operationId": "get_systems_api_roadmap_v1_lifecycle_rhel_get",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LifecycleResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            }
+          },
+          "summary": "Return lifecycle data for all RHEL versions",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "RHEL"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/rhel/full": {
+        "get": {
+          "operationId": "get_systems_major_full_all_api_roadmap_v1_lifecycle_rhel_full_get",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LifecycleResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            }
+          },
+          "summary": "Full lifecycle dates for all major versions of RHEL",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "RHEL"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/rhel/full/{major}": {
+        "get": {
+          "operationId": "get_systems_major_full_api_roadmap_v1_lifecycle_rhel_full__major__get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 7,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LifecycleResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "Full lifecycle dates for a specific major version of RHEL",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "RHEL"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/rhel/{major}": {
+        "get": {
+          "description": "Note: When the minor version is null, that represents the lifecycle dates for the\nentire major version.",
+          "operationId": "get_systems_major_api_roadmap_v1_lifecycle_rhel__major__get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 7,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LifecycleResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "RHEL lifecycle dates for a specific major version",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "RHEL"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/rhel/{major}/{minor}": {
+        "get": {
+          "operationId": "get_systems_major_minor_api_roadmap_v1_lifecycle_rhel__major___minor__get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 7,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major"
+              }
+            },
+            {
+              "description": "Minor version number",
+              "in": "path",
+              "name": "minor",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Minor version number",
+                "title": "Minor"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LifecycleResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "RHEL lifecycle dates for a specific major and minor version",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "RHEL"
+          ]
+        }
+      },
+      "/api/roadmap/v1/relevant/lifecycle/app-streams": {
+        "get": {
+          "operationId": "get_relevant_app_streams_api_roadmap_v1_relevant_lifecycle_app_streams_get",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "related",
+              "required": false,
+              "schema": {
+                "default": false,
+                "title": "Related",
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Major version number",
+              "in": "query",
+              "name": "major",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major"
+              }
+            },
+            {
+              "description": "Minor version number",
+              "in": "query",
+              "name": "minor",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Minor version number",
+                "title": "Minor"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RelevantAppStreamsResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "App streams based on hosts in inventory",
+          "tags": [
+            "Roadmap",
+            "Relevant",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/relevant/lifecycle/rhel": {
+        "get": {
+          "operationId": "get_relevant_systems_api_roadmap_v1_relevant_lifecycle_rhel_get",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "related",
+              "required": false,
+              "schema": {
+                "default": false,
+                "title": "Related",
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Major version number",
+              "in": "query",
+              "name": "major",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major"
+              }
+            },
+            {
+              "description": "Minor version number",
+              "in": "query",
+              "name": "minor",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Minor version number",
+                "title": "Minor"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RelevantSystemsResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "RHEL lifecycle dates for systems in inventory",
+          "tags": [
+            "Roadmap",
+            "Relevant",
+            "RHEL"
+          ]
+        }
+      },
+      "/api/roadmap/v1/relevant/upcoming-changes": {
+        "get": {
+          "description": "Returns a list of upcoming changes to packages.\n\nData includes requester's potentially affected systems.\n\nIf 'all' is True, all known changes are returned, not just those\npotentially affecting the requester's systems.",
+          "operationId": "get_upcoming_relevant_api_roadmap_v1_relevant_upcoming_changes_get",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "all",
+              "required": false,
+              "schema": {
+                "default": false,
+                "title": "All",
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Major version number",
+              "in": "query",
+              "name": "major",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major"
+              }
+            },
+            {
+              "description": "Minor version number",
+              "in": "query",
+              "name": "minor",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Minor version number",
+                "title": "Minor"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WrappedUpcomingOutput"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "Upcoming changes, deprecations, additions, and enhancements relevant to requester's systems",
+          "tags": [
+            "Roadmap",
+            "Relevant",
+            "Upcoming Changes"
+          ]
+        }
+      },
+      "/api/roadmap/v1/upcoming-changes": {
+        "get": {
+          "operationId": "get_upcoming_api_roadmap_v1_upcoming_changes_get",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/WrappedUpcomingInput"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            }
+          },
+          "summary": "Upcoming changes, deprecations, additions, and enhancements",
+          "tags": [
+            "Roadmap",
+            "Upcoming Changes"
+          ]
+        }
+      }
+    }
+  }
+}
