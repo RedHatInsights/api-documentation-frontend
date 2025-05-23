@@ -341,6 +341,16 @@
             "type": "array"
           }
         },
+        "subscriptionManagerId": {
+          "description": "Filter by subscription_manager_id",
+          "in": "query",
+          "name": "subscription_manager_id",
+          "required": false,
+          "schema": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
         "tagsOrderByParam": {
           "description": "Ordering field name",
           "in": "query",
@@ -2834,6 +2844,10 @@
         }
       }
     },
+    "externalDocs": {
+      "description": "API Product documentation for developers.",
+      "url": "https://developers.redhat.com/api-catalog/api/inventory"
+    },
     "info": {
       "description": "REST interface for the Insights Platform Host Inventory application.",
       "title": "Insights Host Inventory REST Interface",
@@ -3433,6 +3447,9 @@
             },
             {
               "$ref": "#/components/parameters/filter_param"
+            },
+            {
+              "$ref": "#/components/parameters/subscriptionManagerId"
             }
           ],
           "responses": {
@@ -3468,6 +3485,9 @@
             },
             {
               "$ref": "#/components/parameters/insightsId"
+            },
+            {
+              "$ref": "#/components/parameters/subscriptionManagerId"
             },
             {
               "$ref": "#/components/parameters/providerId"

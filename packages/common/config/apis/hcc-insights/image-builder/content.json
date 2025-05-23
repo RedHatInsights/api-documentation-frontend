@@ -3,6 +3,34 @@
   "openapi": {
     "components": {
       "schemas": {
+        "AAPRegistration": {
+          "additionalProperties": false,
+          "properties": {
+            "ansible_controller_url": {
+              "example": "https://aap-gw.example.com",
+              "type": "string"
+            },
+            "host_config_key": {
+              "example": "44d7507f2ead49af5fca80aa18fd24bc",
+              "type": "string"
+            },
+            "job_template_id": {
+              "example": 38,
+              "type": "integer"
+            },
+            "tls_certificate_authority": {
+              "type": "string",
+              "x-go-type-skip-optional-pointer": true
+            }
+          },
+          "required": [
+            "ansible_controller_url",
+            "job_template_id",
+            "host_config_key"
+          ],
+          "type": "object",
+          "x-go-name": "AAPRegistration"
+        },
         "AWSEC2Clone": {
           "properties": {
             "region": {
@@ -907,7 +935,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "integer"
+                  "type": "integer",
+                  "x-go-type": "int64"
                 }
               ]
             },
@@ -929,7 +958,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "integer"
+                  "type": "integer",
+                  "x-go-type": "int64"
                 }
               ]
             }
@@ -1011,17 +1041,21 @@
             "rhel-93",
             "rhel-94",
             "rhel-95",
+            "rhel-9.6",
+            "rhel-10",
             "rhel-10-nightly",
             "rhel-10.0-nightly",
             "rhel-10.1-nightly",
             "rhel-10-beta",
+            "rhel-10.0",
             "centos-9",
             "centos-10",
             "fedora-37",
             "fedora-38",
             "fedora-39",
             "fedora-40",
-            "fedora-41"
+            "fedora-41",
+            "fedora-42"
           ],
           "type": "string"
         },
@@ -1093,7 +1127,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "integer"
+                  "type": "integer",
+                  "x-go-type": "int64"
                 }
               ]
             },
@@ -1115,7 +1150,8 @@
                   "type": "string"
                 },
                 {
-                  "type": "integer"
+                  "type": "integer",
+                  "x-go-type": "int64"
                 }
               ]
             }
@@ -1311,6 +1347,9 @@
         "ImageRequest": {
           "additionalProperties": false,
           "properties": {
+            "aap_registration": {
+              "$ref": "#/components/schemas/AAPRegistration"
+            },
             "architecture": {
               "description": "CPU architecture of the image, x86_64 and aarch64 are currently supported.\n",
               "enum": [
@@ -1321,6 +1360,10 @@
             },
             "content_template": {
               "description": "ID of the content template. A content template and snapshot date cannot both be specified.\nIf a content template is specified, the snapshot date used will be the one from the content template.\n",
+              "type": "string"
+            },
+            "content_template_name": {
+              "description": "Name of the content template. Used when registering the system to Insights.\n",
               "type": "string"
             },
             "image_type": {
@@ -1526,7 +1569,7 @@
               "type": "string"
             },
             "rhsm": {
-              "description": "Determines whether a valid subscription manager (candlepin) identity is required to\naccess this repository. Consumer certificates will be used as client certificates when\nfetching metadata and content.\n",
+              "description": "Determines whether a valid subscription manager (candlepin) identity is required to\naccess this repository. Consumer certificates will be used as client certificates when\n fetching metadata and content.\n",
               "type": "boolean"
             },
             "url": {
@@ -1792,6 +1835,11 @@
               "example": true,
               "type": "boolean"
             },
+            "insights_client_proxy": {
+              "description": "Optional value to set proxy option when registering the system to Insights.\n",
+              "format": "uri",
+              "type": "string"
+            },
             "organization": {
               "example": 2040324,
               "type": "integer"
@@ -1934,7 +1982,7 @@
               "type": "array"
             },
             "hasPassword": {
-              "description": "Indicates whether the user has a password set.\n",
+              "description": "Indicates whether the user has a password set. This flag is read-only.\n",
               "type": "boolean"
             },
             "name": {
@@ -2823,6 +2871,7 @@
         ],
         "post": {
           "description": "Apply fixes which should fix any lint errors in the blueprint.\n",
+          "operationId": "fixupBlueprint",
           "responses": {
             "200": {
               "description": "successful update"

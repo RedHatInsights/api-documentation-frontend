@@ -659,6 +659,19 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
   },
   {
+    id: "roadmap",
+    displayName: "Insights for RHEL Planning",
+    description: "API for RHEL product lifecycle data",
+    icon: "InsightsIcon",
+    apiContentPath: "./apis/hcc-insights/roadmap/content.json",
+    serverUrl: undefined,
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/roadmap/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["insights"], apiLabelsMap["rhel"]],
+  },
+  {
     id: "accounts-management-service",
     displayName: "Account Management Service",
     description: "Manage user subscriptions and clusters",
