@@ -2,24 +2,6 @@
   "extras": {},
   "openapi": {
     "components": {
-      "examples": {
-        "RemediationIssueLinks": {
-          "value": {
-            "first": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=0",
-            "last": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=50",
-            "next": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=50",
-            "previous": null
-          }
-        },
-        "RemediationLinks": {
-          "value": {
-            "first": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=0",
-            "last": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=50",
-            "next": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=50",
-            "previous": null
-          }
-        }
-      },
       "parameters": {
         "BranchId": {
           "description": "Branch ID passed by satellite",
@@ -393,6 +375,54 @@
           "schema": {
             "$ref": "#/components/schemas/SystemName"
           }
+        },
+        "SystemsFilter": {
+          "description": "For filtering by various criteria.\n\nAvailable filter fields:\n- id: system ids matching string (supports partial match)\n- hostname: hostname matching string (supports partial match)\n- display_name: display name matching string (supports partial match)\n",
+          "explode": true,
+          "in": "query",
+          "name": "filter",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "display_name": {
+                "description": "Filter by display name (allows partial match)",
+                "example": "stage-db",
+                "type": "string"
+              },
+              "hostname": {
+                "description": "Filter by hostname (allows partial match)",
+                "example": "db01.example.com",
+                "type": "string"
+              },
+              "id": {
+                "description": "Filter by system id (allows partial match)",
+                "example": "a8799a02-8be9-11e8-9eb6-529269fb1459",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "x-remediations-strict": false
+          },
+          "style": "deepObject"
+        },
+        "SystemsSort": {
+          "description": "Sort order",
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "default": "display_name",
+            "enum": [
+              "id",
+              "-id",
+              "hostname",
+              "-hostname",
+              "display_name",
+              "-display_name"
+            ],
+            "type": "string"
+          }
         }
       },
       "requestBodies": {
@@ -632,25 +662,26 @@
         },
         "IssueListLinks": {
           "additionalProperties": false,
-          "example": {
-            "$ref": "#/components/examples/RemediationIssueLinks"
-          },
           "properties": {
             "first": {
               "description": "relative link to the first page of the query results",
+              "example": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=0",
               "type": "string"
             },
             "last": {
               "description": "relative link to the last page of the query results",
+              "example": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=50",
               "type": "string"
             },
             "next": {
               "description": "relative link to the next page of the query results (or null if this is the last page)",
+              "example": "/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/issues?limit=50&offset=50",
               "nullable": true,
               "type": "string"
             },
             "previous": {
               "description": "relative link to the previous page of the query results (or null if this is the first page)",
+              "example": null,
               "nullable": true,
               "type": "string"
             }
@@ -686,25 +717,26 @@
         },
         "Links": {
           "additionalProperties": false,
-          "example": {
-            "$ref": "#/components/examples/RemediationLinks"
-          },
           "properties": {
             "first": {
               "description": "relative link to the first page of the query results",
+              "example": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=0",
               "type": "string"
             },
             "last": {
               "description": "relative link to the last page of the query results",
+              "example": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=50",
               "type": "string"
             },
             "next": {
               "description": "relative link to the next page of the query results (or null if this is the last page)",
+              "example": "/api/remediations/v1/remediations?sort=-updated_at&limit=50&offset=50",
               "nullable": true,
               "type": "string"
             },
             "previous": {
               "description": "relative link to the previous page of the query results (or null if this is the first page)",
+              "example": null,
               "nullable": true,
               "type": "string"
             }
@@ -1674,6 +1706,29 @@
         "RemediationNeedsReboot": {
           "description": "Indicates whether any of the issues contained in the remediation require system reboot",
           "type": "boolean"
+        },
+        "RemediationSystemList": {
+          "additionalProperties": false,
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/SystemOut"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/Links"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "data",
+            "meta",
+            "links"
+          ],
+          "type": "object"
         },
         "RemediationsList": {
           "additionalProperties": false,
@@ -2903,6 +2958,50 @@
             }
           },
           "summary": "Bulk Remove Remediation Plan Systems",
+          "tags": [
+            "remediations"
+          ]
+        },
+        "get": {
+          "description": "Get a paginated list of distinct systems from a given remediation plan, RBAC permission {remediations:remediation:read}",
+          "operationId": "getRemediationSystems",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            },
+            {
+              "$ref": "#/components/parameters/Limit"
+            },
+            {
+              "$ref": "#/components/parameters/Offset"
+            },
+            {
+              "$ref": "#/components/parameters/SystemsFilter"
+            },
+            {
+              "$ref": "#/components/parameters/SystemsSort"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": "{\n   \"data\": [\n     {\n       \"id\": \"a8799a02-8be9-11e8-9eb6-529269fb1459\",\n       \"hostname\": \"db01.example.com\",\n       \"display_name\": \"prod-db\"\n     },\n     {\n       \"id\": \"993c1ca8-ca85-40f7-bfed-5e06eb5194f6\",\n       \"hostname\": \"db02.example.com\",\n       \"display_name\": \"stage-db\"\n     }\n   ],\n   \"meta\": {\n     \"count\": 2,\n     \"total\": 114\n   },\n   \"links\": {\n     \"first\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=0\",\n     \"last\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=112\",\n     \"next\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=2\",\n     \"previous\": null\n   }\n}\n",
+                  "schema": {
+                    "$ref": "#/components/schemas/RemediationSystemList"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          },
+          "summary": "Get Remediation Plan Systems",
           "tags": [
             "remediations"
           ]
