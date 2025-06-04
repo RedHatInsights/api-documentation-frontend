@@ -404,6 +404,21 @@
             "format": "date-time",
             "type": "string"
           }
+        },
+        "workspaceTypeParam": {
+          "description": "The type of workspaces that should be returned.",
+          "in": "query",
+          "name": "type",
+          "required": false,
+          "schema": {
+            "default": "standard",
+            "enum": [
+              "standard",
+              "ungrouped-hosts",
+              "all"
+            ],
+            "type": "string"
+          }
         }
       },
       "responses": {
@@ -2845,8 +2860,8 @@
       }
     },
     "externalDocs": {
-      "description": "API Product documentation for developers.",
-      "url": "https://developers.redhat.com/api-catalog/api/inventory"
+      "description": "How to use the Red Hat Insights API",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index"
     },
     "info": {
       "description": "REST interface for the Insights Platform Host Inventory application.",
@@ -3054,6 +3069,9 @@
             },
             {
               "$ref": "#/components/parameters/groupOrderHowParam"
+            },
+            {
+              "$ref": "#/components/parameters/workspaceTypeParam"
             }
           ],
           "responses": {
