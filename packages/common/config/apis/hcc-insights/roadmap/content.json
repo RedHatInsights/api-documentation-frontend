@@ -482,7 +482,7 @@
         "SupportStatus": {
           "enum": [
             "Supported",
-            "Support ends within 6 months",
+            "Near retirement",
             "Retired",
             "Not installed",
             "Upcoming release",

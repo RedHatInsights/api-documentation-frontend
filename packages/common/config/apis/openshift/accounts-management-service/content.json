@@ -411,7 +411,8 @@
                 "ClusterSelfManaged",
                 "ClusterSelfManagedAddon",
                 "ClusterSelfManagedLabel",
-                "ClusterSelfManagedStatus"
+                "ClusterSelfManagedStatus",
+                "OsdTrialProtectedCluster"
               ],
               "type": "string"
             },
@@ -504,7 +505,8 @@
                 "ClusterSelfManaged",
                 "ClusterSelfManagedAddon",
                 "ClusterSelfManagedLabel",
-                "ClusterSelfManagedStatus"
+                "ClusterSelfManagedStatus",
+                "OsdTrialProtectedCluster"
               ],
               "type": "string"
             },
@@ -3768,7 +3770,8 @@
                 "AccessRequestDecision",
                 "Idp",
                 "ClusterAutoscaler",
-                "MachinePool"
+                "MachinePool",
+                "OsdTrialProtectedCluster"
               ],
               "type": "string"
             },
