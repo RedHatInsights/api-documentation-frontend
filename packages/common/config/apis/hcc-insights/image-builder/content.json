@@ -1765,6 +1765,9 @@
         },
         "RecommendPackageRequest": {
           "properties": {
+            "distribution": {
+              "$ref": "#/components/schemas/Distributions"
+            },
             "packages": {
               "items": {
                 "type": "string"
@@ -1779,12 +1782,16 @@
           },
           "required": [
             "packages",
-            "recommendedPackages"
+            "recommendedPackages",
+            "distribution"
           ],
           "type": "object"
         },
         "RecommendationsResponse": {
           "properties": {
+            "modelVersion": {
+              "type": "string"
+            },
             "packages": {
               "items": {
                 "type": "string"
