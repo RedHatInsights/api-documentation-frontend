@@ -408,7 +408,7 @@
         "workspaceTypeParam": {
           "description": "The type of workspaces that should be returned.",
           "in": "query",
-          "name": "type",
+          "name": "group_type",
           "required": false,
           "schema": {
             "default": "standard",
@@ -1710,29 +1710,7 @@
                 },
                 "running_instances": {
                   "items": {
-                    "description": "The info for an InterSystems instance running on the system",
-                    "properties": {
-                      "instance_name": {
-                        "description": "The name of the instance",
-                        "example": "IRIS3, PROD",
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "product": {
-                        "description": "The product of the instance",
-                        "example": "IRIS",
-                        "maxLength": 64,
-                        "type": "string"
-                      },
-                      "version": {
-                        "description": "The version of the instance",
-                        "example": "2023.1, 2023.2",
-                        "maxLength": 7,
-                        "pattern": "^\\d+(\\.\\d+)+$",
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
+                    "$ref": "#/components/schemas/SystemProfileInterSystemsRunningInstance"
                   },
                   "type": "array"
                 }
@@ -2137,35 +2115,20 @@
               "properties": {
                 "role": {
                   "description": "The intended role of the system",
-                  "enum": [
-                    "Red Hat Enterprise Linux Server",
-                    "Red Hat Enterprise Linux Workstation",
-                    "Red Hat Enterprise Linux Compute Node"
-                  ],
                   "example": "Red Hat Enterprise Linux Server, Red Hat Enterprise Linux Workstation, Red Hat Enterprise Linux Compute Node",
-                  "maxLength": 37,
+                  "maxLength": 128,
                   "type": "string"
                 },
                 "sla": {
                   "description": "The intended SLA of the system",
-                  "enum": [
-                    "Premium",
-                    "Standard",
-                    "Self-Support"
-                  ],
                   "example": "Premium, Standard, Self-Support",
-                  "maxLength": 12,
+                  "maxLength": 128,
                   "type": "string"
                 },
                 "usage": {
                   "description": "The intended usage of the system",
-                  "enum": [
-                    "Production",
-                    "Development/Test",
-                    "Disaster Recovery"
-                  ],
                   "example": "Production, Development/Test, Disaster Recovery",
-                  "maxLength": 17,
+                  "maxLength": 128,
                   "type": "string"
                 }
               },
@@ -2365,7 +2328,7 @@
                     },
                     "running_instances": {
                       "items": {
-                        "$ref": "#/components/schemas/SystemProfile/properties/intersystems/properties/running_instances/items"
+                        "$ref": "#/components/schemas/SystemProfileInterSystemsRunningInstance"
                       },
                       "type": "array"
                     }
@@ -2608,6 +2571,31 @@
               "description": "Subscription status for product",
               "example": "Subscribed, inactive, canceled",
               "maxLength": 256,
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "SystemProfileInterSystemsRunningInstance": {
+          "description": "The info for an InterSystems instance running on the system",
+          "properties": {
+            "instance_name": {
+              "description": "The name of the instance",
+              "example": "IRIS3, PROD",
+              "maxLength": 255,
+              "type": "string"
+            },
+            "product": {
+              "description": "The product of the instance",
+              "example": "IRIS",
+              "maxLength": 64,
+              "type": "string"
+            },
+            "version": {
+              "description": "The version of the instance",
+              "example": "2023.1, 2023.2",
+              "maxLength": 7,
+              "pattern": "^\\d+(\\.\\d+)+$",
               "type": "string"
             }
           },

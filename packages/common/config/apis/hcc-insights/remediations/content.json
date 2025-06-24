@@ -1111,7 +1111,8 @@
             "running",
             "success",
             "failure",
-            "canceled"
+            "canceled",
+            "timeout"
           ],
           "example": "pending",
           "type": "string"
@@ -1127,7 +1128,8 @@
             "running",
             "success",
             "failure",
-            "canceled"
+            "canceled",
+            "timeout"
           ],
           "example": "pending",
           "type": "string"
@@ -1189,7 +1191,8 @@
             "running",
             "success",
             "failure",
-            "canceled"
+            "canceled",
+            "timeout"
           ],
           "example": "pending",
           "type": "string"

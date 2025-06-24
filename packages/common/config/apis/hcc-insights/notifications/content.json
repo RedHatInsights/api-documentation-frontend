@@ -396,6 +396,10 @@
               "deprecated": true,
               "type": "boolean"
             },
+            "recipients_count": {
+              "format": "int32",
+              "type": "integer"
+            },
             "status": {
               "$ref": "#/components/schemas/EventLogEntryActionStatus"
             }

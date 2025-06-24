@@ -1171,6 +1171,16 @@
           ]
         },
         "ResourceDefinitionFilter": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ResourceDefinitionFilterOperationEqual"
+            },
+            {
+              "$ref": "#/components/schemas/ResourceDefinitionFilterOperationIn"
+            }
+          ]
+        },
+        "ResourceDefinitionFilterOperationEqual": {
           "properties": {
             "key": {
               "example": "cost-management.aws.account",
@@ -1178,38 +1188,54 @@
             },
             "operation": {
               "enum": [
-                "equal",
-                "in"
+                "equal"
               ],
               "type": "string"
             },
             "value": {
-              "oneOf": [
-                {
-                  "example": "123456",
-                  "nullable": true,
-                  "type": "string"
-                },
-                {
-                  "example": [
-                    "value1",
-                    null,
-                    "value2"
-                  ],
-                  "items": {
-                    "nullable": true,
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              ]
+              "example": "123456",
+              "nullable": true,
+              "type": "string"
             }
           },
           "required": [
             "key",
             "operation",
             "value"
-          ]
+          ],
+          "type": "object"
+        },
+        "ResourceDefinitionFilterOperationIn": {
+          "properties": {
+            "key": {
+              "example": "cost-management.aws.account",
+              "type": "string"
+            },
+            "operation": {
+              "enum": [
+                "in"
+              ],
+              "type": "string"
+            },
+            "value": {
+              "example": [
+                "value1",
+                null,
+                "value2"
+              ],
+              "items": {
+                "nullable": true,
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "key",
+            "operation",
+            "value"
+          ],
+          "type": "object"
         },
         "Role": {
           "properties": {
