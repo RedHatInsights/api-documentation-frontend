@@ -360,9 +360,6 @@
               ],
               "title": "End Date"
             },
-            "impl": {
-              "$ref": "#/components/schemas/AppStreamImplementation"
-            },
             "name": {
               "title": "Name",
               "type": "string"
@@ -433,7 +430,6 @@
             "display_name",
             "os_major",
             "count",
-            "impl",
             "systems"
           ],
           "title": "RelevantAppStream",
