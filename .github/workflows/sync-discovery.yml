@@ -31,6 +31,7 @@ jobs:
     - id: discovery
       run: npm run discovery
     - name: Create Pull Request
+      id: cpr
       uses: peter-evans/create-pull-request@v7
       with:
         token: ${{ secrets.NACHO_BOT_TOKEN }}
@@ -42,3 +43,8 @@ jobs:
         commit-message: Syncing API
         delete-branch: true
         author: "GitHub <noreply@github.com>"
+    - name: Auto-merge PR
+      if: steps.cpr.outputs.pull-request-number != ''
+      run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --squash
+      env:
+        GH_TOKEN: ${{ secrets.NACHO_BOT_TOKEN }}
