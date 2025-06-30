@@ -347,6 +347,7 @@ apis:
         name: Insights for RHEL Planning
         description: API for RHEL product lifecycle data
         url: https://console.redhat.com/api/roadmap/v1/openapi.json
+        serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
