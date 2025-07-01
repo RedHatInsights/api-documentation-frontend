@@ -664,7 +664,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     description: "API for RHEL product lifecycle data",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/roadmap/content.json",
-    serverUrl: undefined,
+    serverUrl: "https://console.redhat.com",
     getApiContent: () =>
       import(
         "./apis/hcc-insights/roadmap/content.json"
