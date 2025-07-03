@@ -570,7 +570,8 @@
                 "type": "string"
               },
               "title": "Systems",
-              "type": "array"
+              "type": "array",
+              "uniqueItems": true
             }
           },
           "required": [
@@ -606,6 +607,10 @@
             "name": {
               "title": "Name",
               "type": "string"
+            },
+            "os_major": {
+              "title": "Os Major",
+              "type": "integer"
             },
             "package": {
               "title": "Package",
@@ -774,7 +779,8 @@
                 "type": "string"
               },
               "title": "Potentiallyaffectedsystems",
-              "type": "array"
+              "type": "array",
+              "uniqueItems": true
             },
             "potentiallyAffectedSystemsCount": {
               "title": "Potentiallyaffectedsystemscount",
