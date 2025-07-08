@@ -1427,6 +1427,7 @@
             "guest-image",
             "image-installer",
             "oci",
+            "openshift-virt",
             "vsphere",
             "vsphere-ova",
             "wsl",
