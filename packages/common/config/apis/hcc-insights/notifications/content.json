@@ -1105,11 +1105,11 @@
               }
             },
             {
+              "description": "Number of items per page, if not specified 20 is used",
               "in": "query",
               "name": "limit",
               "schema": {
-                "default": "20",
-                "format": "int32",
+                "default": 20,
                 "maximum": 200,
                 "minimum": 1,
                 "type": "integer"
@@ -1257,11 +1257,11 @@
               }
             },
             {
+              "description": "Number of items per page, if not specified 20 is used.",
               "in": "query",
               "name": "limit",
               "schema": {
-                "default": "20",
-                "format": "int32",
+                "default": 20,
                 "maximum": 200,
                 "minimum": 1,
                 "type": "integer"
@@ -1363,11 +1363,11 @@
               }
             },
             {
+              "description": "Number of items per page, if not specified 20 is used.",
               "in": "query",
               "name": "limit",
               "schema": {
-                "default": "20",
-                "format": "int32",
+                "default": 20,
                 "maximum": 200,
                 "minimum": 1,
                 "type": "integer"
@@ -1666,11 +1666,11 @@
               }
             },
             {
+              "description": "Number of items per page, if not specified 20 is used.",
               "in": "query",
               "name": "limit",
               "schema": {
-                "default": "20",
-                "format": "int32",
+                "default": 20,
                 "maximum": 200,
                 "minimum": 1,
                 "type": "integer"
