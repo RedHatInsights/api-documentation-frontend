@@ -439,11 +439,11 @@
           "operationId": "EndpointResource$V1_getEndpoints",
           "parameters": [
             {
-              "description": "Number of items per page. If the value is 0, it will return all elements",
+              "description": "Number of items per page, if not specified 20 is used",
               "in": "query",
               "name": "limit",
               "schema": {
-                "default": "20",
+                "default": 20,
                 "maximum": 200,
                 "minimum": 1,
                 "type": "integer"
@@ -807,11 +807,11 @@
           "operationId": "EndpointResource$V1_getEndpointHistory",
           "parameters": [
             {
-              "description": "Number of items per page, if not specified or 0 is used, returns a maximum of 500 elements.",
+              "description": "Number of items per page, if not specified 20 is used.",
               "in": "query",
               "name": "limit",
               "schema": {
-                "default": "20",
+                "default": 20,
                 "maximum": 200,
                 "minimum": 1,
                 "type": "integer"
