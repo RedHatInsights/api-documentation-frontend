@@ -890,6 +890,13 @@
           "title": "WrappedUpcomingOutput",
           "type": "object"
         }
+      },
+      "securitySchemes": {
+        "Authorization": {
+          "in": "header",
+          "name": "Authorization",
+          "type": "apiKey"
+        }
       }
     },
     "info": {
@@ -1830,6 +1837,11 @@
           ]
         }
       }
-    }
+    },
+    "security": [
+      {
+        "Authorization": []
+      }
+    ]
   }
 }
