@@ -413,7 +413,8 @@
           "default": "api",
           "enum": [
             "api",
-            "ui"
+            "ui",
+            "mcp"
           ],
           "type": "string"
         },
