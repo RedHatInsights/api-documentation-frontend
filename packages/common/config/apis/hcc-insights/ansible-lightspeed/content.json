@@ -22,20 +22,6 @@
           ],
           "type": "string"
         },
-        "BearerToken": {
-          "properties": {
-            "access_token": {
-              "type": "string"
-            },
-            "expiration": {
-              "type": "integer"
-            },
-            "expires_in": {
-              "type": "integer"
-            }
-          },
-          "type": "object"
-        },
         "ChatFeedback": {
           "properties": {
             "query": {
@@ -710,6 +696,18 @@
           ],
           "type": "object"
         },
+        "MarkdownUserResponse": {
+          "properties": {
+            "content": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "content"
+          ],
+          "type": "object"
+        },
         "Metadata": {
           "properties": {
             "ansibleExtensionVersion": {
@@ -986,33 +984,6 @@
             "feature-request"
           ],
           "type": "string"
-        },
-        "UserBearerTokenResponse": {
-          "properties": {
-            "bearer_token": {
-              "$ref": "#/components/schemas/BearerToken"
-            },
-            "inference_url": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "bearer_token",
-            "inference_url"
-          ],
-          "type": "object"
-        },
-        "UserMarkdownResponse": {
-          "properties": {
-            "content": {
-              "readOnly": true,
-              "type": "string"
-            }
-          },
-          "required": [
-            "content"
-          ],
-          "type": "object"
         },
         "UserPlan": {
           "properties": {
@@ -1888,32 +1859,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/UserMarkdownResponse"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "security": [
-            {
-              "cookieAuth": []
-            }
-          ],
-          "tags": [
-            "me"
-          ]
-        }
-      },
-      "/api/v1/me/token/": {
-        "get": {
-          "operationId": "me_token_retrieve",
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/UserBearerTokenResponse"
+                    "$ref": "#/components/schemas/MarkdownUserResponse"
                   }
                 }
               },

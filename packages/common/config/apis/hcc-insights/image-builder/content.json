@@ -6,17 +6,17 @@
         "AAPRegistration": {
           "additionalProperties": false,
           "properties": {
-            "ansible_controller_url": {
-              "example": "https://aap-gw.example.com",
+            "ansible_callback_url": {
+              "example": "https://aap-gw.example.com/api/controller/v2/job_templates/9/callback/",
               "type": "string"
             },
             "host_config_key": {
               "example": "44d7507f2ead49af5fca80aa18fd24bc",
               "type": "string"
             },
-            "job_template_id": {
-              "example": 38,
-              "type": "integer"
+            "skip_tls_verification": {
+              "description": "When true, indicates the user has confirmed that HTTPS callback URL does not require a CA certificate for verification",
+              "type": "boolean"
             },
             "tls_certificate_authority": {
               "type": "string",
@@ -24,8 +24,7 @@
             }
           },
           "required": [
-            "ansible_controller_url",
-            "job_template_id",
+            "ansible_callback_url",
             "host_config_key"
           ],
           "type": "object",
@@ -390,6 +389,53 @@
             "links",
             "data"
           ]
+        },
+        "BtrfsSubvolume": {
+          "properties": {
+            "mountpoint": {
+              "description": "Mountpoint for the subvolume\n",
+              "type": "string"
+            },
+            "name": {
+              "description": "The name of the subvolume, which defines the location (path) on the root volume\n",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "mountpoint"
+          ],
+          "type": "object",
+          "x-go-type": "composer.BtrfsSubvolume"
+        },
+        "BtrfsVolume": {
+          "properties": {
+            "minsize": {
+              "$ref": "#/components/schemas/minsize"
+            },
+            "part_type": {
+              "description": "The partition type GUID for GPT partitions. For DOS partitions, this field can be used to set the (2 hex digit) partition type. If not set, the type will be automatically set based on the mountpoint or the payload type.\n",
+              "type": "string"
+            },
+            "subvolumes": {
+              "items": {
+                "$ref": "#/components/schemas/BtrfsSubvolume"
+              },
+              "type": "array"
+            },
+            "type": {
+              "enum": [
+                "btrfs"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "subvolumes"
+          ],
+          "type": "object",
+          "x-go-type": "composer.BtrfsVolume"
         },
         "CACertsCustomization": {
           "additionalProperties": false,
@@ -815,6 +861,9 @@
               },
               "type": "array"
             },
+            "disk": {
+              "$ref": "#/components/schemas/Disk"
+            },
             "enabled_modules": {
               "description": "List of dnf modules to enable, so that packages can be installed from them.\n",
               "items": {
@@ -969,6 +1018,32 @@
             "path"
           ],
           "type": "object"
+        },
+        "Disk": {
+          "properties": {
+            "minsize": {
+              "$ref": "#/components/schemas/minsize"
+            },
+            "partitions": {
+              "items": {
+                "$ref": "#/components/schemas/Partition"
+              },
+              "type": "array"
+            },
+            "type": {
+              "description": "Type of the partition table\n",
+              "enum": [
+                "gpt",
+                "dos"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "partitions"
+          ],
+          "type": "object",
+          "x-go-type": "composer.Disk"
         },
         "DistributionItem": {
           "properties": {
@@ -1179,6 +1254,44 @@
             "min_size"
           ],
           "type": "object"
+        },
+        "FilesystemTyped": {
+          "properties": {
+            "fs_type": {
+              "description": "The filesystem type. Swap partitions must have an empty mountpoint.\n",
+              "enum": [
+                "ext4",
+                "xfs",
+                "vfat",
+                "swap"
+              ],
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "minsize": {
+              "$ref": "#/components/schemas/minsize"
+            },
+            "mountpoint": {
+              "type": "string"
+            },
+            "part_type": {
+              "description": "The partition type GUID for GPT partitions. For DOS partitions, this field can be used to set the (2 hex digit) partition type. If not set, the type will be automatically set based on the mountpoint or the payload type.\n",
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "plain"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "fs_type"
+          ],
+          "type": "object",
+          "x-go-type": "composer.FilesystemTyped"
         },
         "FirewallCustomization": {
           "additionalProperties": false,
@@ -1520,6 +1633,38 @@
           },
           "type": "object"
         },
+        "LogicalVolume": {
+          "properties": {
+            "fs_type": {
+              "description": "The filesystem type for the logical volume. Swap LVs must have an empty mountpoint.\n",
+              "enum": [
+                "ext4",
+                "xfs",
+                "vfat",
+                "swap"
+              ],
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "minsize": {
+              "$ref": "#/components/schemas/minsize"
+            },
+            "mountpoint": {
+              "description": "Mountpoint for the logical volume\n",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "fs_type"
+          ],
+          "type": "object",
+          "x-go-type": "composer.LogicalVolume"
+        },
         "Module": {
           "additionalProperties": false,
           "properties": {
@@ -1695,6 +1840,21 @@
             "data"
           ],
           "type": "object"
+        },
+        "Partition": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/FilesystemTyped"
+            },
+            {
+              "$ref": "#/components/schemas/BtrfsVolume"
+            },
+            {
+              "$ref": "#/components/schemas/VolumeGroup"
+            }
+          ],
+          "type": "object",
+          "x-go-type": "composer.Partition"
         },
         "Readiness": {
           "properties": {
@@ -2029,6 +2189,44 @@
           "required": [
             "version"
           ]
+        },
+        "VolumeGroup": {
+          "properties": {
+            "logical_volumes": {
+              "items": {
+                "$ref": "#/components/schemas/LogicalVolume"
+              },
+              "type": "array"
+            },
+            "minsize": {
+              "$ref": "#/components/schemas/minsize"
+            },
+            "name": {
+              "description": "Volume group name (will be automatically generated if omitted)\n",
+              "type": "string"
+            },
+            "part_type": {
+              "description": "The partition type GUID for GPT partitions. For DOS partitions, this field can be used to set the (2 hex digit) partition type. If not set, the type will be automatically set based on the mountpoint or the payload type.\n",
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "lvm"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "logical_volumes"
+          ],
+          "type": "object",
+          "x-go-type": "composer.VolumeGroup"
+        },
+        "minsize": {
+          "description": "size with data units",
+          "example": "2 GiB",
+          "type": "string"
         }
       }
     },
