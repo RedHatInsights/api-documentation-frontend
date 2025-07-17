@@ -212,14 +212,14 @@
                 "additionalProperties": false,
                 "properties": {
                   "created_after": {
-                    "description": "Filter remediations created on or after this timestamp (ISO 8601 format)",
+                    "description": "Filter remediations created on or after this timestamp (ISO 8601 format) Must be a valid ISO 8601 date-time string. Precision should be to the nearest second or millisecond. Example: '2024-09-11T12:00:00Z' or '2024-09-11T12:00:00.123Z'\n",
                     "format": "date-time",
                     "type": "string"
                   },
                   "last_run_after": {
                     "oneOf": [
                       {
-                        "description": "Filter remediations with last run on or after this timestamp (ISO 8601 format)",
+                        "description": "Filter remediations with last run on or after this timestamp (ISO 8601 format) Must be a valid ISO 8601 date-time string. Precision should be to the nearest second or millisecond. Example: '2024-09-11T12:00:00Z' or '2024-09-11T12:00:00.123Z'\n",
                         "format": "date-time",
                         "type": "string"
                       },
@@ -245,7 +245,7 @@
                     "type": "string"
                   },
                   "updated_after": {
-                    "description": "Filter remediations updated on or after this timestamp (ISO 8601 format)",
+                    "description": "Filter remediations updated on or after this timestamp (ISO 8601 format) Must be a valid ISO 8601 date-time string. Precision should be to the nearest second or millisecond. Example: '2024-09-11T12:00:00Z' or '2024-09-11T12:00:00.123Z'\n",
                     "format": "date-time",
                     "type": "string"
                   }
