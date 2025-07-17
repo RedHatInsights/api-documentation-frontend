@@ -2545,6 +2545,20 @@
               "maxLength": 128,
               "type": "string"
             },
+            "status": {
+              "items": {
+                "description": "The module stream's status",
+                "enum": [
+                  "default",
+                  "enabled",
+                  "installed"
+                ],
+                "example": "default, enabled, installed",
+                "maxLength": 64,
+                "type": "string"
+              },
+              "type": "array"
+            },
             "stream": {
               "example": "abc, dfg, pop",
               "maxLength": 2048,

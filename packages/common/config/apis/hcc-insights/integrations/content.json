@@ -34,17 +34,6 @@
           ],
           "type": "object"
         },
-        "BasicAuthentication": {
-          "properties": {
-            "password": {
-              "type": "string"
-            },
-            "username": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
         "Bundle": {
           "properties": {
             "applications": {
@@ -74,9 +63,6 @@
         },
         "CamelProperties": {
           "properties": {
-            "basicAuthentication": {
-              "$ref": "#/components/schemas/BasicAuthentication"
-            },
             "disableSslVerification": {
               "type": "boolean"
             },
@@ -397,9 +383,6 @@
         },
         "WebhookProperties": {
           "properties": {
-            "basicAuthentication": {
-              "$ref": "#/components/schemas/BasicAuthentication"
-            },
             "bearerAuthentication": {
               "type": "string"
             },
