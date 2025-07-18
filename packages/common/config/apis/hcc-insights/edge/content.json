@@ -36,6 +36,9 @@
           },
           "type": "object"
         },
+        "CreateImage": {
+          "type": "object"
+        },
         "CustomPackages": {
           "properties": {
             "name": {
@@ -638,9 +641,6 @@
               "type": "string"
             }
           },
-          "type": "object"
-        },
-        "models.CreateImageAPI": {
           "type": "object"
         },
         "models.Device": {
@@ -3936,7 +3936,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/models.CreateImageAPI"
+                  "$ref": "#/components/schemas/CreateImage"
                 }
               }
             },
@@ -3990,7 +3990,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/models.CreateImageAPI"
+                  "$ref": "#/components/schemas/CreateImage"
                 }
               }
             },
@@ -4212,7 +4212,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/models.CreateImageAPI"
+                  "$ref": "#/components/schemas/CreateImage"
                 }
               }
             },
@@ -4277,7 +4277,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/models.CreateImageAPI"
+                  "$ref": "#/components/schemas/CreateImage"
                 }
               }
             },
@@ -4448,7 +4448,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/models.CreateImageAPI"
+                  "$ref": "#/components/schemas/CreateImage"
                 }
               }
             },
@@ -4556,7 +4556,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/models.CreateImageAPI"
+                  "$ref": "#/components/schemas/CreateImage"
                 }
               }
             },
