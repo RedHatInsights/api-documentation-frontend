@@ -4,6 +4,7 @@
     "components": {
       "schemas": {
         "Ack": {
+          "description": "An 'ack'nowledgement of a rule across an entire organisation.  This hides\n(or disables) the given rule, so that all systems in this organisation\nsystems do not appear to be affected by the rule.",
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -207,6 +208,24 @@
           ],
           "type": "object"
         },
+        "DisabledRules": {
+          "description": "Displays rules which are disabled, either organisation-wide (Ack) or\nsystem-specific (HostAck).  The scope field indicates which of these\ncauses this rule to be disabled - 'account' or 'system'.  To find which\nsystems have disabled a rule, use the 'rule_id' query parameter in the\nhostack/ endpoint.",
+          "properties": {
+            "rule_id": {
+              "maxLength": 255,
+              "type": "string"
+            },
+            "scope": {
+              "maxLength": 10,
+              "type": "string"
+            }
+          },
+          "required": [
+            "rule_id",
+            "scope"
+          ],
+          "type": "object"
+        },
         "ExportHits": {
           "description": "The basic report information for each system affected by a rule.  Only\nlists basic details of the host and rule, and links to more information.",
           "properties": {
@@ -266,7 +285,7 @@
           "type": "object"
         },
         "HostAck": {
-          "description": "Ignore reports of this rule on this system for this account.",
+          "description": "Ignore reports of this rule on this system for this account.  This\n'ack'nowledges (or hides) this rule from affecting this rule on this\nsystem.",
           "properties": {
             "created_at": {
               "format": "date-time",
@@ -445,6 +464,54 @@
           ],
           "type": "object"
         },
+        "PaginatedAckCountList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/AckCount"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 169,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
         "PaginatedAckList": {
           "properties": {
             "data": {
@@ -498,6 +565,54 @@
             "data": {
               "items": {
                 "$ref": "#/components/schemas/AllRuleRatings"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 169,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "PaginatedDisabledRulesList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/DisabledRules"
               },
               "type": "array"
             },
@@ -2111,7 +2226,7 @@
     "paths": {
       "/api/insights/v1/ack/": {
         "get": {
-          "description": "Acks acknowledge (and therefore hide) a rule from view in an account.\n\nThis view handles listing, retrieving, creating and deleting acks.  Acks\nare created and deleted by Insights rule ID, not by their own ack ID.\n\nparam: rule_id: Rule ID defined by Insights ruleset",
+          "description": "\n        Display the list of rules that have been disabled or acknowledged in\n        this account, along with who disabled them and their justification.\n        ",
           "operationId": "ack_list",
           "parameters": [
             {
@@ -2150,6 +2265,7 @@
               "x-rh-identity": []
             }
           ],
+          "summary": "List the rules that have been acknowledged (disabled)",
           "tags": [
             "ack"
           ]
@@ -2265,7 +2381,7 @@
           ]
         },
         "get": {
-          "description": "Acks acknowledge (and therefore hide) a rule from view in an account.\n\nThis view handles listing, retrieving, creating and deleting acks.  Acks\nare created and deleted by Insights rule ID, not by their own ack ID.\n\nparam: rule_id: Rule ID defined by Insights ruleset",
+          "description": "\n        Display who disabled a rule in this account, when, and their\n        justification for disabling it.\n        ",
           "operationId": "ack_retrieve",
           "parameters": [
             {
@@ -2295,6 +2411,7 @@
               "x-rh-identity": []
             }
           ],
+          "summary": "Display a specific acknowledgement (disabling) of a rule",
           "tags": [
             "ack"
           ]
@@ -2358,15 +2475,32 @@
         "get": {
           "description": "Get the ack counts for all active rules\n\nReturn a list of rule_ids and their ack counts",
           "operationId": "ackcount_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "content": {
                 "application/json": {
                   "schema": {
-                    "items": {
-                      "$ref": "#/components/schemas/AckCount"
-                    },
-                    "type": "array"
+                    "$ref": "#/components/schemas/PaginatedAckCountList"
                   }
                 }
               },
@@ -2577,6 +2711,89 @@
           ],
           "tags": [
             "autosubexclusion"
+          ]
+        }
+      },
+      "/api/insights/v1/disabled-rules/": {
+        "get": {
+          "description": "Shows a list of rules that are disabled, either organisation-wide\n(Ack) or system-specific (HostAck).  The status flag indicates which of\nthese causes this rule to be disabled.  To find which systems have\ndisabled a rule, use the 'rule_id' query parameter in the hostack/\nendpoint.",
+          "operationId": "disabled_rules_list",
+          "parameters": [
+            {
+              "description": "Number of results to return per page.",
+              "in": "query",
+              "name": "limit",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "The initial index from which to return the results.",
+              "in": "query",
+              "name": "offset",
+              "required": false,
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PaginatedDisabledRulesList"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {
+              "x-rh-identity": []
+            }
+          ],
+          "tags": [
+            "disabled-rules"
+          ]
+        }
+      },
+      "/api/insights/v1/disabled-rules/{rule_id}/": {
+        "get": {
+          "description": "Get the detail on whether the given rule is disabled, and the scope,\nby rule_id.  A 404 only means that the rule is not disabled - it may\nalso not exist.  The account-wide scope will be returned first, if\nthe rule has both an account-wide and a system-specific acknowledgement.",
+          "operationId": "disabled_rules_retrieve",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "rule_id",
+              "required": true,
+              "schema": {
+                "description": "Rule ID from Insights",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DisabledRules"
+                  }
+                }
+              },
+              "description": ""
+            }
+          },
+          "security": [
+            {
+              "x-rh-identity": []
+            }
+          ],
+          "tags": [
+            "disabled-rules"
           ]
         }
       },
@@ -3423,7 +3640,7 @@
       },
       "/api/insights/v1/hostack/": {
         "get": {
-          "description": "List host acks from this account for a system where the rule is active.\n\nHostacks are retrieved, edited and deleted by the 'id' field.",
+          "description": "HostAcks acknowledge (and therefore hide) a rule from view in an\naccount for a specific system.\n\nHostacks are retrieved, edited and deleted by the 'id' field.",
           "operationId": "hostack_list",
           "parameters": [
             {
@@ -3610,7 +3827,7 @@
           ]
         },
         "get": {
-          "description": "HostAcks acknowledge (and therefore hide) a rule from view in an account for a specific system.\n\nThis view handles listing, retrieving, creating and deleting hostacks.",
+          "description": "\n        Display who disabled a rule on a system, when, and their justification\n        for disabling it.  Host acks are selected by their ID number.\n        ",
           "operationId": "hostack_retrieve",
           "parameters": [
             {
@@ -3640,6 +3857,7 @@
               "x-rh-identity": []
             }
           ],
+          "summary": "Display a specific acknowledgement (disabling) of a rule on a system",
           "tags": [
             "hostack"
           ]
