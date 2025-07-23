@@ -552,22 +552,6 @@
                   "description": "If the authentication is related to a AWS Source, it may contain an external ID.",
                   "example": "a2f8ec37-6d74-4af8-9e92-b83345651202",
                   "type": "string"
-                },
-                "marketplace": {
-                  "description": "If the authentication is of the \"marketplace-token\" type, then this key will contain an unexpired token for the API key that the authentication stores.",
-                  "properties": {
-                    "access_token": {
-                      "description": "The authorization token",
-                      "example": "abcdef-token",
-                      "type": "string"
-                    },
-                    "expiration": {
-                      "description": "The Unix timestamp for the expiration of the token",
-                      "example": 1609455600,
-                      "type": "number"
-                    }
-                  },
-                  "type": "object"
                 }
               },
               "type": "object"
@@ -785,7 +769,6 @@
                       "gitlab",
                       "openshift",
                       "quay",
-                      "rh-marketplace",
                       "satellite",
                       "ibm"
                     ],
