@@ -692,8 +692,9 @@
               "type": "boolean"
             },
             "download_count": {
+              "description": "Get the download count of the collection",
               "readOnly": true,
-              "type": "string"
+              "type": "integer"
             },
             "highest_version": {
               "description": "Get a highest version and its link.",
@@ -740,8 +741,9 @@
           "properties": {
             "contents": {
               "description": "A JSON field with data about the contents.",
+              "items": {},
               "readOnly": true,
-              "type": "object"
+              "type": "array"
             },
             "dependencies": {
               "description": "A dict declaring Collections that this collection requires to be installed for it to be usable.",
@@ -6584,7 +6586,6 @@
               "type": "string"
             },
             "signed_only": {
-              "default": false,
               "description": "Sync only collections that have a signature",
               "type": "boolean"
             },
@@ -8227,7 +8228,7 @@
         "Purge": {
           "properties": {
             "finished_before": {
-              "default": "2025-06-29",
+              "default": "2025-06-30",
               "description": "Purge tasks completed earlier than this timestamp. Format '%Y-%m-%d[T%H:%M:%S]'",
               "format": "date-time",
               "type": "string"
@@ -11491,8 +11492,7 @@
               "type": "string"
             },
             "last_sync_task": {
-              "readOnly": true,
-              "type": "string"
+              "readOnly": true
             },
             "last_synced_metadata_time": {
               "description": "Last synced metadata time.",
@@ -11648,7 +11648,6 @@
               "type": "string"
             },
             "signed_only": {
-              "default": false,
               "description": "Sync only collections that have a signature",
               "type": "boolean"
             },
@@ -11771,7 +11770,6 @@
               "type": "string"
             },
             "signed_only": {
-              "default": false,
               "description": "Sync only collections that have a signature",
               "type": "boolean"
             },
@@ -11942,8 +11940,9 @@
             },
             "contents": {
               "description": "A JSON field with data about the contents.",
+              "items": {},
               "readOnly": true,
-              "type": "object"
+              "type": "array"
             },
             "dependencies": {
               "description": "A dict declaring Collections that this collection requires to be installed for it to be usable.",
@@ -15329,7 +15328,7 @@
       "description": "Fetch, Upload, Organize, and Distribute Ansible Collections",
       "license": {
         "name": "GPLv2+",
-        "url": "https://raw.githubusercontent.com/ansible/galaxy_ng/master/LICENSE"
+        "url": "https://raw.githubusercontent.com/ansible/galaxy_ng/main/LICENSE"
       },
       "title": "Automation Hub API",
       "version": "v3",
@@ -15337,11 +15336,11 @@
         "url": "https://pulp.plan.io/attachments/download/517478/pulp_logo_word_rectangle.svg"
       },
       "x-pulp-app-versions": {
-        "ansible": "0.23.1",
-        "certguard": "3.49.33",
-        "container": "2.19.4",
-        "core": "3.49.33",
-        "file": "3.49.33",
+        "ansible": "0.25.1",
+        "certguard": "3.49.40",
+        "container": "2.19.5",
+        "core": "3.49.40",
+        "file": "3.49.40",
         "galaxy": "4.11.0dev"
       },
       "x-pulp-domain-enabled": false
@@ -21867,7 +21866,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -22170,7 +22169,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -22337,7 +22336,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -22668,7 +22667,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -22806,7 +22805,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -22951,7 +22950,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -23138,7 +23137,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -23468,7 +23467,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -23533,7 +23532,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -23857,7 +23856,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -24606,7 +24605,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -45270,7 +45269,7 @@
               "style": "form"
             },
             {
-              "description": "Pulp type\n\n* `ansible.role` - ansible.role\n* `ansible.collection` - ansible.collection\n* `ansible.git` - ansible.git\n* `container.container` - container.container\n* `container.remote` - container.remote\n* `file.file` - file.file\n* `galaxy.remote` - galaxy.remote",
+              "description": "Pulp type\n\n* `galaxy.remote` - galaxy.remote\n* `ansible.role` - ansible.role\n* `ansible.collection` - ansible.collection\n* `ansible.git` - ansible.git\n* `container.container` - container.container\n* `container.remote` - container.remote\n* `file.file` - file.file",
               "in": "query",
               "name": "pulp_type",
               "schema": {
@@ -45287,7 +45286,7 @@
               }
             },
             {
-              "description": "Multiple values may be separated by commas.\n\n* `ansible.role` - ansible.role\n* `ansible.collection` - ansible.collection\n* `ansible.git` - ansible.git\n* `container.container` - container.container\n* `container.remote` - container.remote\n* `file.file` - file.file\n* `galaxy.remote` - galaxy.remote",
+              "description": "Multiple values may be separated by commas.\n\n* `galaxy.remote` - galaxy.remote\n* `ansible.role` - ansible.role\n* `ansible.collection` - ansible.collection\n* `ansible.git` - ansible.git\n* `container.container` - container.container\n* `container.remote` - container.remote\n* `file.file` - file.file",
               "explode": false,
               "in": "query",
               "name": "pulp_type__in",
@@ -62621,7 +62620,7 @@
           "description": "Legacy v3 endpoint.",
           "operationId": "api_automation_hub_v3_read",
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -62900,7 +62899,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -63019,7 +63018,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -63334,7 +63333,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -63456,7 +63455,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -63585,7 +63584,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -63748,7 +63747,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -64474,7 +64473,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -65167,7 +65166,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -66917,7 +66916,7 @@
           "description": "Legacy v3 endpoint.",
           "operationId": "pulp_ansible_galaxy_default_api_v3_read",
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67034,7 +67033,7 @@
           "description": "Legacy v3 endpoint.",
           "operationId": "pulp_ansible_galaxy_default_api_v3_collection_versions_all_list",
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67186,7 +67185,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67317,7 +67316,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67426,7 +67425,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67741,7 +67740,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67863,7 +67862,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67936,7 +67935,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -67995,7 +67994,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -68317,7 +68316,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -68374,7 +68373,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -68642,7 +68641,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -69336,7 +69335,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -70668,7 +70667,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -70827,7 +70826,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -70987,7 +70986,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -71126,7 +71125,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -71251,7 +71250,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -71582,7 +71581,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -71720,7 +71719,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -71801,7 +71800,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -71868,7 +71867,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -72198,7 +72197,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -72263,7 +72262,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -72587,7 +72586,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -73337,7 +73336,7 @@
             }
           ],
           "responses": {
-            "202": {
+            "200": {
               "content": {
                 "application/json": {
                   "schema": {

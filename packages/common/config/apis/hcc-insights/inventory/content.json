@@ -351,6 +351,23 @@
             "type": "string"
           }
         },
+        "systemTypeParam": {
+          "description": "Filters systems by type",
+          "in": "query",
+          "name": "system_type",
+          "required": false,
+          "schema": {
+            "items": {
+              "enum": [
+                "conventional",
+                "bootc",
+                "edge"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
         "tagsOrderByParam": {
           "description": "Ordering field name",
           "in": "query",
@@ -3460,6 +3477,9 @@
               "$ref": "#/components/parameters/registered_with"
             },
             {
+              "$ref": "#/components/parameters/systemTypeParam"
+            },
+            {
               "$ref": "#/components/parameters/stalenessNoDefaultsParam"
             },
             {
@@ -3547,6 +3567,9 @@
             },
             {
               "$ref": "#/components/parameters/registered_with"
+            },
+            {
+              "$ref": "#/components/parameters/systemTypeParam"
             },
             {
               "$ref": "#/components/parameters/filter_param"
@@ -4385,6 +4408,9 @@
             },
             {
               "$ref": "#/components/parameters/registered_with"
+            },
+            {
+              "$ref": "#/components/parameters/systemTypeParam"
             },
             {
               "$ref": "#/components/parameters/filter_param"
