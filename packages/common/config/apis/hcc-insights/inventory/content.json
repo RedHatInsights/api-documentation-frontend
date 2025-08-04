@@ -246,6 +246,7 @@
               "alibaba",
               "aws",
               "azure",
+              "discovery",
               "gcp",
               "ibm"
             ],
