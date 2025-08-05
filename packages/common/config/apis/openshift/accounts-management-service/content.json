@@ -412,7 +412,8 @@
                 "ClusterSelfManagedAddon",
                 "ClusterSelfManagedLabel",
                 "ClusterSelfManagedStatus",
-                "OsdTrialProtectedCluster"
+                "OsdTrialProtectedCluster",
+                "ManifestWorkSync"
               ],
               "type": "string"
             },
@@ -506,7 +507,8 @@
                 "ClusterSelfManagedAddon",
                 "ClusterSelfManagedLabel",
                 "ClusterSelfManagedStatus",
-                "OsdTrialProtectedCluster"
+                "OsdTrialProtectedCluster",
+                "ManifestWorkSync"
               ],
               "type": "string"
             },
@@ -2175,7 +2177,6 @@
                 "Cluster Access",
                 "Cluster Scaling",
                 "Capacity Management",
-                "Capacity management",
                 "Cluster Configuration",
                 "Cluster Security",
                 "Cluster Add-ons",
@@ -3771,7 +3772,8 @@
                 "Idp",
                 "ClusterAutoscaler",
                 "MachinePool",
-                "OsdTrialProtectedCluster"
+                "OsdTrialProtectedCluster",
+                "ManifestWorkSync"
               ],
               "type": "string"
             },
