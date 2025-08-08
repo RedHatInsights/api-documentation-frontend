@@ -839,6 +839,9 @@
         },
         "Customizations": {
           "properties": {
+            "aap_registration": {
+              "$ref": "#/components/schemas/AAPRegistration"
+            },
             "cacerts": {
               "$ref": "#/components/schemas/CACertsCustomization"
             },
@@ -1461,9 +1464,6 @@
         "ImageRequest": {
           "additionalProperties": false,
           "properties": {
-            "aap_registration": {
-              "$ref": "#/components/schemas/AAPRegistration"
-            },
             "architecture": {
               "description": "CPU architecture of the image, x86_64 and aarch64 are currently supported.\n",
               "enum": [

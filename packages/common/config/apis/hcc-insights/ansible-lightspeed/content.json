@@ -1395,7 +1395,7 @@
               "cookieAuth": []
             }
           ],
-          "summary": "Inline code suggestions",
+          "summary": "Playbook explanation",
           "tags": [
             "ai"
           ]
@@ -1463,7 +1463,7 @@
               "cookieAuth": []
             }
           ],
-          "summary": "Inline code suggestions",
+          "summary": "Role explanation",
           "tags": [
             "ai"
           ]
@@ -1595,7 +1595,7 @@
               "cookieAuth": []
             }
           ],
-          "summary": "Inline code suggestions",
+          "summary": "Playbook generation",
           "tags": [
             "ai"
           ]
@@ -1651,7 +1651,7 @@
               "cookieAuth": []
             }
           ],
-          "summary": "Inline code suggestions",
+          "summary": "Role generation",
           "tags": [
             "ai"
           ]

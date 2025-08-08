@@ -2,6 +2,29 @@
   "extras": {},
   "openapi": {
     "components": {
+      "headers": {
+        "Deprecation": {
+          "description": "This API will be officially deprecated at the time specified by the returned value.",
+          "example": "@1754611200",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Link": {
+          "description": "This header provides a link to the successor version of the API.",
+          "example": "<https://console.redhat.com/docs/api/compliance/v2>; rel=\"successor-version\"",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "Sunset": {
+          "description": "This API will be removed at the time specified by the returned value.",
+          "example": "@1757030400",
+          "schema": {
+            "type": "string"
+          }
+        }
+      },
       "schemas": {
         "benchmark": {
           "properties": {
@@ -560,6 +583,7 @@
     "paths": {
       "/benchmarks": {
         "get": {
+          "deprecated": true,
           "description": "Lists all benchmarks requested",
           "operationId": "ListBenchmarks",
           "parameters": [
@@ -771,7 +795,18 @@
                   }
                 }
               },
-              "description": "lists all benchmarks requested"
+              "description": "lists all benchmarks requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all benchmarks",
@@ -782,6 +817,7 @@
       },
       "/benchmarks/{id}": {
         "get": {
+          "deprecated": true,
           "description": "Retrieves data for a benchmark",
           "operationId": "ShowBenchmark",
           "parameters": [
@@ -1057,7 +1093,18 @@
                   }
                 }
               },
-              "description": "retrieves a benchmark"
+              "description": "retrieves a benchmark",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -1075,7 +1122,18 @@
                   }
                 }
               },
-              "description": "benchmark not found"
+              "description": "benchmark not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Retrieve a benchmark",
@@ -1086,6 +1144,7 @@
       },
       "/business_objectives": {
         "get": {
+          "deprecated": true,
           "description": "Lists all business_objectives requested",
           "operationId": "ListBusinessObjectives",
           "parameters": [
@@ -1252,7 +1311,18 @@
                   }
                 }
               },
-              "description": "lists all business_objectives requested"
+              "description": "lists all business_objectives requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all business_objectives",
@@ -1263,6 +1333,7 @@
       },
       "/business_objectives/{id}": {
         "get": {
+          "deprecated": true,
           "description": "Retrieves data for a business_objective",
           "operationId": "ShowBusinessObjective",
           "parameters": [
@@ -1350,7 +1421,18 @@
                   }
                 }
               },
-              "description": "retrieves a business_objective"
+              "description": "retrieves a business_objective",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -1368,7 +1450,18 @@
                   }
                 }
               },
-              "description": "business_objective not found"
+              "description": "business_objective not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Retrieve a business_objective",
@@ -1379,6 +1472,7 @@
       },
       "/profiles": {
         "get": {
+          "deprecated": true,
           "description": "Lists all profiles requested",
           "operationId": "ListProfiles",
           "parameters": [
@@ -1706,7 +1800,18 @@
                   }
                 }
               },
-              "description": "lists all profiles requested filtered by OS"
+              "description": "lists all profiles requested filtered by OS",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all profiles",
@@ -1715,6 +1820,7 @@
           ]
         },
         "post": {
+          "deprecated": true,
           "description": "Create a profile with the provided attributes",
           "operationId": "CreateProfile",
           "parameters": [
@@ -1908,7 +2014,18 @@
                   }
                 }
               },
-              "description": "creates a profile"
+              "description": "creates a profile",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Create a profile",
@@ -1919,6 +2036,7 @@
       },
       "/profiles/{id}": {
         "delete": {
+          "deprecated": true,
           "description": "Destroys a profile",
           "operationId": "DestroyProfile",
           "parameters": [
@@ -2046,7 +2164,18 @@
                   }
                 }
               },
-              "description": "destroys a profile"
+              "description": "destroys a profile",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -2064,7 +2193,18 @@
                   }
                 }
               },
-              "description": "profile not found"
+              "description": "profile not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Destroy a profile",
@@ -2073,6 +2213,7 @@
           ]
         },
         "get": {
+          "deprecated": true,
           "description": "Retrieves data for a profile",
           "operationId": "ShowProfile",
           "parameters": [
@@ -2245,7 +2386,18 @@
                   }
                 }
               },
-              "description": "retrieves a profile with included benchmark"
+              "description": "retrieves a profile with included benchmark",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -2263,7 +2415,18 @@
                   }
                 }
               },
-              "description": "profile not found"
+              "description": "profile not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Retrieve a profile",
@@ -2272,6 +2435,7 @@
           ]
         },
         "patch": {
+          "deprecated": true,
           "description": "Updates a profile",
           "operationId": "UpdateProfile",
           "parameters": [
@@ -2500,7 +2664,18 @@
                   }
                 }
               },
-              "description": "updates a profile"
+              "description": "updates a profile",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -2518,7 +2693,18 @@
                   }
                 }
               },
-              "description": "profile not found"
+              "description": "profile not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Update a profile",
@@ -2529,6 +2715,7 @@
       },
       "/rule_results": {
         "get": {
+          "deprecated": true,
           "description": "Lists all rule_results requested",
           "operationId": "ListRuleResults",
           "parameters": [
@@ -2685,7 +2872,18 @@
                   }
                 }
               },
-              "description": "lists all rule_results requested"
+              "description": "lists all rule_results requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all rule_results",
@@ -2696,6 +2894,7 @@
       },
       "/rules": {
         "get": {
+          "deprecated": true,
           "description": "Lists all rules requested",
           "operationId": "ListRules",
           "parameters": [
@@ -2885,7 +3084,18 @@
                   }
                 }
               },
-              "description": "lists all rules requested"
+              "description": "lists all rules requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all rules",
@@ -2896,6 +3106,7 @@
       },
       "/rules/{id}": {
         "get": {
+          "deprecated": true,
           "description": "Retrieves data for a rule",
           "operationId": "ShowRule",
           "parameters": [
@@ -3011,7 +3222,18 @@
                   }
                 }
               },
-              "description": "retrieves a rule"
+              "description": "retrieves a rule",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -3029,7 +3251,18 @@
                   }
                 }
               },
-              "description": "rule not found"
+              "description": "rule not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Retrieve a rule",
@@ -3040,6 +3273,7 @@
       },
       "/status": {
         "get": {
+          "deprecated": true,
           "description": "Display Compliance status",
           "operationId": "Status",
           "responses": {
@@ -3067,7 +3301,18 @@
                   }
                 }
               },
-              "description": "successful status"
+              "description": "successful status",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "500": {
               "content": {
@@ -3093,7 +3338,18 @@
                   }
                 }
               },
-              "description": "unsuccessful status"
+              "description": "unsuccessful status",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "status",
@@ -3104,6 +3360,7 @@
       },
       "/supported_ssgs": {
         "get": {
+          "deprecated": true,
           "description": "List all supported SSGs mapped to RHEL minor version",
           "operationId": "ListSupportedSsgs",
           "parameters": [
@@ -3851,7 +4108,18 @@
                   }
                 }
               },
-              "description": "lists all supported_ssgs requested"
+              "description": "lists all supported_ssgs requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all supported SSGs",
@@ -3862,6 +4130,7 @@
       },
       "/systems": {
         "get": {
+          "deprecated": true,
           "description": "Lists all hosts requested",
           "operationId": "ListHosts",
           "parameters": [
@@ -4073,7 +4342,18 @@
                   }
                 }
               },
-              "description": "lists all hosts requested"
+              "description": "lists all hosts requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all hosts",
@@ -4084,6 +4364,7 @@
       },
       "/systems/{id}": {
         "get": {
+          "deprecated": true,
           "description": "Retrieves data for a system",
           "operationId": "ShowHost",
           "parameters": [
@@ -4197,7 +4478,18 @@
                   }
                 }
               },
-              "description": "retrieves a system"
+              "description": "retrieves a system",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             },
             "404": {
               "content": {
@@ -4215,7 +4507,18 @@
                   }
                 }
               },
-              "description": "system not found"
+              "description": "system not found",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "Retrieve a system",
@@ -4226,6 +4529,7 @@
       },
       "/value_definitions": {
         "get": {
+          "deprecated": true,
           "description": "Lists all value definitions requested",
           "operationId": "ListValueDefinitions",
           "parameters": [
@@ -4373,7 +4677,18 @@
                   }
                 }
               },
-              "description": "lists all value_definitions requested"
+              "description": "lists all value_definitions requested",
+              "headers": {
+                "Deprecation": {
+                  "$ref": "#/components/headers/Deprecation"
+                },
+                "Link": {
+                  "$ref": "#/components/headers/Link"
+                },
+                "Sunset": {
+                  "$ref": "#/components/headers/Sunset"
+                }
+              }
             }
           },
           "summary": "List all value definitions",
