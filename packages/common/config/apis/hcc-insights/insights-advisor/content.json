@@ -146,13 +146,16 @@
               "type": "string"
             },
             "rating": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/RatingEnum"
-                }
+              "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
+              "enum": [
+                -1,
+                0,
+                1
               ],
               "maximum": 32767,
-              "minimum": -32768
+              "minimum": -32768,
+              "type": "integer",
+              "x-spec-enum-id": "77fd471e36283637"
             },
             "rule": {
               "description": "Rule ID from Insights",
@@ -1207,15 +1210,6 @@
           ],
           "type": "object"
         },
-        "RatingEnum": {
-          "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
-          "enum": [
-            -1,
-            0,
-            1
-          ],
-          "type": "integer"
-        },
         "Report": {
           "properties": {
             "details": {},
@@ -1740,13 +1734,16 @@
           "description": "Rule ratings list the rating (-1, 0 or +1) for one or more rules.  The\nrule is listed by its Insights Rule ID.",
           "properties": {
             "rating": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/RatingEnum"
-                }
+              "description": "* `-1` - Dislike\n* `0` - Neutral\n* `1` - Like",
+              "enum": [
+                -1,
+                0,
+                1
               ],
               "maximum": 32767,
-              "minimum": -32768
+              "minimum": -32768,
+              "type": "integer",
+              "x-spec-enum-id": "77fd471e36283637"
             },
             "rule": {
               "description": "Rule ID from Insights",
@@ -6075,6 +6072,54 @@
         "get": {
           "description": "Show overview statistics for this user\n\nThis gives the number of pathways, and incident, critical and\nimportant recommendations, affecting systems that the user can see.",
           "operationId": "stats_overview_retrieve",
+          "parameters": [
+            {
+              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "List of Inventory host group names",
+              "in": "query",
+              "name": "groups",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -6101,6 +6146,54 @@
         "get": {
           "description": "Show statistics of reports impacting across categories and risks.\n\nOnly current reports are considered.",
           "operationId": "stats_reports_retrieve",
+          "parameters": [
+            {
+              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "List of Inventory host group names",
+              "in": "query",
+              "name": "groups",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -6127,6 +6220,54 @@
         "get": {
           "description": "Show statistics of rule usage across categories and risks.\n\nOnly current reports are considered.",
           "operationId": "stats_rules_retrieve",
+          "parameters": [
+            {
+              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "List of Inventory host group names",
+              "in": "query",
+              "name": "groups",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -6153,6 +6294,54 @@
         "get": {
           "description": "Show statistics of systems being impacted across categories and risks.\n\nOnly current reports are considered.",
           "operationId": "stats_systems_retrieve",
+          "parameters": [
+            {
+              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "List of Inventory host group names",
+              "in": "query",
+              "name": "groups",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Is this a SAP system?",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Are there systems which contain these SAP SIDs?",
+              "in": "query",
+              "name": "filter[system_profile][sap_sids][contains]",
+              "schema": {
+                "items": {
+                  "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            }
+          ],
           "responses": {
             "200": {
               "content": {
