@@ -7,8 +7,19 @@
           "description": "An application stream module or package.",
           "properties": {
             "application_stream_name": {
+              "default": "",
               "title": "Application Stream Name",
               "type": "string"
+            },
+            "application_stream_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AppStreamType"
+                },
+                {
+                  "type": "null"
+                }
+              ]
             },
             "display_name": {
               "default": "",
@@ -113,7 +124,6 @@
           },
           "required": [
             "name",
-            "application_stream_name",
             "stream",
             "impl"
           ],
@@ -122,18 +132,19 @@
         },
         "AppStreamImplementation": {
           "enum": [
-            "scl",
+            "dnf_module",
             "package",
-            "dnf_module"
+            "scl",
+            "stream"
           ],
           "title": "AppStreamImplementation",
           "type": "string"
         },
-        "AppStreamsNamesResponse": {
+        "AppStreamItemsResponse": {
           "properties": {
             "data": {
               "items": {
-                "type": "string"
+                "$ref": "#/components/schemas/AppStreamEntity"
               },
               "title": "Data",
               "type": "array"
@@ -146,8 +157,18 @@
             "meta",
             "data"
           ],
-          "title": "AppStreamsNamesResponse",
+          "title": "AppStreamItemsResponse",
           "type": "object"
+        },
+        "AppStreamType": {
+          "enum": [
+            "Application Stream",
+            "Full Life Application Stream",
+            "Rolling Application Stream",
+            "Dependent Application Stream"
+          ],
+          "title": "AppStreamType",
+          "type": "string"
         },
         "AppStreamsResponse": {
           "properties": {
@@ -337,6 +358,16 @@
               "title": "Application Stream Name",
               "type": "string"
             },
+            "application_stream_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AppStreamType"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "count": {
               "title": "Count",
               "type": "integer"
@@ -421,7 +452,16 @@
                 "type": "string"
               },
               "title": "Systems",
-              "type": "array"
+              "type": "array",
+              "uniqueItems": true
+            },
+            "systems_detail": {
+              "items": {
+                "$ref": "#/components/schemas/SystemInfo"
+              },
+              "title": "Systems Detail",
+              "type": "array",
+              "uniqueItems": true
             }
           },
           "required": [
@@ -430,7 +470,7 @@
             "display_name",
             "os_major",
             "count",
-            "systems"
+            "systems_detail"
           ],
           "title": "RelevantAppStream",
           "type": "object"
@@ -564,12 +604,19 @@
               "default": "Unknown"
             },
             "systems": {
-              "default": [],
               "items": {
                 "format": "uuid",
                 "type": "string"
               },
               "title": "Systems",
+              "type": "array",
+              "uniqueItems": true
+            },
+            "systems_detail": {
+              "items": {
+                "$ref": "#/components/schemas/SystemInfo"
+              },
+              "title": "Systems Detail",
               "type": "array",
               "uniqueItems": true
             }
@@ -579,9 +626,30 @@
             "start_date",
             "end_date",
             "major",
-            "lifecycle_type"
+            "lifecycle_type",
+            "systems_detail"
           ],
           "title": "System",
+          "type": "object"
+        },
+        "SystemInfo": {
+          "description": "Information about relevant system.",
+          "properties": {
+            "display_name": {
+              "title": "Display Name",
+              "type": "string"
+            },
+            "id": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "display_name"
+          ],
+          "title": "SystemInfo",
           "type": "object"
         },
         "UpcomingInput": {
@@ -786,6 +854,14 @@
               "title": "Potentiallyaffectedsystemscount",
               "type": "integer"
             },
+            "potentiallyAffectedSystemsDetail": {
+              "items": {
+                "$ref": "#/components/schemas/SystemInfo"
+              },
+              "title": "Potentiallyaffectedsystemsdetail",
+              "type": "array",
+              "uniqueItems": true
+            },
             "summary": {
               "title": "Summary",
               "type": "string"
@@ -802,7 +878,7 @@
             "trainingTicket",
             "lastModified",
             "potentiallyAffectedSystemsCount",
-            "potentiallyAffectedSystems"
+            "potentiallyAffectedSystemsDetail"
           ],
           "title": "UpcomingOutputDetails",
           "type": "object"
@@ -908,7 +984,7 @@
     "paths": {
       "/api/roadmap/v1/lifecycle/app-streams": {
         "get": {
-          "operationId": "get_app_streams_api_roadmap_v1_lifecycle_app_streams_get",
+          "operationId": "get_app_stream_items_api_roadmap_v1_lifecycle_app_streams_get",
           "parameters": [
             {
               "description": "Module or package name",
@@ -961,6 +1037,132 @@
                 "description": "App Stream name",
                 "title": "Application Stream Name"
               }
+            },
+            {
+              "description": "App Stream type",
+              "in": "query",
+              "name": "application_stream_type",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamType"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream type",
+                "title": "Application Stream Type"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AppStreamItemsResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "App stream module and package lifecycle information",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/app-streams/streams": {
+        "get": {
+          "operationId": "get_app_streams_api_roadmap_v1_lifecycle_app_streams_streams_get",
+          "parameters": [
+            {
+              "description": "Module or package name",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Module or package name",
+                "title": "Name"
+              }
+            },
+            {
+              "in": "query",
+              "name": "kind",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamImplementation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Kind"
+              }
+            },
+            {
+              "description": "App Stream name",
+              "in": "query",
+              "name": "application_stream_name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream name",
+                "title": "Application Stream Name"
+              }
+            },
+            {
+              "description": "App Stream type",
+              "in": "query",
+              "name": "application_stream_type",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamType"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream type",
+                "title": "Application Stream Type"
+              }
             }
           ],
           "responses": {
@@ -988,7 +1190,7 @@
               "description": "Validation Error"
             }
           },
-          "summary": "Lifecycle dates for app stream modules and packages",
+          "summary": "Application streams lifecycle information",
           "tags": [
             "Roadmap",
             "Lifecycle",
@@ -1071,6 +1273,24 @@
                 "description": "App Stream name",
                 "title": "Application Stream Name"
               }
+            },
+            {
+              "description": "App Stream type",
+              "in": "query",
+              "name": "application_stream_type",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamType"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream type",
+                "title": "Application Stream Type"
+              }
             }
           ],
           "responses": {
@@ -1106,9 +1326,9 @@
           ]
         }
       },
-      "/api/roadmap/v1/lifecycle/app-streams/{major_version}/packages": {
+      "/api/roadmap/v1/lifecycle/app-streams/{major_version}/modules": {
         "get": {
-          "operationId": "get_app_stream_item_names_api_roadmap_v1_lifecycle_app_streams__major_version__packages_get",
+          "operationId": "get_modules_major_version_api_roadmap_v1_lifecycle_app_streams__major_version__modules_get",
           "parameters": [
             {
               "description": "Major version number",
@@ -1181,6 +1401,24 @@
                 "description": "App Stream name",
                 "title": "Application Stream Name"
               }
+            },
+            {
+              "description": "App Stream type",
+              "in": "query",
+              "name": "application_stream_type",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamType"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream type",
+                "title": "Application Stream Type"
+              }
             }
           ],
           "responses": {
@@ -1188,7 +1426,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AppStreamsNamesResponse"
+                    "$ref": "#/components/schemas/AppStreamsResponse"
                   }
                 }
               },
@@ -1208,7 +1446,135 @@
               "description": "Validation Error"
             }
           },
-          "summary": "List package names for a specific RHEL version",
+          "summary": "List app stream modules for a specific RHEL version",
+          "tags": [
+            "Roadmap",
+            "Lifecycle",
+            "App Streams"
+          ]
+        }
+      },
+      "/api/roadmap/v1/lifecycle/app-streams/{major_version}/packages": {
+        "get": {
+          "operationId": "get_packages_major_version_api_roadmap_v1_lifecycle_app_streams__major_version__packages_get",
+          "parameters": [
+            {
+              "description": "Major version number",
+              "in": "path",
+              "name": "major_version",
+              "required": true,
+              "schema": {
+                "anyOf": [
+                  {
+                    "maximum": 10,
+                    "minimum": 8,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Major version number",
+                "title": "Major Version"
+              }
+            },
+            {
+              "description": "Module or package name",
+              "in": "query",
+              "name": "name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Module or package name",
+                "title": "Name"
+              }
+            },
+            {
+              "in": "query",
+              "name": "kind",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamImplementation"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Kind"
+              }
+            },
+            {
+              "description": "App Stream name",
+              "in": "query",
+              "name": "application_stream_name",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream name",
+                "title": "Application Stream Name"
+              }
+            },
+            {
+              "description": "App Stream type",
+              "in": "query",
+              "name": "application_stream_type",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamType"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream type",
+                "title": "Application Stream Type"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AppStreamsResponse"
+                  }
+                }
+              },
+              "description": "Successful Response"
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            }
+          },
+          "summary": "List app stream packages for a specific RHEL version",
           "tags": [
             "Roadmap",
             "Lifecycle",
@@ -1218,7 +1584,7 @@
       },
       "/api/roadmap/v1/lifecycle/app-streams/{major_version}/streams": {
         "get": {
-          "operationId": "get_app_stream_names_api_roadmap_v1_lifecycle_app_streams__major_version__streams_get",
+          "operationId": "get_streams_major_version_api_roadmap_v1_lifecycle_app_streams__major_version__streams_get",
           "parameters": [
             {
               "description": "Major version number",
@@ -1291,6 +1657,24 @@
                 "description": "App Stream name",
                 "title": "Application Stream Name"
               }
+            },
+            {
+              "description": "App Stream type",
+              "in": "query",
+              "name": "application_stream_type",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/AppStreamType"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "App Stream type",
+                "title": "Application Stream Type"
+              }
             }
           ],
           "responses": {
@@ -1298,7 +1682,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/AppStreamsNamesResponse"
+                    "$ref": "#/components/schemas/AppStreamsResponse"
                   }
                 }
               },
@@ -1318,7 +1702,7 @@
               "description": "Validation Error"
             }
           },
-          "summary": "List app stream names for a specific RHEL version",
+          "summary": "List app streams for a specific RHEL version",
           "tags": [
             "Roadmap",
             "Lifecycle",
