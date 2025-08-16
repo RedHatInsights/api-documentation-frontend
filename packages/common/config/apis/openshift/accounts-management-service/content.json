@@ -413,7 +413,8 @@
                 "ClusterSelfManagedLabel",
                 "ClusterSelfManagedStatus",
                 "OsdTrialProtectedCluster",
-                "ManifestWorkSync"
+                "ManifestWorkSync",
+                "ClusterForcedUpgrade"
               ],
               "type": "string"
             },
@@ -508,7 +509,8 @@
                 "ClusterSelfManagedLabel",
                 "ClusterSelfManagedStatus",
                 "OsdTrialProtectedCluster",
-                "ManifestWorkSync"
+                "ManifestWorkSync",
+                "ClusterForcedUpgrade"
               ],
               "type": "string"
             },
@@ -3773,7 +3775,8 @@
                 "ClusterAutoscaler",
                 "MachinePool",
                 "OsdTrialProtectedCluster",
-                "ManifestWorkSync"
+                "ManifestWorkSync",
+                "ClusterForcedUpgrade"
               ],
               "type": "string"
             },

@@ -55,6 +55,11 @@
               "title": "Model name",
               "type": "string"
             },
+            "no_tools": {
+              "description": "Whether to bypass all tools and MCP servers",
+              "title": "Bypass tools",
+              "type": "boolean"
+            },
             "provider": {
               "description": "A name that identifies a LLM provider.",
               "title": "Provider name",
@@ -914,6 +919,11 @@
               "description": "A model to be used on LLM.",
               "title": "Model name",
               "type": "string"
+            },
+            "no_tools": {
+              "description": "Whether to bypass all tools and MCP servers",
+              "title": "Bypass tools",
+              "type": "boolean"
             },
             "provider": {
               "description": "A name that identifies a LLM provider.",
