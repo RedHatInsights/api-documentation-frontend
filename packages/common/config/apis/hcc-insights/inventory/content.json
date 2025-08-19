@@ -1556,7 +1556,8 @@
             "captured_date": {
               "example": "ex1, ex2, ex3",
               "maxLength": 32,
-              "type": "string"
+              "type": "string",
+              "x-dynamic": true
             },
             "cloud_provider": {
               "example": "aws, ms, ibm",
@@ -1586,7 +1587,8 @@
                 "maxLength": 30,
                 "type": "string"
               },
-              "type": "array"
+              "type": "array",
+              "x-dynamic": true
             },
             "cpu_model": {
               "description": "The cpu model name",
@@ -1685,7 +1687,8 @@
             "insights_egg_version": {
               "example": "2.3, 4.4, 5.1",
               "maxLength": 50,
-              "type": "string"
+              "type": "string",
+              "x-dynamic": true
             },
             "installed_packages": {
               "items": {
@@ -1694,7 +1697,8 @@
                 "maxLength": 512,
                 "type": "string"
               },
-              "type": "array"
+              "type": "array",
+              "x-dynamic": true
             },
             "installed_packages_delta": {
               "items": {
@@ -1709,7 +1713,8 @@
               "items": {
                 "$ref": "#/components/schemas/SystemProfileInstalledProduct"
               },
-              "type": "array"
+              "type": "array",
+              "x-dynamic": true
             },
             "installed_services": {
               "items": {
@@ -1748,12 +1753,14 @@
                 "maxLength": 255,
                 "type": "string"
               },
-              "type": "array"
+              "type": "array",
+              "x-dynamic": true
             },
             "last_boot_time": {
               "format": "date-time",
               "maxLength": 50,
-              "type": "string"
+              "type": "string",
+              "x-dynamic": true
             },
             "mssql": {
               "description": "Object containing data specific to the MS SQL workload",
@@ -1772,7 +1779,8 @@
               "items": {
                 "$ref": "#/components/schemas/SystemProfileNetworkInterface"
               },
-              "type": "array"
+              "type": "array",
+              "x-dynamic": true
             },
             "number_of_cpus": {
               "format": "int32",
@@ -2026,7 +2034,8 @@
                 "maxLength": 1000,
                 "type": "string"
               },
-              "type": "array"
+              "type": "array",
+              "x-dynamic": true
             },
             "sap": {
               "description": "Object containing data specific to the SAP workload",
@@ -2126,7 +2135,8 @@
               "format": "int64",
               "maximum": 9007199254740991,
               "minimum": 0,
-              "type": "integer"
+              "type": "integer",
+              "x-dynamic": true
             },
             "system_purpose": {
               "description": "Object for system purpose information",
@@ -2209,7 +2219,8 @@
                 "jobs_queued",
                 "failed"
               ],
-              "type": "object"
+              "type": "object",
+              "x-dynamic": true
             },
             "third_party_services": {
               "description": "Object containing information about system facts of third party services",
@@ -2482,7 +2493,8 @@
                   "type": "object"
                 }
               },
-              "type": "object"
+              "type": "object",
+              "x-dynamic": true
             },
             "yum_repos": {
               "items": {
