@@ -259,16 +259,6 @@ apis:
           - deploy
           - insights
           - rhel
-      - id: edge
-        name: RHEL for Edge
-        description: RHEL for Edge API
-        url: https://console.redhat.com/api/edge/v1/openapi.json
-        serverUrl: https://console.redhat.com
-        apiType: openapi-v3
-        icon: edge
-        tags:
-          - edge
-          - rhel
       - id: rbac
         name: Role-based Access Control
         description: The API for Role Based Access Control
