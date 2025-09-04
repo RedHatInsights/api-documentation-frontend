@@ -532,19 +532,6 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
-    id: "edge",
-    displayName: "RHEL for Edge",
-    description: "RHEL for Edge API",
-    icon: "EdgeIcon",
-    apiContentPath: "./apis/hcc-insights/edge/content.json",
-    serverUrl: "https://console.redhat.com",
-    getApiContent: () =>
-      import(
-        "./apis/hcc-insights/edge/content.json"
-      ) as unknown as Promise<APIContent>,
-    tags: [apiLabelsMap["edge"], apiLabelsMap["rhel"]],
-  },
-  {
     id: "rbac",
     displayName: "Role-based Access Control",
     description: "The API for Role Based Access Control",
