@@ -643,11 +643,28 @@
               "format": "uuid",
               "title": "Id",
               "type": "string"
+            },
+            "os_major": {
+              "title": "Os Major",
+              "type": "integer"
+            },
+            "os_minor": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Os Minor"
             }
           },
           "required": [
             "id",
-            "display_name"
+            "display_name",
+            "os_major",
+            "os_minor"
           ],
           "title": "SystemInfo",
           "type": "object"
@@ -681,8 +698,18 @@
               "type": "integer"
             },
             "package": {
+              "description": "Returns the first package from sorted packages set for backward compatibility.",
+              "readOnly": true,
               "title": "Package",
               "type": "string"
+            },
+            "packages": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Packages",
+              "type": "array",
+              "uniqueItems": true
             },
             "release": {
               "title": "Release",
@@ -695,10 +722,11 @@
           "required": [
             "name",
             "type",
-            "package",
+            "packages",
             "release",
             "date",
-            "details"
+            "details",
+            "package"
           ],
           "title": "UpcomingInput",
           "type": "object"
@@ -783,8 +811,18 @@
               "type": "string"
             },
             "package": {
+              "description": "Returns the first package from packages set for backward compatibility.",
+              "readOnly": true,
               "title": "Package",
               "type": "string"
+            },
+            "packages": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Packages",
+              "type": "array",
+              "uniqueItems": true
             },
             "release": {
               "title": "Release",
@@ -797,10 +835,11 @@
           "required": [
             "name",
             "type",
-            "package",
+            "packages",
             "release",
             "date",
-            "details"
+            "details",
+            "package"
           ],
           "title": "UpcomingOutput",
           "type": "object"
