@@ -708,8 +708,7 @@
                 "type": "string"
               },
               "title": "Packages",
-              "type": "array",
-              "uniqueItems": true
+              "type": "array"
             },
             "release": {
               "title": "Release",
@@ -821,8 +820,7 @@
                 "type": "string"
               },
               "title": "Packages",
-              "type": "array",
-              "uniqueItems": true
+              "type": "array"
             },
             "release": {
               "title": "Release",
