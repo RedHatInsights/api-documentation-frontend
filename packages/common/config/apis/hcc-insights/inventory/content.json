@@ -203,6 +203,24 @@
             "type": "string"
           }
         },
+        "lastCheckInEnd": {
+          "description": "Only show hosts last checked in before the given date",
+          "in": "query",
+          "name": "last_check_in_end",
+          "schema": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "lastCheckInStart": {
+          "description": "Only show hosts last checked in after the given date",
+          "in": "query",
+          "name": "last_check_in_start",
+          "schema": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
         "pageParam": {
           "description": "A page number of the items to return.",
           "in": "query",
@@ -393,7 +411,7 @@
           }
         },
         "tagsParam": {
-          "description": "filters out hosts not tagged by the given tags",
+          "description": "Filters systems by tag(s). Specify multiple tags as a comma-separated list (e.g. insights-client/security=strict,env/type=prod).",
           "in": "query",
           "name": "tags",
           "required": false,
@@ -1554,8 +1572,8 @@
               "type": "object"
             },
             "captured_date": {
-              "example": "ex1, ex2, ex3",
-              "maxLength": 32,
+              "format": "date-time",
+              "maxLength": 50,
               "type": "string",
               "x-dynamic": true
             },
@@ -1644,7 +1662,7 @@
               "enum": [
                 "edge"
               ],
-              "example": "edge, None",
+              "example": "edge",
               "maxLength": 4,
               "type": "string"
             },
@@ -3484,6 +3502,12 @@
               "$ref": "#/components/parameters/updatedEnd"
             },
             {
+              "$ref": "#/components/parameters/lastCheckInStart"
+            },
+            {
+              "$ref": "#/components/parameters/lastCheckInEnd"
+            },
+            {
               "$ref": "#/components/parameters/groupNameListParam"
             },
             {
@@ -3553,6 +3577,12 @@
             },
             {
               "$ref": "#/components/parameters/updatedEnd"
+            },
+            {
+              "$ref": "#/components/parameters/lastCheckInStart"
+            },
+            {
+              "$ref": "#/components/parameters/lastCheckInEnd"
             },
             {
               "$ref": "#/components/parameters/groupNameListParam"
@@ -4415,6 +4445,12 @@
             },
             {
               "$ref": "#/components/parameters/updatedEnd"
+            },
+            {
+              "$ref": "#/components/parameters/lastCheckInStart"
+            },
+            {
+              "$ref": "#/components/parameters/lastCheckInEnd"
             },
             {
               "$ref": "#/components/parameters/groupNameListParam"
