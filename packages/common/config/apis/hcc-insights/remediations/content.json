@@ -98,7 +98,7 @@
             "type": "string"
           }
         },
-        "Limit": {
+        "Limit200": {
           "description": "Maximum number of results to return",
           "in": "query",
           "name": "limit",
@@ -365,6 +365,44 @@
           "required": true,
           "schema": {
             "$ref": "#/components/schemas/SystemId"
+          }
+        },
+        "SystemIssuesFilter": {
+          "description": "For filtering by various criteria.\n\nAvailable filter fields:\n- id: issue ids matching string (supports partial match)\n- resolution.id: selected resolution type (e.g., fix)\n",
+          "explode": true,
+          "in": "query",
+          "name": "filter",
+          "required": false,
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "description": "Filter by issue id (allows partial match)",
+                "example": "advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074",
+                "type": "string"
+              },
+              "resolution.id": {
+                "description": "Selected resolution type (e.g., fix)",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "x-remediations-strict": false
+          },
+          "style": "deepObject"
+        },
+        "SystemIssuesSort": {
+          "description": "Sort order",
+          "in": "query",
+          "name": "sort",
+          "required": false,
+          "schema": {
+            "default": "id",
+            "enum": [
+              "id",
+              "-id"
+            ],
+            "type": "string"
           }
         },
         "SystemName": {
@@ -1952,6 +1990,67 @@
           "format": "uuid",
           "type": "string"
         },
+        "SystemIssueOut": {
+          "additionalProperties": false,
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/IssueId"
+            },
+            "resolution": {
+              "additionalProperties": false,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "$ref": "#/components/schemas/ResolutionType"
+                },
+                "needs_reboot": {
+                  "type": "boolean"
+                },
+                "resolution_risk": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "resolutions_available": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "description",
+            "resolution",
+            "resolutions_available"
+          ],
+          "type": "object"
+        },
+        "SystemIssuesList": {
+          "additionalProperties": false,
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/SystemIssueOut"
+              },
+              "type": "array"
+            },
+            "links": {
+              "$ref": "#/components/schemas/Links"
+            },
+            "meta": {
+              "$ref": "#/components/schemas/Meta"
+            }
+          },
+          "required": [
+            "data",
+            "meta"
+          ],
+          "type": "object"
+        },
         "SystemList": {
           "items": {
             "$ref": "#/components/schemas/SystemId"
@@ -2152,7 +2251,7 @@
               "$ref": "#/components/parameters/RemediationFilter"
             },
             {
-              "$ref": "#/components/parameters/Limit"
+              "$ref": "#/components/parameters/Limit200"
             },
             {
               "$ref": "#/components/parameters/Offset"
@@ -2545,7 +2644,7 @@
               "$ref": "#/components/parameters/IssueId"
             },
             {
-              "$ref": "#/components/parameters/Limit"
+              "$ref": "#/components/parameters/Limit200"
             },
             {
               "$ref": "#/components/parameters/Offset"
@@ -2701,7 +2800,7 @@
               "$ref": "#/components/parameters/RemediationId"
             },
             {
-              "$ref": "#/components/parameters/Limit"
+              "$ref": "#/components/parameters/Limit200"
             },
             {
               "$ref": "#/components/parameters/Offset"
@@ -2868,7 +2967,7 @@
               "$ref": "#/components/parameters/ExecutorId"
             },
             {
-              "$ref": "#/components/parameters/Limit"
+              "$ref": "#/components/parameters/Limit200"
             },
             {
               "$ref": "#/components/parameters/Offset"
@@ -2944,27 +3043,6 @@
         }
       },
       "/remediations/{id}/systems": {
-        "delete": {
-          "description": "Removes the given list of systems from the specified remediation plan.  Request is rejected if indicated remediation plan is not found.  Duplicate or missing system IDs are ignored.",
-          "operationId": "deleteRemediationSystems",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/RemediationId"
-            }
-          ],
-          "requestBody": {
-            "$ref": "#/components/requestBodies/SystemsList"
-          },
-          "responses": {
-            "200": {
-              "$ref": "#/components/responses/MultipleDelete"
-            }
-          },
-          "summary": "Bulk Remove Remediation Plan Systems",
-          "tags": [
-            "remediations"
-          ]
-        },
         "get": {
           "description": "Get a paginated list of distinct systems from a given remediation plan, RBAC permission {remediations:remediation:read}",
           "operationId": "getRemediationSystems",
@@ -2973,7 +3051,7 @@
               "$ref": "#/components/parameters/RemediationId"
             },
             {
-              "$ref": "#/components/parameters/Limit"
+              "$ref": "#/components/parameters/Limit50"
             },
             {
               "$ref": "#/components/parameters/Offset"
@@ -3005,6 +3083,76 @@
             }
           },
           "summary": "Get Remediation Plan Systems",
+          "tags": [
+            "remediations"
+          ]
+        }
+      },
+      "/remediations/{id}/systems/{system}/issues": {
+        "delete": {
+          "description": "Removes the given list of systems from the specified remediation plan.  Request is rejected if indicated remediation plan is not found.  Duplicate or missing system IDs are ignored.",
+          "operationId": "deleteRemediationSystems",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            }
+          ],
+          "requestBody": {
+            "$ref": "#/components/requestBodies/SystemsList"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/MultipleDelete"
+            }
+          },
+          "summary": "Bulk Remove Remediation Plan Systems",
+          "tags": [
+            "remediations"
+          ]
+        },
+        "get": {
+          "description": "Get a paginated list of issues for a specific system in a remediation plan, RBAC permission {remediations:remediation:read}",
+          "operationId": "getRemediationSystemIssues",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            },
+            {
+              "$ref": "#/components/parameters/SystemId"
+            },
+            {
+              "$ref": "#/components/parameters/Limit50"
+            },
+            {
+              "$ref": "#/components/parameters/Offset"
+            },
+            {
+              "$ref": "#/components/parameters/SystemIssuesSort"
+            },
+            {
+              "$ref": "#/components/parameters/SystemIssuesFilter"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "example": "{\n  \"data\": [\n    {\n      \"id\": \"advisor:CVE_2017_6074_kernel|KERNEL_CVE_2017_6074\",\n      \"description\": \"Kernel vulnerability allows privilege escalation\",\n      \"resolution\": {\n        \"id\": \"fix\",\n        \"description\": \"Update kernel to patched version\",\n        \"resolution_risk\": 2,\n        \"needs_reboot\": true\n      },\n      \"resolutions_available\": 1\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"total\": 149\n  },\n  \"links\": {\n    \"first\": \"/api/remediations/v1/remediations/a8799a02-8be9-11e8-9eb6-529269fb1459/systems/a8799a02-8be9-11e8-9eb6-529269fb1459/issues?limit=50&offset=0\",\n    \"last\": \"/api/remediations/v1/remediations/a8799a02-8be9-11e8-9eb6-529269fb1459/systems/a8799a02-8be9-11e8-9eb6-529269fb1459/issues?limit=50&offset=100\",\n    \"next\": \"/api/remediations/v1/remediations/a8799a02-8be9-11e8-9eb6-529269fb1459/systems/a8799a02-8be9-11e8-9eb6-529269fb1459/issues?limit=50&offset=50\",\n    \"previous\": null\n  }\n}\n",
+                  "schema": {
+                    "$ref": "#/components/schemas/SystemIssuesList"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          },
+          "summary": "Get Remediation System Issues",
           "tags": [
             "remediations"
           ]
