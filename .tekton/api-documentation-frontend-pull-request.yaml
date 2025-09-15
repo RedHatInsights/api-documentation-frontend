@@ -29,6 +29,8 @@ spec:
     value: 5d
   - name: dockerfile
     value: ./Dockerfile
+  - name: build-container-additional-secret
+    value: api-documentation-frontend-sitemap
   pipelineRef:
     name: docker-build-oci-ta
   taskRunTemplate:
