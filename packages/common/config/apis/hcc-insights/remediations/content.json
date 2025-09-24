@@ -3088,6 +3088,32 @@
           ]
         }
       },
+      "/remediations/{id}/systems/{system}": {
+        "delete": {
+          "description": "Removes the given System from all issues in the specified remediation plan, RBAC permission {remediations:remediation:write}",
+          "operationId": "deleteRemediationSystem",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            },
+            {
+              "$ref": "#/components/parameters/SystemId"
+            }
+          ],
+          "responses": {
+            "204": {
+              "$ref": "#/components/responses/Deleted"
+            },
+            "404": {
+              "$ref": "#/components/responses/NotFound"
+            }
+          },
+          "summary": "Remove system from all issues in remediation",
+          "tags": [
+            "remediations"
+          ]
+        }
+      },
       "/remediations/{id}/systems/{system}/issues": {
         "delete": {
           "description": "Removes the given list of systems from the specified remediation plan.  Request is rejected if indicated remediation plan is not found.  Duplicate or missing system IDs are ignored.",
