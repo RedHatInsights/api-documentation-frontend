@@ -234,6 +234,7 @@
             },
             "last_seen": {
               "format": "date-time",
+              "nullable": true,
               "type": "string"
             },
             "likelihood": {
@@ -1960,6 +1961,7 @@
             },
             "last_seen": {
               "format": "date-time",
+              "nullable": true,
               "readOnly": true,
               "type": "string"
             },
@@ -2062,6 +2064,7 @@
             },
             "last_seen": {
               "format": "date-time",
+              "nullable": true,
               "readOnly": true,
               "type": "string"
             },

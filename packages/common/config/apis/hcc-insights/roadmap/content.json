@@ -623,9 +623,9 @@
           },
           "required": [
             "name",
+            "major",
             "start_date",
             "end_date",
-            "major",
             "lifecycle_type",
             "systems_detail"
           ],
@@ -679,9 +679,6 @@
                 {
                   "format": "date",
                   "type": "string"
-                },
-                {
-                  "type": "null"
                 }
               ],
               "title": "Date"
@@ -759,9 +756,6 @@
                 {
                   "format": "date",
                   "type": "string"
-                },
-                {
-                  "type": "null"
                 }
               ],
               "title": "Lastmodified"
@@ -795,9 +789,6 @@
                 {
                   "format": "date",
                   "type": "string"
-                },
-                {
-                  "type": "null"
                 }
               ],
               "title": "Date"
@@ -871,9 +862,6 @@
                 {
                   "format": "date",
                   "type": "string"
-                },
-                {
-                  "type": "null"
                 }
               ],
               "title": "Lastmodified"
@@ -1245,18 +1233,11 @@
               "name": "major_version",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 8,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major Version"
+                "maximum": 10,
+                "minimum": 8,
+                "title": "Major Version",
+                "type": "integer"
               }
             },
             {
@@ -1373,18 +1354,11 @@
               "name": "major_version",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 8,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major Version"
+                "maximum": 10,
+                "minimum": 8,
+                "title": "Major Version",
+                "type": "integer"
               }
             },
             {
@@ -1501,18 +1475,11 @@
               "name": "major_version",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 8,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major Version"
+                "maximum": 10,
+                "minimum": 8,
+                "title": "Major Version",
+                "type": "integer"
               }
             },
             {
@@ -1629,18 +1596,11 @@
               "name": "major_version",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 8,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major Version"
+                "maximum": 10,
+                "minimum": 8,
+                "title": "Major Version",
+                "type": "integer"
               }
             },
             {
@@ -1804,18 +1764,11 @@
               "name": "major",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 7,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major"
+                "maximum": 10,
+                "minimum": 7,
+                "title": "Major",
+                "type": "integer"
               }
             }
           ],
@@ -1860,18 +1813,11 @@
               "name": "major",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 7,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major"
+                "maximum": 10,
+                "minimum": 7,
+                "title": "Major",
+                "type": "integer"
               }
             }
           ],
@@ -1915,18 +1861,11 @@
               "name": "major",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 7,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Major version number",
-                "title": "Major"
+                "maximum": 10,
+                "minimum": 7,
+                "title": "Major",
+                "type": "integer"
               }
             },
             {
@@ -1935,18 +1874,11 @@
               "name": "minor",
               "required": true,
               "schema": {
-                "anyOf": [
-                  {
-                    "maximum": 10,
-                    "minimum": 0,
-                    "type": "integer"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ],
                 "description": "Minor version number",
-                "title": "Minor"
+                "maximum": 10,
+                "minimum": 0,
+                "title": "Minor",
+                "type": "integer"
               }
             }
           ],
@@ -1995,13 +1927,13 @@
               }
             },
             {
-              "description": "Major version number",
               "in": "query",
               "name": "major",
               "required": false,
               "schema": {
                 "anyOf": [
                   {
+                    "description": "Major version number",
                     "maximum": 10,
                     "minimum": 8,
                     "type": "integer"
@@ -2010,18 +1942,17 @@
                     "type": "null"
                   }
                 ],
-                "description": "Major version number",
                 "title": "Major"
               }
             },
             {
-              "description": "Minor version number",
               "in": "query",
               "name": "minor",
               "required": false,
               "schema": {
                 "anyOf": [
                   {
+                    "description": "Minor version number",
                     "maximum": 10,
                     "minimum": 0,
                     "type": "integer"
@@ -2030,7 +1961,6 @@
                     "type": "null"
                   }
                 ],
-                "description": "Minor version number",
                 "title": "Minor"
               }
             }
@@ -2080,13 +2010,13 @@
               }
             },
             {
-              "description": "Major version number",
               "in": "query",
               "name": "major",
               "required": false,
               "schema": {
                 "anyOf": [
                   {
+                    "description": "Major version number",
                     "maximum": 10,
                     "minimum": 8,
                     "type": "integer"
@@ -2095,18 +2025,17 @@
                     "type": "null"
                   }
                 ],
-                "description": "Major version number",
                 "title": "Major"
               }
             },
             {
-              "description": "Minor version number",
               "in": "query",
               "name": "minor",
               "required": false,
               "schema": {
                 "anyOf": [
                   {
+                    "description": "Minor version number",
                     "maximum": 10,
                     "minimum": 0,
                     "type": "integer"
@@ -2115,7 +2044,6 @@
                     "type": "null"
                   }
                 ],
-                "description": "Minor version number",
                 "title": "Minor"
               }
             }
@@ -2166,13 +2094,13 @@
               }
             },
             {
-              "description": "Major version number",
               "in": "query",
               "name": "major",
               "required": false,
               "schema": {
                 "anyOf": [
                   {
+                    "description": "Major version number",
                     "maximum": 10,
                     "minimum": 8,
                     "type": "integer"
@@ -2181,18 +2109,17 @@
                     "type": "null"
                   }
                 ],
-                "description": "Major version number",
                 "title": "Major"
               }
             },
             {
-              "description": "Minor version number",
               "in": "query",
               "name": "minor",
               "required": false,
               "schema": {
                 "anyOf": [
                   {
+                    "description": "Minor version number",
                     "maximum": 10,
                     "minimum": 0,
                     "type": "integer"
@@ -2201,7 +2128,6 @@
                     "type": "null"
                   }
                 ],
-                "description": "Minor version number",
                 "title": "Minor"
               }
             }
