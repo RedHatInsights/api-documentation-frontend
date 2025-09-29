@@ -1,0 +1,179 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get commit hash
+        run: |
+          echo "COMMIT_SHA=${GITHUB_SHA:0:7}" >> $GITHUB_ENV
+          echo "Commit hash (7 chars): ${GITHUB_SHA:0:7}"
+
+      - name: Wait for Quay image
+        timeout-minutes: 25
+        run: |
+          echo "🔍 Waiting for Quay image with commit $COMMIT_SHA"
+          echo "Repository: quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend"
+          
+          echo "⏳ Initial wait: 15 minutes for image build to complete..."
+          echo "🕐 Started waiting at: $(date)"
+          sleep 900
+          echo "✅ Initial wait completed at: $(date)"
+          
+          echo "🔍 Starting image availability checks..."
+          for attempt in {1..10}; do
+            echo "📋 Check $attempt/10 ($(date))"
+            echo "  Checking tag: $COMMIT_SHA"
+            
+            response=$(curl -s -w "%{http_code}" -o /tmp/quay_response.json \
+              "https://quay.io/api/v1/repository/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend/tag/?specificTag=$COMMIT_SHA")
+            
+            if [ "$response" = "200" ]; then
+              if cat /tmp/quay_response.json | jq -e ".tags[] | select(.name == \"$COMMIT_SHA\")" > /dev/null 2>&1; then
+                echo "✅ Image found with tag: $COMMIT_SHA"
+                echo "IMAGE_TAG=$COMMIT_SHA" >> $GITHUB_ENV
+                
+                echo "📋 Image details:"
+                cat /tmp/quay_response.json | jq ".tags[] | select(.name == \"$COMMIT_SHA\") | {name, size, start_ts}"
+                exit 0
+              else
+                echo "  ❌ Tag $COMMIT_SHA not found in response"
+              fi
+            elif [ "$response" = "404" ]; then
+              echo "  ❌ Repository or tag $COMMIT_SHA not found"
+            elif [ "$response" = "401" ]; then
+              echo "  🔐 Authentication required (unexpected for public repository)"
+              exit 1
+            else
+              echo "  ⚠️  Unexpected response code: $response"
+              echo "  Response content:"
+              cat /tmp/quay_response.json | head -5
+            fi
+            
+            if [ $attempt -lt 10 ]; then
+              echo "⏳ Image not ready yet, waiting 60 seconds before next check..."
+              sleep 60
+            fi
+          done
+          
+          echo "❌ Image not found after 25 minutes total (15 min wait + 10 min checks)"
+          echo "Checked tag: $COMMIT_SHA"
+          exit 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: |
+          echo "🏗️ Building application..."
+          npm run build
+          echo "✅ Build completed"
+
+      - name: Install SPAship CLI
+        run: |
+          echo "📦 Installing SPAship CLI..."
+          npm install -g @spaship/cli
+          spaship --version
+
+      - name: Create temporary SPAship config
+        run: |
+          echo "🔧 Creating temporary SPAship configuration..."
+          cat > .spashiprc.yml << EOF
+          envs:
+            temp_config:
+              url: https://spaship.redhat.com
+              apikey: placeholder
+          EOF
+          echo "✅ Temporary SPAship configuration created"
+
+      - name: Deploy to Stage
+        id: deploy-stage
+        run: |
+          echo "🚀 Deploying to Stage environment..."
+          spaship deploy --env "${{ secrets.SPASHIP_STAGE_WEB_PROPERTY }}" --apikey ${{ secrets.SPASHIP_STAGE_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+          echo "✅ Stage deployment completed"
+        continue-on-error: false
+
+      - name: Wait before QA deployment
+        run: |
+          echo "⏳ Waiting 2 minutes before QA deployment..."
+          sleep 120
+
+      - name: Deploy to QA
+        id: deploy-qa
+        run: |
+          echo "🚀 Deploying to QA environment..."
+          spaship deploy --env "${{ secrets.SPASHIP_QA_WEB_PROPERTY }}" --apikey ${{ secrets.SPASHIP_QA_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+          echo "✅ QA deployment completed"
+        continue-on-error: false
+
+      - name: Wait before Dev deployment
+        run: |
+          echo "⏳ Waiting 2 minutes before Dev deployment..."
+          sleep 120
+
+      - name: Deploy to Dev
+        id: deploy-dev
+        run: |
+          echo "🚀 Deploying to Dev environment..."
+          spaship deploy --env "${{ secrets.SPASHIP_DEV_WEB_PROPERTY }}" --apikey ${{ secrets.SPASHIP_DEV_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+          echo "✅ Dev deployment completed"
+        continue-on-error: false
+
+      # NOTE: Stage-cont deployment is commented out as this is a specific environment
+      # that may not exist in the future. Uncomment and configure secrets if needed.
+      # - name: Wait before Stage-cont deployment
+      #   run: |
+      #     echo "⏳ Waiting 2 minutes before Stage-cont deployment..."
+      #     sleep 120
+      #
+      # - name: Deploy to Stage-cont
+      #   id: deploy-stage-cont
+      #   run: |
+      #     echo "🚀 Deploying to Stage-cont environment..."
+      #     spaship deploy --env ${{ secrets.SPASHIP_STAGE_CONT_WEB_PROPERTY }} --apikey ${{ secrets.SPASHIP_STAGE_CONT_API_KEY }} --path /api-catalog-cont --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+      #     echo "✅ Stage-cont deployment completed"
+      #   continue-on-error: false
+
+      # NOTE: Production deployment is temporarily commented out for safety reasons
+      # to prevent accidental deployments during testing. Uncomment when ready for production use.
+      # - name: Wait before Production deployment
+      #   run: |
+      #     echo "⏳ Waiting 5 minutes before Production deployment..."
+      #     sleep 300
+      #
+      # - name: Deploy to Production
+      #   id: deploy-prod
+      #   run: |
+      #     echo "🚀 Deploying to Production environment..."
+      #     spaship deploy --env ${{ secrets.SPASHIP_PROD_WEB_PROPERTY }} --apikey ${{ secrets.SPASHIP_PROD_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+      #     echo "✅ Production deployment completed"
+      #   continue-on-error: false
+
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo "📊 Deployment Summary:"
+          echo "- Commit: $COMMIT_SHA"
+          echo "- Image: quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG"
+          echo "- Stage: ${{ steps.deploy-stage.outcome }}"
+          echo "- QA: ${{ steps.deploy-qa.outcome }}"
+          echo "- Dev: ${{ steps.deploy-dev.outcome }}"
+          echo "- Stage-cont: SKIPPED (commented out)"
+          echo "- Production: SKIPPED (commented out for safety)"
