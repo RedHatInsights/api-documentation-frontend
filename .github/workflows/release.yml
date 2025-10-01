@@ -104,9 +104,20 @@ jobs:
 
       - name: Deploy to Stage
         id: deploy-stage
+        env:
+          SPASHIP_ENV: ${{ secrets.SPASHIP_STAGE_WEB_PROPERTY }}
+          SPASHIP_API_KEY: ${{ secrets.SPASHIP_STAGE_API_KEY }}
         run: |
           echo "🚀 Deploying to Stage environment..."
-          spaship deploy --env "${{ secrets.SPASHIP_STAGE_WEB_PROPERTY }}" --apikey ${{ secrets.SPASHIP_STAGE_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+          if [ -z "$SPASHIP_ENV" ]; then
+            echo "❌ Error: SPASHIP_STAGE_WEB_PROPERTY secret is not set or is empty"
+            exit 1
+          fi
+          if [ -z "$SPASHIP_API_KEY" ]; then
+            echo "❌ Error: SPASHIP_STAGE_API_KEY secret is not set or is empty"
+            exit 1
+          fi
+          spaship deploy --env "$SPASHIP_ENV" --apikey "$SPASHIP_API_KEY" --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
           echo "✅ Stage deployment completed"
         continue-on-error: false
 
@@ -117,9 +128,20 @@ jobs:
 
       - name: Deploy to QA
         id: deploy-qa
+        env:
+          SPASHIP_ENV: ${{ secrets.SPASHIP_QA_WEB_PROPERTY }}
+          SPASHIP_API_KEY: ${{ secrets.SPASHIP_QA_API_KEY }}
         run: |
           echo "🚀 Deploying to QA environment..."
-          spaship deploy --env "${{ secrets.SPASHIP_QA_WEB_PROPERTY }}" --apikey ${{ secrets.SPASHIP_QA_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+          if [ -z "$SPASHIP_ENV" ]; then
+            echo "❌ Error: SPASHIP_QA_WEB_PROPERTY secret is not set or is empty"
+            exit 1
+          fi
+          if [ -z "$SPASHIP_API_KEY" ]; then
+            echo "❌ Error: SPASHIP_QA_API_KEY secret is not set or is empty"
+            exit 1
+          fi
+          spaship deploy --env "$SPASHIP_ENV" --apikey "$SPASHIP_API_KEY" --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
           echo "✅ QA deployment completed"
         continue-on-error: false
 
@@ -130,9 +152,20 @@ jobs:
 
       - name: Deploy to Dev
         id: deploy-dev
+        env:
+          SPASHIP_ENV: ${{ secrets.SPASHIP_DEV_WEB_PROPERTY }}
+          SPASHIP_API_KEY: ${{ secrets.SPASHIP_DEV_API_KEY }}
         run: |
           echo "🚀 Deploying to Dev environment..."
-          spaship deploy --env "${{ secrets.SPASHIP_DEV_WEB_PROPERTY }}" --apikey ${{ secrets.SPASHIP_DEV_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+          if [ -z "$SPASHIP_ENV" ]; then
+            echo "❌ Error: SPASHIP_DEV_WEB_PROPERTY secret is not set or is empty"
+            exit 1
+          fi
+          if [ -z "$SPASHIP_API_KEY" ]; then
+            echo "❌ Error: SPASHIP_DEV_API_KEY secret is not set or is empty"
+            exit 1
+          fi
+          spaship deploy --env "$SPASHIP_ENV" --apikey "$SPASHIP_API_KEY" --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
           echo "✅ Dev deployment completed"
         continue-on-error: false
 
@@ -145,9 +178,20 @@ jobs:
       #
       # - name: Deploy to Stage-cont
       #   id: deploy-stage-cont
+      #   env:
+      #     SPASHIP_ENV: ${{ secrets.SPASHIP_STAGE_CONT_WEB_PROPERTY }}
+      #     SPASHIP_API_KEY: ${{ secrets.SPASHIP_STAGE_CONT_API_KEY }}
       #   run: |
       #     echo "🚀 Deploying to Stage-cont environment..."
-      #     spaship deploy --env ${{ secrets.SPASHIP_STAGE_CONT_WEB_PROPERTY }} --apikey ${{ secrets.SPASHIP_STAGE_CONT_API_KEY }} --path /api-catalog-cont --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+      #     if [ -z "$SPASHIP_ENV" ]; then
+      #       echo "❌ Error: SPASHIP_STAGE_CONT_WEB_PROPERTY secret is not set or is empty"
+      #       exit 1
+      #     fi
+      #     if [ -z "$SPASHIP_API_KEY" ]; then
+      #       echo "❌ Error: SPASHIP_STAGE_CONT_API_KEY secret is not set or is empty"
+      #       exit 1
+      #     fi
+      #     spaship deploy --env "$SPASHIP_ENV" --apikey "$SPASHIP_API_KEY" --path /api-catalog-cont --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
       #     echo "✅ Stage-cont deployment completed"
       #   continue-on-error: false
 
@@ -160,9 +204,20 @@ jobs:
       #
       # - name: Deploy to Production
       #   id: deploy-prod
+      #   env:
+      #     SPASHIP_ENV: ${{ secrets.SPASHIP_PROD_WEB_PROPERTY }}
+      #     SPASHIP_API_KEY: ${{ secrets.SPASHIP_PROD_API_KEY }}
       #   run: |
       #     echo "🚀 Deploying to Production environment..."
-      #     spaship deploy --env ${{ secrets.SPASHIP_PROD_WEB_PROPERTY }} --apikey ${{ secrets.SPASHIP_PROD_API_KEY }} --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
+      #     if [ -z "$SPASHIP_ENV" ]; then
+      #       echo "❌ Error: SPASHIP_PROD_WEB_PROPERTY secret is not set or is empty"
+      #       exit 1
+      #     fi
+      #     if [ -z "$SPASHIP_API_KEY" ]; then
+      #       echo "❌ Error: SPASHIP_PROD_API_KEY secret is not set or is empty"
+      #       exit 1
+      #     fi
+      #     spaship deploy --env "$SPASHIP_ENV" --apikey "$SPASHIP_API_KEY" --image quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend:$IMAGE_TAG
       #     echo "✅ Production deployment completed"
       #   continue-on-error: false
 
