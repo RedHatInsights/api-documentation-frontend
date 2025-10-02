@@ -96,7 +96,13 @@ jobs:
           echo "🔧 Creating temporary SPAship configuration..."
           cat > .spashiprc.yml << EOF
           envs:
-            temp_config:
+            stage:
+              url: https://spaship.redhat.com
+              apikey: placeholder
+            qa:
+              url: https://spaship.redhat.com
+              apikey: placeholder
+            dev:
               url: https://spaship.redhat.com
               apikey: placeholder
           EOF
