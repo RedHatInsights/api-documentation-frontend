@@ -1056,7 +1056,7 @@
       "/notifications/drawer": {
         "get": {
           "description": "Allowed `sort_by` fields are `bundleIds`, `applicationIds`, `eventTypeIds`, `startTime`, `endTime` and `read`. The ordering can be optionally specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `desc` for the `created` field and to `asc` for all other fields.",
-          "operationId": "DrawerResource_getDrawerEntries",
+          "operationId": "DrawerResource$V1_getDrawerEntries",
           "parameters": [
             {
               "in": "query",
@@ -1175,16 +1175,13 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve drawer notifications entries.",
-          "tags": [
-            "Drawer Resource"
-          ]
+          "summary": "Retrieve drawer notifications entries."
         }
       },
       "/notifications/drawer/read": {
         "put": {
           "description": "Update drawer notifications status.",
-          "operationId": "DrawerResource_updateNotificationReadStatus",
+          "operationId": "DrawerResource$V1_updateNotificationReadStatus",
           "requestBody": {
             "content": {
               "application/json": {
@@ -1206,15 +1203,9 @@
                 }
               },
               "description": "OK"
-            },
-            "400": {
-              "description": "Bad Request"
             }
           },
-          "summary": "Update drawer notifications status.",
-          "tags": [
-            "Drawer Resource"
-          ]
+          "summary": "Update drawer notifications status."
         }
       },
       "/notifications/eventTypes": {
@@ -1422,10 +1413,7 @@
               "description": "OK"
             }
           },
-          "summary": "List the behavior groups linked to an event type",
-          "tags": [
-            "V 1"
-          ]
+          "summary": "List the behavior groups linked to an event type"
         },
         "put": {
           "description": "Updates the list of behavior groups associated with an event type.",
@@ -1580,7 +1568,7 @@
       "/notifications/events": {
         "get": {
           "description": "Retrieves the event log entries. Use this endpoint to review a full history of the events related to the tenant. You can sort by the bundle, application, event, and created fields. You can specify the sort order by appending :asc or :desc to the field, for example bundle:desc. Sorting defaults to desc for the created field and to asc for all other fields.",
-          "operationId": "EventResource_getEvents",
+          "operationId": "EventResource$V1_getEvents",
           "parameters": [
             {
               "in": "query",
@@ -1740,10 +1728,7 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the event log entries",
-          "tags": [
-            "Event Resource"
-          ]
+          "summary": "Retrieve the event log entries"
         }
       },
       "/notifications/facets/applications": {
@@ -1811,7 +1796,7 @@
       "/org-config/daily-digest/time-preference": {
         "get": {
           "description": "Retrieves the daily digest time setting. Use this endpoint to check the time that daily emails are sent.",
-          "operationId": "OrgConfigResource_getDailyDigestTimePreference",
+          "operationId": "OrgConfigResource$V1_getDailyDigestTimePreference",
           "responses": {
             "200": {
               "content": {
@@ -1824,14 +1809,11 @@
               "description": "OK"
             }
           },
-          "summary": "Retrieve the daily digest time",
-          "tags": [
-            "Org Config Resource"
-          ]
+          "summary": "Retrieve the daily digest time"
         },
         "put": {
           "description": "Sets the daily digest UTC time. The accepted minute values are 00, 15, 30, and 45. Use this endpoint to set the time when daily emails are sent.",
-          "operationId": "OrgConfigResource_saveDailyDigestTimePreference",
+          "operationId": "OrgConfigResource$V1_saveDailyDigestTimePreference",
           "requestBody": {
             "content": {
               "application/json": {
@@ -1850,10 +1832,7 @@
               "description": "Invalid minute value specified"
             }
           },
-          "summary": "Set the daily digest time",
-          "tags": [
-            "Org Config Resource"
-          ]
+          "summary": "Set the daily digest time"
         }
       }
     },
