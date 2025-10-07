@@ -864,11 +864,7 @@
               },
               "description": "OK"
             }
-          },
-          "summary": "Get Endpoint History",
-          "tags": [
-            "V 1"
-          ]
+          }
         }
       },
       "/endpoints/{id}/history/{history_id}/details": {
