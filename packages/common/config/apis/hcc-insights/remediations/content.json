@@ -1238,6 +1238,10 @@
         "PlaybookRunSystems": {
           "additionalProperties": false,
           "properties": {
+            "executor_type": {
+              "description": "Executor type for this system (e.g., 'direct' or 'satellite')",
+              "type": "string"
+            },
             "playbook_run_executor_id": {
               "$ref": "#/components/schemas/PlaybookRunId"
             },
@@ -3043,6 +3047,27 @@
         }
       },
       "/remediations/{id}/systems": {
+        "delete": {
+          "description": "Removes the given list of systems from the specified remediation plan.  Request is rejected if indicated remediation plan is not found.  Duplicate or missing system IDs are ignored.",
+          "operationId": "deleteRemediationSystems",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/RemediationId"
+            }
+          ],
+          "requestBody": {
+            "$ref": "#/components/requestBodies/SystemsList"
+          },
+          "responses": {
+            "200": {
+              "$ref": "#/components/responses/MultipleDelete"
+            }
+          },
+          "summary": "Bulk Remove Remediation Plan Systems",
+          "tags": [
+            "remediations"
+          ]
+        },
         "get": {
           "description": "Get a paginated list of distinct systems from a given remediation plan, RBAC permission {remediations:remediation:read}",
           "operationId": "getRemediationSystems",
@@ -3115,27 +3140,6 @@
         }
       },
       "/remediations/{id}/systems/{system}/issues": {
-        "delete": {
-          "description": "Removes the given list of systems from the specified remediation plan.  Request is rejected if indicated remediation plan is not found.  Duplicate or missing system IDs are ignored.",
-          "operationId": "deleteRemediationSystems",
-          "parameters": [
-            {
-              "$ref": "#/components/parameters/RemediationId"
-            }
-          ],
-          "requestBody": {
-            "$ref": "#/components/requestBodies/SystemsList"
-          },
-          "responses": {
-            "200": {
-              "$ref": "#/components/responses/MultipleDelete"
-            }
-          },
-          "summary": "Bulk Remove Remediation Plan Systems",
-          "tags": [
-            "remediations"
-          ]
-        },
         "get": {
           "description": "Get a paginated list of issues for a specific system in a remediation plan, RBAC permission {remediations:remediation:read}",
           "operationId": "getRemediationSystemIssues",
