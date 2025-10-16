@@ -1,0 +1,87 @@
+image: node:22
+
+stages:
+  - deploy
+
+variables:
+  QUAY_REPO: "quay.io/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend"
+
+.deploy_template: &deploy_template
+  stage: deploy
+  before_script:
+    - apt-get update
+    - apt-get install -y ca-certificates wget curl jq
+    - wget -O /etc/ca-certificates/mtls-ca-validators.crt https://certs.corp.redhat.com/certs/mtls-ca-validators.crt || true
+    - update-ca-certificates || true
+  script:
+    - export COMMIT_SHA="${CI_COMMIT_SHA:0:7}"
+    - echo "Deploying commit $COMMIT_SHA to $ENVIRONMENT_NAME"
+    - echo "Waiting for Quay image with tag $COMMIT_SHA"
+    - echo "Initial wait 15 minutes for image build..."
+    - sleep 900
+    - |
+      for attempt in {1..10}; do
+        echo "Check $attempt/10 - Looking for tag: $COMMIT_SHA"
+        response=$(curl -s -w "%{http_code}" -o /tmp/quay_response.json \
+          "https://quay.io/api/v1/repository/redhat-services-prod/rh-platform-experien-tenant/api-documentation-frontend/tag/?specificTag=$COMMIT_SHA")
+        
+        if [ "$response" = "200" ]; then
+          if cat /tmp/quay_response.json | jq -e ".tags[] | select(.name == \"$COMMIT_SHA\")" > /dev/null 2>&1; then
+            echo "Image found with tag: $COMMIT_SHA"
+            export IMAGE_TAG=$COMMIT_SHA
+            break
+          fi
+        fi
+        
+        if [ $attempt -lt 10 ]; then
+          echo "Image not ready, waiting 60 seconds..."
+          sleep 60
+        else
+          echo "ERROR: Image not found after 25 minutes"
+          exit 1
+        fi
+      done
+    - npm install -g @spaship/cli
+    - spaship --version
+    - export NODE_EXTRA_CA_CERTS=/etc/ca-certificates/mtls-ca-validators.crt
+    - spaship deploy --env="$SPASHIP_ENV" --apikey="$SPASHIP_API_KEY" --image="${QUAY_REPO}:${IMAGE_TAG}"
+    - echo "Deployment to $ENVIRONMENT_NAME completed"
+  timeout: 60m
+  tags:
+    - shared
+    - docker
+
+deploy_stage:
+  <<: *deploy_template
+  variables:
+    ENVIRONMENT_NAME: "Stage"
+    SPASHIP_ENV: $SPASHIP_STAGE_WEB_PROPERTY
+    SPASHIP_API_KEY: $SPASHIP_STAGE_API_KEY
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+  allow_failure: false
+
+deploy_qa:
+  <<: *deploy_template
+  variables:
+    ENVIRONMENT_NAME: "QA"
+    SPASHIP_ENV: $SPASHIP_QA_WEB_PROPERTY
+    SPASHIP_API_KEY: $SPASHIP_QA_API_KEY
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+  needs: ["deploy_stage"]
+  allow_failure: false
+
+deploy_dev:
+  <<: *deploy_template
+  variables:
+    ENVIRONMENT_NAME: "Dev"
+    SPASHIP_ENV: $SPASHIP_DEV_WEB_PROPERTY
+    SPASHIP_API_KEY: $SPASHIP_DEV_API_KEY
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+  needs: ["deploy_qa"]
+  allow_failure: false
