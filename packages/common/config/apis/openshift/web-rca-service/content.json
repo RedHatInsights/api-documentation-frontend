@@ -343,6 +343,15 @@
           "schema": {
             "type": "string"
           }
+        },
+        "workspace_id": {
+          "description": "Workspace ID to filter denied slack channels",
+          "in": "query",
+          "name": "workspace_id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
         }
       },
       "schemas": {
@@ -526,6 +535,57 @@
           },
           "type": "object"
         },
+        "DeniedSlackChannel": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "workspace": {
+                  "type": "string"
+                },
+                "workspace_id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "DeniedSlackChannelList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/DeniedSlackChannel"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "Error": {
           "allOf": [
             {
@@ -534,6 +594,9 @@
             {
               "properties": {
                 "code": {
+                  "type": "string"
+                },
+                "id": {
                   "type": "string"
                 },
                 "operation_id": {
@@ -615,6 +678,9 @@
                     "$ref": "#/components/schemas/Attachment"
                   },
                   "type": "array"
+                },
+                "check_in_task": {
+                  "$ref": "#/components/schemas/IncidentCheckInTask"
                 },
                 "created_at": {
                   "format": "date-time",
@@ -1029,6 +1095,10 @@
                   "type": "string"
                 },
                 "is_checked": {
+                  "type": "boolean"
+                },
+                "is_handover": {
+                  "default": false,
                   "type": "boolean"
                 },
                 "ordering": {
@@ -1739,6 +1809,35 @@
             }
           ]
         },
+        "SlackWorkspace": {
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "SlackWorkspaceList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/SlackWorkspace"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "StatusChange": {
           "allOf": [
             {
@@ -1781,6 +1880,9 @@
             },
             {
               "properties": {
+                "announcement_slack_channel_id": {
+                  "type": "string"
+                },
                 "created_at": {
                   "format": "date-time",
                   "type": "string"
@@ -1908,6 +2010,9 @@
         },
         "TeamPatchRequest": {
           "properties": {
+            "announcement_slack_channel_id": {
+              "type": "string"
+            },
             "emails": {
               "items": {
                 "type": "string"
@@ -2623,6 +2728,283 @@
           ],
           "summary": "Update a Contributor"
         }
+      },
+      "/api/web-rca/v1/denied_slack_channels": {
+        "get": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/order_by"
+            },
+            {
+              "$ref": "#/components/parameters/workspace_id"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeniedSlackChannelList"
+                  }
+                }
+              },
+              "description": "A JSON array of denied slack channel objects"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad request - workspace_id is required"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return a list of Denied Slack Channels"
+        },
+        "post": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeniedSlackChannel"
+                }
+              }
+            },
+            "description": "Denied Slack Channel data",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeniedSlackChannel"
+                  }
+                }
+              },
+              "description": "Created"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors occurred"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Denied Slack Channel already exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred creating the Denied Slack Channel"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Create a new Denied Slack Channel"
+        }
+      },
+      "/api/web-rca/v1/denied_slack_channels/{id}": {
+        "delete": {
+          "responses": {
+            "204": {
+              "description": "Denied Slack Channel successfully deleted"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No Denied Slack Channel with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred deleting the Denied Slack Channel"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Delete a Denied Slack Channel"
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DeniedSlackChannel"
+                  }
+                }
+              },
+              "description": "Denied Slack Channel found by id"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "No Denied Slack Channel with specified id exists"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get a Denied Slack Channel by id"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ]
       },
       "/api/web-rca/v1/errors": {
         "get": {
@@ -6114,6 +6496,69 @@
             }
           ],
           "summary": "Return temporary state token to compose Add to Slack link"
+        }
+      },
+      "/api/web-rca/v1/slack_workspaces": {
+        "get": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/order_by"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SlackWorkspaceList"
+                  }
+                }
+              },
+              "description": "A JSON array of slack workspace objects"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return a list of Slack Workspaces"
         }
       },
       "/api/web-rca/v1/teams": {
