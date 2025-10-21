@@ -49,7 +49,6 @@ variables:
   timeout: 60m
   tags:
     - shared
-    - docker
 
 deploy_stage:
   <<: *deploy_template
