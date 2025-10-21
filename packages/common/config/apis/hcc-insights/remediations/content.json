@@ -181,19 +181,40 @@
           }
         },
         "RemediationFields": {
-          "description": "Include specified items\n- name: list all remediation plan names in organization (cannot be combined with other fields)\n- playbook_runs: include playbook run data in the response\n",
+          "description": "Include specified items\n- name: list all remediation plan names and IDs in organization (cannot be combined with other fields)\n- playbook_runs: include playbook run data in the response (cannot be combined with other fields)\n- last_playbook_run: include latest playbook run summary in the response (cannot be combined with other fields)\n",
           "in": "query",
           "name": "fields[data]",
           "required": false,
           "schema": {
-            "items": {
-              "enum": [
-                "name",
-                "playbook_runs"
-              ],
-              "type": "string"
-            },
-            "type": "array"
+            "oneOf": [
+              {
+                "items": {
+                  "enum": [
+                    "name"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "enum": [
+                    "playbook_runs"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "items": {
+                  "enum": [
+                    "last_playbook_run"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ]
           }
         },
         "RemediationFilter": {
@@ -1739,11 +1760,15 @@
         "RemediationNameListItem": {
           "additionalProperties": false,
           "properties": {
+            "id": {
+              "$ref": "#/components/schemas/RemediationId"
+            },
             "name": {
               "$ref": "#/components/schemas/RemediationName"
             }
           },
           "required": [
+            "id",
             "name"
           ],
           "type": "object"
@@ -2480,7 +2505,7 @@
       },
       "/remediations/{id}/executable": {
         "get": {
-          "description": "Checks remediation for the existence of smart_managment flaged systems",
+          "description": "Checks if a remediation exists",
           "operationId": "checkExecutable",
           "parameters": [
             {
@@ -2501,7 +2526,7 @@
               "$ref": "#/components/responses/NotFound"
             }
           },
-          "summary": "Check smart_managment systems",
+          "summary": "Check if remediation is executable",
           "tags": [
             "remediations"
           ]
