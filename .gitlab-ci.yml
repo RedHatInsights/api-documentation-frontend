@@ -84,3 +84,15 @@ deploy_dev:
       when: always
   needs: ["deploy_qa"]
   allow_failure: false
+
+deploy_prod:
+  <<: *deploy_template
+  variables:
+    ENVIRONMENT_NAME: "Production"
+    SPASHIP_ENV: $SPASHIP_PROD_WEB_PROPERTY
+    SPASHIP_API_KEY: $SPASHIP_PROD_API_KEY
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+  needs: ["deploy_dev"]
+  allow_failure: false
