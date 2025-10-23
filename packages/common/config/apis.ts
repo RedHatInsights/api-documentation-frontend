@@ -52,8 +52,8 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
     },
   },
   insights: {
-    id: "insights",
-    name: "Insights",
+    id: "lightspeed",
+    name: "Lightspeed",
     type: "service",
     devRedHatTaxonomy: {
       topic: undefined,
@@ -386,10 +386,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["insights"]],
   },
   {
-    id: "insights-results-aggregator_v1",
-    displayName: "Insights Advisor for OpenShift V1",
+    id: "lightspeed-results-aggregator_v1",
+    displayName: "Lightspeed Advisor for OpenShift V1",
     description:
-      "Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters",
+      "Aggregation API for Lightspeed Advisor. Exposes recommendations for single and multiple clusters",
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/insights-results-aggregator_v1/content.json",
@@ -407,10 +407,10 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
-    id: "insights-results-aggregator_v2",
-    displayName: "Insights Advisor for OpenShift V2",
+    id: "lightspeed-results-aggregator_v2",
+    displayName: "Lightspeed Advisor for OpenShift V2",
     description:
-      "Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters",
+      "Aggregation API for Lightspeed Advisor. Exposes recommendations for single and multiple clusters",
     icon: "GenericIcon",
     apiContentPath:
       "./apis/hcc-insights/insights-results-aggregator_v2/content.json",
@@ -647,7 +647,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   },
   {
     id: "roadmap",
-    displayName: "Insights for RHEL Planning",
+    displayName: "Lightspeed for RHEL Planning",
     description: "API for RHEL product lifecycle data",
     icon: "InsightsIcon",
     apiContentPath: "./apis/hcc-insights/roadmap/content.json",
