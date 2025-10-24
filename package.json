@@ -74,7 +74,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/eslint__js": "^8.42.3",
+    "@types/eslint__js": "^9.0.0",
     "@types/jest": "^27.5.2",
     "@types/lodash.snakecase": "^4.1.7",
     "@types/lodash.startcase": "^4.4.7",
