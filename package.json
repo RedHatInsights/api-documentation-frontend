@@ -90,7 +90,7 @@
     "better-ajv-errors": "^1.2.0",
     "concurrently": "^9.1.0",
     "customize-cra": "^1.0.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
