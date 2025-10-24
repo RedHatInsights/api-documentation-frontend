@@ -104,7 +104,7 @@
     "rimraf": "^4.4.1",
     "rollup": "^2.79.1",
     "sass": "^1.57.1",
-    "sass-loader": "^12.6.0",
+    "sass-loader": "^16.0.0",
     "sitemaps": "^2.0.4",
     "swagger2openapi": "^7.0.8",
     "ts-jest": "^29.0.5",
