@@ -13,7 +13,7 @@
     "@apidocs/common": "*"
   },
   "devDependencies": {
-    "@types/node": "^18.13.0"
+    "@types/node": "^22.0.0"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
