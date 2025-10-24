@@ -9,7 +9,7 @@
     "commander": "7.2.0",
     "eta": "^2.0.0",
     "got": "^12.5.3",
-    "prettier": "^2.8.4",
+    "prettier": "^3.0.0",
     "sorted-json-stringify": "^0.1.1"
   },
   "devDependencies": {

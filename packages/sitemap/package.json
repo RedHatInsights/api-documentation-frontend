@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "commander": "7.2.0",
-    "prettier": "^2.8.4",
+    "prettier": "^3.0.0",
     "@apidocs/common": "*"
   },
   "devDependencies": {
