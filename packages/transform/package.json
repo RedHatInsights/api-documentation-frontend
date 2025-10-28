@@ -13,7 +13,7 @@
     "sorted-json-stringify": "^0.1.1"
   },
   "devDependencies": {
-    "@types/node": "^18.13.0"
+    "@types/node": "^24.0.0"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js && cp src/*.eta dist",
