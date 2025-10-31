@@ -2977,6 +2977,16 @@
               }
             },
             {
+              "description": "Display rules in this topic (slug)",
+              "in": "query",
+              "name": "topic",
+              "schema": {
+                "format": "regex",
+                "pattern": "[\\w-]+",
+                "type": "string"
+              }
+            },
+            {
               "description": "Display rules with this total risk level (1..4)",
               "in": "query",
               "name": "total_risk",
@@ -3218,6 +3228,16 @@
               }
             },
             {
+              "description": "Display rules in this topic (slug)",
+              "in": "query",
+              "name": "topic",
+              "schema": {
+                "format": "regex",
+                "pattern": "[\\w-]+",
+                "type": "string"
+              }
+            },
+            {
               "description": "Display rules with this total risk level (1..4)",
               "in": "query",
               "name": "total_risk",
@@ -3447,6 +3467,16 @@
               "in": "query",
               "name": "text",
               "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Display rules in this topic (slug)",
+              "in": "query",
+              "name": "topic",
+              "schema": {
+                "format": "regex",
+                "pattern": "[\\w-]+",
                 "type": "string"
               }
             },
@@ -6006,35 +6036,6 @@
           },
           "tags": [
             "rulecategory"
-          ]
-        }
-      },
-      "/api/insights/v1/settings/": {
-        "get": {
-          "description": "Describe the settings we have in a Data-Driven Forms way.\n\nThis simply compiles the 'show_satellite_hosts' account-wide setting\ninto a format compatible with Data-Driven Forms.",
-          "operationId": "settings_list",
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "items": {
-                      "$ref": "#/components/schemas/SettingsDDF"
-                    },
-                    "type": "array"
-                  }
-                }
-              },
-              "description": ""
-            }
-          },
-          "security": [
-            {
-              "x-rh-identity": []
-            }
-          ],
-          "tags": [
-            "settings"
           ]
         }
       },
