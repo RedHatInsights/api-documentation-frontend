@@ -12,7 +12,7 @@ apis:
         icon: insights
         tags:
           - rhel
-          - insights
+          - lightspeed
           - observe
       - id: ansible-automation-controller
         name: Ansible automation controller API V1
@@ -42,7 +42,7 @@ apis:
         apiType: openapi-v3
         icon: insights
         tags:
-          - insights
+          - lightspeed
           - observe
           - rhel
           - security
@@ -54,7 +54,7 @@ apis:
         apiType: openapi-v3
         icon: insights
         tags:
-          - insights
+          - lightspeed
           - observe
           - rhel
           - security
@@ -67,7 +67,7 @@ apis:
         icon: openshift
         tags:
           - spend-management
-          - insights
+          - lightspeed
         useLocalFile: true
       - id: export-service
         name: Export Service
@@ -77,7 +77,7 @@ apis:
         apiType: openapi-v3
         icon: insights
         tags:
-          - insights
+          - lightspeed
       - id: image-builder
         name: Image Builder
         description: Service that relays image build requests
@@ -87,7 +87,7 @@ apis:
         icon: insights
         tags:
           - deploy
-          - insights
+          - lightspeed
       - id: integrations
         name: Integrations
         description: The API for Integrations
@@ -105,7 +105,7 @@ apis:
         icon: insights
         tags:
           - deploy
-          - insights
+          - lightspeed
           - rhel
       - id: malware-detection
         name: Malware Detection
@@ -128,7 +128,7 @@ apis:
         tags:
           - inventories
           - rhel
-          - insights
+          - lightspeed
       - id: notifications
         name: Notifications
         url: https://console.redhat.com/api/notifications/v1/openapi.json
@@ -153,28 +153,28 @@ apis:
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
-          - insights
+          - lightspeed
       - id: insights-results-aggregator_v1
-        name: Insights Advisor for OpenShift V1
+        name: Red Hat Lightspeed Advisor for OpenShift V1
         description: Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters
         url: https://console.redhat.com/api/insights-results-aggregator/v1/openapi.json
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - infrastructure
-          - insights
+          - lightspeed
           - observe
           - openshift
           - workloads
       - id: insights-results-aggregator_v2
-        name: Insights Advisor for OpenShift V2
+        name: Red Hat Lightspeed Advisor for OpenShift V2
         description: Aggregation API for Insights Advisor. Exposes recommendations for single and multiple clusters
         url: https://console.redhat.com/api/insights-results-aggregator/v2/openapi.json
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
           - infrastructure
-          - insights
+          - lightspeed
           - observe
           - openshift
           - workloads
@@ -189,7 +189,7 @@ apis:
           - security
           - rhel
           - observe
-          - insights
+          - lightspeed
       - id: playbook-dispatcher
         name: Playbook Dispatcher
         description: Service for running Ansible Playbooks on hosts connected via Cloud Connector
@@ -198,7 +198,7 @@ apis:
         apiType: openapi-v3
         icon: ansible
         tags:
-          - insights
+          - lightspeed
           - rhel
       - id: policies
         name: Policies
@@ -210,7 +210,7 @@ apis:
           - ansible
           - rhel
           - observe
-          - insights
+          - lightspeed
       - id: config-manager
         name: Red Hat Connector
         description: Config manager service
@@ -218,7 +218,7 @@ apis:
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
-          - insights
+          - lightspeed
           - inventories
           - rhel
         skip: true
@@ -235,7 +235,7 @@ apis:
           - observe
           - security
           - ansible
-          - insights
+          - lightspeed
       - id: ros
         name: Resource Optimization
         description: Flask Backend API for Resource Optimization Service
@@ -246,7 +246,7 @@ apis:
         tags:
           - observe
           - rhel
-          - insights
+          - lightspeed
         useLocalFile: true
       - id: repositories
         name: Repositories
@@ -257,7 +257,7 @@ apis:
         icon: insights
         tags:
           - deploy
-          - insights
+          - lightspeed
           - rhel
       - id: rbac
         name: Role-based Access Control
@@ -309,7 +309,7 @@ apis:
         apiType: openapi-v3
         tags:
           - automation
-          - insights
+          - lightspeed
           - observe
           - rhel
       - id: vulnerability
@@ -322,7 +322,7 @@ apis:
           - observe
           - security
           - rhel
-          - insights
+          - lightspeed
       - id: ansible-lightspeed
         name: Red Hat Ansible Lightspeed
         description: The API for Red Hat Ansible Lightspeed
@@ -334,14 +334,14 @@ apis:
           - ansible
           - automation
       - id: roadmap
-        name: Insights for RHEL Planning
+        name: Red Hat Lightspeed for RHEL Planning
         description: API for RHEL product lifecycle data
         url: https://console.redhat.com/api/roadmap/v1/openapi.json
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         icon: insights
         tags:
-          - insights
+          - lightspeed
           - rhel
   - id: openshift
     name: Openshift
@@ -480,7 +480,7 @@ apis:
         serverUrl: https://console.redhat.com
         apiType: openapi-v3
         tags:
-          - insights
+          - lightspeed
           - observe
           - openshift
           - security
@@ -590,8 +590,8 @@ tags:
   - id: infrastructure
     name: Infrastructure
     type: use-case
-  - id: insights
-    name: Insights
+  - id: lightspeed
+    name: Red Hat Lightspeed
     type: service
   - id: integrations-and-notifications
     name: Integrations and Notifications
