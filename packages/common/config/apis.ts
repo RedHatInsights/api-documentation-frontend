@@ -294,24 +294,6 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["integrations-and-notifications"]],
   },
   {
-    id: "launch",
-    displayName: "Launch",
-    description:
-      "Use predefined Integrations with cloud providers to Launch Image builder images into hyperscalers",
-    icon: "InsightsIcon",
-    apiContentPath: "./apis/hcc-insights/launch/content.json",
-    serverUrl: "https://console.redhat.com",
-    getApiContent: () =>
-      import(
-        "./apis/hcc-insights/launch/content.json"
-      ) as unknown as Promise<APIContent>,
-    tags: [
-      apiLabelsMap["deploy"],
-      apiLabelsMap["lightspeed"],
-      apiLabelsMap["rhel"],
-    ],
-  },
-  {
     id: "malware-detection",
     displayName: "Malware Detection",
     description: "Service that detects potential malware on your RHEL systems",
