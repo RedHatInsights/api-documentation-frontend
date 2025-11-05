@@ -158,82 +158,6 @@
             }
           }
         },
-        "CapacityReportByMetricId": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/CapacitySnapshotByMetricId"
-              },
-              "type": "array"
-            },
-            "links": {
-              "$ref": "#/components/schemas/PageLinks"
-            },
-            "meta": {
-              "$ref": "#/components/schemas/CapacityReportByMetricId_meta"
-            }
-          }
-        },
-        "CapacityReportByMetricId_meta": {
-          "properties": {
-            "billing_account_id": {
-              "type": "string"
-            },
-            "category": {
-              "$ref": "#/components/schemas/ReportCategory"
-            },
-            "count": {
-              "type": "integer"
-            },
-            "granularity": {
-              "$ref": "#/components/schemas/GranularityType"
-            },
-            "metric_id": {
-              "type": "string"
-            },
-            "product": {
-              "type": "string"
-            },
-            "service_level": {
-              "$ref": "#/components/schemas/ServiceLevelType"
-            },
-            "usage": {
-              "$ref": "#/components/schemas/UsageType"
-            }
-          },
-          "required": [
-            "count",
-            "granularity",
-            "product"
-          ],
-          "type": "object"
-        },
-        "CapacitySnapshotByMetricId": {
-          "properties": {
-            "date": {
-              "description": "The start date for this snapshot entry. Dates are returned in UTC. Clients must consult the 'granularity' field in the CapacityReport to determine the length of time each CapacitySnapshot covers.",
-              "format": "date-time",
-              "type": "string"
-            },
-            "has_data": {
-              "type": "boolean"
-            },
-            "has_infinite_quantity": {
-              "type": "boolean"
-            },
-            "value": {
-              "description": "Capacity value",
-              "format": "int32",
-              "minimum": 0,
-              "type": "integer"
-            }
-          },
-          "required": [
-            "date",
-            "has_data",
-            "value"
-          ]
-        },
         "CloudProvider": {
           "enum": [
             "aws",
@@ -1004,207 +928,6 @@
     },
     "openapi": "3.0.2",
     "paths": {
-      "/v1/capacity/products/{product_id}/{metric_id}": {
-        "description": "Operations for capacity report for a given account and product",
-        "get": {
-          "operationId": "getCapacityReportByMetricId",
-          "parameters": [
-            {
-              "description": "The ID for the product we wish to query",
-              "explode": false,
-              "in": "path",
-              "name": "product_id",
-              "required": true,
-              "schema": {
-                "$ref": "#/components/schemas/ProductId"
-              },
-              "style": "simple"
-            },
-            {
-              "description": "The metric ID for the product we wish to query",
-              "explode": false,
-              "in": "path",
-              "name": "metric_id",
-              "required": true,
-              "schema": {
-                "$ref": "#/components/schemas/MetricId"
-              },
-              "style": "simple"
-            },
-            {
-              "description": "The number of items to skip before starting to collect the result set",
-              "explode": true,
-              "in": "query",
-              "name": "offset",
-              "required": false,
-              "schema": {
-                "type": "integer"
-              },
-              "style": "form"
-            },
-            {
-              "description": "The numbers of items to return",
-              "explode": true,
-              "in": "query",
-              "name": "limit",
-              "required": false,
-              "schema": {
-                "minimum": 1,
-                "type": "integer"
-              },
-              "style": "form"
-            },
-            {
-              "description": "The billing account ID for the product we wish to query",
-              "explode": true,
-              "in": "query",
-              "name": "billing_account_id",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/BillingAccountId"
-              },
-              "style": "form"
-            },
-            {
-              "description": "The level of granularity to return.",
-              "explode": true,
-              "in": "query",
-              "name": "granularity",
-              "required": true,
-              "schema": {
-                "$ref": "#/components/schemas/GranularityType"
-              },
-              "style": "form"
-            },
-            {
-              "description": "The category to fetch data for",
-              "explode": true,
-              "in": "query",
-              "name": "category",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/ReportCategory"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Include only capacity for the specified service level.",
-              "explode": true,
-              "in": "query",
-              "name": "sla",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/ServiceLevelType"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Include only capacity for the specified usage level.",
-              "explode": true,
-              "in": "query",
-              "name": "usage",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/UsageType"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Defines the start of the report period. Dates should be provided in ISO 8601 format but the only accepted offset is UTC. E.g. 2017-07-21T17:32:28Z",
-              "explode": true,
-              "in": "query",
-              "name": "beginning",
-              "required": true,
-              "schema": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Defines the end of the report period.  Defaults to the current time. Dates should be provided in UTC.",
-              "explode": true,
-              "in": "query",
-              "name": "ending",
-              "required": true,
-              "schema": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "style": "form"
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/vnd.api+json": {
-                  "example": {
-                    "data": [
-                      {
-                        "date": "2017-08-01T17:32:05Z",
-                        "has_data": true,
-                        "value": 100
-                      },
-                      {
-                        "date": "2017-08-02T17:31:04Z",
-                        "has_data": false,
-                        "value": 0
-                      },
-                      {
-                        "date": "2017-08-03T17:31:04Z",
-                        "has_data": false,
-                        "value": 0
-                      },
-                      {
-                        "date": "2017-08-04T17:31:04Z",
-                        "has_data": false,
-                        "value": 0
-                      },
-                      {
-                        "date": "2017-08-05T17:31:04Z",
-                        "has_data": false,
-                        "value": 0
-                      }
-                    ],
-                    "links": {
-                      "first": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=0&limit=5",
-                      "last": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
-                      "next": "/api/rhsm-subscriptions/v1/capacity/RHEL%20for%20x86/Sockets?granularity=DAILY&sla=Premium&beginning=2017-08-01T17%3A32%3A28Z&ending=2017-08-31T17%3A32%3A28Z&offset=5&limit=5",
-                      "previous": null
-                    },
-                    "meta": {
-                      "count": 10,
-                      "granularity": "Daily",
-                      "product": "RHEL Server",
-                      "service_level": "Premium"
-                    }
-                  },
-                  "schema": {
-                    "$ref": "#/components/schemas/CapacityReportByMetricId"
-                  }
-                }
-              },
-              "description": "The request for a capacity report was successful."
-            },
-            "400": {
-              "$ref": "#/components/responses/BadRequest"
-            },
-            "403": {
-              "$ref": "#/components/responses/Forbidden"
-            },
-            "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
-            },
-            "500": {
-              "$ref": "#/components/responses/InternalServerError"
-            }
-          },
-          "summary": "Fetch a capacity report for an account and product.",
-          "tags": [
-            "capacity"
-          ]
-        }
-      },
       "/v1/instances/billing_account_ids": {
         "description": "Fetch billing account IDs by Org",
         "get": {
@@ -1253,13 +976,34 @@
               "description": "List of billing account ids by org"
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "tags": [
@@ -1385,7 +1129,7 @@
               "style": "form"
             },
             {
-              "description": "Defines the start of the report period. Dates should be provided in ISO 8601 format but the only accepted offset is UTC. E.g. 2017-07-21T17:32:28Z. Only applicable for OpenShift-dedicated-metrics and OpenShift-metrics products",
+              "description": "Include only hosts that have been tallied for in given month and year. Dates should be provided in ISO 8601 format but the only accepted offset is UTC. E.g. 2017-07-21T17:32:28Z. Only applicable for PAYG products",
               "explode": true,
               "in": "query",
               "name": "beginning",
@@ -1397,7 +1141,7 @@
               "style": "form"
             },
             {
-              "description": "Defines the end of the report period. Dates should be provided in ISO 8601 format but the only accepted offset is UTC. E.g. 2017-07-21T17:32:28Z. Only applicable for OpenShift-dedicated-metrics and OpenShift-metrics products",
+              "description": "Include only hosts that have been tallied for in given month and year. Must be after beginning date. Dates should be provided in ISO 8601 format but the only accepted offset is UTC. E.g. 2017-07-21T17:32:28Z. Only applicable for PAYG products",
               "explode": true,
               "in": "query",
               "name": "ending",
@@ -1526,16 +1270,44 @@
               "description": "The request for a capacity report was successful."
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The requested resource was not found."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Fetch guests for the instance id.",
@@ -1594,16 +1366,44 @@
               "description": "Successfully deleted the opt-in configuration for the accociated org"
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The requested resource was not found."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Delete an opt-in config for the associated org. The org ID are pulled from the identity header.",
@@ -1640,16 +1440,44 @@
               "description": "The request for the account's opt-in configuration was successful."
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The requested resource was not found."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Get the opt-in configuration for the current account.",
@@ -1685,16 +1513,44 @@
               "description": "The request for the account's opt-in configuration was successful."
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The requested resource was not found."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Create/Update an account's opt-in configuration. Org ID are defined by the identity header.",
@@ -1757,289 +1613,38 @@
               "description": "List of billing account ids by org"
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "tags": [
             "contracts"
-          ]
-        }
-      },
-      "/v1/subscriptions/products/{product_id}": {
-        "description": "Operations for total capacity by SKU for all of the org's active subscriptions for given Swatch product ID.",
-        "get": {
-          "deprecated": true,
-          "operationId": "getSkuCapacityReport",
-          "parameters": [
-            {
-              "description": "The ID for the product we wish to query",
-              "explode": false,
-              "in": "path",
-              "name": "product_id",
-              "required": true,
-              "schema": {
-                "$ref": "#/components/schemas/ProductId"
-              },
-              "style": "simple"
-            },
-            {
-              "description": "The number of items to skip before starting to collect the result set",
-              "explode": true,
-              "in": "query",
-              "name": "offset",
-              "required": false,
-              "schema": {
-                "minimum": 0,
-                "type": "integer"
-              },
-              "style": "form"
-            },
-            {
-              "description": "The numbers of items to return",
-              "explode": true,
-              "in": "query",
-              "name": "limit",
-              "required": false,
-              "schema": {
-                "minimum": 1,
-                "type": "integer"
-              },
-              "style": "form"
-            },
-            {
-              "description": "The category to fetch data for",
-              "explode": true,
-              "in": "query",
-              "name": "category",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/ReportCategory"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Include only capacity for the specified service level.",
-              "explode": true,
-              "in": "query",
-              "name": "sla",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/ServiceLevelType"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Include only capacity for the specified usage level.",
-              "explode": true,
-              "in": "query",
-              "name": "usage",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/UsageType"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Include only report data matching the specified billing provider",
-              "explode": true,
-              "in": "query",
-              "name": "billing_provider",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/BillingProviderType"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Include only report data matching the specified billing account",
-              "explode": true,
-              "in": "query",
-              "name": "billing_account_id",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/BillingAccountId"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Defines the start of the report period. Dates should be provided in ISO 8601 format but the only accepted offset is UTC. E.g. 2017-07-21T17:32:28Z",
-              "explode": true,
-              "in": "query",
-              "name": "beginning",
-              "required": false,
-              "schema": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Defines the end of the report period.  Defaults to the current time. Dates should be provided in UTC.",
-              "explode": true,
-              "in": "query",
-              "name": "ending",
-              "required": false,
-              "schema": {
-                "format": "date-time",
-                "type": "string"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Filter subscriptions to those that contribute to a specific unit of measure",
-              "explode": true,
-              "in": "query",
-              "name": "metric_id",
-              "required": false,
-              "schema": {
-                "type": "string"
-              },
-              "style": "form"
-            },
-            {
-              "description": "What property to sort by (optional)",
-              "explode": true,
-              "in": "query",
-              "name": "sort",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/SkuCapacityReportSort"
-              },
-              "style": "form"
-            },
-            {
-              "description": "Which direction to sort by (default: asc)",
-              "explode": true,
-              "in": "query",
-              "name": "dir",
-              "required": false,
-              "schema": {
-                "$ref": "#/components/schemas/SortDirection"
-              },
-              "style": "form"
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/vnd.api+json": {
-                  "example": {
-                    "data": [
-                      {
-                        "capacity": 3,
-                        "hypervisor_capacity": 3,
-                        "metricId": "Sockets",
-                        "next_event_date": "2020-04-01T00:00:00Z",
-                        "next_event_type": "Subscription Begin",
-                        "product_name": "Red Hat Enterprise Linux Server, Premium (Physical and 4 Virtual Nodes)(L3 Only)",
-                        "quantity": 3,
-                        "service_level": "Premium",
-                        "sku": "RH00011",
-                        "subscriptions": [
-                          {
-                            "id": "1234567890",
-                            "number": "1234567891"
-                          },
-                          {
-                            "id": "1234567892",
-                            "number": "1234567893"
-                          },
-                          {
-                            "id": "1234567894",
-                            "number": "1234567895"
-                          }
-                        ],
-                        "total_capacity": 6,
-                        "usage": "Production"
-                      },
-                      {
-                        "capacity": 3,
-                        "hypervisor_capacity": 3,
-                        "metricId": "Sockets",
-                        "next_event_date": "2020-04-02T00:00:00Z",
-                        "next_event_type": "Subscription Begin",
-                        "product_name": "Red Hat Enterprise Linux Server",
-                        "quantity": 3,
-                        "service_level": "Self-Support",
-                        "sku": "RH00010",
-                        "subscriptions": [
-                          {
-                            "id": "1234567896",
-                            "number": "1234567897"
-                          },
-                          {
-                            "id": "1234567898",
-                            "number": "1234567899"
-                          },
-                          {
-                            "id": "1234567900",
-                            "number": "1234567901"
-                          }
-                        ],
-                        "total_capacity\"": 6,
-                        "usage": "Production"
-                      },
-                      {
-                        "capacity": 6,
-                        "hypervisor_capacity": 6,
-                        "metricId": "Cores",
-                        "next_event_date": "2020-04-01T00:00:00Z",
-                        "next_event_type": "Subscription End",
-                        "product_name": "Red Hat Enterprise Linux Server, Premium",
-                        "quantity": 3,
-                        "service_level": "Premium",
-                        "sku": "RH00009",
-                        "subscriptions": [
-                          {
-                            "id": "1234567902",
-                            "number": "1234567903"
-                          },
-                          {
-                            "id": "1234567904",
-                            "number": "1234567905"
-                          },
-                          {
-                            "id": "1234567906",
-                            "number": "1234567907"
-                          }
-                        ],
-                        "total_capacity": 12,
-                        "usage": "Production"
-                      }
-                    ],
-                    "meta": {
-                      "count": 3
-                    }
-                  },
-                  "schema": {
-                    "$ref": "#/components/schemas/SkuCapacityReport"
-                  }
-                }
-              },
-              "description": "The request for the account's subscription capacities was successful."
-            },
-            "400": {
-              "$ref": "#/components/responses/BadRequest"
-            },
-            "403": {
-              "$ref": "#/components/responses/Forbidden"
-            },
-            "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
-            },
-            "500": {
-              "$ref": "#/components/responses/InternalServerError"
-            }
-          },
-          "summary": "Returns the total capacity by SKU for all of the org's active subscriptions for given Swatch product ID.",
-          "tags": [
-            "subscriptions"
           ]
         }
       },
@@ -2220,16 +1825,44 @@
               "description": "The request for a tally report was successful."
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The requested resource was not found."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Fetch tally report data for an account and product.",
@@ -2254,7 +1887,14 @@
               "description": "The request for version information was successful."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Request version and build information about the deployed application.",
