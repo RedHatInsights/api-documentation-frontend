@@ -1782,7 +1782,7 @@
           "properties": {
             "data": {
               "items": {
-                "$ref": "#/components/schemas/SystemOut"
+                "$ref": "#/components/schemas/SystemWithIssueCount"
               },
               "type": "array"
             },
@@ -2120,6 +2120,37 @@
             "id",
             "hostname",
             "display_name"
+          ],
+          "type": "object"
+        },
+        "SystemWithIssueCount": {
+          "additionalProperties": false,
+          "properties": {
+            "display_name": {
+              "example": "prod-db",
+              "nullable": true,
+              "type": "string"
+            },
+            "hostname": {
+              "example": "db01.example.com",
+              "nullable": true,
+              "type": "string"
+            },
+            "id": {
+              "$ref": "#/components/schemas/SystemId"
+            },
+            "issue_count": {
+              "description": "Number of issues associated with this system in the remediation plan",
+              "example": 4,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "id",
+            "hostname",
+            "display_name",
+            "issue_count"
           ],
           "type": "object"
         },
@@ -3117,7 +3148,7 @@
             "200": {
               "content": {
                 "application/json": {
-                  "example": "{\n   \"data\": [\n     {\n       \"id\": \"a8799a02-8be9-11e8-9eb6-529269fb1459\",\n       \"hostname\": \"db01.example.com\",\n       \"display_name\": \"prod-db\"\n     },\n     {\n       \"id\": \"993c1ca8-ca85-40f7-bfed-5e06eb5194f6\",\n       \"hostname\": \"db02.example.com\",\n       \"display_name\": \"stage-db\"\n     }\n   ],\n   \"meta\": {\n     \"count\": 2,\n     \"total\": 114\n   },\n   \"links\": {\n     \"first\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=0\",\n     \"last\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=112\",\n     \"next\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=2\",\n     \"previous\": null\n   }\n}\n",
+                  "example": "{\n   \"data\": [\n     {\n       \"id\": \"a8799a02-8be9-11e8-9eb6-529269fb1459\",\n       \"hostname\": \"db01.example.com\",\n       \"display_name\": \"prod-db\",\n       \"issue_count\": 4\n     },\n     {\n       \"id\": \"993c1ca8-ca85-40f7-bfed-5e06eb5194f6\",\n       \"hostname\": \"db02.example.com\",\n       \"display_name\": \"stage-db\",\n       \"issue_count\": 1\n     }\n   ],\n   \"meta\": {\n     \"count\": 2,\n     \"total\": 114\n   },\n   \"links\": {\n     \"first\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=0\",\n     \"last\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=112\",\n     \"next\": \"/api/remediations/v1/remediations/9197ba55-0abc-4028-9bbe-269e530f8bd5/systems?limit=2&offset=2\",\n     \"previous\": null\n   }\n}\n",
                   "schema": {
                     "$ref": "#/components/schemas/RemediationSystemList"
                   }
