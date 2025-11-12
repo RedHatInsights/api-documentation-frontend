@@ -272,9 +272,15 @@
           ]
         },
         "BlueprintLint": {
-          "description": "Linting errors in the current blueprint, these might need to be resolved before the\nblueprint can be used to build images again.\n",
+          "description": "Linting errors and warnings in the current blueprint. Errors might need to be resolved before the\nblueprint can be used to build images again. Warnings provide information about policy changes.\n",
           "properties": {
             "errors": {
+              "items": {
+                "$ref": "#/components/schemas/BlueprintLintItem"
+              },
+              "type": "array"
+            },
+            "warnings": {
               "items": {
                 "$ref": "#/components/schemas/BlueprintLintItem"
               },
@@ -282,7 +288,8 @@
             }
           },
           "required": [
-            "errors"
+            "errors",
+            "warnings"
           ]
         },
         "BlueprintLintItem": {
