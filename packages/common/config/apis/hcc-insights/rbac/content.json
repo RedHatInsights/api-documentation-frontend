@@ -3294,6 +3294,39 @@
           ]
         }
       },
+      "/openapi.json": {
+        "get": {
+          "description": "Returns the OpenAPI specification document for this API",
+          "operationId": "getOpenAPISpec",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "description": "OpenAPI 3.0 specification",
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "OpenAPI specification document"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "summary": "Get the OpenAPI specification",
+          "tags": [
+            "Status"
+          ]
+        }
+      },
       "/permissions/": {
         "get": {
           "description": "By default, responses are sorted in ascending order by permission application.",
