@@ -931,6 +931,10 @@
                   "format": "date-time",
                   "type": "string"
                 },
+                "openshift_cluster_id": {
+                  "$ref": "#/components/schemas/HyphenatedUuid",
+                  "description": "The OpenShift cluster ID that the host belongs to, if any."
+                },
                 "org_id": {
                   "$ref": "#/components/schemas/OrgId"
                 },
