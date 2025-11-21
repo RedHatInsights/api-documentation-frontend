@@ -932,8 +932,9 @@
                   "type": "string"
                 },
                 "openshift_cluster_id": {
-                  "$ref": "#/components/schemas/HyphenatedUuid",
-                  "description": "The OpenShift cluster ID that the host belongs to, if any."
+                  "description": "The OpenShift cluster ID that the host belongs to, if any.",
+                  "nullable": true,
+                  "type": "string"
                 },
                 "org_id": {
                   "$ref": "#/components/schemas/OrgId"
