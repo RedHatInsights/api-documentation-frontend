@@ -1166,7 +1166,6 @@
         "PlaybookRunExecutorStatus": {
           "enum": [
             "pending",
-            "acked",
             "running",
             "success",
             "failure",
