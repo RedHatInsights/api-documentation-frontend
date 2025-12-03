@@ -63,7 +63,7 @@
         },
         "CamelProperties": {
           "properties": {
-            "disableSslVerification": {
+            "disable_ssl_verification": {
               "type": "boolean"
             },
             "extras": {
@@ -72,7 +72,7 @@
               },
               "type": "object"
             },
-            "secretToken": {
+            "secret_token": {
               "maxLength": 255,
               "type": "string"
             },
@@ -81,7 +81,7 @@
             }
           },
           "required": [
-            "disableSslVerification",
+            "disable_ssl_verification",
             "url"
           ],
           "type": "object"
@@ -325,7 +325,7 @@
         },
         "PagerDutyProperties": {
           "properties": {
-            "secretToken": {
+            "secret_token": {
               "maxLength": 32,
               "type": "string"
             },
@@ -335,7 +335,7 @@
           },
           "required": [
             "severity",
-            "secretToken"
+            "secret_token"
           ],
           "type": "object"
         },
@@ -364,13 +364,22 @@
         },
         "SystemSubscriptionProperties": {
           "properties": {
-            "groupId": {
+            "group_id": {
               "$ref": "#/components/schemas/UUID"
             },
-            "ignorePreferences": {
+            "group_ids": {
+              "items": {
+                "format": "uuid",
+                "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "ignore_preferences": {
               "type": "boolean"
             },
-            "onlyAdmins": {
+            "only_admins": {
               "type": "boolean"
             }
           },
@@ -383,16 +392,16 @@
         },
         "WebhookProperties": {
           "properties": {
-            "bearerAuthentication": {
+            "bearer_authentication": {
               "type": "string"
             },
-            "disableSslVerification": {
+            "disable_ssl_verification": {
               "type": "boolean"
             },
             "method": {
               "type": "string"
             },
-            "secretToken": {
+            "secret_token": {
               "maxLength": 255,
               "type": "string"
             },
@@ -401,7 +410,7 @@
             }
           },
           "required": [
-            "disableSslVerification",
+            "disable_ssl_verification",
             "method",
             "url"
           ],
