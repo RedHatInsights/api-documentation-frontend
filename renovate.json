@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": ["config:base"],
   "packageRules": [
     {
       "matchManagers": ["npm"],
@@ -16,3 +16,4 @@
   ],
   "semanticCommits": "enabled"
 }
+
