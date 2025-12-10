@@ -1904,7 +1904,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.93"
+      "version": "v3.8.102"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -6529,62 +6529,6 @@
         }
       },
       "/systems/{inventory_id}": {
-        "delete": {
-          "description": "Delete system by inventory id",
-          "operationId": "deletesystem",
-          "parameters": [
-            {
-              "description": "Inventory ID",
-              "in": "path",
-              "name": "inventory_id",
-              "required": true,
-              "schema": {
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "OK"
-            },
-            "400": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/utils.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Bad Request"
-            },
-            "404": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/utils.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Not Found"
-            },
-            "500": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/utils.ErrorResponse"
-                  }
-                }
-              },
-              "description": "Internal Server Error"
-            }
-          },
-          "security": [
-            {
-              "RhIdentity": []
-            }
-          ],
-          "summary": "Delete system by inventory id"
-        },
         "get": {
           "description": "Show me details about a system by given inventory id",
           "operationId": "detailSystem",
