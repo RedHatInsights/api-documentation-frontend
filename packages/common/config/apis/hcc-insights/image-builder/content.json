@@ -232,7 +232,7 @@
               "type": "string"
             },
             "snapshot_date": {
-              "description": "Importing the snapshot date will not yet be supported. It is exported for informative reasons.\nThe format is YYYY-MM-DD.\n",
+              "description": "Importing the snapshot date will not yet be supported. It is exported for informative reasons.\nThe format is RFC3339 e.g. \"2025-11-26T00:00:00.000Z\".\n",
               "type": "string"
             }
           },
@@ -1502,7 +1502,7 @@
               "x-go-type": "uint64"
             },
             "snapshot_date": {
-              "description": "Snapshotted content will be used instead of the official repositories of the\ndistribution. The snapshot that was made closest to, but before the specified date will\nbe used. If no snapshots made before the specified date can be found, the snapshot\nclosest to, but after the specified date will be used. If no snapshots can be found at\nall, the request will fail. The format must be YYYY-MM-DD (ISO 8601 extended).\n",
+              "description": "Snapshotted content will be used instead of the official repositories of the\ndistribution. The snapshot that was made closest to, but before the specified date will\nbe used. If no snapshots made before the specified date can be found, the snapshot\nclosest to, but after the specified date will be used. If no snapshots can be found at\nall, the request will fail. The format must be RFC3339 e.g. \"2025-11-26T00:00:00.000Z\".\n",
               "type": "string"
             },
             "upload_request": {
@@ -1520,6 +1520,9 @@
           "properties": {
             "error": {
               "$ref": "#/components/schemas/ComposeStatusError"
+            },
+            "progress": {
+              "$ref": "#/components/schemas/Progress"
             },
             "status": {
               "enum": [
@@ -1868,6 +1871,21 @@
           "type": "object",
           "x-go-type": "composer.Partition"
         },
+        "Progress": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/SubProgress"
+            },
+            {
+              "properties": {
+                "subprogress": {
+                  "$ref": "#/components/schemas/SubProgress"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "Readiness": {
           "properties": {
             "readiness": {
@@ -2000,6 +2018,24 @@
             }
           },
           "type": "object"
+        },
+        "SubProgress": {
+          "properties": {
+            "done": {
+              "description": "Amount of completed steps in the build.",
+              "type": "integer"
+            },
+            "total": {
+              "description": "Total amount of steps in the build.",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "done",
+            "total"
+          ],
+          "type": "object",
+          "x-go-name": "SubProgress"
         },
         "Subscription": {
           "properties": {
