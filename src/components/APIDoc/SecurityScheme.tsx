@@ -1,6 +1,7 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 export interface SecuritySchemesProps {
   securityScheme: OpenAPIV3.SecuritySchemeObject;
@@ -27,9 +28,9 @@ const SecuritySchemeOpenId: React.FunctionComponent<OpenAPIV3.OpenIdSecuritySche
       <span>OpenId Authentication, connect url: {openid.openIdConnectUrl}</span>
       <br />
       {openid.description && (
-        <span>
-          <ReactMarkdown>{openid.description}</ReactMarkdown>
-        </span>
+        <div>
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{openid.description}</ReactMarkdown>
+        </div>
       )}
     </>
   );
@@ -53,9 +54,9 @@ const SecuritySchemeOauth: React.FunctionComponent<OpenAPIV3.OAuth2SecuritySchem
       )}
       <br />
       {oauth.description && (
-        <span>
-          <ReactMarkdown>{oauth.description}</ReactMarkdown>
-        </span>
+        <div>
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{oauth.description}</ReactMarkdown>
+        </div>
       )}
     </>
   );
@@ -67,9 +68,9 @@ const SecuritySchemeHttp: React.FunctionComponent<OpenAPIV3.HttpSecurityScheme> 
       <span>HTTP Authentication, scheme: {http.scheme}</span>
       <br />
       {http.description && (
-        <span>
-          <ReactMarkdown>{http.description}</ReactMarkdown>
-        </span>
+        <div>
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{http.description}</ReactMarkdown>
+        </div>
       )}
     </>
   );
@@ -85,9 +86,9 @@ const SecuritySchemeApiKey: React.FunctionComponent<OpenAPIV3.ApiKeySecuritySche
         <li>In: {api.in}</li>
       </ul>
       {api.description && (
-        <span className="apid-m-text-break-all">
-          <ReactMarkdown>{api.description}</ReactMarkdown>
-        </span>
+        <div className="apid-m-text-break-all">
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{api.description}</ReactMarkdown>
+        </div>
       )}
     </>
   );
