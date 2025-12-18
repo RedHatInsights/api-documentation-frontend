@@ -3,6 +3,8 @@ import { OpenAPIV3 } from 'openapi-types';
 import { Flex, FlexItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { Table, Tbody, Td, Thead, Tr } from '@patternfly/react-table';
 import { SchemaType } from './SchemaType';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 interface ParameterViewProps {
   title: string;
@@ -43,7 +45,7 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({ tit
               <Td>
                 <SchemaType schema={p.schema} document={document} writeEnums />
               </Td>
-              <Td>{p.description}</Td>
+              <Td>{p.description && <ReactMarkdown rehypePlugins={[rehypeRaw]}>{p.description}</ReactMarkdown>}</Td>
             </Tr>
           ))}
         </Tbody>
