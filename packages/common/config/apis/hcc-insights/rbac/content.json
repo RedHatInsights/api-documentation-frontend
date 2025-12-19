@@ -324,8 +324,21 @@
                 "last_name": {
                   "example": "Doe",
                   "type": "string"
+                },
+                "user_available": {
+                  "enum": [
+                    true
+                  ],
+                  "example": true,
+                  "type": "boolean"
                 }
               },
+              "required": [
+                "user_available",
+                "first_name",
+                "last_name",
+                "email"
+              ],
               "type": "object"
             }
           ]
@@ -337,11 +350,22 @@
             },
             {
               "properties": {
+                "user_available": {
+                  "enum": [
+                    false
+                  ],
+                  "example": false,
+                  "type": "boolean"
+                },
                 "user_id": {
                   "example": "1234",
                   "type": "string"
                 }
               },
+              "required": [
+                "user_id",
+                "user_available"
+              ],
               "type": "object"
             }
           ]
