@@ -1445,6 +1445,12 @@
                       "id": {
                         "$ref": "#/components/schemas/IssueId"
                       },
+                      "precedence": {
+                        "description": "Controls the order in which issues are executed in the generated playbook. Lower numbers execute first. If not specified, issues are ordered by issue_id.",
+                        "example": 1,
+                        "nullable": true,
+                        "type": "integer"
+                      },
                       "resolution": {
                         "$ref": "#/components/schemas/ResolutionType"
                       },
@@ -1496,6 +1502,11 @@
             },
             "id": {
               "$ref": "#/components/schemas/IssueId"
+            },
+            "precedence": {
+              "description": "Controls the order in which issues are executed in the generated playbook. Lower numbers execute first.",
+              "nullable": true,
+              "type": "integer"
             },
             "resolution": {
               "additionalProperties": false,
