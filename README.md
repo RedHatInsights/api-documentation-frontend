@@ -67,6 +67,16 @@ apis:
         # ...
 ```
 
+### Removing a decommissioned application
+
+When an application has been decommissioned, you need to remove its entry from the [discovery file](./packages/discovery/Discovery.yml) and then run the discovery process to update the generated files:
+
+```bash
+npm run discovery
+```
+
+This will regenerate the API catalog content without the removed application.
+
 ## Running the components
 
 This project uses `npm` and `react`, the regular steps apply here.
