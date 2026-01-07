@@ -189,17 +189,6 @@ apis:
         tags:
           - lightspeed
           - rhel
-      - id: policies
-        name: Policies
-        description: The API for Policies
-        url: https://console.redhat.com/api/policies/v1/openapi.json
-        serverUrl: https://console.redhat.com
-        apiType: openapi-v3
-        tags:
-          - ansible
-          - rhel
-          - observe
-          - lightspeed
       - id: config-manager
         name: Red Hat Connector
         description: Config manager service

@@ -442,24 +442,6 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["lightspeed"], apiLabelsMap["rhel"]],
   },
   {
-    id: "policies",
-    displayName: "Policies",
-    description: "The API for Policies",
-    icon: "GenericIcon",
-    apiContentPath: "./apis/hcc-insights/policies/content.json",
-    serverUrl: "https://console.redhat.com",
-    getApiContent: () =>
-      import(
-        "./apis/hcc-insights/policies/content.json"
-      ) as unknown as Promise<APIContent>,
-    tags: [
-      apiLabelsMap["ansible"],
-      apiLabelsMap["rhel"],
-      apiLabelsMap["observe"],
-      apiLabelsMap["lightspeed"],
-    ],
-  },
-  {
     id: "remediations",
     displayName: "Remediations",
     description: "Insights Remediations Service",
