@@ -254,7 +254,7 @@ apis:
         tags:
           - identity-and-access-management
       - id: rhsm-subscriptions-v1
-        name: Subscriptions v1
+        name: Subscriptions Usage v1
         description: REST interface for the rhsm-subscriptions service, version 1
         url: https://console.redhat.com/api/rhsm-subscriptions/v1/openapi.json
         serverUrl: https://console.redhat.com
@@ -267,7 +267,7 @@ apis:
           - rhel
           - subscriptions
       - id: rhsm-subscriptions-v2
-        name: Subscriptions v2
+        name: Subscriptions Usage v2
         description: REST interface for the rhsm-subscriptions service, version 2
         url: https://console.redhat.com/api/rhsm-subscriptions/v2/openapi.json
         serverUrl: https://console.redhat.com
@@ -279,6 +279,16 @@ apis:
           - openshift
           - rhel
           - subscriptions
+      - id: rhsm
+        name: Subscription Management
+        description: API for managing and listing Activation Keys, Manifests, and Subscriptions
+        url: https://console.redhat.com/api/rhsm/v2/openapi.json
+        serverUrl: https://console.redhat.com
+        apiType: openapi-v2
+        icon: subscriptions
+        tags:
+          - subscriptions
+          - rhel
       - id: tasks
         name: Tasks
         description: API for managing and issuing Red Hat generated tasks on your infrastructure
