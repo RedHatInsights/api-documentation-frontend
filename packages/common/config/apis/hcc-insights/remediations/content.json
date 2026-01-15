@@ -1439,6 +1439,7 @@
               },
               "properties": {
                 "issues": {
+                  "description": "Array of issues to add to the remediation. Maximum 50 issues per request.",
                   "items": {
                     "additionalProperties": false,
                     "properties": {
@@ -1455,9 +1456,11 @@
                         "$ref": "#/components/schemas/ResolutionType"
                       },
                       "systems": {
+                        "description": "Systems for this specific issue. If not provided, uses the default systems from the top-level systems array. Maximum of 50 unique systems total across all issues per request.",
                         "items": {
                           "$ref": "#/components/schemas/SystemId"
                         },
+                        "maxItems": 50,
                         "type": "array"
                       }
                     },
@@ -1466,13 +1469,16 @@
                     ],
                     "type": "object"
                   },
+                  "maxItems": 50,
                   "minItems": 1,
                   "type": "array"
                 },
                 "systems": {
+                  "description": "Default systems that will be applied to all issues that don't specify their own systems array. Maximum of 50 unique systems total across all issues per request.",
                   "items": {
                     "$ref": "#/components/schemas/SystemId"
                   },
+                  "maxItems": 50,
                   "type": "array"
                 }
               },
