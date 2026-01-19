@@ -933,6 +933,9 @@
                 "creator": {
                   "$ref": "#/components/schemas/User"
                 },
+                "customer_name": {
+                  "type": "string"
+                },
                 "description": {
                   "type": "string"
                 },
@@ -1288,6 +1291,9 @@
                 "$ref": "#/components/schemas/Contributor"
               },
               "type": "array"
+            },
+            "customer_name": {
+              "type": "string"
             },
             "description": {
               "type": "string"

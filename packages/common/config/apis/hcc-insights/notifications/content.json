@@ -251,6 +251,9 @@
             "read": {
               "type": "boolean"
             },
+            "severity": {
+              "type": "string"
+            },
             "source": {
               "type": "string"
             },
@@ -362,6 +365,9 @@
             },
             "payload": {
               "type": "string"
+            },
+            "severity": {
+              "$ref": "#/components/schemas/Severity"
             }
           },
           "required": [
@@ -429,6 +435,16 @@
             },
             "application_id": {
               "$ref": "#/components/schemas/UUID"
+            },
+            "available_severities": {
+              "items": {
+                "$ref": "#/components/schemas/Severity"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "default_severity": {
+              "$ref": "#/components/schemas/Severity"
             },
             "description": {
               "type": "string"
@@ -639,6 +655,17 @@
             "meta"
           ],
           "type": "object"
+        },
+        "Severity": {
+          "enum": [
+            "CRITICAL",
+            "IMPORTANT",
+            "MODERATE",
+            "LOW",
+            "NONE",
+            "UNDEFINED"
+          ],
+          "type": "string"
         },
         "UUID": {
           "format": "uuid",
@@ -1791,6 +1818,29 @@
             }
           },
           "summary": "List configured bundles"
+        }
+      },
+      "/notifications/severities": {
+        "get": {
+          "description": "Returns the list of available notification severities",
+          "operationId": "NotificationResource$V1_getSeverities",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/Severity"
+                    },
+                    "type": "array",
+                    "uniqueItems": true
+                  }
+                }
+              },
+              "description": "OK"
+            }
+          },
+          "summary": "List configured severities"
         }
       },
       "/org-config/daily-digest/time-preference": {

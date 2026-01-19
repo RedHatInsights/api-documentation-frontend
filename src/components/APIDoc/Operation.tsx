@@ -4,6 +4,7 @@ import { deRef } from '../../utils/Openapi';
 import { buildCodeSampleData, BuildCodeSampleDataParams } from '../../utils/Snippets';
 import { Grid, GridItem, TextContent, AccordionItem, AccordionToggle, AccordionContent, Label } from '@patternfly/react-core';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 import { ParameterView } from './ParameterView';
 import { CodeSamples } from './CodeSamples';
@@ -81,7 +82,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({ verb, baseU
   return (
     <Grid className="pf-v5-u-mt-sm" hasGutter>
       <GridItem md={12}>
-        <TextContent>{operation.description && <ReactMarkdown>{operation.description}</ReactMarkdown>}</TextContent>
+        <TextContent>{operation.description && <ReactMarkdown rehypePlugins={[rehypeRaw]}>{operation.description}</ReactMarkdown>}</TextContent>
       </GridItem>
       <GridItem md={12} xl={7}>
         <Grid hasGutter>

@@ -7,6 +7,8 @@ import { Text, TextContent, TextVariants } from '@patternfly/react-core';
 import { Table, ExpandableRowContent, Tbody, Td, Th, Thead, Tr, TdProps } from '@patternfly/react-table';
 import { ExampleResponse } from './ExampleResponse';
 import { SchemaType } from './SchemaType';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 interface ResponseViewProps {
   responses: OpenAPIV3.ResponsesObject;
@@ -43,7 +45,7 @@ const ApiResponse = ({
       <Tr>
         <Td expand={expandInfo} />
         <Td>{code}</Td>
-        <Td>{dResponse.description}</Td>
+        <Td>{dResponse.description && <ReactMarkdown rehypePlugins={[rehypeRaw]}>{dResponse.description}</ReactMarkdown>}</Td>
         <Td>{responseSchema}</Td>
       </Tr>
       {expandInfo && exampleResponse && (
