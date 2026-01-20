@@ -523,7 +523,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   },
   {
     id: "rhsm-subscriptions-v1",
-    displayName: "Subscriptions v1",
+    displayName: "Subscriptions Usage v1",
     description: "REST interface for the rhsm-subscriptions service, version 1",
     icon: "SubscriptionsIcon",
     apiContentPath: "./apis/hcc-insights/rhsm-subscriptions-v1/content.json",
@@ -542,7 +542,7 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
   },
   {
     id: "rhsm-subscriptions-v2",
-    displayName: "Subscriptions v2",
+    displayName: "Subscriptions Usage v2",
     description: "REST interface for the rhsm-subscriptions service, version 2",
     icon: "SubscriptionsIcon",
     apiContentPath: "./apis/hcc-insights/rhsm-subscriptions-v2/content.json",
