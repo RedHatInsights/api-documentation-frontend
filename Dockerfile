@@ -9,6 +9,15 @@ COPY src ./src
 COPY public ./public
 COPY packages ./packages
 
+RUN npm run secret
+
+ARG SENTRY_SECRET_NAME
+RUN --mount=type=secret,id=${SENTRY_SECRET_NAME}/auth_token,required=false \
+  --mount=type=secret,id=${SENTRY_SECRET_NAME}/project,required=false \
+  export SENTRY_PROJECT="$(cat /run/secrets/${SENTRY_SECRET_NAME}/project)"; \
+  set -euo pipefail; \
+  echo "Sentry project: ${SENTRY_PROJECT}";
+
 RUN npm i
 
 RUN --mount=type=secret,id=api-documentation-frontend-sitemap/PROD_JWT_FETCH_URL \
