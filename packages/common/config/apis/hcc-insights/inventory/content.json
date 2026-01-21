@@ -457,6 +457,21 @@
             "type": "array"
           }
         },
+        "tagOrderByParam": {
+          "description": "Ordering field name",
+          "in": "query",
+          "name": "order_by",
+          "required": false,
+          "schema": {
+            "enum": [
+              "display_name",
+              "group_name",
+              "updated",
+              "last_check_in"
+            ],
+            "type": "string"
+          }
+        },
         "tagsOrderByParam": {
           "description": "Ordering field name",
           "in": "query",
@@ -4517,7 +4532,7 @@
               "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam"
+              "$ref": "#/components/parameters/tagOrderByParam"
             },
             {
               "$ref": "#/components/parameters/hostOrderHowParam"
@@ -4567,7 +4582,7 @@
               "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam"
+              "$ref": "#/components/parameters/tagOrderByParam"
             },
             {
               "$ref": "#/components/parameters/hostOrderHowParam"
