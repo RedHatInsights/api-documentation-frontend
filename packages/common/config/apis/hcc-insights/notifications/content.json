@@ -5,7 +5,7 @@
       "schemas": {
         "Application": {
           "properties": {
-            "bundleId": {
+            "bundle_id": {
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
@@ -13,7 +13,7 @@
               "readOnly": true,
               "type": "string"
             },
-            "displayName": {
+            "display_name": {
               "type": "string"
             },
             "id": {
@@ -34,8 +34,8 @@
           },
           "required": [
             "name",
-            "displayName",
-            "bundleId"
+            "display_name",
+            "bundle_id"
           ],
           "type": "object"
         },
@@ -57,7 +57,7 @@
             "bundle": {
               "$ref": "#/components/schemas/Bundle"
             },
-            "bundleId": {
+            "bundle_id": {
               "$ref": "#/components/schemas/UUID"
             },
             "created": {
@@ -69,7 +69,7 @@
               "readOnly": true,
               "type": "boolean"
             },
-            "displayName": {
+            "display_name": {
               "pattern": "\\S",
               "type": "string"
             },
@@ -85,8 +85,8 @@
             }
           },
           "required": [
-            "displayName",
-            "bundleId"
+            "display_name",
+            "bundle_id"
           ],
           "type": "object"
         },
@@ -128,7 +128,7 @@
               "readOnly": true,
               "type": "string"
             },
-            "displayName": {
+            "display_name": {
               "type": "string"
             },
             "id": {
@@ -149,7 +149,7 @@
           },
           "required": [
             "name",
-            "displayName"
+            "display_name"
           ],
           "type": "object"
         },
@@ -289,7 +289,7 @@
             "properties": {
               "$ref": "#/components/schemas/EndpointProperties"
             },
-            "serverErrors": {
+            "server_errors": {
               "format": "int32",
               "minimum": 0,
               "type": "integer"
@@ -297,7 +297,7 @@
             "status": {
               "$ref": "#/components/schemas/EndpointStatus"
             },
-            "subType": {
+            "sub_type": {
               "type": "string"
             },
             "type": {
@@ -495,7 +495,7 @@
               "readOnly": true,
               "type": "string"
             },
-            "eventType": {
+            "event_type": {
               "$ref": "#/components/schemas/EventType"
             },
             "id": {

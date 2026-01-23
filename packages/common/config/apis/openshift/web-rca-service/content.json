@@ -1508,6 +1508,74 @@
           ],
           "type": "object"
         },
+        "MetricsReport": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "applications": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "bad_rollout_commit": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "incident_id": {
+                  "type": "string"
+                },
+                "incident_uuid": {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                "product_id": {
+                  "type": "string"
+                },
+                "product_name": {
+                  "type": "string"
+                },
+                "reopen_counter": {
+                  "format": "int64",
+                  "type": "integer"
+                },
+                "severity": {
+                  "type": "string"
+                },
+                "working_time": {
+                  "description": "Total working time in seconds",
+                  "format": "int64",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "MetricsReportList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/MetricsReport"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "Notification": {
           "allOf": [
             {
@@ -4163,6 +4231,16 @@
               },
               "description": "Unauthorized to perform operation"
             },
+            "409": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Incident debrief already exists"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -4700,6 +4778,16 @@
                 }
               },
               "description": "Unauthorized to perform operation"
+            },
+            "409": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Incident retrospective already exists"
             },
             "500": {
               "content": {
@@ -5813,6 +5901,95 @@
             }
           },
           "summary": "Metrics"
+        }
+      },
+      "/api/web-rca/v1/metrics-report": {
+        "get": {
+          "description": "Returns processed data from the incidents-report-view in JSON or CSV format",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/from"
+            },
+            {
+              "$ref": "#/components/parameters/to"
+            },
+            {
+              "$ref": "#/components/parameters/products"
+            },
+            {
+              "description": "Output format (json or csv)",
+              "in": "query",
+              "name": "format",
+              "required": false,
+              "schema": {
+                "default": "json",
+                "enum": [
+                  "json",
+                  "csv"
+                ],
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/MetricsReportList"
+                  }
+                },
+                "text/csv": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "A JSON array or CSV file of metrics report data"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return incident metrics report data"
         }
       },
       "/api/web-rca/v1/notification_subscriptions": {
