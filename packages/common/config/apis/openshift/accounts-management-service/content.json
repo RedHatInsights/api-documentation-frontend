@@ -414,7 +414,8 @@
                 "ClusterSelfManagedStatus",
                 "OsdTrialProtectedCluster",
                 "ManifestWorkSync",
-                "ClusterForcedUpgrade"
+                "ClusterForcedUpgrade",
+                "DeletedCluster"
               ],
               "type": "string"
             },
@@ -3776,7 +3777,8 @@
                 "MachinePool",
                 "OsdTrialProtectedCluster",
                 "ManifestWorkSync",
-                "ClusterForcedUpgrade"
+                "ClusterForcedUpgrade",
+                "DeletedCluster"
               ],
               "type": "string"
             },
