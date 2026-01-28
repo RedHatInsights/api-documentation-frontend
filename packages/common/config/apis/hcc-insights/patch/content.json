@@ -1904,7 +1904,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.141"
+      "version": "v3.8.157"
     },
     "openapi": "3.0.1",
     "paths": {
