@@ -94,6 +94,18 @@
             "type": "array"
           }
         },
+        "groupIdListParam": {
+          "description": "Filter by group ID (UUID format)",
+          "in": "query",
+          "name": "group_id",
+          "required": false,
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/NonStrictUUID"
+            },
+            "type": "array"
+          }
+        },
         "groupName": {
           "description": "Filter by group name",
           "in": "query",
@@ -4031,6 +4043,9 @@
               "$ref": "#/components/parameters/groupNameListParam"
             },
             {
+              "$ref": "#/components/parameters/groupIdListParam"
+            },
+            {
               "$ref": "#/components/parameters/registered_with"
             },
             {
@@ -4106,6 +4121,9 @@
             },
             {
               "$ref": "#/components/parameters/groupNameListParam"
+            },
+            {
+              "$ref": "#/components/parameters/groupIdListParam"
             },
             {
               "$ref": "#/components/parameters/branchId"
@@ -4974,6 +4992,9 @@
             },
             {
               "$ref": "#/components/parameters/groupNameListParam"
+            },
+            {
+              "$ref": "#/components/parameters/groupIdListParam"
             },
             {
               "$ref": "#/components/parameters/registered_with"
