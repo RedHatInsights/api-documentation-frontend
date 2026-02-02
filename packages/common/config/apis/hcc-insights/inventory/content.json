@@ -94,6 +94,18 @@
             "type": "array"
           }
         },
+        "groupIdListParam": {
+          "description": "Filter by group ID (UUID format)",
+          "in": "query",
+          "name": "group_id",
+          "required": false,
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/NonStrictUUID"
+            },
+            "type": "array"
+          }
+        },
         "groupName": {
           "description": "Filter by group name",
           "in": "query",
@@ -455,6 +467,21 @@
               "type": "string"
             },
             "type": "array"
+          }
+        },
+        "tagOrderByParam": {
+          "description": "Ordering field name",
+          "in": "query",
+          "name": "order_by",
+          "required": false,
+          "schema": {
+            "enum": [
+              "display_name",
+              "group_name",
+              "updated",
+              "last_check_in"
+            ],
+            "type": "string"
           }
         },
         "tagsOrderByParam": {
@@ -4016,6 +4043,9 @@
               "$ref": "#/components/parameters/groupNameListParam"
             },
             {
+              "$ref": "#/components/parameters/groupIdListParam"
+            },
+            {
               "$ref": "#/components/parameters/registered_with"
             },
             {
@@ -4091,6 +4121,9 @@
             },
             {
               "$ref": "#/components/parameters/groupNameListParam"
+            },
+            {
+              "$ref": "#/components/parameters/groupIdListParam"
             },
             {
               "$ref": "#/components/parameters/branchId"
@@ -4517,7 +4550,7 @@
               "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam"
+              "$ref": "#/components/parameters/tagOrderByParam"
             },
             {
               "$ref": "#/components/parameters/hostOrderHowParam"
@@ -4567,7 +4600,7 @@
               "$ref": "#/components/parameters/pageParam"
             },
             {
-              "$ref": "#/components/parameters/hostOrderByParam"
+              "$ref": "#/components/parameters/tagOrderByParam"
             },
             {
               "$ref": "#/components/parameters/hostOrderHowParam"
@@ -4959,6 +4992,9 @@
             },
             {
               "$ref": "#/components/parameters/groupNameListParam"
+            },
+            {
+              "$ref": "#/components/parameters/groupIdListParam"
             },
             {
               "$ref": "#/components/parameters/registered_with"

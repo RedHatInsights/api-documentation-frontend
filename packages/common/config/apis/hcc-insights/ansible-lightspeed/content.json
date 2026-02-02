@@ -3,25 +3,6 @@
   "openapi": {
     "components": {
       "schemas": {
-        "Action4c6Enum": {
-          "description": "* `0` - ACCEPTED\n* `1` - REJECTED\n* `2` - IGNORED",
-          "enum": [
-            "0",
-            "1",
-            "2"
-          ],
-          "type": "string"
-        },
-        "Action693Enum": {
-          "description": "* `0` - OPEN\n* `1` - CLOSE_CANCEL\n* `2` - TRANSITION\n* `3` - CLOSE_ACCEPT",
-          "enum": [
-            "0",
-            "1",
-            "2",
-            "3"
-          ],
-          "type": "string"
-        },
         "ChatFeedback": {
           "properties": {
             "query": {
@@ -33,7 +14,14 @@
               "$ref": "#/components/schemas/ChatResponse"
             },
             "sentiment": {
-              "$ref": "#/components/schemas/SentimentEnum"
+              "description": "* `0` - LIKE\n* `1` - 1\n* `NOT_LIKE` - NOT_LIKE",
+              "enum": [
+                "0",
+                "1",
+                "NOT_LIKE"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "e7383390620e7763"
             }
           },
           "required": [
@@ -302,7 +290,6 @@
               "type": "string"
             },
             "explanationId": {
-              "default": "",
               "description": "A UUID that identifies the particular explanation data is being requested for.",
               "format": "uuid",
               "title": "Explanation ID",
@@ -351,7 +338,6 @@
               "type": "string"
             },
             "explanationId": {
-              "default": "",
               "description": "A UUID that identifies the explanation.",
               "format": "uuid",
               "title": "Explanation ID",
@@ -443,7 +429,6 @@
               "type": "string"
             },
             "generationId": {
-              "default": "",
               "description": "A UUID that identifies the particular generation data is being requested for.",
               "format": "uuid",
               "title": "generation ID",
@@ -466,7 +451,6 @@
               "type": "string"
             },
             "wizardId": {
-              "default": "",
               "description": "A UUID to track the succession of interaction from the user.",
               "format": "uuid",
               "title": "wizard ID",
@@ -555,7 +539,6 @@
               "type": "array"
             },
             "generationId": {
-              "default": "",
               "description": "A UUID that identifies the particular generation data is being requested for.",
               "format": "uuid",
               "title": "generation ID",
@@ -585,7 +568,6 @@
               "type": "string"
             },
             "wizardId": {
-              "default": "",
               "description": "A UUID to track the succession of interaction from the user.",
               "format": "uuid",
               "title": "wizard ID",
@@ -653,7 +635,14 @@
         "InlineSuggestionFeedback": {
           "properties": {
             "action": {
-              "$ref": "#/components/schemas/Action4c6Enum"
+              "description": "* `0` - ACCEPTED\n* `1` - REJECTED\n* `2` - IGNORED",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "4c6feea9f2cd2c84"
             },
             "documentUri": {
               "type": "string"
@@ -691,7 +680,13 @@
               "type": "string"
             },
             "type": {
-              "$ref": "#/components/schemas/TypeEnum"
+              "description": "* `bug-report` - Bug Report\n* `feature-request` - Feature Request",
+              "enum": [
+                "bug-report",
+                "feature-request"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "230f84d522c678e0"
             }
           },
           "required": [
@@ -772,7 +767,14 @@
         "PlaybookExplanationFeedback": {
           "properties": {
             "action": {
-              "$ref": "#/components/schemas/Action4c6Enum"
+              "description": "* `0` - ACCEPTED\n* `1` - REJECTED\n* `2` - IGNORED",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "4c6feea9f2cd2c84"
             },
             "explanationId": {
               "description": "A UUID that identifies the playbook explanation.",
@@ -790,7 +792,15 @@
         "PlaybookGenerationAction": {
           "properties": {
             "action": {
-              "$ref": "#/components/schemas/Action693Enum"
+              "description": "* `0` - OPEN\n* `1` - CLOSE_CANCEL\n* `2` - TRANSITION\n* `3` - CLOSE_ACCEPT",
+              "enum": [
+                "0",
+                "1",
+                "2",
+                "3"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "693e8c4f477a387e"
             },
             "fromPage": {
               "description": "A number that indicate the page of origin",
@@ -818,7 +828,14 @@
         "PlaybookGenerationFeedback": {
           "properties": {
             "action": {
-              "$ref": "#/components/schemas/Action4c6Enum"
+              "description": "* `0` - ACCEPTED\n* `1` - REJECTED\n* `2` - IGNORED",
+              "enum": [
+                "0",
+                "1",
+                "2"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "4c6feea9f2cd2c84"
             },
             "wizardId": {
               "description": "A UUID that identifies the UI session.",
@@ -851,7 +868,15 @@
         "RoleGenerationAction": {
           "properties": {
             "action": {
-              "$ref": "#/components/schemas/Action693Enum"
+              "description": "* `0` - OPEN\n* `1` - CLOSE_CANCEL\n* `2` - TRANSITION\n* `3` - CLOSE_ACCEPT",
+              "enum": [
+                "0",
+                "1",
+                "2",
+                "3"
+              ],
+              "type": "string",
+              "x-spec-enum-id": "693e8c4f477a387e"
             },
             "fromPage": {
               "description": "A number that indicate the page of origin",
@@ -875,15 +900,6 @@
             "wizardId"
           ],
           "type": "object"
-        },
-        "SentimentEnum": {
-          "description": "* `0` - LIKE\n* `1` - 1\n* `NOT_LIKE` - NOT_LIKE",
-          "enum": [
-            "0",
-            "1",
-            "NOT_LIKE"
-          ],
-          "type": "string"
         },
         "SentimentFeedback": {
           "properties": {
@@ -986,14 +1002,6 @@
             "optOut"
           ],
           "type": "object"
-        },
-        "TypeEnum": {
-          "description": "* `bug-report` - Bug Report\n* `feature-request` - Feature Request",
-          "enum": [
-            "bug-report",
-            "feature-request"
-          ],
-          "type": "string"
         },
         "UserPlan": {
           "properties": {
@@ -1187,7 +1195,8 @@
           "summary": "Chat request",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Create new ai chat"
         }
       },
       "/ai/completions/": {
@@ -1275,7 +1284,8 @@
           "summary": "Inline code suggestions",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Create new ai completion"
         }
       },
       "/ai/contentmatches/": {
@@ -1340,7 +1350,8 @@
           "summary": "Code suggestion attributions",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Create new ai contentmatch"
         }
       },
       "/ai/explanations/": {
@@ -1408,7 +1419,8 @@
           "summary": "Playbook explanation",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Create an explanation of a playbook"
         }
       },
       "/ai/explanations/role/": {
@@ -1476,7 +1488,8 @@
           "summary": "Role explanation",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Create an explanation of a role"
         }
       },
       "/ai/feedback/": {
@@ -1540,7 +1553,8 @@
           "summary": "Feedback API for the AI service",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Create new ai feedback"
         }
       },
       "/ai/generations/playbook/": {
@@ -1608,7 +1622,8 @@
           "summary": "Playbook generation",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Generate a playbook based on a text input"
         }
       },
       "/ai/generations/role/": {
@@ -1664,7 +1679,8 @@
           "summary": "Role generation",
           "tags": [
             "ai"
-          ]
+          ],
+          "x-ai-description": "Generate a role based on a text input"
         }
       },
       "/ai/streaming_chat/": {
@@ -1735,84 +1751,8 @@
           "summary": "Streaming chat request",
           "tags": [
             "ai"
-          ]
-        }
-      },
-      "/check/": {
-        "get": {
-          "description": "Service Liveness Probe View",
-          "operationId": "check_retrieve",
-          "responses": {
-            "200": {
-              "description": "OK"
-            }
-          },
-          "security": [
-            {
-              "cookieAuth": []
-            },
-            {}
           ],
-          "summary": "Liveness probe",
-          "tags": [
-            "check"
-          ]
-        }
-      },
-      "/check/status/": {
-        "get": {
-          "description": "Service Health Check",
-          "operationId": "check_status_retrieve",
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "ExampleOutput": {
-                      "summary": "Example output",
-                      "value": {
-                        "dependencies": [
-                          {
-                            "name": "db",
-                            "status": "ok",
-                            "time_taken": 233.538
-                          },
-                          {
-                            "name": "model-server",
-                            "status": "ok",
-                            "time_taken": 0.001
-                          }
-                        ],
-                        "deployed_region": "dev",
-                        "git_commit": "b987bc43b90f8aca2deaf3bda85596f4b95a10a0",
-                        "status": "ok",
-                        "timestamp": "2023-03-13T17:25:17.240683",
-                        "version": "latest 0.1.202303131417"
-                      }
-                    }
-                  },
-                  "schema": {
-                    "additionalProperties": {},
-                    "type": "object"
-                  }
-                }
-              },
-              "description": ""
-            },
-            "500": {
-              "description": "One or more backend services are unavailable."
-            }
-          },
-          "security": [
-            {
-              "cookieAuth": []
-            },
-            {}
-          ],
-          "summary": "Health check with backend server status",
-          "tags": [
-            "check"
-          ]
+          "x-ai-description": "Create new ai streaming chat"
         }
       },
       "/health/": {
@@ -1833,7 +1773,8 @@
           "summary": "Liveness probe",
           "tags": [
             "health"
-          ]
+          ],
+          "x-ai-description": "Retrieve health status"
         }
       },
       "/health/status/": {
@@ -1889,7 +1830,8 @@
           "summary": "Health check with backend server status",
           "tags": [
             "health"
-          ]
+          ],
+          "x-ai-description": "Retrieve health status with backend servers status"
         }
       },
       "/health/status/chatbot/": {
@@ -1910,7 +1852,8 @@
           "summary": "Chatbot health check",
           "tags": [
             "health"
-          ]
+          ],
+          "x-ai-description": "Retrieve chatbot health status"
         }
       },
       "/me/": {
@@ -1935,7 +1878,8 @@
           ],
           "tags": [
             "me"
-          ]
+          ],
+          "x-ai-description": "Retrieve current user information"
         }
       },
       "/me/summary/": {
@@ -1960,7 +1904,8 @@
           ],
           "tags": [
             "me"
-          ]
+          ],
+          "x-ai-description": "Retrieve current logged in user"
         }
       },
       "/telemetry/": {
@@ -2003,7 +1948,8 @@
           "summary": "Get the telemetry settings for an Organisation",
           "tags": [
             "telemetry"
-          ]
+          ],
+          "x-ai-description": "Get telemetry settings"
         },
         "post": {
           "operationId": "telemetry_settings_set",
@@ -2073,7 +2019,8 @@
           "summary": "Set the Telemetry settings for an Organisation",
           "tags": [
             "telemetry"
-          ]
+          ],
+          "x-ai-description": "Set telemetry settings"
         }
       },
       "/wca/apikey/": {
@@ -2117,7 +2064,8 @@
           "summary": "DELETE WCA key for an Organization",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Delete existing wca api key"
         },
         "get": {
           "operationId": "wca_api_key_get",
@@ -2159,7 +2107,8 @@
           "summary": "Get WCA key for an Organisation",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Get wca api key"
         },
         "post": {
           "operationId": "wca_api_key_set",
@@ -2230,7 +2179,8 @@
           "summary": "Set the WCA key for an Organisation",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Set wca api key"
         }
       },
       "/wca/apikey/test/": {
@@ -2272,7 +2222,8 @@
           "summary": "Validate WCA key for an Organisation",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Get wca api key validator"
         }
       },
       "/wca/modelid/": {
@@ -2315,7 +2266,8 @@
           "summary": "Get WCA Model Id for an Organisation",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Get wca model id"
         },
         "post": {
           "operationId": "wca_model_id_set",
@@ -2385,7 +2337,8 @@
           "summary": "Set the Model Id to be used for an Organisation",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Set wca model id"
         }
       },
       "/wca/modelid/test/": {
@@ -2427,7 +2380,8 @@
           "summary": "Validate WCA Model Id for an Organisation",
           "tags": [
             "wca"
-          ]
+          ],
+          "x-ai-description": "Get wca model id validator"
         }
       }
     },
@@ -2449,10 +2403,6 @@
       {
         "description": "Authenticated user information",
         "name": "me"
-      },
-      {
-        "description": "Health check",
-        "name": "check"
       },
       {
         "description": "watsonx Code Assistant",
