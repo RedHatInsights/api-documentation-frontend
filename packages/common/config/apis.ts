@@ -560,6 +560,20 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "rhsm",
+    displayName: "Subscription Management",
+    description:
+      "API for managing and listing Activation Keys, Manifests, and Subscriptions",
+    icon: "SubscriptionsIcon",
+    apiContentPath: "./apis/hcc-insights/rhsm/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/rhsm/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["subscriptions"], apiLabelsMap["rhel"]],
+  },
+  {
     id: "tasks",
     displayName: "Tasks",
     description:
