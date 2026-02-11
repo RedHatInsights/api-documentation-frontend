@@ -360,6 +360,9 @@
             "event_type": {
               "type": "string"
             },
+            "external_id": {
+              "$ref": "#/components/schemas/UUID"
+            },
             "id": {
               "$ref": "#/components/schemas/UUID"
             },
@@ -1707,6 +1710,17 @@
                 "format": "int32",
                 "minimum": 1,
                 "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "severities",
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/Severity"
+                },
+                "type": "array",
+                "uniqueItems": true
               }
             },
             {
