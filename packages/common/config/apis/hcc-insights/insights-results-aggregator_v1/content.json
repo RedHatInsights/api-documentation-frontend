@@ -1086,7 +1086,7 @@
       },
       "/groups": {
         "get": {
-          "description": "This simply redirects to an endpoint of the same name of a service called insights-content-service",
+          "description": "This simply redirects to an endpoint of the same name of a service called content-service",
           "operationId": "getRuleGroups",
           "responses": {
             "200": {
