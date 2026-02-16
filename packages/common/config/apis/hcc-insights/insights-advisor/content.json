@@ -1897,11 +1897,16 @@
               "readOnly": true,
               "type": "integer"
             },
+            "os_name": {
+              "readOnly": true,
+              "type": "string"
+            },
             "pathway_filter_hits": {
               "readOnly": true,
               "type": "integer"
             },
             "rhel_version": {
+              "readOnly": true,
               "type": "string"
             },
             "stale_at": {
@@ -1925,6 +1930,7 @@
             "last_seen",
             "low_hits",
             "moderate_hits",
+            "os_name",
             "pathway_filter_hits",
             "rhel_version",
             "stale_at",
@@ -2000,11 +2006,16 @@
               "readOnly": true,
               "type": "integer"
             },
+            "os_name": {
+              "readOnly": true,
+              "type": "string"
+            },
             "pathway_filter_hits": {
               "readOnly": true,
               "type": "integer"
             },
             "rhel_version": {
+              "readOnly": true,
               "type": "string"
             },
             "stale_at": {
@@ -2028,6 +2039,7 @@
             "last_seen",
             "low_hits",
             "moderate_hits",
+            "os_name",
             "pathway_filter_hits",
             "rhel_version",
             "stale_at",
@@ -5525,6 +5537,20 @@
               "style": "form"
             },
             {
+              "description": "Display only systems with this type ('all' = both types)",
+              "in": "query",
+              "name": "system_type",
+              "schema": {
+                "enum": [
+                  "all",
+                  "bootc",
+                  "conventional",
+                  "edge"
+                ],
+                "type": "string"
+              }
+            },
+            {
               "description": "Tags have a namespace, key and value in the form namespace/key=value",
               "in": "query",
               "name": "tags",
@@ -5758,6 +5784,20 @@
                   "low_hits",
                   "moderate_hits",
                   "rhel_version"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Display only systems with this type ('all' = both types)",
+              "in": "query",
+              "name": "system_type",
+              "schema": {
+                "enum": [
+                  "all",
+                  "bootc",
+                  "conventional",
+                  "edge"
                 ],
                 "type": "string"
               }
