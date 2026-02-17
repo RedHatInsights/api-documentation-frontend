@@ -760,10 +760,24 @@
               },
               "type": "array"
             },
+            "distribution_minor_versions": {
+              "description": "Minor versions available for repository creation (filtered by subscriptions)",
+              "items": {
+                "$ref": "#/components/schemas/config.DistributionMinorVersion"
+              },
+              "type": "array"
+            },
             "distribution_versions": {
               "description": "Versions available for repository creation",
               "items": {
                 "$ref": "#/components/schemas/config.DistributionVersion"
+              },
+              "type": "array"
+            },
+            "extended_release_features": {
+              "description": "Extended release features available (filtered by subscriptions)",
+              "items": {
+                "$ref": "#/components/schemas/config.ExtendedReleaseFeature"
               },
               "type": "array"
             }
@@ -2005,6 +2019,26 @@
           },
           "type": "object"
         },
+        "config.DistributionMinorVersion": {
+          "properties": {
+            "feature_names": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "label": {
+              "type": "string"
+            },
+            "major": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "config.DistributionVersion": {
           "properties": {
             "label": {
@@ -2013,6 +2047,17 @@
             },
             "name": {
               "description": "Human-readable form of the version",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "config.ExtendedReleaseFeature": {
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "name": {
               "type": "string"
             }
           },
