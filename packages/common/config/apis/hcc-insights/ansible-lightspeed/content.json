@@ -34,8 +34,7 @@
         "ChatRequest": {
           "properties": {
             "conversation_id": {
-              "description": "A UUID that identifies the particular conversation is being requested for.",
-              "format": "uuid",
+              "description": "An ID that identifies the particular conversation is being requested for.",
               "type": "string"
             },
             "model": {
@@ -71,8 +70,7 @@
         "ChatResponse": {
           "properties": {
             "conversation_id": {
-              "description": "A UUID that identifies the particular conversation is being requested for.",
-              "format": "uuid",
+              "description": "An ID that identifies the particular conversation is being requested for.",
               "type": "string"
             },
             "referenced_documents": {
@@ -923,8 +921,7 @@
         "StreamingChatRequest": {
           "properties": {
             "conversation_id": {
-              "description": "A UUID that identifies the particular conversation is being requested for.",
-              "format": "uuid",
+              "description": "An ID that identifies the particular conversation is being requested for.",
               "type": "string"
             },
             "media_type": {
