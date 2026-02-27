@@ -220,7 +220,7 @@
           "style": "deepObject"
         },
         "hostViewFieldsParam": {
-          "description": "Selects which application objects (or sub-fields) should be joined into the host view response. Supply `fields[app_data]` to fetch every supported application object, use `fields[advisor]` to request the entire Advisor object, or specify sub-fields such as `fields[vulnerability][]=critical_cves`. When this parameter is omitted, `app_data` remains empty and no additional joins are performed.",
+          "description": "Selects which application objects (or sub-fields) should be joined into the host view response. Use `fields[advisor]=recommendations` to request specific fields, or `fields[advisor]=recommendations&fields[vulnerability]=critical_cves` for multiple apps. When this parameter is omitted, all fields from all applications are returned by default (per JSON:API sparse fieldsets specification).",
           "example": {
             "advisor": [
               "recommendations"
@@ -255,9 +255,9 @@
               "advisor:incidents",
               "vulnerability:total_cves",
               "vulnerability:critical_cves",
-              "patch:installable_advisories",
+              "patch:advisories_rhsa_installable",
+              "patch:packages_installable",
               "remediations:remediations_plans",
-              "compliance:policies",
               "compliance:last_scan",
               "malware:last_matches",
               "malware:last_scan"
@@ -555,6 +555,16 @@
         }
       },
       "responses": {
+        "NotFoundError": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotFoundErrorResponse"
+              }
+            }
+          },
+          "description": "One or more requested resources were not found."
+        },
         "PageOutOfBounds": {
           "description": "Requested page is outside of the range of available pages"
         }
@@ -641,25 +651,27 @@
           "properties": {
             "incidents": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
             "recommendations": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             }
           },
           "type": "object"
         },
         "AppSortableFields": {
-          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n\n**Patch**\n- `patch:installable_advisories` - Number of installable advisories\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:policies` - Number of compliance policies\n- `compliance:last_scan` - Last compliance scan timestamp\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n",
+          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n\n**Patch**\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:packages_installable` - Number of installable packages\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n",
           "enum": [
             "advisor:recommendations",
             "advisor:incidents",
             "vulnerability:total_cves",
             "vulnerability:critical_cves",
-            "patch:installable_advisories",
+            "patch:advisories_rhsa_installable",
+            "patch:packages_installable",
             "remediations:remediations_plans",
-            "compliance:policies",
             "compliance:last_scan",
             "malware:last_matches",
             "malware:last_scan"
@@ -816,10 +828,12 @@
           "properties": {
             "last_scan": {
               "format": "date-time",
+              "nullable": true,
               "type": "string"
             },
             "policies": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             }
           },
@@ -834,9 +848,6 @@
             },
             "compliance": {
               "$ref": "#/components/schemas/ComplianceAppData"
-            },
-            "image_builder": {
-              "$ref": "#/components/schemas/ImageBuilderAppData"
             },
             "malware": {
               "$ref": "#/components/schemas/MalwareAppData"
@@ -1198,95 +1209,14 @@
           "type": "object"
         },
         "HostViewFieldsObject": {
-          "additionalProperties": false,
-          "description": "Sparse fieldset declaration for application joins. Provide top-level keys that match application names; omit the parameter to skip all application data.",
-          "properties": {
-            "advisor": {
-              "description": "Advisor fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "recommendations",
-                  "incidents"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "app_data": {
-              "description": "Include every available application object when true.",
+          "additionalProperties": {
+            "additionalProperties": {
               "type": "boolean"
             },
-            "compliance": {
-              "description": "Compliance fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "policies",
-                  "last_scan"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "image_builder": {
-              "description": "Image Builder fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "image_name",
-                  "image_status"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "malware": {
-              "description": "Malware Detection fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "last_status",
-                  "last_matches",
-                  "last_scan"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "patch": {
-              "description": "Patch fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "installable_advisories",
-                  "template",
-                  "rhsm_locked_version"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "remediations": {
-              "description": "Remediation Planner fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "remediations_plans"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            },
-            "vulnerability": {
-              "description": "Vulnerability fields to return; leave empty to include the full object.",
-              "items": {
-                "enum": [
-                  "total_cves",
-                  "critical_cves",
-                  "high_severity_cves",
-                  "cves_with_security_rules",
-                  "cves_with_known_exploits"
-                ],
-                "type": "string"
-              },
-              "type": "array"
-            }
+            "description": "Map of field names to include. Keys are field names, values are always true.",
+            "type": "object"
           },
+          "description": "Sparse fieldset declaration for application data (per JSON:API specification).\nWhen omitted, all fields from all applications are returned by default.\n\nUsage Examples:\n- No parameter: Returns all app data (default behavior)\n- fields[advisor]=true: Returns all fields for advisor\n- fields[advisor]=recommendations: Returns only specified field\n- fields[advisor]=recommendations&fields[vulnerability]=critical_cves: Multiple apps\n- fields[advisor]= (empty): Returns no fields for advisor (per JSON:API spec)\n\nAvailable Applications and Fields:\n- advisor: recommendations, incidents\n- vulnerability: total_cves, critical_cves, high_severity_cves, cves_with_security_rules, cves_with_known_exploits\n- patch: advisories_rhsa_applicable, advisories_rhba_applicable, advisories_rhea_applicable, advisories_other_applicable, advisories_rhsa_installable, advisories_rhba_installable, advisories_rhea_installable, advisories_other_installable, packages_applicable, packages_installable, packages_installed, template_name, template_uuid\n- remediations: remediations_plans\n- compliance: policies, last_scan\n- malware: last_status, last_matches, total_matches, last_scan\n",
           "type": "object"
         },
         "HostViewFilterComparison": {
@@ -1370,17 +1300,6 @@
           "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
           "type": "string"
         },
-        "ImageBuilderAppData": {
-          "properties": {
-            "image_name": {
-              "type": "string"
-            },
-            "image_status": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
         "InsightsId": {
           "description": "An ID defined in /etc/insights-client/machine-id. This field is considered a canonical fact.",
           "example": "3f01b55457674041b75e41829bcee1dc",
@@ -1414,13 +1333,16 @@
           "properties": {
             "last_matches": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
             "last_scan": {
               "format": "date-time",
+              "nullable": true,
               "type": "string"
             },
             "last_status": {
+              "nullable": true,
               "type": "string"
             }
           },
@@ -1442,6 +1364,49 @@
           "format": "uuid",
           "pattern": "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}$|^[0-9a-fA-F]{8}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{4}[0-9a-fA-F]{12}$",
           "type": "string"
+        },
+        "NotFoundErrorResponse": {
+          "description": "Error response returned when one or more requested resources are not found.",
+          "properties": {
+            "detail": {
+              "description": "A human-readable description of the error.",
+              "example": "One or more requested resources were not found.",
+              "type": "string"
+            },
+            "not_found_ids": {
+              "description": "A list of IDs that were requested but not found. This field is included when specific IDs can be identified as missing.",
+              "example": [
+                "22cd8e39-13bb-4d02-8316-84b850dc5136"
+              ],
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "status": {
+              "description": "The HTTP status code.",
+              "example": 404,
+              "type": "integer"
+            },
+            "title": {
+              "description": "A short summary of the error.",
+              "example": "Not Found",
+              "type": "string"
+            },
+            "type": {
+              "description": "The type of the error.",
+              "example": "about:blank",
+              "type": "string"
+            }
+          },
+          "required": [
+            "status",
+            "title",
+            "detail"
+          ],
+          "title": "Not Found Error Response",
+          "type": "object"
         },
         "OrderHow": {
           "pattern": "^([Aa][Ss][Cc])|([Dd][Ee][Ss][Cc])$",
@@ -1481,14 +1446,68 @@
         },
         "PatchAppData": {
           "properties": {
-            "installable_advisories": {
+            "advisories_other_applicable": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
-            "rhsm_locked_version": {
+            "advisories_other_installable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "advisories_rhba_applicable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "advisories_rhba_installable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "advisories_rhea_applicable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "advisories_rhea_installable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "advisories_rhsa_applicable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "advisories_rhsa_installable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "packages_applicable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "packages_installable": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "packages_installed": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "template_name": {
+              "nullable": true,
               "type": "string"
             },
-            "template": {
+            "template_uuid": {
+              "format": "uuid",
+              "nullable": true,
               "type": "string"
             }
           },
@@ -1551,6 +1570,7 @@
           "properties": {
             "remediations_plans": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             }
           },
@@ -3301,22 +3321,27 @@
           "properties": {
             "critical_cves": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
             "cves_with_known_exploits": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
             "cves_with_security_rules": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
             "high_severity_cves": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             },
             "total_cves": {
               "minimum": 0,
+              "nullable": true,
               "type": "integer"
             }
           },
@@ -3819,7 +3844,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "description": "Groups not found."
+              "$ref": "#/components/responses/NotFoundError"
             }
           },
           "security": [
@@ -3868,7 +3893,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "description": "Group not found."
+              "$ref": "#/components/responses/NotFoundError"
             }
           },
           "security": [
@@ -3883,6 +3908,78 @@
         }
       },
       "/groups/{group_id}/hosts": {
+        "get": {
+          "description": "Read the list of all hosts in a specific group. <br /><br /> Required permissions: inventory:hosts:read",
+          "operationId": "api.host_group.get_host_list_by_group",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/groupId"
+            },
+            {
+              "$ref": "#/components/parameters/displayName"
+            },
+            {
+              "$ref": "#/components/parameters/fqdn"
+            },
+            {
+              "$ref": "#/components/parameters/hostnameOrId"
+            },
+            {
+              "$ref": "#/components/parameters/insightsId"
+            },
+            {
+              "$ref": "#/components/parameters/perPageParam"
+            },
+            {
+              "$ref": "#/components/parameters/pageParam"
+            },
+            {
+              "$ref": "#/components/parameters/hostOrderByParam"
+            },
+            {
+              "$ref": "#/components/parameters/hostOrderHowParam"
+            },
+            {
+              "$ref": "#/components/parameters/stalenessParam"
+            },
+            {
+              "$ref": "#/components/parameters/tagsParam"
+            },
+            {
+              "$ref": "#/components/parameters/registered_with"
+            },
+            {
+              "$ref": "#/components/parameters/filter_param"
+            },
+            {
+              "$ref": "#/components/parameters/fields_param"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HostQueryOutput"
+                  }
+                }
+              },
+              "description": "Successfully read the hosts in the group."
+            },
+            "404": {
+              "description": "Group not found."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Read the list of hosts in a group",
+          "tags": [
+            "groups"
+          ]
+        },
         "post": {
           "description": "Adds the host list in the request body to the provided group. <br /><br /> Required permissions: inventory:groups:write",
           "operationId": "api.host_group.add_host_list_to_group",
@@ -4268,13 +4365,20 @@
           ],
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              },
               "description": "Successfully deleted hosts."
             },
             "400": {
               "description": "Invalid request."
             },
             "404": {
-              "description": "Host not found."
+              "$ref": "#/components/responses/NotFoundError"
             }
           },
           "security": [
@@ -4328,7 +4432,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "description": "Host not found."
+              "$ref": "#/components/responses/NotFoundError"
             }
           },
           "security": [
@@ -4365,13 +4469,20 @@
           },
           "responses": {
             "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              },
               "description": "Successfully updated the hosts."
             },
             "400": {
               "description": "Invalid request."
             },
             "404": {
-              "description": "Host not found."
+              "$ref": "#/components/responses/NotFoundError"
             }
           },
           "security": [
@@ -4521,7 +4632,7 @@
               "description": "Invalid request."
             },
             "404": {
-              "description": "Host not found."
+              "$ref": "#/components/responses/NotFoundError"
             }
           },
           "security": [
