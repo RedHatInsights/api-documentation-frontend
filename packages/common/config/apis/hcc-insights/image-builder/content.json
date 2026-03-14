@@ -120,6 +120,28 @@
           ],
           "type": "object"
         },
+        "ArchitectureInfo": {
+          "description": "Architecture metadata from images library",
+          "properties": {
+            "image_types": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ImageTypeInfo"
+              },
+              "description": "Map of image type names to their details",
+              "type": "object"
+            },
+            "name": {
+              "description": "Architecture name",
+              "example": "x86_64",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object",
+          "x-go-type": "composer.ArchitectureInfo"
+        },
         "ArchitectureItem": {
           "properties": {
             "arch": {
@@ -391,6 +413,16 @@
             "links",
             "data"
           ]
+        },
+        "BootMode": {
+          "enum": [
+            "legacy",
+            "uefi",
+            "hybrid",
+            "none"
+          ],
+          "type": "string",
+          "x-go-type": "composer.ImageTypeInfoBootMode"
         },
         "BtrfsSubvolume": {
           "properties": {
@@ -1050,6 +1082,57 @@
           "type": "object",
           "x-go-type": "composer.Disk"
         },
+        "DistributionDetails": {
+          "description": "Complete metadata for a specific distribution from images library",
+          "properties": {
+            "architectures": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ArchitectureInfo"
+              },
+              "description": "Map of architecture names to their details",
+              "type": "object"
+            },
+            "codename": {
+              "description": "Codename of the distribution",
+              "example": "",
+              "type": "string"
+            },
+            "module_platform_id": {
+              "description": "Module platform ID for DNF modularity",
+              "example": "platform:el9",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the distribution",
+              "example": "rhel-9.6",
+              "type": "string"
+            },
+            "os_version": {
+              "description": "Full OS version including minor version",
+              "example": "9.6",
+              "type": "string"
+            },
+            "ostree_ref": {
+              "description": "Default OSTree reference template",
+              "example": "rhel/9/%s/edge",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product name",
+              "example": "Red Hat Enterprise Linux",
+              "type": "string"
+            },
+            "releasever": {
+              "description": "Release version used in repo files",
+              "example": "9",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
         "DistributionItem": {
           "properties": {
             "description": {
@@ -1544,6 +1627,98 @@
             "status"
           ]
         },
+        "ImageTypeInfo": {
+          "description": "Image type metadata from images library",
+          "properties": {
+            "aliases": {
+              "description": "Alternative names for this image type",
+              "items": {
+                "example": "aws",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "base_partition_table": {
+              "$ref": "#/components/schemas/Disk"
+            },
+            "boot_mode": {
+              "$ref": "#/components/schemas/BootMode"
+            },
+            "default_size": {
+              "description": "Default image size in bytes",
+              "example": 1073741824,
+              "format": "uint64",
+              "type": "integer"
+            },
+            "exports": {
+              "description": "Names of stages that produce the build output",
+              "items": {
+                "example": "image",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "filename": {
+              "description": "Canonical filename for the image",
+              "example": "image.raw",
+              "type": "string"
+            },
+            "iso_label": {
+              "description": "ISO label (only for ISO image types)",
+              "type": "string"
+            },
+            "mime_type": {
+              "description": "MIME type of the image",
+              "example": "application/octet-stream",
+              "type": "string"
+            },
+            "name": {
+              "description": "Image type name",
+              "example": "ami",
+              "type": "string"
+            },
+            "ostree_ref": {
+              "description": "Default OSTree ref for this image type",
+              "type": "string"
+            },
+            "partition_type": {
+              "$ref": "#/components/schemas/PartitionType"
+            },
+            "payload_package_sets": {
+              "description": "Package set names safe for custom packages via custom repos",
+              "items": {
+                "example": "blueprint",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "required_blueprint_options": {
+              "description": "Customization options required by this image type",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "supported_blueprint_options": {
+              "description": "Customization options supported by this image type",
+              "example": [
+                "distro",
+                "packages",
+                "customizations.cacerts",
+                "customizations.sshkey"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object",
+          "x-go-type": "composer.ImageTypeInfo"
+        },
         "ImageTypes": {
           "enum": [
             "aws",
@@ -1870,6 +2045,14 @@
           ],
           "type": "object",
           "x-go-type": "composer.Partition"
+        },
+        "PartitionType": {
+          "enum": [
+            "gpt",
+            "dos"
+          ],
+          "type": "string",
+          "x-go-type": "composer.ImageTypeInfoPartitionType"
         },
         "Progress": {
           "allOf": [
@@ -3105,6 +3288,90 @@
             }
           },
           "summary": "get the distributions available to this user",
+          "tags": [
+            "distribution"
+          ]
+        }
+      },
+      "/distributions/{distro}": {
+        "get": {
+          "description": "Returns complete metadata for a distribution including architectures and image types",
+          "operationId": "getDistribution",
+          "parameters": [
+            {
+              "description": "Name of the distribution",
+              "in": "path",
+              "name": "distro",
+              "required": true,
+              "schema": {
+                "example": "rhel-9.6",
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter by image type. Multiple values can be specified.",
+              "in": "query",
+              "name": "image_type",
+              "schema": {
+                "example": [
+                  "ami",
+                  "aws"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "Filter by architecture. Multiple values can be specified.",
+              "in": "query",
+              "name": "architecture",
+              "schema": {
+                "example": [
+                  "x86_64",
+                  "aarch64"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DistributionDetails"
+                  }
+                }
+              },
+              "description": "Distribution details"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "Distribution not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "summary": "Get details for a specific distribution",
           "tags": [
             "distribution"
           ]
