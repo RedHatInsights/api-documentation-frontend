@@ -1,0 +1,632 @@
+{
+  "extras": {},
+  "openapi": {
+    "components": {
+      "schemas": {
+        "Error": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "message": {
+                  "description": "Backward compatibility with workers <= v33, equals reason",
+                  "type": "string"
+                },
+                "operation_id": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "reason",
+                "operation_id",
+                "message"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "GetJobResponse": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "canceled": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "canceled"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "ObjectReference": {
+          "properties": {
+            "href": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "href"
+          ],
+          "type": "object"
+        },
+        "PostWorkersRequest": {
+          "properties": {
+            "arch": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arch"
+          ],
+          "type": "object"
+        },
+        "PostWorkersResponse": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "worker_id": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "worker_id"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "RequestJobRequest": {
+          "properties": {
+            "arch": {
+              "type": "string"
+            },
+            "types": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "worker_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "types",
+            "arch"
+          ],
+          "type": "object"
+        },
+        "RequestJobResponse": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "args": {
+                  "x-go-type": "json.RawMessage"
+                },
+                "artifact_location": {
+                  "type": "string"
+                },
+                "dynamic_args": {
+                  "items": {
+                    "x-go-type": "json.RawMessage"
+                  },
+                  "type": "array"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "location",
+                "artifact_location"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "StatusResponse": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status"
+              ],
+              "type": "object"
+            }
+          ]
+        },
+        "UpdateJobPartial": {
+          "properties": {
+            "partial": {
+              "x-go-type": "json.RawMessage"
+            }
+          },
+          "required": [
+            "partial"
+          ],
+          "type": "object"
+        },
+        "UpdateJobRequest": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/UpdateJobResult"
+            },
+            {
+              "$ref": "#/components/schemas/UpdateJobPartial"
+            }
+          ]
+        },
+        "UpdateJobResponse": {
+          "properties": {
+            "href": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "kind": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "href"
+          ],
+          "type": "object"
+        },
+        "UpdateJobResult": {
+          "properties": {
+            "result": {
+              "x-go-type": "json.RawMessage"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "type": "object"
+        }
+      }
+    },
+    "info": {
+      "description": "This is an API for workers to request and handle jobs.",
+      "title": "OSBuild Composer - Worker",
+      "version": "1"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+      "/errors/{id}": {
+        "get": {
+          "description": "Get an instance of the error specified by id",
+          "operationId": "GetError",
+          "parameters": [
+            {
+              "description": "ID of the error",
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "example": "13",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Success"
+            },
+            "4XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Client error"
+            },
+            "5XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get error description"
+        }
+      },
+      "/jobs": {
+        "post": {
+          "description": "Requests a job. This operation blocks until a job is available.",
+          "operationId": "RequestJob",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestJobRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/RequestJobResponse"
+                  }
+                }
+              },
+              "description": "Created"
+            },
+            "204": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ObjectReference"
+                  }
+                }
+              },
+              "description": "No job was available, try again"
+            },
+            "4XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Client error"
+            },
+            "5XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "summary": "Request a job"
+        }
+      },
+      "/jobs/{token}": {
+        "get": {
+          "operationId": "GetJob",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetJobResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "4XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Client error"
+            },
+            "5XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "summary": "Get running job"
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "patch": {
+          "operationId": "UpdateJob",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateJobRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateJobResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "4XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Client error"
+            },
+            "5XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "summary": "Update a running job"
+        }
+      },
+      "/jobs/{token}/artifacts/{name}": {
+        "put": {
+          "operationId": "UploadJobArtifact",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "name",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "path",
+              "name": "token",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK"
+            },
+            "4XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Client error"
+            },
+            "5XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "summary": "Upload an artifact"
+        }
+      },
+      "/openapi": {
+        "get": {
+          "operationId": "GetOpenapi",
+          "responses": {
+            "200": {
+              "description": "openapi spec in json format"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "summary": "Get the openapi spec in json format"
+        }
+      },
+      "/status": {
+        "get": {
+          "description": "Simple status handler which returns service status",
+          "operationId": "GetStatus",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/StatusResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "4XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Client error"
+            },
+            "5XX": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "summary": "status"
+        }
+      },
+      "/workers": {
+        "post": {
+          "description": "Creates a new worker and returns a uuid which should be used in all subsequent calls.\n",
+          "operationId": "PostWorkers",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostWorkersRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/PostWorkersResponse"
+                  }
+                }
+              },
+              "description": "Created a new worker"
+            }
+          },
+          "summary": "Create a new worker"
+        }
+      },
+      "/workers/{worker_id}/status": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "worker_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "post": {
+          "description": "Refreshes the heartbeat of the worker, and posts stats that can be used to determine overall\nworker health. Workers that do not respond will not be kept track of after a timeout. If\ndropped workers were running a job, this job will be restarted.\n",
+          "operationId": "PostWorkerStatus",
+          "responses": {
+            "200": {
+              "description": "succesfully updated worker's status"
+            }
+          },
+          "summary": "Refresh worker status"
+        }
+      }
+    },
+    "servers": [
+      {
+        "description": "Main (production) server",
+        "url": "https://api.openshift.com/api/image-builder-worker/v1"
+      },
+      {
+        "description": "Staging server",
+        "url": "https://api.stage.openshift.com/api/image-builder-worker/v1"
+      },
+      {
+        "url": "/api/image-builder-worker/v1"
+      },
+      {
+        "url": "/api/worker/v1"
+      }
+    ]
+  }
+}

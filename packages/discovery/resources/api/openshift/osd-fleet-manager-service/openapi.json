@@ -1,0 +1,3840 @@
+{
+  "components": {
+    "examples": {
+      "400AccessKeyNotActive": {
+        "value": {
+          "code": "OSDFM-xx",
+          "href": "/api/osd_fleet_mgmt/v1/errors/xx",
+          "id": "xx",
+          "kind": "Error",
+          "operation_id": "1lWDGuybIrEnxrAem724gqkkiDv",
+          "reason": "Cannot rotate a key which is not active"
+        }
+      },
+      "400CreationExample": {
+        "value": {
+          "code": "OSDFM-103",
+          "href": "/api/osd_fleet_mgmt/v1/errors/103",
+          "id": "103",
+          "kind": "Error",
+          "operation_id": "1iWIimqGcrDuL61aUxIZqBTqNRa",
+          "reason": "Bad request"
+        }
+      },
+      "400DeletionExample": {
+        "value": {
+          "code": "OSDFM-103",
+          "href": "/api/osd_fleet_mgmt/v1/errors/103",
+          "id": "103",
+          "kind": "Error",
+          "operation_id": "1iWIimqGcrDuL61aUxIZqBTqNRa",
+          "reason": "Bad request"
+        }
+      },
+      "400InvalidQueryExample": {
+        "value": {
+          "code": "OSDFM-23",
+          "href": "/api/osd_fleet_mgmt/v1/errors/23",
+          "id": "23",
+          "kind": "Error",
+          "operation_id": "1lWDGuybIrEnxrAem724gqkkiDv",
+          "reason": "Failed to parse search query: Unable to list Cluster requests for api_cluster_service: OSDFM-23: Failed to parse search query: Unsupported column name for search: 'id'. Supported column names are: region, name, cloud_provider, name, status. Query invalid: id = 123"
+        }
+      },
+      "400MissingParameterExample": {
+        "value": {
+          "code": "OSDFM-21",
+          "href": "/api/osd_fleet_mgmt/v1/errors/21",
+          "id": "21",
+          "kind": "Error",
+          "operation_id": "1lWDGuybIrEnxrAem724gqkkiDv",
+          "reason": "missing path parameter: cluster id"
+        }
+      },
+      "401Example": {
+        "value": {
+          "code": "OSDFM-11",
+          "href": "/api/osd_fleet_mgmt/v1/errors/11",
+          "id": "11",
+          "kind": "Error",
+          "operation_id": "1iY3UhEhwmXBpWPfI2lNekpd4ZD",
+          "reason": "Unable to verify JWT token: Required authorization token not found"
+        }
+      },
+      "403Example": {
+        "value": {
+          "code": "OSDFM-4",
+          "href": "/api/osd_fleet_mgmt/v1/errors/4",
+          "id": "4",
+          "kind": "Error",
+          "operation_id": "1lY3UiEhznXBpWPfI2lNejpd4YC",
+          "reason": "User 'foo-bar' is not authorized to access the service."
+        }
+      },
+      "403MaxAllowedInstanceReachedExample": {
+        "value": {
+          "code": "OSDFM-5",
+          "href": "/api/osd_fleet_mgmt/v1/errors/5",
+          "id": "5",
+          "kind": "Error",
+          "operation_id": "1lY3UiEkxnXBpVPeI2oNejd3XB",
+          "reason": "User 'foo-bar' has reached a maximum number of 6 allowed instances."
+        }
+      },
+      "403TermsNotAcceptedExample": {
+        "value": {
+          "code": "OSDFM-12",
+          "href": "/api/osd_fleet_mgmt/v1/errors/12",
+          "id": "12",
+          "kind": "Error",
+          "operation_id": "kXCzWPeI2oXBpVPeI2LvF9jMQY",
+          "reason": "Required terms have not been accepted"
+        }
+      },
+      "404DeleteExample": {
+        "value": {
+          "code": "OSDFM-7",
+          "href": "/api/osd_fleet_mgmt/v1/errors/7",
+          "id": "7",
+          "kind": "Error",
+          "operation_id": "1iYO7g2g6HTdUKUa2ksH82kQD3y",
+          "reason": "Cluster with id='1iK3duVYIvv5YvLlyz1mGR3JyqN' not found"
+        }
+      },
+      "404Example": {
+        "value": {
+          "code": "OSDFM-7",
+          "href": "/api/osd_fleet_mgmt/v1/errors/7",
+          "id": "7",
+          "kind": "Error",
+          "reason": "The requested resource doesn't exist"
+        }
+      },
+      "409ClusterTypeConflictExample": {
+        "value": {
+          "code": "OSDFM-9",
+          "href": "/api/osd_fleet_mgmt/v1/errors/9",
+          "id": "9",
+          "kind": "Error",
+          "reason": "Cluster type did not match the requested type"
+        }
+      },
+      "409DeleteExample": {
+        "value": {
+          "code": "OSDFM-9",
+          "href": "/api/osd_fleet_mgmt/v1/errors/9",
+          "id": "9",
+          "kind": "Error",
+          "reason": "Management Cluster is not yet deprovisioned"
+        }
+      },
+      "422Example": {
+        "value": {
+          "code": "DINOSAURS-MGMT-22",
+          "href": "/api/osd_fleet_mgmt/v1/errors/22",
+          "id": "22",
+          "kind": "Error",
+          "operation_id": "1lY3UiEhznXBpWPfI2lNejpd4YC",
+          "reason": "Cluster ID does not match the cluster type requested"
+        }
+      },
+      "500DeleteExample": {
+        "value": {
+          "code": "OSDFM-9",
+          "href": "/api/osd_fleet_mgmt/v1/errors/9",
+          "id": "9",
+          "kind": "Error",
+          "operation_id": "1iYTsWry6nsqb2sNmFj5bXpD7Ca",
+          "reason": "error deleting syncset: OCM-EX-9: failed to delete syncset: ext-serviceapi-1ix03lndlmq0qfc7sita5sljv8e for cluster id: 1g5d88q0lrcdv4g7alb7slfgnj3dhbsj%!(EXTRA *errors.Error=identifier is '404', code is 'CLUSTERS-MGMT-404' and operation identifier is '1g5or50viu07oealuehrkc26dgftj1ac': Cluster '1g5d88q0lrcdv4g7alb7slfgnj3dhbsj' not found)"
+        }
+      },
+      "500Example": {
+        "value": {
+          "code": "OSDFM-9",
+          "href": "/api/osd_fleet_mgmt/v1/errors/9",
+          "id": "9",
+          "kind": "Error",
+          "operation_id": "1ieELvF9jMQY6YghfM9gGRsHvEW",
+          "reason": "Unspecified error"
+        }
+      },
+      "AccessKey": {
+        "value": {
+          "access_key_id": "ABCD",
+          "current_status": "active",
+          "target_status": "active"
+        }
+      },
+      "AuditRecordExample": {
+        "value": {
+          "cluster_id": "9gfgfmkjlgfdklgf",
+          "creation_timestamp": "2017-07-21T17:32:28Z",
+          "request_body": "eysomething",
+          "request_method": "post",
+          "request_uri": "/api/osd_fleet_mgmt/v1/service_clusters",
+          "response_code": 404,
+          "username": "toto"
+        }
+      },
+      "EURegionExample": {
+        "value": {
+          "cloud_provider": "aws",
+          "name": "serviceapitest",
+          "region": "eu-west-1"
+        }
+      },
+      "LabelExample": {
+        "value": {
+          "cluster_reference": {
+            "cluster_id": "9gfgfmkjlgfdklgf",
+            "href": "/api/osd_fleet_mgmt/v1/management_clusters/9gfgfmkjlgfdklgf"
+          },
+          "creation_timestamp": "2017-07-21T17:32:28Z",
+          "href": "/api/osd_fleet_mgmt/v1/management_clusters/9gfgfmkjlgfdklgf/labels/9m4e2mr0ui3e8a215n4g",
+          "id": "9m4e2mr0ui3e8a215n4g",
+          "key": "test",
+          "kind": "Label",
+          "updated_timestamp": "2017-07-21T17:32:28Z",
+          "value": "toto"
+        }
+      },
+      "LabelRequestPayloadExample": {
+        "value": {
+          "key": "test",
+          "value": "toto"
+        }
+      },
+      "ManagementClusterExample": {
+        "value": {
+          "cloud_provider": "aws",
+          "clusters_service_reference": {
+            "cluster_id": "9gfgfmkjlgfdklgf",
+            "href": "/api/clusters_mgmt/v1/service_clusters/9gfgfmkjlgfdklgf"
+          },
+          "creation_timestamp": "2017-07-21T17:32:28Z",
+          "href": "/api/osd_fleet_mgmt/v1/management_clusters/9m4e2mr0ui3e8a215n4g",
+          "id": "9m4e2mr0ui3e8a215n4g",
+          "kind": "ManagementCluster",
+          "name": "hs-mc-9m422m",
+          "parent": {
+            "href": "/api/osd_fleet_mgmt/v1/service_clusters/9m4e2mr0ui3e8a215n4g",
+            "id": "9m4e2mr0ui3e8a215n4g",
+            "name": "hs-sc-9m422m"
+          },
+          "region": "us-east-1",
+          "sector": "default",
+          "status": "ready",
+          "updated_timestamp": "2017-07-21T17:32:28Z"
+        }
+      },
+      "ManagementClusterRequestPayloadExample": {
+        "value": {
+          "labels": [
+            {
+              "key": "key1",
+              "value": "value"
+            },
+            {
+              "key": "key2",
+              "value": "value"
+            }
+          ],
+          "service_cluster_id": "9gfgfmkjlgfdklgf"
+        }
+      },
+      "ManagementClusterRequestPayloadExampleForPatchStatus": {
+        "value": {
+          "status": "maintenance"
+        }
+      },
+      "MetricsInstantQueryExample": {
+        "value": {
+          "metric": {
+            "__name__": "osdfm_server_brokertopicmetrics_bytes_in_total",
+            "osdfm_operator_io_cluster": "osdfm-service",
+            "topic": "__consumer_offsets"
+          },
+          "timestamp": 1611670230000,
+          "value": 84154
+        }
+      },
+      "MetricsRangeQueryExample": {
+        "value": {
+          "metric": {
+            "__name__": "osdfm_server_brokertopicmetrics_bytes_in_total",
+            "osdfm_operator_io_cluster": "osdfm-service",
+            "topic": "__consumer_offsets"
+          },
+          "values": [
+            {
+              "timestamp": 1611670230000,
+              "value": 84154
+            },
+            {
+              "timestamp": 1611670260000,
+              "value": 85888
+            },
+            {
+              "timestamp": 1611670290000,
+              "value": 87622
+            }
+          ]
+        }
+      },
+      "ServiceClusterExample": {
+        "value": {
+          "cloud_provider": "aws",
+          "cluster_management_reference": {
+            "cluster_id": "9gfgfmkjlgfdklgf",
+            "href": "/api/clusters_mgmt/v1/clusters/9gfgfmkjlgfdklgf"
+          },
+          "creation_timestamp": "2017-07-21T17:32:28Z",
+          "href": "/api/osd_fleet_mgmt/v1/service_clusters/9m4e2mr0ui3e8a215n4g",
+          "id": "9m4e2mr0ui3e8a215n4g",
+          "kind": "ServiceCluster",
+          "name": "hs-sc-9m422m",
+          "provision_shard_reference": {
+            "href": "/api/clusters_mgmt/v1/provision_shards/f55a82dc-3a43-11ed-be20-0a580a800662",
+            "id": "f55a82dc-3a43-11ed-be20-0a580a800662"
+          },
+          "region": "us-east-1",
+          "sector": "default",
+          "status": "ready",
+          "updated_timestamp": "2017-07-21T17:32:28Z"
+        }
+      },
+      "ServiceClusterRequestPayloadExample": {
+        "value": {
+          "cloud_provider": "aws",
+          "labels": [
+            {
+              "key": "key",
+              "value": "value"
+            },
+            {
+              "key": "key2",
+              "value": "value"
+            }
+          ],
+          "region": "us-east-1"
+        }
+      },
+      "ServiceClusterRequestPayloadExampleForPatchStatus": {
+        "value": {
+          "status": "maintenance"
+        }
+      },
+      "USRegionExample": {
+        "value": {
+          "cloud_provider": "aws",
+          "name": "serviceapitest",
+          "region": "us-east-1"
+        }
+      }
+    },
+    "parameters": {
+      "duration": {
+        "description": "The length of time in minutes for which to return the metrics",
+        "examples": {
+          "duration": {
+            "value": 5
+          }
+        },
+        "in": "query",
+        "name": "duration",
+        "required": true,
+        "schema": {
+          "default": 5,
+          "format": "int64",
+          "maximum": 4320,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "filters": {
+        "description": "List of metrics to fetch. Fetch all metrics when empty. List entries are OSDFM internal metric names.",
+        "in": "query",
+        "name": "filters",
+        "schema": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "id": {
+        "description": "The ID of record",
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "instance_type": {
+        "description": "The Cluster instance type to filter the results by",
+        "examples": {
+          "eval_instance_type": {
+            "value": "eval"
+          },
+          "standard_instance_type": {
+            "value": "standard"
+          }
+        },
+        "in": "query",
+        "name": "instance_type",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "interval": {
+        "description": "The interval in seconds between data points",
+        "examples": {
+          "interval": {
+            "value": 30
+          }
+        },
+        "in": "query",
+        "name": "interval",
+        "required": true,
+        "schema": {
+          "default": 30,
+          "format": "int64",
+          "maximum": 10800,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "label_id": {
+        "description": "The ID of label",
+        "in": "path",
+        "name": "label_id",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "order": {
+        "description": "Order criteria.\n\nThe syntax of this parameter is similar to the syntax of the `order` clause of an\nSQL statement, but using the names of the attributes of the cluster instead of the names of the columns of a table.\n\nExamples:\n\nTo sort the clusters descending by region identifier the value should be:\n  ```\n  region desc\n  ```\n",
+        "examples": {
+          "order": {
+            "value": "region desc"
+          }
+        },
+        "in": "query",
+        "name": "order",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "order_audit": {
+        "description": "Order criteria.\n\nThe syntax of this parameter is similar to the syntax of the `order` clause of an\nSQL statement.\n\nExamples:\n\nTo sort the audit records descending by response code:\n  ```\n  response_code desc\n  ```\n",
+        "examples": {
+          "order": {
+            "value": "region desc"
+          }
+        },
+        "in": "query",
+        "name": "order",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "page": {
+        "description": "Page index",
+        "examples": {
+          "page": {
+            "value": "1"
+          }
+        },
+        "in": "query",
+        "name": "page",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      },
+      "search": {
+        "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are: `id`, `name`, `cloud_provider`, `cluster_id`, `status`, `region`, `api_host`.\nAlso, the following fields are allowed for management cluster parent: `parent.id`, `parent.region`, `parent.cloud_provider`, `parent.name`, `parent.cluster_id`, `parent.status`, `parent.api_host`.\nAllowed comparators are `<>`, `=`, or `LIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\nTo return a Service Cluster instance with the region `eu-west-1` and the cloud provider `aws`, use the following syntax:\n```\nregion = 'eu-west-1' and cloud_provider = 'aws'\n```\n\nTo return a Cluster instance with the region `eu-west-1` and parent id `test` use the following syntax:\n```\nregion = 'eu-west-1' and parent.cluster_id = 'test'\n```\n\nTo return a cluster with name that starts with `cx`, use the following syntax:\n```\nname like 'cx%25'\n```\n\nIf the parameter isn't provided, or if the value is empty, then all the Cluster instances\nthat the user has permission to see are returned.\n\nNote. If the query is invalid, an error is returned.\n",
+        "examples": {
+          "search": {
+            "value": "region='eu-west-1' and cloud_provider = 'aws'"
+          }
+        },
+        "in": "query",
+        "name": "search",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "search_audit": {
+        "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the `where` clause of an\nSQL statement. Allowed fields in the search are: `created_at`, `cluster_id`, `request_uri`, `username`, `method`, `response_code`.\nAllowed comparators are `<>`, `=`, or `LIKE`.\nAllowed joins are `AND` and `OR`. However, you can use a maximum of 10 joins in a search query.\n\nExamples:\n\n  To return audit records of all POST methods use the following syntax:\n```\nmethod = 'POST'\n```\n\nTo return audit records of a certain user:\n```\nmethod = 'POST' and username = 'jdoe'\n```\n\nIf the parameter isn't provided, or if the value is empty, then all audit records are returned.\n\nNote. If the query is invalid, an error is returned.\n",
+        "examples": {
+          "search": {
+            "value": "method='POST' and username = 'jdoe'"
+          }
+        },
+        "in": "query",
+        "name": "search",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "size": {
+        "description": "Number of items in each page",
+        "examples": {
+          "size": {
+            "value": "100"
+          }
+        },
+        "in": "query",
+        "name": "size",
+        "required": false,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "AccessKey": {
+        "description": "Schema for access key",
+        "properties": {
+          "access_key_id": {
+            "description": "access key id",
+            "type": "string"
+          },
+          "current_status": {
+            "description": "the current status of the key",
+            "type": "string"
+          },
+          "target_status": {
+            "description": "the target status of the key",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AccessKeyList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "example": {
+              "item": {
+                "$ref": "#/components/examples/AccessKey"
+              },
+              "kind": "AccessKeyList",
+              "page": "1",
+              "size": "1"
+            },
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/components/schemas/AccessKey"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "AuditRecord": {
+        "example": {
+          "$ref": "#/components/examples/AuditRecordExample"
+        },
+        "properties": {
+          "cluster_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/Timestamp"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "request_body": {
+            "type": "string"
+          },
+          "request_uri": {
+            "type": "string"
+          },
+          "response_code": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AuditRecordList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "example": {
+              "items": {
+                "$ref": "#components/examples/AuditRecordExample"
+              },
+              "kind": "AuditRecordList",
+              "page": "1",
+              "size": "1",
+              "total": "1"
+            },
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/components/schemas/AuditRecord"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "Error": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "operation_id": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ErrorList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "InstantQuery": {
+        "properties": {
+          "metric": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "timestamp": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "value": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "type": "object"
+      },
+      "Label": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ObjectReference"
+          },
+          {
+            "example": {
+              "$ref": "#/components/examples/LabelExample"
+            },
+            "properties": {
+              "clusters_reference": {
+                "properties": {
+                  "cluster_id": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "creation_timestamp": {
+                "$ref": "#/components/schemas/Timestamp"
+              },
+              "href": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "key": {
+                "type": "string"
+              },
+              "updated_timestamp": {
+                "$ref": "#/components/schemas/Timestamp"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "LabelList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "example": {
+              "item": {
+                "$ref": "#/components/examples/LabelExample"
+              },
+              "kind": "LabelsList",
+              "page": "1",
+              "size": "1"
+            },
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/components/schemas/Label"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "LabelRequestPayload": {
+        "description": "Schema for the request body sent to */labels POST",
+        "properties": {
+          "key": {
+            "description": "The key of the label",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value of the label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object"
+      },
+      "List": {
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "kind",
+          "page",
+          "size",
+          "total",
+          "items"
+        ],
+        "type": "object"
+      },
+      "ManagementCluster": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ObjectReference"
+          },
+          {
+            "example": {
+              "$ref": "#/components/examples/ManagementClusterExample"
+            },
+            "properties": {
+              "account_name": {
+                "type": "string"
+              },
+              "cloud_provider": {
+                "type": "string"
+              },
+              "cluster_management_reference": {
+                "properties": {
+                  "cluster_id": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "creation_timestamp": {
+                "$ref": "#/components/schemas/Timestamp"
+              },
+              "href": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "labels_reference": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "href": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              },
+              "parent": {
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "region": {
+                "type": "string"
+              },
+              "sector": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "updated_timestamp": {
+                "$ref": "#/components/schemas/Timestamp"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "ManagementClusterList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "example": {
+              "item": {
+                "$ref": "#/components/examples/ManagementClusterExample"
+              },
+              "kind": "ManagementClusterList",
+              "page": "1",
+              "size": "1"
+            },
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/components/schemas/ManagementCluster"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "ManagementClusterRequestPayload": {
+        "description": "Schema for the POST request body sent to /management_clusters",
+        "properties": {
+          "account_name": {
+            "description": "The name of the AWS account to associate the cluster with",
+            "type": "string"
+          },
+          "labels": {
+            "default": [],
+            "description": "The labels for the Management Cluster when created",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "service_cluster_id": {
+            "description": "Id of the service cluster",
+            "type": "string"
+          }
+        },
+        "required": [
+          "service_cluster_id"
+        ],
+        "type": "object"
+      },
+      "MetricsFederationResult": {
+        "type": "string"
+      },
+      "MetricsInstantQueryList": {
+        "allOf": [
+          {
+            "example": {
+              "id": "1nbpS70HduPe4l0to8jSg2CLzfu",
+              "items": {
+                "$ref": "#/components/examples/MetricsInstantQueryExample"
+              },
+              "kind": "MetricsInstantQueryList"
+            },
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "items": {
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/InstantQuery"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              "kind": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "MetricsRangeQueryList": {
+        "allOf": [
+          {
+            "example": {
+              "id": "1nbpS70HduPe4l0to8jSg2CLzfu",
+              "items": {
+                "$ref": "#/components/examples/MetricsRangeQueryExample"
+              },
+              "kind": "MetricsRangeQueryList"
+            },
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "items": {
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/RangeQuery"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              "kind": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "ObjectReference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchableManagementClusterRequestPayload": {
+        "description": "Schema for the request body sent to any management cluster PATCH endpoint",
+        "properties": {
+          "status": {
+            "description": "The status of the cluster",
+            "enum": [
+              "ready",
+              "maintenance"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "PatchableServiceClusterRequestPayload": {
+        "description": "Schema for the request body sent to any service cluster PATCH endpoint",
+        "properties": {
+          "status": {
+            "description": "The status of the cluster",
+            "enum": [
+              "ready",
+              "maintenance"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "type": "object"
+      },
+      "RangeQuery": {
+        "properties": {
+          "metric": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "values": {
+            "items": {
+              "$ref": "#/components/schemas/values"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "RotateAccessKeyResult": {
+        "properties": {
+          "access_key_id": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ServiceCluster": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ObjectReference"
+          },
+          {
+            "example": {
+              "$ref": "#/components/examples/ServiceClusterExample"
+            },
+            "properties": {
+              "account_name": {
+                "type": "string"
+              },
+              "cloud_provider": {
+                "type": "string"
+              },
+              "cluster_management_reference": {
+                "properties": {
+                  "cluster_id": {
+                    "type": "string"
+                  },
+                  "href": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "creation_timestamp": {
+                "$ref": "#/components/schemas/Timestamp"
+              },
+              "href": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "labels_reference": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "href": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "name": {
+                "type": "string"
+              },
+              "provision_shard_reference": {
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "region": {
+                "type": "string"
+              },
+              "registration_url": {
+                "type": "string"
+              },
+              "sector": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "updated_timestamp": {
+                "$ref": "#/components/schemas/Timestamp"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "ServiceClusterList": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/List"
+          },
+          {
+            "example": {
+              "item": {
+                "$ref": "#/components/examples/ServiceClusterExample"
+              },
+              "kind": "ServiceClusterList",
+              "page": "1",
+              "size": "1",
+              "total": "1"
+            },
+            "properties": {
+              "items": {
+                "items": {
+                  "$ref": "#/components/schemas/ServiceCluster"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "ServiceClusterRequestPayload": {
+        "description": "Schema for the request body sent to /service_clusters POST",
+        "properties": {
+          "account_name": {
+            "description": "The name of the AWS account to associate the cluster with",
+            "type": "string"
+          },
+          "cloud_provider": {
+            "description": "The cloud provider where the Service Cluster will be created in",
+            "type": "string"
+          },
+          "labels": {
+            "default": [],
+            "description": "The labels for the Service Cluster when created",
+            "items": {
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "region": {
+            "description": "The region where the Service Cluster will be created in",
+            "type": "string"
+          },
+          "registration_url": {
+            "description": "The OCM URL against which to register this service cluster as a provision shard",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cloud_provider",
+          "region"
+        ],
+        "type": "object"
+      },
+      "Timestamp": {
+        "format": "date-time",
+        "type": "string"
+      },
+      "VersionMetadata": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ObjectReference"
+          },
+          {
+            "example": {
+              "collections": [
+                {
+                  "href": " /api/osd_fleet_mgmt/v1/service_clusters",
+                  "id": "fleets",
+                  "kind": "ClusterList"
+                }
+              ],
+              "href": "/api/osd_fleet_mgmt/v1",
+              "id": "v1",
+              "kind": "APIVersion"
+            },
+            "properties": {
+              "collections": {
+                "items": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ObjectReference"
+                    }
+                  ]
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        ]
+      },
+      "WatchEvent": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/Error",
+            "nullable": true
+          },
+          "object": {
+            "nullable": true,
+            "type": "object"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object"
+      },
+      "values": {
+        "properties": {
+          "timestamp": {
+            "format": "int64",
+            "type": "integer"
+          },
+          "value": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "Service Fleet Manager is a Rest API to manage OSD instances.",
+    "title": "OSD Fleet Manager",
+    "version": "1.2.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/osd_fleet_mgmt/v1": {
+      "get": {
+        "operationId": "getVersionMetadata",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VersionMetadata"
+                }
+              }
+            },
+            "description": "Version metadata"
+          }
+        },
+        "summary": "Returns the version metadata"
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/audit": {
+      "get": {
+        "operationId": "getAuditRecords",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/size"
+          },
+          {
+            "$ref": "#/components/parameters/order_audit"
+          },
+          {
+            "$ref": "#/components/parameters/search_audit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditRecordList"
+                }
+              }
+            },
+            "description": "List of audit records"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Returns the list of audit records",
+        "tags": [
+          "audit"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/errors": {
+      "get": {
+        "operationId": "getErrors",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorList"
+                }
+              }
+            },
+            "description": "List of possible errors"
+          }
+        },
+        "summary": "Returns the list of possible API errors",
+        "tags": [
+          "errors"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/errors/{id}": {
+      "get": {
+        "operationId": "getErrorById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Get error by Id"
+          }
+        },
+        "summary": "Returns the error by id",
+        "tags": [
+          "errors"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/management_clusters": {
+      "get": {
+        "operationId": "getManagementClusters",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/size"
+          },
+          {
+            "$ref": "#/components/parameters/order"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementClusterList"
+                }
+              }
+            },
+            "description": "Returned list of hypershift management clusters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns a list of all management clusters",
+        "tags": [
+          "management_clusters"
+        ]
+      },
+      "post": {
+        "operationId": "createManagementCluster",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "ManagementClusterRequestPayloadExample": {
+                  "$ref": "#/components/examples/ManagementClusterRequestPayloadExample"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/ManagementClusterRequestPayload"
+              }
+            }
+          },
+          "description": "cluster data",
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ManagementClusterRequestPostResponseExample": {
+                    "$ref": "#/components/examples/ManagementClusterExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementCluster"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400CreationExample": {
+                    "$ref": "#/components/examples/400CreationExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User forbidden because the user is not authorized."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "An unexpected error occurred while creating the Management Cluster request"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Creates a Management Cluster request",
+        "tags": [
+          "management_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/management_clusters/{id}": {
+      "delete": {
+        "operationId": "deleteManagementClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400DeletionExample": {
+                    "$ref": "#/components/examples/400DeletionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/404DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No management cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500DeleteExample": {
+                    "$ref": "#/components/examples/500DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Deletes a Management cluster request by ID",
+        "tags": [
+          "management_clusters"
+        ]
+      },
+      "get": {
+        "operationId": "getManagementClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagementCluster"
+                }
+              }
+            },
+            "description": "Return hypershift management cluster by ID"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Management Cluster with specific ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns the hypershift management cluster by ID",
+        "tags": [
+          "management_clusters"
+        ]
+      },
+      "patch": {
+        "operationId": "patchManagementCluster",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "ManagementClusterRequestPayloadExampleForPatchStatus": {
+                  "$ref": "#/components/examples/ManagementClusterRequestPayloadExampleForPatchStatus"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/PatchableManagementClusterRequestPayload"
+              }
+            }
+          },
+          "description": "Cluster parameters to patch",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The management cluster was updated successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Patch the requested management cluster. Only the update the status field is supported.",
+        "tags": [
+          "management_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/management_clusters/{id}/ack": {
+      "delete": {
+        "operationId": "ackDeleteManagementClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400DeletionExample": {
+                    "$ref": "#/components/examples/400DeletionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/404DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No management cluster request with specified ID exists"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/409DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Management Cluster is not yet deprovisioned"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500DeleteExample": {
+                    "$ref": "#/components/examples/500DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Acks Management cluster OCM deletion request by ID",
+        "tags": [
+          "management_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/management_clusters/{id}/keys": {
+      "get": {
+        "operationId": "getHypershiftOperatorAccessKeys",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessKeyList"
+                }
+              }
+            },
+            "description": "List hypershift operator access keys"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "List hypershift access keys",
+        "tags": [
+          "management_clusters"
+        ]
+      },
+      "post": {
+        "operationId": "rotateHypershiftOperatorAccessKey",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RotateAccessKeyResult"
+                }
+              }
+            },
+            "description": "Key rotation process started successfully"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400Example": {
+                    "$ref": "#/components/examples/400AccessKeyNotActive"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Cannot rotate key. Either the key is not active or the cluster is not in ready or maintenance state."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Rotate hypershift operator AWS active access key",
+        "tags": [
+          "management_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/management_clusters/{id}/labels": {
+      "get": {
+        "operationId": "getManagementClusterLabels",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabelList"
+                }
+              }
+            },
+            "description": "Returns the labels of the management cluster"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Management Cluster with specific ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns the labels of the management cluster",
+        "tags": [
+          "management_clusters",
+          "labels"
+        ]
+      },
+      "post": {
+        "operationId": "AddLabelToManagementCluster",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "LabelRequestPayloadExample": {
+                  "$ref": "#/components/examples/LabelRequestPayloadExample"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/LabelRequestPayload"
+              }
+            }
+          },
+          "description": "label data",
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "LabelRequestPostResponseExample": {
+                    "$ref": "#/components/examples/LabelExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Label"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400CreationExample": {
+                    "$ref": "#/components/examples/400CreationExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User forbidden because the user is not authorized."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "An unexpected error occurred while creating the Management Cluster request"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Adds a label to the Management Cluster",
+        "tags": [
+          "management_clusters",
+          "labels"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/management_clusters/{id}/labels/{label_id}": {
+      "delete": {
+        "operationId": "removeLabelFromManagementClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/label_id"
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400DeletionExample": {
+                    "$ref": "#/components/examples/400DeletionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/404DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No management cluster request with specified ID exists or no label request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500DeleteExample": {
+                    "$ref": "#/components/examples/500DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Removes a label from a Management cluster request by ID",
+        "tags": [
+          "management_clusters",
+          "labels"
+        ]
+      },
+      "get": {
+        "operationId": "getManagementClusterLabel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/label_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Label"
+                }
+              }
+            },
+            "description": "Returns the labels of the management cluster"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Management Cluster with specific ID or label ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns the label of the management cluster",
+        "tags": [
+          "management_clusters",
+          "labels"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/service_clusters": {
+      "get": {
+        "operationId": "getServiceClusters",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/page"
+          },
+          {
+            "$ref": "#/components/parameters/size"
+          },
+          {
+            "$ref": "#/components/parameters/order"
+          },
+          {
+            "$ref": "#/components/parameters/search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceClusterList"
+                }
+              }
+            },
+            "description": "List of possible hypershift service clusters"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "409Example": {
+                    "$ref": "#/components/examples/409ClusterTypeConflictExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Cluster type did not match the requested type"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Returns the list of possible hypershift service clusters",
+        "tags": [
+          "service_clusters"
+        ]
+      },
+      "post": {
+        "operationId": "createCluster",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "ServiceClusterRequestPayloadExample": {
+                  "$ref": "#/components/examples/ServiceClusterRequestPayloadExample"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/ServiceClusterRequestPayload"
+              }
+            }
+          },
+          "description": "Cluster data",
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "DinosaurRequestPostResponseExample": {
+                    "$ref": "#/components/examples/ServiceClusterExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceCluster"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400CreationExample": {
+                    "$ref": "#/components/examples/400CreationExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User forbidden because the user is not authorized."
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "An unexpected error occurred while creating the Service Cluster request"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Creates a Service Cluster request",
+        "tags": [
+          "service_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/service_clusters/{id}": {
+      "delete": {
+        "operationId": "deleteServiceClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Deleted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400DeletionExample": {
+                    "$ref": "#/components/examples/400DeletionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/404DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Service cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500DeleteExample": {
+                    "$ref": "#/components/examples/500DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Deletes a Service cluster request by ID",
+        "tags": [
+          "service_clusters"
+        ]
+      },
+      "get": {
+        "operationId": "getServiceClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceCluster"
+                }
+              }
+            },
+            "description": "Get hypershift service cluster by Id"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Returns the hypershift service cluster by id",
+        "tags": [
+          "service_clusters"
+        ]
+      },
+      "patch": {
+        "operationId": "patchServiceCluster",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "ServiceClusterRequestPayloadExampleForPatchStatus": {
+                  "$ref": "#/components/examples/ServiceClusterRequestPayloadExampleForPatchStatus"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/PatchableServiceClusterRequestPayload"
+              }
+            }
+          },
+          "description": "Cluster parameters to patch",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The service cluster was updated successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Patch the requested service cluster. Only the update the status field is supported.",
+        "tags": [
+          "service_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/service_clusters/{id}/ack": {
+      "delete": {
+        "operationId": "ackDeleteServiceClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Deleted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400DeletionExample": {
+                    "$ref": "#/components/examples/400DeletionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/404DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Service cluster request with specified ID exists"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/409DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Management Cluster is not yet deprovisioned"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500DeleteExample": {
+                    "$ref": "#/components/examples/500DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Acks Management cluster OCM deletion request by ID",
+        "tags": [
+          "service_clusters"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/service_clusters/{id}/labels": {
+      "get": {
+        "operationId": "getServiceClusterLabels",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabelList"
+                }
+              }
+            },
+            "description": "Returns the labels of the service cluster"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Service Cluster with specific ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns the labels of the service cluster",
+        "tags": [
+          "service_clusters",
+          "labels"
+        ]
+      },
+      "post": {
+        "operationId": "AddLabelToServiceCluster",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "LabelRequestPayloadExample": {
+                  "$ref": "#/components/examples/LabelRequestPayloadExample"
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/LabelRequestPayload"
+              }
+            }
+          },
+          "description": "label data",
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "LabelRequestPostResponseExample": {
+                    "$ref": "#/components/examples/LabelExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Label"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400CreationExample": {
+                    "$ref": "#/components/examples/400CreationExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User forbidden because the user is not authorized."
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "An unexpected error occurred while creating the Service Cluster request"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Adds a label to the Service Cluster",
+        "tags": [
+          "service_clusters",
+          "labels"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/service_clusters/{id}/labels/{label_id}": {
+      "delete": {
+        "operationId": "removeLabelFromServiceClusterById",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/label_id"
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "example": null,
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "400DeletionExample": {
+                    "$ref": "#/components/examples/400DeletionExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Validation errors occurred"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404DeleteExample": {
+                    "$ref": "#/components/examples/404DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No service cluster request with specified ID exists or no label request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500DeleteExample": {
+                    "$ref": "#/components/examples/500DeleteExample"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Removes a label from a Service cluster request by ID",
+        "tags": [
+          "service_clusters",
+          "labels"
+        ]
+      },
+      "get": {
+        "operationId": "getServiceClusterLabel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/label_id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Label"
+                }
+              }
+            },
+            "description": "Returns the label of the service cluster"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No Service Cluster with specific ID or label ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns the label of the service cluster",
+        "tags": [
+          "service_clusters",
+          "labels"
+        ]
+      }
+    },
+    "/api/osd_fleet_mgmt/v1/service_clusters/{id}/renew_tokens": {
+      "post": {
+        "operationId": "renewServiceClusterK8SServiceAccountTokens",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The token was renewed successfully"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "401Example": {
+                    "$ref": "#/components/examples/401Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Auth token is invalid"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "403Example": {
+                    "$ref": "#/components/examples/403Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "User not authorized to access the service"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "404Example": {
+                    "$ref": "#/components/examples/404Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "No cluster request with specified ID exists"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "500Example": {
+                    "$ref": "#/components/examples/500Example"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Unexpected error occurred"
+          }
+        },
+        "summary": "Renew the K8S OSDM and OCM service account's token associated with the given service cluster and update internal DB and provisions_shards",
+        "tags": [
+          "service_clusters"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Main (production) server",
+      "url": "https://api.openshift.com"
+    },
+    {
+      "description": "Staging server",
+      "url": "https://api.stage.openshift.com"
+    },
+    {
+      "description": "localhost",
+      "url": "http://localhost:8000"
+    },
+    {
+      "description": "current domain",
+      "url": "/"
+    }
+  ]
+}
