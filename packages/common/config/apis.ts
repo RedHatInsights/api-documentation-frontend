@@ -203,6 +203,25 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
   },
   {
+    id: "compliance_v1",
+    displayName: "Compliance V1",
+    description:
+      "Assess, monitor, and report on the security-policy compliance of RHEL systems",
+    icon: "InsightsIcon",
+    apiContentPath: "./apis/hcc-insights/compliance_v1/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/compliance_v1/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["lightspeed"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["security"],
+    ],
+  },
+  {
     id: "compliance_v2",
     displayName: "Compliance V2",
     description:
@@ -522,6 +541,25 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "rhsm-subscriptions-v2",
+    displayName: "Subscriptions Usage v2",
+    description: "REST interface for the rhsm-subscriptions service, version 2",
+    icon: "SubscriptionsIcon",
+    apiContentPath: "./apis/hcc-insights/rhsm-subscriptions-v2/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/rhsm-subscriptions-v2/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["edge"],
+      apiLabelsMap["inventories"],
+      apiLabelsMap["openshift"],
+      apiLabelsMap["rhel"],
+      apiLabelsMap["subscriptions"],
+    ],
+  },
+  {
     id: "rhsm",
     displayName: "Subscription Management",
     description:
@@ -534,6 +572,25 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
         "./apis/hcc-insights/rhsm/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["subscriptions"], apiLabelsMap["rhel"]],
+  },
+  {
+    id: "tasks",
+    displayName: "Tasks",
+    description:
+      "API for managing and issuing Red Hat generated tasks on your infrastructure",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/hcc-insights/tasks/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/tasks/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["automation"],
+      apiLabelsMap["lightspeed"],
+      apiLabelsMap["observe"],
+      apiLabelsMap["rhel"],
+    ],
   },
   {
     id: "vulnerability",
@@ -680,6 +737,20 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     getApiContent: () =>
       import(
         "./apis/openshift/osd-fleet-manager-service/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
+    id: "kafka-service-fleet-manager-service",
+    displayName: "Kafka Service Fleet Manager Service",
+    description: "Kafka Management API is a REST API to manage Kafka instances",
+    icon: "GenericIcon",
+    apiContentPath:
+      "./apis/openshift/kafka-service-fleet-manager-service/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/kafka-service-fleet-manager-service/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
