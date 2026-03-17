@@ -224,6 +224,10 @@
             "shortName": {
               "description": "Short name of the cloud provider e.g. AWS, MSAZ, GCE.",
               "type": "string"
+            },
+            "sourceID": {
+              "description": "Unique identifier of the source for this cloud account",
+              "type": "string"
             }
           },
           "type": "object"
