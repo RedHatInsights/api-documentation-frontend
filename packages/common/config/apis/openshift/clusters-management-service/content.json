@@ -2103,7 +2103,7 @@
               "type": "string"
             },
             "etcd_encryption": {
-              "description": "Indicates whether that etcd is encrypted or not.\nThis is set only during cluster creation.\nFor ARO-HCP Clusters, this is a readonly attribute, always set to true.",
+              "description": "Indicates whether that etcd is encrypted or not.\nThis is set only during cluster creation.\nFor ROSA-HCP Clusters, etcd is always encrypted, if not set/false, or kms user's key not set, \ndefaults true indicates 'encrypted by internal key'.\nFor ARO-HCP Clusters, this is a readonly attribute, always set to true.",
               "type": "boolean"
             },
             "expiration_timestamp": {
@@ -3006,6 +3006,10 @@
               "$ref": "#/components/schemas/ClusterArchitecture",
               "description": "Signals which cluster architecture the domain is ready for."
             },
+            "gcp": {
+              "$ref": "#/components/schemas/GcpDnsDomain",
+              "description": "Gcp contains Google Cloud Platform-specific DNS domain configuration."
+            },
             "href": {
               "description": "Self link.",
               "type": "string"
@@ -3617,6 +3621,23 @@
             },
             "kind": {
               "description": "Indicates the type of this object",
+              "type": "string"
+            }
+          }
+        },
+        "GcpDnsDomain": {
+          "description": "GcpDnsDomain represents configuration for Google Cloud Platform DNS domain settings\nused in cluster DNS configuration for GCP-hosted clusters.",
+          "properties": {
+            "domain_prefix": {
+              "description": "DomainPrefix specifies the DNS domain prefix that will be used for cluster DNS resolution.\nThis prefix is combined with the base domain to form the full DNS domain for the cluster.",
+              "type": "string"
+            },
+            "network_id": {
+              "description": "NetworkId is the GCP VPC Network identifier where the DNS configuration will be applied.",
+              "type": "string"
+            },
+            "project_id": {
+              "description": "ProjectId is the Google Cloud Platform project identifier where the DNS zone is hosted.",
               "type": "string"
             }
           }
