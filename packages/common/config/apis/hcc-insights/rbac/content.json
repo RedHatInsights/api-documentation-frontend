@@ -1814,13 +1814,79 @@
               "$ref": "#/components/parameters/QueryOffset"
             },
             {
-              "description": "Parameter for ordering resource by database id so that latest actions appear first",
+              "description": "Parameter for filtering audit logs by principal username. Supports partial and exact matching via name_match parameter.",
+              "in": "query",
+              "name": "principal_username",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Parameter for filtering audit logs by resource type. Multiple values can be provided.",
+              "in": "query",
+              "name": "resource_type",
+              "required": false,
+              "schema": {
+                "items": {
+                  "enum": [
+                    "group",
+                    "role",
+                    "user",
+                    "permission"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "Parameter for filtering audit logs by action. Multiple values can be provided.",
+              "in": "query",
+              "name": "action",
+              "required": false,
+              "schema": {
+                "items": {
+                  "enum": [
+                    "delete",
+                    "add",
+                    "edit",
+                    "create",
+                    "remove"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "Parameter for specifying the matching type for principal_username filter. Default is partial.",
+              "in": "query",
+              "name": "name_match",
+              "required": false,
+              "schema": {
+                "enum": [
+                  "partial",
+                  "exact"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Parameter for ordering audit logs. Prefix with '-' for descending order. Default is '-created'.",
               "in": "query",
               "name": "order_by",
               "required": false,
               "schema": {
                 "enum": [
-                  "id"
+                  "created",
+                  "-created",
+                  "principal_username",
+                  "-principal_username",
+                  "resource_type",
+                  "-resource_type",
+                  "action",
+                  "-action"
                 ],
                 "type": "string"
               }
