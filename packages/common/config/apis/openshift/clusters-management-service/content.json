@@ -6457,6 +6457,13 @@
         "Version": {
           "description": "Representation of an _OpenShift_ version.",
           "properties": {
+            "available_channels": {
+              "description": "AvailableChannels is the list of channels in which this version is present",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
             "available_upgrades": {
               "description": "AvailableUpgrades is the list of versions this version can be upgraded to.",
               "items": {
