@@ -463,6 +463,9 @@
               "readOnly": true,
               "type": "string"
             },
+            "included_in_drawer": {
+              "type": "boolean"
+            },
             "name": {
               "maxLength": 255,
               "pattern": "[a-z][a-z_0-9-]*",
