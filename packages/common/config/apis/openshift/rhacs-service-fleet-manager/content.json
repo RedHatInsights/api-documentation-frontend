@@ -235,40 +235,6 @@
             "region": "eu-west-1"
           }
         },
-        "MetricsInstantQueryExample": {
-          "value": {
-            "metric": {
-              "__name__": "central_server_brokertopicmetrics_bytes_in_total",
-              "central_operator_io_cluster": "central-service",
-              "topic": "__consumer_offsets"
-            },
-            "timestamp": 1611670230000,
-            "value": 84154
-          }
-        },
-        "MetricsRangeQueryExample": {
-          "value": {
-            "metric": {
-              "__name__": "central_server_brokertopicmetrics_bytes_in_total",
-              "central_operator_io_cluster": "central-service",
-              "topic": "__consumer_offsets"
-            },
-            "values": [
-              {
-                "timestamp": 1611670230000,
-                "value": 84154
-              },
-              {
-                "timestamp": 1611670260000,
-                "value": 85888
-              },
-              {
-                "timestamp": 1611670290000,
-                "value": 87622
-              }
-            ]
-          }
-        },
         "USRegionExample": {
           "value": {
             "cloud_provider": "aws",
@@ -734,28 +700,6 @@
             }
           ]
         },
-        "InstantQuery": {
-          "properties": {
-            "metric": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "type": "object"
-            },
-            "timestamp": {
-              "format": "int64",
-              "type": "integer"
-            },
-            "value": {
-              "format": "double",
-              "type": "number"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "type": "object"
-        },
         "List": {
           "properties": {
             "kind": {
@@ -780,73 +724,6 @@
           ],
           "type": "object"
         },
-        "MetricsFederationResult": {
-          "type": "string"
-        },
-        "MetricsInstantQueryList": {
-          "allOf": [
-            {
-              "example": {
-                "id": "1nbpS70HduPe4l0to8jSg2CLzfu",
-                "items": {
-                  "$ref": "#/components/examples/MetricsInstantQueryExample"
-                },
-                "kind": "MetricsInstantQueryList"
-              },
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "items": {
-                  "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/InstantQuery"
-                      }
-                    ]
-                  },
-                  "type": "array"
-                },
-                "kind": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            }
-          ]
-        },
-        "MetricsRangeQueryList": {
-          "allOf": [
-            {
-              "example": {
-                "id": "1nbpS70HduPe4l0to8jSg2CLzfu",
-                "items": {
-                  "$ref": "#/components/examples/MetricsRangeQueryExample"
-                },
-                "kind": "MetricsRangeQueryList"
-              },
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "items": {
-                  "items": {
-                    "allOf": [
-                      {
-                        "$ref": "#/components/schemas/RangeQuery"
-                      }
-                    ]
-                  },
-                  "type": "array"
-                },
-                "kind": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            }
-          ]
-        },
         "ObjectReference": {
           "properties": {
             "href": {
@@ -857,23 +734,6 @@
             },
             "kind": {
               "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "RangeQuery": {
-          "properties": {
-            "metric": {
-              "additionalProperties": {
-                "type": "string"
-              },
-              "type": "object"
-            },
-            "values": {
-              "items": {
-                "$ref": "#/components/schemas/values"
-              },
-              "type": "array"
             }
           },
           "type": "object"
@@ -935,22 +795,6 @@
               "type": "object"
             }
           ]
-        },
-        "values": {
-          "properties": {
-            "timestamp": {
-              "format": "int64",
-              "type": "integer"
-            },
-            "value": {
-              "format": "double",
-              "type": "number"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "type": "object"
         }
       },
       "securitySchemes": {
