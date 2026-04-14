@@ -196,6 +196,9 @@
         },
         "BlueprintExportResponse": {
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "content_sources": {
               "additionalProperties": true,
               "description": "List of custom repositories including all the repository details needed in order\nto recreate the repositories.\n",
@@ -320,6 +323,9 @@
         },
         "BlueprintResponse": {
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "customizations": {
               "$ref": "#/components/schemas/Customizations"
             },
@@ -694,6 +700,9 @@
         "CreateBlueprintRequest": {
           "additionalProperties": false,
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "customizations": {
               "$ref": "#/components/schemas/Customizations"
             },
@@ -1171,7 +1180,8 @@
             "fedora-41",
             "fedora-42",
             "fedora-43",
-            "fedora-44"
+            "fedora-44",
+            "image-mode"
           ],
           "type": "string"
         },
