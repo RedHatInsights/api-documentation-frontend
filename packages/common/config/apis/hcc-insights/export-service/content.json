@@ -154,8 +154,7 @@
               },
               "required": [
                 "id",
-                "status",
-                "expires_at"
+                "status"
               ],
               "type": "object"
             }
