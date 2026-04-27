@@ -284,7 +284,7 @@ apis:
         description: API for managing and listing Activation Keys, Manifests, and Subscriptions
         url: https://console.redhat.com/api/rhsm/v2/openapi.json
         serverUrl: https://console.redhat.com
-        apiType: openapi-v2
+        apiType: openapi-v3
         icon: subscriptions
         tags:
           - subscriptions
@@ -372,14 +372,13 @@ apis:
         tags:
           - openshift
           - infrastructure
-        skip: true
-        skipReason: Has validation errors
       - id: connector-management
         name: Connector Management
         description: Connector Management API is a REST API to manage connectors
-        url: https://api.openshift.com/api/connector_mgmt/v1/openapi
+        url: https://raw.githubusercontent.com/redhat-developer/app-services-sdk-core/doc-portal/connector_mgmt.yaml
         serverUrl: https://api.openshift.com
         apiType: openapi-v3
+        useLocalFile: true
         tags:
           - openshift
           - infrastructure
@@ -392,19 +391,26 @@ apis:
         tags:
           - openshift
           - infrastructure
-        skip: true
-        skipReason: Has validation errors
       - id: image-builder-worker
         name: Image Builder Worker
         description: This is an API for workers to request and handle jobs
         url: https://api.openshift.com/api/image-builder-worker/v1/openapi
         serverUrl: https://api.openshift.com
         apiType: openapi-v3
+        useLocalFile: true
         tags:
           - openshift
           - infrastructure
-        skip: true
-        skipReason: Has a validation errors
+      - id: osd-fleet-manager-service
+        name: OSD Fleet Manager Service
+        description: OSD Fleet Manager Service API
+        url: https://api.openshift.com/api/osd_fleet_mgmt/v1/openapi
+        serverUrl: https://api.openshift.com
+        apiType: openapi-v3
+        useLocalFile: true
+        tags:
+          - openshift
+          - infrastructure
       - id: kafka-service-fleet-manager-service
         name: Kafka Service Fleet Manager Service
         description: Kafka Management API is a REST API to manage Kafka instances
@@ -432,12 +438,22 @@ apis:
         tags:
           - openshift
           - infrastructure
+      - id: access-transparency-service
+        name: Access Transparency Service
+        description: Access Transparency Service API
+        url: https://api.openshift.com/api/access_transparency/v1/openapi
+        serverUrl: https://api.openshift.com
+        apiType: openapi-v3
+        tags:
+          - openshift
+          - infrastructure
       - id: service-registry-management
         name: Service Registry Management
         description: Service Registry Management API is a REST API for managing Service Registry instances
-        url: https://api.openshift.com/api/serviceregistry_mgmt/v1/openapi
+        url: https://raw.githubusercontent.com/redhat-developer/app-services-sdk-core/doc-portal/srs-fleet-manager.json
         serverUrl: https://api.openshift.com
         apiType: openapi-v3
+        useLocalFile: true
         tags:
           - openshift
           - infrastructure
@@ -447,11 +463,10 @@ apis:
         url: https://api.openshift.com/api/status-board/v1/openapi
         serverUrl: https://api.openshift.com
         apiType: openapi-v3
+        useLocalFile: true
         tags:
           - openshift
           - infrastructure
-        skip: true
-        skipReason: Has validation errors
       - id: upgrades-information-service
         name: Upgrades Information Service
         description: Upgrades Information Service API

@@ -34,8 +34,7 @@
         "ChatRequest": {
           "properties": {
             "conversation_id": {
-              "description": "A UUID that identifies the particular conversation is being requested for.",
-              "format": "uuid",
+              "description": "An ID that identifies the particular conversation is being requested for.",
               "type": "string"
             },
             "model": {
@@ -71,8 +70,7 @@
         "ChatResponse": {
           "properties": {
             "conversation_id": {
-              "description": "A UUID that identifies the particular conversation is being requested for.",
-              "format": "uuid",
+              "description": "An ID that identifies the particular conversation is being requested for.",
               "type": "string"
             },
             "referenced_documents": {
@@ -104,7 +102,7 @@
               "type": "string"
             },
             "additionalContext": {
-              "additionalProperties": {},
+              "additionalProperties": true,
               "description": "Additional context for completion API",
               "title": "Additional Context",
               "type": "object"
@@ -515,7 +513,7 @@
         "GenerationRoleRequest": {
           "properties": {
             "additionalContext": {
-              "additionalProperties": {},
+              "additionalProperties": true,
               "description": "Parameter use for the inline suggestions.",
               "title": "inline suggestions",
               "type": "object"
@@ -923,8 +921,7 @@
         "StreamingChatRequest": {
           "properties": {
             "conversation_id": {
-              "description": "A UUID that identifies the particular conversation is being requested for.",
-              "format": "uuid",
+              "description": "An ID that identifies the particular conversation is being requested for.",
               "type": "string"
             },
             "media_type": {
@@ -1115,7 +1112,17 @@
           "type": "apiKey"
         },
         "oauth2": {
-          "flows": {},
+          "flows": {
+            "authorizationCode": {
+              "authorizationUrl": "/o/authorize/",
+              "scopes": {
+                "delete": "Delete resources",
+                "read": "Read basic user information",
+                "write": "Request Ansible content suggestions"
+              },
+              "tokenUrl": "/o/token/"
+            }
+          },
           "type": "oauth2"
         }
       }
@@ -1810,7 +1817,7 @@
                     }
                   },
                   "schema": {
-                    "additionalProperties": {},
+                    "additionalProperties": true,
                     "type": "object"
                   }
                 }
@@ -1961,7 +1968,7 @@
                     "description": "A valid request to set the Telemetry settings.",
                     "summary": "Request Telemetry settings",
                     "value": {
-                      "optOut": "true"
+                      "optOut": true
                     }
                   }
                 },

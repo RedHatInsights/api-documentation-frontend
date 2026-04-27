@@ -30,40 +30,6 @@
           "type": "object",
           "x-go-name": "AAPRegistration"
         },
-        "AWSEC2Clone": {
-          "properties": {
-            "region": {
-              "description": "A region as described in\nhttps://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-regions\n",
-              "type": "string"
-            },
-            "share_with_accounts": {
-              "description": "An array of AWS account IDs as described in\nhttps://docs.aws.amazon.com/IAM/latest/UserGuide/console_account-alias.html\n",
-              "example": [
-                "123456789012"
-              ],
-              "items": {
-                "pattern": "^[0-9]{12}$",
-                "type": "string"
-              },
-              "maxItems": 100,
-              "type": "array"
-            },
-            "share_with_sources": {
-              "example": [
-                "12345"
-              ],
-              "items": {
-                "type": "string"
-              },
-              "type": "array",
-              "uniqueItems": true
-            }
-          },
-          "required": [
-            "region"
-          ],
-          "type": "object"
-        },
         "AWSS3UploadRequestOptions": {
           "type": "object"
         },
@@ -119,6 +85,28 @@
             "region"
           ],
           "type": "object"
+        },
+        "ArchitectureInfo": {
+          "description": "Architecture metadata from images library",
+          "properties": {
+            "image_types": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ImageTypeInfo"
+              },
+              "description": "Map of image type names to their details",
+              "type": "object"
+            },
+            "name": {
+              "description": "Architecture name",
+              "example": "x86_64",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object",
+          "x-go-type": "composer.ArchitectureInfo"
         },
         "ArchitectureItem": {
           "properties": {
@@ -208,6 +196,9 @@
         },
         "BlueprintExportResponse": {
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "content_sources": {
               "additionalProperties": true,
               "description": "List of custom repositories including all the repository details needed in order\nto recreate the repositories.\n",
@@ -332,6 +323,9 @@
         },
         "BlueprintResponse": {
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "customizations": {
               "$ref": "#/components/schemas/Customizations"
             },
@@ -391,6 +385,68 @@
             "links",
             "data"
           ]
+        },
+        "BootMode": {
+          "enum": [
+            "legacy",
+            "uefi",
+            "hybrid",
+            "none"
+          ],
+          "type": "string",
+          "x-go-type": "composer.ImageTypeInfoBootMode"
+        },
+        "BootcBody": {
+          "description": "Bootc/Image Mode compose parameters. When present, the compose builds from the\nspecified bootc base image instead of the classic package-based flow.\n",
+          "properties": {
+            "reference": {
+              "description": "Image name from the bootc distributions list. Must match an image_name\nreturned by GET /distributions?kind=bootc.\n",
+              "example": "rhel/10.0-ec2",
+              "type": "string"
+            }
+          },
+          "required": [
+            "reference"
+          ],
+          "type": "object"
+        },
+        "BootcDistributionItem": {
+          "properties": {
+            "arch": {
+              "example": "x86_64",
+              "type": "string"
+            },
+            "distro": {
+              "example": "rhel-10.0",
+              "type": "string"
+            },
+            "id": {
+              "example": "rhel-10.0-ec2",
+              "type": "string"
+            },
+            "image_name": {
+              "description": "part of the container image name used as the base for composing",
+              "example": "rhel/10.0-ec2",
+              "type": "string"
+            },
+            "name": {
+              "example": "Red Hat Enterprise Linux 10.0",
+              "type": "string"
+            },
+            "type": {
+              "example": "ec2",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "distro",
+            "name",
+            "type",
+            "arch",
+            "image_name"
+          ],
+          "type": "object"
         },
         "BtrfsSubvolume": {
           "properties": {
@@ -466,90 +522,6 @@
           ],
           "type": "string"
         },
-        "CloneRequest": {
-          "oneOf": [
-            {
-              "$ref": "#/components/schemas/AWSEC2Clone"
-            }
-          ]
-        },
-        "CloneResponse": {
-          "properties": {
-            "id": {
-              "example": "123e4567-e89b-12d3-a456-426655440000",
-              "format": "uuid",
-              "type": "string"
-            }
-          },
-          "required": [
-            "id"
-          ]
-        },
-        "CloneStatusResponse": {
-          "allOf": [
-            {
-              "properties": {
-                "compose_id": {
-                  "format": "uuid",
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            {
-              "$ref": "#/components/schemas/UploadStatus"
-            }
-          ],
-          "required": [
-            "compose_id"
-          ]
-        },
-        "ClonesResponse": {
-          "properties": {
-            "data": {
-              "items": {
-                "$ref": "#/components/schemas/ClonesResponseItem"
-              },
-              "type": "array"
-            },
-            "links": {
-              "$ref": "#/components/schemas/ListResponseLinks"
-            },
-            "meta": {
-              "$ref": "#/components/schemas/ListResponseMeta"
-            }
-          },
-          "required": [
-            "meta",
-            "links",
-            "data"
-          ]
-        },
-        "ClonesResponseItem": {
-          "properties": {
-            "compose_id": {
-              "description": "UUID of the parent compose of the clone",
-              "format": "uuid",
-              "type": "string"
-            },
-            "created_at": {
-              "type": "string"
-            },
-            "id": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "request": {
-              "$ref": "#/components/schemas/CloneRequest"
-            }
-          },
-          "required": [
-            "id",
-            "compose_id",
-            "request",
-            "created_at"
-          ]
-        },
         "ComposeMetadata": {
           "properties": {
             "ostree_commit": {
@@ -569,6 +541,9 @@
         "ComposeRequest": {
           "additionalProperties": false,
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "client_id": {
               "$ref": "#/components/schemas/ClientId"
             },
@@ -725,6 +700,9 @@
         "CreateBlueprintRequest": {
           "additionalProperties": false,
           "properties": {
+            "bootc": {
+              "$ref": "#/components/schemas/BootcBody"
+            },
             "customizations": {
               "$ref": "#/components/schemas/Customizations"
             },
@@ -1050,6 +1028,57 @@
           "type": "object",
           "x-go-type": "composer.Disk"
         },
+        "DistributionDetails": {
+          "description": "Complete metadata for a specific distribution from images library",
+          "properties": {
+            "architectures": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/ArchitectureInfo"
+              },
+              "description": "Map of architecture names to their details",
+              "type": "object"
+            },
+            "codename": {
+              "description": "Codename of the distribution",
+              "example": "",
+              "type": "string"
+            },
+            "module_platform_id": {
+              "description": "Module platform ID for DNF modularity",
+              "example": "platform:el9",
+              "type": "string"
+            },
+            "name": {
+              "description": "Name of the distribution",
+              "example": "rhel-9.6",
+              "type": "string"
+            },
+            "os_version": {
+              "description": "Full OS version including minor version",
+              "example": "9.6",
+              "type": "string"
+            },
+            "ostree_ref": {
+              "description": "Default OSTree reference template",
+              "example": "rhel/9/%s/edge",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product name",
+              "example": "Red Hat Enterprise Linux",
+              "type": "string"
+            },
+            "releasever": {
+              "description": "Release version used in repo files",
+              "example": "9",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object"
+        },
         "DistributionItem": {
           "properties": {
             "description": {
@@ -1066,6 +1095,13 @@
             "description"
           ],
           "type": "object"
+        },
+        "DistributionKind": {
+          "description": "Kind of distributions to return.",
+          "enum": [
+            "bootc"
+          ],
+          "type": "string"
         },
         "DistributionProfileItem": {
           "enum": [
@@ -1144,14 +1180,22 @@
             "fedora-41",
             "fedora-42",
             "fedora-43",
-            "fedora-44"
+            "fedora-44",
+            "image-mode"
           ],
           "type": "string"
         },
         "DistributionsResponse": {
           "description": "List of distributions this user is allowed to build.\n",
           "items": {
-            "$ref": "#/components/schemas/DistributionItem"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DistributionItem"
+              },
+              {
+                "$ref": "#/components/schemas/BootcDistributionItem"
+              }
+            ]
           },
           "type": "array"
         },
@@ -1544,6 +1588,98 @@
             "status"
           ]
         },
+        "ImageTypeInfo": {
+          "description": "Image type metadata from images library",
+          "properties": {
+            "aliases": {
+              "description": "Alternative names for this image type",
+              "items": {
+                "example": "aws",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "base_partition_table": {
+              "$ref": "#/components/schemas/Disk"
+            },
+            "boot_mode": {
+              "$ref": "#/components/schemas/BootMode"
+            },
+            "default_size": {
+              "description": "Default image size in bytes",
+              "example": 1073741824,
+              "format": "uint64",
+              "type": "integer"
+            },
+            "exports": {
+              "description": "Names of stages that produce the build output",
+              "items": {
+                "example": "image",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "filename": {
+              "description": "Canonical filename for the image",
+              "example": "image.raw",
+              "type": "string"
+            },
+            "iso_label": {
+              "description": "ISO label (only for ISO image types)",
+              "type": "string"
+            },
+            "mime_type": {
+              "description": "MIME type of the image",
+              "example": "application/octet-stream",
+              "type": "string"
+            },
+            "name": {
+              "description": "Image type name",
+              "example": "ami",
+              "type": "string"
+            },
+            "ostree_ref": {
+              "description": "Default OSTree ref for this image type",
+              "type": "string"
+            },
+            "partition_type": {
+              "$ref": "#/components/schemas/PartitionType"
+            },
+            "payload_package_sets": {
+              "description": "Package set names safe for custom packages via custom repos",
+              "items": {
+                "example": "blueprint",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "required_blueprint_options": {
+              "description": "Customization options required by this image type",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "supported_blueprint_options": {
+              "description": "Customization options supported by this image type",
+              "example": [
+                "distro",
+                "packages",
+                "customizations.cacerts",
+                "customizations.sshkey"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "name"
+          ],
+          "type": "object",
+          "x-go-type": "composer.ImageTypeInfo"
+        },
         "ImageTypes": {
           "enum": [
             "aws",
@@ -1870,6 +2006,14 @@
           ],
           "type": "object",
           "x-go-type": "composer.Partition"
+        },
+        "PartitionType": {
+          "enum": [
+            "gpt",
+            "dos"
+          ],
+          "type": "string",
+          "x-go-type": "composer.ImageTypeInfoPartitionType"
         },
         "Progress": {
           "allOf": [
@@ -2764,41 +2908,6 @@
           }
         ]
       },
-      "/clones/{id}": {
-        "get": {
-          "description": "status of a clone",
-          "operationId": "getCloneStatus",
-          "parameters": [
-            {
-              "description": "Id of clone status to get",
-              "in": "path",
-              "name": "id",
-              "required": true,
-              "schema": {
-                "example": "123e4567-e89b-12d3-a456-426655440000",
-                "format": "uuid",
-                "type": "string"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/CloneStatusResponse"
-                  }
-                }
-              },
-              "description": "clone status"
-            }
-          },
-          "summary": "get status of a compose clone",
-          "tags": [
-            "compose"
-          ]
-        }
-      },
       "/compose": {
         "post": {
           "description": "compose image",
@@ -2952,108 +3061,6 @@
           }
         ]
       },
-      "/composes/{composeId}/clone": {
-        "post": {
-          "description": "Clones a compose. Only composes with the 'aws' image type currently support cloning.\n",
-          "operationId": "cloneCompose",
-          "parameters": [
-            {
-              "description": "Id of compose to clone",
-              "in": "path",
-              "name": "composeId",
-              "required": true,
-              "schema": {
-                "example": "123e4567-e89b-12d3-a456-426655440000",
-                "format": "uuid",
-                "type": "string"
-              }
-            }
-          ],
-          "requestBody": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CloneRequest"
-                }
-              }
-            },
-            "description": "details of the new clone",
-            "required": true
-          },
-          "responses": {
-            "201": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/CloneResponse"
-                  }
-                }
-              },
-              "description": "cloning has started"
-            }
-          },
-          "summary": "clone a compose",
-          "tags": [
-            "compose"
-          ]
-        }
-      },
-      "/composes/{composeId}/clones": {
-        "get": {
-          "description": "Returns a list of all the clones which were started for a compose\n",
-          "operationId": "getComposeClones",
-          "parameters": [
-            {
-              "description": "Id of compose to get the clones of",
-              "in": "path",
-              "name": "composeId",
-              "required": true,
-              "schema": {
-                "example": "123e4567-e89b-12d3-a456-426655440000",
-                "format": "uuid",
-                "type": "string"
-              }
-            },
-            {
-              "description": "max amount of clones, default 100",
-              "in": "query",
-              "name": "limit",
-              "schema": {
-                "default": 100,
-                "maximum": 100,
-                "minimum": 1,
-                "type": "integer"
-              }
-            },
-            {
-              "description": "clones page offset, default 0",
-              "in": "query",
-              "name": "offset",
-              "schema": {
-                "default": 0,
-                "minimum": 0,
-                "type": "integer"
-              }
-            }
-          ],
-          "responses": {
-            "200": {
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/ClonesResponse"
-                  }
-                }
-              },
-              "description": "compose clones"
-            }
-          },
-          "summary": "get clones of a compose",
-          "tags": [
-            "compose"
-          ]
-        }
-      },
       "/composes/{composeId}/metadata": {
         "get": {
           "description": "metadata for an image compose",
@@ -3092,6 +3099,43 @@
       "/distributions": {
         "get": {
           "operationId": "getDistributions",
+          "parameters": [
+            {
+              "description": "Kind of distributions to return. When set to 'bootc', returns bootc/image-mode\ndistributions (each with id, name, type, arch, and image). Defaults to classic distributions.\n",
+              "in": "query",
+              "name": "kind",
+              "schema": {
+                "$ref": "#/components/schemas/DistributionKind"
+              }
+            },
+            {
+              "description": "Filter bootc distributions by distribution name. Only applies when kind=bootc.\n",
+              "in": "query",
+              "name": "distro",
+              "schema": {
+                "example": "rhel-10.0",
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter bootc distributions by CPU architecture. Only applies when kind=bootc.\n",
+              "in": "query",
+              "name": "arch",
+              "schema": {
+                "example": "x86_64",
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter bootc distributions by image type. Only applies when kind=bootc.\n",
+              "in": "query",
+              "name": "type",
+              "schema": {
+                "example": "ec2",
+                "type": "string"
+              }
+            }
+          ],
           "responses": {
             "200": {
               "content": {
@@ -3101,10 +3145,94 @@
                   }
                 }
               },
-              "description": "A list of distributions this user has access to. Some distributions are restricted, so\nthis list might not correspond to the Distributions (enum) schema for a given user.\n"
+              "description": "A list of distributions. The items in the array depend on the 'kind' parameter.\n"
             }
           },
           "summary": "get the distributions available to this user",
+          "tags": [
+            "distribution"
+          ]
+        }
+      },
+      "/distributions/{distro}": {
+        "get": {
+          "description": "Returns complete metadata for a distribution including architectures and image types",
+          "operationId": "getDistribution",
+          "parameters": [
+            {
+              "description": "Name of the distribution",
+              "in": "path",
+              "name": "distro",
+              "required": true,
+              "schema": {
+                "example": "rhel-9.6",
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter by image type. Multiple values can be specified.",
+              "in": "query",
+              "name": "image_type",
+              "schema": {
+                "example": [
+                  "ami",
+                  "aws"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
+              "description": "Filter by architecture. Multiple values can be specified.",
+              "in": "query",
+              "name": "architecture",
+              "schema": {
+                "example": [
+                  "x86_64",
+                  "aarch64"
+                ],
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DistributionDetails"
+                  }
+                }
+              },
+              "description": "Distribution details"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "Distribution not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPErrorList"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "summary": "Get details for a specific distribution",
           "tags": [
             "distribution"
           ]

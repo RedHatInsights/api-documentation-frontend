@@ -360,6 +360,9 @@
             "event_type": {
               "type": "string"
             },
+            "external_id": {
+              "$ref": "#/components/schemas/UUID"
+            },
             "id": {
               "$ref": "#/components/schemas/UUID"
             },
@@ -459,6 +462,9 @@
               "$ref": "#/components/schemas/UUID",
               "readOnly": true,
               "type": "string"
+            },
+            "included_in_drawer": {
+              "type": "boolean"
             },
             "name": {
               "maxLength": 255,
@@ -1707,6 +1713,17 @@
                 "format": "int32",
                 "minimum": 1,
                 "type": "integer"
+              }
+            },
+            {
+              "in": "query",
+              "name": "severities",
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/Severity"
+                },
+                "type": "array",
+                "uniqueItems": true
               }
             },
             {

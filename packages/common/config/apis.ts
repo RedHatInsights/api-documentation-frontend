@@ -560,6 +560,20 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     ],
   },
   {
+    id: "rhsm",
+    displayName: "Subscription Management",
+    description:
+      "API for managing and listing Activation Keys, Manifests, and Subscriptions",
+    icon: "SubscriptionsIcon",
+    apiContentPath: "./apis/hcc-insights/rhsm/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/rhsm/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["subscriptions"], apiLabelsMap["rhel"]],
+  },
+  {
     id: "tasks",
     displayName: "Tasks",
     description:
@@ -662,6 +676,19 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
+    id: "clusters-management-service",
+    displayName: "Clusters Management Service",
+    description: "Clusters Management Service API",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/openshift/clusters-management-service/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/clusters-management-service/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
     id: "connector-management",
     displayName: "Connector Management",
     description: "Connector Management API is a REST API to manage connectors",
@@ -671,6 +698,45 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     getApiContent: () =>
       import(
         "./apis/openshift/connector-management/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
+    id: "image-builder-composer",
+    displayName: "Image Builder Composer",
+    description: "Service to build and install images",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/openshift/image-builder-composer/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/image-builder-composer/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
+    id: "image-builder-worker",
+    displayName: "Image Builder Worker",
+    description: "This is an API for workers to request and handle jobs",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/openshift/image-builder-worker/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/image-builder-worker/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
+    id: "osd-fleet-manager-service",
+    displayName: "OSD Fleet Manager Service",
+    description: "OSD Fleet Manager Service API",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/openshift/osd-fleet-manager-service/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/osd-fleet-manager-service/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
@@ -716,6 +782,19 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },
   {
+    id: "access-transparency-service",
+    displayName: "Access Transparency Service",
+    description: "Access Transparency Service API",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/openshift/access-transparency-service/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/access-transparency-service/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
     id: "service-registry-management",
     displayName: "Service Registry Management",
     description:
@@ -726,6 +805,19 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     getApiContent: () =>
       import(
         "./apis/openshift/service-registry-management/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
+  },
+  {
+    id: "status-board-service-api",
+    displayName: "Status Board Service API",
+    description: "Status Board Service API",
+    icon: "GenericIcon",
+    apiContentPath: "./apis/openshift/status-board-service-api/content.json",
+    serverUrl: "https://api.openshift.com",
+    getApiContent: () =>
+      import(
+        "./apis/openshift/status-board-service-api/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["openshift"], apiLabelsMap["infrastructure"]],
   },

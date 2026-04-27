@@ -39,6 +39,9 @@
             "severity": {
               "type": "integer"
             },
+            "severity_name": {
+              "type": "string"
+            },
             "synopsis": {
               "type": "string"
             }
@@ -129,6 +132,9 @@
             "severity": {
               "type": "integer"
             },
+            "severity_name": {
+              "type": "string"
+            },
             "solution": {
               "type": "string"
             },
@@ -209,6 +215,9 @@
             },
             "severity": {
               "type": "integer"
+            },
+            "severity_name": {
+              "type": "string"
             },
             "synopsis": {
               "type": "string"
@@ -759,6 +768,9 @@
             "severity": {
               "type": "integer"
             },
+            "severity_name": {
+              "type": "string"
+            },
             "status": {
               "type": "string"
             },
@@ -826,6 +838,9 @@
             },
             "severity": {
               "type": "integer"
+            },
+            "severity_name": {
+              "type": "string"
             },
             "status": {
               "type": "string"
@@ -1141,9 +1156,6 @@
                 "$ref": "#/components/schemas/controllers.SystemGroup"
               },
               "type": "array"
-            },
-            "insights_id": {
-              "type": "string"
             },
             "installable_other_count": {
               "type": "integer"
@@ -1904,7 +1916,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.157"
+      "version": "v3.8.240"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2012,6 +2024,20 @@
                 "maximum": 4,
                 "minimum": 1,
                 "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[severity_name]",
+              "schema": {
+                "enum": [
+                  "Low",
+                  "Medium",
+                  "High",
+                  "Critical"
+                ],
+                "type": "string"
               }
             },
             {
@@ -2548,6 +2574,20 @@
                 "maximum": 4,
                 "minimum": 1,
                 "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[severity_name]",
+              "schema": {
+                "enum": [
+                  "Low",
+                  "Medium",
+                  "High",
+                  "Critical"
+                ],
+                "type": "string"
               }
             },
             {
@@ -3589,6 +3629,20 @@
                 "minimum": 1,
                 "type": "integer"
               }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[severity_name]",
+              "schema": {
+                "enum": [
+                  "Low",
+                  "Medium",
+                  "High",
+                  "Critical"
+                ],
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -4333,14 +4387,6 @@
               "description": "Filter",
               "in": "query",
               "name": "filter[id]",
-              "schema": {
-                "type": "string"
-              }
-            },
-            {
-              "description": "Filter",
-              "in": "query",
-              "name": "filter[insights_id]",
               "schema": {
                 "type": "string"
               }
@@ -6704,6 +6750,20 @@
                 "maximum": 4,
                 "minimum": 1,
                 "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[severity_name]",
+              "schema": {
+                "enum": [
+                  "Low",
+                  "Medium",
+                  "High",
+                  "Critical"
+                ],
+                "type": "string"
               }
             }
           ],

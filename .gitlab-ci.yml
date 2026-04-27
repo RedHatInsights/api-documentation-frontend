@@ -48,7 +48,7 @@ variables:
     - echo "Deployment to $ENVIRONMENT_NAME completed"
   timeout: 60m
   tags:
-    - shared
+    - itup-alm-x86
 
 deploy_stage:
   <<: *deploy_template

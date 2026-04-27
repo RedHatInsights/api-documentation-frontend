@@ -60,7 +60,7 @@
           }
         },
         "event_type": {
-          "description": "Comma separated list of event types to display",
+          "description": "Comma separated list of event types to display.\nValid event types include: comment, escalation, follow_up, external_reference, \nstatus_change, status_update, follow_up_change, audit_log, handover",
           "in": "query",
           "name": "event_type",
           "required": false,
@@ -693,6 +693,7 @@
                   "$ref": "#/components/schemas/Escalation"
                 },
                 "event_type": {
+                  "description": "Type of event. Valid event types include: comment, escalation, follow_up, \nexternal_reference, status_change, status_update, follow_up_change, audit_log, handover",
                   "type": "string"
                 },
                 "external_reference": {
@@ -1098,10 +1099,6 @@
                   "type": "string"
                 },
                 "is_checked": {
-                  "type": "boolean"
-                },
-                "is_handover": {
-                  "default": false,
                   "type": "boolean"
                 },
                 "ordering": {
@@ -2059,6 +2056,101 @@
               "type": "object"
             }
           ]
+        },
+        "TeamHandover": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "automatic_pause_days": {
+                  "description": "Comma-separated days to automatically pause (e.g., 'saturday,sunday')",
+                  "type": "string"
+                },
+                "created_at": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "handover_time": {
+                  "description": "Time of day for handover in HH:MM 24-hour format (e.g., '08:00', '17:30')",
+                  "type": "string"
+                },
+                "last_notified_at": {
+                  "description": "When the last notification was sent for this schedule",
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "paused": {
+                  "description": "Whether handover notifications are paused for this schedule",
+                  "type": "boolean"
+                },
+                "paused_by": {
+                  "description": "Who paused this schedule - 'user' for manual pause, 'automatic' for day-based auto-pause",
+                  "type": "string"
+                },
+                "team": {
+                  "$ref": "#/components/schemas/ObjectReference"
+                },
+                "timezone": {
+                  "description": "IANA timezone identifier (e.g., 'America/New_York', 'Europe/London')",
+                  "type": "string"
+                },
+                "updated_at": {
+                  "format": "date-time",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "TeamHandoverList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/TeamHandover"
+                      }
+                    ]
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "TeamHandoverPatchRequest": {
+          "properties": {
+            "automatic_pause_days": {
+              "description": "Comma-separated days to automatically pause (e.g., 'saturday,sunday')",
+              "type": "string"
+            },
+            "handover_time": {
+              "description": "Time of day for handover in HH:MM 24-hour format (e.g., '08:00', '17:30')",
+              "type": "string"
+            },
+            "paused": {
+              "description": "Whether handover notifications are paused for this schedule",
+              "type": "boolean"
+            },
+            "paused_by": {
+              "description": "Who paused this schedule - 'user' for manual pause, 'automatic' for day-based auto-pause",
+              "type": "string"
+            },
+            "timezone": {
+              "description": "IANA timezone identifier (e.g., 'America/New_York', 'Europe/London')",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "TeamList": {
           "allOf": [
@@ -7282,6 +7374,372 @@
             "$ref": "#/components/parameters/team_id"
           }
         ]
+      },
+      "/api/web-rca/v1/teams/{team_id}/handovers": {
+        "get": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/team_id"
+            },
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/order_by"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamHandoverList"
+                  }
+                }
+              },
+              "description": "A JSON array of team handover schedules"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Team not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return the list of handover schedules for a team"
+        },
+        "post": {
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/team_id"
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamHandover"
+                }
+              }
+            },
+            "description": "Handover schedule data",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamHandover"
+                  }
+                }
+              },
+              "description": "Created"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors in input"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Team not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Create a new handover schedule for a team"
+        }
+      },
+      "/api/web-rca/v1/teams/{team_id}/handovers/{id}": {
+        "delete": {
+          "responses": {
+            "204": {
+              "description": "Handover schedule successfully deleted"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Handover schedule not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "An unexpected error occurred deleting the handover schedule"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Delete a handover schedule"
+        },
+        "get": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamHandover"
+                  }
+                }
+              },
+              "description": "A JSON representation of a Team Handover object"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Handover schedule not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Return a handover schedule by Team id and Handover id"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "$ref": "#/components/parameters/team_id"
+          }
+        ],
+        "patch": {
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamHandoverPatchRequest"
+                }
+              }
+            },
+            "description": "Handover schedule data to update",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/TeamHandover"
+                  }
+                }
+              },
+              "description": "Handover schedule updated successfully"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Validation errors in input"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Handover schedule not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Update a handover schedule"
+        }
       },
       "/api/web-rca/v1/users": {
         "get": {
