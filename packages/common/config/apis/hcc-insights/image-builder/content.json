@@ -400,8 +400,8 @@
           "description": "Bootc/Image Mode compose parameters. When present, the compose builds from the\nspecified bootc base image instead of the classic package-based flow.\n",
           "properties": {
             "reference": {
-              "description": "Image name from the bootc distributions list. Must match an image_name\nreturned by GET /distributions?kind=bootc.\n",
-              "example": "rhel/10.0-ec2",
+              "description": "Image name from the bootc distributions list. Must match a reference\nreturned by GET /distributions?kind=bootc.\n",
+              "example": "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10.1-ec2:latest",
               "type": "string"
             }
           },
@@ -420,31 +420,26 @@
               "example": "rhel-10.0",
               "type": "string"
             },
-            "id": {
-              "example": "rhel-10.0-ec2",
-              "type": "string"
-            },
-            "image_name": {
-              "description": "part of the container image name used as the base for composing",
-              "example": "rhel/10.0-ec2",
-              "type": "string"
-            },
             "name": {
               "example": "Red Hat Enterprise Linux 10.0",
               "type": "string"
             },
+            "reference": {
+              "description": "Derived container image reference, only references listed in the bootc distributions list are allowed.",
+              "example": "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10.1-qcow2:latest",
+              "type": "string"
+            },
             "type": {
-              "example": "ec2",
+              "example": "aws",
               "type": "string"
             }
           },
           "required": [
-            "id",
             "distro",
             "name",
             "type",
             "arch",
-            "image_name"
+            "reference"
           ],
           "type": "object"
         },
@@ -1180,8 +1175,7 @@
             "fedora-41",
             "fedora-42",
             "fedora-43",
-            "fedora-44",
-            "image-mode"
+            "fedora-44"
           ],
           "type": "string"
         },
@@ -3101,7 +3095,7 @@
           "operationId": "getDistributions",
           "parameters": [
             {
-              "description": "Kind of distributions to return. When set to 'bootc', returns bootc/image-mode\ndistributions (each with id, name, type, arch, and image). Defaults to classic distributions.\n",
+              "description": "Kind of distributions to return. When set to 'bootc', returns bootc/image-mode\ndistributions (each with distro, name, type, arch, and reference). Defaults to classic distributions.\n",
               "in": "query",
               "name": "kind",
               "schema": {
@@ -3131,7 +3125,7 @@
               "in": "query",
               "name": "type",
               "schema": {
-                "example": "ec2",
+                "example": "aws",
                 "type": "string"
               }
             }
