@@ -615,6 +615,11 @@
         },
         "Bootc": {
           "properties": {
+            "iso_payload_reference": {
+              "description": "Optional container image reference for a payload container to embed\nin the ISO's container storage. When set, the payload container is\navailable at install/boot time. Only valid for bootable-container-iso\nimage type.\n",
+              "example": "quay.io/centos-bootc/centos-bootc:stream9",
+              "type": "string"
+            },
             "reference": {
               "example": "quay.io/centos-bootc/centos-bootc:stream9",
               "type": "string"
@@ -2058,6 +2063,7 @@
             "azure-rhui",
             "azure-sapapps-rhui",
             "azure-sap-rhui",
+            "bootable-container-iso",
             "edge-commit",
             "edge-container",
             "edge-installer",
