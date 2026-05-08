@@ -230,7 +230,6 @@
           "required": [
             "name",
             "description",
-            "distribution",
             "customizations",
             "metadata"
           ]
@@ -360,7 +359,6 @@
             "name",
             "description",
             "lint",
-            "distribution",
             "image_requests",
             "customizations"
           ]
@@ -399,9 +397,13 @@
         "BootcBody": {
           "description": "Bootc/Image Mode compose parameters. When present, the compose builds from the\nspecified bootc base image instead of the classic package-based flow.\n",
           "properties": {
+            "iso_payload_reference": {
+              "description": "Optional container image reference for a payload container to embed\nin the ISO. When set, the payload container is available at\ninstall/boot time. Only valid for bootable-container-iso image type.\nMust be one of the references listed in the distribution's bootc\nconfiguration.\n",
+              "type": "string"
+            },
             "reference": {
               "description": "Image name from the bootc distributions list. Must match a reference\nreturned by GET /distributions?kind=bootc.\n",
-              "example": "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10.1-ec2:latest",
+              "example": "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10-ec2:latest",
               "type": "string"
             }
           },
@@ -419,6 +421,17 @@
             "distro": {
               "example": "rhel-10.0",
               "type": "string"
+            },
+            "iso_payload_references": {
+              "description": "List of allowed payload container references for\nbootable-container-iso image type. Only present for\nbootable-container-iso entries.\n",
+              "example": [
+                "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10-qcow2:latest",
+                "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10-ec2:latest"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             },
             "name": {
               "example": "Red Hat Enterprise Linux 10.0",
@@ -570,7 +583,6 @@
             }
           },
           "required": [
-            "distribution",
             "image_requests"
           ],
           "type": "object"
@@ -729,7 +741,6 @@
           },
           "required": [
             "name",
-            "distribution",
             "image_requests",
             "customizations"
           ],
@@ -1175,7 +1186,8 @@
             "fedora-41",
             "fedora-42",
             "fedora-43",
-            "fedora-44"
+            "fedora-44",
+            "hummingbird"
           ],
           "type": "string"
         },
@@ -1678,6 +1690,7 @@
           "enum": [
             "aws",
             "azure",
+            "bootable-container-iso",
             "edge-commit",
             "edge-installer",
             "gcp",
