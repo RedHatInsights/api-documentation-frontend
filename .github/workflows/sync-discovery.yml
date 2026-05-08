@@ -32,7 +32,7 @@ jobs:
       run: npm run discovery
     - name: Create Pull Request
       id: cpr
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       with:
         token: ${{ secrets.NACHO_BOT_TOKEN }}
         title: Syncing API
