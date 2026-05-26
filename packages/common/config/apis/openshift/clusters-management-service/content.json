@@ -140,6 +140,10 @@
             "vpc_endpoint_role_arn": {
               "description": "Role ARN for VPC Endpoint Service cross account role.",
               "type": "string"
+            },
+            "zero_egress": {
+              "$ref": "#/components/schemas/ZeroEgress",
+              "description": "Zero egress configuration."
             }
           }
         },
@@ -6850,6 +6854,22 @@
             "WildcardsDisallowed"
           ],
           "type": "string"
+        },
+        "ZeroEgress": {
+          "description": "Zero egress configuration.",
+          "properties": {
+            "enabled": {
+              "description": "Indicates if zero egress is enabled for this cluster.",
+              "type": "boolean"
+            },
+            "no_proxy_default_domains": {
+              "description": "List of default no-proxy domains automatically added to the cluster's\nno-proxy configuration when zero egress is enabled.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          }
         }
       },
       "securitySchemes": {
@@ -20198,6 +20218,42 @@
                 "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/ProvisionShard"
+                  }
+                }
+              },
+              "description": "Success."
+            },
+            "default": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Error."
+            }
+          }
+        }
+      },
+      "/api/clusters_mgmt/v1/register_cluster": {
+        "post": {
+          "description": "Adds an existing cluster to the collection.",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClusterRegistration"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Cluster"
                   }
                 }
               },
