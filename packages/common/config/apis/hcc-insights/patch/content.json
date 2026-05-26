@@ -1434,6 +1434,17 @@
           },
           "type": "object"
         },
+        "controllers.SystemsListPostRequest": {
+          "properties": {
+            "ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "controllers.SystemsResponse": {
           "properties": {
             "data": {
@@ -1916,7 +1927,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.248"
+      "version": "v3.8.270"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -6572,6 +6583,454 @@
             }
           ],
           "summary": "Show me all my systems"
+        },
+        "post": {
+          "description": "Same response as GET /systems, restricted to the given inventory IDs. Use query parameters for paging, sort, search, and filters.",
+          "operationId": "listSystemsPost",
+          "parameters": [
+            {
+              "description": "Limit for paging",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "maximum": 100,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Offset for paging",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Sort field",
+              "in": "query",
+              "name": "sort",
+              "schema": {
+                "enum": [
+                  "id",
+                  "display_name",
+                  "last_upload",
+                  "rhsa_count",
+                  "rhba_count",
+                  "rhea_count",
+                  "other_count",
+                  "stale",
+                  "packages_installed",
+                  "baseline_name",
+                  "groups",
+                  "satellite_managed",
+                  "built_pkgcache"
+                ],
+                "type": "string"
+              }
+            },
+            {
+              "description": "Find matching text",
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[display_name]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[last_evaluation]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[last_upload]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[rhsa_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[rhba_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[rhea_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[other_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhsa_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhba_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_rhea_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[installable_other_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhsa_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhba_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_rhea_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[applicable_other_count]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[stale]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_installed]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_installable]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[packages_applicable]",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[stale_timestamp]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[stale_warning_timestamp]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[culled_timestamp]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[created]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[baseline_name]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[template_name]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[template_uuid]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[satellite_managed]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[built_pkgcache]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Filter",
+              "in": "query",
+              "name": "filter[arch]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS version",
+              "in": "query",
+              "name": "filter[os]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS name",
+              "in": "query",
+              "name": "filter[osname]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS major version",
+              "in": "query",
+              "name": "filter[osmajor]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter OS minor version",
+              "in": "query",
+              "name": "filter[osminor]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Tag filter",
+              "explode": true,
+              "in": "query",
+              "name": "tags",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by inventory groups",
+              "explode": true,
+              "in": "query",
+              "name": "filter[group_name]",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter only SAP systems",
+              "in": "query",
+              "name": "filter[system_profile][sap_system]",
+              "schema": {
+                "type": "boolean"
+              }
+            },
+            {
+              "description": "Filter systems by their SAP SIDs",
+              "explode": true,
+              "in": "query",
+              "name": "filter[system_profile][sap_sids]",
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by ansible",
+              "in": "query",
+              "name": "filter[system_profile][ansible]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ansible version",
+              "in": "query",
+              "name": "filter[system_profile][ansible][controller_version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by mssql version",
+              "in": "query",
+              "name": "filter[system_profile][mssql]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by mssql version",
+              "in": "query",
+              "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/controllers.SystemsListPostRequest"
+                }
+              }
+            },
+            "description": "Inventory IDs",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/controllers.SystemsResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/utils.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/utils.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "security": [
+            {
+              "RhIdentity": []
+            }
+          ],
+          "summary": "List systems by inventory IDs",
+          "x-codegen-request-body-name": "body"
         }
       },
       "/systems/{inventory_id}": {
