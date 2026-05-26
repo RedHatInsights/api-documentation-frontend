@@ -311,7 +311,10 @@
             },
             "dependent_applications": {
               "description": "The dependent applications of this application type",
-              "type": "object"
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             },
             "display_name": {
               "description": "The display name for the application type",
@@ -458,7 +461,8 @@
                 "Application",
                 "Authentication",
                 "Endpoint",
-                "Source"
+                "Source",
+                "Tenant"
               ],
               "example": "Endpoint",
               "type": "string"
@@ -573,7 +577,8 @@
                 "Application",
                 "Authentication",
                 "Endpoint",
-                "Source"
+                "Source",
+                "Tenant"
               ],
               "example": "Endpoint",
               "type": "string"

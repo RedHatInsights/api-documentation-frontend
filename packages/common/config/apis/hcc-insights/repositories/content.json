@@ -5888,7 +5888,7 @@
               }
             },
             {
-              "description": "Filter templates by version.",
+              "description": "Filter templates by version. Supports comma-separated lists (e.g. '8,9').",
               "in": "query",
               "name": "version",
               "schema": {
@@ -5941,6 +5941,14 @@
               "name": "extended_release_version",
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "description": "When true, major versions in the version filter only match templates without an extended release version. Specific minor versions in the version filter are still matched.",
+              "in": "query",
+              "name": "restrict_to_major",
+              "schema": {
+                "type": "boolean"
               }
             },
             {

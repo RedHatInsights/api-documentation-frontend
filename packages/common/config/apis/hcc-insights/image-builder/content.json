@@ -230,7 +230,6 @@
           "required": [
             "name",
             "description",
-            "distribution",
             "customizations",
             "metadata"
           ]
@@ -360,7 +359,6 @@
             "name",
             "description",
             "lint",
-            "distribution",
             "image_requests",
             "customizations"
           ]
@@ -399,9 +397,13 @@
         "BootcBody": {
           "description": "Bootc/Image Mode compose parameters. When present, the compose builds from the\nspecified bootc base image instead of the classic package-based flow.\n",
           "properties": {
+            "iso_payload_reference": {
+              "description": "Optional container image reference for a payload container to embed\nin the ISO. When set, the payload container is available at\ninstall/boot time. Only valid for bootable-container-iso image type.\nMust be one of the references listed in the distribution's bootc\nconfiguration.\n",
+              "type": "string"
+            },
             "reference": {
-              "description": "Image name from the bootc distributions list. Must match an image_name\nreturned by GET /distributions?kind=bootc.\n",
-              "example": "rhel/10.0-ec2",
+              "description": "Image name from the bootc distributions list. Must match a reference\nreturned by GET /distributions?kind=bootc.\n",
+              "example": "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10-ec2:latest",
               "type": "string"
             }
           },
@@ -420,31 +422,37 @@
               "example": "rhel-10.0",
               "type": "string"
             },
-            "id": {
-              "example": "rhel-10.0-ec2",
-              "type": "string"
-            },
-            "image_name": {
-              "description": "part of the container image name used as the base for composing",
-              "example": "rhel/10.0-ec2",
-              "type": "string"
+            "iso_payload_references": {
+              "description": "List of allowed payload container references for\nbootable-container-iso image type. Only present for\nbootable-container-iso entries.\n",
+              "example": [
+                "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10-qcow2:latest",
+                "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10-ec2:latest"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             },
             "name": {
               "example": "Red Hat Enterprise Linux 10.0",
               "type": "string"
             },
+            "reference": {
+              "description": "Derived container image reference, only references listed in the bootc distributions list are allowed.",
+              "example": "quay.io/redhat-services-prod/insights-management-tenant/image-builder-bootc-foundry/rhel-10.1-qcow2:latest",
+              "type": "string"
+            },
             "type": {
-              "example": "ec2",
+              "example": "aws",
               "type": "string"
             }
           },
           "required": [
-            "id",
             "distro",
             "name",
             "type",
             "arch",
-            "image_name"
+            "reference"
           ],
           "type": "object"
         },
@@ -575,7 +583,6 @@
             }
           },
           "required": [
-            "distribution",
             "image_requests"
           ],
           "type": "object"
@@ -734,7 +741,6 @@
           },
           "required": [
             "name",
-            "distribution",
             "image_requests",
             "customizations"
           ],
@@ -1181,7 +1187,7 @@
             "fedora-42",
             "fedora-43",
             "fedora-44",
-            "image-mode"
+            "hummingbird"
           ],
           "type": "string"
         },
@@ -1684,6 +1690,7 @@
           "enum": [
             "aws",
             "azure",
+            "bootable-container-iso",
             "edge-commit",
             "edge-installer",
             "gcp",
@@ -3101,7 +3108,7 @@
           "operationId": "getDistributions",
           "parameters": [
             {
-              "description": "Kind of distributions to return. When set to 'bootc', returns bootc/image-mode\ndistributions (each with id, name, type, arch, and image). Defaults to classic distributions.\n",
+              "description": "Kind of distributions to return. When set to 'bootc', returns bootc/image-mode\ndistributions (each with distro, name, type, arch, and reference). Defaults to classic distributions.\n",
               "in": "query",
               "name": "kind",
               "schema": {
@@ -3131,7 +3138,7 @@
               "in": "query",
               "name": "type",
               "schema": {
-                "example": "ec2",
+                "example": "aws",
                 "type": "string"
               }
             }
