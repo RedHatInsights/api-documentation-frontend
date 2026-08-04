@@ -241,6 +241,11 @@
               "description": "isActive",
               "type": "boolean"
             },
+            "isFocusedPartner": {
+              "default": false,
+              "description": "isFocusedPartner",
+              "type": "boolean"
+            },
             "isInternal": {
               "default": false,
               "description": "isInternal",
@@ -761,6 +766,11 @@
               },
               "type": "array"
             },
+            "clearPhoneNumber": {
+              "default": false,
+              "description": "clearPhoneNumber",
+              "type": "boolean"
+            },
             "comments": {
               "description": "comments",
               "items": {
@@ -845,6 +855,16 @@
             "id": {
               "description": "id",
               "type": "string"
+            },
+            "insightsArchives": {
+              "description": "insightsArchives",
+              "items": {
+                "$ref": "#/components/schemas/InsightsArchives"
+              },
+              "type": "array"
+            },
+            "insightsArchivesHldr": {
+              "$ref": "#/components/schemas/HInsightsArchives"
             },
             "isClosed": {
               "default": false,
@@ -932,12 +952,24 @@
               "description": "phone",
               "type": "string"
             },
+            "phoneAreaCodePrefixLineNumber": {
+              "description": "phoneNumber",
+              "type": "string"
+            },
+            "phoneCountryCode": {
+              "description": "phoneCountryCode",
+              "type": "string"
+            },
             "product": {
               "description": "product",
               "type": "string"
             },
             "recordTypeName": {
               "description": "recordTypeName",
+              "type": "string"
+            },
+            "referrer": {
+              "description": "referrer",
               "type": "string"
             },
             "remoteSessionTermsAcked": {
@@ -955,6 +987,11 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "screenSessionRequested": {
+              "default": false,
+              "description": "screenSessionRequested",
+              "type": "boolean"
             },
             "seSessionId": {
               "description": "Unique ID used when creating a case (used predominantly by solution engine)",
@@ -977,6 +1014,10 @@
               "description": "summary",
               "type": "string"
             },
+            "suppliedPhoneNumberVerified": {
+              "description": "phoneVerified",
+              "type": "string"
+            },
             "timeFramesAndUrgency": {
               "description": "timeFramesAndUrgency",
               "type": "string"
@@ -996,8 +1037,8 @@
           },
           "required": [
             "description",
-            "product",
             "summary",
+            "product",
             "version"
           ],
           "title": "Case",
@@ -1559,6 +1600,10 @@
               "format": "date-time",
               "type": "string"
             },
+            "customerEvaluation": {
+              "description": "customerEvaluation",
+              "type": "string"
+            },
             "display": {
               "description": "display",
               "type": "string"
@@ -1578,6 +1623,15 @@
             },
             "keywords": {
               "description": "keywords",
+              "type": "string"
+            },
+            "lastCustomerEvaluationSetAt": {
+              "description": "lastCustomerEvaluationSetAt",
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastCustomerEvaluationSetBySSOUsername": {
+              "description": "lastCustomerEvaluationSetBySSOUsername",
               "type": "string"
             },
             "lastModifiedBy": {
@@ -1794,6 +1848,15 @@
               "type": "boolean"
             },
             "ssoUsername": {
+              "type": "string"
+            },
+            "supportPhoneAreaCodePrefixLineNumber": {
+              "type": "string"
+            },
+            "supportPhoneCountryCode": {
+              "type": "string"
+            },
+            "supportPhoneNumber": {
               "type": "string"
             },
             "timezone": {
@@ -2068,6 +2131,14 @@
           "properties": {
             "caseId": {
               "description": "caseId",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "caseNumber",
+              "type": "string"
+            },
+            "caseURI": {
+              "description": "caseURI",
               "type": "string"
             },
             "closedAt": {
@@ -2395,6 +2466,38 @@
           "title": "HCaseResourceLinks",
           "type": "object"
         },
+        "HInsightsArchives": {
+          "description": "List of insights archives",
+          "properties": {
+            "insightsArchives": {
+              "description": "insightsArchives",
+              "items": {
+                "$ref": "#/components/schemas/InsightsArchives"
+              },
+              "type": "array"
+            }
+          },
+          "title": "HCaseResourceLinks",
+          "type": "object"
+        },
+        "InsightsArchives": {
+          "description": "Insights Archives link model",
+          "properties": {
+            "id": {
+              "description": "id",
+              "type": "string"
+            },
+            "inventoryId": {
+              "description": "inventoryId",
+              "type": "string"
+            }
+          },
+          "required": [
+            "inventoryId"
+          ],
+          "title": "InsightsArchives",
+          "type": "object"
+        },
         "NotifiedUser": {
           "description": "Notified user model",
           "properties": {
@@ -2591,7 +2694,8 @@
             }
           },
           "required": [
-            "q"
+            "q",
+            "exp"
           ],
           "type": "object",
           "x-className": {
@@ -2621,7 +2725,8 @@
             }
           },
           "required": [
-            "q"
+            "q",
+            "exp"
           ],
           "type": "object",
           "x-className": {
@@ -2651,6 +2756,11 @@
             "cep": {
               "default": false,
               "description": "cep",
+              "type": "boolean"
+            },
+            "clearPhoneNumber": {
+              "default": false,
+              "description": "clearPhoneNumber",
               "type": "boolean"
             },
             "contactInfo24x7": {
@@ -2736,6 +2846,14 @@
               "description": "phone",
               "type": "string"
             },
+            "phoneAreaCodePrefixLineNumber": {
+              "description": "phoneNumber",
+              "type": "string"
+            },
+            "phoneCountryCode": {
+              "description": "phoneCountryCode",
+              "type": "string"
+            },
             "product": {
               "description": "product",
               "type": "string"
@@ -2743,6 +2861,11 @@
             "reopenedReason": {
               "description": "contactInfo24X7",
               "type": "string"
+            },
+            "screenSessionRequested": {
+              "default": false,
+              "description": "screenSessionRequested",
+              "type": "boolean"
             },
             "severity": {
               "description": "severity",
@@ -2754,6 +2877,10 @@
             },
             "summary": {
               "description": "summary",
+              "type": "string"
+            },
+            "suppliedPhoneNumberVerified": {
+              "description": "phoneVerified",
               "type": "string"
             },
             "timeFramesAndUrgency": {
@@ -3039,7 +3166,7 @@
       "version": "v1",
       "x-audience": "Partner & Customer"
     },
-    "openapi": "3.0.1",
+    "openapi": "3.0.0",
     "paths": {
       "/cases/{caseNumber}/attachments/": {
         "get": {
@@ -3048,6 +3175,7 @@
               "description": "flag to include deleted attachments in the response",
               "in": "query",
               "name": "includeDeleted",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -3056,6 +3184,7 @@
               "description": "Sorting Field Name like id, lastModifiedDate,createDate,sizeKB except size",
               "in": "query",
               "name": "sortingField",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -3064,6 +3193,7 @@
               "description": "Sort by desc/asc",
               "in": "query",
               "name": "sortBy",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -3113,9 +3243,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get all attachment metadata",
           "tags": [
@@ -3170,9 +3298,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Upload a case attachment",
           "tags": [
@@ -3194,7 +3320,6 @@
           ],
           "responses": {
             "200": {
-              "content": {},
               "description": "Upload request status of all attachments"
             },
             "403": {
@@ -3219,9 +3344,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Upload request status of all attachments for a given case number",
           "tags": [
@@ -3251,7 +3374,6 @@
           ],
           "responses": {
             "204": {
-              "content": {},
               "description": "Attachment deleted successfully"
             },
             "403": {
@@ -3286,9 +3408,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Delete attachment metadata",
           "tags": [
@@ -3349,9 +3469,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Check case attachment metadata exist or not",
           "tags": [
@@ -3412,9 +3530,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Upload request status",
           "tags": [
@@ -3440,6 +3556,7 @@
               "description": "If you want to include partners accounts as well",
               "in": "query",
               "name": "partnerSearch",
+              "required": false,
               "schema": {
                 "type": "boolean"
               }
@@ -3447,7 +3564,6 @@
           ],
           "responses": {
             "200": {
-              "content": {},
               "description": "Solr Response"
             },
             "500": {
@@ -3462,9 +3578,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Search cases based on Search Criteria",
           "tags": [
@@ -3489,7 +3603,6 @@
           ],
           "responses": {
             "200": {
-              "content": {},
               "description": "Solr Response"
             },
             "500": {
@@ -3526,7 +3639,6 @@
           ],
           "responses": {
             "200": {
-              "content": {},
               "description": "Recommendation Response"
             },
             "500": {
@@ -3541,9 +3653,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Fetches Recommendation based on Search Criteria",
           "tags": [
@@ -3565,7 +3675,6 @@
           },
           "responses": {
             "200": {
-              "content": {},
               "description": "Recommendation Response"
             },
             "500": {
@@ -3580,15 +3689,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Create Recommendations",
           "tags": [
             "search"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/search/v2/cases": {
@@ -3608,7 +3714,6 @@
           },
           "responses": {
             "200": {
-              "content": {},
               "description": "Solr Response"
             },
             "500": {
@@ -3623,15 +3728,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Search cases based on Search Criteria",
           "tags": [
             "search"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/search/v2/kcs": {
@@ -3651,7 +3753,6 @@
           },
           "responses": {
             "200": {
-              "content": {},
               "description": "Solr Response"
             },
             "500": {
@@ -3668,8 +3769,7 @@
           "summary": "Search based on Search Criteria",
           "tags": [
             "search"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/accounts/current": {
@@ -3718,9 +3818,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Find account by calling User",
           "tags": [
@@ -3798,9 +3896,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "List Customer Accounts for Partner",
           "tags": [
@@ -3878,9 +3974,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "List Partner Accounts for Customer",
           "tags": [
@@ -3955,9 +4049,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Find account by number",
           "tags": [
@@ -4044,9 +4136,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Retrieve list of users for given case group",
           "tags": [
@@ -4124,9 +4214,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Find contacts for an account",
           "tags": [
@@ -4202,9 +4290,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get Business Hours",
           "tags": [
@@ -4260,15 +4346,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Create new case",
           "tags": [
             "case"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/cases/filter": {
@@ -4319,15 +4402,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get Cases by filters",
           "tags": [
             "case"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/cases/{caseNumber}": {
@@ -4388,9 +4468,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get Case By Case Number",
           "tags": [
@@ -4424,7 +4502,6 @@
           },
           "responses": {
             "200": {
-              "content": {},
               "description": "The case that was updated"
             },
             "403": {
@@ -4459,15 +4536,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Update case",
           "tags": [
             "case"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/cases/{caseNumber}/comments": {
@@ -4488,6 +4562,7 @@
               "description": "Start Date",
               "in": "query",
               "name": "startDate",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4496,6 +4571,7 @@
               "description": "End Date",
               "in": "query",
               "name": "endDate",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4504,6 +4580,7 @@
               "description": "Sort Field",
               "in": "query",
               "name": "sortField",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4512,6 +4589,7 @@
               "description": "Sort Order",
               "in": "query",
               "name": "sortOrder",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4563,9 +4641,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get Comments on case",
           "tags": [
@@ -4640,15 +4716,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Create Comment on case",
           "tags": [
             "case"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/cases/{caseNumber}/comments/{commentId}": {
@@ -4718,9 +4791,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get case comment by comment id",
           "tags": [
@@ -4746,6 +4817,7 @@
               "description": "Start Date",
               "in": "query",
               "name": "startDate",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4754,6 +4826,7 @@
               "description": "End Date",
               "in": "query",
               "name": "endDate",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4762,6 +4835,7 @@
               "description": "Sort Field",
               "in": "query",
               "name": "sortField",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4770,6 +4844,7 @@
               "description": "Sort Order",
               "in": "query",
               "name": "sortOrder",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4778,6 +4853,7 @@
               "description": "Originating system",
               "in": "query",
               "name": "originatingSystem",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4826,9 +4902,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "List the externalUpdates on the specified case",
           "tags": [
@@ -4864,7 +4938,6 @@
           },
           "responses": {
             "201": {
-              "content": {},
               "description": "The notified user was added"
             },
             "403": {
@@ -4889,15 +4962,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Add notified users to case",
           "tags": [
             "case"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/cases/{caseNumber}/notifiedusers/{delUsername}": {
@@ -4926,7 +4996,6 @@
           ],
           "responses": {
             "200": {
-              "content": {},
               "description": "Notified user was deleted"
             },
             "403": {
@@ -4951,9 +5020,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Delete notified user from case",
           "tags": [
@@ -4968,6 +5035,7 @@
               "description": "Absolute Path for which you want to list files",
               "in": "query",
               "name": "path",
+              "required": false,
               "schema": {
                 "type": "string"
               }
@@ -4976,8 +5044,9 @@
               "description": "Recursively lists all files if true. Allowed only for internal users",
               "in": "query",
               "name": "includeAll",
+              "required": false,
               "schema": {
-                "default": false,
+                "default": "false",
                 "type": "boolean"
               }
             }
@@ -4998,7 +5067,6 @@
               "description": "List of Attachments"
             },
             "204": {
-              "content": {},
               "description": "No attachments found"
             },
             "403": {
@@ -5023,9 +5091,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "List Sftp Attachments",
           "tags": [
@@ -5088,15 +5154,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Get status for SFTP Attachment uploaded by user",
           "tags": [
             "sftp"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/sftp/token/": {
@@ -5144,15 +5207,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Update token for SFTP User",
           "tags": [
             "sftp"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       },
       "/v1/sftp/token/reset": {
@@ -5190,9 +5250,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Reset token for SFTP User",
           "tags": [
@@ -5235,9 +5293,7 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Create upload only SFTP Token for one time use",
           "tags": [
@@ -5255,8 +5311,7 @@
                 }
               }
             },
-            "description": "body",
-            "required": false
+            "description": "body"
           },
           "responses": {
             "200": {
@@ -5291,15 +5346,12 @@
             }
           },
           "security": [
-            {
-              "Bearer": []
-            }
+            {}
           ],
           "summary": "Create token for SFTP User",
           "tags": [
             "sftp"
-          ],
-          "x-codegen-request-body-name": "body"
+          ]
         }
       }
     },

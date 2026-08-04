@@ -1927,7 +1927,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.270"
+      "version": "v3.8.275"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -7568,6 +7568,14 @@
               "name": "limit",
               "schema": {
                 "type": "integer"
+              }
+            },
+            {
+              "description": "Find matching text",
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
               }
             },
             {

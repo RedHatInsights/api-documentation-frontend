@@ -383,7 +383,7 @@
                 "RegistryCredential",
                 "CurrentAccount",
                 "AccessReview",
-                "SelfAcccessReview",
+                "SelfAccessReview",
                 "ResourceReview",
                 "SelfResourceReview",
                 "ClusterRegistration",
@@ -405,7 +405,6 @@
                 "SubscriptionLabel",
                 "OrganizationLabel",
                 "SubscriptionLabelInternal",
-                "SelfAccessReview",
                 "SubscriptionInternal",
                 "SubscriptionRoleBinding",
                 "ClusterSelfManaged",
@@ -415,7 +414,8 @@
                 "OsdTrialProtectedCluster",
                 "ManifestWorkSync",
                 "ClusterForcedUpgrade",
-                "DeletedCluster"
+                "DeletedCluster",
+                "DeleteProtection"
               ],
               "type": "string"
             },
@@ -480,7 +480,7 @@
                 "RegistryCredential",
                 "CurrentAccount",
                 "AccessReview",
-                "SelfAcccessReview",
+                "SelfAccessReview",
                 "ResourceReview",
                 "SelfResourceReview",
                 "ClusterRegistration",
@@ -502,7 +502,6 @@
                 "SubscriptionLabel",
                 "OrganizationLabel",
                 "SubscriptionLabelInternal",
-                "SelfAccessReview",
                 "SubscriptionInternal",
                 "SubscriptionRoleBinding",
                 "ClusterSelfManaged",
@@ -511,7 +510,8 @@
                 "ClusterSelfManagedStatus",
                 "OsdTrialProtectedCluster",
                 "ManifestWorkSync",
-                "ClusterForcedUpgrade"
+                "ClusterForcedUpgrade",
+                "DeleteProtection"
               ],
               "type": "string"
             },
@@ -3740,7 +3740,7 @@
                 "RegistryCredential",
                 "CurrentAccount",
                 "AccessReview",
-                "SelfAcccessReview",
+                "SelfAccessReview",
                 "ResourceReview",
                 "SelfResourceReview",
                 "ClusterRegistration",
@@ -3762,7 +3762,6 @@
                 "SubscriptionLabel",
                 "OrganizationLabel",
                 "SubscriptionLabelInternal",
-                "SelfAccessReview",
                 "SubscriptionInternal",
                 "SubscriptionRoleBinding",
                 "ClusterSelfManaged",
@@ -3778,7 +3777,8 @@
                 "OsdTrialProtectedCluster",
                 "ManifestWorkSync",
                 "ClusterForcedUpgrade",
-                "DeletedCluster"
+                "DeletedCluster",
+                "DeleteProtection"
               ],
               "type": "string"
             },
