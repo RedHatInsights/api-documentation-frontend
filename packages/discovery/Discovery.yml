@@ -502,9 +502,8 @@ apis:
       - id: case-management
         name: Case Management API
         description: Support Services Case Management API
-        url: https://access.redhat.com/management/api/case_management/swagger.json
+        url: https://access.redhat.com/hydra/rest/v1/api-docs
         serverUrl: https://access.redhat.com
-        useLocalFile: true
         apiType: openapi-v3
         # tags may need to be updated; this API is different for the rest
         tags:
