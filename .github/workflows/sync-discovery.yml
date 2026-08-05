@@ -35,6 +35,7 @@ jobs:
       uses: peter-evans/create-pull-request@v8
       with:
         token: ${{ secrets.NACHO_BOT_TOKEN }}
+        sign-commits: true
         title: Syncing API
         body: |
           There were some changes in the discovery or the contents of the APIs.
