@@ -24,7 +24,15 @@ jobs:
     steps:
     - uses: actions/checkout@v7
       with:
-        token: ${{ secrets.NACHO_BOT_TOKEN }}
+        token: ${{ secrets.GH_BOT_TOKEN }}
+    - name: Import GPG key
+      run: |
+        echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 -d | gpg --batch --import
+        git config user.name "${{ secrets.BOT_NAME }}"
+        git config user.email "${{ secrets.BOT_EMAIL }}"
+        git config commit.gpgsign true
+        git config tag.gpgsign true
+        git config user.signingkey $(gpg --list-secret-keys --with-colons "${{ secrets.BOT_EMAIL }}" | awk -F: '/^sec:/ {print $5; exit}')
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v7
       with:
@@ -37,18 +45,18 @@ jobs:
       id: cpr
       uses: peter-evans/create-pull-request@v8
       with:
-        token: ${{ secrets.NACHO_BOT_TOKEN }}
+        token: ${{ secrets.GH_BOT_TOKEN }}
         sign-commits: true
         title: Syncing API
         body: |
           There were some changes in the discovery or the contents of the APIs.
-          
+
           Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action
         commit-message: Syncing API
         delete-branch: true
-        author: "GitHub <noreply@github.com>"
+        author: "${{ secrets.BOT_NAME }} <${{ secrets.BOT_EMAIL }}>"
     - name: Auto-merge PR
       if: steps.cpr.outputs.pull-request-number != ''
       run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --squash
       env:
-        GH_TOKEN: ${{ secrets.NACHO_BOT_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
