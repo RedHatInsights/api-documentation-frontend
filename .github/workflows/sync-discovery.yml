@@ -41,22 +41,38 @@ jobs:
     - run: npm ci
     - id: discovery
       run: npm run discovery
-    - name: Create Pull Request
-      id: cpr
-      uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
-      with:
-        token: ${{ secrets.GH_BOT_TOKEN }}
-        sign-commits: true
-        title: Syncing API
-        body: |
-          There were some changes in the discovery or the contents of the APIs.
-
-          Automated changes by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action
-        commit-message: Syncing API
-        delete-branch: true
-        author: "${{ secrets.BOT_NAME }} <${{ secrets.BOT_EMAIL }}>"
-    - name: Auto-merge PR
-      if: steps.cpr.outputs.pull-request-number != ''
-      run: gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --squash
+    - name: Create or update sync PR
       env:
         GH_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+      run: |
+        BRANCH_NAME="sync-discovery/patch"
+        PR_TITLE="Syncing API"
+
+        if git diff --quiet; then
+          echo "No changes detected. Skipping PR creation."
+          exit 0
+        fi
+
+        git checkout -B "$BRANCH_NAME"
+
+        git add packages/common/config/
+        git commit -m "$PR_TITLE"
+
+        git push --force origin "$BRANCH_NAME"
+
+        EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number')
+
+        if [ -z "$EXISTING_PR" ]; then
+          PR_URL=$(gh pr create \
+            --title "$PR_TITLE" \
+            --body "There were some changes in the discovery or the contents of the APIs." \
+            --head "$BRANCH_NAME" \
+            --base main)
+          PR_NUMBER=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number')
+          echo "Created PR #$PR_NUMBER ($PR_URL)"
+        else
+          PR_NUMBER=$EXISTING_PR
+          echo "PR #$PR_NUMBER already exists, updated by force-push"
+        fi
+
+        gh pr merge "$PR_NUMBER" --auto --squash --delete-branch
