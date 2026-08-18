@@ -15,6 +15,7 @@ import {getDocumentationContents} from "./documentation";
 import {APIContent} from "@apidocs/common";
 import {OPENAPI_DIR} from "./constants";
 import {convert} from 'swagger2openapi';
+import {validateHttpResponse, validateParsedSpec} from "./validation";
 
 interface Options {
     inputDir: string;
@@ -68,7 +69,9 @@ const getOpenAPIContent = async (discoveryPath: string, app: App, group: string,
             'openapi.json'
         )).toString();
     } else if (app.url) {
-        return got.get(app.url).text();
+        const response = await got.get(app.url);
+        validateHttpResponse(response.body, app.url, response.headers['content-type']);
+        return response.body;
     } else {
         throw new Error('API was not skipped, but is not using local file or url:' + app.id);
     }
@@ -88,6 +91,11 @@ const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<Bui
                 try {
                     let openApiContent = await getOpenAPIContent(getDiscoveryPath(options), app, group.id, options);
                     content = JSON.parse(openApiContent);
+
+                    // Validate remotely fetched content for dangerous patterns
+                    if (app.url && !app.useLocalFile && !options.skipApiFetch) {
+                        validateParsedSpec(content as Record<string, unknown>, app.url);
+                    }
 
                     // Try to parse apps that are still using swagger (openapi v2)
                     if ('swagger' in content && typeof content['swagger'] === 'string' && content['swagger'].match(/^2(.\d(.\d)?)?/)) {
