@@ -133,8 +133,16 @@ export default function RootLayout({
               __html: footer || '<!--#include virtual="/remote/api/chrome/rh-unified-footer/rh-unified-footer.html" -->',
             }}
           ></div>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"></script>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/custom-elements-es5-adapter.js"
+            integrity="sha384-k3bnwfcMvozJIrrioeFBayQZSgaYgYcTRc3Ho7KhdiTV2ApDLAhAaF7gZF03kaSm"
+            crossOrigin="anonymous"
+          ></script>
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.3.0/webcomponents-bundle.js"
+            integrity="sha384-HxnMqvBKlkVSmShpzRmR5hazrKXrtEVhT8YU2MXRjOP577yZ+RvsyzVRCB6f9o17"
+            crossOrigin="anonymous"
+          ></script>
           <link rel="stylesheet" href="/modules/contrib/red_hat_shared_libs/dist/@cpelements/pfe-navigation/dist/pfe-navigation--lightdom.css" />
           <link rel="stylesheet" href="/modules/contrib/red_hat_shared_libs/dist/@patternfly/pfe-cta/dist/pfe-cta--lightdom.min.css" />
           <script src="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/@patternfly/pfelement/dist/pfelement.umd.min.js?rrg73h"></script>
