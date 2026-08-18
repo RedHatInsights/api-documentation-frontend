@@ -62,8 +62,7 @@ jobs:
           gh pr create \
             --head "$BRANCH" \
             --title "Syncing API discovery" \
-            --body "Automated sync of API discovery data." \
-            --label "automated"
+            --body "Automated sync of API discovery data."
           EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')
         fi
 
