@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/nodejs-22 AS builder
+FROM registry.access.redhat.com/ubi9/nodejs-22@sha256:de0ec3cba702e28f2ea3c232e8e1b53aa0acee4d25f5acfb458afe22a7b66709 AS builder
 
 USER root
 
@@ -9,7 +9,7 @@ COPY src ./src
 COPY public ./public
 COPY packages ./packages
 
-RUN npm i
+RUN npm ci
 
 RUN --mount=type=secret,id=api-documentation-frontend-sitemap/PROD_JWT_FETCH_URL \
     --mount=type=secret,id=api-documentation-frontend-sitemap/PROD_CLIENT_ID \
@@ -26,7 +26,7 @@ RUN --mount=type=secret,id=api-documentation-frontend-sitemap/PROD_JWT_FETCH_URL
 
 RUN npm run build
 
-FROM registry.access.redhat.com/ubi9/nginx-124
+FROM registry.access.redhat.com/ubi9/nginx-124@sha256:5b9acee52ab71d769623e09b2d95716159bf35a4c769f6ae0dd21f94f6856df6
 
 WORKDIR /usr/share/nginx
 
