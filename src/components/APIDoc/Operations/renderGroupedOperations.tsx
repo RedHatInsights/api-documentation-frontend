@@ -5,7 +5,7 @@ import { OpenAPIV3 } from 'openapi-types';
 import { Operations } from '../Operations';
 import { getOperationGroupId, getUngroupedOperationsId } from '../../../utils/OpenapiHtmlIds';
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
+import { rehypePlugins } from '../../../utils/markdownPlugins';
 
 interface GroupedOperationsProps {
   groupedOperations: GroupedOperations;
@@ -32,7 +32,7 @@ export const renderGroupOperations = ({ groupedOperations, openapi }: GroupedOpe
       <StackItem key={`group-${group.id}`} id={getOperationGroupId(group.id)}>
         <TextContent className="pf-v5-u-pb-lg">
           <Text component={TextVariants.h3}>{group.name}</Text>
-          {group.description && <ReactMarkdown rehypePlugins={[rehypeRaw]}>{group.description}</ReactMarkdown>}
+          {group.description && <ReactMarkdown rehypePlugins={rehypePlugins}>{group.description}</ReactMarkdown>}
         </TextContent>
         <Operations>{group.operationIds.map((id) => mapToOperation(id, groupedOperations.operations, openapi))}</Operations>
         <br />

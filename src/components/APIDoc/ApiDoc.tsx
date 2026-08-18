@@ -11,7 +11,7 @@ import { getTitleWithVersion } from '../../utils/OpenapiSelectors';
 import { APIContent, ExtraAPIContent } from '@apidocs/common';
 import { DocumentContent } from '@/components/DocumentContent/DocumentContent';
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
+import { rehypePlugins } from '../../utils/markdownPlugins';
 
 interface ApiDocProps {
   apiContent: APIContent;
@@ -30,7 +30,7 @@ export const ApiDoc: FunctionComponent<ApiDocProps> = (props) => {
           <Text component={TextVariants.h1}>{getTitleWithVersion(openapi)}</Text>
           {openapi.info.description && (
             <div className="pf-v5-u-pb-md">
-              <ReactMarkdown rehypePlugins={[rehypeRaw]}>{openapi.info.description}</ReactMarkdown>
+              <ReactMarkdown rehypePlugins={rehypePlugins}>{openapi.info.description}</ReactMarkdown>
             </div>
           )}
         </TextContent>
