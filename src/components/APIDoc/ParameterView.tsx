@@ -4,7 +4,7 @@ import { Flex, FlexItem, Text, TextContent, TextVariants } from '@patternfly/rea
 import { Table, Tbody, Td, Thead, Tr } from '@patternfly/react-table';
 import { SchemaType } from './SchemaType';
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
+import { rehypePlugins } from '../../utils/markdownPlugins';
 
 interface ParameterViewProps {
   title: string;
@@ -45,7 +45,7 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({ tit
               <Td>
                 <SchemaType schema={p.schema} document={document} writeEnums />
               </Td>
-              <Td>{p.description && <ReactMarkdown rehypePlugins={[rehypeRaw]}>{p.description}</ReactMarkdown>}</Td>
+              <Td>{p.description && <ReactMarkdown rehypePlugins={rehypePlugins}>{p.description}</ReactMarkdown>}</Td>
             </Tr>
           ))}
         </Tbody>

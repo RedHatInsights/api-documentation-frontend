@@ -1,7 +1,7 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
+import { rehypePlugins } from '../../utils/markdownPlugins';
 
 export interface SecuritySchemesProps {
   securityScheme: OpenAPIV3.SecuritySchemeObject;
@@ -29,7 +29,7 @@ const SecuritySchemeOpenId: React.FunctionComponent<OpenAPIV3.OpenIdSecuritySche
       <br />
       {openid.description && (
         <div>
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{openid.description}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={rehypePlugins}>{openid.description}</ReactMarkdown>
         </div>
       )}
     </>
@@ -55,7 +55,7 @@ const SecuritySchemeOauth: React.FunctionComponent<OpenAPIV3.OAuth2SecuritySchem
       <br />
       {oauth.description && (
         <div>
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{oauth.description}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={rehypePlugins}>{oauth.description}</ReactMarkdown>
         </div>
       )}
     </>
@@ -69,7 +69,7 @@ const SecuritySchemeHttp: React.FunctionComponent<OpenAPIV3.HttpSecurityScheme> 
       <br />
       {http.description && (
         <div>
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{http.description}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={rehypePlugins}>{http.description}</ReactMarkdown>
         </div>
       )}
     </>
@@ -87,7 +87,7 @@ const SecuritySchemeApiKey: React.FunctionComponent<OpenAPIV3.ApiKeySecuritySche
       </ul>
       {api.description && (
         <div className="apid-m-text-break-all">
-          <ReactMarkdown rehypePlugins={[rehypeRaw]}>{api.description}</ReactMarkdown>
+          <ReactMarkdown rehypePlugins={rehypePlugins}>{api.description}</ReactMarkdown>
         </div>
       )}
     </>
