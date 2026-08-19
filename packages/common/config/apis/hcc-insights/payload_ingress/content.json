@@ -3,6 +3,66 @@
   "openapi": {
     "components": {
       "schemas": {
+        "Metadata": {
+          "properties": {
+            "account": {
+              "type": "string"
+            },
+            "ansible_host": {
+              "type": "string"
+            },
+            "bios_uuid": {
+              "type": "string"
+            },
+            "custom_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "display_name": {
+              "type": "string"
+            },
+            "fqdn": {
+              "type": "string"
+            },
+            "insights_id": {
+              "type": "string"
+            },
+            "ip_addresses": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "mac_addresses": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "machine_id": {
+              "type": "string"
+            },
+            "org_id": {
+              "type": "string"
+            },
+            "queue_key": {
+              "type": "string"
+            },
+            "reporter": {
+              "type": "string"
+            },
+            "stale_timestamp": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "subscription_manager_id": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "TrackResponse": {
           "properties": {
             "date": {
@@ -174,10 +234,7 @@
                       "type": "string"
                     },
                     "metadata": {
-                      "additionalProperties": {
-                        "type": "string"
-                      },
-                      "type": "object"
+                      "$ref": "#/components/schemas/Metadata"
                     }
                   },
                   "type": "object"

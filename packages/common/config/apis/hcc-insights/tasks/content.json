@@ -280,10 +280,6 @@
             "connection_type": {
               "type": "string"
             },
-            "culled_timestamp": {
-              "format": "date-time",
-              "type": "string"
-            },
             "display_name": {
               "maxLength": 200,
               "type": "string"
@@ -304,10 +300,6 @@
               "format": "date-time",
               "type": "string"
             },
-            "stale_warning_timestamp": {
-              "format": "date-time",
-              "type": "string"
-            },
             "system_profile": {},
             "tags": {
               "items": {
@@ -324,15 +316,12 @@
           "required": [
             "connected",
             "connection_type",
-            "culled_timestamp",
             "display_name",
             "groups",
             "id",
             "last_check_in",
             "os_version",
             "stale_timestamp",
-            "stale_warning_timestamp",
-            "system_profile",
             "tags",
             "updated"
           ],
@@ -918,10 +907,6 @@
             "connection_type": {
               "type": "string"
             },
-            "culled_timestamp": {
-              "format": "date-time",
-              "type": "string"
-            },
             "display_name": {
               "maxLength": 200,
               "type": "string"
@@ -948,10 +933,6 @@
               "format": "date-time",
               "type": "string"
             },
-            "stale_warning_timestamp": {
-              "format": "date-time",
-              "type": "string"
-            },
             "system_profile": {},
             "tags": {
               "items": {
@@ -968,7 +949,6 @@
           "required": [
             "connected",
             "connection_type",
-            "culled_timestamp",
             "display_name",
             "groups",
             "id",
@@ -976,8 +956,6 @@
             "os_version",
             "requirements",
             "stale_timestamp",
-            "stale_warning_timestamp",
-            "system_profile",
             "tags",
             "updated"
           ],
@@ -1435,53 +1413,8 @@
               "name": "os_version",
               "schema": {
                 "items": {
-                  "enum": [
-                    "10.0",
-                    "10.1",
-                    "10.2",
-                    "6.0",
-                    "6.1",
-                    "6.10",
-                    "6.2",
-                    "6.3",
-                    "6.4",
-                    "6.5",
-                    "6.6",
-                    "6.7",
-                    "6.8",
-                    "6.9",
-                    "7.0",
-                    "7.1",
-                    "7.10",
-                    "7.2",
-                    "7.3",
-                    "7.4",
-                    "7.5",
-                    "7.6",
-                    "7.7",
-                    "7.8",
-                    "7.9",
-                    "8.0",
-                    "8.1",
-                    "8.10",
-                    "8.2",
-                    "8.3",
-                    "8.4",
-                    "8.5",
-                    "8.6",
-                    "8.7",
-                    "8.8",
-                    "8.9",
-                    "9.0",
-                    "9.1",
-                    "9.2",
-                    "9.3",
-                    "9.4",
-                    "9.5",
-                    "9.6",
-                    "9.7",
-                    "9.8"
-                  ],
+                  "format": "regex",
+                  "pattern": "^\\d+\\.\\d+$",
                   "type": "string"
                 },
                 "type": "array"
@@ -1526,13 +1459,13 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -1834,14 +1767,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -1902,53 +1827,8 @@
               "name": "os_version",
               "schema": {
                 "items": {
-                  "enum": [
-                    "10.0",
-                    "10.1",
-                    "10.2",
-                    "6.0",
-                    "6.1",
-                    "6.10",
-                    "6.2",
-                    "6.3",
-                    "6.4",
-                    "6.5",
-                    "6.6",
-                    "6.7",
-                    "6.8",
-                    "6.9",
-                    "7.0",
-                    "7.1",
-                    "7.10",
-                    "7.2",
-                    "7.3",
-                    "7.4",
-                    "7.5",
-                    "7.6",
-                    "7.7",
-                    "7.8",
-                    "7.9",
-                    "8.0",
-                    "8.1",
-                    "8.10",
-                    "8.2",
-                    "8.3",
-                    "8.4",
-                    "8.5",
-                    "8.6",
-                    "8.7",
-                    "8.8",
-                    "8.9",
-                    "9.0",
-                    "9.1",
-                    "9.2",
-                    "9.3",
-                    "9.4",
-                    "9.5",
-                    "9.6",
-                    "9.7",
-                    "9.8"
-                  ],
+                  "format": "regex",
+                  "pattern": "^\\d+\\.\\d+$",
                   "type": "string"
                 },
                 "type": "array"
@@ -1981,13 +1861,36 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -2225,14 +2128,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -2293,53 +2188,8 @@
               "name": "os_version",
               "schema": {
                 "items": {
-                  "enum": [
-                    "10.0",
-                    "10.1",
-                    "10.2",
-                    "6.0",
-                    "6.1",
-                    "6.10",
-                    "6.2",
-                    "6.3",
-                    "6.4",
-                    "6.5",
-                    "6.6",
-                    "6.7",
-                    "6.8",
-                    "6.9",
-                    "7.0",
-                    "7.1",
-                    "7.10",
-                    "7.2",
-                    "7.3",
-                    "7.4",
-                    "7.5",
-                    "7.6",
-                    "7.7",
-                    "7.8",
-                    "7.9",
-                    "8.0",
-                    "8.1",
-                    "8.10",
-                    "8.2",
-                    "8.3",
-                    "8.4",
-                    "8.5",
-                    "8.6",
-                    "8.7",
-                    "8.8",
-                    "8.9",
-                    "9.0",
-                    "9.1",
-                    "9.2",
-                    "9.3",
-                    "9.4",
-                    "9.5",
-                    "9.6",
-                    "9.7",
-                    "9.8"
-                  ],
+                  "format": "regex",
+                  "pattern": "^\\d+\\.\\d+$",
                   "type": "string"
                 },
                 "type": "array"
@@ -2380,13 +2230,36 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"

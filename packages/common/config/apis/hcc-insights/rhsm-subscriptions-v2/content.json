@@ -564,16 +564,44 @@
               "description": "The request for the account's subscription capacities was successful."
             },
             "400": {
-              "$ref": "#/components/responses/BadRequest"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The server could could not process the current request."
             },
             "403": {
-              "$ref": "#/components/responses/Forbidden"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The request was valid, but the request was refused by the server."
             },
             "404": {
-              "$ref": "#/components/responses/ResourceNotFound"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "The requested resource was not found."
             },
             "500": {
-              "$ref": "#/components/responses/InternalServerError"
+              "content": {
+                "application/vnd.api+json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Errors"
+                  }
+                }
+              },
+              "description": "An internal server error has occurred and is not recoverable."
             }
           },
           "summary": "Returns the total capacity by SKU for all of the org's active subscriptions for given Swatch product ID.",

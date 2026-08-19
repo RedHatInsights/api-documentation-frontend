@@ -296,10 +296,6 @@
               "example": "pending",
               "type": "string"
             },
-            "target_account": {
-              "example": "12345",
-              "type": "string"
-            },
             "target_org": {
               "example": "12345",
               "type": "string"
@@ -435,10 +431,6 @@
             },
             "start_date": {
               "example": "01/01/2021",
-              "type": "string"
-            },
-            "target_account": {
-              "example": "12345",
               "type": "string"
             },
             "target_org": {
@@ -594,10 +586,6 @@
             },
             "status": {
               "example": "pending",
-              "type": "string"
-            },
-            "target_account": {
-              "example": "12345",
               "type": "string"
             },
             "target_org": {
@@ -1852,7 +1840,8 @@
                     "add",
                     "edit",
                     "create",
-                    "remove"
+                    "remove",
+                    "read"
                   ],
                   "type": "string"
                 },

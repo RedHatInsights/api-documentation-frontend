@@ -56,10 +56,6 @@
               "description": "A query string to be sent to LLM.",
               "title": "Query string",
               "type": "string"
-            },
-            "system_prompt": {
-              "description": "An optional non-default system prompt to be used on LLM (debug mode only).",
-              "type": "string"
             }
           },
           "required": [
@@ -947,10 +943,6 @@
               "description": "A query string to be sent to LLM.",
               "title": "Query string",
               "type": "string"
-            },
-            "system_prompt": {
-              "description": "An optional non-default system prompt to be used on LLM (debug mode only).",
-              "type": "string"
             }
           },
           "required": [
@@ -1203,7 +1195,7 @@
           "tags": [
             "ai"
           ],
-          "x-ai-description": "Create new ai chat"
+          "x-ai-description": "Query the Ansible Automation Platform RAG database for documentation and product guidance on installing, configuring, and using AAP."
         }
       },
       "/ai/completions/": {
