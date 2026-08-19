@@ -53,7 +53,7 @@
           "x-validator": "sparseFields"
         },
         "filter_param": {
-          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"workloads\": {\"sap\": {\"sap_system\": {\"eq\": \"true\"}}}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][sap_system][eq]=true\" <br /><br /> To get \"edge\" hosts, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\" <br /><br /> To get hosts with an specific operating system, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"operating_system\": {\"name\": {\"eq\": \"rhel\"}}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][name][eq]=rhel\"",
+          "description": "Filters hosts based on system_profile fields. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"workloads\": {\"sap\": {\"sap_system\": {\"eq\": \"true\"}}}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][workloads][sap][sap_system][eq]=true\" <br /><br /> To get \"edge\" hosts, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"host_type\": {\"eq\": \"edge\"}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\" <br /><br /> To get hosts with a specific operating system, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"operating_system\": {\"name\": {\"eq\": \"rhel\"}}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][operating_system][name][eq]=rhel\" <br /><br /> To get hosts with a specific operating system version, use this explicit filter: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;{\"system_profile\": {\"operating_system\": {\"rhel\": {\"version\": {\"eq\": \"9\"}}}}} <br /><br /> which equates to the URL param: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][operating_system][rhel][version][eq]=9\"",
           "example": {},
           "explode": true,
           "in": "query",
@@ -95,6 +95,7 @@
           }
         },
         "groupIdListParam": {
+          "deprecated": true,
           "description": "Filter by group ID (UUID format)",
           "in": "query",
           "name": "group_id",
@@ -116,6 +117,7 @@
           }
         },
         "groupNameListParam": {
+          "deprecated": true,
           "description": "Filter by group name",
           "in": "query",
           "name": "group_name",
@@ -196,46 +198,28 @@
             "$ref": "#/components/schemas/OrderHow"
           }
         },
-        "hostViewAppFilterParam": {
-          "description": "Filters on aggregated application data using the syntax `filter[app_name][field_name][operator]=value`. Supported operators are `eq`, `ne`, `gte`, and `lte`. For example: `filter[vulnerability][critical_cves][gte]=1` or `filter[patch][template][eq]=production`.",
-          "example": {
-            "patch": {
-              "template": {
-                "eq": "production"
-              }
-            },
-            "vulnerability": {
-              "critical_cves": {
-                "gte": "1"
-              }
-            }
-          },
-          "explode": true,
-          "in": "query",
-          "name": "filter",
-          "required": false,
-          "schema": {
-            "$ref": "#/components/schemas/HostViewApplicationFilter"
-          },
-          "style": "deepObject"
-        },
-        "hostViewFieldsParam": {
-          "description": "Selects which application objects (or sub-fields) should be joined into the host view response. Use `fields[advisor]=recommendations` to request specific fields, or `fields[advisor]=recommendations&fields[vulnerability]=critical_cves` for multiple apps. When this parameter is omitted, all fields from all applications are returned by default (per JSON:API sparse fieldsets specification).",
-          "example": {
-            "advisor": [
-              "recommendations"
-            ],
-            "app_data": true,
-            "vulnerability": [
-              "critical_cves"
-            ]
-          },
+        "hostViewCombinedFieldsParam": {
+          "description": "Selects which system_profile fields and/or application data fields to include in the response. Both can be requested in a single call. <br /><br /> **System profile fields:** `fields[system_profile]=arch,host_type` returns only the requested system_profile fields on each host. When not specified, no system_profile data is returned (default behavior). <br /><br /> **Application data fields:** `fields[advisor]=recommendations` returns only the requested fields for that application. When not specified, all fields from all applications are returned by default. <br /><br /> **Application shorthand:** `fields[app_data]=true` explicitly requests all application data for all apps. <br /><br /> **Combined** example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?fields[system_profile]=arch,os_release&fields[advisor]=recommendations\"",
+          "example": {},
           "explode": true,
           "in": "query",
           "name": "fields",
           "required": false,
           "schema": {
-            "$ref": "#/components/schemas/HostViewFieldsObject"
+            "$ref": "#/components/schemas/HostViewCombinedFields"
+          },
+          "style": "deepObject",
+          "x-validator": "hostViewSparseFields"
+        },
+        "hostViewCombinedFilterParam": {
+          "description": "Filters hosts based on system_profile fields and/or application data metrics. Both filter types can be combined in a single request. <br /><br /> **System profile filters** use the syntax `filter[system_profile][field][operator]=value`. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge\" <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][operating_system][name][eq]=rhel\" <br /><br /> **Application data filters** use the syntax `filter[app_name][field_name][operator]=value`. For example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[vulnerability][critical_cves][gte]=1\" <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[patch][template_name][eq]=production\" <br /><br /> **Combined** example: <br /><br /> &nbsp;&nbsp;&nbsp;&nbsp;\"?filter[system_profile][host_type][eq]=edge&filter[vulnerability][critical_cves][gte]=1\"",
+          "example": {},
+          "explode": true,
+          "in": "query",
+          "name": "filter",
+          "required": false,
+          "schema": {
+            "$ref": "#/components/schemas/HostViewCombinedFilter"
           },
           "style": "deepObject"
         },
@@ -253,14 +237,36 @@
               "last_check_in",
               "advisor:recommendations",
               "advisor:incidents",
+              "advisor:critical",
+              "advisor:important",
+              "advisor:moderate",
+              "advisor:low",
               "vulnerability:total_cves",
               "vulnerability:critical_cves",
+              "vulnerability:important_cves",
+              "vulnerability:cves_with_security_rules",
+              "vulnerability:cves_with_known_exploits",
+              "patch:advisories_total_installable",
+              "patch:advisories_total_applicable",
               "patch:advisories_rhsa_installable",
+              "patch:advisories_rhba_installable",
+              "patch:advisories_rhea_installable",
+              "patch:advisories_other_installable",
+              "patch:advisories_rhsa_applicable",
+              "patch:advisories_rhba_applicable",
+              "patch:advisories_rhea_applicable",
+              "patch:advisories_other_applicable",
               "patch:packages_installable",
+              "patch:packages_applicable",
+              "patch:packages_installed",
+              "patch:template_name",
               "remediations:remediations_plans",
               "compliance:last_scan",
+              "compliance:policies_count",
               "malware:last_matches",
-              "malware:last_scan"
+              "malware:total_matches",
+              "malware:last_scan",
+              "malware:last_status"
             ],
             "type": "string"
           }
@@ -548,6 +554,30 @@
             "type": "string"
           }
         },
+        "workspaceIdListParam": {
+          "description": "Filter by workspace ID (UUID format)",
+          "in": "query",
+          "name": "workspace_id",
+          "required": false,
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/NonStrictUUID"
+            },
+            "type": "array"
+          }
+        },
+        "workspaceNameListParam": {
+          "description": "Filter by workspace name",
+          "in": "query",
+          "name": "workspace_name",
+          "required": false,
+          "schema": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
         "workspaceTypeParam": {
           "description": "The type of workspaces that should be returned.",
           "in": "query",
@@ -693,18 +723,40 @@
           "type": "object"
         },
         "AppSortableFields": {
-          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n\n**Patch**\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:packages_installable` - Number of installable packages\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n",
+          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n- `advisor:critical` - Critical severity recommendations\n- `advisor:important` - Important severity recommendations\n- `advisor:moderate` - Moderate severity recommendations\n- `advisor:low` - Low severity recommendations\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n- `vulnerability:important_cves` - Important severity CVEs\n- `vulnerability:cves_with_security_rules` - CVEs with security rules\n- `vulnerability:cves_with_known_exploits` - CVEs with known exploits\n\n**Patch**\n- `patch:advisories_total_installable` - Total installable advisories (sum of all types)\n- `patch:advisories_total_applicable` - Total applicable advisories (sum of all types)\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:advisories_rhba_installable` - Number of RHBA installable advisories\n- `patch:advisories_rhea_installable` - Number of RHEA installable advisories\n- `patch:advisories_other_installable` - Number of other installable advisories\n- `patch:advisories_rhsa_applicable` - Number of RHSA applicable advisories\n- `patch:advisories_rhba_applicable` - Number of RHBA applicable advisories\n- `patch:advisories_rhea_applicable` - Number of RHEA applicable advisories\n- `patch:advisories_other_applicable` - Number of other applicable advisories\n- `patch:packages_installable` - Number of installable packages\n- `patch:packages_applicable` - Number of applicable packages\n- `patch:packages_installed` - Number of installed packages\n- `patch:template_name` - Patch template name\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n- `compliance:policies_count` - Number of compliance policies\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:total_matches` - Total malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n- `malware:last_status` - Last malware detection status\n",
           "enum": [
             "advisor:recommendations",
             "advisor:incidents",
+            "advisor:critical",
+            "advisor:important",
+            "advisor:moderate",
+            "advisor:low",
             "vulnerability:total_cves",
             "vulnerability:critical_cves",
+            "vulnerability:important_cves",
+            "vulnerability:cves_with_security_rules",
+            "vulnerability:cves_with_known_exploits",
+            "patch:advisories_total_installable",
+            "patch:advisories_total_applicable",
             "patch:advisories_rhsa_installable",
+            "patch:advisories_rhba_installable",
+            "patch:advisories_rhea_installable",
+            "patch:advisories_other_installable",
+            "patch:advisories_rhsa_applicable",
+            "patch:advisories_rhba_applicable",
+            "patch:advisories_rhea_applicable",
+            "patch:advisories_other_applicable",
             "patch:packages_installable",
+            "patch:packages_applicable",
+            "patch:packages_installed",
+            "patch:template_name",
             "remediations:remediations_plans",
             "compliance:last_scan",
+            "compliance:policies_count",
             "malware:last_matches",
-            "malware:last_scan"
+            "malware:total_matches",
+            "malware:last_scan",
+            "malware:last_status"
           ],
           "type": "string"
         },
@@ -867,6 +919,11 @@
               },
               "nullable": true,
               "type": "array"
+            },
+            "policies_count": {
+              "description": "Number of compliance policies (computed from policies array length)",
+              "minimum": 0,
+              "type": "integer"
             }
           },
           "type": "object"
@@ -977,7 +1034,7 @@
           "type": "object"
         },
         "GroupName": {
-          "description": "A group’s human-readable name.",
+          "description": "A group’s human-readable name. Must contain only letters, numbers, spaces, hyphens, and underscores.",
           "example": "sre-group",
           "nullable": false,
           "type": "string"
@@ -1179,6 +1236,39 @@
                   "description": "A timestamp when the entry was last updated.",
                   "format": "date-time",
                   "type": "string"
+                },
+                "workspace": {
+                  "description": "The workspace that the host belongs to, if any. Contains the same data as the first entry in the groups list.",
+                  "nullable": true,
+                  "properties": {
+                    "account": {
+                      "$ref": "#/components/schemas/AccountNumber"
+                    },
+                    "created": {
+                      "description": "A timestamp when the entry was created.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "id": {
+                      "$ref": "#/components/schemas/GroupId"
+                    },
+                    "name": {
+                      "$ref": "#/components/schemas/GroupName"
+                    },
+                    "org_id": {
+                      "$ref": "#/components/schemas/OrgId"
+                    },
+                    "ungrouped": {
+                      "description": "Whether the group is the \"ungrouped hosts\" group",
+                      "type": "boolean"
+                    },
+                    "updated": {
+                      "description": "A timestamp when the entry was last updated.",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
                 }
               },
               "required": [
@@ -1227,29 +1317,59 @@
           "title": "Structure of an individual host system profile output",
           "type": "object"
         },
-        "HostViewApplicationFilter": {
-          "additionalProperties": {
-            "$ref": "#/components/schemas/HostViewApplicationFilterField"
-          },
-          "description": "Structure for the `filter[app_name][field][operator]=value` syntax applied to application metrics.",
-          "type": "object"
-        },
         "HostViewApplicationFilterField": {
           "additionalProperties": {
             "$ref": "#/components/schemas/HostViewFilterComparison"
           },
           "type": "object"
         },
-        "HostViewFieldsObject": {
-          "additionalProperties": {
-            "additionalProperties": {
-              "type": "boolean"
+        "HostViewCombinedFields": {
+          "additionalProperties": false,
+          "description": "Combined sparse fieldset supporting both system_profile and application data fields. The `system_profile` key selects system profile fields, while all other keys select application data fields. The `app_data` key is an explicit shorthand to request all app data. When omitted, all application data is returned by default but no system_profile data is included.",
+          "properties": {
+            "advisor": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
             },
-            "description": "Map of field names to include. Keys are field names, values are always true.",
-            "type": "object"
+            "app_data": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            },
+            "compliance": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            },
+            "malware": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            },
+            "patch": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            },
+            "remediations": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            },
+            "system_profile": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            },
+            "vulnerability": {
+              "$ref": "#/components/schemas/HostViewSparseFieldSelection"
+            }
           },
-          "description": "Sparse fieldset declaration for application data (per JSON:API specification).\nWhen omitted, all fields from all applications are returned by default.\n\nUsage Examples:\n- No parameter: Returns all app data (default behavior)\n- fields[advisor]=true: Returns all fields for advisor\n- fields[advisor]=recommendations: Returns only specified field\n- fields[advisor]=recommendations&fields[vulnerability]=critical_cves: Multiple apps\n- fields[advisor]= (empty): Returns no fields for advisor (per JSON:API spec)\n\nAvailable Applications and Fields:\n- advisor: recommendations, incidents\n- vulnerability: total_cves, critical_cves, high_severity_cves, cves_with_security_rules, cves_with_known_exploits\n- patch: advisories_rhsa_applicable, advisories_rhba_applicable, advisories_rhea_applicable, advisories_other_applicable, advisories_rhsa_installable, advisories_rhba_installable, advisories_rhea_installable, advisories_other_installable, packages_applicable, packages_installable, packages_installed, template_name, template_uuid\n- remediations: remediations_plans\n- compliance: policies, last_scan\n- malware: last_status, last_matches, total_matches, last_scan\n",
           "type": "object"
+        },
+        "HostViewCombinedFilter": {
+          "additionalProperties": {
+            "$ref": "#/components/schemas/HostViewCombinedFilterValue"
+          },
+          "description": "Combined filter supporting both system_profile and application data filtering. The `system_profile` key accepts nested system profile filters (using the SystemProfileNestedObject structure), while all other keys (e.g., advisor, vulnerability, patch) are validated as application metric filters with `field → operator → value` structure.",
+          "type": "object"
+        },
+        "HostViewCombinedFilterValue": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/SystemProfileNestedObject"
+            },
+            {
+              "$ref": "#/components/schemas/HostViewApplicationFilterField"
+            }
+          ]
         },
         "HostViewFilterComparison": {
           "additionalProperties": false,
@@ -1307,6 +1427,17 @@
             },
             {
               "properties": {
+                "denied_services": {
+                  "description": "List of app_data service names the user lacks permission for. Present when per-service RBAC is active; omitted when RBAC is bypassed. Allows consumers to distinguish denied services from services with no data.",
+                  "example": [
+                    "vulnerability",
+                    "malware"
+                  ],
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
                 "results": {
                   "description": "Combined host and application entries.",
                   "items": {
@@ -1323,6 +1454,13 @@
           ],
           "description": "A paginated host view that optionally includes application data joins.",
           "title": "Inventory view query result"
+        },
+        "HostViewSparseFieldSelection": {
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "description": "Map of field names to include. Keys are field names, values are always true.",
+          "type": "object"
         },
         "HyphenatedUuid": {
           "example": "22cd8e39-13bb-4d02-8316-84b850dc5136",
@@ -1878,8 +2016,40 @@
                   "type": "string",
                   "x-wildcard": true
                 },
+                "eda_controller_version": {
+                  "description": "The EDA controller version on the host",
+                  "example": "1.2.3, 4.5.6, 7.8.9",
+                  "maxLength": 30,
+                  "pattern": "^\\d+(\\.\\d+)+$",
+                  "type": "string",
+                  "x-wildcard": true
+                },
+                "gateway_version": {
+                  "description": "The automation gateway version on the host",
+                  "example": "1.2.3, 4.5.6, 7.8.9",
+                  "maxLength": 30,
+                  "pattern": "^\\d+(\\.\\d+)+$",
+                  "type": "string",
+                  "x-wildcard": true
+                },
                 "hub_version": {
                   "description": "The automation-hub version on the host",
+                  "example": "1.2.3, 4.5.6, 7.8.9",
+                  "maxLength": 30,
+                  "pattern": "^\\d+(\\.\\d+)+$",
+                  "type": "string",
+                  "x-wildcard": true
+                },
+                "receptor_version": {
+                  "description": "The receptor version on the host",
+                  "example": "1.2.3, 4.5.6, 7.8.9",
+                  "maxLength": 30,
+                  "pattern": "^\\d+(\\.\\d+)+$",
+                  "type": "string",
+                  "x-wildcard": true
+                },
+                "runner_version": {
+                  "description": "The ansible-runner version on the host",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2780,8 +2950,40 @@
                       "type": "string",
                       "x-wildcard": true
                     },
+                    "eda_controller_version": {
+                      "description": "The EDA controller version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
+                    "gateway_version": {
+                      "description": "The automation gateway version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
                     "hub_version": {
                       "description": "The automation-hub version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
+                    "receptor_version": {
+                      "description": "The receptor version on the host",
+                      "example": "1.2.3, 4.5.6, 7.8.9",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
+                    "runner_version": {
+                      "description": "The ansible-runner version on the host",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -2973,6 +3175,28 @@
                       "maxLength": 22,
                       "pattern": "^[0-9]\\.[0-9]{2}\\.[0-9]{3}\\.[0-9]{2}\\.[0-9]{10}$",
                       "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "satellite": {
+                  "description": "Object containing data specific to the Red Hat Satellite workload",
+                  "properties": {
+                    "type": {
+                      "description": "Whether this system is a Satellite Server or Capsule",
+                      "enum": [
+                        "server",
+                        "capsule"
+                      ],
+                      "example": "server",
+                      "type": "string"
+                    },
+                    "version": {
+                      "description": "The Satellite or Capsule version",
+                      "example": "6.19.0",
+                      "maxLength": 30,
+                      "type": "string",
+                      "x-wildcard": true
                     }
                   },
                   "type": "object"
@@ -3366,13 +3590,8 @@
           "description": "Configuration for a single column in a view.",
           "properties": {
             "key": {
-              "description": "The column key identifier, e.g. \"insights_id\", \"compliance.last_scan\", \"advisor.recommendations\".",
+              "description": "The column key identifier. Core fields use bare names (e.g. \"display_name\", \"last_check_in\"). App fields use colon-delimited format (e.g. \"compliance:last_scan\", \"advisor:recommendations\"). Validated server-side against the field registry.",
               "type": "string"
-            },
-            "visible": {
-              "default": true,
-              "description": "Whether the column is visible in the view.",
-              "type": "boolean"
             }
           },
           "required": [
@@ -3392,13 +3611,8 @@
               "type": "array"
             },
             "filters": {
-              "additionalProperties": {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              },
-              "description": "Active filter criteria. Keys are filter names, values are arrays of selected filter values.",
+              "additionalProperties": true,
+              "description": "Active filter criteria for this view. Top-level keys are filter namespaces: app names (e.g. vulnerability, patch) or system_profile. Each namespace value is a nested object of field -> operator -> value conditions. system_profile filters may be deeply nested (e.g. operating_system.RHEL.version). Validated server-side using the hosts API filter engine.",
               "type": "object"
             },
             "sort": {
@@ -3424,9 +3638,10 @@
               "type": "string"
             },
             "name": {
-              "description": "The display name for the view.",
+              "description": "The display name for the view. Must contain only letters, numbers, spaces, hyphens, and underscores.",
               "maxLength": 255,
               "minLength": 1,
+              "pattern": "^[a-zA-Z0-9 _-]+$",
               "type": "string"
             },
             "org_wide": {
@@ -3454,7 +3669,7 @@
               "type": "string"
             },
             "created_by": {
-              "description": "The username of the view creator.",
+              "description": "The user_id of the view creator.",
               "nullable": true,
               "type": "string"
             },
@@ -3521,9 +3736,10 @@
               "type": "string"
             },
             "name": {
-              "description": "The display name for the view.",
+              "description": "The display name for the view. Must contain only letters, numbers, spaces, hyphens, and underscores.",
               "maxLength": 255,
               "minLength": 1,
+              "pattern": "^[a-zA-Z0-9 _-]+$",
               "type": "string"
             },
             "org_wide": {
@@ -3599,7 +3815,7 @@
               "nullable": true,
               "type": "integer"
             },
-            "high_severity_cves": {
+            "important_cves": {
               "minimum": 0,
               "nullable": true,
               "type": "integer"
@@ -3627,8 +3843,8 @@
       }
     },
     "externalDocs": {
-      "description": "How to use the Red Hat Insights API",
-      "url": "https://docs.redhat.com/en/documentation/red_hat_insights/1-latest/html/using_the_red_hat_insights_api/index"
+      "description": "Using APIs to configure Red Hat Lightspeed services",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_lightspeed/1-latest/html-single/using_apis_to_configure_red_hat_lightspeed_services/index"
     },
     "info": {
       "description": "REST interface for the Insights Platform Host Inventory application.",
@@ -3819,7 +4035,7 @@
       },
       "/beta/hosts-view": {
         "get": {
-          "description": "Read a combined view of hosts with optional application data such as Advisor, Vulnerability, Compliance, Patch, and others. Application joins are opt-in and controlled through the fields parameter.<br /><br /> Required permissions: inventory:hosts:read",
+          "description": "Read a combined view of hosts with optional application data such as Advisor, Vulnerability, Compliance, Patch, and others. Application joins are opt-in and controlled through the fields parameter.<br /><br /> Required permissions: inventory:hosts:read. App data is filtered by per-service permissions — services the user lacks read access for are omitted from app_data and listed in denied_services. Sorting or filtering by a denied service returns 403.",
           "operationId": "api.host_views.get_host_views",
           "parameters": [
             {
@@ -3856,7 +4072,10 @@
               "$ref": "#/components/parameters/lastCheckInEnd"
             },
             {
-              "$ref": "#/components/parameters/groupNameListParam"
+              "$ref": "#/components/parameters/workspaceNameListParam"
+            },
+            {
+              "$ref": "#/components/parameters/workspaceIdListParam"
             },
             {
               "$ref": "#/components/parameters/branchId"
@@ -3886,10 +4105,10 @@
               "$ref": "#/components/parameters/systemTypeParam"
             },
             {
-              "$ref": "#/components/parameters/hostViewAppFilterParam"
+              "$ref": "#/components/parameters/hostViewCombinedFilterParam"
             },
             {
-              "$ref": "#/components/parameters/hostViewFieldsParam"
+              "$ref": "#/components/parameters/hostViewCombinedFieldsParam"
             }
           ],
           "responses": {
@@ -3905,6 +4124,9 @@
             },
             "400": {
               "description": "Invalid request."
+            },
+            "403": {
+              "description": "Insufficient permissions to sort or filter by the requested app_data service field."
             }
           },
           "security": [
@@ -3920,7 +4142,7 @@
       },
       "/beta/views": {
         "get": {
-          "description": "Read the list of all inventory views visible to the requesting user. This includes system views, org-wide views, and private views owned by the requester. <br /><br /> Required permissions: inventory:views:read <br /><br /> <b>NOTE:</b> This endpoint is not yet implemented and will return HTTP 501.",
+          "description": "Read the list of all inventory views visible to the requesting user. This includes system views, org-wide views, and private views owned by the requester. <br /><br /> Required permissions: inventory:views:read",
           "operationId": "api.views.get_views_list",
           "parameters": [
             {
@@ -3942,10 +4164,7 @@
               "description": "Successfully read the views list."
             },
             "403": {
-              "description": "Forbidden - identity type not supported or missing username."
-            },
-            "501": {
-              "description": "Not yet implemented."
+              "description": "Forbidden - identity type not supported or missing user_id."
             }
           },
           "security": [
@@ -3959,7 +4178,7 @@
           ]
         },
         "post": {
-          "description": "Creates a new inventory view with the provided name and configuration. The view is owned by the requesting user. <br /><br /> Required permissions: inventory:views:write <br /><br /> <b>NOTE:</b> This endpoint is not yet implemented and will return HTTP 501.",
+          "description": "Creates a new inventory view with the provided name and configuration. The view is owned by the requesting user. <br /><br /> Required permissions: inventory:views:write",
           "operationId": "api.views.create_view",
           "requestBody": {
             "content": {
@@ -3987,10 +4206,7 @@
               "description": "Invalid request."
             },
             "403": {
-              "description": "Forbidden - identity type not supported or missing username."
-            },
-            "501": {
-              "description": "Not yet implemented."
+              "description": "Forbidden - identity type not supported or missing user_id."
             }
           },
           "security": [
@@ -4006,7 +4222,7 @@
       },
       "/beta/views/{view_id}": {
         "delete": {
-          "description": "Deletes an existing inventory view. Only the view creator can delete a view. System views cannot be deleted. <br /><br /> Required permissions: inventory:views:write <br /><br /> <b>NOTE:</b> This endpoint is not yet implemented and will return HTTP 501.",
+          "description": "Deletes an existing inventory view. Only the view creator can delete a view. System views cannot be deleted. <br /><br /> Required permissions: inventory:views:write",
           "operationId": "api.views.delete_view",
           "parameters": [
             {
@@ -4022,9 +4238,6 @@
             },
             "404": {
               "description": "View not found or not visible to the requesting user."
-            },
-            "501": {
-              "description": "Not yet implemented."
             }
           },
           "security": [
@@ -4038,7 +4251,7 @@
           ]
         },
         "get": {
-          "description": "Returns the full details and configuration for a single inventory view. The view must be visible to the requesting user. <br /><br /> Required permissions: inventory:views:read <br /><br /> <b>NOTE:</b> This endpoint is not yet implemented and will return HTTP 501.",
+          "description": "Returns the full details and configuration for a single inventory view. The view must be visible to the requesting user. <br /><br /> Required permissions: inventory:views:read",
           "operationId": "api.views.get_view_by_id",
           "parameters": [
             {
@@ -4057,13 +4270,10 @@
               "description": "Successfully returned the inventory view."
             },
             "403": {
-              "description": "Forbidden - identity type not supported or missing username."
+              "description": "Forbidden - identity type not supported or missing user_id."
             },
             "404": {
               "description": "View not found or not visible to the requesting user."
-            },
-            "501": {
-              "description": "Not yet implemented."
             }
           },
           "security": [
@@ -4076,9 +4286,9 @@
             "views"
           ]
         },
-        "put": {
-          "description": "Updates an existing inventory view's name, description, configuration, or sharing settings. Only the view creator can update a view. System views cannot be updated. <br /><br /> Required permissions: inventory:views:write <br /><br /> <b>NOTE:</b> This endpoint is not yet implemented and will return HTTP 501.",
-          "operationId": "api.views.update_view",
+        "patch": {
+          "description": "Updates an existing inventory view's name, description, configuration, or sharing settings. Only the view creator can update a view. System views cannot be updated. <br /><br /> Required permissions: inventory:views:write",
+          "operationId": "api.views.patch_view",
           "parameters": [
             {
               "$ref": "#/components/parameters/viewId"
@@ -4114,9 +4324,6 @@
             },
             "404": {
               "description": "View not found or not visible to the requesting user."
-            },
-            "501": {
-              "description": "Not yet implemented."
             }
           },
           "security": [
@@ -4132,7 +4339,7 @@
       },
       "/beta/views/{view_id}/clone": {
         "post": {
-          "description": "Creates a copy of any visible view (including system views) as a new private view owned by the requesting user. The cloned view name is prefixed with \"Copy of \". <br /><br /> Required permissions: inventory:views:write <br /><br /> <b>NOTE:</b> This endpoint is not yet implemented and will return HTTP 501.",
+          "description": "Creates a copy of any visible view (including system views) as a new private view owned by the requesting user. The cloned view name is prefixed with \"Copy of \". <br /><br /> Required permissions: inventory:views:write",
           "operationId": "api.views.clone_view",
           "parameters": [
             {
@@ -4151,13 +4358,10 @@
               "description": "Successfully cloned the inventory view."
             },
             "403": {
-              "description": "Forbidden - identity type not supported or missing username."
+              "description": "Forbidden - identity type not supported or missing user_id."
             },
             "404": {
               "description": "Source view not found or not visible to the requesting user."
-            },
-            "501": {
-              "description": "Not yet implemented."
             }
           },
           "security": [
@@ -4655,7 +4859,13 @@
               "$ref": "#/components/parameters/groupNameListParam"
             },
             {
+              "$ref": "#/components/parameters/workspaceNameListParam"
+            },
+            {
               "$ref": "#/components/parameters/groupIdListParam"
+            },
+            {
+              "$ref": "#/components/parameters/workspaceIdListParam"
             },
             {
               "$ref": "#/components/parameters/registered_with"
@@ -4735,7 +4945,13 @@
               "$ref": "#/components/parameters/groupNameListParam"
             },
             {
+              "$ref": "#/components/parameters/workspaceNameListParam"
+            },
+            {
               "$ref": "#/components/parameters/groupIdListParam"
+            },
+            {
+              "$ref": "#/components/parameters/workspaceIdListParam"
             },
             {
               "$ref": "#/components/parameters/branchId"
@@ -5620,7 +5836,13 @@
               "$ref": "#/components/parameters/groupNameListParam"
             },
             {
+              "$ref": "#/components/parameters/workspaceNameListParam"
+            },
+            {
               "$ref": "#/components/parameters/groupIdListParam"
+            },
+            {
+              "$ref": "#/components/parameters/workspaceIdListParam"
             },
             {
               "$ref": "#/components/parameters/registered_with"

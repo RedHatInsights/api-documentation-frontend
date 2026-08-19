@@ -226,8 +226,7 @@
               "type": "string"
             },
             "sourceID": {
-              "description": "Unique identifier of the source for this cloud account",
-              "type": "string"
+              "$ref": "#/components/schemas/Date"
             }
           },
           "type": "object"
@@ -460,6 +459,29 @@
           },
           "type": "object"
         },
+        "MarketplacePurchase": {
+          "properties": {
+            "marketplace": {
+              "type": "string"
+            },
+            "marketplaceAccount": {
+              "type": "string"
+            },
+            "offeringName": {
+              "type": "string"
+            },
+            "skus": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "startDate": {
+              "$ref": "#/components/schemas/Date"
+            }
+          },
+          "type": "object"
+        },
         "OrgSimpleContentAccess": {
           "properties": {
             "id": {
@@ -577,6 +599,17 @@
             }
           },
           "title": "List of products from subscriptions",
+          "type": "object"
+        },
+        "SKUDetails": {
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "sku": {
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "StatusCount": {
@@ -1323,6 +1356,162 @@
             }
           },
           "summary": "List Gold Images",
+          "tags": [
+            "cloudAccessProvider"
+          ]
+        }
+      },
+      "/cloud_access_providers/marketplace_purchases": {
+        "get": {
+          "description": "Returns the list of marketplace purchases for an organization.",
+          "operationId": "listMarketplacePurchases",
+          "parameters": [
+            {
+              "description": "Max number of results you want. Default limit is 100.",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Index from which you want next items. Default offset is 0.",
+              "in": "query",
+              "name": "offset",
+              "schema": {
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Filter the result by offering name.",
+              "in": "query",
+              "name": "offeringName",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter the result by marketplace account.",
+              "in": "query",
+              "name": "marketplaceAccount",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter the result by marketplace.",
+              "in": "query",
+              "name": "marketplace",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Sort the result based on the specifc field. Supported values are offeringName, marketplaceAccount, marketplace, startDate.",
+              "in": "query",
+              "name": "sort_by",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Sort the result by the specific direction. Supported values are asc, desc (case insensitive).",
+              "in": "query",
+              "name": "sort_direction",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "body": {
+                        "items": {
+                          "$ref": "#/components/schemas/MarketplacePurchase"
+                        },
+                        "type": "array"
+                      },
+                      "pagination": {
+                        "$ref": "#/components/schemas/APIPageParam"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "list of marketplace purchases"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "401": {
+              "$ref": "#/components/responses/Unauthorized"
+            },
+            "403": {
+              "$ref": "#/components/responses/Forbidden"
+            },
+            "500": {
+              "$ref": "#/components/responses/InternalServerError"
+            }
+          },
+          "summary": "List Marketplace Purchases",
+          "tags": [
+            "cloudAccessProvider"
+          ]
+        }
+      },
+      "/cloud_access_providers/marketplace_purchases/sku_details": {
+        "get": {
+          "description": "Returns the list of SKU details for the marketplace purchases.",
+          "operationId": "listMarketplacePurchasesSkuDetails",
+          "parameters": [
+            {
+              "description": "Comma separated list of SKUs to get details for.",
+              "in": "query",
+              "name": "skus",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "body": {
+                        "items": {
+                          "$ref": "#/components/schemas/SKUDetails"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              },
+              "description": "list of SKU details"
+            },
+            "400": {
+              "$ref": "#/components/responses/BadRequest"
+            },
+            "401": {
+              "$ref": "#/components/responses/Unauthorized"
+            },
+            "403": {
+              "$ref": "#/components/responses/Forbidden"
+            },
+            "500": {
+              "$ref": "#/components/responses/InternalServerError"
+            }
+          },
+          "summary": "List Marketplace Purchases SKU Details",
           "tags": [
             "cloudAccessProvider"
           ]

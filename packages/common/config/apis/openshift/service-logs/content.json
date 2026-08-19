@@ -243,7 +243,10 @@
                     "Info",
                     "Warning",
                     "Major",
-                    "Critical"
+                    "Critical",
+                    "Low",
+                    "Moderate",
+                    "Important"
                   ],
                   "type": "string"
                 },
@@ -261,12 +264,6 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "severity",
-                "log_type",
-                "service_name",
-                "summary"
-              ],
               "type": "object"
             }
           ]
@@ -285,6 +282,21 @@
                   "type": "array"
                 }
               },
+              "type": "object"
+            }
+          ]
+        },
+        "ClusterLogRequest": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ClusterLog"
+            },
+            {
+              "required": [
+                "severity",
+                "service_name",
+                "summary"
+              ],
               "type": "object"
             }
           ]
@@ -485,7 +497,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ClusterLog"
+                  "$ref": "#/components/schemas/ClusterLogRequest"
                 }
               }
             },

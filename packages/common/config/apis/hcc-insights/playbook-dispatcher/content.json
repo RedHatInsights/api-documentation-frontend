@@ -494,7 +494,7 @@
       "contact": {
         "email": "jozef@redhat.com"
       },
-      "description": "Playbook Dispatcher is a service for running Ansible Playbooks on hosts connected via Cloud Connector.",
+      "description": "Playbook Dispatcher is a service for running Ansible Playbooks on hosts connected via Cloud Connector.\n\nProduction server: https://cloud.redhat.com/api/playbook-dispatcher/v1\n",
       "title": "Playbook Dispatcher",
       "version": "1.0.0"
     },

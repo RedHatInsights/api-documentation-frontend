@@ -365,6 +365,260 @@
           "title": "Account",
           "type": "object"
         },
+        "AccountDto": {
+          "description": "Account",
+          "properties": {
+            "accountAlias": {
+              "type": "string"
+            },
+            "accountId": {
+              "type": "string"
+            },
+            "accountKey": {
+              "type": "string"
+            },
+            "accountMembers": {
+              "items": {
+                "$ref": "#/components/schemas/AccountMemberDto"
+              },
+              "type": "array"
+            },
+            "accountNumber": {
+              "type": "string"
+            },
+            "accountNumberLink": {
+              "type": "string"
+            },
+            "accountStatus": {
+              "type": "string"
+            },
+            "additionalEnhancedEntitlementCount": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "businessHoursId": {
+              "type": "string"
+            },
+            "cannotAddAttachments": {
+              "type": "boolean"
+            },
+            "caseCount": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "csm": {
+              "type": "string"
+            },
+            "csmUser": {
+              "type": "string"
+            },
+            "csmUserId": {
+              "type": "string"
+            },
+            "csmUserName": {
+              "type": "string"
+            },
+            "csmUserSSOName": {
+              "type": "string"
+            },
+            "customerSegment": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "description": {
+              "type": "string"
+            },
+            "enhancedDelivery": {
+              "type": "boolean"
+            },
+            "escalateToHomeGeoWith1StTouch": {
+              "type": "boolean"
+            },
+            "escalateToHomeGeoWithoutFirstTouch": {
+              "type": "boolean"
+            },
+            "escalationsInLast30Days": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "escalationsInLast60Days": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "expectsQuickInitialResponse": {
+              "type": "boolean"
+            },
+            "gcsActiveUserCount": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "gcsDescription": {
+              "type": "string"
+            },
+            "gcsEngagementStartDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "gcsHealth": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "gcsHealthExplanation": {
+              "type": "string"
+            },
+            "gcsHighTouchModel": {
+              "type": "string"
+            },
+            "gcsLocalization": {
+              "type": "string"
+            },
+            "gcsMasterRenewalDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "gcsOnboardingStatus": {
+              "type": "string"
+            },
+            "gcsOptOutReason": {
+              "type": "string"
+            },
+            "gcsSSICenter": {
+              "type": "string"
+            },
+            "gcsStatus": {
+              "type": "string"
+            },
+            "gcsWelcomedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "gscsmSegment": {
+              "type": "string"
+            },
+            "hardwarePartner": {
+              "type": "boolean"
+            },
+            "hasAvailableEnhancedSLA": {
+              "type": "boolean"
+            },
+            "hasChat": {
+              "type": "boolean"
+            },
+            "hasConfirmedStatesideSupport": {
+              "type": "boolean"
+            },
+            "hasEnhancedSLA": {
+              "type": "boolean"
+            },
+            "hasGoldenTicket": {
+              "type": "boolean"
+            },
+            "hasGroupACLs": {
+              "type": "boolean"
+            },
+            "hasPreferredSecureSupportAccount": {
+              "type": "boolean"
+            },
+            "holdSupport": {
+              "type": "boolean"
+            },
+            "identifyingAddressCountry": {
+              "type": "string"
+            },
+            "identifyingAddressSuperRegion": {
+              "type": "string"
+            },
+            "informManagement": {
+              "type": "boolean"
+            },
+            "isActive": {
+              "type": "boolean"
+            },
+            "isFocusedPartner": {
+              "type": "boolean"
+            },
+            "isInternal": {
+              "type": "boolean"
+            },
+            "isPartner": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "npsScore": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "owner": {
+              "type": "string"
+            },
+            "ownerId": {
+              "type": "string"
+            },
+            "parent": {
+              "type": "string"
+            },
+            "parentId": {
+              "type": "string"
+            },
+            "remainingEnhancedEntitlementCases": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "remoteSessionTermsAcked": {
+              "type": "boolean"
+            },
+            "requireCGroupOnCreate": {
+              "type": "boolean"
+            },
+            "responseTime": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "restrictAttachmentDownloads": {
+              "type": "boolean"
+            },
+            "salesSegment": {
+              "type": "string"
+            },
+            "secureSupport": {
+              "type": "boolean"
+            },
+            "securedEnvironment": {
+              "type": "boolean"
+            },
+            "specialHandlingRequired": {
+              "type": "boolean"
+            },
+            "strategic": {
+              "type": "boolean"
+            },
+            "subTerritory": {
+              "type": "string"
+            },
+            "subscriptionAbuse": {
+              "type": "boolean"
+            },
+            "superRegion": {
+              "type": "string"
+            },
+            "supportPartner": {
+              "type": "boolean"
+            },
+            "tactical": {
+              "type": "boolean"
+            },
+            "totalNumberOfEscalations": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "watchlist": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
         "AccountMember": {
           "description": "Account member model",
           "properties": {
@@ -447,6 +701,137 @@
             }
           },
           "title": "AccountMember",
+          "type": "object"
+        },
+        "AccountMemberDto": {
+          "description": "Account member",
+          "properties": {
+            "account": {
+              "type": "string"
+            },
+            "createdBy": {
+              "type": "string"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "createdDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "isAddToCaseTeam": {
+              "type": "boolean"
+            },
+            "isDeleted": {
+              "type": "boolean"
+            },
+            "isEmailOnUpdates": {
+              "type": "boolean"
+            },
+            "isNotifyOfNewCases": {
+              "type": "boolean"
+            },
+            "lastModifiedBy": {
+              "type": "string"
+            },
+            "lastModifiedById": {
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "member": {
+              "type": "string"
+            },
+            "minimumSeverity": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "ownerId": {
+              "type": "string"
+            },
+            "role": {
+              "type": "string"
+            },
+            "tamCaseStatus": {
+              "type": "string"
+            },
+            "tamEntitlement": {
+              "$ref": "#/components/schemas/TamEntitlementDto"
+            }
+          },
+          "type": "object"
+        },
+        "AttachmentStatusDto": {
+          "description": "Upload request status for a case attachment",
+          "properties": {
+            "attachmentId": {
+              "description": "Attachment UUID (AttachmentUUID__c)",
+              "example": "84a2d301-045c-4d4f-b5a5-c4a5088d1827",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Case number",
+              "example": "04326860",
+              "type": "string"
+            },
+            "fileName": {
+              "description": "Original file name",
+              "example": "attachment7mb.tar.xz",
+              "type": "string"
+            },
+            "isPrivate": {
+              "description": "Whether the attachment is private (InternalUsers visibility)",
+              "example": false,
+              "type": "boolean"
+            },
+            "status": {
+              "description": "Upload request status",
+              "enum": [
+                "UPLOAD_PENDING",
+                "METADATA_CREATION_PENDING",
+                "COMPLETED",
+                "METADATA_CREATION_FAILED",
+                "DELETED",
+                "UPLOAD_FAILED",
+                "METADATA_CREATION_COMPLETED"
+              ],
+              "example": "COMPLETED",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "AttachmentStatusResponse": {
+          "description": "Attachment upload status response",
+          "properties": {
+            "attachmentId": {
+              "description": "Attachment UUID",
+              "example": "b117e6b5-a2ca-46d8-bffd-b3ceddce92e8",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Salesforce case number",
+              "example": "04338415",
+              "type": "string"
+            },
+            "fileName": {
+              "description": "Original file name",
+              "example": "1mb.pdf",
+              "type": "string"
+            },
+            "status": {
+              "description": "Upload status",
+              "example": "COMPLETED",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "BugzillaBug": {
@@ -591,6 +976,126 @@
           "title": "BugzillaBug",
           "type": "object"
         },
+        "BugzillaDto": {
+          "description": "Bugzilla link",
+          "properties": {
+            "assignedTo": {
+              "type": "string"
+            },
+            "blocks": {
+              "type": "string"
+            },
+            "blocks2": {
+              "type": "string"
+            },
+            "bugzillaKeywords": {
+              "type": "string"
+            },
+            "bugzillaLink": {
+              "type": "string"
+            },
+            "bugzillaNumber": {
+              "type": "string"
+            },
+            "bugzillaURL": {
+              "type": "string"
+            },
+            "caseNumber": {
+              "type": "string"
+            },
+            "component": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "createdDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "depends": {
+              "type": "string"
+            },
+            "dependsOn": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "dupeOf": {
+              "type": "string"
+            },
+            "groups": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "isOpen": {
+              "type": "boolean"
+            },
+            "isPrivate": {
+              "type": "boolean"
+            },
+            "lastModifiedBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "lastModifiedById": {
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "linkedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "string"
+            },
+            "priority": {
+              "type": "string"
+            },
+            "product": {
+              "type": "string"
+            },
+            "resolution": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "BugzillasHldr": {
+          "description": "Holder for bugzillas list",
+          "properties": {
+            "bugzillas": {
+              "items": {
+                "$ref": "#/components/schemas/BugzillaDto"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "BusinessHours": {
           "description": "Business hours model",
           "properties": {
@@ -698,6 +1203,92 @@
             }
           },
           "title": "BusinessHours",
+          "type": "object"
+        },
+        "BusinessHoursResponse": {
+          "description": "Business hours configuration for a given timezone",
+          "properties": {
+            "createdById": {
+              "description": "Id of the user who created the record",
+              "type": "string"
+            },
+            "createdDate": {
+              "description": "Date the record was created (ISO 8601)",
+              "type": "string"
+            },
+            "fridayEndTime": {
+              "description": "Friday end time",
+              "type": "string"
+            },
+            "fridayStartTime": {
+              "description": "Friday start time",
+              "type": "string"
+            },
+            "id": {
+              "description": "Business Hours record Id",
+              "type": "string"
+            },
+            "isActive": {
+              "description": "Whether the business hours record is active",
+              "type": "boolean"
+            },
+            "isDefault": {
+              "description": "Whether this is the org default business hours",
+              "type": "boolean"
+            },
+            "lastModifiedById": {
+              "description": "Id of the user who last modified the record",
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "description": "Date the record was last modified (ISO 8601)",
+              "type": "string"
+            },
+            "mondayEndTime": {
+              "description": "Monday end time",
+              "type": "string"
+            },
+            "mondayStartTime": {
+              "description": "Monday start time",
+              "type": "string"
+            },
+            "name": {
+              "description": "Business hours name (matches the requested timezone)",
+              "type": "string"
+            },
+            "systemModstamp": {
+              "description": "System modstamp (ISO 8601)",
+              "type": "string"
+            },
+            "thursdayEndTime": {
+              "description": "Thursday end time",
+              "type": "string"
+            },
+            "thursdayStartTime": {
+              "description": "Thursday start time",
+              "type": "string"
+            },
+            "timeZoneSidKey": {
+              "description": "IANA/Salesforce timezone key",
+              "type": "string"
+            },
+            "tuesdayEndTime": {
+              "description": "Tuesday end time",
+              "type": "string"
+            },
+            "tuesdayStartTime": {
+              "description": "Tuesday start time",
+              "type": "string"
+            },
+            "wednesdayEndTime": {
+              "description": "Wednesday end time",
+              "type": "string"
+            },
+            "wednesdayStartTime": {
+              "description": "Wednesday start time",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "Case": {
@@ -1134,6 +1725,64 @@
           },
           "type": "object"
         },
+        "CaseAttachmentMetadataResponse": {
+          "description": "Attachment metadata for a case",
+          "properties": {
+            "accountNumber": {
+              "description": "Account number associated with the case",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Case number the attachment belongs to",
+              "type": "string"
+            },
+            "createdBy": {
+              "description": "Name of who created the attachment",
+              "type": "string"
+            },
+            "createdDate": {
+              "description": "Date the attachment was created",
+              "format": "date-time",
+              "type": "string"
+            },
+            "description": {
+              "description": "Attachment description",
+              "type": "string"
+            },
+            "fileName": {
+              "description": "Original file name",
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "description": "Date the attachment was last modified",
+              "format": "date-time",
+              "type": "string"
+            },
+            "link": {
+              "description": "Download URL for the attachment",
+              "type": "string"
+            },
+            "size": {
+              "description": "File size in bytes",
+              "format": "int64",
+              "type": "integer"
+            },
+            "sizeKB": {
+              "description": "File size in kilobytes",
+              "format": "double",
+              "type": "number"
+            },
+            "uploadStatus": {
+              "description": "Upload status (In Progress, Completed, Failed)",
+              "type": "string"
+            },
+            "uuid": {
+              "description": "Unique attachment UUID",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "CaseChat": {
           "description": "Case chat model",
           "properties": {
@@ -1178,6 +1827,51 @@
             }
           },
           "title": "CaseChat",
+          "type": "object"
+        },
+        "CaseChatDto": {
+          "description": "Chat transcript associated with a case",
+          "properties": {
+            "agentName": {
+              "description": "Support agent name",
+              "type": "string"
+            },
+            "body": {
+              "description": "Chat transcript body",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Case number this chat belongs to",
+              "type": "string"
+            },
+            "endTime": {
+              "description": "Time the chat ended (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "endedBy": {
+              "description": "Who ended the chat session",
+              "type": "string"
+            },
+            "id": {
+              "description": "Chat session identifier",
+              "type": "string"
+            },
+            "requestTime": {
+              "description": "Time the chat was requested (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "startTime": {
+              "description": "Time the chat started (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "visitorName": {
+              "description": "Visitor/customer name",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "CaseComment": {
@@ -1241,6 +1935,103 @@
             "id"
           ],
           "title": "CaseComment",
+          "type": "object"
+        },
+        "CaseCommentDto": {
+          "description": "Case comment (nested in case responses)",
+          "properties": {
+            "caseNumber": {
+              "description": "Case number this comment belongs to",
+              "type": "string"
+            },
+            "commentBody": {
+              "description": "Comment body text",
+              "type": "string"
+            },
+            "contentType": {
+              "description": "Content type: text/plain or text/html",
+              "type": "string"
+            },
+            "createdBy": {
+              "description": "Display name of the user who created the comment",
+              "type": "string"
+            },
+            "createdByType": {
+              "description": "Type of user who created the comment: Customer, Associate, or Internal",
+              "type": "string"
+            },
+            "createdDate": {
+              "description": "Date the comment was created (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "doNotChangeStatus": {
+              "description": "Whether to prevent status change on comment creation",
+              "type": "boolean"
+            },
+            "id": {
+              "description": "Comment identifier",
+              "type": "string"
+            },
+            "isDraft": {
+              "description": "Whether the comment is a draft",
+              "type": "boolean"
+            },
+            "lastModifiedById": {
+              "description": "Display name of the user who last modified the comment",
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "description": "Date the comment was last modified (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "publishedDate": {
+              "description": "Date the comment was published (null if draft)",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "CaseCommentRequest": {
+          "description": "Request payload for creating a new comment on a case",
+          "properties": {
+            "caseNumber": {
+              "description": "Case number the comment belongs to. If omitted, defaults to the caseNumber path variable. If provided, must match the path variable.",
+              "example": "04338304",
+              "type": "string"
+            },
+            "commentBody": {
+              "description": "Main content of the comment",
+              "example": "This is a plain text comment",
+              "type": "string"
+            },
+            "contentType": {
+              "description": "Content type of the comment body, e.g. 'plaintext' or 'html'",
+              "example": "plaintext",
+              "type": "string"
+            },
+            "createdByType": {
+              "description": "Type of user who created the comment: Customer, Associate, or Internal",
+              "example": "Customer",
+              "type": "string"
+            },
+            "doNotChangeStatus": {
+              "description": "Whether to prevent status change on comment creation",
+              "example": false,
+              "type": "boolean"
+            },
+            "isDraft": {
+              "description": "Whether the comment is a draft",
+              "example": false,
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "commentBody",
+            "contentType"
+          ],
           "type": "object"
         },
         "CaseExtNotifiedUsersType": {
@@ -1769,6 +2560,194 @@
           "title": "CaseResourceLink",
           "type": "object"
         },
+        "CaseResourceLinkDto": {
+          "description": "Case resource link",
+          "properties": {
+            "algorithmScore": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "analysisAlgorithm": {
+              "type": "string"
+            },
+            "analysisAlgorithmVersion": {
+              "type": "string"
+            },
+            "analysisCategory": {
+              "type": "string"
+            },
+            "analysisService": {
+              "type": "string"
+            },
+            "analysisServiceVersion": {
+              "type": "string"
+            },
+            "bucket": {
+              "type": "string"
+            },
+            "caseComment": {
+              "type": "string"
+            },
+            "caseNumber": {
+              "type": "string"
+            },
+            "caseURI": {
+              "type": "string"
+            },
+            "client": {
+              "type": "string"
+            },
+            "clientVersion": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "createdDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "customerEvaluation": {
+              "type": "string"
+            },
+            "display": {
+              "type": "string"
+            },
+            "externalCaseURI": {
+              "type": "string"
+            },
+            "firstSuggestedDate": {
+              "type": "string"
+            },
+            "isExact": {
+              "type": "boolean"
+            },
+            "keywords": {
+              "type": "string"
+            },
+            "lastCustomerEvaluationSetAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastCustomerEvaluationSetBySSOUsername": {
+              "type": "string"
+            },
+            "lastModifiedBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "lastModifiedById": {
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastSetIsExactAt": {
+              "type": "string"
+            },
+            "lastSetIsExactBySSOUsername": {
+              "type": "string"
+            },
+            "lastSuggestedDate": {
+              "type": "string"
+            },
+            "linked": {
+              "type": "boolean"
+            },
+            "linkedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "linkedBy": {
+              "type": "string"
+            },
+            "linkedByR": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "luceneScore": {
+              "type": "string"
+            },
+            "maturityLevel": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            },
+            "origin": {
+              "type": "string"
+            },
+            "pinnedAt": {
+              "type": "string"
+            },
+            "pinnedBy": {
+              "type": "string"
+            },
+            "resource": {
+              "type": "string"
+            },
+            "resourceId": {
+              "type": "string"
+            },
+            "resourceType": {
+              "type": "string"
+            },
+            "resourceTypeLabel": {
+              "type": "string"
+            },
+            "resourceURI": {
+              "type": "string"
+            },
+            "resourceViewURI": {
+              "type": "string"
+            },
+            "returnCode": {
+              "type": "string"
+            },
+            "scoringAlgorithmVersion": {
+              "type": "string"
+            },
+            "suggestedCount": {
+              "type": "string"
+            },
+            "suggestionRelevanceScore": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "tracebackUrl": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "CaseResourceLinksHldr": {
+          "description": "Holder for case resource links list",
+          "properties": {
+            "caseResourceLinks": {
+              "items": {
+                "$ref": "#/components/schemas/CaseResourceLinkDto"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
         "CasesFilterResponse": {
           "description": "Case filter response model",
           "properties": {
@@ -1784,6 +2763,96 @@
             }
           },
           "title": "CaseFilterResponse",
+          "type": "object"
+        },
+        "CommentDto": {
+          "description": "Case comment",
+          "properties": {
+            "caseNumber": {
+              "description": "Case number (CaseNumber__c)",
+              "type": "string"
+            },
+            "commentBody": {
+              "description": "Comment body text",
+              "type": "string"
+            },
+            "contentType": {
+              "description": "Content type: text/plain or text/html",
+              "type": "string"
+            },
+            "createdBy": {
+              "description": "Display name of the user who created the comment",
+              "type": "string"
+            },
+            "createdByType": {
+              "description": "Type of user who created the comment: Customer, Associate, or Internal",
+              "type": "string"
+            },
+            "createdDate": {
+              "description": "Date the comment was created (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "doNotChangeStatus": {
+              "description": "Whether to prevent status change on comment creation",
+              "type": "boolean"
+            },
+            "id": {
+              "description": "Comment record Id",
+              "type": "string"
+            },
+            "isDraft": {
+              "description": "Whether the comment is a draft",
+              "type": "boolean"
+            },
+            "lastModifiedById": {
+              "description": "Display name of the user who last modified the comment",
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "description": "Date the comment was last modified (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "publishedDate": {
+              "description": "Date the comment was published (null if draft)",
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "CompleteMultipartRequest": {
+          "description": "Request to complete a multipart upload",
+          "properties": {
+            "attachmentId": {
+              "description": "Attachment UUID returned from POST /v3/cases/attachments/upload",
+              "example": "c29b5769d4114994b3004444dca-movxe6nz",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Salesforce case number",
+              "example": "05209934",
+              "type": "string"
+            },
+            "parts": {
+              "description": "List of uploaded part numbers with their ETags",
+              "items": {
+                "$ref": "#/components/schemas/PartETag"
+              },
+              "type": "array"
+            },
+            "uploadId": {
+              "description": "S3 multipart upload ID returned from POST /v3/cases/attachments/upload",
+              "type": "string"
+            }
+          },
+          "required": [
+            "attachmentId",
+            "caseNumber",
+            "parts",
+            "uploadId"
+          ],
           "type": "object"
         },
         "Contact": {
@@ -1868,6 +2937,424 @@
             }
           },
           "title": "Contact",
+          "type": "object"
+        },
+        "ContactDto": {
+          "description": "Contact",
+          "properties": {
+            "access": {
+              "type": "boolean"
+            },
+            "canAccessAllAccounts": {
+              "type": "boolean"
+            },
+            "canAddAttachments": {
+              "type": "boolean"
+            },
+            "email": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "hasChat": {
+              "type": "boolean"
+            },
+            "hasUser": {
+              "type": "boolean"
+            },
+            "isDefault": {
+              "type": "boolean"
+            },
+            "isEntitled": {
+              "type": "boolean"
+            },
+            "isInternal": {
+              "type": "boolean"
+            },
+            "isOrgAdmin": {
+              "type": "boolean"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "normalizedTZ": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "secureSupportTech": {
+              "type": "boolean"
+            },
+            "ssoUsername": {
+              "type": "string"
+            },
+            "supportPhoneAreaCodePrefixLineNumber": {
+              "type": "string"
+            },
+            "supportPhoneCountryCode": {
+              "type": "string"
+            },
+            "supportPhoneNumber": {
+              "type": "string"
+            },
+            "timezone": {
+              "type": "string"
+            },
+            "write": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "CreateCaseLocationsResponse": {
+          "description": "Location URI(s) for the created case",
+          "properties": {
+            "location": {
+              "description": "Location URI(s) for the created case",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "CreateCaseV3Request": {
+          "description": "Request payload for creating a case via v3 API.",
+          "properties": {
+            "accountNumberRef": {
+              "description": "Red Hat account number (used to resolve ContactId via Account lookup). If provided, ContactId will be auto-resolved.",
+              "type": "string"
+            },
+            "actionPlan": {
+              "description": "Action plan for the case",
+              "type": "string"
+            },
+            "alternateId": {
+              "description": "Alternate case identifier",
+              "type": "string"
+            },
+            "apiTags": {
+              "description": "API tags associated with the case",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "bugzillas": {
+              "description": "Bugzillas list",
+              "items": {
+                "$ref": "#/components/schemas/BugzillaDto"
+              },
+              "type": "array"
+            },
+            "bugzillasHldr": {
+              "$ref": "#/components/schemas/BugzillasHldr"
+            },
+            "caseLanguage": {
+              "description": "Case language, e.g. 'en'. Normalized to standard format (en_US).",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Case number",
+              "type": "string"
+            },
+            "caseResourceLinks": {
+              "description": "Case resource links list",
+              "items": {
+                "$ref": "#/components/schemas/CaseResourceLinkDto"
+              },
+              "type": "array"
+            },
+            "caseResourceLinksHldr": {
+              "$ref": "#/components/schemas/CaseResourceLinksHldr"
+            },
+            "caseType": {
+              "description": "Case type, e.g. 'Defect / Bug'",
+              "type": "string"
+            },
+            "cep": {
+              "description": "CEP flag",
+              "type": "boolean"
+            },
+            "chats": {
+              "description": "Chat transcripts associated with the case",
+              "items": {
+                "$ref": "#/components/schemas/CaseChatDto"
+              },
+              "type": "array"
+            },
+            "clearPhoneNumber": {
+              "description": "Whether to clear the phone number",
+              "type": "boolean"
+            },
+            "comments": {
+              "description": "Case comments",
+              "items": {
+                "$ref": "#/components/schemas/CaseCommentDto"
+              },
+              "type": "array"
+            },
+            "contactInfo24x7": {
+              "description": "24x7 contact information",
+              "type": "string"
+            },
+            "contactIsPartner": {
+              "description": "Whether the contact is a partner",
+              "type": "boolean"
+            },
+            "contactName": {
+              "description": "Contact display name",
+              "type": "string"
+            },
+            "contactSSOName": {
+              "description": "Contact SSO username",
+              "type": "string"
+            },
+            "createdById": {
+              "description": "Display name of the user who created the case",
+              "type": "string"
+            },
+            "createdDate": {
+              "description": "Date the case was created (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "customerEscalation": {
+              "description": "Whether this is a customer escalation",
+              "type": "boolean"
+            },
+            "description": {
+              "description": "Detailed description of the issue",
+              "type": "string"
+            },
+            "emailAddress": {
+              "description": "Contact email address",
+              "type": "string"
+            },
+            "enhancedSLA": {
+              "description": "Whether enhanced SLA applies",
+              "type": "boolean"
+            },
+            "entitlementSla": {
+              "description": "Entitlement SLA name",
+              "type": "string"
+            },
+            "environment": {
+              "description": "Environment in which the issue occurs",
+              "type": "string"
+            },
+            "firstCaseInactivityWarningSentAt": {
+              "description": "Date the first inactivity warning was sent",
+              "format": "date-time",
+              "type": "string"
+            },
+            "fts": {
+              "description": "Whether FTS is assigned",
+              "type": "boolean"
+            },
+            "groupName": {
+              "description": "Group/queue name",
+              "type": "string"
+            },
+            "groupNumber": {
+              "description": "Group number",
+              "type": "string"
+            },
+            "hostname": {
+              "description": "Hostname related to the issue",
+              "type": "string"
+            },
+            "id": {
+              "description": "Case identifier",
+              "type": "string"
+            },
+            "insightsArchives": {
+              "description": "Insights archives list",
+              "items": {
+                "$ref": "#/components/schemas/InsightsArchiveDto"
+              },
+              "type": "array"
+            },
+            "insightsArchivesHldr": {
+              "$ref": "#/components/schemas/InsightsArchivesHldr"
+            },
+            "isClosed": {
+              "description": "Whether the case is closed",
+              "type": "boolean"
+            },
+            "isStrategicAccount": {
+              "description": "Whether this is a strategic account",
+              "type": "boolean"
+            },
+            "issue": {
+              "description": "Specific issue description",
+              "type": "string"
+            },
+            "lastClosedAt": {
+              "description": "Date the case was last closed (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastModifiedById": {
+              "description": "Display name of the user who last modified the case",
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "description": "Date the case was last modified (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "description": "Case name",
+              "type": "string"
+            },
+            "noClusterIdReason": {
+              "description": "Reason for not providing cluster ID",
+              "type": "string"
+            },
+            "noClusterIdReasonExplanation": {
+              "description": "Explanation for missing cluster ID",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Customer notes",
+              "type": "string"
+            },
+            "notificationAddressEmails": {
+              "description": "Notification email addresses",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "notifiedUsers": {
+              "description": "Notified users on the case",
+              "items": {
+                "$ref": "#/components/schemas/NotifiedUserDto"
+              },
+              "type": "array"
+            },
+            "openshiftClusterID": {
+              "description": "OpenShift cluster ID",
+              "type": "string"
+            },
+            "openshiftClusterVersion": {
+              "description": "OpenShift cluster version",
+              "type": "string"
+            },
+            "origin": {
+              "description": "Case origin, e.g. 'API'",
+              "type": "string"
+            },
+            "originatingSystem": {
+              "description": "Originating system identifier",
+              "type": "string"
+            },
+            "ownerId": {
+              "description": "Case owner display name",
+              "type": "string"
+            },
+            "periodicityOfIssue": {
+              "description": "Periodicity of the issue",
+              "type": "string"
+            },
+            "phone": {
+              "description": "Contact phone number",
+              "type": "string"
+            },
+            "phoneAreaCodePrefixLineNumber": {
+              "description": "Phone area code prefix line number",
+              "type": "string"
+            },
+            "phoneCountryCode": {
+              "description": "Phone country code",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product name (used to resolve ProductId)",
+              "type": "string"
+            },
+            "recordTypeName": {
+              "description": "Record type name",
+              "type": "string"
+            },
+            "referrer": {
+              "description": "Referrer URL",
+              "type": "string"
+            },
+            "remoteSessionTermsAcked": {
+              "description": "Whether remote session terms are acknowledged",
+              "type": "boolean"
+            },
+            "resolutionDescription": {
+              "description": "Resolution description",
+              "type": "string"
+            },
+            "sbrGroups": {
+              "description": "SBR groups assigned to the case",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "screenSessionRequested": {
+              "description": "Whether screen session is requested",
+              "type": "boolean"
+            },
+            "seSessionId": {
+              "description": "SE session ID",
+              "type": "string"
+            },
+            "secondCaseInactivityWarningSentAt": {
+              "description": "Date the second inactivity warning was sent",
+              "format": "date-time",
+              "type": "string"
+            },
+            "severity": {
+              "description": "Case severity/priority, e.g. '4 (Low)'. If omitted, the system sets default.",
+              "type": "string"
+            },
+            "status": {
+              "description": "Case status. If omitted, the system sets default.",
+              "type": "string"
+            },
+            "summary": {
+              "description": "Case subject/title",
+              "type": "string"
+            },
+            "suppliedPhoneNumberVerified": {
+              "description": "Whether supplied phone number is verified",
+              "type": "string"
+            },
+            "timeFramesAndUrgency": {
+              "description": "Time frames and urgency",
+              "type": "string"
+            },
+            "uri": {
+              "description": "Case URI",
+              "type": "string"
+            },
+            "userAgent": {
+              "description": "User agent string",
+              "type": "string"
+            },
+            "version": {
+              "description": "Product version (used with product name to resolve ProductId)",
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "product",
+            "summary",
+            "version"
+          ],
           "type": "object"
         },
         "Entitlement": {
@@ -2335,6 +3822,166 @@
           "title": "ExternalTracker",
           "type": "object"
         },
+        "ExternalTrackerDto": {
+          "description": "External tracker",
+          "properties": {
+            "caseId": {
+              "type": "string"
+            },
+            "caseNumber": {
+              "type": "string"
+            },
+            "caseURI": {
+              "type": "string"
+            },
+            "closedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "collaborationComment": {
+              "$ref": "#/components/schemas/CaseCommentDto"
+            },
+            "collaborationCommentId": {
+              "type": "string"
+            },
+            "createdAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "createdDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "deletedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "deletedByName": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "eligibilityKeyValue": {
+              "type": "string"
+            },
+            "establishedBy": {
+              "type": "string"
+            },
+            "establishedByUser": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "establishedByUserId": {
+              "type": "string"
+            },
+            "hasBeenPushed": {
+              "type": "boolean"
+            },
+            "hasBeenPushedSuccessfully": {
+              "type": "boolean"
+            },
+            "id": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "lastActivityDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastModifiedBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "lastModifiedById": {
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastPushRequest": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastReferencedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastViewedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "liveID": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "overrideEntitlementCheck": {
+              "type": "boolean"
+            },
+            "productID": {
+              "type": "string"
+            },
+            "productName": {
+              "type": "string"
+            },
+            "rejected": {
+              "type": "boolean"
+            },
+            "rejectedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "rejectedMessage": {
+              "type": "string"
+            },
+            "resourceKey": {
+              "type": "string"
+            },
+            "resourceURL": {
+              "type": "string"
+            },
+            "severity": {
+              "type": "string"
+            },
+            "solveCallingCountry": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "supportTopicID": {
+              "type": "string"
+            },
+            "supportTopicName": {
+              "type": "string"
+            },
+            "system": {
+              "type": "string"
+            },
+            "systemInstance": {
+              "type": "string"
+            },
+            "ticketReference": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "visibilityLevel": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "ExternalTrackerUpdate": {
           "description": "External tracker update model",
           "properties": {
@@ -2435,6 +4082,697 @@
           "title": "ExternalTrackerUpdate",
           "type": "object"
         },
+        "ExternalTrackerUpdateDto": {
+          "description": "External tracker update",
+          "properties": {
+            "body": {
+              "type": "string"
+            },
+            "caseId": {
+              "type": "string"
+            },
+            "createdBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "createdDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "customerVisible": {
+              "type": "boolean"
+            },
+            "externalIdentifier": {
+              "type": "string"
+            },
+            "externalTracker": {
+              "$ref": "#/components/schemas/ExternalTrackerDto"
+            },
+            "externalTrackerId": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "lastActivityDate": {
+              "format": "date",
+              "type": "string"
+            },
+            "lastModifiedBy": {
+              "$ref": "#/components/schemas/UserDto"
+            },
+            "lastModifiedById": {
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "originatingSystem": {
+              "type": "string"
+            },
+            "originatingSystemInstance": {
+              "type": "string"
+            },
+            "originatingSystemLastUpdatedAt": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "partnerCookie": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "updateBy": {
+              "type": "string"
+            },
+            "updateReference": {
+              "type": "string"
+            },
+            "visibility": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "FieldsNotSentToSalesforce": {
+          "description": "Fields accepted in the payload but not sent to the backend, returned for visibility",
+          "properties": {
+            "actionPlan": {
+              "type": "string"
+            },
+            "cep": {
+              "type": "boolean"
+            },
+            "clearPhoneNumber": {
+              "type": "boolean"
+            },
+            "contactInfo24x7": {
+              "type": "string"
+            },
+            "enhancedSLA": {
+              "type": "boolean"
+            },
+            "entitlementSla": {
+              "type": "string"
+            },
+            "fts": {
+              "type": "boolean"
+            },
+            "groupNumber": {
+              "type": "string"
+            },
+            "hostname": {
+              "type": "string"
+            },
+            "issue": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            },
+            "noClusterIdReasonExplanation": {
+              "type": "string"
+            },
+            "originatingSystem": {
+              "type": "string"
+            },
+            "periodicityOfIssue": {
+              "type": "string"
+            },
+            "phoneAreaCodePrefixLineNumber": {
+              "type": "string"
+            },
+            "referrer": {
+              "type": "string"
+            },
+            "remoteSessionTermsAcked": {
+              "type": "boolean"
+            },
+            "reopenedReason": {
+              "type": "string"
+            },
+            "reopenedReasonOther": {
+              "type": "string"
+            },
+            "screenSessionRequested": {
+              "type": "boolean"
+            },
+            "seSessionId": {
+              "type": "string"
+            },
+            "suppliedPhoneNumberVerified": {
+              "type": "string"
+            },
+            "timeFramesAndUrgency": {
+              "type": "string"
+            },
+            "userAgent": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "FilterCasesV3Request": {
+          "description": "Request payload for filtering/searching cases",
+          "properties": {
+            "accountNumbers": {
+              "description": "Account numbers to filter by",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "businessHours": {
+              "description": "Comma-separated business hours names to filter by",
+              "type": "string"
+            },
+            "caseLanguage": {
+              "description": "Case language filter",
+              "type": "string"
+            },
+            "caseNumbers": {
+              "description": "Case numbers to filter by",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "commentIds": {
+              "description": "Comment IDs to resolve cases from CaseComment__c",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "createdBySSOName": {
+              "description": "Created by SSO username (Contact.SSOUsername__c)",
+              "type": "string"
+            },
+            "customerEscalation": {
+              "description": "Whether case has a customer escalation (Case.isEscalated)",
+              "type": "boolean"
+            },
+            "endDate": {
+              "description": "Created date range end (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "groupNumber": {
+              "description": "Group number to filter by",
+              "type": "string"
+            },
+            "groupNumbers": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "id": {
+              "description": "Case ID to filter by",
+              "type": "string"
+            },
+            "includeClosed": {
+              "description": "Whether to include closed cases (default false)",
+              "type": "boolean"
+            },
+            "includePrivate": {
+              "description": "Whether to include private comments (post-processing visibility)",
+              "type": "boolean"
+            },
+            "keyword": {
+              "description": "Keyword search (uses SOSL FIND query)",
+              "type": "string"
+            },
+            "lastModifiedFrom": {
+              "description": "Last modified date range start (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastModifiedTo": {
+              "description": "Last modified date range end (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "maxResults": {
+              "description": "Maximum number of results to return (default 50, max 200)",
+              "format": "int32",
+              "type": "integer"
+            },
+            "minSbt": {
+              "description": "Minimum SBT score to filter by (SBT__c >= value)",
+              "format": "double",
+              "type": "number"
+            },
+            "offset": {
+              "description": "Number of records to skip for pagination (default 0)",
+              "format": "int32",
+              "type": "integer"
+            },
+            "only24X7HandoverReady": {
+              "description": "Filter to 24x7 handover-ready cases",
+              "type": "boolean"
+            },
+            "only24x7": {
+              "description": "Filter to 24x7 business hours cases",
+              "type": "boolean"
+            },
+            "onlyEscalated": {
+              "description": "Filter to escalated cases (Case.isEscalated = true)",
+              "type": "boolean"
+            },
+            "ownerSSOName": {
+              "description": "Owner SSO username (LIKE match on Contact.SSOUsername__c)",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product name to filter by",
+              "type": "string"
+            },
+            "products": {
+              "description": "Comma-separated product values for multi-select",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "recordType": {
+              "description": "Record type name filter (Case.RecordType.Name)",
+              "type": "string"
+            },
+            "sbrGroups": {
+              "description": "Comma-separated SBR groups to filter by (INCLUDES)",
+              "type": "string"
+            },
+            "sbt": {
+              "description": "Maximum SBT score to filter by (SBT__c <= value)",
+              "format": "double",
+              "type": "number"
+            },
+            "severities": {
+              "description": "Comma-separated severity values for multi-select",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "severity": {
+              "description": "Severity value, e.g. '4 (Low)'",
+              "type": "string"
+            },
+            "sortField": {
+              "description": "Field to order results by (default 'CreatedDate')",
+              "type": "string"
+            },
+            "sortOrder": {
+              "description": "Order direction: 'ASC' or 'DESC' (default 'DESC')",
+              "type": "string"
+            },
+            "startDate": {
+              "description": "Created date range start (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "status": {
+              "description": "Case status to filter by",
+              "type": "string"
+            },
+            "statuses": {
+              "description": "Comma-separated status values for multi-select",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "tags": {
+              "description": "Tags to filter by (INCLUDES match)",
+              "type": "string"
+            },
+            "type": {
+              "description": "Case type filter, e.g. 'Defect / Bug'",
+              "type": "string"
+            },
+            "version": {
+              "description": "Version (applicable only when a single product is specified)",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "FilterCasesV3Response": {
+          "description": "Response for the cases filter endpoint",
+          "properties": {
+            "cases": {
+              "description": "List of cases matching the filter criteria",
+              "items": {
+                "$ref": "#/components/schemas/GetCaseResponse"
+              },
+              "type": "array"
+            },
+            "totalCount": {
+              "description": "Total number of cases matching the filter criteria",
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "GetCaseResponse": {
+          "description": "Full case response",
+          "properties": {
+            "accountNumberRef": {
+              "description": "Account number reference",
+              "type": "string"
+            },
+            "actionPlan": {
+              "description": "Action plan text",
+              "type": "string"
+            },
+            "alternateId": {
+              "description": "Alternate case ID",
+              "type": "string"
+            },
+            "apiTags": {
+              "description": "API tags associated with the case",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "bugzillas": {
+              "description": "Bugzillas list",
+              "items": {
+                "$ref": "#/components/schemas/BugzillaDto"
+              },
+              "type": "array"
+            },
+            "bugzillasHldr": {
+              "$ref": "#/components/schemas/BugzillasHldr"
+            },
+            "caseLanguage": {
+              "description": "Case language (e.g. en_US)",
+              "type": "string"
+            },
+            "caseNumber": {
+              "description": "Case number (CaseNumber__c)",
+              "type": "string"
+            },
+            "caseResourceLinks": {
+              "description": "Case resource links list",
+              "items": {
+                "$ref": "#/components/schemas/CaseResourceLinkDto"
+              },
+              "type": "array"
+            },
+            "caseResourceLinksHldr": {
+              "$ref": "#/components/schemas/CaseResourceLinksHldr"
+            },
+            "caseType": {
+              "description": "Case type (e.g. Defect / Bug)",
+              "type": "string"
+            },
+            "cep": {
+              "description": "Whether CEP applies",
+              "type": "boolean"
+            },
+            "chats": {
+              "description": "Chat transcripts associated with the case",
+              "items": {
+                "$ref": "#/components/schemas/CaseChatDto"
+              },
+              "type": "array"
+            },
+            "clearPhoneNumber": {
+              "description": "Whether to clear the phone number",
+              "type": "boolean"
+            },
+            "comments": {
+              "description": "Case comments",
+              "items": {
+                "$ref": "#/components/schemas/CaseCommentDto"
+              },
+              "type": "array"
+            },
+            "contactInfo24x7": {
+              "description": "24x7 contact information",
+              "type": "string"
+            },
+            "contactIsPartner": {
+              "description": "Whether the contact is a partner",
+              "type": "boolean"
+            },
+            "contactName": {
+              "description": "Contact display name",
+              "type": "string"
+            },
+            "contactSSOName": {
+              "description": "Contact SSO username",
+              "type": "string"
+            },
+            "createdById": {
+              "description": "Display name of the user who created the case",
+              "type": "string"
+            },
+            "createdDate": {
+              "description": "Date the case was created (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "customerEscalation": {
+              "description": "Whether this case has a customer escalation",
+              "type": "boolean"
+            },
+            "description": {
+              "description": "Case description",
+              "type": "string"
+            },
+            "emailAddress": {
+              "description": "Contact email address",
+              "type": "string"
+            },
+            "enhancedSLA": {
+              "description": "Whether enhanced SLA applies",
+              "type": "boolean"
+            },
+            "entitlementSla": {
+              "description": "Entitlement SLA name",
+              "type": "string"
+            },
+            "environment": {
+              "description": "Environment where the issue occurs",
+              "type": "string"
+            },
+            "firstCaseInactivityWarningSentAt": {
+              "description": "Date the first inactivity warning was sent",
+              "format": "date-time",
+              "type": "string"
+            },
+            "fts": {
+              "description": "Whether FTS is assigned",
+              "type": "boolean"
+            },
+            "groupName": {
+              "description": "Group/queue name",
+              "type": "string"
+            },
+            "groupNumber": {
+              "description": "Group number",
+              "type": "string"
+            },
+            "hostname": {
+              "description": "Hostname related to the issue",
+              "type": "string"
+            },
+            "id": {
+              "description": "Case ID (Salesforce Id)",
+              "type": "string"
+            },
+            "insightsArchives": {
+              "description": "Insights archives list",
+              "items": {
+                "$ref": "#/components/schemas/InsightsArchiveDto"
+              },
+              "type": "array"
+            },
+            "insightsArchivesHldr": {
+              "$ref": "#/components/schemas/InsightsArchivesHldr"
+            },
+            "isClosed": {
+              "description": "Whether the case is closed",
+              "type": "boolean"
+            },
+            "isStrategicAccount": {
+              "description": "Whether this is a strategic account",
+              "type": "boolean"
+            },
+            "issue": {
+              "description": "Issue description",
+              "type": "string"
+            },
+            "lastClosedAt": {
+              "description": "Date the case was last closed (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastModifiedById": {
+              "description": "Display name of the user who last modified the case",
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "description": "Date the case was last modified (ISO 8601)",
+              "format": "date-time",
+              "type": "string"
+            },
+            "name": {
+              "description": "Case name",
+              "type": "string"
+            },
+            "noClusterIdReason": {
+              "description": "Reason for not providing cluster ID",
+              "type": "string"
+            },
+            "noClusterIdReasonExplanation": {
+              "description": "Explanation for not providing cluster ID",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Customer notes",
+              "type": "string"
+            },
+            "notificationAddressEmails": {
+              "description": "Notification email addresses",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "notifiedUsers": {
+              "description": "Notified users on the case",
+              "items": {
+                "$ref": "#/components/schemas/NotifiedUserDto"
+              },
+              "type": "array"
+            },
+            "openshiftClusterID": {
+              "description": "OpenShift cluster ID",
+              "type": "string"
+            },
+            "openshiftClusterVersion": {
+              "description": "OpenShift cluster version",
+              "type": "string"
+            },
+            "origin": {
+              "description": "Case origin",
+              "type": "string"
+            },
+            "originatingSystem": {
+              "description": "Originating system identifier",
+              "type": "string"
+            },
+            "ownerId": {
+              "description": "Case owner display name",
+              "type": "string"
+            },
+            "periodicityOfIssue": {
+              "description": "Periodicity of the issue",
+              "type": "string"
+            },
+            "phone": {
+              "description": "Contact phone number",
+              "type": "string"
+            },
+            "phoneAreaCodePrefixLineNumber": {
+              "description": "Phone area code, prefix, and line number",
+              "type": "string"
+            },
+            "phoneCountryCode": {
+              "description": "Phone country code",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product name",
+              "type": "string"
+            },
+            "recordTypeName": {
+              "description": "Record type name",
+              "type": "string"
+            },
+            "referrer": {
+              "description": "Referrer URL",
+              "type": "string"
+            },
+            "remoteSessionTermsAcked": {
+              "description": "Whether remote session terms were acknowledged",
+              "type": "boolean"
+            },
+            "resolutionDescription": {
+              "description": "Resolution description",
+              "type": "string"
+            },
+            "sbrGroups": {
+              "description": "SBR groups assigned to the case",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "screenSessionRequested": {
+              "description": "Whether a screen session was requested",
+              "type": "boolean"
+            },
+            "seSessionId": {
+              "description": "SE session ID",
+              "type": "string"
+            },
+            "secondCaseInactivityWarningSentAt": {
+              "description": "Date the second inactivity warning was sent",
+              "format": "date-time",
+              "type": "string"
+            },
+            "severity": {
+              "description": "Case severity/priority",
+              "type": "string"
+            },
+            "status": {
+              "description": "Current case status",
+              "type": "string"
+            },
+            "summary": {
+              "description": "Case subject/title",
+              "type": "string"
+            },
+            "suppliedPhoneNumberVerified": {
+              "description": "Whether the supplied phone number is verified",
+              "type": "string"
+            },
+            "timeFramesAndUrgency": {
+              "description": "Time frames and urgency details",
+              "type": "string"
+            },
+            "uri": {
+              "description": "Case URI",
+              "type": "string"
+            },
+            "userAgent": {
+              "description": "User agent string",
+              "type": "string"
+            },
+            "version": {
+              "description": "Product version",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "HBugzillas": {
           "description": "List of bugzillas",
           "properties": {
@@ -2480,6 +4818,18 @@
           "title": "HCaseResourceLinks",
           "type": "object"
         },
+        "InsightsArchiveDto": {
+          "description": "Insights archive",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "inventoryId": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "InsightsArchives": {
           "description": "Insights Archives link model",
           "properties": {
@@ -2496,6 +4846,133 @@
             "inventoryId"
           ],
           "title": "InsightsArchives",
+          "type": "object"
+        },
+        "InsightsArchivesHldr": {
+          "description": "Holder for insights archives list",
+          "properties": {
+            "insightsArchives": {
+              "items": {
+                "$ref": "#/components/schemas/InsightsArchiveDto"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "LegacyApiErrorResponse": {
+          "description": "API error response",
+          "properties": {
+            "detailMessage": {
+              "description": "Detailed error message",
+              "example": "string",
+              "type": "string"
+            },
+            "internalErrorCode": {
+              "description": "Internal error code",
+              "example": "string",
+              "type": "string"
+            },
+            "message": {
+              "description": "Error message",
+              "example": "string",
+              "type": "string"
+            },
+            "recommendations": {
+              "description": "Recommended actions to resolve the error",
+              "example": [
+                "string"
+              ],
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "MultiPartUploadRequest": {
+          "description": "Request to initiate a file upload",
+          "properties": {
+            "caseNumber": {
+              "description": "Salesforce case number",
+              "example": "05209934",
+              "type": "string"
+            },
+            "clientId": {
+              "description": "Client application identifier",
+              "example": "sct-portal",
+              "type": "string"
+            },
+            "description": {
+              "description": "Optional description for the attachment (max 1000 characters)",
+              "example": "sosreport from server01 after kernel panic",
+              "type": "string"
+            },
+            "fileName": {
+              "description": "Original file name",
+              "example": "debug-logs.tar.gz",
+              "type": "string"
+            },
+            "fileSize": {
+              "description": "The size of the file in bytes. Files <= 5GB use single PUT, > 5GB use multipart",
+              "example": 1073741824,
+              "format": "int64",
+              "type": "integer"
+            },
+            "totalChunks": {
+              "description": "Number of chunks for multipart upload. Required if fileSize > 5GB",
+              "example": 205,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "caseNumber",
+            "clientId",
+            "fileName",
+            "fileSize"
+          ],
+          "type": "object"
+        },
+        "MultiPartUploadResponse": {
+          "description": "Response after initiating a file upload",
+          "properties": {
+            "attachmentId": {
+              "description": "Unique attachment identifier",
+              "example": "c29b5769d4114994b3004444dca-movxe6nz",
+              "type": "string"
+            },
+            "expirationTime": {
+              "description": "Presigned URL expiration time (ISO 8601)",
+              "example": "2026-05-08T00:15:28.463915Z",
+              "type": "string"
+            },
+            "parts": {
+              "description": "Presigned URLs for each part (MULTIPART strategy only)",
+              "items": {
+                "$ref": "#/components/schemas/PartUploadUrl"
+              },
+              "type": "array"
+            },
+            "presignedUrl": {
+              "description": "Presigned PUT URL for single file upload (SINGLE_PUT strategy only)",
+              "type": "string"
+            },
+            "uploadId": {
+              "description": "S3 multipart upload ID (MULTIPART strategy only). Required for POST /v3/cases/attachments/upload/complete",
+              "type": "string"
+            },
+            "uploadStrategy": {
+              "description": "Upload strategy: SINGLE_PUT (≤ 5GB) or MULTIPART (> 5GB)",
+              "enum": [
+                "SINGLE_PUT",
+                "MULTIPART"
+              ],
+              "example": "SINGLE_PUT",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "NotifiedUser": {
@@ -2515,6 +4992,24 @@
             }
           },
           "title": "NotifiedUser",
+          "type": "object"
+        },
+        "NotifiedUserDto": {
+          "description": "User notified on the case",
+          "properties": {
+            "ssoUsername": {
+              "description": "SSO username of the notified user",
+              "type": "string"
+            },
+            "title": {
+              "description": "Title/role of the notified user",
+              "type": "string"
+            },
+            "type": {
+              "description": "Notification type",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "NotifiedUserWithSso": {
@@ -2537,6 +5032,42 @@
             "ssoUsername"
           ],
           "title": "NotifiedUserWithSso",
+          "type": "object"
+        },
+        "PartETag": {
+          "description": "Part number and ETag from S3 upload response",
+          "properties": {
+            "eTag": {
+              "description": "ETag returned by S3 after uploading the part",
+              "example": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+              "type": "string"
+            },
+            "etag": {
+              "type": "string"
+            },
+            "partNumber": {
+              "description": "Part number (1-based)",
+              "example": 1,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "PartUploadUrl": {
+          "description": "Presigned URL for uploading a single part",
+          "properties": {
+            "partNumber": {
+              "description": "Part number (1-based)",
+              "example": 1,
+              "format": "int32",
+              "type": "integer"
+            },
+            "presignedUrl": {
+              "description": "Presigned PUT URL for this part",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "Recommendation": {
@@ -2734,6 +5265,182 @@
             "type": "string"
           }
         },
+        "TamEntitlementDto": {
+          "description": "TAM entitlement",
+          "properties": {
+            "account": {
+              "type": "string"
+            },
+            "accountId": {
+              "type": "string"
+            },
+            "assetId": {
+              "type": "string"
+            },
+            "businessHoursId": {
+              "type": "string"
+            },
+            "businessUnit": {
+              "type": "string"
+            },
+            "casesPerEntitlement": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "contractLineItemId": {
+              "type": "string"
+            },
+            "contractLineItemSubscriptionProductNum": {
+              "type": "string"
+            },
+            "coordinates": {
+              "type": "string"
+            },
+            "createdBy": {
+              "type": "string"
+            },
+            "createdById": {
+              "type": "string"
+            },
+            "createdDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "endDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "entitlementProcessRule": {
+              "type": "string"
+            },
+            "externalAccountNumber": {
+              "type": "string"
+            },
+            "externalContractId": {
+              "type": "string"
+            },
+            "externalContractLineItemId": {
+              "type": "string"
+            },
+            "externalEntitlementId": {
+              "type": "string"
+            },
+            "externalProductCode": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "installBaseNumber": {
+              "type": "string"
+            },
+            "isActive": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "isAssociatedWithNoEngineeringProducts": {
+              "type": "boolean"
+            },
+            "isConsiderSupported": {
+              "type": "boolean"
+            },
+            "isDeleted": {
+              "type": "boolean"
+            },
+            "isL3": {
+              "type": "boolean"
+            },
+            "isLayered": {
+              "type": "boolean"
+            },
+            "isManuallySelectedEntitlementProcess": {
+              "type": "boolean"
+            },
+            "isPerIncident": {
+              "type": "boolean"
+            },
+            "isTAMEntitlement": {
+              "type": "boolean"
+            },
+            "lastModifiedBy": {
+              "type": "string"
+            },
+            "lastModifiedById": {
+              "type": "string"
+            },
+            "lastModifiedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastReferencedDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "lastViewedDate": {
+              "type": "boolean"
+            },
+            "levelTypeConcat": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "oracleStatus": {
+              "type": "string"
+            },
+            "quantity": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "remainingCases": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "serviceContractId": {
+              "type": "string"
+            },
+            "serviceLevel": {
+              "type": "string"
+            },
+            "serviceLevelLabel": {
+              "type": "string"
+            },
+            "serviceType": {
+              "type": "string"
+            },
+            "serviceValue": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "slaProcessId": {
+              "type": "string"
+            },
+            "startDate": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "statusAndStartDate": {
+              "format": "int32",
+              "type": "integer"
+            },
+            "subscriptionNumber": {
+              "type": "string"
+            },
+            "subscriptionProductNumber": {
+              "type": "string"
+            },
+            "supportLevel": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "UpdateCaseRequest": {
           "description": "Update Case Request model",
           "properties": {
@@ -2893,6 +5600,173 @@
             }
           },
           "title": "UpdateCaseRequest",
+          "type": "object"
+        },
+        "UpdateCaseV3Request": {
+          "description": "Request payload for updating a case via v3 API.",
+          "properties": {
+            "accountNumberRef": {
+              "description": "Red Hat account number",
+              "type": "string"
+            },
+            "alternateId": {
+              "description": "Alternate case identifier",
+              "type": "string"
+            },
+            "caseLanguage": {
+              "description": "Case language, e.g. 'en'. Normalized to standard format (en_US).",
+              "type": "string"
+            },
+            "caseType": {
+              "description": "Case type, e.g. 'Defect / Bug'",
+              "type": "string"
+            },
+            "cep": {
+              "description": "CEP flag",
+              "type": "boolean"
+            },
+            "clearPhoneNumber": {
+              "description": "Whether to clear the phone number",
+              "type": "boolean"
+            },
+            "contactInfo24x7": {
+              "description": "24x7 contact information",
+              "type": "string"
+            },
+            "contactSSOName": {
+              "description": "Contact SSO username",
+              "type": "string"
+            },
+            "customerEscalation": {
+              "description": "Whether this is a customer escalation",
+              "type": "boolean"
+            },
+            "description": {
+              "description": "Detailed description of the issue",
+              "type": "string"
+            },
+            "emailAddress": {
+              "description": "Contact email address",
+              "type": "string"
+            },
+            "enhancedSLA": {
+              "description": "Whether enhanced SLA applies",
+              "type": "boolean"
+            },
+            "entitlementSla": {
+              "description": "Entitlement SLA name",
+              "type": "string"
+            },
+            "environment": {
+              "description": "Environment in which the issue occurs",
+              "type": "string"
+            },
+            "fts": {
+              "description": "Whether FTS is assigned",
+              "type": "boolean"
+            },
+            "groupNumber": {
+              "description": "Group number",
+              "type": "string"
+            },
+            "hostname": {
+              "description": "Hostname related to the issue",
+              "type": "string"
+            },
+            "issue": {
+              "description": "Specific issue description",
+              "type": "string"
+            },
+            "name": {
+              "description": "Case name",
+              "type": "string"
+            },
+            "noClusterIdReason": {
+              "description": "Reason for not providing cluster ID",
+              "type": "string"
+            },
+            "noClusterIdReasonExplanation": {
+              "description": "Explanation for missing cluster ID",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Customer notes",
+              "type": "string"
+            },
+            "openshiftClusterID": {
+              "description": "OpenShift cluster ID",
+              "type": "string"
+            },
+            "openshiftClusterVersion": {
+              "description": "OpenShift cluster version",
+              "type": "string"
+            },
+            "periodicityOfIssue": {
+              "description": "Periodicity of the issue",
+              "type": "string"
+            },
+            "phone": {
+              "description": "Contact phone number",
+              "type": "string"
+            },
+            "phoneAreaCodePrefixLineNumber": {
+              "description": "Phone area code prefix line number",
+              "type": "string"
+            },
+            "phoneCountryCode": {
+              "description": "Phone country code",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product name (used with version to resolve ProductId)",
+              "type": "string"
+            },
+            "reopenedReason": {
+              "description": "Reason for reopening the case. Allowed: 'I am experiencing the same issue', 'My case has been closed prematurely', 'Other'. Mapped to Salesforce Comments.",
+              "type": "string"
+            },
+            "screenSessionRequested": {
+              "description": "Whether screen session is requested",
+              "type": "boolean"
+            },
+            "severity": {
+              "description": "Case severity/priority",
+              "type": "string"
+            },
+            "status": {
+              "description": "Case status",
+              "type": "string"
+            },
+            "summary": {
+              "description": "Case subject/title",
+              "type": "string"
+            },
+            "suppliedPhoneNumberVerified": {
+              "description": "Whether supplied phone number is verified",
+              "type": "string"
+            },
+            "timeFramesAndUrgency": {
+              "description": "Time frames and urgency",
+              "type": "string"
+            },
+            "version": {
+              "description": "Product version (used with product name to resolve ProductId)",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "UpdateCaseV3Response": {
+          "description": "Update case success response",
+          "properties": {
+            "fieldsNotSentToSalesforce": {
+              "$ref": "#/components/schemas/FieldsNotSentToSalesforce"
+            },
+            "message": {
+              "description": "Success message",
+              "type": "string"
+            }
+          },
           "type": "object"
         },
         "User": {
@@ -3146,6 +6020,195 @@
           },
           "title": "User",
           "type": "object"
+        },
+        "UserDto": {
+          "description": "User",
+          "properties": {
+            "aboutMe": {
+              "type": "string"
+            },
+            "account": {
+              "$ref": "#/components/schemas/AccountDto"
+            },
+            "accountId": {
+              "type": "string"
+            },
+            "accountNumber": {
+              "type": "string"
+            },
+            "alias": {
+              "type": "string"
+            },
+            "bomgarUsername": {
+              "type": "string"
+            },
+            "callCenterId": {
+              "type": "string"
+            },
+            "canWorkNightShift": {
+              "type": "boolean"
+            },
+            "city": {
+              "type": "string"
+            },
+            "contact": {
+              "$ref": "#/components/schemas/ContactDto"
+            },
+            "contactId": {
+              "type": "string"
+            },
+            "contactNumber": {
+              "type": "string"
+            },
+            "contactNumberRef": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string"
+            },
+            "countryCustom": {
+              "type": "string"
+            },
+            "department": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "explicitKerberosName": {
+              "type": "string"
+            },
+            "fifthLevelManagerUsername": {
+              "type": "string"
+            },
+            "firstName": {
+              "type": "string"
+            },
+            "firstNameCustom": {
+              "type": "string"
+            },
+            "fourthLevelManagerUsername": {
+              "type": "string"
+            },
+            "fullName": {
+              "type": "string"
+            },
+            "fullTitle": {
+              "type": "string"
+            },
+            "genesysUsername": {
+              "type": "string"
+            },
+            "gssCostcenterName": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "inGSS": {
+              "type": "string"
+            },
+            "ircNick": {
+              "type": "string"
+            },
+            "isActive": {
+              "type": "boolean"
+            },
+            "isManager": {
+              "type": "boolean"
+            },
+            "itarUser": {
+              "type": "boolean"
+            },
+            "kerberosName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            },
+            "lastNameCustom": {
+              "type": "string"
+            },
+            "manager": {
+              "type": "string"
+            },
+            "managerId": {
+              "type": "string"
+            },
+            "managerSID": {
+              "type": "string"
+            },
+            "mobilePhone": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "officeLocation": {
+              "type": "string"
+            },
+            "outOfOffice": {
+              "type": "boolean"
+            },
+            "outOfOfficeChangedBy": {
+              "type": "string"
+            },
+            "outOfOfficeChangedOn": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "outOfOfficeEnd": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "outOfOfficeStart": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            },
+            "redhatComEmailAddress": {
+              "type": "string"
+            },
+            "region": {
+              "type": "string"
+            },
+            "rhatLocation": {
+              "type": "string"
+            },
+            "secondLevelManagerUsername": {
+              "type": "string"
+            },
+            "sixthLevelManagerUsername": {
+              "type": "string"
+            },
+            "ssoUsername": {
+              "type": "string"
+            },
+            "superRegion": {
+              "type": "string"
+            },
+            "thirdLevelManagerUsername": {
+              "type": "string"
+            },
+            "timeZone": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "userName": {
+              "type": "string"
+            },
+            "userRoleId": {
+              "type": "string"
+            },
+            "virtualOffice": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "securitySchemes": {
@@ -3163,7 +6226,7 @@
       },
       "description": "Swagger documentation for external users",
       "title": "Support Services",
-      "version": "v1",
+      "version": "v3",
       "x-audience": "Partner & Customer"
     },
     "openapi": "3.0.0",
@@ -3245,9 +6308,9 @@
           "security": [
             {}
           ],
-          "summary": "Get all attachment metadata",
+          "summary": "Get all attachment metadata ⚠️",
           "tags": [
-            "case attachments"
+            "Case Attachments"
           ]
         },
         "post": {
@@ -3300,9 +6363,9 @@
           "security": [
             {}
           ],
-          "summary": "Upload a case attachment",
+          "summary": "Upload a case attachment ⚠️",
           "tags": [
-            "case attachments"
+            "Case Attachments"
           ]
         }
       },
@@ -3346,9 +6409,9 @@
           "security": [
             {}
           ],
-          "summary": "Upload request status of all attachments for a given case number",
+          "summary": "Upload request status of all attachments for a given case number ⚠️",
           "tags": [
-            "case attachments"
+            "Case Attachments"
           ]
         }
       },
@@ -3410,9 +6473,9 @@
           "security": [
             {}
           ],
-          "summary": "Delete attachment metadata",
+          "summary": "Delete attachment metadata ⚠️",
           "tags": [
-            "case attachments"
+            "Case Attachments"
           ]
         },
         "head": {
@@ -3471,9 +6534,9 @@
           "security": [
             {}
           ],
-          "summary": "Check case attachment metadata exist or not",
+          "summary": "Check case attachment metadata exist or not ⚠️",
           "tags": [
-            "case attachments"
+            "Case Attachments"
           ]
         }
       },
@@ -3532,9 +6595,9 @@
           "security": [
             {}
           ],
-          "summary": "Upload request status",
+          "summary": "Upload request status ⚠️",
           "tags": [
-            "case attachments"
+            "Case Attachments"
           ]
         }
       },
@@ -3580,9 +6643,9 @@
           "security": [
             {}
           ],
-          "summary": "Search cases based on Search Criteria",
+          "summary": "Search cases based on Search Criteria ⚠️",
           "tags": [
-            "search"
+            "Search"
           ]
         }
       },
@@ -3618,7 +6681,7 @@
           },
           "summary": "Search based on Search Criteria",
           "tags": [
-            "search"
+            "Search"
           ]
         }
       },
@@ -3657,7 +6720,7 @@
           ],
           "summary": "Fetches Recommendation based on Search Criteria",
           "tags": [
-            "search"
+            "Search"
           ]
         },
         "post": {
@@ -3693,7 +6756,7 @@
           ],
           "summary": "Create Recommendations",
           "tags": [
-            "search"
+            "Search"
           ]
         }
       },
@@ -3730,9 +6793,9 @@
           "security": [
             {}
           ],
-          "summary": "Search cases based on Search Criteria",
+          "summary": "Search cases based on Search Criteria ⚠️",
           "tags": [
-            "search"
+            "Search"
           ]
         }
       },
@@ -3768,7 +6831,7 @@
           },
           "summary": "Search based on Search Criteria",
           "tags": [
-            "search"
+            "Search"
           ]
         }
       },
@@ -4292,9 +7355,9 @@
           "security": [
             {}
           ],
-          "summary": "Get Business Hours",
+          "summary": "Get Business Hours ⚠️",
           "tags": [
-            "business hours"
+            "Business Hours"
           ]
         }
       },
@@ -4348,9 +7411,9 @@
           "security": [
             {}
           ],
-          "summary": "Create new case",
+          "summary": "Create new case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -4404,9 +7467,9 @@
           "security": [
             {}
           ],
-          "summary": "Get Cases by filters",
+          "summary": "Get Cases by filters ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -4470,9 +7533,9 @@
           "security": [
             {}
           ],
-          "summary": "Get Case By Case Number",
+          "summary": "Get Case By Case Number ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         },
         "put": {
@@ -4538,9 +7601,9 @@
           "security": [
             {}
           ],
-          "summary": "Update case",
+          "summary": "Update case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -4643,9 +7706,9 @@
           "security": [
             {}
           ],
-          "summary": "Get Comments on case",
+          "summary": "Get Comments on case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         },
         "post": {
@@ -4718,9 +7781,9 @@
           "security": [
             {}
           ],
-          "summary": "Create Comment on case",
+          "summary": "Create Comment on case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -4793,9 +7856,9 @@
           "security": [
             {}
           ],
-          "summary": "Get case comment by comment id",
+          "summary": "Get case comment by comment id ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -4904,9 +7967,9 @@
           "security": [
             {}
           ],
-          "summary": "List the externalUpdates on the specified case",
+          "summary": "List the externalUpdates on the specified case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -4964,9 +8027,9 @@
           "security": [
             {}
           ],
-          "summary": "Add notified users to case",
+          "summary": "Add notified users to case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -5022,9 +8085,9 @@
           "security": [
             {}
           ],
-          "summary": "Delete notified user from case",
+          "summary": "Delete notified user from case ⚠️",
           "tags": [
-            "case"
+            "Cases"
           ]
         }
       },
@@ -5095,7 +8158,7 @@
           ],
           "summary": "List Sftp Attachments",
           "tags": [
-            "sftp"
+            "SFTP"
           ]
         }
       },
@@ -5158,7 +8221,7 @@
           ],
           "summary": "Get status for SFTP Attachment uploaded by user",
           "tags": [
-            "sftp"
+            "SFTP"
           ]
         }
       },
@@ -5211,7 +8274,7 @@
           ],
           "summary": "Update token for SFTP User",
           "tags": [
-            "sftp"
+            "SFTP"
           ]
         }
       },
@@ -5254,7 +8317,7 @@
           ],
           "summary": "Reset token for SFTP User",
           "tags": [
-            "sftp"
+            "SFTP"
           ]
         }
       },
@@ -5297,7 +8360,7 @@
           ],
           "summary": "Create upload only SFTP Token for one time use",
           "tags": [
-            "sftp"
+            "SFTP"
           ]
         }
       },
@@ -5350,7 +8413,1427 @@
           ],
           "summary": "Create token for SFTP User",
           "tags": [
-            "sftp"
+            "SFTP"
+          ]
+        }
+      },
+      "/v3/businesshours": {
+        "get": {
+          "operationId": "get-business-hours-v3-operation",
+          "parameters": [
+            {
+              "description": "Timezone/Business Hours name to look up (e.g. 'America/New_York')",
+              "in": "query",
+              "name": "timezone",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/BusinessHoursResponse"
+                  }
+                }
+              },
+              "description": "Business hours found and returned successfully"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Validation error"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "No business hours found for requested timezone"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Fetches business hours configuration for the given timezone",
+          "tags": [
+            "Business Hours"
+          ]
+        }
+      },
+      "/v3/cases": {
+        "post": {
+          "operationId": "create-case-v3-operation",
+          "parameters": [
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCaseV3Request"
+                }
+              }
+            },
+            "description": "Case creation payload",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateCaseLocationsResponse"
+                  }
+                }
+              },
+              "description": "The location URI for the created case"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Creates a new support case",
+          "tags": [
+            "Cases"
+          ]
+        }
+      },
+      "/v3/cases/attachments/deleteFile/{caseNumber}/{attachmentUUID}": {
+        "delete": {
+          "description": "Deletes an attachment by UUID. Validates case access and attachment ownership, removes the ContentDocument from Salesforce via composite API, then deletes the file from S3.",
+          "operationId": "delete-attachment-v3-operation",
+          "parameters": [
+            {
+              "description": "Salesforce Case Number",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Attachment UUID",
+              "in": "path",
+              "name": "attachmentUUID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Attachment deleted successfully"
+            },
+            "401": {
+              "description": "No JWT provided or JWT expired"
+            },
+            "403": {
+              "description": "User does not have access to the case"
+            },
+            "404": {
+              "description": "Attachment not found or not linked to the case"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "summary": "Delete an attachment",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/attachments/downloadFile/{caseNumber}/{attachmentUUID}": {
+        "get": {
+          "description": "Downloads an attachment by UUID. Validates case access via Salesforce REST API. Returns a presigned S3 URL (JSON for API clients, 302 redirect for browsers).",
+          "operationId": "download-attachment-v3-operation",
+          "parameters": [
+            {
+              "description": "Salesforce Case Number",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Attachment UUID",
+              "in": "path",
+              "name": "attachmentUUID",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "example": {
+                      "downloadUrl": "https://bucket.s3.amazonaws.com/...?X-Amz-...",
+                      "expiresInSeconds": "3600",
+                      "fileName": "attachment"
+                    },
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Presigned download URL (API clients)"
+            },
+            "302": {
+              "description": "Redirect to presigned S3 URL (browser clients)"
+            },
+            "401": {
+              "description": "No JWT provided or JWT expired"
+            },
+            "403": {
+              "description": "User does not have access to the case"
+            },
+            "404": {
+              "description": "File not found in S3 storage"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "summary": "Download an attachment file",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/attachments/upload": {
+        "post": {
+          "description": "Initiates a file upload. Returns presigned URL(s) for direct S3 upload. Files <= 5GB get a single presigned PUT URL. Files > 5GB get multipart presigned URLs (requires POST /v3/cases/attachments/upload/complete after uploading chunks).",
+          "operationId": "initiate-upload-v3-operation",
+          "parameters": [
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiPartUploadRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/MultiPartUploadResponse"
+                  }
+                }
+              },
+              "description": "Upload initiated — returns presigned URL(s)"
+            },
+            "400": {
+              "description": "Missing required fields (fileName, caseNumber, clientId, or fileSize) or description exceeds 1000 characters"
+            },
+            "401": {
+              "description": "No JWT provided or JWT expired"
+            },
+            "403": {
+              "description": "User does not have access to the case, or Contact ID not found (non-community user)"
+            },
+            "500": {
+              "description": "Salesforce or S3 error"
+            }
+          },
+          "summary": "Initiate a file upload",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/attachments/upload/abort": {
+        "delete": {
+          "description": "Aborts an in-progress multipart upload.",
+          "operationId": "abort-upload-v3-operation",
+          "parameters": [
+            {
+              "description": "Attachment UUID",
+              "in": "query",
+              "name": "attachmentId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Case Number",
+              "in": "query",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "S3 upload ID",
+              "in": "query",
+              "name": "uploadId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "example": {
+                      "attachmentId": "uuid",
+                      "status": "aborted"
+                    },
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Upload aborted successfully"
+            },
+            "401": {
+              "description": "No JWT provided or JWT expired"
+            },
+            "500": {
+              "description": "Failed to abort upload"
+            }
+          },
+          "summary": "Abort an upload",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/attachments/upload/complete": {
+        "post": {
+          "description": "Completes a multipart S3 upload. Only required for files > 5GB (uploadStrategy=MULTIPART).",
+          "operationId": "complete-multipart-upload-v3-operation",
+          "parameters": [
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompleteMultipartRequest"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "example": {
+                      "attachmentId": "uuid",
+                      "message": "Upload completed. File processing in progress.",
+                      "status": "success"
+                    },
+                    "type": "string"
+                  }
+                }
+              },
+              "description": "Upload completed successfully"
+            },
+            "400": {
+              "description": "Missing attachmentId, uploadId, or parts"
+            },
+            "401": {
+              "description": "No JWT provided or JWT expired"
+            },
+            "500": {
+              "description": "S3 multipart completion failed"
+            }
+          },
+          "summary": "Complete a multipart upload",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/filter": {
+        "post": {
+          "operationId": "filter-cases-v3-operation",
+          "parameters": [
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterCasesV3Request"
+                }
+              }
+            },
+            "description": "Filter criteria for searching cases",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/FilterCasesV3Response"
+                  }
+                }
+              },
+              "description": "Cases matching the filter criteria"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Filters and searches support cases",
+          "tags": [
+            "Cases"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}": {
+        "get": {
+          "operationId": "get-case-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to look up (e.g. '04337263')",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/GetCaseResponse"
+                  }
+                }
+              },
+              "description": "Case found and returned successfully"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Case not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Fetches a case by case number",
+          "tags": [
+            "Cases"
+          ]
+        },
+        "put": {
+          "operationId": "update-case-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to update (e.g. '04337263')",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCaseV3Request"
+                }
+              }
+            },
+            "description": "Case update payload (legacy Hydra PUT case contract)",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateCaseV3Response"
+                  }
+                }
+              },
+              "description": "The case that was updated"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Case not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Updates an existing support case",
+          "tags": [
+            "Cases"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/attachments": {
+        "get": {
+          "description": "Returns a list of all attachment metadata (ContentVersion records) linked to the specified case.",
+          "operationId": "list-attachments-v3-operation",
+          "parameters": [
+            {
+              "description": "Case number",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Flag to include deleted attachments in the response",
+              "in": "query",
+              "name": "includeDeleted",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Sorting field name (e.g. id, lastModifiedDate, createDate, sizeKB)",
+              "in": "query",
+              "name": "sortingField",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Sort order: desc or asc",
+              "in": "query",
+              "name": "sortBy",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/CaseAttachmentMetadataResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "Attachment metadata list"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "404": {
+              "description": "Case not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "List all attachment metadata for a case",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/attachments/status": {
+        "get": {
+          "description": "Returns upload request status of all attachments for a given case number.",
+          "operationId": "get-attachment-statuses-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to look up attachment upload statuses for",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/AttachmentStatusDto"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "Upload request status of all attachments"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Get upload status of all attachments for a case",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/attachments/{attachmentId}": {
+        "head": {
+          "description": "Check if case attachment metadata exists.",
+          "operationId": "check-attachment-exists-v3-operation",
+          "parameters": [
+            {
+              "description": "Case number",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Attachment ID",
+              "in": "path",
+              "name": "attachmentId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Attachment metadata exists"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Attachment ID not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Check if attachment metadata exists",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/attachments/{attachmentId}/status": {
+        "get": {
+          "description": "Returns the upload status of a specific attachment linked to a case. Resolves the attachment via Salesforce ContentVersion using a 3-step SOQL chain.",
+          "operationId": "get-attachment-status-v3-operation",
+          "parameters": [
+            {
+              "description": "Salesforce Case Number",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Attachment UUID",
+              "in": "path",
+              "name": "attachmentId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/AttachmentStatusResponse"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "Attachment status retrieved successfully"
+            },
+            "401": {
+              "description": "No JWT provided or JWT expired"
+            },
+            "404": {
+              "description": "Case or attachment not found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          },
+          "summary": "Get attachment upload status",
+          "tags": [
+            "Case Attachments"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/comments": {
+        "get": {
+          "operationId": "get-comments-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to look up comments for",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter comments created on or after this date (YYYY-MM-DD)",
+              "in": "query",
+              "name": "startDate",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter comments created on or before this date (YYYY-MM-DD)",
+              "in": "query",
+              "name": "endDate",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Field to sort by: createdDate, lastModifiedDate, createdBy",
+              "in": "query",
+              "name": "sortField",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Sort order: asc or desc (default: desc)",
+              "in": "query",
+              "name": "sortOrder",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/CommentDto"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "Comments for the specified case"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Case not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Fetches comments for a case",
+          "tags": [
+            "Cases"
+          ]
+        },
+        "post": {
+          "operationId": "create-comment-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to add the comment to (e.g. '04338304')",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CaseCommentRequest"
+                }
+              }
+            },
+            "description": "Comment creation payload",
+            "required": true
+          },
+          "responses": {
+            "201": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CommentDto"
+                  }
+                }
+              },
+              "description": "The comment that was created"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Validation error"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Case not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Creates a new comment on a case",
+          "tags": [
+            "Cases"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/comments/{commentId}": {
+        "get": {
+          "operationId": "get-comment-by-id-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to look up comments for",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "The commentId to lookup for",
+              "in": "path",
+              "name": "commentId",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CommentDto"
+                  }
+                }
+              },
+              "description": "The requested comment was found"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Comment not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Fetches a specific comment by ID",
+          "tags": [
+            "Cases"
+          ]
+        }
+      },
+      "/v3/cases/{caseNumber}/externaltrackerupdates": {
+        "get": {
+          "operationId": "get-external-tracker-updates-v3-operation",
+          "parameters": [
+            {
+              "description": "The case number to look up external tracker updates for",
+              "in": "path",
+              "name": "caseNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter updates created on or after this date (YYYY-MM-DD)",
+              "in": "query",
+              "name": "startDate",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter updates created on or before this date (YYYY-MM-DD)",
+              "in": "query",
+              "name": "endDate",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Field to sort by: createdDate, lastModifiedDate, originatingSystem, updateBy",
+              "in": "query",
+              "name": "sortField",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Sort order: asc or desc (default: desc)",
+              "in": "query",
+              "name": "sortOrder",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter by originating system (ExternalSystem__c)",
+              "in": "query",
+              "name": "originatingSystem",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/ExternalTrackerUpdateDto"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "External tracker updates for the specified case (empty array when none exist)."
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Account mismatch."
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Case not found"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "List the external tracker updates on the specified case",
+          "tags": [
+            "Cases"
           ]
         }
       }
@@ -5362,28 +9845,32 @@
     ],
     "tags": [
       {
-        "description": "Case APIs",
-        "name": "case"
+        "description": "Case APIs ⚠️ Marked APIs soon to be deprecated. Please refer to /v3 Apis",
+        "name": "Cases"
       },
       {
-        "description": "Search APIs",
-        "name": "search"
+        "description": "Search APIs ⚠️ Marked APIs soon to be deprecated.",
+        "name": "Search"
       },
       {
-        "description": "Business Hours APIs",
-        "name": "business hours"
+        "description": "Business Hours APIs ⚠️ Marked APIs soon to be deprecated. Please refer to /v3 Apis",
+        "name": "Business Hours"
       },
       {
         "description": "Account APIs",
         "name": "Account"
       },
       {
-        "description": "Case Attachments APIs",
-        "name": "case attachments"
+        "description": "Case Attachments APIs ⚠️ Marked APIs soon to be deprecated. Please refer to /v3 Apis",
+        "externalDocs": {
+          "description": "Imp: check /v3 Api Usage Guide",
+          "url": "https://access.redhat.com/articles/7146201"
+        },
+        "name": "Case Attachments"
       },
       {
         "description": "Red Hat Secure FTP APIs",
-        "name": "sftp"
+        "name": "SFTP"
       }
     ]
   }
