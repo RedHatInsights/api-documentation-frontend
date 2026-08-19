@@ -26,7 +26,7 @@ RUN --mount=type=secret,id=api-documentation-frontend-sitemap/PROD_JWT_FETCH_URL
 
 RUN npm run build
 
-FROM registry.access.redhat.com/ubi9/nginx-124@sha256:5b9acee52ab71d769623e09b2d95716159bf35a4c769f6ae0dd21f94f6856df6
+FROM registry.access.redhat.com/ubi9/nginx-124@sha256:3292e9a046b72b18e51229a448f97568a9af26b26bf54488bfd78094800f2e61
 
 WORKDIR /usr/share/nginx
 
