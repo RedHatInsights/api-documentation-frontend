@@ -744,6 +744,18 @@
               "title": "Dateadded",
               "type": "string"
             },
+            "deployedDate": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Deployeddate"
+            },
             "detailFormat": {
               "title": "Detailformat",
               "type": "integer"
@@ -849,6 +861,18 @@
               "format": "date",
               "title": "Dateadded",
               "type": "string"
+            },
+            "deployedDate": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Deployeddate"
             },
             "detailFormat": {
               "title": "Detailformat",

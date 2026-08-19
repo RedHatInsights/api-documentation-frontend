@@ -289,6 +289,12 @@
             },
             "template_uuid": {
               "type": "string"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -367,6 +373,12 @@
               "type": "string"
             },
             "template_uuid": {
+              "type": "string"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
               "type": "string"
             }
           },
@@ -675,6 +687,12 @@
             },
             "update_status": {
               "type": "string"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -895,6 +913,9 @@
             "id": {
               "type": "string"
             },
+            "image_based": {
+              "type": "boolean"
+            },
             "installable_other_count": {
               "type": "integer"
             },
@@ -962,6 +983,12 @@
               "type": "string"
             },
             "template_uuid": {
+              "type": "string"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
               "type": "string"
             }
           },
@@ -1041,6 +1068,9 @@
               },
               "type": "array"
             },
+            "image_based": {
+              "type": "boolean"
+            },
             "installable_other_count": {
               "type": "integer"
             },
@@ -1109,6 +1139,12 @@
             },
             "template_uuid": {
               "type": "string"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1156,6 +1192,9 @@
                 "$ref": "#/components/schemas/controllers.SystemGroup"
               },
               "type": "array"
+            },
+            "image_based": {
+              "type": "boolean"
             },
             "installable_other_count": {
               "type": "integer"
@@ -1240,6 +1279,12 @@
             },
             "third_party": {
               "type": "boolean"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1556,6 +1601,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1628,6 +1679,12 @@
                 "$ref": "#/components/schemas/controllers.SystemTag"
               },
               "type": "array"
+            },
+            "workspace_id": {
+              "type": "string"
+            },
+            "workspace_name": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -1927,7 +1984,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.275"
+      "version": "v3.8.351"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -2142,6 +2199,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -2464,6 +2561,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -2779,6 +2916,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -3107,6 +3284,46 @@
               }
             },
             {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "description": "Tag filter",
               "explode": true,
               "in": "query",
@@ -3418,6 +3635,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -3989,6 +4246,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -4278,6 +4575,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -4624,6 +4961,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -4783,6 +5160,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -5246,6 +5663,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -5761,6 +6218,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -5985,6 +6482,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -6543,6 +7080,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -6976,6 +7553,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
@@ -8025,6 +8642,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -8246,6 +8903,46 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "requestBody": {
@@ -8398,6 +9095,46 @@
               "description": "Filter systems by mssql version",
               "in": "query",
               "name": "filter[system_profile][mssql][version]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by crowdstrike",
+              "in": "query",
+              "name": "filter[system_profile][crowdstrike]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by ibm_db2",
+              "in": "query",
+              "name": "filter[system_profile][ibm_db2]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by intersystems",
+              "in": "query",
+              "name": "filter[system_profile][intersystems]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by oracle_db",
+              "in": "query",
+              "name": "filter[system_profile][oracle_db]",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Filter systems by rhel_ai",
+              "in": "query",
+              "name": "filter[system_profile][rhel_ai]",
               "schema": {
                 "type": "string"
               }
