@@ -321,6 +321,17 @@ apis:
         tags:
           - ansible
           - automation
+      - id: automation-orchestrator
+        name: Automation orchestrator
+        description: REST API for automation orchestrator, an automation component of Ansible Automation Platform
+        url: https://raw.githubusercontent.com/syntara-orchestration/syntara/refs/heads/devel/backend/src/syntara/schemas/openapi-public.yaml
+        serverUrl: none
+        apiType: openapi-v3
+        icon: ansible
+        tags:
+          - ansible
+          - automation
+          - workflows
       - id: roadmap
         name: Red Hat Lightspeed for RHEL Planning
         description: API for RHEL product lifecycle data
@@ -631,4 +642,7 @@ tags:
     type: use-case
   - id: workloads
     name: Workloads
+    type: use-case
+  - id: workflows
+    name: Workflows
     type: use-case
