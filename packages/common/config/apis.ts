@@ -150,6 +150,15 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
       product: undefined,
     },
   },
+  workflows: {
+    id: "workflows",
+    name: "Workflows",
+    type: "use-case",
+    devRedHatTaxonomy: {
+      topic: undefined,
+      product: undefined,
+    },
+  },
 };
 
 export const apiLabels = Object.values(apiLabelsMap) as ReadonlyArray<
