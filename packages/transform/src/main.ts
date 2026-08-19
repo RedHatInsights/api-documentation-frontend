@@ -90,7 +90,7 @@ const downloadApis = (groups: Array<Group>, options: Options): Promise<Array<Bui
                 let error: string | undefined = undefined;
                 try {
                     let openApiContent = await getOpenAPIContent(getDiscoveryPath(options), app, group.id, options);
-                    content = JSON.parse(openApiContent);
+                    content = parse(openApiContent);
 
                     // Validate remotely fetched content for dangerous patterns
                     if (app.url && !app.useLocalFile && !options.skipApiFetch) {
