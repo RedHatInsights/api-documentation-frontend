@@ -236,6 +236,10 @@
         },
         "DrawerEntryPayload": {
           "properties": {
+            "application": {
+              "description": "The technical name of the application (not the display name)",
+              "type": "string"
+            },
             "bundle": {
               "type": "string"
             },
@@ -549,13 +553,6 @@
             "displayName"
           ],
           "type": "object"
-        },
-        "LocalDate": {
-          "examples": [
-            "2022-03-10"
-          ],
-          "format": "date",
-          "type": "string"
         },
         "LocalDateTime": {
           "examples": [
@@ -1604,6 +1601,33 @@
           "operationId": "EventResource$V1_getEvents",
           "parameters": [
             {
+              "description": "Number of items per page, if not specified 20 is used.",
+              "in": "query",
+              "name": "limit",
+              "schema": {
+                "default": 20,
+                "maximum": 200,
+                "minimum": 1,
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Start of the date range filter. Accepts either a date (yyyy-MM-dd), expanded to the beginning of that day, or a date-time (yyyy-MM-dd'T'HH:mm:ss).",
+              "in": "query",
+              "name": "startDate",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "End of the date range filter. Accepts either a date (yyyy-MM-dd), expanded to the end of that day, or a date-time (yyyy-MM-dd'T'HH:mm:ss).",
+              "in": "query",
+              "name": "endDate",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
               "in": "query",
               "name": "appIds",
               "schema": {
@@ -1627,13 +1651,6 @@
                 },
                 "type": "array",
                 "uniqueItems": true
-              }
-            },
-            {
-              "in": "query",
-              "name": "endDate",
-              "schema": {
-                "$ref": "#/components/schemas/LocalDate"
               }
             },
             {
@@ -1687,17 +1704,6 @@
               }
             },
             {
-              "description": "Number of items per page, if not specified 20 is used.",
-              "in": "query",
-              "name": "limit",
-              "schema": {
-                "default": 20,
-                "maximum": 200,
-                "minimum": 1,
-                "type": "integer"
-              }
-            },
-            {
               "in": "query",
               "name": "offset",
               "schema": {
@@ -1739,13 +1745,6 @@
               "name": "sort_by",
               "schema": {
                 "type": "string"
-              }
-            },
-            {
-              "in": "query",
-              "name": "startDate",
-              "schema": {
-                "$ref": "#/components/schemas/LocalDate"
               }
             },
             {

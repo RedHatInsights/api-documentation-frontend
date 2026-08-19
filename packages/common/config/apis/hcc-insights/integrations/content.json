@@ -140,6 +140,9 @@
               ],
               "type": "object"
             },
+            "read_only": {
+              "type": "boolean"
+            },
             "server_errors": {
               "format": "int32",
               "minimum": 0,
