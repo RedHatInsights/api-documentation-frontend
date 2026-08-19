@@ -615,6 +615,11 @@
         },
         "Bootc": {
           "properties": {
+            "build_reference": {
+              "description": "Optional container image reference used as the build container.\nWhen not set, the base reference is used for building as well.\n",
+              "example": "quay.io/centos-bootc/centos-bootc-build:stream9",
+              "type": "string"
+            },
             "iso_payload_reference": {
               "description": "Optional container image reference for a payload container to embed\nin the ISO's container storage. When set, the payload container is\navailable at install/boot time. Only valid for bootable-container-iso\nimage type.\n",
               "example": "quay.io/centos-bootc/centos-bootc:stream9",
@@ -2071,7 +2076,6 @@
             "gcp-rhui",
             "guest-image",
             "image-installer",
-            "iot-bootable-container",
             "iot-commit",
             "iot-container",
             "iot-installer",

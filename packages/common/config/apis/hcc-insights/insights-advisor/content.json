@@ -252,7 +252,6 @@
               "type": "string"
             },
             "solution_url": {
-              "format": "uri",
               "type": "string"
             },
             "stale_at": {
@@ -299,6 +298,7 @@
               "type": "string"
             },
             "display_name": {
+              "nullable": true,
               "readOnly": true,
               "type": "string"
             },
@@ -2731,14 +2731,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "in": "query",
               "name": "format",
               "schema": {
@@ -2840,13 +2832,13 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -2912,6 +2904,29 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -2993,14 +3008,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -3091,13 +3098,13 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -3163,6 +3170,29 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -3236,14 +3266,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -3334,13 +3356,13 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -3406,6 +3428,29 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -3576,14 +3621,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -3628,13 +3665,36 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -3936,22 +3996,6 @@
               "style": "form"
             },
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -3964,14 +4008,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -4046,13 +4082,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -4066,6 +4102,29 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -4115,22 +4174,6 @@
               "style": "form"
             },
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -4143,14 +4186,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -4173,13 +4208,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -4193,6 +4228,29 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -4442,22 +4500,6 @@
               "style": "form"
             },
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -4470,14 +4512,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -4518,13 +4552,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -4548,6 +4582,29 @@
                   "enum": [
                     "dnfyum",
                     "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
                   ],
                   "type": "string"
                 },
@@ -4833,22 +4890,6 @@
               "style": "form"
             },
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -4861,14 +4902,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -5067,13 +5100,13 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -5131,6 +5164,29 @@
                 "type": "array"
               },
               "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -5182,13 +5238,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -5373,22 +5429,6 @@
           "operationId": "rule_systems_retrieve",
           "parameters": [
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -5401,14 +5441,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "in": "query",
@@ -5506,13 +5538,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -5528,6 +5560,29 @@
                   "enum": [
                     "dnfyum",
                     "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
                   ],
                   "type": "string"
                 },
@@ -5569,22 +5624,6 @@
           "operationId": "rule_systems_detail_list",
           "parameters": [
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -5597,14 +5636,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -5713,13 +5744,36 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -5901,7 +5955,7 @@
           "operationId": "stats_overview_retrieve",
           "parameters": [
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
@@ -5926,20 +5980,35 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
               "schema": {
                 "items": {
                   "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -5975,7 +6044,7 @@
           "operationId": "stats_reports_retrieve",
           "parameters": [
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
@@ -6000,20 +6069,35 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
               "schema": {
                 "items": {
                   "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -6049,7 +6133,7 @@
           "operationId": "stats_rules_retrieve",
           "parameters": [
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
@@ -6074,20 +6158,35 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
               "schema": {
                 "items": {
                   "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -6123,7 +6222,7 @@
           "operationId": "stats_systems_retrieve",
           "parameters": [
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
@@ -6148,20 +6247,35 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
               "schema": {
                 "items": {
                   "format": "regex",
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
                   "type": "string"
                 },
                 "type": "array"
@@ -6247,22 +6361,6 @@
               }
             },
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -6275,14 +6373,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -6417,13 +6507,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -6439,6 +6529,29 @@
                   "enum": [
                     "dnfyum",
                     "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
                   ],
                   "type": "string"
                 },
@@ -6514,22 +6627,6 @@
           "operationId": "system_reports_list",
           "parameters": [
             {
-              "description": "Is this an Ansible system?",
-              "in": "query",
-              "name": "filter[system_profile][ansible]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
-              "description": "Is this a Microsoft SQL system?",
-              "in": "query",
-              "name": "filter[system_profile][mssql]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "Are there systems which contain these SAP SIDs?",
               "in": "query",
               "name": "filter[system_profile][sap_sids][contains]",
@@ -6542,14 +6639,6 @@
                 "type": "array"
               },
               "style": "form"
-            },
-            {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
             },
             {
               "description": "List of Inventory host group names",
@@ -6578,13 +6667,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -6616,6 +6705,29 @@
                 "format": "uuid",
                 "type": "string"
               }
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
             }
           ],
           "responses": {
@@ -6721,14 +6833,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -6750,13 +6854,13 @@
               }
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -6772,6 +6876,29 @@
                   "enum": [
                     "dnfyum",
                     "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
                   ],
                   "type": "string"
                 },
@@ -6902,14 +7029,6 @@
               "style": "form"
             },
             {
-              "description": "Is this a SAP system?",
-              "in": "query",
-              "name": "filter[system_profile][sap_system]",
-              "schema": {
-                "type": "boolean"
-              }
-            },
-            {
               "description": "List of Inventory host group names",
               "in": "query",
               "name": "groups",
@@ -6958,13 +7077,13 @@
               "style": "form"
             },
             {
-              "description": "Tags have a namespace, key and value in the form namespace/key=value",
+              "description": "Tags have a namespace and key, with an optional value, in the form namespace/key=value or namespace/key",
               "in": "query",
               "name": "tags",
               "schema": {
                 "items": {
                   "format": "regex",
-                  "pattern": "^[^/=]+/[^/=]+=[^/=]+$",
+                  "pattern": "^[^/]+/[^=]+(=.*)?$",
                   "type": "string"
                 },
                 "type": "array"
@@ -6980,6 +7099,29 @@
                   "enum": [
                     "dnfyum",
                     "ostree"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "style": "form"
+            },
+            {
+              "description": "Filter systems by workload type. Multiple workloads are OR'd together. Valid workloads: sap, ansible, mssql, crowdstrike, ibm_db2, intersystems, oracle_db, rhel_ai, satellite",
+              "in": "query",
+              "name": "workload",
+              "schema": {
+                "items": {
+                  "enum": [
+                    "ansible",
+                    "crowdstrike",
+                    "ibm_db2",
+                    "intersystems",
+                    "mssql",
+                    "oracle_db",
+                    "rhel_ai",
+                    "sap",
+                    "satellite"
                   ],
                   "type": "string"
                 },
