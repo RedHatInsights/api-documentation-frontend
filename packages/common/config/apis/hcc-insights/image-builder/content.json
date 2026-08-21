@@ -2838,6 +2838,10 @@
               "in": "query",
               "name": "ignoreImageTypes",
               "schema": {
+                "example": [
+                  "rhel-edge-installer",
+                  "rhel-edge-commit"
+                ],
                 "items": {
                   "$ref": "#/components/schemas/ImageTypes"
                 },
@@ -3001,6 +3005,10 @@
               "in": "query",
               "name": "ignoreImageTypes",
               "schema": {
+                "example": [
+                  "rhel-edge-installer",
+                  "rhel-edge-commit"
+                ],
                 "items": {
                   "$ref": "#/components/schemas/ImageTypes"
                 },

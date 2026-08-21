@@ -80,6 +80,92 @@
           },
           "type": "object"
         },
+        "AdvisorSystem": {
+          "properties": {
+            "all_pathway_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "critical_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "display_name": {
+              "maxLength": 200,
+              "type": "string"
+            },
+            "group_name": {
+              "nullable": true,
+              "readOnly": true,
+              "type": "string"
+            },
+            "hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "important_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "incident_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "last_seen": {
+              "format": "date-time",
+              "nullable": true,
+              "readOnly": true,
+              "type": "string"
+            },
+            "low_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "moderate_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "os_name": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "pathway_filter_hits": {
+              "readOnly": true,
+              "type": "integer"
+            },
+            "rhel_version": {
+              "readOnly": true,
+              "type": "string"
+            },
+            "stale_at": {
+              "format": "date-time",
+              "readOnly": true,
+              "type": "string"
+            },
+            "system_uuid": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "all_pathway_hits",
+            "critical_hits",
+            "display_name",
+            "group_name",
+            "hits",
+            "important_hits",
+            "incident_hits",
+            "last_seen",
+            "low_hits",
+            "moderate_hits",
+            "os_name",
+            "pathway_filter_hits",
+            "rhel_version",
+            "stale_at",
+            "system_uuid"
+          ],
+          "type": "object"
+        },
         "AllAck": {
           "properties": {
             "account": {
@@ -470,6 +556,54 @@
             "data": {
               "items": {
                 "$ref": "#/components/schemas/Ack"
+              },
+              "type": "array"
+            },
+            "links": {
+              "properties": {
+                "first": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "last": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "next": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "previous": {
+                  "format": "uri",
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "meta": {
+              "properties": {
+                "count": {
+                  "example": 169,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "count"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "PaginatedAdvisorSystemList": {
+          "properties": {
+            "data": {
+              "items": {
+                "$ref": "#/components/schemas/AdvisorSystem"
               },
               "type": "array"
             },
@@ -3574,7 +3708,7 @@
                 "application/json": {
                   "schema": {
                     "items": {
-                      "$ref": "#/components/schemas/System"
+                      "$ref": "#/components/schemas/AdvisorSystem"
                     },
                     "type": "array"
                   }
@@ -3582,7 +3716,7 @@
                 "text/csv": {
                   "schema": {
                     "items": {
-                      "$ref": "#/components/schemas/System"
+                      "$ref": "#/components/schemas/AdvisorSystem"
                     },
                     "type": "array"
                   }
@@ -6565,7 +6699,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/PaginatedSystemList"
+                    "$ref": "#/components/schemas/PaginatedAdvisorSystemList"
                   }
                 }
               },
@@ -6603,7 +6737,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/System"
+                    "$ref": "#/components/schemas/AdvisorSystem"
                   }
                 }
               },
