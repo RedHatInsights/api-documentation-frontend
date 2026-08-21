@@ -324,7 +324,7 @@ apis:
       - id: automation-orchestrator
         name: Automation orchestrator
         description: REST API for automation orchestrator, an automation component of Ansible Automation Platform
-        url: https://raw.githubusercontent.com/syntara-orchestration/syntara/refs/heads/devel/backend/src/syntara/schemas/openapi-public.yaml
+        url: https://raw.githubusercontent.com/syntara-orchestration/syntara/refs/heads/feat/public-openapi-spec-json/backend/src/syntara/schemas/openapi-public.json
         serverUrl: none
         apiType: openapi-v3
         icon: ansible
