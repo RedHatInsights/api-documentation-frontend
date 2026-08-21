@@ -128,34 +128,18 @@ This is a list of the support sections, followed by the required file name.
 
 - Getting started: `getting-started.md`
 
-## Releasing to Production (Deprecated)
+## API Sync
 
-We use GitLab tags for deployment to Production. Follow these steps:
+A GitHub Actions workflow ([sync-discovery](./.github/workflows/sync-discovery.yml)) keeps API specs up to date. It runs nightly (midnight UTC) and can be triggered manually via `workflow_dispatch`. It runs `npm run discovery` to fetch the latest OpenAPI specs from upstream sources, and if any specs have changed, it creates a PR and auto-merges it into `main`. Once merged, this triggers a new deployment automatically (see [Deployment](#deployment)).
 
-1. **Ensure code is ready:** Merge all changes for the release into `main` and ensure they are tested.
+## Deployment
 
-2. **Create a GitLab Release:** Go to "Releases" in [GitLab](https://gitlab.cee.redhat.com/insights-platform/api-documentation-frontend/-/releases), click "Create a new release". Add a tag name using [Semantic Versioning](https://semver.org/) (e.g., `v1.0.0`). Give it a title, and write any notes about this release.
+Deployments are handled automatically through Konflux, GitLab CI, and SPAship:
 
-   When naming your release, follow **Semantic Versioning** rules:
-   - **Major version (e.g., v1.0.0 to v2.0.0)**: You made big changes. Old features might not work.
-   - **Minor version (e.g., v1.0.0 to v1.1.0)**: You added something new, but the old features still work.
-   - **Patch version (e.g., v1.0.0 to v1.0.1)**: You fixed a small bug and didn't change or add anything else.
+1. Merging to `main` triggers a Konflux pipeline that builds a container image and pushes it to Quay.
+2. A GitLab CI pipeline ([.gitlab-ci.yml](./.gitlab-ci.yml)) waits for the Quay image, then uses the SPAship CLI to deploy it sequentially to Stage, QA, Dev, and Prod.
 
-3. **Trigger the deployment:** Creating the release generates a tag that triggers the production deployment pipeline. Our `.gitlab-ci.yml` includes:
-
-   ```yaml
-   rules:
-     - if: $CI_COMMIT_TAG =~ /^v\d+/
-       when: always
-   ```
-   
-   This means the `deploy_prod` job executes when a tag like `v1.0.0` is added.
-
-4. **Watch the pipeline:** Monitor the pipeline in GitLab's CI/CD > Pipelines section. If successful, your code is deployed to production.
-
-## Releasing to production (new)
-
-TBD
+Deployment status can be monitored in the [SPAship portal](https://spaship.redhat.com/properties/developers/api-documentation-frontend).
 
 ## SPAship configuration
 
