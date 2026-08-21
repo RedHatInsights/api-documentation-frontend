@@ -286,6 +286,54 @@
             }
           ]
         },
+        "ClusterLogNotification": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/ObjectReference"
+            },
+            {
+              "properties": {
+                "completed_actions": {
+                  "description": "Per-action completion records for this log. Empty (or omitted)\nuntil at least one trigger action has completed successfully.\n",
+                  "items": {
+                    "$ref": "#/components/schemas/CompletedAction"
+                  },
+                  "type": "array"
+                },
+                "notification_uuid": {
+                  "description": "UUID assigned when the log matches a notification trigger and is\nqueued. Null if the log has never been selected for notification.\n",
+                  "nullable": true,
+                  "type": "string"
+                },
+                "notified_at": {
+                  "description": "Timestamp when the async trigger job finished processing this\nlog. Null while still pending (even if notification_uuid is set)\nor if never notified. Per-action detail is in completed_actions.\n",
+                  "format": "date-time",
+                  "nullable": true,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
+        "ClusterLogNotificationList": {
+          "allOf": [
+            {
+              "$ref": "#/components/schemas/List"
+            },
+            {
+              "properties": {
+                "items": {
+                  "items": {
+                    "$ref": "#/components/schemas/ClusterLogNotification"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          ]
+        },
         "ClusterLogRequest": {
           "allOf": [
             {
@@ -300,6 +348,38 @@
               "type": "object"
             }
           ]
+        },
+        "CompletedAction": {
+          "properties": {
+            "completed_at": {
+              "description": "When this action finished successfully.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "hash": {
+              "description": "Opaque SHA-256 digest of the trigger action identity (Action.Hash).\nDoes not contain raw webhook URLs, tokens, or other secrets.\n",
+              "type": "string"
+            },
+            "status": {
+              "description": "Completion status. Currently always \"completed\"; reserved for\nfuture states (e.g. failed / skipped).\n",
+              "type": "string"
+            },
+            "type": {
+              "description": "Trigger action type that completed.",
+              "enum": [
+                "email",
+                "webhook",
+                "support_case"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "hash",
+            "status",
+            "completed_at"
+          ],
+          "type": "object"
         },
         "Error": {
           "allOf": [
@@ -788,6 +868,86 @@
             }
           ],
           "summary": "Get all service logs for a cluster specified by cluster_id and/or cluster_uuid"
+        }
+      },
+      "/api/service_logs/v1/clusters/cluster_logs/notifications": {
+        "get": {
+          "description": "Returns notification bookkeeping fields for service logs on a cluster\nidentified by cluster_id and/or cluster_uuid (via any-id). Supported\nquery parameters are any-id, page, size, search, and orderBy. Unlike\nGET /api/service_logs/v1/clusters/cluster_logs, this endpoint does not\nsupport fields, format, or fetchAccounts.\n\nField semantics:\n- notification_uuid is null until the log matches a notification trigger\n  and is queued; a pending notification has a uuid and a null notified_at.\n- notified_at is set when the async trigger job finishes processing the\n  log (all matched actions for that run completed).\n- completed_actions lists each successfully executed trigger action\n  (opaque hash, type, status, completed_at). Empty until at least one\n  action has completed.\n",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/any_id"
+            },
+            {
+              "$ref": "#/components/parameters/page"
+            },
+            {
+              "$ref": "#/components/parameters/size"
+            },
+            {
+              "$ref": "#/components/parameters/search"
+            },
+            {
+              "$ref": "#/components/parameters/orderBy"
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ClusterLogNotificationList"
+                  }
+                }
+              },
+              "description": "Notification status for matching service logs"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Bad request: At least one of cluster_uuid and cluster_id is required"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Auth token is invalid"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unauthorized to perform operation"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected error occurred"
+            }
+          },
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "summary": "Get notification status for service logs of a cluster"
         }
       },
       "/api/service_logs/v1/clusters/{uuid}/cluster_logs": {
