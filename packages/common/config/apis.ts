@@ -633,6 +633,24 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["ansible"], apiLabelsMap["automation"]],
   },
   {
+    id: "automation-orchestrator",
+    displayName: "Automation orchestrator",
+    description:
+      "REST API for automation orchestrator, an automation component of Ansible Automation Platform",
+    icon: "AnsibleIcon",
+    apiContentPath: "./apis/hcc-insights/automation-orchestrator/content.json",
+    serverUrl: "none",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/automation-orchestrator/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [
+      apiLabelsMap["ansible"],
+      apiLabelsMap["automation"],
+      apiLabelsMap["workflows"],
+    ],
+  },
+  {
     id: "roadmap",
     displayName: "Red Hat Lightspeed for RHEL Planning",
     description: "API for RHEL product lifecycle data",
