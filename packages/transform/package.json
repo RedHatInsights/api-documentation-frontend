@@ -9,11 +9,11 @@
     "commander": "7.2.0",
     "eta": "^2.2.0",
     "got": "^12.6.1",
-    "prettier": "^2.8.4",
+    "prettier": "^2.8.8",
     "sorted-json-stringify": "^0.1.1"
   },
   "devDependencies": {
-    "@types/node": "^18.13.0"
+    "@types/node": "^18.19.130"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js && cp src/*.eta dist",
