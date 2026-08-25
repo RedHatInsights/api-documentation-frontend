@@ -7,7 +7,6 @@ import {
   Bullseye,
   Page,
   PageSection,
-  PageSectionVariants,
   Sidebar,
   SidebarContent,
   SidebarPanel,
@@ -78,8 +77,8 @@ export const APIPage = ({ apiId }: { apiId: string }) => {
             <meta key={t.type} name={`rhd:taxonomy-${t.type}`} content={t.value} />
           ))}
         </Head>
-        <Page className="apid-c-page-apipage pf-v5-u-background-color-100">
-          <PageSection variant={PageSectionVariants.light}>
+        <Page className="apid-c-page-apipage pf-v6-u-background-color-100">
+          <PageSection hasBodyWrapper={false}>
             <Breadcrumb>
               <BreadcrumbItem
                 to="#"
@@ -95,7 +94,7 @@ export const APIPage = ({ apiId }: { apiId: string }) => {
             </Breadcrumb>
           </PageSection>
           <Sidebar>
-            <SidebarPanel className="pf-v5-u-p-lg">
+            <SidebarPanel className="pf-v6-u-p-lg">
               <SidebarApiSections openapi={openapi} groupedOperations={groupedOperations} />
             </SidebarPanel>
             <SidebarContent>

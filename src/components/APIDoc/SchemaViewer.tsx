@@ -2,7 +2,7 @@ import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import { SchemaDataView } from './SchemaDataView';
 import { deRef } from '../../utils/Openapi';
-import { Accordion, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Accordion, Content, ContentVariants } from '@patternfly/react-core';
 
 interface SchemaViewerProps {
   document: OpenAPIV3.Document;
@@ -18,9 +18,9 @@ export const SchemaViewer: React.FunctionComponent<SchemaViewerProps> = ({ docum
 
   return (
     <>
-      <TextContent className="pf-v5-u-pb-lg">
-        <Text component={TextVariants.h2}>Schemas</Text>
-      </TextContent>
+      <Content className="pf-v6-u-pb-lg">
+        <Content component={ContentVariants.h2}>Schemas</Content>
+      </Content>
       <Accordion className="apid-c-accordion-schemas" isBordered>
         {schemas &&
           Object.entries(schemas).map(([schemaName, schemaObject]) => {

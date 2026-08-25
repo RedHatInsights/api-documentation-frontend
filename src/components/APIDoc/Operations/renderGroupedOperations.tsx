@@ -1,6 +1,6 @@
 import { GroupedOperations } from '../hooks/useGroupedOperations';
 import { Operation } from '../Operation';
-import { StackItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { StackItem, Content, ContentVariants } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 import { Operations } from '../Operations';
 import { getOperationGroupId, getUngroupedOperationsId } from '../../../utils/OpenapiHtmlIds';
@@ -30,10 +30,10 @@ export const renderGroupOperations = ({ groupedOperations, openapi }: GroupedOpe
   const result = [
     ...groupedOperations.groups.map((group) => (
       <StackItem key={`group-${group.id}`} id={getOperationGroupId(group.id)}>
-        <TextContent className="pf-v5-u-pb-lg">
-          <Text component={TextVariants.h3}>{group.name}</Text>
+        <Content className="pf-v6-u-pb-lg">
+          <Content component={ContentVariants.h3}>{group.name}</Content>
           {group.description && <ReactMarkdown rehypePlugins={rehypePlugins}>{group.description}</ReactMarkdown>}
-        </TextContent>
+        </Content>
         <Operations>{group.operationIds.map((id) => mapToOperation(id, groupedOperations.operations, openapi))}</Operations>
         <br />
       </StackItem>
@@ -45,9 +45,9 @@ export const renderGroupOperations = ({ groupedOperations, openapi }: GroupedOpe
     result.push(
       <StackItem key={`other-operations`} id={getUngroupedOperationsId()}>
         {title && (
-          <TextContent className="pf-v5-u-pb-lg">
-            <Text component={TextVariants.h3}>{title}</Text>
-          </TextContent>
+          <Content className="pf-v6-u-pb-lg">
+            <Content component={ContentVariants.h3}>{title}</Content>
+          </Content>
         )}
         <Operations>{groupedOperations.others.map((id) => mapToOperation(id, groupedOperations.operations, openapi))}</Operations>
       </StackItem>,

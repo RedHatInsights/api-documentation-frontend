@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { deRef } from '../../utils/Openapi';
-import { PageSection, PageSectionVariants, TextContent, Text, TextVariants } from '@patternfly/react-core';
+import { PageSection, Content, ContentVariants } from '@patternfly/react-core';
 import { ServerList } from './ServerList';
 import { SecuritySchemeList } from './SecuritySchemeList';
 import { SchemaViewer } from './SchemaViewer';
@@ -25,36 +25,36 @@ export const ApiDoc: FunctionComponent<ApiDocProps> = (props) => {
 
   return (
     <>
-      <PageSection variant={PageSectionVariants.light} className="pf-v5-u-px-xl-on-md">
-        <TextContent>
-          <Text component={TextVariants.h1}>{getTitleWithVersion(openapi)}</Text>
+      <PageSection hasBodyWrapper={false} className="pf-v6-u-px-xl-on-md">
+        <Content>
+          <Content component={ContentVariants.h1}>{getTitleWithVersion(openapi)}</Content>
           {openapi.info.description && (
-            <div className="pf-v5-u-pb-md">
+            <div className="pf-v6-u-pb-md">
               <ReactMarkdown rehypePlugins={rehypePlugins}>{openapi.info.description}</ReactMarkdown>
             </div>
           )}
-        </TextContent>
+        </Content>
 
         {openapi.servers && <ServerList servers={openapi.servers} />}
       </PageSection>
       <DocumentContent from={apiContent.extras} name={ExtraAPIContent.GETTING_STARTED} title="Getting started" />
       {openapi.components?.securitySchemes && (
-        <PageSection variant={PageSectionVariants.light} className="pf-v5-u-px-xl-on-md">
-          <div className="pf-v5-u-pb-lg" id={getAuthenticationId()}>
+        <PageSection hasBodyWrapper={false} className="pf-v6-u-px-xl-on-md">
+          <div className="pf-v6-u-pb-lg" id={getAuthenticationId()}>
             <SecuritySchemeList schemes={Object.values(openapi.components.securitySchemes).map((s) => deRef(s, openapi))} />
           </div>
         </PageSection>
       )}
-      <PageSection id={getOperationId()} variant={PageSectionVariants.light} className="pf-v5-u-px-xl-on-md">
-        <TextContent className="pf-v5-u-pb-lg">
-          <Text component={TextVariants.h2}>Operations</Text>
-        </TextContent>
+      <PageSection hasBodyWrapper={false} id={getOperationId()} className="pf-v6-u-px-xl-on-md">
+        <Content className="pf-v6-u-pb-lg">
+          <Content component={ContentVariants.h2}>Operations</Content>
+        </Content>
         {renderGroupOperations({
           openapi,
           groupedOperations: groupedOperations,
         })}
       </PageSection>
-      <PageSection id={getSchemasId()} variant={PageSectionVariants.light} className="pf-v5-u-px-xl-on-md">
+      <PageSection hasBodyWrapper={false} id={getSchemasId()} className="pf-v6-u-px-xl-on-md">
         <SchemaViewer document={openapi} />
       </PageSection>
     </>
