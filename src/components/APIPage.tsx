@@ -77,7 +77,7 @@ export const APIPage = ({ apiId }: { apiId: string }) => {
             <meta key={t.type} name={`rhd:taxonomy-${t.type}`} content={t.value} />
           ))}
         </Head>
-        <Page className="apid-c-page-apipage pf-v6-u-background-color-100">
+        <Page className="apid-c-page-apipage">
           <PageSection hasBodyWrapper={false}>
             <Breadcrumb>
               <BreadcrumbItem

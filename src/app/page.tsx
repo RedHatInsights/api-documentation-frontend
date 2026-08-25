@@ -105,7 +105,7 @@ export default function Home() {
   };
 
   return (
-    <Page className="apid-c-page-landingpage pf-v6-u-background-color-100">
+    <Page className="apid-c-page-landingpage">
       <Sidebar>
         <SidebarPanel className="pf-v6-u-p-lg">
           <Form>

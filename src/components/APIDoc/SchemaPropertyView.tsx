@@ -23,7 +23,7 @@ export const PropertyView: React.FunctionComponent<PropertyViewComponentProps> =
               <Content component={ContentVariants.h6}>{propName}</Content>
             </FlexItem>
             <FlexItem>
-              <Content component={ContentVariants.p} className="pf-v6-u-danger-color-100">
+              <Content component={ContentVariants.p} className="pf-v6-u-text-color-status-danger">
                 {required && '*'}
               </Content>
             </FlexItem>

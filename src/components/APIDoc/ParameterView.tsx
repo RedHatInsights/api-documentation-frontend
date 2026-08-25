@@ -36,7 +36,7 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({ tit
                     <Content component={ContentVariants.p}>{p.name}</Content>
                   </FlexItem>
                   <FlexItem>
-                    <Content component={ContentVariants.p} className="pf-v6-u-danger-color-100">
+                    <Content component={ContentVariants.p} className="pf-v6-u-text-color-status-danger">
                       {p.required && '*'}
                     </Content>
                   </FlexItem>
