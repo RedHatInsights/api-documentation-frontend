@@ -1119,6 +1119,85 @@
           "example": 3,
           "type": "integer"
         },
+        "HostFilters": {
+          "additionalProperties": false,
+          "description": "Host-level query filters that correspond to the /hosts endpoint query parameters. Stored with the view so the frontend can reconstruct the full query when loading hosts for this view.",
+          "properties": {
+            "hostname_or_id": {
+              "description": "Display name or ID substring search.",
+              "type": "string"
+            },
+            "last_check_in_end": {
+              "description": "End of last check-in date range (ISO 8601).",
+              "format": "date-time",
+              "type": "string"
+            },
+            "last_check_in_start": {
+              "description": "Start of last check-in date range (ISO 8601).",
+              "format": "date-time",
+              "type": "string"
+            },
+            "registered_with": {
+              "description": "Filter by reporting source.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "staleness": {
+              "description": "Culling states to include.",
+              "items": {
+                "enum": [
+                  "fresh",
+                  "stale",
+                  "stale_warning",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "system_type": {
+              "description": "Filter by system type.",
+              "items": {
+                "enum": [
+                  "conventional",
+                  "bootc",
+                  "edge",
+                  "cluster"
+                ],
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "tags": {
+              "description": "Tag filters in namespace/key=value format.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "updated_end": {
+              "description": "End of last-modified date range (ISO 8601).",
+              "format": "date-time",
+              "type": "string"
+            },
+            "updated_start": {
+              "description": "Start of last-modified date range (ISO 8601).",
+              "format": "date-time",
+              "type": "string"
+            },
+            "workspace_name": {
+              "description": "Filter by workspace name.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "title": "Host Query Filters",
+          "type": "object"
+        },
         "HostId": {
           "$ref": "#/components/schemas/NonStrictUUID",
           "description": "A durable and reliable platform-wide group identifier. Applications should use this identifier to reference hosts."
@@ -3612,7 +3691,12 @@
             },
             "filters": {
               "additionalProperties": true,
-              "description": "Active filter criteria for this view. Top-level keys are filter namespaces: app names (e.g. vulnerability, patch) or system_profile. Each namespace value is a nested object of field -> operator -> value conditions. system_profile filters may be deeply nested (e.g. operating_system.RHEL.version). Validated server-side using the hosts API filter engine.",
+              "description": "Active filter criteria for this view. Top-level keys are filter namespaces: app names (e.g. vulnerability, patch), system_profile, or host (for host-level query parameters). Each namespace value is a nested object. system_profile filters may be deeply nested (e.g. operating_system.RHEL.version). The reserved \"host\" key holds host-level query parameters (staleness, tags, etc.) that the frontend replays as /hosts query params. Validated server-side.",
+              "properties": {
+                "host": {
+                  "$ref": "#/components/schemas/HostFilters"
+                }
+              },
               "type": "object"
             },
             "sort": {
