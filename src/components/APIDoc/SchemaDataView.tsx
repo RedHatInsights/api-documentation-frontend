@@ -2,9 +2,8 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import {
   TreeView,
   TreeViewDataItem,
-  Text,
-  TextContent,
-  TextVariants,
+  Content,
+  ContentVariants,
   Flex,
   FlexItem,
   AccordionItem,
@@ -60,10 +59,10 @@ export const SchemaDataView: React.FunctionComponent<SchemaDataViewProps> = ({ s
   };
 
   return (
-    <AccordionItem>
-      <AccordionToggle id={id} isExpanded={isExpanded} onClick={switchExpanded} className="pf-v5-u-flex-direction-row-reverse pf-v5-u-py-md">
-        <span className="pf-v5-u-font-weight-normal pf-v5-u-color-100 pf-v5-u-mr-lg">{schemaName}</span>
-        <span className="pf-v5-u-font-size-sm pf-v5-u-font-weight-normal pf-v5-u-color-200">{schema.type ? schema.type : 'object'} </span>
+    <AccordionItem isExpanded={isExpanded}>
+      <AccordionToggle id={id} onClick={switchExpanded} className="pf-v6-u-flex-direction-row-reverse pf-v6-u-py-md">
+        <span className="pf-v6-u-font-weight-normal pf-v6-u-text-color-regular pf-v6-u-mr-lg">{schemaName}</span>
+        <span className="pf-v6-u-font-size-sm pf-v6-u-font-weight-normal pf-v6-u-text-color-subtle">{schema.type ? schema.type : 'object'} </span>
       </AccordionToggle>
       {isExpanded && (
         <AccordionContent>
@@ -108,15 +107,15 @@ const ConditionSchema: React.FunctionComponent<ConditionSchemaProps> = ({ condit
 
   return (
     <>
-      <TextContent className="pf-v5-u-pb-md">
-        <Text component={TextVariants.h4}>{condition}</Text>
-      </TextContent>
+      <Content className="pf-v6-u-pb-md">
+        <Content component={ContentVariants.h4}>{condition}</Content>
+      </Content>
       <Flex direction={{ default: 'column' }}>
         {singleSchemas.map((singleSchema, idx) => {
           return (
             <FlexItem key={idx}>
-              <Card isFlat isCompact>
-                <CardBody className="pf-v5-u-font-size-md">{singleSchema}</CardBody>
+              <Card isCompact>
+                <CardBody className="pf-v6-u-font-size-md">{singleSchema}</CardBody>
               </Card>
             </FlexItem>
           );
@@ -127,9 +126,9 @@ const ConditionSchema: React.FunctionComponent<ConditionSchemaProps> = ({ condit
           }
           return (
             <FlexItem key={schemaData.type}>
-              <Card isFlat isCompact>
-                <CardBody className="pf-v5-u-font-size-md">{schemaData.type}</CardBody>
-                <CardBody className="pf-v5-u-p-0 pf-v5-u-font-size-md">
+              <Card isCompact>
+                <CardBody className="pf-v6-u-font-size-md">{schemaData.type}</CardBody>
+                <CardBody className="pf-v6-u-p-0 pf-v6-u-font-size-md">
                   <TreeView data={schemaData.treeData} variant="compactNoBackground" />
                 </CardBody>
               </Card>

@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { rehypePlugins } from '../../utils/markdownPlugins';
-import { PageSection, PageSectionVariants, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { PageSection, Content, ContentVariants } from '@patternfly/react-core';
 
 interface DocumentContentProps {
   from: Record<string, string>;
@@ -15,11 +15,11 @@ export const DocumentContent: FunctionComponent<DocumentContentProps> = ({ from,
   }
 
   return (
-    <PageSection variant={PageSectionVariants.light} className="pf-v5-u-px-xl-on-md">
-      <TextContent>
-        {title && <Text component={TextVariants.h1}>{title}</Text>}
+    <PageSection hasBodyWrapper={false} className="pf-v6-u-px-xl-on-md">
+      <Content>
+        {title && <Content component={ContentVariants.h1}>{title}</Content>}
         <ReactMarkdown rehypePlugins={rehypePlugins}>{from[name]}</ReactMarkdown>
-      </TextContent>
+      </Content>
     </PageSection>
   );
 };
