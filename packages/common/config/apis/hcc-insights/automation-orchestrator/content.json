@@ -503,7 +503,7 @@
                   "type": "null"
                 }
               ],
-              "description": "Syntara credential UUID for Ansible Automation Platform API authentication. Separate from legacy credentials list.",
+              "description": "Orchestrator credential UUID for Ansible Automation Platform API authentication. Separate from legacy credentials list.",
               "title": "Credential Id"
             },
             "diff_mode": {
@@ -1392,7 +1392,7 @@
                   "type": "null"
                 }
               ],
-              "description": "Syntara credential UUID for Ansible Automation Platform API authentication. Separate from legacy credentials list.",
+              "description": "Orchestrator credential UUID for Ansible Automation Platform API authentication. Separate from legacy credentials list.",
               "title": "Credential Id"
             },
             "extra_vars": {
@@ -1671,7 +1671,7 @@
                   "type": "null"
                 }
               ],
-              "description": "Syntara credential UUID for authentication or Secret URL.",
+              "description": "Orchestrator credential UUID for authentication or Secret URL.",
               "title": "Credential Id"
             },
             "headers": {
@@ -2124,7 +2124,7 @@
                   "type": "null"
                 }
               ],
-              "description": "Syntara credential UUID for LLM provider authentication",
+              "description": "Orchestrator credential UUID for LLM provider authentication",
               "title": "Credential Id"
             },
             "file_ids": {
@@ -2679,7 +2679,7 @@
                   "type": "null"
                 }
               ],
-              "description": "Syntara credential UUID",
+              "description": "Orchestrator credential UUID",
               "title": "Credential Id"
             },
             "decision_window": {
@@ -6304,7 +6304,7 @@
           "description": "Execution credential override for one integration.\n\n\nWhen included in AgenticExecutorParameters.integration_connections, this credential\n\nis used for calls against that integration instead of the integration's\n\nmanagement credential.",
           "properties": {
             "credential_id": {
-              "description": "Syntara credential UUID for execution calls (distinct from management credential)",
+              "description": "Orchestrator credential UUID for execution calls (distinct from management credential)",
               "title": "Credential Id",
               "type": "string"
             },
@@ -8092,7 +8092,7 @@
         },
         "OIDCClaimMapping": {
           "additionalProperties": false,
-          "description": "Maps Syntara user fields to IdP-specific OIDC claim names.",
+          "description": "Maps Orchestrator user fields to IdP-specific OIDC claim names.",
           "properties": {
             "email": {
               "default": "email",
@@ -8220,7 +8220,7 @@
               "title": "Group Jmespath Expression"
             },
             "group_mapping_entries": {
-              "description": "IdP-to-Syntara group mapping entries",
+              "description": "IdP-to-Orchestrator group mapping entries",
               "items": {
                 "$ref": "#/components/schemas/OIDCGroupMappingEntry"
               },
@@ -8406,7 +8406,7 @@
               "title": "Group Jmespath Expression"
             },
             "group_mapping_entries": {
-              "description": "IdP-to-Syntara group mapping entries",
+              "description": "IdP-to-Orchestrator group mapping entries",
               "items": {
                 "$ref": "#/components/schemas/OIDCGroupMappingEntry"
               },
@@ -8647,7 +8647,7 @@
                   "type": "null"
                 }
               ],
-              "description": "IdP-to-Syntara group mapping entries (omit to keep existing)",
+              "description": "IdP-to-Orchestrator group mapping entries (omit to keep existing)",
               "title": "Group Mapping Entries"
             },
             "idp_type": {
@@ -8746,7 +8746,7 @@
         },
         "OIDCGroupMappingEntry": {
           "additionalProperties": false,
-          "description": "API-facing schema for a single IdP-to-Syntara group mapping entry.\n\nUsed in API requests/responses. Actual storage is in the\n``idp_group_mapping_entries`` table.",
+          "description": "API-facing schema for a single IdP-to-Orchestrator group mapping entry.\n\nUsed in API requests/responses. Actual storage is in the\n``idp_group_mapping_entries`` table.",
           "properties": {
             "idp_group_value": {
               "description": "Group value from the IdP token (e.g. GUID or role name)",
@@ -10868,7 +10868,7 @@
                   "type": "null"
                 }
               ],
-              "description": "Syntara credential UUID for credential scrubbing",
+              "description": "Orchestrator credential UUID for credential scrubbing",
               "title": "Credential Id"
             },
             "environment": {
@@ -14151,7 +14151,7 @@
         },
         "WorkflowDefinition": {
           "additionalProperties": false,
-          "description": "JSON Schema for graph-based workflow definitions in the Syntara Workflow Engine v2.\n\nAttributes:\n    schema_version: Schema version that this workflow definition conforms to\n    name: Workflow name\n    description: Human-readable description of the workflow's purpose\n    triggers: Trigger nodes that define how the workflow is initiated\n    nodes: Execution and control nodes in the workflow graph\n    edges: Directed edges connecting triggers and nodes in the workflow graph",
+          "description": "JSON Schema for graph-based workflow definitions in the Orchestrator Workflow Engine v2.\n\nAttributes:\n    schema_version: Schema version that this workflow definition conforms to\n    name: Workflow name\n    description: Human-readable description of the workflow's purpose\n    triggers: Trigger nodes that define how the workflow is initiated\n    nodes: Execution and control nodes in the workflow graph\n    edges: Directed edges connecting triggers and nodes in the workflow graph",
           "properties": {
             "description": {
               "anyOf": [
@@ -15001,7 +15001,7 @@
     },
     "info": {
       "description": "A distributed multi-agent workflow orchestration system",
-      "title": "Syntara API",
+      "title": "Orchestrator API",
       "version": "1.0.0"
     },
     "openapi": "3.1.0",
@@ -38609,7 +38609,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -38845,7 +38845,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39098,7 +39098,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39334,7 +39334,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39587,7 +39587,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39850,7 +39850,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40086,7 +40086,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40322,7 +40322,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40558,7 +40558,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40821,7 +40821,7 @@
               }
             },
             {
-              "description": "Optional Syntara credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
