@@ -2309,7 +2309,7 @@
           "description": "Request payload for creating an approval request.\n\nThis is an internal schema used by the Workflows component.",
           "properties": {
             "approval_node_id": {
-              "description": "Activity ID from workflow definition",
+              "description": "Canvas node ID from the workflow definition",
               "title": "Approval Node Id",
               "type": "string"
             },
@@ -2353,6 +2353,14 @@
               "title": "Execution Id",
               "type": "string"
             },
+            "loop_iteration_path": {
+              "description": "Enclosing-loop indices, outermost first (empty when not inside a loop)",
+              "items": {
+                "type": "integer"
+              },
+              "title": "Loop Iteration Path",
+              "type": "array"
+            },
             "name": {
               "description": "Display name for the approval request",
               "maxLength": 255,
@@ -2380,6 +2388,32 @@
               "format": "uuid",
               "title": "Project Id",
               "type": "string"
+            },
+            "prompt": {
+              "anyOf": [
+                {
+                  "maxLength": 2000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Resolved guidance message from the approval node, shown to approvers",
+              "title": "Prompt"
+            },
+            "temporal_activity_id": {
+              "anyOf": [
+                {
+                  "maxLength": 255,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Temporal activity ID to signal on decide (defaults to approval_node_id)",
+              "title": "Temporal Activity Id"
             },
             "timeout_at": {
               "anyOf": [
@@ -2698,7 +2732,7 @@
           "description": "ApprovalRequest API response model with typed nested fields.\n\nOverrides the JSONB dict fields from BaseApprovalRequest with typed models\nso API consumers get proper validation and type safety. Pydantic coerces\nthe raw dicts from the database into these typed models during serialization.",
           "properties": {
             "approval_node_id": {
-              "description": "Activity ID from workflow definition",
+              "description": "Canvas node ID from the workflow definition",
               "maxLength": 255,
               "minLength": 1,
               "title": "Approval Node Id",
@@ -2793,6 +2827,14 @@
               "title": "Labels",
               "type": "object"
             },
+            "loop_iteration_path": {
+              "description": "Enclosing-loop indices, outermost first (empty when not inside a loop)",
+              "items": {
+                "type": "integer"
+              },
+              "title": "Loop Iteration Path",
+              "type": "array"
+            },
             "name": {
               "description": "Human-readable name for the approval request",
               "maxLength": 255,
@@ -2820,6 +2862,19 @@
               "format": "uuid",
               "title": "Project Id",
               "type": "string"
+            },
+            "prompt": {
+              "anyOf": [
+                {
+                  "maxLength": 2000,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Resolved guidance message from the approval node, shown to approvers",
+              "title": "Prompt"
             },
             "signal_delivery_error": {
               "anyOf": [
@@ -5034,6 +5089,11 @@
               "title": "Filename",
               "type": "string"
             },
+            "is_project_deleted": {
+              "description": "True when the owning project has been soft-deleted; the file is retained as an orphan. Project-scoped files:delete cannot remove orphans after soft-delete; only system-scope files:delete with a known file UUID can.",
+              "title": "Is Project Deleted",
+              "type": "boolean"
+            },
             "mime_type": {
               "description": "Detected MIME type of the file",
               "examples": [
@@ -5060,7 +5120,8 @@
             "filename",
             "size_bytes",
             "mime_type",
-            "status"
+            "status",
+            "is_project_deleted"
           ],
           "title": "FileDetailResponse",
           "type": "object"
@@ -5123,6 +5184,18 @@
               ],
               "title": "Filename",
               "type": "string"
+            },
+            "is_project_deleted": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "True when the owning project has been soft-deleted; the file is retained as an orphan. Null when not computed (e.g. upload response).",
+              "title": "Is Project Deleted"
             },
             "mime_type": {
               "description": "Detected MIME type of the file",
@@ -12624,11 +12697,17 @@
               "title": "Email"
             },
             "first_name": {
+              "anyOf": [
+                {
+                  "maxLength": 255,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
               "description": "User's first name",
-              "maxLength": 255,
-              "minLength": 1,
-              "title": "First Name",
-              "type": "string"
+              "title": "First Name"
             },
             "group_names": {
               "anyOf": [
@@ -12682,7 +12761,6 @@
           },
           "required": [
             "username",
-            "first_name",
             "password"
           ],
           "title": "UserCreate",
@@ -22828,6 +22906,179 @@
         }
       },
       "/files/{file_id}": {
+        "delete": {
+          "description": "Permanently delete a file and its stored content. After a project is soft-deleted, project-scoped files:delete cannot authorize orphan cleanup (the project no longer resolves). Only system-scope files:delete can remove an orphan, and only when the caller already knows the file UUID.",
+          "operationId": "delete_file",
+          "parameters": [
+            {
+              "description": "UUID of the file to delete",
+              "in": "path",
+              "name": "file_id",
+              "required": true,
+              "schema": {
+                "format": "uuid",
+                "title": "File Id",
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "File deleted successfully"
+            },
+            "400": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "BAD_REQUEST",
+                    "detail": "The request was malformed or contained invalid parameters",
+                    "retryable": false,
+                    "title": "Bad Request",
+                    "type": "https://api.example.com/errors/bad-request"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "UNAUTHORIZED",
+                    "detail": "Authentication is required to access this resource",
+                    "retryable": false,
+                    "title": "Unauthorized",
+                    "type": "https://api.example.com/errors/unauthorized"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "403": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "FORBIDDEN",
+                    "detail": "You do not have permission to access this resource",
+                    "retryable": false,
+                    "title": "Forbidden",
+                    "type": "https://api.example.com/errors/forbidden"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Forbidden"
+            },
+            "404": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "NOT_FOUND",
+                    "detail": "No resource exists with the provided identifier",
+                    "instance": "/api/v1/workflows",
+                    "retryable": false,
+                    "title": "Resource Not Found",
+                    "type": "https://api.example.com/errors/not-found"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Not Found"
+            },
+            "409": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "CONFLICT",
+                    "detail": "The request conflicts with the current state of the resource",
+                    "retryable": false,
+                    "title": "Conflict",
+                    "type": "https://api.example.com/errors/conflict"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Conflict"
+            },
+            "422": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "VALIDATION_ERROR",
+                    "detail": "Field 'name' must be between 1 and 255 characters",
+                    "instance": "/api/v1/workflows",
+                    "retryable": false,
+                    "title": "Validation Error",
+                    "type": "https://api.example.com/errors/validation-error"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Validation Error"
+            },
+            "429": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "RATE_LIMITED",
+                    "detail": "Rate limit exceeded. Try again in 60 seconds.",
+                    "retryable": true,
+                    "title": "Too Many Requests",
+                    "type": "https://api.example.com/errors/rate-limited"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Too Many Requests"
+            },
+            "500": {
+              "content": {
+                "application/problem+json": {
+                  "example": {
+                    "code": "INTERNAL_ERROR",
+                    "detail": "An unexpected error occurred",
+                    "retryable": true,
+                    "title": "Internal Server Error",
+                    "type": "https://api.example.com/errors/internal-error"
+                  },
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorData"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "summary": "Delete file",
+          "tags": [
+            "Files"
+          ],
+          "x-app-permission": {
+            "action": "delete",
+            "resource": "files"
+          }
+        },
         "get": {
           "description": "Retrieve metadata and conversion status for a single file by its ID. Use this endpoint to poll for conversion status after upload.",
           "operationId": "get_file_details",
