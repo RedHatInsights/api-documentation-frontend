@@ -17,6 +17,7 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({ codesnip
 
   return (
     <CodeEditor
+      isDarkTheme={true}
       isLineNumbersVisible={false}
       isReadOnly={true}
       isCopyEnabled={true}
