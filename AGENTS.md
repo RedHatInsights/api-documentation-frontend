@@ -10,7 +10,7 @@ The repo is a **monorepo** with npm workspaces:
 
 | Directory | Purpose |
 |-----------|---------|
-| `src/` | Next.js application (React + PatternFly 5) |
+| `src/` | Next.js application (React + PatternFly 6) |
 | `packages/common/` | Shared types and generated API configuration |
 | `packages/discovery/` | Discovery.yml data file, JSON schemas, and validation tests |
 | `packages/transform/` | CLI tool that converts Discovery.yml into TypeScript config |
@@ -50,7 +50,7 @@ Discovery.yml → transform CLI → packages/common/config/ → Next.js app → 
 |---------|-------|
 | Next.js 15 | Framework (static export mode) |
 | React 18 | UI library |
-| PatternFly 5 | Component library (PF5, not PF6) |
+| PatternFly 6 | Component library (PF6) |
 | Zustand | State management |
 | Monaco Editor | Code/spec editor in API detail pages |
 | react-markdown | Rendering markdown content sections |
@@ -70,9 +70,9 @@ Discovery.yml → transform CLI → packages/common/config/ → Next.js app → 
 ### Component Patterns
 
 - All page components use `'use client'` directive (client-side rendering)
-- PatternFly 5 components are imported from `@patternfly/react-core`
+- PatternFly 6 components are imported from `@patternfly/react-core`
 - PatternFly icons from `@patternfly/react-icons/dist/js/icons/` or `dist/esm/icons/`
-- CSS utility classes use `pf-v5-u-*` prefix (PatternFly 5)
+- CSS utility classes use `pf-v6-u-*` prefix (PatternFly 6)
 - Custom styles use `apid-` prefix (e.g., `apid-c-page-landingpage`)
 
 ### TypeScript
@@ -109,7 +109,7 @@ When modifying `packages/discovery/Discovery.yml`:
 ## Common Pitfalls
 
 - The `packages/common/config/` directory contains **generated files** — never edit directly
-- PatternFly is version **5** in this repo, not version 6 — use `pf-v5-u-*` utility classes
+- PatternFly is version **6** in this repo — use `pf-v6-u-*` utility classes and `--pf-t--*` design tokens
 - `npm test` only runs discovery tests — there are no frontend component tests
 - The `next.config.ts` uses `output: 'export'` — features requiring a Node.js server (API routes, ISR, middleware) are not available
 - Header and footer are loaded via SSI in production but fetched client-side in dev mode

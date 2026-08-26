@@ -1,6 +1,6 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
-import { Text, TextContent, TextList, TextListItem, TextVariants } from '@patternfly/react-core';
+import { Content, ContentVariants } from '@patternfly/react-core';
 import { SecurityScheme } from './SecurityScheme';
 
 export interface SecuritySchemeListProps {
@@ -8,14 +8,14 @@ export interface SecuritySchemeListProps {
 }
 
 export const SecuritySchemeList: React.FunctionComponent<SecuritySchemeListProps> = ({ schemes }) => (
-  <TextContent>
-    <Text component={TextVariants.h2}>Authentication</Text>
-    <TextList isPlain>
+  <Content>
+    <Content component={ContentVariants.h2}>Authentication</Content>
+    <Content component="ul" isPlainList>
       {schemes.map((s, index) => (
-        <TextListItem key={index}>
+        <Content component="li" key={index}>
           <SecurityScheme key={index} securityScheme={s} />
-        </TextListItem>
+        </Content>
       ))}
-    </TextList>
-  </TextContent>
+    </Content>
+  </Content>
 );

@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 
 import { buildExample, deRef, DeRefResponse } from '../../utils/Openapi';
-import { Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Content, ContentVariants } from '@patternfly/react-core';
 import { Table, ExpandableRowContent, Tbody, Td, Th, Thead, Tr, TdProps } from '@patternfly/react-table';
 import { ExampleResponse } from './ExampleResponse';
 import { SchemaType } from './SchemaType';
@@ -80,9 +80,9 @@ export const ResponseView: React.FunctionComponent<ResponseViewProps> = ({ respo
 
   return responseMap.length > 0 ? (
     <>
-      <TextContent className="pf-v5-u-py-lg">
-        <Text component={TextVariants.h3}>Responses</Text>
-      </TextContent>
+      <Content className="pf-v6-u-py-lg">
+        <Content component={ContentVariants.h3}>Responses</Content>
+      </Content>
       <Table variant="compact">
         <Thead>
           <Tr>

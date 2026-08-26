@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import { deRef } from '../../utils/Openapi';
 import { buildCodeSampleData, BuildCodeSampleDataParams } from '../../utils/Snippets';
-import { Grid, GridItem, TextContent, AccordionItem, AccordionToggle, AccordionContent, Label } from '@patternfly/react-core';
+import { Grid, GridItem, Content, AccordionItem, AccordionToggle, AccordionContent, Label } from '@patternfly/react-core';
 import ReactMarkdown from 'react-markdown';
 import { rehypePlugins } from '../../utils/markdownPlugins';
 
@@ -31,13 +31,13 @@ export const Operation: React.FunctionComponent<OperationProps> = (props) => {
   const { operation, verb, path } = props;
 
   return (
-    <AccordionItem>
-      <AccordionToggle id={id} isExpanded={isExpanded} onClick={() => setExpanded((prev) => !prev)} className="pf-v5-u-py-sm">
+    <AccordionItem isExpanded={isExpanded}>
+      <AccordionToggle id={id} onClick={() => setExpanded((prev) => !prev)} className="pf-v6-u-py-sm">
         {operation.summary && (
-          <span className="pf-v5-u-font-weight-normal pf-v5-u-color-100 pf-v5-u-mr-lg">
+          <span className="pf-v6-u-font-weight-normal pf-v6-u-text-color-regular pf-v6-u-mr-lg">
             {operation.summary}
             {operation.deprecated && (
-              <Label color="orange" icon={<InfoCircleIcon />} className="pf-v5-u-ml-lg">
+              <Label color="orange" icon={<InfoCircleIcon />} className="pf-v6-u-ml-lg">
                 Deprecated
               </Label>
             )}
@@ -45,7 +45,7 @@ export const Operation: React.FunctionComponent<OperationProps> = (props) => {
           </span>
         )}
 
-        <span className="pf-v5-u-font-size-sm pf-v5-u-font-weight-normal pf-v5-u-color-200">
+        <span className="pf-v6-u-font-size-sm pf-v6-u-font-weight-normal pf-v6-u-text-color-subtle">
           {verb.toUpperCase()} {path}
         </span>
       </AccordionToggle>
@@ -80,14 +80,14 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({ verb, baseU
   const snippets = useSnippets(codeSampleLanguage, reqData);
 
   return (
-    <Grid className="pf-v5-u-mt-sm" hasGutter>
+    <Grid className="pf-v6-u-mt-sm" hasGutter>
       <GridItem md={12}>
-        <TextContent>{operation.description && <ReactMarkdown rehypePlugins={rehypePlugins}>{operation.description}</ReactMarkdown>}</TextContent>
+        <Content>{operation.description && <ReactMarkdown rehypePlugins={rehypePlugins}>{operation.description}</ReactMarkdown>}</Content>
       </GridItem>
       <GridItem md={12} xl={7}>
         <Grid hasGutter>
           {pathParameters.length > 0 && (
-            <GridItem md={12} className="pf-v5-m-12-col">
+            <GridItem md={12} className="pf-v6-m-12-col">
               <ParameterView title="Path Parameters" parameters={pathParameters} document={document} />
             </GridItem>
           )}
@@ -100,7 +100,7 @@ const OperationContent: React.FunctionComponent<OperationProps> = ({ verb, baseU
         {operation.requestBody && <RequestBodyView requestBody={operation.requestBody} document={document} />}
         <ResponseView responses={operation.responses} document={document} />
       </GridItem>
-      <GridItem md={12} xl={5} className="pf-v5-u-mt-md-on-xl pf-v5-u-ml-sm-on-xl">
+      <GridItem md={12} xl={5} className="pf-v6-u-mt-md-on-xl pf-v6-u-ml-sm-on-xl">
         <CodeSamples codesnippet={snippets} />
       </GridItem>
     </Grid>

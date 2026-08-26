@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { APILabel } from '@apidocs/common/types';
-import { Checkbox, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Checkbox, Content, ContentVariants } from '@patternfly/react-core';
 import assertNever from 'assert-never';
 
 interface SidebarTagsProps {
@@ -46,14 +46,14 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({ tags, selecte
   );
 
   return (
-    <TextContent>
+    <Content>
       {displayedTags.map((type, index) => (
         <React.Fragment key={type}>
           {tagsByGroup[type].length > 0 && (
             <>
-              <Text component={TextVariants.p} className={`${index > 0 ? 'pf-v5-u-mt-md' : ''} pf-v5-u-mb-sm`}>
+              <Content component={ContentVariants.p} className={`${index > 0 ? 'pf-v6-u-mt-md' : ''} pf-v6-u-mb-sm`}>
                 {getTitle(type)}
-              </Text>
+              </Content>
               {tagsByGroup[type].map((tag) => (
                 <Checkbox
                   key={tag.id}
@@ -68,6 +68,6 @@ export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({ tags, selecte
           )}
         </React.Fragment>
       ))}
-    </TextContent>
+    </Content>
   );
 };

@@ -7,7 +7,6 @@ import {
   Form,
   Page,
   PageSection,
-  PageSectionVariants,
   Pagination,
   Popover,
   Sidebar,
@@ -15,9 +14,8 @@ import {
   SidebarPanel,
   Split,
   SplitItem,
-  Text,
-  TextContent,
-  TextVariants,
+  Content,
+  ContentVariants,
   ToggleGroup,
   Tooltip,
   SearchInput,
@@ -103,13 +101,13 @@ export default function Home() {
     })),
     dropDirection: 'up',
     variant: 'bottom',
-    className: 'pf-v5-u-py-sm',
+    className: 'pf-v6-u-py-sm',
   };
 
   return (
-    <Page className="apid-c-page-landingpage pf-v5-u-background-color-100">
+    <Page className="apid-c-page-landingpage">
       <Sidebar>
-        <SidebarPanel className="pf-v5-u-p-lg">
+        <SidebarPanel className="pf-v6-u-p-lg">
           <Form>
             <SearchInput
               placeholder="Find by product or service name"
@@ -120,19 +118,19 @@ export default function Home() {
             <SidebarTags tags={apiLabels} selected={landingStore.selectedTags} setSelected={onTagsChange} />
           </Form>
         </SidebarPanel>
-        <SidebarContent className="pf-v5-u-display-flex pf-v5-u-flex-direction-column">
-          <PageSection variant={PageSectionVariants.darker} className="pf-v5-u-px-2xl-on-md pf-v5-u-pb-2xl pf-v5-u-background-color-dark-100">
-            <TextContent>
-              <Text component={TextVariants.h1}>{Config.title}</Text>
-            </TextContent>
+        <SidebarContent className="pf-v6-u-display-flex pf-v6-u-flex-direction-column">
+          <PageSection hasBodyWrapper={false} className="pf-v6-u-px-2xl-on-md pf-v6-u-pb-2xl apid-c-page-hero">
+            <Content>
+              <Content component={ContentVariants.h1}>{Config.title}</Content>
+            </Content>
           </PageSection>
 
-          <PageSection variant={PageSectionVariants.light} className="pf-v5-u-p-md">
+          <PageSection hasBodyWrapper={false} className="pf-v6-u-p-md">
             <Flex direction={{ default: 'rowReverse' }}>
-              <Split className="apid-split-l-pagination pf-v5-u-align-items-center-on-xl">
-                <SplitItem className="pf-v5-u-pb-md pf-v5-u-pt-md-on-md pf-v5-u-pl-sm-on-md" isFilled>
+              <Split className="apid-split-l-pagination pf-v6-u-align-items-center-on-xl">
+                <SplitItem className="pf-v6-u-pb-md pf-v6-u-pt-md-on-md pf-v6-u-pl-sm-on-md" isFilled>
                   <Button
-                    className="pf-v5-u-mr-sm pf-v5-u-mb-sm"
+                    className="pf-v6-u-mr-sm pf-v6-u-mb-sm"
                     component="a"
                     target="_blank"
                     href="https://developers.redhat.com/cheat-sheets/red-hat-insights-api-cheat-sheet"
@@ -142,7 +140,12 @@ export default function Home() {
                     API Cheat Sheet
                   </Button>
                   <Button
-                    className="pf-v5-u-mr-sm pf-v5-u-mb-sm"
+                    icon={
+                      <Icon size="sm" className="pf-v6-u-ml-xs" isInline>
+                        <ExternalLinkAltIcon />
+                      </Icon>
+                    }
+                    className="pf-v6-u-mr-sm pf-v6-u-mb-sm"
                     component="a"
                     target="_blank"
                     href="https://console.redhat.com/docs/api"
@@ -150,9 +153,6 @@ export default function Home() {
                     size="sm"
                   >
                     Legacy API documentation
-                    <Icon size="sm" className="pf-v5-u-ml-xs" isInline>
-                      <ExternalLinkAltIcon />
-                    </Icon>
                   </Button>
                   <Popover
                     aria-label="Connect to APIs using Red Hat service accounts"
@@ -201,7 +201,7 @@ export default function Home() {
             </Flex>
           </PageSection>
 
-          <PageSection className="apid-c-page__main-section-gallery" isFilled={true}>
+          <PageSection hasBodyWrapper={false} className="apid-c-page__main-section-gallery" isFilled={true}>
             {landingStore.view === 'grid' ? (
               <GridContent galleryId={galleryId} allItems={filteredDocs} items={pagination.items} clearFilters={clearFilters} />
             ) : (
@@ -209,7 +209,7 @@ export default function Home() {
             )}
           </PageSection>
 
-          <PageSection className="pf-v5-u-pl-md" padding={{ md: 'noPadding' }} variant={PageSectionVariants.light} isFilled={false}>
+          <PageSection hasBodyWrapper={false} className="pf-v6-u-pl-md" padding={{ md: 'noPadding' }} isFilled={false}>
             <Pagination {...basePaginationProps} />
           </PageSection>
         </SidebarContent>

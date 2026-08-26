@@ -1,22 +1,24 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
-import { Text, TextContent, TextList, TextListItem, TextVariants } from '@patternfly/react-core';
+import { Content, ContentVariants } from '@patternfly/react-core';
 
 export interface ServerListProps {
   servers: Array<OpenAPIV3.ServerObject>;
 }
 
 export const ServerList: React.FunctionComponent<ServerListProps> = ({ servers }) => (
-  <TextContent>
-    <Text component={TextVariants.p} className="pf-v5-u-my-sm">
+  <Content>
+    <Content component={ContentVariants.p} className="pf-v6-u-my-sm">
       Base URLs:
-    </Text>
-    <TextList isPlain>
+    </Content>
+    <Content component="ul" isPlainList>
       {servers.map((server, index) => (
-        <TextListItem key={index}>{getServerURL(server)}</TextListItem>
+        <Content component="li" key={index}>
+          {getServerURL(server)}
+        </Content>
       ))}
-    </TextList>
-  </TextContent>
+    </Content>
+  </Content>
 );
 
 const getServerURL = (server: OpenAPIV3.ServerObject): string => {
