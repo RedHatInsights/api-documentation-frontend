@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Text, TextContent, TextVariants, Flex, FlexItem, Label, LabelGroup } from '@patternfly/react-core';
+import { Content, ContentVariants, Flex, FlexItem, Label, LabelGroup } from '@patternfly/react-core';
 import { OpenAPIV3 } from 'openapi-types';
 
 interface PropertyViewComponentProps {
@@ -17,23 +17,23 @@ export const PropertyView: React.FunctionComponent<PropertyViewComponentProps> =
   return (
     <Flex>
       <FlexItem>
-        <TextContent>
+        <Content>
           <Flex>
-            <FlexItem className="pf-v5-u-mr-xs">
-              <Text component={TextVariants.h6}>{propName}</Text>
+            <FlexItem className="pf-v6-u-mr-xs">
+              <Content component={ContentVariants.h6}>{propName}</Content>
             </FlexItem>
             <FlexItem>
-              <Text component={TextVariants.p} className="pf-v5-u-danger-color-100">
+              <Content component={ContentVariants.p} className="pf-v6-u-text-color-status-danger">
                 {required && '*'}
-              </Text>
+              </Content>
             </FlexItem>
           </Flex>
-        </TextContent>
+        </Content>
       </FlexItem>
       <FlexItem>
-        <TextContent>
-          <Text component={TextVariants.p}>{propertyType}</Text>
-        </TextContent>
+        <Content>
+          <Content component={ContentVariants.p}>{propertyType}</Content>
+        </Content>
       </FlexItem>
       <FlexItem>{extraProps}</FlexItem>
     </Flex>

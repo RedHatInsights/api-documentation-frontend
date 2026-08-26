@@ -43,13 +43,13 @@ export const SidebarApiSections: FunctionComponent<SidebarApiSectionsProps> = ({
     } else {
       operationSublinkContent.push(
         <Fragment key="loading">
-          <JumpLinksItem>
+          <JumpLinksItem href="#">
             <Skeleton />
           </JumpLinksItem>
-          <JumpLinksItem>
+          <JumpLinksItem href="#">
             <Skeleton />
           </JumpLinksItem>
-          <JumpLinksItem>
+          <JumpLinksItem href="#">
             <Skeleton />
           </JumpLinksItem>
         </Fragment>,
@@ -76,7 +76,7 @@ export const SidebarApiSections: FunctionComponent<SidebarApiSectionsProps> = ({
 
   return (
     <>
-      <div className="pf-v5-u-pt-lg">
+      <div className="pf-v6-u-pt-lg">
         <JumpLinks label={openapi && getTitleWithVersion(openapi)} className="apid-c-jump-links" isVertical isExpanded alwaysShowLabel>
           {jumpLinkContent}
         </JumpLinks>

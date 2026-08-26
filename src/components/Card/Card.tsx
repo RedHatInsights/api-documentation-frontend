@@ -1,5 +1,5 @@
 import { FunctionComponent, PropsWithChildren } from 'react';
-import { Card as PFCard, CardBody, CardHeader, CardTitle, Divider, Split, SplitItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Card as PFCard, CardBody, CardHeader, CardTitle, Divider, Split, SplitItem, Content, ContentVariants } from '@patternfly/react-core';
 import Link from 'next/link';
 import { APIConfigurationIcons } from '@apidocs/common';
 
@@ -31,23 +31,23 @@ export const Card: FunctionComponent<PropsWithChildren<CardProps>> = ({ apiId, d
   // }
 
   return (
-    <Link href={to} style={{ textDecoration: 'none' }} className="pf-v5-u-color-100">
-      <PFCard role="link" isSelectableRaised isFullHeight ouiaId={apiId}>
-        <CardHeader className="pf-v5-u-p-md pf-v5-u-pt-sm pf-v5-u-pb-0">
-          <Split className="pf-v5-u-mb-0">
+    <Link href={to} style={{ textDecoration: 'none' }} className="pf-v6-u-text-color-regular">
+      <PFCard role="link" isFullHeight ouiaId={apiId}>
+        <CardHeader className="pf-v6-u-p-md pf-v6-u-pt-sm pf-v6-u-pb-0">
+          <Split className="pf-v6-u-mb-0">
             <SplitItem>
               <TitleIcon />
             </SplitItem>
             <SplitItem>
-              <CardTitle className="pf-v5-u-pl-sm pf-v5-u-pt-sm pf-v5-u-align-self-flex-start">{displayName}</CardTitle>
+              <CardTitle className="pf-v6-u-pl-sm pf-v6-u-pt-sm pf-v6-u-align-self-flex-start">{displayName}</CardTitle>
             </SplitItem>
           </Split>
         </CardHeader>
         <Divider />
-        <CardBody className="pf-v5-u-p-md">
-          <TextContent>
-            <Text component={TextVariants.small}>{description}</Text>
-          </TextContent>
+        <CardBody className="pf-v6-u-p-md">
+          <Content>
+            <Content component={ContentVariants.small}>{description}</Content>
+          </Content>
           {children}
         </CardBody>
       </PFCard>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
-import { Flex, FlexItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Flex, FlexItem, Content, ContentVariants } from '@patternfly/react-core';
 import { Table, Tbody, Td, Thead, Tr } from '@patternfly/react-table';
 import { SchemaType } from './SchemaType';
 import ReactMarkdown from 'react-markdown';
@@ -14,11 +14,11 @@ interface ParameterViewProps {
 export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({ title, parameters, document }) => {
   return (
     <>
-      <TextContent>
-        <Text component={TextVariants.h3} className="pf-v5-u-pb-lg">
+      <Content>
+        <Content component={ContentVariants.h3} className="pf-v6-u-pb-lg">
           {title}
-        </Text>
-      </TextContent>
+        </Content>
+      </Content>
       <Table variant="compact">
         <Thead>
           <Tr>
@@ -32,13 +32,13 @@ export const ParameterView: React.FunctionComponent<ParameterViewProps> = ({ tit
             <Tr key={index}>
               <Td>
                 <Flex>
-                  <FlexItem className="pf-v5-u-mr-xs">
-                    <Text component={TextVariants.p}>{p.name}</Text>
+                  <FlexItem className="pf-v6-u-mr-xs">
+                    <Content component={ContentVariants.p}>{p.name}</Content>
                   </FlexItem>
                   <FlexItem>
-                    <Text component={TextVariants.p} className="pf-v5-u-danger-color-100">
+                    <Content component={ContentVariants.p} className="pf-v6-u-text-color-status-danger">
                       {p.required && '*'}
-                    </Text>
+                    </Content>
                   </FlexItem>
                 </Flex>
               </Td>

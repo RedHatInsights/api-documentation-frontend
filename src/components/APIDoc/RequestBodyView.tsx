@@ -1,7 +1,7 @@
 import React from 'react';
 import { OpenAPIV3 } from 'openapi-types';
 import { DeRefResponse } from '../../utils/Openapi';
-import { Flex, FlexItem, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Flex, FlexItem, Content, ContentVariants } from '@patternfly/react-core';
 import { SchemaType } from './SchemaType';
 
 interface BodySchemaInfo {
@@ -34,11 +34,11 @@ export const RequestBodyView: React.FunctionComponent<RequestBodyViewProps> = ({
   }
   return (
     <>
-      <TextContent>
-        <Text component={TextVariants.h3} className="pf-v5-u-pb-lg apid-reqbody-header">
+      <Content>
+        <Content component={ContentVariants.h3} className="pf-v6-u-pb-lg apid-reqbody-header">
           Request Body Schema
-        </Text>
-      </TextContent>
+        </Content>
+      </Content>
       {!isEmptyContent ? (
         requestBodySchemas.map((bodySchema) => {
           return bodySchema.schema && <RefSchemaView schemaType={bodySchema.schemaType} schema={bodySchema.schema} document={document} />;
@@ -57,15 +57,15 @@ interface RefSchemaViewProps {
 }
 export const RefSchemaView: React.FunctionComponent<RefSchemaViewProps> = ({ schemaType, schema, document }) => {
   return (
-    <TextContent>
+    <Content>
       <Flex>
         <FlexItem>
-          <Text component={TextVariants.p}>{schemaType}</Text>
+          <Content component={ContentVariants.p}>{schemaType}</Content>
         </FlexItem>
         <FlexItem>
           <SchemaType document={document} schema={schema} />
         </FlexItem>
       </Flex>
-    </TextContent>
+    </Content>
   );
 };
