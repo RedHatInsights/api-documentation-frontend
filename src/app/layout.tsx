@@ -111,14 +111,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head suppressHydrationWarning={true}>
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon2023-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon2023-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href={`${process.env.NEXT_PUBLIC_BASE_PATH}/favicon2023-32x32.png`} />
+        <link rel="icon" type="image/png" sizes="16x16" href={`${process.env.NEXT_PUBLIC_BASE_PATH}/favicon2023-16x16.png`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: headerPatch }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: analyticsInclude }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: pendoInclude }}></script>
-        <script type="module" src="/modules/contrib/red_hat_shared_libs/dist/rhds-elements/modules/rh-footer/rh-footer.js?v=2.1.1"></script>
+        <script
+          type="module"
+          src="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/rhds-elements/modules/rh-footer/rh-footer.js?v=2.1.1"
+        ></script>
       </head>
       <body>
         <div className="rhd-m-max-width-xl">
@@ -143,8 +146,14 @@ export default function RootLayout({
             integrity="sha384-HxnMqvBKlkVSmShpzRmR5hazrKXrtEVhT8YU2MXRjOP577yZ+RvsyzVRCB6f9o17"
             crossOrigin="anonymous"
           ></script>
-          <link rel="stylesheet" href="/modules/contrib/red_hat_shared_libs/dist/@cpelements/pfe-navigation/dist/pfe-navigation--lightdom.css" />
-          <link rel="stylesheet" href="/modules/contrib/red_hat_shared_libs/dist/@patternfly/pfe-cta/dist/pfe-cta--lightdom.min.css" />
+          <link
+            rel="stylesheet"
+            href="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/@cpelements/pfe-navigation/dist/pfe-navigation--lightdom.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/@patternfly/pfe-cta/dist/pfe-cta--lightdom.min.css"
+          />
           <script src="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/@patternfly/pfelement/dist/pfelement.umd.min.js?rrg73h"></script>
           <script src="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/%40cpelements/pfe-navigation/dist/pfe-navigation.umd.min.js?rrg73h"></script>
           <script src="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/%40patternfly/pfe-cta/dist/pfe-cta.umd.min.js?rrg73h"></script>
