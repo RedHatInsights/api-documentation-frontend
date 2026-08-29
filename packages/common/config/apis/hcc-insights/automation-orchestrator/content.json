@@ -38609,7 +38609,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -38627,7 +38627,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -38845,7 +38845,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -38863,7 +38863,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -39098,7 +39098,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39116,7 +39116,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -39334,7 +39334,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39352,7 +39352,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -39587,7 +39587,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39605,7 +39605,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -39850,7 +39850,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -39868,7 +39868,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -40086,7 +40086,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40104,7 +40104,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -40322,7 +40322,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40340,7 +40340,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -40558,7 +40558,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40576,7 +40576,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
@@ -40821,7 +40821,7 @@
               }
             },
             {
-              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf provided, the credential is decrypted and used instead of environment variables.\nCredential must be of type \"Ansible Automation Platform\".\n",
+              "description": "Optional Orchestrator credential ID for Ansible Automation Platform Controller authentication.\nIf omitted, the selected integration's management credential is used.\nCredential must be of type \"Ansible Automation Platform\".\n",
               "in": "query",
               "name": "credential_id",
               "required": false,
@@ -40839,7 +40839,7 @@
               }
             },
             {
-              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nWhen provided, the integration's configured URL is used instead of environment variables.\n",
+              "description": "Optional Ansible Automation Platform Gateway integration ID for connection URL resolution.\nIf omitted, the unique visible enabled AAP integration is used.\nRequired when more than one AAP integration is visible.\n",
               "in": "query",
               "name": "integration_id",
               "required": false,
