@@ -41,7 +41,7 @@ export const RequestBodyView: React.FunctionComponent<RequestBodyViewProps> = ({
       </Content>
       {!isEmptyContent ? (
         requestBodySchemas.map((bodySchema) => {
-          return bodySchema.schema && <RefSchemaView schemaType={bodySchema.schemaType} schema={bodySchema.schema} document={document} />;
+          return bodySchema.schema && <RefSchemaView key={bodySchema.schemaType} schemaType={bodySchema.schemaType} schema={bodySchema.schema} document={document} />;
         })
       ) : (
         <RefSchemaView schemaType="schema" schema={requestBody as OpenAPIV3.ReferenceObject} document={document} />
