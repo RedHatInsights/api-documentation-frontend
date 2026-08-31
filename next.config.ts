@@ -1,11 +1,16 @@
 import type { NextConfig } from 'next';
 import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
+const basePath = process.env.DEV === 'true' ? '' : '/api-catalog';
+
 const nextConfig: NextConfig = {
   /* config options here */
   output: 'export',
   images: {
     unoptimized: true,
+  },
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
   },
   ...(process.env.DEV === 'true'
     ? {
