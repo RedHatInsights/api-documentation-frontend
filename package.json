@@ -13,14 +13,18 @@
     "lint": "eslint --ext .js,.ts,.tsx ./src",
     "start": "next start",
     "circular": "madge --circular ./src --extensions js,ts,tsx",
-    "test": "npm exec jest --src discovery",
+    "test": "vitest run",
     "clean": "npm run clean --workspaces --if-present",
     "discovery": "npm-run-all discovery:build discovery:start",
     "discovery:build": "npm run --workspace packages/common --workspace packages/transform build",
     "discovery:start": "npm run --workspace packages/transform start -- --input-dir `npm prefix`/packages/discovery -o `npm prefix`/packages/common/config",
     "sitemap": "npm-run-all sitemap:build sitemap:start",
     "sitemap:build": "npm run --workspace packages/common -workspace packages/sitemap build",
-    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL"
+    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test-storybook": "vitest run --project storybook",
+    "test-storybook:ci": "vitest run --project storybook"
   },
   "dependencies": {
     "@patternfly/patternfly": "^6.6.1",
@@ -60,7 +64,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/eslint__js": "^8.42.3",
-    "@types/jest": "^27.5.2",
     "@types/lodash.snakecase": "^4.1.9",
     "@types/lodash.startcase": "^4.4.9",
     "@types/node": "^20.19.23",
@@ -88,14 +91,18 @@
     "sass": "^1.93.2",
     "sitemaps": "^2.0.6",
     "swagger2openapi": "^7.0.8",
-    "ts-jest": "^29.4.5",
     "typescript": "^4.9.5",
     "typescript-eslint": "^8.46.2",
-    "yaml": "^2.8.1"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.[t|j]sx?$": "ts-jest"
-    }
+    "yaml": "^2.8.1",
+    "storybook": "^10.6.0",
+    "@storybook/nextjs-vite": "^10.6.0",
+    "@chromatic-com/storybook": "latest",
+    "@storybook/addon-vitest": "^10.6.0",
+    "vite": "latest",
+    "eslint-plugin-storybook": "^10.6.0",
+    "vitest": "latest",
+    "playwright": "latest",
+    "@vitest/browser-playwright": "latest",
+    "@vitest/coverage-v8": "latest"
   }
 }

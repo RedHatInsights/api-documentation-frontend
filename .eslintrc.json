@@ -1,23 +1,74 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "prettier"],
-  "plugins": ["prettier", "@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "@typescript-eslint"
+  ],
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true,
-      "modules": true,
-      "experimentalObjectRestSpread": true
+      "jsx": true
     }
   },
   "settings": {
     "react": {
-      "version": "16.6"
+      "version": "detect"
     }
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "typescript-eslint/no-non-null-asserted-optional-chain": "off"
-  }
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": [
+              "@apidocs/common/config/*"
+            ],
+            "message": "Import from '@apidocs/common' instead. Files in config/ are generated — do not import or edit them directly."
+          },
+          {
+            "group": [
+              "../../packages/*"
+            ],
+            "message": "Use the '@apidocs/*' workspace alias instead of relative paths to packages/."
+          }
+        ]
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-console": "warn"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.stories.tsx"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": [
+                  "msw"
+                ],
+                "message": "Import handler factories from 'mocks/' instead of using inline MSW handlers."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
