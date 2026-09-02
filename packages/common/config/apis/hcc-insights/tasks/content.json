@@ -284,7 +284,10 @@
               "maxLength": 200,
               "type": "string"
             },
-            "groups": {},
+            "groups": {
+              "readOnly": true,
+              "type": "string"
+            },
             "id": {
               "format": "uuid",
               "type": "string"
@@ -300,7 +303,10 @@
               "format": "date-time",
               "type": "string"
             },
-            "system_profile": {},
+            "system_profile": {
+              "readOnly": true,
+              "type": "string"
+            },
             "tags": {
               "items": {
                 "additionalProperties": {},
@@ -322,6 +328,7 @@
             "last_check_in",
             "os_version",
             "stale_timestamp",
+            "system_profile",
             "tags",
             "updated"
           ],
@@ -911,7 +918,10 @@
               "maxLength": 200,
               "type": "string"
             },
-            "groups": {},
+            "groups": {
+              "readOnly": true,
+              "type": "string"
+            },
             "id": {
               "format": "uuid",
               "type": "string"
@@ -933,7 +943,10 @@
               "format": "date-time",
               "type": "string"
             },
-            "system_profile": {},
+            "system_profile": {
+              "readOnly": true,
+              "type": "string"
+            },
             "tags": {
               "items": {
                 "additionalProperties": {},
@@ -956,6 +969,7 @@
             "os_version",
             "requirements",
             "stale_timestamp",
+            "system_profile",
             "tags",
             "updated"
           ],
@@ -1926,7 +1940,6 @@
           "operationId": "system_retrieve",
           "parameters": [
             {
-              "description": "A UUID string identifying this host.",
               "in": "path",
               "name": "id",
               "required": true,
