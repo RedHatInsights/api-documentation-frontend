@@ -119,6 +119,7 @@ export default function RootLayout({
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: analyticsInclude }}></script>
         <script suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: pendoInclude }}></script>
         <script
+          suppressHydrationWarning={true}
           type="module"
           src="https://developers.redhat.com/modules/contrib/red_hat_shared_libs/dist/rhds-elements/modules/rh-footer/rh-footer.js?v=2.1.1"
         ></script>
