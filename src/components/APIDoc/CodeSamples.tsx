@@ -1,8 +1,9 @@
 import React from 'react';
-import { CodeEditor } from '@patternfly/react-code-editor';
+import dynamic from 'next/dynamic';
 
-import { CodeBlockDropdown } from './CodeBlockDropdown';
 import { useLanguage } from '../../utils/LanguageContext';
+
+const CodeEditorLocal = dynamic(() => import('./CodeEditorLocal'), { ssr: false });
 
 interface CodeSampleProps {
   codesnippet: string;
@@ -15,16 +16,5 @@ export const CodeSamples: React.FunctionComponent<CodeSampleProps> = ({ codesnip
     return null;
   }
 
-  return (
-    <CodeEditor
-      isDarkTheme={true}
-      isLineNumbersVisible={false}
-      isReadOnly={true}
-      isCopyEnabled={true}
-      code={codesnippet}
-      language={language.highlighter}
-      height="400px"
-      customControls={<CodeBlockDropdown />}
-    />
-  );
+  return <CodeEditorLocal codesnippet={codesnippet} highlighter={language.highlighter} />;
 };
