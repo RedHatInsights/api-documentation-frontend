@@ -241,6 +241,7 @@
               "advisor:important",
               "advisor:moderate",
               "advisor:low",
+              "advisor:total_severity",
               "vulnerability:total_cves",
               "vulnerability:critical_cves",
               "vulnerability:important_cves",
@@ -723,7 +724,7 @@
           "type": "object"
         },
         "AppSortableFields": {
-          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n- `advisor:critical` - Critical severity recommendations\n- `advisor:important` - Important severity recommendations\n- `advisor:moderate` - Moderate severity recommendations\n- `advisor:low` - Low severity recommendations\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n- `vulnerability:important_cves` - Important severity CVEs\n- `vulnerability:cves_with_security_rules` - CVEs with security rules\n- `vulnerability:cves_with_known_exploits` - CVEs with known exploits\n\n**Patch**\n- `patch:advisories_total_installable` - Total installable advisories (sum of all types)\n- `patch:advisories_total_applicable` - Total applicable advisories (sum of all types)\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:advisories_rhba_installable` - Number of RHBA installable advisories\n- `patch:advisories_rhea_installable` - Number of RHEA installable advisories\n- `patch:advisories_other_installable` - Number of other installable advisories\n- `patch:advisories_rhsa_applicable` - Number of RHSA applicable advisories\n- `patch:advisories_rhba_applicable` - Number of RHBA applicable advisories\n- `patch:advisories_rhea_applicable` - Number of RHEA applicable advisories\n- `patch:advisories_other_applicable` - Number of other applicable advisories\n- `patch:packages_installable` - Number of installable packages\n- `patch:packages_applicable` - Number of applicable packages\n- `patch:packages_installed` - Number of installed packages\n- `patch:template_name` - Patch template name\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n- `compliance:policies_count` - Number of compliance policies\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:total_matches` - Total malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n- `malware:last_status` - Last malware detection status\n",
+          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n- `advisor:critical` - Critical severity recommendations\n- `advisor:important` - Important severity recommendations\n- `advisor:moderate` - Moderate severity recommendations\n- `advisor:low` - Low severity recommendations\n- `advisor:total_severity` - Weighted severity score (critical×1000 + important×100 + moderate×10 + low)\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n- `vulnerability:important_cves` - Important severity CVEs\n- `vulnerability:cves_with_security_rules` - CVEs with security rules\n- `vulnerability:cves_with_known_exploits` - CVEs with known exploits\n\n**Patch**\n- `patch:advisories_total_installable` - Total installable advisories (sum of all types)\n- `patch:advisories_total_applicable` - Total applicable advisories (sum of all types)\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:advisories_rhba_installable` - Number of RHBA installable advisories\n- `patch:advisories_rhea_installable` - Number of RHEA installable advisories\n- `patch:advisories_other_installable` - Number of other installable advisories\n- `patch:advisories_rhsa_applicable` - Number of RHSA applicable advisories\n- `patch:advisories_rhba_applicable` - Number of RHBA applicable advisories\n- `patch:advisories_rhea_applicable` - Number of RHEA applicable advisories\n- `patch:advisories_other_applicable` - Number of other applicable advisories\n- `patch:packages_installable` - Number of installable packages\n- `patch:packages_applicable` - Number of applicable packages\n- `patch:packages_installed` - Number of installed packages\n- `patch:template_name` - Patch template name\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n- `compliance:policies_count` - Number of compliance policies\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:total_matches` - Total malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n- `malware:last_status` - Last malware detection status\n",
           "enum": [
             "advisor:recommendations",
             "advisor:incidents",
@@ -731,6 +732,7 @@
             "advisor:important",
             "advisor:moderate",
             "advisor:low",
+            "advisor:total_severity",
             "vulnerability:total_cves",
             "vulnerability:critical_cves",
             "vulnerability:important_cves",
@@ -2080,15 +2082,36 @@
               "description": "Object containing data specific to Ansible Automation Platform",
               "properties": {
                 "catalog_worker_version": {
-                  "description": "The catalog-worker version on the host",
+                  "description": "The installed catalog-worker RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
                   "type": "string",
                   "x-wildcard": true
                 },
+                "containers": {
+                  "items": {
+                    "description": "A container on the system",
+                    "properties": {
+                      "image": {
+                        "maxLength": 255,
+                        "type": "string"
+                      },
+                      "name": {
+                        "maxLength": 255,
+                        "type": "string"
+                      },
+                      "state": {
+                        "maxLength": 30,
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
                 "controller_version": {
-                  "description": "The ansible-tower or automation-controller version on the host",
+                  "description": "The installed ansible-tower or automation-controller RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2096,7 +2119,7 @@
                   "x-wildcard": true
                 },
                 "eda_controller_version": {
-                  "description": "The EDA controller version on the host",
+                  "description": "The installed automation-eda-controller RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2104,7 +2127,7 @@
                   "x-wildcard": true
                 },
                 "gateway_version": {
-                  "description": "The automation gateway version on the host",
+                  "description": "The installed automation-gateway RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2112,7 +2135,7 @@
                   "x-wildcard": true
                 },
                 "hub_version": {
-                  "description": "The automation-hub version on the host",
+                  "description": "The installed automation-hub RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2120,7 +2143,7 @@
                   "x-wildcard": true
                 },
                 "receptor_version": {
-                  "description": "The receptor version on the host",
+                  "description": "The installed receptor RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2128,7 +2151,7 @@
                   "x-wildcard": true
                 },
                 "runner_version": {
-                  "description": "The ansible-runner version on the host",
+                  "description": "The installed ansible-runner RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -2136,7 +2159,7 @@
                   "x-wildcard": true
                 },
                 "sso_version": {
-                  "description": "The SSO version on the host",
+                  "description": "The installed SSO RPM version",
                   "example": "1.2.3, 4.5.6, 7.8.9",
                   "maxLength": 30,
                   "pattern": "^\\d+(\\.\\d+)+$",
@@ -3014,15 +3037,21 @@
                   "description": "Object containing data specific to Ansible Automation Platform",
                   "properties": {
                     "catalog_worker_version": {
-                      "description": "The catalog-worker version on the host",
+                      "description": "The installed catalog-worker RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
                       "type": "string",
                       "x-wildcard": true
                     },
+                    "containers": {
+                      "items": {
+                        "$ref": "#/components/schemas/SystemProfile/properties/ansible/properties/containers/items"
+                      },
+                      "type": "array"
+                    },
                     "controller_version": {
-                      "description": "The ansible-tower or automation-controller version on the host",
+                      "description": "The installed ansible-tower or automation-controller RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3030,7 +3059,7 @@
                       "x-wildcard": true
                     },
                     "eda_controller_version": {
-                      "description": "The EDA controller version on the host",
+                      "description": "The installed automation-eda-controller RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3038,7 +3067,7 @@
                       "x-wildcard": true
                     },
                     "gateway_version": {
-                      "description": "The automation gateway version on the host",
+                      "description": "The installed automation-gateway RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3046,7 +3075,7 @@
                       "x-wildcard": true
                     },
                     "hub_version": {
-                      "description": "The automation-hub version on the host",
+                      "description": "The installed automation-hub RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3054,7 +3083,7 @@
                       "x-wildcard": true
                     },
                     "receptor_version": {
-                      "description": "The receptor version on the host",
+                      "description": "The installed receptor RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3062,7 +3091,7 @@
                       "x-wildcard": true
                     },
                     "runner_version": {
-                      "description": "The ansible-runner version on the host",
+                      "description": "The installed ansible-runner RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3070,7 +3099,7 @@
                       "x-wildcard": true
                     },
                     "sso_version": {
-                      "description": "The SSO version on the host",
+                      "description": "The installed SSO RPM version",
                       "example": "1.2.3, 4.5.6, 7.8.9",
                       "maxLength": 30,
                       "pattern": "^\\d+(\\.\\d+)+$",
@@ -3261,6 +3290,19 @@
                 "satellite": {
                   "description": "Object containing data specific to the Red Hat Satellite workload",
                   "properties": {
+                    "containers": {
+                      "items": {
+                        "$ref": "#/components/schemas/SystemProfile/properties/ansible/properties/containers/items"
+                      },
+                      "type": "array"
+                    },
+                    "foremanctl_version": {
+                      "description": "The installed foremanctl RPM version",
+                      "maxLength": 30,
+                      "pattern": "^\\d+(\\.\\d+)+$",
+                      "type": "string",
+                      "x-wildcard": true
+                    },
                     "type": {
                       "description": "Whether this system is a Satellite Server or Capsule",
                       "enum": [
@@ -3271,7 +3313,7 @@
                       "type": "string"
                     },
                     "version": {
-                      "description": "The Satellite or Capsule version",
+                      "description": "The installed satellite or satellite-capsule RPM version",
                       "example": "6.19.0",
                       "maxLength": 30,
                       "type": "string",
