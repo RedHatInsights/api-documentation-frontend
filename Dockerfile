@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/nodejs-22@sha256:7679e533a1b91b206351b2b0b574f23de0697de57e98244cafbd30ed6879a336 AS builder
+FROM registry.access.redhat.com/ubi9/nodejs-22@sha256:a38a749f3a37a1c033932b4c13f3052f4958aa0eb7dbb0761cb3b5536ffe6878 AS builder
 
 USER root
 
