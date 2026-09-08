@@ -39,7 +39,7 @@ Discovery.yml ──→ transform CLI ──→ packages/common/config/ ──�
      │                                    (generated)                                  │
      │                                                                                 │
   validated by                                                                   served by
-  Vitest + Ajv                                                                  nginx + SSI
+  Jest + Ajv                                                                    nginx + SSI
 ```
 
 1. APIs are defined in `packages/discovery/Discovery.yml`

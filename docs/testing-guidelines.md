@@ -8,15 +8,15 @@ This repo uses a layered testing approach:
 
 | Layer | Tool | Scope | When to use |
 |-------|------|-------|-------------|
-| **Data validation** | Vitest | `packages/discovery/` | Validate Discovery.yml against schemas |
+| **Data validation** | Jest | `packages/discovery/` | Validate Discovery.yml against schemas |
 | **Component testing** | Storybook + play functions | `src/components/` | Verify UI behavior and interactions |
 
-## Data Validation Tests (Vitest)
+## Data Validation Tests (Jest)
 
 ### Running
 
 ```bash
-npm test                    # Runs Vitest on packages/discovery
+npm test                    # Runs Jest on packages/discovery
 ```
 
 ### Discovery Tests (`packages/discovery/`)
@@ -37,7 +37,6 @@ npm test                    # Runs Vitest on packages/discovery
 - Uses `test.each` for per-app validation within groups
 - Schema validation uses `better-ajv-errors` for readable error output
 - Tests read files from disk (`readFileSync`) — they validate real data, not mocks
-- Import `describe`, `test`, `expect` from `vitest`
 
 ### Writing New Data Tests
 
@@ -45,7 +44,6 @@ npm test                    # Runs Vitest on packages/discovery
 - For schema validation, use Ajv with the schema from `packages/discovery/schemas/Discovery.json`
 - Keep tests data-driven: iterate over the actual Discovery.yml entries rather than hardcoding
 - Use `describe.each` / `test.each` patterns consistent with existing tests
-- Import test functions explicitly: `import { describe, test, expect } from 'vitest'`
 
 ## Component Tests (Storybook)
 

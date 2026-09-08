@@ -22,7 +22,7 @@ Detailed rules for specific domains are in the `docs/` directory:
 
 - [Architecture](docs/architecture.md) — Monorepo structure, data pipeline, component architecture, deployment
 - [API Contracts Guidelines](docs/api-contracts-guidelines.md) — Discovery pipeline, API definitions, data model
-- [Testing Guidelines](docs/testing-guidelines.md) — Testing strategy, Storybook patterns, Vitest conventions
+- [Testing Guidelines](docs/testing-guidelines.md) — Testing strategy, Storybook patterns, Jest conventions
 
 ## Architecture
 
@@ -57,7 +57,6 @@ Discovery.yml → transform CLI → packages/common/config/ → Next.js app → 
 | react-markdown | Rendering markdown content sections |
 | httpsnippet-lite | Generating code snippets for API endpoints |
 | Storybook 10 | Component testing with play functions |
-| Vitest | Data validation tests (discovery package) |
 | Ajv | JSON Schema validation (in tests and transform) |
 
 ## Non-Negotiable Rules
@@ -66,7 +65,7 @@ These constraints are mandatory. Do not deviate regardless of context.
 
 ### Testing
 - **No snapshots** — `toMatchSnapshot()` and `toMatchInlineSnapshot()` are banned. They pass until someone blindly updates them.
-- **Storybook for component testing** — UI components must have `.stories.tsx` files with `play` functions that exercise real user flows. Vitest is used for data validation only (e.g., `packages/discovery/` tests).
+- **Storybook for component testing** — UI components must have `.stories.tsx` files with `play` functions that exercise real user flows. Jest is used for data validation only (e.g., `packages/discovery/` tests).
 - **No inline MSW handlers in stories** — Import handler factories from a shared `mocks/` directory. Stories must not define `http.get(...)` or `http.post(...)` inline.
 - **Seed data uses constants** — No hardcoded strings in mock data. Use shared seed constants that tests and stories reference.
 
@@ -173,6 +172,6 @@ When modifying `packages/discovery/Discovery.yml`:
 
 - The `packages/common/config/` directory contains **generated files** — never edit directly
 - PatternFly is version **6** in this repo — use `pf-v6-u-*` utility classes and `--pf-t--*` design tokens
-- `npm test` runs Vitest on discovery data validation — use `npm run test-storybook` for component tests
+- `npm test` runs Jest on discovery data validation — use `npm run test-storybook` for component tests
 - The `next.config.ts` uses `output: 'export'` — features requiring a Node.js server (API routes, ISR, middleware) are not available
 - Header and footer are loaded via SSI in production but fetched client-side in dev mode
