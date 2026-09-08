@@ -10811,18 +10811,6 @@
               "title": "Code",
               "type": "string"
             },
-            "credential_id": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "description": "Orchestrator credential UUID for credential scrubbing",
-              "title": "Credential Id"
-            },
             "environment": {
               "additionalProperties": {
                 "type": "string"
@@ -32668,7 +32656,7 @@
       },
       "/projects/{project_id}": {
         "delete": {
-          "description": "Delete a project (soft-delete). Requires: project:delete permission scoped to this project.",
+          "description": "Delete a project (hard-delete). Requires: project:delete permission scoped to this project.",
           "operationId": "delete_project",
           "parameters": [
             {
