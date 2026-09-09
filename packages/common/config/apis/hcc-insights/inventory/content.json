@@ -2091,22 +2091,7 @@
                 },
                 "containers": {
                   "items": {
-                    "description": "A container on the system",
-                    "properties": {
-                      "image": {
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "name": {
-                        "maxLength": 255,
-                        "type": "string"
-                      },
-                      "state": {
-                        "maxLength": 30,
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
+                    "$ref": "#/components/schemas/SystemProfileContainer"
                   },
                   "type": "array"
                 },
@@ -3046,7 +3031,7 @@
                     },
                     "containers": {
                       "items": {
-                        "$ref": "#/components/schemas/SystemProfile/properties/ansible/properties/containers/items"
+                        "$ref": "#/components/schemas/SystemProfileContainer"
                       },
                       "type": "array"
                     },
@@ -3292,7 +3277,7 @@
                   "properties": {
                     "containers": {
                       "items": {
-                        "$ref": "#/components/schemas/SystemProfile/properties/ansible/properties/containers/items"
+                        "$ref": "#/components/schemas/SystemProfileContainer"
                       },
                       "type": "array"
                     },
@@ -3359,6 +3344,24 @@
           ],
           "description": "Structure of the output of the host system profile query",
           "title": "A host system profile query result"
+        },
+        "SystemProfileContainer": {
+          "description": "A container on the system",
+          "properties": {
+            "image": {
+              "maxLength": 255,
+              "type": "string"
+            },
+            "name": {
+              "maxLength": 255,
+              "type": "string"
+            },
+            "state": {
+              "maxLength": 30,
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "SystemProfileDiskDevice": {
           "description": "Representation of one mounted device",
@@ -3764,10 +3767,10 @@
               "type": "string"
             },
             "name": {
-              "description": "The display name for the view. Must contain only letters, numbers, spaces, hyphens, and underscores.",
+              "description": "The display name for the view. Must contain only letters, numbers, spaces, hyphens, underscores, periods, and apostrophes, and include at least one letter or number.",
               "maxLength": 255,
               "minLength": 1,
-              "pattern": "^[a-zA-Z0-9 _-]+$",
+              "pattern": "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9 _.'-]+$",
               "type": "string"
             },
             "org_wide": {
@@ -3862,10 +3865,10 @@
               "type": "string"
             },
             "name": {
-              "description": "The display name for the view. Must contain only letters, numbers, spaces, hyphens, and underscores.",
+              "description": "The display name for the view. Must contain only letters, numbers, spaces, hyphens, underscores, periods, and apostrophes, and include at least one letter or number.",
               "maxLength": 255,
               "minLength": 1,
-              "pattern": "^[a-zA-Z0-9 _-]+$",
+              "pattern": "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9 _.'-]+$",
               "type": "string"
             },
             "org_wide": {
