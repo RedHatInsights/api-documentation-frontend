@@ -7201,7 +7201,7 @@
           "security": [
             {}
           ],
-          "summary": "Retrieve list of users for given case group",
+          "summary": "Retrieve list of users for given case group ⚠️",
           "tags": [
             "Account"
           ]
@@ -8414,6 +8414,112 @@
           "summary": "Create token for SFTP User",
           "tags": [
             "SFTP"
+          ]
+        }
+      },
+      "/v3/accounts/{accountNumber}/casegroups/{groupName}/users": {
+        "get": {
+          "description": "Retrieve members of every CaseGroup__c whose Name starts with groupName for the given account (SOQL LIKE '{groupName}%'). Members from all matching groups are returned in one array. Groups with no members return an empty array.",
+          "operationId": "get-casegroup-users-v3-operation",
+          "parameters": [
+            {
+              "description": "Account Number",
+              "in": "path",
+              "name": "accountNumber",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Case group name prefix (SOQL LIKE '{groupName}%')",
+              "in": "path",
+              "name": "groupName",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Authentication token (Bearer format)",
+              "in": "header",
+              "name": "Authorization",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Optional SFDC access token (Bearer format). Use if you already have an SFDC token to improve performance.",
+              "in": "header",
+              "name": "X-Sfdc-Access-Token",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "items": {
+                      "$ref": "#/components/schemas/Contact"
+                    },
+                    "type": "array"
+                  }
+                }
+              },
+              "description": "List of users for matching case groups. Empty array when groups exist but have no members."
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Invalid request"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Invalid permissions"
+            },
+            "404": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "No case group found for the given account number and name prefix"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LegacyApiErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal server error"
+            }
+          },
+          "security": [
+            {}
+          ],
+          "summary": "Retrieve list of users for case groups matching a name prefix",
+          "tags": [
+            "Account"
           ]
         }
       },
@@ -9857,7 +9963,7 @@
         "name": "Business Hours"
       },
       {
-        "description": "Account APIs",
+        "description": "Account APIs ⚠️ Marked APIs soon to be deprecated. Please refer to /v3 Apis",
         "name": "Account"
       },
       {
