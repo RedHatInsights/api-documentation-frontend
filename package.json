@@ -20,7 +20,11 @@
     "discovery:start": "npm run --workspace packages/transform start -- --input-dir `npm prefix`/packages/discovery -o `npm prefix`/packages/common/config",
     "sitemap": "npm-run-all sitemap:build sitemap:start",
     "sitemap:build": "npm run --workspace packages/common -workspace packages/sitemap build",
-    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL"
+    "sitemap:start": "npm run --workspace packages/sitemap start --  -o `npm prefix`/public -b $SITEMAP_BASE_URL",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test-storybook": "vitest run --project storybook",
+    "test-storybook:ci": "vitest run --project storybook"
   },
   "dependencies": {
     "@patternfly/patternfly": "^6.6.1",
@@ -91,7 +95,17 @@
     "ts-jest": "^29.4.5",
     "typescript": "^4.9.5",
     "typescript-eslint": "^8.46.2",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.1",
+    "storybook": "^10.6.0",
+    "@storybook/nextjs-vite": "^10.6.0",
+    "@chromatic-com/storybook": "latest",
+    "@storybook/addon-vitest": "^10.6.0",
+    "vite": "latest",
+    "eslint-plugin-storybook": "^10.6.0",
+    "vitest": "latest",
+    "playwright": "latest",
+    "@vitest/browser-playwright": "latest",
+    "@vitest/coverage-v8": "latest"
   },
   "jest": {
     "transform": {

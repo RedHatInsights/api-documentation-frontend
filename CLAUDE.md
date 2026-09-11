@@ -11,6 +11,8 @@ npm run build            # Production build (static export)
 npm run lint             # ESLint check
 npm run prettier         # Format .tsx files with Prettier
 npm test                 # Run Jest tests (discovery package)
+npm run test-storybook   # Run Storybook interaction tests (Vitest)
+npm run storybook        # Start Storybook dev server on port 6006
 npm run discovery        # Regenerate API config from Discovery.yml
 npm run circular         # Check for circular imports
 ```

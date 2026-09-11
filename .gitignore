@@ -41,3 +41,6 @@ public/canonical.json
 next-env.d.ts
 out
 
+
+*storybook.log
+storybook-static

@@ -1,6 +1,17 @@
-# This is a comment.
 # Each line is a file pattern followed by one or more owners.
 
-# These owners will be the default owners for everything in
-# the repo. Unless a later match takes precedence.
-*       @RedHatInsights/experience-ui-committers
+# Default — team reviews all feature code
+*                               @RedHatInsights/experience-ui-committers
+
+# Structural / architectural gatekeeping — broad blast radius
+/.github/                       @CodyWMitchell @aferd
+/.tekton/                       @CodyWMitchell @aferd
+/.gitignore                     @CodyWMitchell @aferd
+/next.config.ts                 @CodyWMitchell @aferd
+/prettier.config.js             @CodyWMitchell @aferd
+/package.json                   @CodyWMitchell @aferd
+/package-lock.json              @CodyWMitchell @aferd
+/tsconfig.json                  @CodyWMitchell @aferd
+/renovate.json                  @CodyWMitchell @aferd
+/Dockerfile                     @CodyWMitchell @aferd
+/nginx.conf                     @CodyWMitchell @aferd

@@ -28,7 +28,7 @@ import { SidebarTags } from '@/components/SideBar/SidebarTags';
 import ThIcon from '@patternfly/react-icons/dist/js/icons/th-icon';
 import ThListIcon from '@patternfly/react-icons/dist/js/icons/th-list-icon';
 
-import { apiConfigurations, apiLabels } from '@apidocs/common/config/apis';
+import { apiConfigurations, apiLabels } from '@apidocs/common';
 import { useMemo } from 'react';
 import { Config } from '@/config';
 import { GridContent } from '@/components/GridContent';

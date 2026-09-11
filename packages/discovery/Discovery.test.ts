@@ -71,15 +71,15 @@ describe('Discovery', () => {
             expectNonRepeatedIds(apps);
         });
 
-        describe('Using valid tags', () => {
-            const tagIds = discovery.tags.map(idMapper);
-            const appWithTags = apps.filter(a => !!a.tags);
-            if (appWithTags.length > 0) {
+        const appWithTags = apps.filter(a => !!a.tags);
+        if (appWithTags.length > 0) {
+            describe('Using valid tags', () => {
+                const tagIds = discovery.tags.map(idMapper);
                 test.each(appWithTags.map(prepareApp))('%s', (_unused, app) => {
                     expect(tagIds).toEqual(expect.arrayContaining(app.tags as Array<Tag['id']>));
                 })
-            }
-        })
+            })
+        }
 
         if (appsWithNonPublicUrls.length > 0) {
             describe('local file', () => {
