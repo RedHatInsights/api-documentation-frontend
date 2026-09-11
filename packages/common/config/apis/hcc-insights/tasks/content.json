@@ -285,8 +285,12 @@
               "type": "string"
             },
             "groups": {
+              "items": {
+                "additionalProperties": {},
+                "type": "object"
+              },
               "readOnly": true,
-              "type": "string"
+              "type": "array"
             },
             "id": {
               "format": "uuid",
@@ -304,8 +308,9 @@
               "type": "string"
             },
             "system_profile": {
+              "additionalProperties": {},
               "readOnly": true,
-              "type": "string"
+              "type": "object"
             },
             "tags": {
               "items": {
@@ -919,8 +924,12 @@
               "type": "string"
             },
             "groups": {
+              "items": {
+                "additionalProperties": {},
+                "type": "object"
+              },
               "readOnly": true,
-              "type": "string"
+              "type": "array"
             },
             "id": {
               "format": "uuid",
@@ -944,8 +953,9 @@
               "type": "string"
             },
             "system_profile": {
+              "additionalProperties": {},
               "readOnly": true,
-              "type": "string"
+              "type": "object"
             },
             "tags": {
               "items": {
