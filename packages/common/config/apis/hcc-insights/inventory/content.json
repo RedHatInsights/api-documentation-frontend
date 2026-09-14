@@ -73,6 +73,16 @@
             "type": "string"
           }
         },
+        "getTotalParam": {
+          "description": "When true, the response includes the total number of items.",
+          "in": "query",
+          "name": "get_total",
+          "required": false,
+          "schema": {
+            "default": true,
+            "type": "boolean"
+          }
+        },
         "groupId": {
           "description": "Group ID.",
           "in": "path",
@@ -3708,6 +3718,7 @@
         },
         "Total": {
           "description": "Total number of items",
+          "nullable": true,
           "type": "integer"
         },
         "ViewColumnConfig": {
@@ -5114,6 +5125,9 @@
             },
             {
               "$ref": "#/components/parameters/fields_param"
+            },
+            {
+              "$ref": "#/components/parameters/getTotalParam"
             }
           ],
           "responses": {
