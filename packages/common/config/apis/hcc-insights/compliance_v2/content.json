@@ -4317,6 +4317,18 @@
               }
             },
             {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
               "in": "path",
               "name": "policy_id",
               "required": true,
@@ -8974,6 +8986,18 @@
               }
             },
             {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
               "in": "path",
               "name": "report_id",
               "required": true,
@@ -9039,6 +9063,18 @@
               "required": true,
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             }
           ],
@@ -10261,6 +10297,18 @@
               }
             },
             {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            {
               "in": "path",
               "name": "report_id",
               "required": true,
@@ -10311,6 +10359,18 @@
               "name": "X-RH-IDENTITY",
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             },
             {
@@ -10379,6 +10439,18 @@
               "required": true,
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             }
           ],
@@ -17097,6 +17169,18 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
             }
           ],
           "responses": {
@@ -17148,6 +17232,18 @@
               "required": true,
               "schema": {
                 "type": "string"
+              }
+            },
+            {
+              "description": "An array of tags to narrow down the search results. In case the value contains symbols used for separators (`/` or `=`), they need to be encoded.<br>e.g.: `namespace/key=value`, `insights-client/selinux-config=SELINUX%3Denforcing`",
+              "in": "query",
+              "name": "tags",
+              "required": false,
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
               }
             }
           ],
