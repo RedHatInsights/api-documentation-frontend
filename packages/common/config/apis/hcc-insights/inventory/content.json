@@ -531,7 +531,7 @@
           "required": false,
           "schema": {
             "items": {
-              "pattern": "^([^=/]+/)?(?!.*/=)[^=]+(=[^=/]+)?$",
+              "pattern": "^([^=/]+/)?(?!.*/=)[^=]+(=[^=]+)?$",
               "type": "string"
             },
             "type": "array"
