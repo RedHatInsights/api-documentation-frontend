@@ -875,6 +875,110 @@
             }
           }
         },
+        "OptInEligibleResponse": {
+          "properties": {
+            "eligible": {
+              "enum": [
+                true
+              ],
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "eligible"
+          ],
+          "type": "object"
+        },
+        "OptInIneligibleGroup": {
+          "properties": {
+            "ineligible_system_roles": {
+              "items": {
+                "$ref": "#/components/schemas/OptInIneligibleRole"
+              },
+              "type": "array"
+            },
+            "name": {
+              "type": "string"
+            },
+            "uuid": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "uuid",
+            "ineligible_system_roles"
+          ],
+          "type": "object"
+        },
+        "OptInIneligibleResponse": {
+          "properties": {
+            "bootstrapped": {
+              "type": "boolean"
+            },
+            "eligible": {
+              "enum": [
+                false
+              ],
+              "type": "boolean"
+            },
+            "ineligible_custom_roles": {
+              "items": {
+                "$ref": "#/components/schemas/OptInIneligibleRole"
+              },
+              "type": "array"
+            },
+            "ineligible_groups": {
+              "items": {
+                "$ref": "#/components/schemas/OptInIneligibleGroup"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "eligible",
+            "bootstrapped",
+            "ineligible_custom_roles",
+            "ineligible_groups"
+          ],
+          "type": "object"
+        },
+        "OptInIneligibleRole": {
+          "properties": {
+            "ineligible_applications": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "name": {
+              "type": "string"
+            },
+            "uuid": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "uuid",
+            "ineligible_applications"
+          ],
+          "type": "object"
+        },
+        "OptInStatus": {
+          "properties": {
+            "v2_opted_in": {
+              "description": "Whether the tenant has opted into RBAC V2.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "v2_opted_in"
+          ],
+          "type": "object"
+        },
         "PaginationLinks": {
           "properties": {
             "first": {
@@ -4448,6 +4552,173 @@
             "Status"
           ]
         }
+      },
+      "/tenant/opt-in/": {
+        "get": {
+          "operationId": "OptInStatus",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OptInStatus"
+                  }
+                }
+              },
+              "description": "The request has succeeded."
+            },
+            "400": {
+              "description": "The server could not understand the request due to invalid syntax."
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "summary": "Get whether the current tenant has opted into V2",
+          "tags": [
+            "V2OptIn"
+          ]
+        },
+        "patch": {
+          "operationId": "OptInUpdate",
+          "parameters": [],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "v2_opted_in": {
+                      "enum": [
+                        true
+                      ],
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OptInStatus"
+                  }
+                }
+              },
+              "description": "The request has succeeded."
+            },
+            "400": {
+              "description": "Bad Input"
+            },
+            "401": {
+              "description": "Unauthorized"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error403"
+                  }
+                }
+              },
+              "description": "Insufficient permissions"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/OptInIneligibleResponse"
+                  }
+                }
+              },
+              "description": "Opt-in is not possible"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Unexpected Error"
+            }
+          },
+          "summary": "Opt the current tenant into V2",
+          "tags": [
+            "V2OptIn"
+          ]
+        }
+      },
+      "/tenant/opt-in/eligibility/": {
+        "get": {
+          "operationId": "OptInEligibility",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/OptInEligibleResponse"
+                      },
+                      {
+                        "$ref": "#/components/schemas/OptInIneligibleResponse"
+                      }
+                    ]
+                  }
+                }
+              },
+              "description": "Contains information about the tenant's eligibility to opt-in to V2."
+            },
+            "400": {
+              "description": "The server could not understand the request due to invalid syntax."
+            },
+            "401": {
+              "description": "Access is unauthorized."
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error403"
+                  }
+                }
+              },
+              "description": "Access is forbidden."
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Server error"
+            }
+          },
+          "summary": "Get information about whether the current tenant can be opted into V2",
+          "tags": [
+            "V2OptIn"
+          ]
+        }
       }
     },
     "security": [
@@ -4515,6 +4786,10 @@
       {
         "description": "Operations about audit logs requests",
         "name": "Audit Logs"
+      },
+      {
+        "description": "Operations related to opting into the V2 interface",
+        "name": "V2OptIn"
       }
     ]
   }
