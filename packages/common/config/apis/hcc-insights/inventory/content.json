@@ -251,10 +251,12 @@
               "advisor:important",
               "advisor:moderate",
               "advisor:low",
-              "advisor:total_severity",
+              "advisor:severity_priority",
               "vulnerability:total_cves",
               "vulnerability:critical_cves",
               "vulnerability:important_cves",
+              "vulnerability:moderate_cves",
+              "vulnerability:low_cves",
               "vulnerability:cves_with_security_rules",
               "vulnerability:cves_with_known_exploits",
               "patch:advisories_total_installable",
@@ -734,7 +736,7 @@
           "type": "object"
         },
         "AppSortableFields": {
-          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n- `advisor:critical` - Critical severity recommendations\n- `advisor:important` - Important severity recommendations\n- `advisor:moderate` - Moderate severity recommendations\n- `advisor:low` - Low severity recommendations\n- `advisor:total_severity` - Weighted severity score (critical×1000 + important×100 + moderate×10 + low)\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n- `vulnerability:important_cves` - Important severity CVEs\n- `vulnerability:cves_with_security_rules` - CVEs with security rules\n- `vulnerability:cves_with_known_exploits` - CVEs with known exploits\n\n**Patch**\n- `patch:advisories_total_installable` - Total installable advisories (sum of all types)\n- `patch:advisories_total_applicable` - Total applicable advisories (sum of all types)\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:advisories_rhba_installable` - Number of RHBA installable advisories\n- `patch:advisories_rhea_installable` - Number of RHEA installable advisories\n- `patch:advisories_other_installable` - Number of other installable advisories\n- `patch:advisories_rhsa_applicable` - Number of RHSA applicable advisories\n- `patch:advisories_rhba_applicable` - Number of RHBA applicable advisories\n- `patch:advisories_rhea_applicable` - Number of RHEA applicable advisories\n- `patch:advisories_other_applicable` - Number of other applicable advisories\n- `patch:packages_installable` - Number of installable packages\n- `patch:packages_applicable` - Number of applicable packages\n- `patch:packages_installed` - Number of installed packages\n- `patch:template_name` - Patch template name\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n- `compliance:policies_count` - Number of compliance policies\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:total_matches` - Total malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n- `malware:last_status` - Last malware detection status\n",
+          "description": "Application data fields available for sorting in the /hosts-view endpoint.\nUse format `app_name:field_name` with the `order_by` parameter.\n\n**Advisor**\n- `advisor:recommendations` - Number of Advisor recommendations\n- `advisor:incidents` - Number of Advisor incidents\n- `advisor:critical` - Critical severity recommendations\n- `advisor:important` - Important severity recommendations\n- `advisor:moderate` - Moderate severity recommendations\n- `advisor:low` - Low severity recommendations\n- `advisor:severity_priority` - Priority sort by severity (critical > important > moderate > low)\n\n**Vulnerability**\n- `vulnerability:total_cves` - Total CVE count\n- `vulnerability:critical_cves` - Critical severity CVEs\n- `vulnerability:important_cves` - Important severity CVEs\n- `vulnerability:moderate_cves` - Moderate severity CVEs\n- `vulnerability:low_cves` - Low severity CVEs\n- `vulnerability:cves_with_security_rules` - CVEs with security rules\n- `vulnerability:cves_with_known_exploits` - CVEs with known exploits\n\n**Patch**\n- `patch:advisories_total_installable` - Total installable advisories (sum of all types)\n- `patch:advisories_total_applicable` - Total applicable advisories (sum of all types)\n- `patch:advisories_rhsa_installable` - Number of RHSA installable advisories\n- `patch:advisories_rhba_installable` - Number of RHBA installable advisories\n- `patch:advisories_rhea_installable` - Number of RHEA installable advisories\n- `patch:advisories_other_installable` - Number of other installable advisories\n- `patch:advisories_rhsa_applicable` - Number of RHSA applicable advisories\n- `patch:advisories_rhba_applicable` - Number of RHBA applicable advisories\n- `patch:advisories_rhea_applicable` - Number of RHEA applicable advisories\n- `patch:advisories_other_applicable` - Number of other applicable advisories\n- `patch:packages_installable` - Number of installable packages\n- `patch:packages_applicable` - Number of applicable packages\n- `patch:packages_installed` - Number of installed packages\n- `patch:template_name` - Patch template name\n\n**Remediations**\n- `remediations:remediations_plans` - Active remediation plans count\n\n**Compliance**\n- `compliance:last_scan` - Last compliance scan timestamp\n- `compliance:policies_count` - Number of compliance policies\n\n**Malware**\n- `malware:last_matches` - Malware matches count\n- `malware:total_matches` - Total malware matches count\n- `malware:last_scan` - Last malware scan timestamp\n- `malware:last_status` - Last malware detection status\n",
           "enum": [
             "advisor:recommendations",
             "advisor:incidents",
@@ -742,10 +744,12 @@
             "advisor:important",
             "advisor:moderate",
             "advisor:low",
-            "advisor:total_severity",
+            "advisor:severity_priority",
             "vulnerability:total_cves",
             "vulnerability:critical_cves",
             "vulnerability:important_cves",
+            "vulnerability:moderate_cves",
+            "vulnerability:low_cves",
             "vulnerability:cves_with_security_rules",
             "vulnerability:cves_with_known_exploits",
             "patch:advisories_total_installable",
@@ -988,6 +992,21 @@
           ],
           "description": "Data required to create a check-in record for a host.",
           "title": "Check-in data",
+          "type": "object"
+        },
+        "DefaultViewIn": {
+          "description": "Data for setting the user's default view.",
+          "properties": {
+            "view_id": {
+              "description": "The UUID of the view to pin as the user's default.",
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          "required": [
+            "view_id"
+          ],
+          "title": "Default View Payload",
           "type": "object"
         },
         "FactSet": {
@@ -3920,6 +3939,11 @@
             },
             {
               "properties": {
+                "default_view_id": {
+                  "description": "The UUID of the user's current default view. This is the view that should be loaded automatically on page open. Falls back to the \"All systems\" system view if no preference is set.",
+                  "format": "uuid",
+                  "type": "string"
+                },
                 "results": {
                   "description": "List of inventory views.",
                   "items": {
@@ -3929,7 +3953,8 @@
                 }
               },
               "required": [
-                "results"
+                "results",
+                "default_view_id"
               ],
               "type": "object"
             }
@@ -3956,6 +3981,16 @@
               "type": "integer"
             },
             "important_cves": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "low_cves": {
+              "minimum": 0,
+              "nullable": true,
+              "type": "integer"
+            },
+            "moderate_cves": {
               "minimum": 0,
               "nullable": true,
               "type": "integer"
@@ -4355,6 +4390,71 @@
             }
           ],
           "summary": "Create a new inventory view",
+          "tags": [
+            "views"
+          ]
+        }
+      },
+      "/beta/views/default": {
+        "delete": {
+          "description": "Removes the requesting user's default view preference. After deletion the default falls back to the \"All systems\" system view. Idempotent — returns 204 even if no preference exists. <br /><br /> Required permissions: inventory:views:write",
+          "operationId": "api.views.delete_default_view",
+          "responses": {
+            "204": {
+              "description": "Successfully removed the default view preference."
+            },
+            "403": {
+              "description": "Forbidden - identity type not supported or missing user_id."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Unpin the default view",
+          "tags": [
+            "views"
+          ]
+        },
+        "put": {
+          "description": "Pins a visible view as the requesting user's default. The default view is the one loaded automatically when the user opens the inventory page. If a preference already exists it is replaced (upsert). <br /><br /> Required permissions: inventory:views:write",
+          "operationId": "api.views.set_default_view",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DefaultViewIn"
+                }
+              }
+            },
+            "description": "The view to pin as default.",
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ViewOut"
+                  }
+                }
+              },
+              "description": "Successfully set the default view."
+            },
+            "403": {
+              "description": "Forbidden - identity type not supported or missing user_id."
+            },
+            "404": {
+              "description": "View not found or not visible to the requesting user."
+            }
+          },
+          "security": [
+            {
+              "ApiKeyAuth": []
+            }
+          ],
+          "summary": "Set the default view",
           "tags": [
             "views"
           ]
