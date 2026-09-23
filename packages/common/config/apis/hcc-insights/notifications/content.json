@@ -1085,7 +1085,7 @@
       },
       "/notifications/drawer": {
         "get": {
-          "description": "Retrieve paginated drawer notifications with optional filtering and sorting. Available filters: `bundleIds`, `appIds`, `eventTypeIds`, `startDate`, `endDate`, `readStatus`. Allowed `sort_by` fields: `bundle`, `application`, `event`, `created`. Sorting can be specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `created:desc`.",
+          "description": "Retrieve paginated drawer notifications with optional filtering and sorting. Available filters: `bundleIds`, `appIds`, `eventTypeIds`, `startDate`, `endDate`, `readStatus`. Allowed `sort_by` fields: `bundle`, `application`, `event`, `created`, `severity`. Sorting can be specified by appending `:asc` or `:desc` to the field, e.g. `bundle:desc`. Defaults to `created:desc`.",
           "operationId": "DrawerResource$V1_getDrawerEntries",
           "parameters": [
             {
@@ -1597,7 +1597,7 @@
       },
       "/notifications/events": {
         "get": {
-          "description": "Retrieves the event log entries. Use this endpoint to review a full history of the events related to the tenant. You can sort by the bundle, application, event, and created fields. You can specify the sort order by appending :asc or :desc to the field, for example bundle:desc. Sorting defaults to desc for the created field and to asc for all other fields.",
+          "description": "Retrieves the event log entries. Use this endpoint to review a full history of the events related to the tenant. You can sort by the bundle, application, event, severity, and created fields. You can specify the sort order by appending :asc or :desc to the field, for example bundle:desc. Sorting defaults to desc for the created field and to asc for all other fields.",
           "operationId": "EventResource$V1_getEvents",
           "parameters": [
             {
