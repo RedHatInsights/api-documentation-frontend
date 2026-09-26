@@ -204,7 +204,8 @@
               "type": "integer"
             },
             "resumable": {
-              "description": "if true, returns an already existing upload matching the same sha256 and chunk_size",
+              "description": "If true, reuse an existing upload with the same sha256, chunk_size, and size. Recommended for large files. If omitted, treated as false.",
+              "example": true,
               "type": "boolean"
             },
             "sha256": {
@@ -1636,8 +1637,11 @@
               "type": "string"
             },
             "origin": {
-              "description": "Origin of the repository",
-              "readOnly": true,
+              "description": "Origin of the repository (`external` or `upload`). Defaults to `external`. Set to `upload` for repositories that receive uploaded RPMs.",
+              "enum": [
+                "external",
+                "upload"
+              ],
               "type": "string"
             },
             "snapshot": {
@@ -4884,7 +4888,7 @@
             "x-originalParamName": "body"
           },
           "responses": {
-            "200": {
+            "201": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -4892,7 +4896,7 @@
                   }
                 }
               },
-              "description": "OK"
+              "description": "Created"
             },
             "400": {
               "content": {
@@ -4982,7 +4986,7 @@
             }
           },
           "responses": {
-            "200": {
+            "201": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -4990,7 +4994,7 @@
                   }
                 }
               },
-              "description": "OK"
+              "description": "Created"
             },
             "400": {
               "content": {
@@ -5637,7 +5641,7 @@
             "x-originalParamName": "body"
           },
           "responses": {
-            "200": {
+            "201": {
               "content": {
                 "application/json": {
                   "schema": {
@@ -5645,7 +5649,7 @@
                   }
                 }
               },
-              "description": "OK"
+              "description": "Created"
             },
             "400": {
               "content": {
