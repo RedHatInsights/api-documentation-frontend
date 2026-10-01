@@ -240,13 +240,10 @@
                 "severity": {
                   "enum": [
                     "Debug",
-                    "Info",
-                    "Warning",
-                    "Major",
-                    "Critical",
                     "Low",
                     "Moderate",
-                    "Important"
+                    "Important",
+                    "Critical"
                   ],
                   "type": "string"
                 },
