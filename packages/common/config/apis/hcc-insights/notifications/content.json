@@ -1616,6 +1616,7 @@
               "in": "query",
               "name": "startDate",
               "schema": {
+                "format": "date-time",
                 "type": "string"
               }
             },
@@ -1624,6 +1625,7 @@
               "in": "query",
               "name": "endDate",
               "schema": {
+                "format": "date-time",
                 "type": "string"
               }
             },
