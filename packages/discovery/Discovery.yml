@@ -350,6 +350,7 @@ apis:
         apiType: openapi-v3
         icon: lightwell
         tags:
+          - lightwell
           - security
   - id: openshift
     name: Openshift
@@ -614,6 +615,9 @@ tags:
     type: use-case
   - id: lightspeed
     name: Red Hat Lightspeed
+    type: service
+  - id: lightwell
+    name: Lightwell
     type: service
   - id: integrations-and-notifications
     name: Integrations and Notifications
