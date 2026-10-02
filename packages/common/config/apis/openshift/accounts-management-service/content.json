@@ -415,7 +415,8 @@
                 "ManifestWorkSync",
                 "ClusterForcedUpgrade",
                 "DeletedCluster",
-                "DeleteProtection"
+                "DeleteProtection",
+                "ScheduledUpgrade"
               ],
               "type": "string"
             },
@@ -511,7 +512,8 @@
                 "OsdTrialProtectedCluster",
                 "ManifestWorkSync",
                 "ClusterForcedUpgrade",
-                "DeleteProtection"
+                "DeleteProtection",
+                "ScheduledUpgrade"
               ],
               "type": "string"
             },
@@ -3779,7 +3781,8 @@
                 "ManifestWorkSync",
                 "ClusterForcedUpgrade",
                 "DeletedCluster",
-                "DeleteProtection"
+                "DeleteProtection",
+                "ScheduledUpgrade"
               ],
               "type": "string"
             },

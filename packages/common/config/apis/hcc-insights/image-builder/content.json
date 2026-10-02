@@ -722,10 +722,11 @@
               "$ref": "#/components/schemas/Distributions"
             },
             "image_requests": {
-              "description": "Array of image requests. Having more image requests in a single blueprint is currently not supported.\n",
+              "description": "Array of exactly one image request. Having more image requests in a single blueprint is currently not supported.\n",
               "items": {
                 "$ref": "#/components/schemas/ImageRequest"
               },
+              "maxItems": 1,
               "minItems": 1,
               "type": "array",
               "uniqueItems": true
