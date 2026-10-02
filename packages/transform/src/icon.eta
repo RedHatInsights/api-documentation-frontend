@@ -8,6 +8,9 @@
 	    case 'insights':
 	        %>InsightsIcon<%
 	        break;
+        case 'lightwell':
+            %>LightwellIcon<%
+            break;
         case 'openshift':
             %>OpenShiftIcon<%
             break;

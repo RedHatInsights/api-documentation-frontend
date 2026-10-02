@@ -342,6 +342,15 @@ apis:
         tags:
           - lightspeed
           - rhel
+      - id: lightwell
+        name: Lightwell
+        description: API for Lightwell Network, providing open source package, repository, and security advisory data
+        url: https://console.redhat.com/api/lightwell/v0.1/openapi.json
+        serverUrl: https://console.redhat.com
+        apiType: openapi-v3
+        icon: lightwell
+        tags:
+          - security
   - id: openshift
     name: Openshift
     apps:

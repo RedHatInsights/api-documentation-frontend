@@ -664,6 +664,20 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
     tags: [apiLabelsMap["lightspeed"], apiLabelsMap["rhel"]],
   },
   {
+    id: "lightwell",
+    displayName: "Lightwell",
+    description:
+      "API for Lightwell Network, providing open source package, repository, and security advisory data",
+    icon: "LightwellIcon",
+    apiContentPath: "./apis/hcc-insights/lightwell/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/lightwell/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["security"]],
+  },
+  {
     id: "accounts-management-service",
     displayName: "Account Management Service",
     description: "Manage user subscriptions and clusters",

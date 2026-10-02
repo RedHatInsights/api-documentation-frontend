@@ -147,6 +147,7 @@
         "ansible",
         "edge",
         "insights",
+        "lightwell",
         "openshift",
         "services",
         "subscriptions"
