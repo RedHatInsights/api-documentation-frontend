@@ -29,19 +29,21 @@ const getTitle = (type: DisplayedTagsType) => {
 export const SidebarTags: FunctionComponent<SidebarTagsProps> = ({ tags, selected, setSelected }) => {
   const tagsByGroup = useMemo(
     () =>
-      tags.reduce(
-        (prev, current) => {
-          if (current.type in prev) {
-            prev[current.type].push(current);
-          }
-          return prev;
-        },
-        {
-          'use-case': [],
-          service: [],
-          platform: [],
-        } as Record<DisplayedTagsType, Array<APILabel>>,
-      ),
+      [...tags]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .reduce(
+          (prev, current) => {
+            if (current.type in prev) {
+              prev[current.type].push(current);
+            }
+            return prev;
+          },
+          {
+            'use-case': [],
+            service: [],
+            platform: [],
+          } as Record<DisplayedTagsType, Array<APILabel>>,
+        ),
     [tags],
   );
 
