@@ -60,6 +60,15 @@ export const apiLabelsMap: Record<string, Readonly<APILabel>> = {
       product: undefined,
     },
   },
+  lightwell: {
+    id: "lightwell",
+    name: "Lightwell",
+    type: "service",
+    devRedHatTaxonomy: {
+      topic: undefined,
+      product: undefined,
+    },
+  },
   "integrations-and-notifications": {
     id: "integrations-and-notifications",
     name: "Integrations and Notifications",
@@ -662,6 +671,20 @@ export const apiConfigurations: ReadonlyArray<Readonly<APIConfiguration>> = [
         "./apis/hcc-insights/roadmap/content.json"
       ) as unknown as Promise<APIContent>,
     tags: [apiLabelsMap["lightspeed"], apiLabelsMap["rhel"]],
+  },
+  {
+    id: "lightwell",
+    displayName: "Lightwell",
+    description:
+      "API for Lightwell Network, providing open source package, repository, and security advisory data",
+    icon: "LightwellIcon",
+    apiContentPath: "./apis/hcc-insights/lightwell/content.json",
+    serverUrl: "https://console.redhat.com",
+    getApiContent: () =>
+      import(
+        "./apis/hcc-insights/lightwell/content.json"
+      ) as unknown as Promise<APIContent>,
+    tags: [apiLabelsMap["lightwell"], apiLabelsMap["security"]],
   },
   {
     id: "accounts-management-service",
