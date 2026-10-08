@@ -421,6 +421,15 @@
           },
           "type": "object"
         },
+        "api.LightwellBeaconStatusResponse": {
+          "properties": {
+            "last_processed_at": {
+              "description": "When the latest successful beacon sync started",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "api.LightwellCustomerIdsResponse": {
           "properties": {
             "data": {
@@ -1512,6 +1521,15 @@
               "description": "Enable snapshotting and hosting of this repository",
               "type": "boolean"
             },
+            "snapshot_publish_state": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/api.SnapshotPublishState"
+                }
+              ],
+              "description": "Aggregate publish state across all snapshots (partner repos only)",
+              "readOnly": true
+            },
             "status": {
               "description": "Combined status of last introspection and snapshot of repository (Valid, Invalid, Unavailable, Pending)",
               "type": "string"
@@ -1849,6 +1867,15 @@
             "snapshot": {
               "description": "Enable snapshotting and hosting of this repository",
               "type": "boolean"
+            },
+            "snapshot_publish_state": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/api.SnapshotPublishState"
+                }
+              ],
+              "description": "Aggregate publish state across all snapshots (partner repos only)",
+              "readOnly": true
             },
             "status": {
               "description": "Combined status of last introspection and snapshot of repository (Valid, Invalid, Unavailable, Pending)",
@@ -2326,6 +2353,27 @@
           },
           "type": "object"
         },
+        "api.SnapshotPublishState": {
+          "properties": {
+            "published": {
+              "description": "At least one snapshot is published with a completed publish task",
+              "type": "boolean"
+            },
+            "publishing": {
+              "description": "At least one snapshot with published=true has a pending/running task (publish in progress)",
+              "type": "boolean"
+            },
+            "stopped": {
+              "description": "At least one snapshot has a failed/canceled publish task",
+              "type": "boolean"
+            },
+            "unpublishing": {
+              "description": "At least one snapshot with published=false has a pending/running task (unpublish in progress)",
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
         "api.SnapshotPublishedUpdateRequest": {
           "properties": {
             "published": {
@@ -2363,6 +2411,18 @@
             "detected_os_version": {
               "description": "Release version of the repository (BaseOS)",
               "type": "string"
+            },
+            "last_publish_task_uuid": {
+              "description": "UUID of the publish/unpublish task",
+              "type": "string"
+            },
+            "publish_task": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/api.TaskInfoResponse"
+                }
+              ],
+              "description": "Status of the publish/unpublish task"
             },
             "published": {
               "description": "Whether this snapshot is published for cross-org partner visibility",
@@ -3496,6 +3556,58 @@
           "summary": "List Lightwell Advisories",
           "tags": [
             "lightwell"
+          ]
+        }
+      },
+      "/lightwell/beacon/status/": {
+        "get": {
+          "description": "Return when the latest successful beacon sync started. The timestamp is omitted until the first successful sync.",
+          "operationId": "getLightwellBeaconStatus",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.LightwellBeaconStatusResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            },
+            "400": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Bad Request"
+            },
+            "401": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Unauthorized"
+            },
+            "500": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Internal Server Error"
+            }
+          },
+          "summary": "Get Lightwell beacon status",
+          "tags": [
+            "lightwell_vulnerabilities"
           ]
         }
       },

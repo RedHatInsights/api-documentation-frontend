@@ -465,6 +465,28 @@
           ],
           "type": "object"
         },
+        "OperatingSystem": {
+          "properties": {
+            "major": {
+              "nullable": true,
+              "type": "integer"
+            },
+            "minor": {
+              "nullable": true,
+              "type": "integer"
+            },
+            "name": {
+              "readOnly": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "major",
+            "minor",
+            "name"
+          ],
+          "type": "object"
+        },
         "PaginatedAckList": {
           "properties": {
             "data": {
@@ -1875,6 +1897,11 @@
               "readOnly": true,
               "type": "integer"
             },
+            "id": {
+              "format": "uuid",
+              "readOnly": true,
+              "type": "string"
+            },
             "important_hits": {
               "readOnly": true,
               "type": "integer"
@@ -1897,6 +1924,14 @@
               "readOnly": true,
               "type": "integer"
             },
+            "operating_system": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/OperatingSystem"
+                }
+              ],
+              "readOnly": true
+            },
             "os_name": {
               "readOnly": true,
               "type": "string"
@@ -1917,6 +1952,16 @@
             "system_uuid": {
               "format": "uuid",
               "type": "string"
+            },
+            "tags": {
+              "readOnly": true
+            },
+            "workspaces": {
+              "items": {
+                "$ref": "#/components/schemas/Workspace"
+              },
+              "readOnly": true,
+              "type": "array"
             }
           },
           "required": [
@@ -1925,16 +1970,20 @@
             "display_name",
             "group_name",
             "hits",
+            "id",
             "important_hits",
             "incident_hits",
             "last_seen",
             "low_hits",
             "moderate_hits",
+            "operating_system",
             "os_name",
             "pathway_filter_hits",
             "rhel_version",
             "stale_at",
-            "system_uuid"
+            "system_uuid",
+            "tags",
+            "workspaces"
           ],
           "type": "object"
         },
@@ -1975,9 +2024,19 @@
               "maxLength": 200,
               "type": "string"
             },
+            "group_name": {
+              "nullable": true,
+              "readOnly": true,
+              "type": "string"
+            },
             "hits": {
               "readOnly": true,
               "type": "integer"
+            },
+            "id": {
+              "format": "uuid",
+              "readOnly": true,
+              "type": "string"
             },
             "impacted_date": {
               "format": "date-time",
@@ -2006,6 +2065,14 @@
               "readOnly": true,
               "type": "integer"
             },
+            "operating_system": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/OperatingSystem"
+                }
+              ],
+              "readOnly": true
+            },
             "os_name": {
               "readOnly": true,
               "type": "string"
@@ -2026,24 +2093,39 @@
             "system_uuid": {
               "format": "uuid",
               "type": "string"
+            },
+            "tags": {
+              "readOnly": true
+            },
+            "workspaces": {
+              "items": {
+                "$ref": "#/components/schemas/Workspace"
+              },
+              "readOnly": true,
+              "type": "array"
             }
           },
           "required": [
             "all_pathway_hits",
             "critical_hits",
             "display_name",
+            "group_name",
             "hits",
+            "id",
             "impacted_date",
             "important_hits",
             "incident_hits",
             "last_seen",
             "low_hits",
             "moderate_hits",
+            "operating_system",
             "os_name",
             "pathway_filter_hits",
             "rhel_version",
             "stale_at",
-            "system_uuid"
+            "system_uuid",
+            "tags",
+            "workspaces"
           ],
           "type": "object"
         },
@@ -2110,6 +2192,24 @@
           },
           "required": [
             "is_subscribed"
+          ],
+          "type": "object"
+        },
+        "Workspace": {
+          "properties": {
+            "id": {
+              "format": "uuid",
+              "nullable": true,
+              "type": "string"
+            },
+            "name": {
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
           ],
           "type": "object"
         }
@@ -4868,7 +4968,7 @@
       },
       "/api/insights/v1/rule/": {
         "get": {
-          "description": "List all active rules for this account.\n\nIf 'acked' is False or not given, then only rules that are not acked\nwill be shown.  If acked is set and 'true' as a string or evaluates\nto a true value, then all rules including those that are acked will\nbe shown.",
+          "description": "List all active rules for this account.\n\nIf 'impacting' is True, only rules currently impacting systems will\nbe returned. If 'impacting' is False, only rules with no impacted systems\nwill be returned.\n\nWhen workspace filtering is applied (via the 'groups' query parameter or\nRBAC workspace permissions) without an explicit 'impacting' parameter,\nthe list defaults to showing only rules impacting systems in the\nspecified workspace(s).\n\nIf 'acked' is False or not given, then only rules that are not acked\nwill be shown.  If acked is set and 'true' as a string or evaluates\nto a true value, then all rules including those that are acked will\nbe shown.",
           "operationId": "rule_list",
           "parameters": [
             {
