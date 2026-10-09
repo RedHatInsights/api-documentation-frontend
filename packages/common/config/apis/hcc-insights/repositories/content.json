@@ -123,6 +123,22 @@
               "description": "Whether the package is covered (true = exact or partial match)",
               "type": "boolean"
             },
+            "cve_count": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/api.CveCount"
+                }
+              ],
+              "description": "Count of CVEs fixed in remediated repos for this package, by severity"
+            },
+            "cve_range": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/api.CveRange"
+                }
+              ],
+              "description": "Min/max CVSS severity score across this package's CVEs; omitted when the package has no CVEs"
+            },
             "ecosystem": {
               "description": "Ecosystem of the package",
               "type": "string"
@@ -159,6 +175,14 @@
             "created_at": {
               "description": "Timestamp when the report was created",
               "type": "string"
+            },
+            "cve_summary": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/api.CveCount"
+                }
+              ],
+              "description": "Count of CVEs fixed in remediated repos across covered packages, by severity"
             },
             "ecosystem_coverage_summary": {
               "description": "Per-ecosystem breakdown",
@@ -222,6 +246,36 @@
             "sha256",
             "size"
           ],
+          "type": "object"
+        },
+        "api.CveCount": {
+          "properties": {
+            "critical": {
+              "type": "integer"
+            },
+            "important": {
+              "type": "integer"
+            },
+            "low": {
+              "type": "integer"
+            },
+            "moderate": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        "api.CveRange": {
+          "properties": {
+            "high": {
+              "description": "Highest CVSS severity score among the package's CVEs",
+              "type": "number"
+            },
+            "low": {
+              "description": "Lowest CVSS severity score among the package's CVEs",
+              "type": "number"
+            }
+          },
           "type": "object"
         },
         "api.EcosystemCoverageSummary": {
@@ -704,12 +758,16 @@
               "description": "Whether a reproducer is included",
               "type": "boolean"
             },
+            "resolution_reason": {
+              "description": "Explanation when a vulnerability is closed without a shipped fix",
+              "type": "string"
+            },
             "severity": {
               "description": "Severity (Critical, Important, Moderate, Low)",
               "type": "string"
             },
             "status": {
-              "description": "Workflow status",
+              "description": "Workflow status. A closure without a shipped fix is Unremediated",
               "type": "string"
             },
             "submitted_date": {
