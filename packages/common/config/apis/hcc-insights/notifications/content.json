@@ -1880,7 +1880,7 @@
           "summary": "Retrieve the daily digest time"
         },
         "put": {
-          "description": "Sets the daily digest UTC time. The accepted minute values are 00, 15, 30, and 45. Use this endpoint to set the time when daily emails are sent.",
+          "description": "Sets the daily digest UTC time. The accepted minute values are 00, 15, 30, and 45. Seconds and nanoseconds are ignored (truncated to the minute). Use this endpoint to set the time when daily emails are sent.",
           "operationId": "OrgConfigResource$V1_saveDailyDigestTimePreference",
           "requestBody": {
             "content": {
