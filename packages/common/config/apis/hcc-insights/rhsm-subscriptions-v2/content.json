@@ -259,9 +259,6 @@
         },
         "SkuCapacitySubscription": {
           "properties": {
-            "id": {
-              "type": "string"
-            },
             "number": {
               "type": "string"
             }
@@ -532,15 +529,12 @@
                         "sku": "RH00011",
                         "subscriptions": [
                           {
-                            "id": "1234567890",
                             "number": "1234567891"
                           },
                           {
-                            "id": "1234567892",
                             "number": "1234567893"
                           },
                           {
-                            "id": "1234567894",
                             "number": "1234567895"
                           }
                         ],
