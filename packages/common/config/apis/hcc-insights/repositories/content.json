@@ -203,6 +203,10 @@
               "description": "Number of packages with name found but not version",
               "type": "integer"
             },
+            "skipped_entries": {
+              "description": "Package entries skipped because no usable identity could be extracted; absent for older reports",
+              "type": "integer"
+            },
             "status": {
               "description": "Coverage analysis task status",
               "type": "string"
@@ -2960,6 +2964,23 @@
           },
           "type": "object"
         },
+        "api.TermsRequiredResponse": {
+          "properties": {
+            "events": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "site": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "api.UUIDListRequest": {
           "properties": {
             "uuids": {
@@ -3173,6 +3194,11 @@
               "multipart/form-data": {
                 "schema": {
                   "properties": {
+                    "catalog_source": {
+                      "description": "Catalog source for analysis: pulp (default) or db",
+                      "type": "string",
+                      "x-formData-name": "catalog_source"
+                    },
                     "file": {
                       "description": "Manifest file (CycloneDX, SPDX, etc.)",
                       "format": "binary",
@@ -3218,6 +3244,16 @@
                 }
               },
               "description": "Unauthorized"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -3271,6 +3307,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -3374,6 +3420,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -3600,6 +3656,16 @@
               },
               "description": "Bad Request"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -3651,6 +3717,16 @@
                 }
               },
               "description": "Unauthorized"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -3779,6 +3855,16 @@
               },
               "description": "Unauthorized"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -3830,6 +3916,16 @@
                 }
               },
               "description": "Unauthorized"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -3893,6 +3989,16 @@
                 }
               },
               "description": "Unauthorized"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -4010,6 +4116,16 @@
               },
               "description": "Bad Request"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -4102,6 +4218,16 @@
               },
               "description": "Bad Request"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -4114,6 +4240,28 @@
             }
           },
           "summary": "List Lightwell Packages (cross-repo)",
+          "tags": [
+            "lightwell"
+          ]
+        }
+      },
+      "/lightwell/terms/required": {
+        "get": {
+          "description": "Check whether the current user must accept Lightwell terms before access.",
+          "operationId": "getLightwellTermsRequired",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.TermsRequiredResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            }
+          },
+          "summary": "Check if Lightwell terms acceptance is required",
           "tags": [
             "lightwell"
           ]
@@ -6259,6 +6407,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -6349,6 +6507,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -6429,6 +6597,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -6519,6 +6697,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -6712,6 +6900,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -6783,6 +6981,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -6864,6 +7072,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
