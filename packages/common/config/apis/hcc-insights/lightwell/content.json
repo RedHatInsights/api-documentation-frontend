@@ -790,6 +790,23 @@
           },
           "type": "object"
         },
+        "api.TermsRequiredResponse": {
+          "properties": {
+            "events": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "required": {
+              "type": "boolean"
+            },
+            "site": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "errors.ErrorResponse": {
           "properties": {
             "errors": {
@@ -938,6 +955,16 @@
               },
               "description": "Bad Request"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -1046,6 +1073,16 @@
               },
               "description": "Bad Request"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -1137,6 +1174,16 @@
                 }
               },
               "description": "Bad Request"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -1311,6 +1358,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -1401,6 +1458,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -1488,6 +1555,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -1559,6 +1636,16 @@
                 }
               },
               "description": "Not Found"
+            },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
             },
             "500": {
               "content": {
@@ -1641,6 +1728,16 @@
               },
               "description": "Not Found"
             },
+            "428": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/errors.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Precondition Required"
+            },
             "500": {
               "content": {
                 "application/json": {
@@ -1653,6 +1750,28 @@
             }
           },
           "summary": "Get Python Package Detail",
+          "tags": [
+            "lightwell"
+          ]
+        }
+      },
+      "/terms/required": {
+        "get": {
+          "description": "Check whether the current user must accept Lightwell terms.",
+          "operationId": "getLightwellNetworkTermsRequired",
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/api.TermsRequiredResponse"
+                  }
+                }
+              },
+              "description": "OK"
+            }
+          },
+          "summary": "Check if Lightwell terms acceptance is required",
           "tags": [
             "lightwell"
           ]
