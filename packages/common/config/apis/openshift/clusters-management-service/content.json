@@ -1542,6 +1542,10 @@
               "$ref": "#/components/schemas/AzureNodePoolEncryptionAtHost",
               "description": "EncryptionAtHost contains Encryption At Host disk encryption configuration.\nWhen enabled, it enhances Azure Disk Storage Server-Side Encryption to ensure that all temporary disks\nand disk caches are encrypted at rest and flow encrypted to the Storage clusters.\nIf not specified, Encryption at Host is not enabled.\nImmutable."
             },
+            "image": {
+              "$ref": "#/components/schemas/AzureNodePoolImage",
+              "description": "Specifies the Azure Marketplace image to use for the Nodes of the Node Pool.\nWhen specified, the provided image is used instead of the default RHCOS image.\nOptional during creation. Immutable."
+            },
             "os_disk": {
               "$ref": "#/components/schemas/AzureNodePoolOsDisk",
               "description": "The configuration for the OS disk used by the nodes in the Node Pool."
@@ -1561,6 +1565,27 @@
           "properties": {
             "state": {
               "description": "State indicates whether Encryption At Host is enabled.\nWhen enabled, it enhances Azure Disk Storage Server-Side Encryption to ensure that all temporary disks\nand disk caches are encrypted at rest and flow encrypted to the Storage clusters.\nAccepted values are: \"disabled\" or \"enabled\".\nIf not specified, its value is \"disabled\", which indicates Encryption At Host is disabled.\nImmutable.",
+              "type": "string"
+            }
+          }
+        },
+        "AzureNodePoolImage": {
+          "description": "Specifies the Azure Marketplace image to use for the Nodes of the Node Pool.\nWhen specified, the provided image is used instead of the default RHCOS image.\nAll four fields must be provided together.\nOptional during creation. Immutable.",
+          "properties": {
+            "offer": {
+              "description": "Offer specifies the name of a group of related images created by the publisher.",
+              "type": "string"
+            },
+            "publisher": {
+              "description": "Publisher is the name of the organization that created the image.",
+              "type": "string"
+            },
+            "sku": {
+              "description": "SKU specifies an instance of an offer, such as a major release of a distribution.",
+              "type": "string"
+            },
+            "version": {
+              "description": "Version specifies the version of an image SKU.",
               "type": "string"
             }
           }
@@ -2255,6 +2280,10 @@
                 "$ref": "#/components/schemas/MachinePool"
               },
               "type": "array"
+            },
+            "maintenance": {
+              "$ref": "#/components/schemas/Maintenance",
+              "description": "Maintenance configuration"
             },
             "managed": {
               "description": "Flag indicating if the cluster is managed (by Red Hat) or\nself-managed by the user.",
@@ -5019,6 +5048,15 @@
           ],
           "type": "string"
         },
+        "Maintenance": {
+          "description": "Maintenance configuration.",
+          "properties": {
+            "enabled": {
+              "description": "Boolean flag indicating if the cluster is set into maintenance mode.\nClusters on maintenance mode are not allowed to perform any operation.\n\nBy default this is `false`.\n\nTo enable it a SREP needs to patch the value through OCM API",
+              "type": "boolean"
+            }
+          }
+        },
         "ManagedService": {
           "description": "Contains the necessary attributes to support role-based authentication on AWS.",
           "properties": {
@@ -6232,6 +6270,83 @@
             "manual"
           ],
           "type": "string"
+        },
+        "ScheduledUpgrade": {
+          "description": "Representation of one upgrade scheduled somewhere in the fleet, regardless of\nwhich kind of upgrade policy scheduled it. Read-only; the authoritative\nresource is linked from 'policy'.",
+          "properties": {
+            "cluster": {
+              "$ref": "#/components/schemas/Cluster",
+              "description": "Cluster this upgrade is scheduled for (enriched link)."
+            },
+            "created_at": {
+              "description": "Creation timestamp. Not tracked for 'OSD' upgrades (null for those).",
+              "format": "date-time",
+              "type": "string"
+            },
+            "href": {
+              "description": "Self link.",
+              "type": "string"
+            },
+            "id": {
+              "description": "Unique identifier of the object.",
+              "type": "string"
+            },
+            "kind": {
+              "description": "Indicates the type of this object. Will be 'ScheduledUpgrade' if this is a complete object or 'ScheduledUpgradeLink' if it is just a link.",
+              "type": "string"
+            },
+            "next_run": {
+              "description": "Next time the upgrade should run.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "node_pool": {
+              "$ref": "#/components/schemas/NodePool",
+              "description": "Node pool being upgraded. Only set for 'NodePool' upgrades."
+            },
+            "policy": {
+              "$ref": "#/components/schemas/ScheduledUpgradePolicyLink",
+              "description": "Link to the upgrade policy that scheduled this upgrade."
+            },
+            "schedule_type": {
+              "$ref": "#/components/schemas/ScheduleType",
+              "description": "Schedule type of the upgrade."
+            },
+            "state": {
+              "$ref": "#/components/schemas/UpgradePolicyState",
+              "description": "Current state of the upgrade."
+            },
+            "type": {
+              "$ref": "#/components/schemas/UpgradeType",
+              "description": "Kind of upgrade: 'OSD', 'ControlPlane', 'ControlPlaneCVE', or 'NodePool'.\nBoth control plane types are scheduled by a control plane upgrade policy,\nso \"type like 'ControlPlane%'\" searches for all of them."
+            },
+            "updated_at": {
+              "description": "Last update timestamp. Not tracked for 'OSD' upgrades (null for those).",
+              "format": "date-time",
+              "type": "string"
+            },
+            "version": {
+              "description": "Desired upgrade version.",
+              "type": "string"
+            }
+          }
+        },
+        "ScheduledUpgradePolicyLink": {
+          "description": "Reference to one of the three kinds of upgrade policy resource. Kind\nidentifies which policy type it is; id and href come from the standard\nmetadata added by the generator.",
+          "properties": {
+            "href": {
+              "description": "Self link.",
+              "type": "string"
+            },
+            "id": {
+              "description": "Unique identifier of the object.",
+              "type": "string"
+            },
+            "kind": {
+              "description": "Indicates the type of this object. Will be 'ScheduledUpgradePolicyLink' if this is a complete object or 'ScheduledUpgradePolicyLinkLink' if it is just a link.",
+              "type": "string"
+            }
+          }
         },
         "SdnToOvnClusterMigration": {
           "description": "Details for `SdnToOvn` cluster migrations.",
@@ -15692,6 +15807,85 @@
           }
         }
       },
+      "/api/clusters_mgmt/v1/clusters/{cluster_id}/maintenance": {
+        "get": {
+          "parameters": [
+            {
+              "in": "path",
+              "name": "cluster_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Maintenance"
+                  }
+                }
+              },
+              "description": "Success."
+            },
+            "default": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Error."
+            }
+          }
+        },
+        "patch": {
+          "parameters": [
+            {
+              "in": "path",
+              "name": "cluster_id",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Maintenance"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Maintenance"
+                  }
+                }
+              },
+              "description": "Success."
+            },
+            "default": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Error."
+            }
+          }
+        }
+      },
       "/api/clusters_mgmt/v1/clusters/{cluster_id}/metric_queries/alerts": {
         "get": {
           "parameters": [
@@ -21024,6 +21218,93 @@
                 "application/json": {
                   "schema": {
                     "$ref": "#/components/schemas/RegistryAllowlist"
+                  }
+                }
+              },
+              "description": "Success."
+            },
+            "default": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              },
+              "description": "Error."
+            }
+          }
+        }
+      },
+      "/api/clusters_mgmt/v1/scheduled_upgrades": {
+        "get": {
+          "description": "Retrieves the list of scheduled upgrades.",
+          "parameters": [
+            {
+              "description": "Order criteria.\n\nThe syntax of this parameter is similar to the syntax of the _order by_\nclause of a SQL statement, but using the names of the attributes of the\nscheduled upgrade instead of the names of the columns of a table. For\nexample, in order to sort by next run ascending the value should be:\n\n```sql\nnext_run asc\n```\n\nIf the parameter isn't provided, or if the value is empty, then the service\ndefault is next_run ascending.",
+              "in": "query",
+              "name": "order",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Index of the requested page, where one corresponds to the first page.",
+              "in": "query",
+              "name": "page",
+              "schema": {
+                "format": "int32",
+                "type": "integer"
+              }
+            },
+            {
+              "description": "Search criteria.\n\nThe syntax of this parameter is similar to the syntax of the _where_ clause\nof a SQL statement, but using the names of the attributes of the scheduled\nupgrade instead of the names of the columns of a table. For example, in order\nto retrieve all control plane upgrades (including CVE) the value should be:\n\n```sql\ntype like 'ControlPlane%'\n```\n\nSearchable fields include: type, version, next_run, schedule_type,\nstate.value, cluster.id, cluster.name, cluster.external_id,\ncluster.region.id, cluster.product.id, created_at, updated_at.\n\nIf the parameter isn't provided, or if the value is empty, then all the\nscheduled upgrades that the user has permission to see will be returned.",
+              "in": "query",
+              "name": "search",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "description": "Maximum number of items that will be contained in the returned page.\nDefault is 100; the service enforces a maximum of 1000.",
+              "in": "query",
+              "name": "size",
+              "schema": {
+                "format": "int32",
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "items": {
+                        "description": "Retrieved list of scheduled upgrades.",
+                        "items": {
+                          "$ref": "#/components/schemas/ScheduledUpgrade"
+                        },
+                        "type": "array"
+                      },
+                      "page": {
+                        "description": "Index of the requested page, where one corresponds to the first page.",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "size": {
+                        "description": "Maximum number of items that will be contained in the returned page.\nDefault is 100; the service enforces a maximum of 1000.",
+                        "format": "int32",
+                        "type": "integer"
+                      },
+                      "total": {
+                        "description": "Total number of items of the collection that match the search criteria,\nregardless of the size of the page.",
+                        "format": "int32",
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
                   }
                 }
               },
