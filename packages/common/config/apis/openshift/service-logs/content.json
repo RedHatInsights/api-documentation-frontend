@@ -82,8 +82,19 @@
           },
           "style": "simple"
         },
+        "order": {
+          "description": "Specifies the order criteria using the syntax of an SQL ORDER BY\nclause, with service log field names. For example: `timestamp desc`.\nIf omitted, the result order is undefined.",
+          "explode": true,
+          "in": "query",
+          "name": "order",
+          "required": false,
+          "schema": {
+            "type": "string"
+          },
+          "style": "form"
+        },
         "orderBy": {
-          "description": "Specifies the order by criteria. The syntax of this parameter is\nsimilar to the syntax of the _order by_ clause of an SQL statement,\nbut using the names of the json attributes / column of the account.\nFor example, in order to retrieve all accounts ordered by username:\n\n```sql\nusername asc\n```\n\nOr in order to retrieve all accounts ordered by username _and_\nfirst name:\n\n```sql\nusername asc, firstName asc\n```\n\nIf the parameter isn't provided, or if the value is empty, then\nno explicit ordering will be applied.",
+          "description": "Legacy alias for `order`; accepts the same ordering criteria.",
           "explode": true,
           "in": "query",
           "name": "orderBy",
@@ -505,6 +516,9 @@
               "$ref": "#/components/parameters/search"
             },
             {
+              "$ref": "#/components/parameters/order"
+            },
+            {
               "$ref": "#/components/parameters/orderBy"
             },
             {
@@ -790,6 +804,9 @@
               "$ref": "#/components/parameters/search"
             },
             {
+              "$ref": "#/components/parameters/order"
+            },
+            {
               "$ref": "#/components/parameters/orderBy"
             },
             {
@@ -869,7 +886,7 @@
       },
       "/api/service_logs/v1/clusters/cluster_logs/notifications": {
         "get": {
-          "description": "Returns notification bookkeeping fields for service logs on a cluster\nidentified by cluster_id and/or cluster_uuid (via any-id). Supported\nquery parameters are any-id, page, size, search, and orderBy. Unlike\nGET /api/service_logs/v1/clusters/cluster_logs, this endpoint does not\nsupport fields, format, or fetchAccounts.\n\nField semantics:\n- notification_uuid is null until the log matches a notification trigger\n  and is queued; a pending notification has a uuid and a null notified_at.\n- notified_at is set when the async trigger job finishes processing the\n  log (all matched actions for that run completed).\n- completed_actions lists each successfully executed trigger action\n  (opaque hash, type, status, completed_at). Empty until at least one\n  action has completed.\n",
+          "description": "Returns notification bookkeeping fields for service logs on a cluster\nidentified by cluster_id and/or cluster_uuid (via any-id). Supported\nquery parameters are any-id, page, size, search, order, and orderBy. Unlike\nGET /api/service_logs/v1/clusters/cluster_logs, this endpoint does not\nsupport fields, format, or fetchAccounts.\n\nField semantics:\n- notification_uuid is null until the log matches a notification trigger\n  and is queued; a pending notification has a uuid and a null notified_at.\n- notified_at is set when the async trigger job finishes processing the\n  log (all matched actions for that run completed).\n- completed_actions lists each successfully executed trigger action\n  (opaque hash, type, status, completed_at). Empty until at least one\n  action has completed.\n",
           "parameters": [
             {
               "$ref": "#/components/parameters/any_id"
@@ -882,6 +899,9 @@
             },
             {
               "$ref": "#/components/parameters/search"
+            },
+            {
+              "$ref": "#/components/parameters/order"
             },
             {
               "$ref": "#/components/parameters/orderBy"
@@ -961,6 +981,9 @@
             },
             {
               "$ref": "#/components/parameters/search"
+            },
+            {
+              "$ref": "#/components/parameters/order"
             },
             {
               "$ref": "#/components/parameters/orderBy"
