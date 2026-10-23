@@ -189,18 +189,6 @@ apis:
         tags:
           - lightspeed
           - rhel
-      - id: config-manager
-        name: Red Hat Connector
-        description: Config manager service
-        url: https://console.redhat.com/api/config-manager/v1/openapi.json
-        serverUrl: https://console.redhat.com
-        apiType: openapi-v3
-        tags:
-          - lightspeed
-          - inventories
-          - rhel
-        skip: true
-        skipReason: Not public API file
       - id: remediations
         name: Remediations
         description: Insights Remediations Service
