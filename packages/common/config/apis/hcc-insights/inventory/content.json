@@ -4,7 +4,7 @@
     "components": {
       "parameters": {
         "branchId": {
-          "description": "Filter by branch_id",
+          "description": "Accepted for compatibility. The value is ignored and does not filter the result.",
           "in": "query",
           "name": "branch_id",
           "required": false,
@@ -3856,23 +3856,9 @@
           "type": "object"
         },
         "SystemProfileNestedObject": {
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/SystemProfileNestedObject"
-              },
-              {
-                "not": {
-                  "type": "object"
-                }
-              }
-            ]
-          },
-          "description": "An arbitrary object that does not allow empty string keys.",
-          "type": "object",
-          "x-propertyNames": {
-            "minLength": 1
-          }
+          "additionalProperties": true,
+          "description": "An arbitrary object that allows any additional properties.",
+          "type": "object"
         },
         "SystemProfileNetworkInterface": {
           "description": "Representation of one network interface",
@@ -5487,6 +5473,9 @@
           "parameters": [
             {
               "$ref": "#/components/parameters/insightsId"
+            },
+            {
+              "$ref": "#/components/parameters/branchId"
             }
           ],
           "responses": {
@@ -5746,6 +5735,11 @@
         "post": {
           "description": "Finds a host and updates its staleness timestamps. It uses the supplied canonical facts to determine which host to update. By default, the staleness timestamp is set to 1 hour from when the request is received; however, this can be overridden by supplying the interval. <br /><br /> Required permissions: inventory:hosts:write",
           "operationId": "api.host.host_checkin",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/branchId"
+            }
+          ],
           "requestBody": {
             "content": {
               "application/json": {
