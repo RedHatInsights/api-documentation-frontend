@@ -2761,6 +2761,11 @@
         "Services": {
           "additionalProperties": false,
           "properties": {
+            "default_target": {
+              "description": "Default systemd target to boot into",
+              "example": "multi-user.target",
+              "type": "string"
+            },
             "disabled": {
               "description": "List of services to disable by default",
               "items": {
