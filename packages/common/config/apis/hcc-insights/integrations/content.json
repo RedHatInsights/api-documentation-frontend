@@ -337,7 +337,6 @@
             }
           },
           "required": [
-            "severity",
             "secret_token"
           ],
           "type": "object"

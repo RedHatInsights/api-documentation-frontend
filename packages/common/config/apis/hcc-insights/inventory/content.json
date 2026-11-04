@@ -482,6 +482,19 @@
             "type": "string"
           }
         },
+        "securityRuleParam": {
+          "description": "Filters hosts by Vulnerability security rule status. Mutually exclusive: only one value may be provided. \"present\" returns hosts with cves_with_security_rules > 0. \"not_present\" returns hosts with cves_with_security_rules = 0 (excludes hosts with no Vulnerability data).",
+          "in": "query",
+          "name": "security_rule",
+          "required": false,
+          "schema": {
+            "enum": [
+              "present",
+              "not_present"
+            ],
+            "type": "string"
+          }
+        },
         "stalenessNoDefaultsParam": {
           "description": "Culling states of the hosts.",
           "in": "query",
@@ -1291,6 +1304,14 @@
                 "type": "string"
               },
               "type": "array"
+            },
+            "security_rule": {
+              "description": "Filter by Vulnerability security rule status.",
+              "enum": [
+                "present",
+                "not_present"
+              ],
+              "type": "string"
             },
             "staleness": {
               "description": "Culling states to include.",
@@ -4731,6 +4752,9 @@
             },
             {
               "$ref": "#/components/parameters/knownExploitParam"
+            },
+            {
+              "$ref": "#/components/parameters/securityRuleParam"
             }
           ],
           "responses": {
