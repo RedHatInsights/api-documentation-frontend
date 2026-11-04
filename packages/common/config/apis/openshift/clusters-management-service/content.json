@@ -19030,6 +19030,14 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Whether to include support access validation in WIF config status verification.",
+              "in": "query",
+              "name": "check_support_access",
+              "schema": {
+                "type": "boolean"
+              }
             }
           ],
           "responses": {
