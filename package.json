@@ -82,7 +82,7 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.5",
     "gh-pages": "^5.0.0",
-    "glob": "^9.3.5",
+    "glob": "^14.0.0",
     "monaco-editor-webpack-plugin": "^7.1.1",
     "npm-run-all2": "^5.0.2",
     "openapi-types": "^12.1.3",
