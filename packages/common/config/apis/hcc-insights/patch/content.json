@@ -1984,7 +1984,7 @@
         "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
       },
       "title": "Patchman-engine API",
-      "version": "v3.8.404"
+      "version": "v3.8.417"
     },
     "openapi": "3.0.1",
     "paths": {
@@ -8440,6 +8440,14 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "description": "Satellite subscription-manager UUID; also requires owner match",
+              "in": "header",
+              "name": "X-Forwarded-Identity",
+              "schema": {
+                "type": "string"
+              }
             }
           ],
           "responses": {
@@ -8455,6 +8463,16 @@
                 }
               },
               "description": "Bad Request"
+            },
+            "403": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/utils.ErrorResponse"
+                  }
+                }
+              },
+              "description": "Forbidden"
             },
             "404": {
               "content": {
