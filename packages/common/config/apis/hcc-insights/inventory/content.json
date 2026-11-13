@@ -22,7 +22,8 @@
           }
         },
         "cveSeverityParam": {
-          "description": "Filters hosts by Vulnerability CVE severity. Only hosts with at least one CVE of the specified severity are returned. Multiple values use OR logic (e.g. critical + low returns hosts with either).",
+          "description": "Filters hosts by Vulnerability CVE severity. Repeat the parameter for multiple values (cve_severity=critical&cve_severity=low). Values are OR. critical, important, moderate, and low match hosts whose count for that severity is greater than 0. not_evaluated matches hosts with no Vulnerability data.",
+          "explode": true,
           "in": "query",
           "name": "cve_severity",
           "required": false,
@@ -32,12 +33,14 @@
                 "critical",
                 "important",
                 "moderate",
-                "low"
+                "low",
+                "not_evaluated"
               ],
               "type": "string"
             },
             "type": "array"
-          }
+          },
+          "style": "form"
         },
         "displayName": {
           "description": "Filter by display_name (case-insensitive)",
@@ -313,17 +316,23 @@
           }
         },
         "incidentStatusParam": {
-          "description": "Filters hosts by Advisor incident status. Mutually exclusive: only one value may be provided. \"incident\" returns hosts with incidents > 0. \"no_incident\" returns hosts with incidents = 0 (excludes hosts with no Advisor data).",
+          "description": "Filters hosts by Advisor incident status. Repeat the parameter for multiple values (incident_status=present&incident_status=not_analyzed). Values are OR. present matches incidents greater than 0. not_present matches a published Advisor row with incidents equal to 0. not_analyzed matches hosts with no Advisor data.",
+          "explode": true,
           "in": "query",
           "name": "incident_status",
           "required": false,
           "schema": {
-            "enum": [
-              "incident",
-              "no_incident"
-            ],
-            "type": "string"
-          }
+            "items": {
+              "enum": [
+                "present",
+                "not_present",
+                "not_analyzed"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "style": "form"
         },
         "insightsId": {
           "description": "Filter by insights_id",
@@ -336,17 +345,23 @@
           }
         },
         "knownExploitParam": {
-          "description": "Filters hosts by Vulnerability known exploit status. Mutually exclusive: only one value may be provided. \"has_known_exploit\" returns hosts with cves_with_known_exploits > 0. \"no_known_exploit\" returns hosts with cves_with_known_exploits = 0 (excludes hosts with no Vulnerability data).",
+          "description": "Filters hosts by CVEs with known exploits. Repeat the parameter for multiple values (known_exploit=present&known_exploit=not_evaluated). Values are OR. present matches cves_with_known_exploits greater than 0. not_present matches a published Vulnerability row with that count equal to 0. not_evaluated matches hosts with no Vulnerability data.",
+          "explode": true,
           "in": "query",
           "name": "known_exploit",
           "required": false,
           "schema": {
-            "enum": [
-              "has_known_exploit",
-              "no_known_exploit"
-            ],
-            "type": "string"
-          }
+            "items": {
+              "enum": [
+                "present",
+                "not_present",
+                "not_evaluated"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "style": "form"
         },
         "lastCheckInEnd": {
           "description": "Only show hosts last checked in before the given date",
@@ -417,7 +432,8 @@
           }
         },
         "recommendationSeverityParam": {
-          "description": "Filters hosts by Advisor recommendation severity. Only hosts with at least one recommendation of the specified severity are returned. Multiple values use OR logic (e.g. critical + low returns hosts with either).",
+          "description": "Filters hosts by Advisor recommendation severity. Repeat the parameter for multiple values (recommendation_severity=critical&recommendation_severity=low). Values are OR. critical, important, moderate, and low match hosts whose count for that severity is greater than 0. not_analyzed matches hosts with no Advisor data.",
+          "explode": true,
           "in": "query",
           "name": "recommendation_severity",
           "required": false,
@@ -427,12 +443,14 @@
                 "critical",
                 "important",
                 "moderate",
-                "low"
+                "low",
+                "not_analyzed"
               ],
               "type": "string"
             },
             "type": "array"
-          }
+          },
+          "style": "form"
         },
         "registered_with": {
           "description": "Filters out any host not registered by the specified reporters",
@@ -483,17 +501,23 @@
           }
         },
         "securityRuleParam": {
-          "description": "Filters hosts by Vulnerability security rule status. Mutually exclusive: only one value may be provided. \"present\" returns hosts with cves_with_security_rules > 0. \"not_present\" returns hosts with cves_with_security_rules = 0 (excludes hosts with no Vulnerability data).",
+          "description": "Filters hosts by CVEs with security rules. Repeat the parameter for multiple values (security_rule=present&security_rule=not_evaluated). Values are OR. present matches cves_with_security_rules greater than 0. not_present matches a published Vulnerability row with that count equal to 0. not_evaluated matches hosts with no Vulnerability data.",
+          "explode": true,
           "in": "query",
           "name": "security_rule",
           "required": false,
           "schema": {
-            "enum": [
-              "present",
-              "not_present"
-            ],
-            "type": "string"
-          }
+            "items": {
+              "enum": [
+                "present",
+                "not_present",
+                "not_evaluated"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "style": "form"
         },
         "stalenessNoDefaultsParam": {
           "description": "Culling states of the hosts.",
@@ -1243,13 +1267,14 @@
           "description": "Host-level query filters that correspond to the /hosts endpoint query parameters. Stored with the view so the frontend can reconstruct the full query when loading hosts for this view.",
           "properties": {
             "cve_severity": {
-              "description": "Filter by Vulnerability CVE severity (OR logic).",
+              "description": "Filter by Vulnerability CVE severity. Values are OR. not_evaluated matches hosts with no Vulnerability data.",
               "items": {
                 "enum": [
                   "critical",
                   "important",
                   "moderate",
-                  "low"
+                  "low",
+                  "not_evaluated"
                 ],
                 "type": "string"
               },
@@ -1260,20 +1285,28 @@
               "type": "string"
             },
             "incident_status": {
-              "description": "Filter by Advisor incident status.",
-              "enum": [
-                "incident",
-                "no_incident"
-              ],
-              "type": "string"
+              "description": "Filter by Advisor incident status. Values are OR. present matches incidents greater than 0. not_present matches incidents equal to 0. not_analyzed matches hosts with no Advisor data.",
+              "items": {
+                "enum": [
+                  "present",
+                  "not_present",
+                  "not_analyzed"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             },
             "known_exploit": {
-              "description": "Filter by Vulnerability known exploit status.",
-              "enum": [
-                "has_known_exploit",
-                "no_known_exploit"
-              ],
-              "type": "string"
+              "description": "Filter by CVEs with known exploits. Values are OR. present matches a count greater than 0. not_present matches a count equal to 0. not_evaluated matches hosts with no Vulnerability data.",
+              "items": {
+                "enum": [
+                  "present",
+                  "not_present",
+                  "not_evaluated"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             },
             "last_check_in_end": {
               "description": "End of last check-in date range (ISO 8601).",
@@ -1286,13 +1319,14 @@
               "type": "string"
             },
             "recommendation_severity": {
-              "description": "Filter by Advisor recommendation severity (OR logic).",
+              "description": "Filter by Advisor recommendation severity. Values are OR. not_analyzed matches hosts with no Advisor data.",
               "items": {
                 "enum": [
                   "critical",
                   "important",
                   "moderate",
-                  "low"
+                  "low",
+                  "not_analyzed"
                 ],
                 "type": "string"
               },
@@ -1306,12 +1340,16 @@
               "type": "array"
             },
             "security_rule": {
-              "description": "Filter by Vulnerability security rule status.",
-              "enum": [
-                "present",
-                "not_present"
-              ],
-              "type": "string"
+              "description": "Filter by CVEs with security rules. Values are OR. present matches a count greater than 0. not_present matches a count equal to 0. not_evaluated matches hosts with no Vulnerability data.",
+              "items": {
+                "enum": [
+                  "present",
+                  "not_present",
+                  "not_evaluated"
+                ],
+                "type": "string"
+              },
+              "type": "array"
             },
             "staleness": {
               "description": "Culling states to include.",
@@ -1355,6 +1393,14 @@
               "description": "Start of last-modified date range (ISO 8601).",
               "format": "date-time",
               "type": "string"
+            },
+            "workspace_id": {
+              "description": "Filter by workspace ID (UUID format).",
+              "items": {
+                "format": "uuid",
+                "type": "string"
+              },
+              "type": "array"
             },
             "workspace_name": {
               "description": "Filter by workspace name.",
@@ -4152,8 +4198,12 @@
           "description": "Configuration for a single column in a view.",
           "properties": {
             "key": {
-              "description": "The column key identifier. Core fields use bare names (e.g. \"display_name\", \"last_check_in\"). App fields use colon-delimited format (e.g. \"compliance:last_scan\", \"advisor:recommendations\"). Validated server-side against the field registry.",
+              "description": "The column key identifier. Core fields use bare names (e.g. \"display_name\", \"last_check_in\"). App fields use colon-delimited format (e.g. \"compliance:last_scan\", \"advisor:recommendations\"). Tag columns use a \"tag:\" prefix plus the namespace/key identity (e.g. \"tag:insights-client/env\", \"tag:owner\"). Core and app keys are validated server-side against the field registry. A tag column is accepted when the identity is non-empty.",
               "type": "string"
+            },
+            "shown": {
+              "description": "Whether the column is visible. Omitted or true means shown. False is used for a tag column the user added and then unchecked. Hidden service columns are omitted from the list instead.",
+              "type": "boolean"
             }
           },
           "required": [
