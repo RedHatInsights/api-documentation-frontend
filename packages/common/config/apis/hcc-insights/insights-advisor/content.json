@@ -2946,7 +2946,7 @@
               "style": "form"
             },
             {
-              "description": "Display rules with this text in their text fields",
+              "description": "Display rules with this text in their rule ID or name (description)",
               "in": "query",
               "name": "text",
               "schema": {
@@ -3212,7 +3212,7 @@
               "style": "form"
             },
             {
-              "description": "Display rules with this text in their text fields",
+              "description": "Display rules with this text in their rule ID or name (description)",
               "in": "query",
               "name": "text",
               "schema": {
@@ -3470,7 +3470,7 @@
               "style": "form"
             },
             {
-              "description": "Display rules with this text in their text fields",
+              "description": "Display rules with this text in their rule ID or name (description)",
               "in": "query",
               "name": "text",
               "schema": {
@@ -4196,7 +4196,7 @@
               "style": "form"
             },
             {
-              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on their text fields",
+              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on rule ID and name (description) for rules and reports, and display name for systems",
               "in": "query",
               "name": "text",
               "schema": {
@@ -4322,7 +4322,7 @@
               "style": "form"
             },
             {
-              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on their text fields",
+              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on rule ID and name (description) for rules and reports, and display name for systems",
               "in": "query",
               "name": "text",
               "schema": {
@@ -4448,7 +4448,7 @@
               }
             },
             {
-              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on their text fields",
+              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on rule ID and name (description) for rules and reports, and display name for systems",
               "in": "query",
               "name": "text",
               "schema": {
@@ -4545,7 +4545,7 @@
               }
             },
             {
-              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on their text fields",
+              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on rule ID and name (description) for rules and reports, and display name for systems",
               "in": "query",
               "name": "text",
               "schema": {
@@ -4666,7 +4666,7 @@
               "style": "form"
             },
             {
-              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on their text fields",
+              "description": "Filter pathway names with this text. If viewing details for a pathway for rules, reports and systems, additional filter on rule ID and name (description) for rules and reports, and display name for systems",
               "in": "query",
               "name": "text",
               "schema": {
@@ -4968,7 +4968,7 @@
       },
       "/api/insights/v1/rule/": {
         "get": {
-          "description": "List all active rules for this account.\n\nIf 'impacting' is True, only rules currently impacting systems will\nbe returned. If 'impacting' is False, only rules with no impacted systems\nwill be returned.\n\nWhen workspace filtering is applied (via the 'groups' query parameter or\nRBAC workspace permissions) without an explicit 'impacting' parameter,\nthe list defaults to showing only rules impacting systems in the\nspecified workspace(s).\n\nIf 'acked' is False or not given, then only rules that are not acked\nwill be shown.  If acked is set and 'true' as a string or evaluates\nto a true value, then all rules including those that are acked will\nbe shown.",
+          "description": "List all active rules for this account.\n\nIf 'impacting' is True, only rules currently impacting systems will\nbe returned. If 'impacting' is False, only rules with no impacted systems\nwill be returned.\n\nWhen the 'groups' query parameter is given without an explicit\n'impacting' parameter, the list defaults to showing only rules\nimpacting systems in the specified workspace(s).\n\nIf 'acked' is False or not given, then only rules that are not acked\nwill be shown.  If acked is set and 'true' as a string or evaluates\nto a true value, then all rules including those that are acked will\nbe shown.",
           "operationId": "rule_list",
           "parameters": [
             {
@@ -5214,7 +5214,7 @@
               "style": "form"
             },
             {
-              "description": "Display rules with this text in their text fields",
+              "description": "Display rules with this text in their rule ID or name (description)",
               "in": "query",
               "name": "text",
               "schema": {

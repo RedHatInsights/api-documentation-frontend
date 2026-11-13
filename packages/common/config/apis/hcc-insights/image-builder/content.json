@@ -1174,6 +1174,7 @@
             "rhel-9.6",
             "rhel-9.7",
             "rhel-9.8",
+            "rhel-9.9",
             "rhel-10",
             "rhel-10-nightly",
             "rhel-10.0-nightly",
@@ -1185,6 +1186,7 @@
             "rhel-10.0",
             "rhel-10.1",
             "rhel-10.2",
+            "rhel-10.3",
             "centos-9",
             "centos-10",
             "fedora-37",
@@ -2151,6 +2153,11 @@
         "Services": {
           "additionalProperties": false,
           "properties": {
+            "default_target": {
+              "description": "Default systemd target to boot into",
+              "example": "multi-user.target",
+              "type": "string"
+            },
             "disabled": {
               "description": "List of services to disable by default",
               "items": {
